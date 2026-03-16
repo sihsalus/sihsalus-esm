@@ -277,7 +277,19 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               severity: 'error',
               code: 'TS2786',
             },
+            {
+              file: '**/*.test.*',
+            },
+            {
+              file: '**/setup-tests.*',
+            },
           ],
+        },
+        typescript: {
+          diagnosticOptions: {
+            semantic: true,
+            syntactic: true,
+          },
         },
       }),
       new CleanWebpackPlugin(),
