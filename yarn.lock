@@ -7099,6 +7099,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openmrs/esm-patient-chart-app@workspace:packages/apps/esm-patient-chart-app":
+  version: 0.0.0-use.local
+  resolution: "@openmrs/esm-patient-chart-app@workspace:packages/apps/esm-patient-chart-app"
+  dependencies:
+    "@types/uuid": "npm:^9.0.4"
+    eslint: "npm:^9.24.0"
+    lodash-es: "npm:^4.17.21"
+    uuid: "npm:^8.3.2"
+    webpack: "npm:^5.94.0"
+  peerDependencies:
+    "@carbon/react": 1.x
+    "@openmrs/esm-framework": "workspace:*"
+    "@openmrs/esm-patient-common-lib": "workspace:*"
+    dayjs: 1.x
+    lodash-es: 4.x
+    react: 18.x
+    react-i18next: 11.x
+    react-router-dom: 6.x
+    rxjs: 6.x
+    single-spa: 6.x
+    single-spa-react: 6.x
+    swr: 2.x
+  languageName: unknown
+  linkType: soft
+
 "@openmrs/esm-patient-common-lib@workspace:*, @openmrs/esm-patient-common-lib@workspace:packages/libs/esm-patient-common-lib":
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-patient-common-lib@workspace:packages/libs/esm-patient-common-lib"
@@ -7382,6 +7407,49 @@ __metadata:
     react-i18next: 11.x
     react-router-dom: 6.x
     rxjs: 6.x
+    swr: 2.x
+  languageName: unknown
+  linkType: soft
+
+"@openmrs/esm-patient-registration-app@workspace:packages/apps/esm-patient-registration-app":
+  version: 0.0.0-use.local
+  resolution: "@openmrs/esm-patient-registration-app@workspace:packages/apps/esm-patient-registration-app"
+  dependencies:
+    "@carbon/react": "npm:^1.71.0"
+    classnames: "npm:^2.3.2"
+    formik: "npm:^2.1.5"
+    husky: "npm:^8.0.3"
+    i18next: "npm:^21.10.0"
+    i18next-parser: "npm:^9.0.2"
+    lodash-es: "npm:^4.17.15"
+    uuid: "npm:^8.3.2"
+    webpack: "npm:^5.74.0"
+    yup: "npm:^0.29.1"
+  peerDependencies:
+    "@openmrs/esm-framework": "workspace:*"
+    dayjs: 1.x
+    react: 18.x
+    react-i18next: 11.x
+    react-router-dom: 6.x
+    swr: 2.x
+  languageName: unknown
+  linkType: soft
+
+"@openmrs/esm-patient-search-app@workspace:packages/apps/esm-patient-search-app":
+  version: 0.0.0-use.local
+  resolution: "@openmrs/esm-patient-search-app@workspace:packages/apps/esm-patient-search-app"
+  dependencies:
+    "@carbon/react": "npm:^1.71.0"
+    classnames: "npm:^2.3.2"
+    i18next: "npm:^24.2.3"
+    lodash-es: "npm:^4.17.15"
+    react-hook-form: "npm:^7.54.0"
+    webpack: "npm:^5.74.0"
+  peerDependencies:
+    "@openmrs/esm-framework": "workspace:*"
+    react: ^18.1.0
+    react-i18next: 11.x
+    react-router-dom: 6.x
     swr: 2.x
   languageName: unknown
   linkType: soft
@@ -8320,74 +8388,6 @@ __metadata:
   checksum: 10c0/4681e682abc006d25eb380d0cf3efc7557043f53b6aea7a5057d0d1e7df849a00e281cd8ea79c902a35a414d7919621fc2ba293ecec05f413598e0b23d5a1e63
   languageName: node
   linkType: hard
-
-"@pucp-gidis-hiisc/esm-patient-chart-app@workspace:packages/apps/esm-patient-chart-app":
-  version: 0.0.0-use.local
-  resolution: "@pucp-gidis-hiisc/esm-patient-chart-app@workspace:packages/apps/esm-patient-chart-app"
-  dependencies:
-    "@types/uuid": "npm:^9.0.4"
-    eslint: "npm:^9.24.0"
-    lodash-es: "npm:^4.17.21"
-    uuid: "npm:^8.3.2"
-    webpack: "npm:^5.94.0"
-  peerDependencies:
-    "@carbon/react": 1.x
-    "@openmrs/esm-framework": "workspace:*"
-    "@openmrs/esm-patient-common-lib": "workspace:*"
-    dayjs: 1.x
-    lodash-es: 4.x
-    react: 18.x
-    react-i18next: 11.x
-    react-router-dom: 6.x
-    rxjs: 6.x
-    single-spa: 6.x
-    single-spa-react: 6.x
-    swr: 2.x
-  languageName: unknown
-  linkType: soft
-
-"@pucp-gidis-hiisc/esm-patient-registration-app@workspace:packages/apps/esm-patient-registration-app":
-  version: 0.0.0-use.local
-  resolution: "@pucp-gidis-hiisc/esm-patient-registration-app@workspace:packages/apps/esm-patient-registration-app"
-  dependencies:
-    "@carbon/react": "npm:^1.71.0"
-    classnames: "npm:^2.3.2"
-    formik: "npm:^2.1.5"
-    husky: "npm:^8.0.3"
-    i18next: "npm:^21.10.0"
-    i18next-parser: "npm:^9.0.2"
-    lodash-es: "npm:^4.17.15"
-    uuid: "npm:^8.3.2"
-    webpack: "npm:^5.74.0"
-    yup: "npm:^0.29.1"
-  peerDependencies:
-    "@openmrs/esm-framework": "workspace:*"
-    dayjs: 1.x
-    react: 18.x
-    react-i18next: 11.x
-    react-router-dom: 6.x
-    swr: 2.x
-  languageName: unknown
-  linkType: soft
-
-"@pucp-gidis-hiisc/esm-patient-search-app@workspace:packages/apps/esm-patient-search-app":
-  version: 0.0.0-use.local
-  resolution: "@pucp-gidis-hiisc/esm-patient-search-app@workspace:packages/apps/esm-patient-search-app"
-  dependencies:
-    "@carbon/react": "npm:^1.71.0"
-    classnames: "npm:^2.3.2"
-    i18next: "npm:^24.2.3"
-    lodash-es: "npm:^4.17.15"
-    react-hook-form: "npm:^7.54.0"
-    webpack: "npm:^5.74.0"
-  peerDependencies:
-    "@openmrs/esm-framework": "workspace:*"
-    react: ^18.1.0
-    react-i18next: 11.x
-    react-router-dom: 6.x
-    swr: 2.x
-  languageName: unknown
-  linkType: soft
 
 "@react-aria/autocomplete@npm:3.0.0-rc.6":
   version: 3.0.0-rc.6

@@ -1,5 +1,5 @@
 {
-  "name": "@pucp-gidis-hiisc/esm-patient-registration-app",
+  "name": "@openmrs/esm-patient-registration-app",
   "version": "8.3.7",
   "description": "Patient registration microfrontend for O3",
   "browser": "dist/pucp-gidis-hiisc-esm-patient-registration-app.js",
