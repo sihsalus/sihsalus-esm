@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "pages": [
+    {
+      "component": "root",
+      "route": "fua-request"
+    },
+    {
+      "component": "fuaViewerPage",
+      "route": "fua-viewer"
+    }
+  ],
+  "extensions": [
+    {
+      "name": "fua-dashboard",
+      "slot": "fua-dashboard-slot",
+      "component": "root"
+    },
+    {
+      "name": "fua-dashboard-link",
+      "slot": "homepage-dashboard-slot",
+      "component": "fuaDashboardLink",
+      "meta": {
+        "name": "fua-request",
+        "slot": "fua-dashboard-slot",
+        "title": "Formato Único de Atención"
+      }
+    },
+    {
+      "name": "all-fua-requests-tile",
+      "component": "allFuaRequestsTile",
+      "slot": "fua-tiles-slot",
+      "order": 0,
+      "meta": {
+        "name": "allFuasRequestsTileSlot",
+        "title": "FUAs solicitados"
+      }
+    },
+    {
+      "name": "in-progress-fua-requests-tile",
+      "component": "inProgressFuaRequestsTile",
+      "slot": "fua-tiles-slot",
+      "order": 1,
+      "meta": {
+        "name": "inProgressTileSlot",
+        "title": "Worklist"
+      }
+    },
+    {
+      "name": "completed-fua-requests-tile",
+      "component": "completedFuaRequestsTile",
+      "slot": "fua-tiles-slot",
+      "order": 2,
+      "meta": {
+        "name": "completedTileSlot",
+        "title": "Resultados"
+      }
+    },
+    {
+      "name": "enviado-fua-requests-tile",
+      "component": "enviadoFuaRequestsTile",
+      "slot": "fua-tiles-slot",
+      "order": 3,
+      "meta": {
+        "name": "enviadoTileSlot",
+        "title": "Enviados a SETI-SIS"
+      }
+    },
+    {
+      "name": "fua-patient-chart-widget",
+      "component": "fuaPatientWidget",
+      "slot": "patient-chart-summary-dashboard-slot",
+      "meta": {
+        "columnSpan": 2,
+        "title": "Formato Único de Atención"
+      }
+    },
+    {
+      "name": "all-fua-requests-panel",
+      "component": "allFuaRequestsTable",
+      "slot": "fua-panels-slot",
+      "order": 0,
+      "meta": {
+        "name": "allFuasPanel",
+        "title": "FUAs solicitados"
+      }
+    },
+    {
+      "name": "in-progress-fua-requests-panel",
+      "component": "inProgressFuaRequestsTable",
+      "slot": "fua-panels-slot",
+      "order": 1,
+      "meta": {
+        "name": "inProgressPanel",
+        "title": "En progreso"
+      }
+    },
+    {
+      "name": "completed-fua-requests-panel",
+      "component": "completedFuaRequestsTable",
+      "slot": "fua-panels-slot",
+      "order": 2,
+      "meta": {
+        "name": "completedPanel",
+        "title": "Completadas"
+      }
+    },
+    {
+      "name": "declined-fua-requests-panel",
+      "component": "declinedFuaRequestsTable",
+      "slot": "fua-panels-slot",
+      "order": 3,
+      "meta": {
+        "name": "declinedPanel",
+        "title": "Rechazadas"
+      }
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "fua-viewer-workspace",
+      "component": "fuaViewerWorkspace",
+      "type": "form",
+      "title": "Ver FUA"
+    }
+  ],
+  "modals": [
+    {
+      "name": "change-fua-status-modal",
+      "component": "changeFuaStatusModal"
+    },
+    {
+      "name": "cancel-fua-modal",
+      "component": "cancelFuaModal"
+    },
+    {
+      "name": "fua-historial-modal",
+      "component": "fuaHistorialModal"
+    }
+  ]
+}

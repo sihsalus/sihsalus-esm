@@ -1,0 +1,35 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+
+.dashboard {
+  background-color: var(--cds-layer-01);
+  min-height: 100vh;
+}
+
+.headerContainer {
+  background-color: var(--cds-layer-01);
+  padding: spacing.$spacing-05;
+  border-bottom: 1px solid var(--cds-border-subtle-01);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-04;
+}
+
+.headerIcon {
+  color: var(--cds-icon-primary);
+}
+
+.headerTitle {
+  @include type.type-style('heading-compact-01');
+  margin: 0;
+  color: var(--cds-text-secondary);
+}
+
+.headerSubtitle {
+  @include type.type-style('heading-03');
+  margin: 0;
+  color: var(--cds-text-primary);
+}

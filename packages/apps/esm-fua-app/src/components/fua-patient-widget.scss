@@ -1,0 +1,51 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.widgetContainer {
+  padding: layout.$spacing-03;
+}
+
+.fuaList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fuaItem {
+  padding: layout.$spacing-03 0;
+  border-bottom: 1px solid var(--cds-border-subtle-01);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.fuaItemMain {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+  margin-bottom: layout.$spacing-02;
+}
+
+.fuaItemName {
+  @include type.type-style('body-compact-01');
+  flex: 1;
+  font-weight: 600;
+}
+
+.fuaItemMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include type.type-style('label-01');
+  color: var(--cds-text-secondary);
+}
+
+.fuaObsSetiSis {
+  @include type.type-style('label-01');
+  color: var(--cds-text-error);
+  margin-top: layout.$spacing-02;
+  padding: layout.$spacing-02;
+  background-color: var(--cds-layer-accent-01);
+  border-radius: 4px;
+}

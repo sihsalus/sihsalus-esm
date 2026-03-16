@@ -1,0 +1,41 @@
+@use '@carbon/layout';
+
+.gridFlow {
+  display: flex;
+  flex-direction: row;
+  padding: layout.$spacing-07;
+  flex-wrap: wrap;
+}
+
+.card {
+  border-radius: 0.9rem;
+  border: 1px solid #343332;
+  margin: layout.$spacing-06;
+  padding: 1.3rem;
+  width: 30%;
+  text-align: center;
+  justify-content: center;
+}
+
+.header {
+  font-size: layout.$spacing-07;
+  font-weight: bold;
+  color: black;
+}
+
+.headerBlinking {
+  font-size: layout.$spacing-07;
+  font-weight: bold;
+  color: red;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.subheader {
+  font-size: medium;
+}

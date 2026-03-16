@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": "^2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "patient-lists-action-menu",
+      "component": "patientListsActionMenu",
+      "slot": "action-menu-patient-chart-items-slot"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "patient-lists",
+      "title": "patientListsWorkspaceTitle",
+      "component": "patientListsWorkspace",
+      "type": "patient-lists",
+      "canHide": false,
+      "width": "wider"
+    },
+    {
+      "name": "patient-list-details",
+      "title": "patientListDetailWorkspaceTitle",
+      "component": "patientListDetailsWorkspace",
+      "type": "patient-lists",
+      "canHide": false,
+      "width": "wider"
+    }
+  ]
+}

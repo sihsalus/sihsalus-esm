@@ -1,0 +1,216 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.heading {
+  @include type.type-style('heading-03');
+  margin-bottom: layout.$spacing-03;
+}
+
+.columnLabel {
+  @include type.type-style('heading-compact-02');
+  color: colors.$gray-70;
+}
+
+.diagnosis {
+  padding: layout.$spacing-04;
+  border-top: 0.0625rem solid colors.$gray-20;
+}
+
+.diagnosis:first-of-type {
+  border-top: none;
+}
+
+.diagnosis:last-of-type {
+  border-bottom: none;
+}
+
+.diagnosisList {
+  background-color: white;
+  max-height: 13.5rem;
+  overflow-y: auto;
+  border: 1px solid colors.$gray-20;
+}
+
+.diagnosisList li:hover {
+  background-color: colors.$gray-20;
+}
+
+.diagnosesText {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-70;
+  margin-bottom: layout.$spacing-05;
+}
+
+.emptyResults {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-70;
+  min-height: layout.$spacing-05;
+}
+
+.imgUploadHelperText {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-70;
+}
+
+.imgThumbnailContainer {
+  height: 7rem;
+  width: 7rem;
+}
+
+.imgThumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imgThumbnailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 7rem);
+  gap: layout.$spacing-05;
+  margin-top: layout.$spacing-05;
+}
+
+.imgThumbnailItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.removeButton {
+  position: absolute;
+  top: layout.$spacing-02;
+  right: layout.$spacing-02;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  padding-block-start: 0;
+  --cds-layout-size-height-local: 0;
+}
+
+.closeIcon {
+  fill: white !important;
+}
+
+.button {
+  height: layout.$spacing-10;
+  display: flex;
+  align-content: flex-start;
+  align-items: baseline;
+  min-width: 50%;
+}
+
+.spinner {
+  min-height: layout.$spacing-05;
+}
+
+.tablet {
+  padding: layout.$spacing-06 layout.$spacing-05;
+  background-color: white;
+}
+
+.desktop {
+  padding: 0;
+}
+
+.headerGridRow {
+  border-bottom: 0.0625rem solid colors.$gray-20;
+  margin: 0;
+}
+
+.dataGridRow {
+  display: grid;
+  grid-template-columns: 50% 10% 1fr;
+  margin: layout.$spacing-03 layout.$spacing-05;
+}
+
+.formContainer {
+  margin: layout.$spacing-05;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.grid {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  margin: layout.$spacing-03 0 layout.$spacing-08;
+}
+
+.skeleton {
+  margin-top: layout.$spacing-02;
+  height: layout.$spacing-07;
+}
+
+.errorMessage {
+  color: colors.$red-60;
+  margin-top: layout.$spacing-03;
+}
+
+.diagnoserrorOutline {
+  :global(.cds--search-input):focus {
+    outline: 2.5px solid colors.$red-60;
+  }
+
+  :global(.cds--search-magnifier) {
+    svg {
+      fill: colors.$red-60;
+    }
+  }
+}
+
+.errorMessage {
+  @include type.type-style('label-02');
+  color: colors.$red-60;
+}
+
+:global(.omrs-breakpoint-lt-desktop) {
+  .form {
+    height: 100%;
+  }
+
+  .row {
+    display: flex;
+    gap: layout.$spacing-10;
+
+    :global(.cds--col-sm-1) {
+      flex-basis: 30%;
+      min-width: 8rem;
+      text-align: left;
+    }
+
+    :global(.cds--col-sm-3) {
+      flex-basis: 70%;
+    }
+  }
+
+  .diagnosis {
+    padding: layout.$spacing-05 layout.$spacing-04;
+  }
+
+  .skeleton {
+    height: layout.$spacing-08;
+  }
+}
+
+.errorNotification {
+  margin-top: layout.$spacing-02;
+}
+
+.tag {
+  margin-right: layout.$spacing-03;
+  margin-left: 0;
+}
+
+.uploadButton {
+  margin-top: layout.$spacing-05;
+}

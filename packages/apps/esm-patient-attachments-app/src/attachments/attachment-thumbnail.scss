@@ -1,0 +1,86 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as vars;
+
+.caption {
+  position: absolute;
+  top: 141px;
+  right: 73px;
+  text-align: center;
+  backdrop-filter: blur(20px);
+}
+
+.thumbnail {
+  height: 10rem;
+}
+
+.imageThumbnail {
+  width: 100%;
+  cursor: pointer;
+
+  img {
+    width: 100% !important;
+    margin: auto !important;
+    height: 10rem;
+  }
+}
+
+.pdfThumbnail {
+  cursor: pointer;
+  background-color: vars.$color-gray-30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.captionText {
+  color: #2e2eef;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.actionButtons {
+  width: 20%;
+  position: absolute;
+  right: 0;
+}
+
+.actionButtons span {
+  margin: 5px;
+}
+
+.infoIcon {
+  visibility: hidden;
+  position: absolute;
+  right: layout.$spacing-02;
+  top: layout.$spacing-02;
+  cursor: pointer;
+}
+
+.thumbnail:hover .infoIcon {
+  visibility: visible;
+}
+
+.infoIcon .infoText {
+  visibility: hidden;
+  width: 170px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -46px;
+  right: -166px;
+}
+
+.infoIcon:hover .infoText {
+  visibility: visible;
+}
+
+.otherThumbnail {
+  object-fit: none !important;
+  cursor: pointer;
+}

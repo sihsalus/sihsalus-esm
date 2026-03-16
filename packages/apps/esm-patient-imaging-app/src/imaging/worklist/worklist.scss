@@ -1,0 +1,81 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+
+.formContainer {
+    height: 100%;
+}
+
+.header {
+    border-bottom: 0.0625rem solid $grey-2;
+    margin: 0;
+}
+
+.formContent {
+    margin: layout.$spacing-05;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.tabletButtons {
+    margin-top: layout.$spacing-07;
+    padding: layout.$spacing-06 layout.$spacing-05;
+    background-color: $ui-02;
+}
+
+.desktopButtons {
+    margin-top: layout.$spacing-07;
+}
+
+.container {
+  margin: layout.$spacing-05;
+
+  & section {
+    margin: layout.$spacing-05 0;
+  }
+}
+
+
+.button {
+  height: layout.$spacing-10;
+  display: flex;
+  align-content: flex-start;
+  align-items: baseline;
+  min-width: 50%;
+
+  :global(.cds--inline-loading) {
+    min-height: layout.$spacing-05 !important;
+  }
+
+  :global(.cds--inline-loading__text) {
+    @include type.type-style('body-01');
+  }
+}
+
+.row {
+  span {
+    margin: auto;
+  }
+
+  p {
+    padding: layout.$spacing-02 0;
+  }
+}
+
+.timePicker {
+  align-items: baseline;
+  flex: none;
+  margin-left: layout.$spacing-01;
+
+  :global(.cds--form-requirement) {
+    max-width: 6rem;
+    max-height: 0 !important;
+  }
+}

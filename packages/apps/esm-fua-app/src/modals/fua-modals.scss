@@ -1,0 +1,94 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+}
+
+.fuaInfo {
+  background-color: colors.$gray-10;
+  padding: layout.$spacing-04;
+  border-radius: 4px;
+
+  p {
+    @include type.type-style('body-compact-01');
+    margin-bottom: layout.$spacing-02;
+    color: colors.$gray-80;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.warningMessage {
+  background-color: #fff8e1;
+  border-left: 4px solid #f1c21b;
+  padding: layout.$spacing-04;
+  border-radius: 0 4px 4px 0;
+
+  p {
+    @include type.type-style('body-compact-01');
+    color: colors.$gray-80;
+    margin: 0;
+  }
+}
+
+.noTransitions {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-60;
+  padding: layout.$spacing-05 0;
+  text-align: center;
+}
+
+// Historial modal styles
+.historialList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid colors.$gray-30;
+  padding-left: layout.$spacing-05;
+}
+
+.historialEntry {
+  position: relative;
+  margin-bottom: layout.$spacing-05;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * layout.$spacing-05 - 1px);
+    top: layout.$spacing-02;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: colors.$gray-60;
+    border: 2px solid white;
+  }
+}
+
+.historialHeader {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+  margin-bottom: layout.$spacing-02;
+}
+
+.historialDate {
+  @include type.type-style('label-01');
+  color: colors.$gray-60;
+}
+
+.historialUser {
+  @include type.type-style('body-compact-01');
+  margin-bottom: layout.$spacing-01;
+}
+
+.historialComment {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-70;
+  font-style: italic;
+}

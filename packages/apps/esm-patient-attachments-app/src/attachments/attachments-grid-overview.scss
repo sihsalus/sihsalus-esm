@@ -1,0 +1,30 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.attachmentThumbnailSkeleton {
+  width: 100%;
+}
+
+.galleryContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: layout.$spacing-05;
+  padding: layout.$spacing-05;
+}
+
+.galleryContainer img {
+  object-fit: cover;
+}
+
+.muted {
+  color: colors.$gray-70;
+  @include type.type-style('label-01');
+  margin: layout.$spacing-02;
+}
+
+.title {
+  @include type.type-style('body-long-01');
+  color: colors.$gray-100;
+  margin: layout.$spacing-02;
+}

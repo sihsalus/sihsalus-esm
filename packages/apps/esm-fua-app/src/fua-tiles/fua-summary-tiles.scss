@@ -1,0 +1,16 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.cardContainer {
+  background-color: $ui-02;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0 layout.$spacing-05 layout.$spacing-07 layout.$spacing-05;
+  margin-top: -(layout.$spacing-03);
+  gap: layout.$spacing-05;
+}
+
+.cardContainer > * {
+  flex: 1 0 0%;
+  min-width: 18.75rem;
+}

@@ -1,0 +1,48 @@
+@use '@carbon/layout';
+
+.card {
+  border-left: 4px solid #0f62fe;
+  margin-bottom: layout.$spacing-04;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: layout.$spacing-05;
+
+  h5 {
+    margin: 0;
+  }
+}
+
+.testCards {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-05;
+}
+
+.testCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: layout.$spacing-04;
+  background: var(--cds-layer-01);
+  border-radius: 4px;
+  gap: layout.$spacing-04;
+}
+
+.testInfo {
+  flex: 1;
+
+  h6 {
+    margin: 0 0 layout.$spacing-02 0;
+    font-size: 0.875rem;
+  }
+}
+
+.description {
+  color: var(--cds-text-02);
+  font-size: 0.8125rem;
+  margin: 0;
+}

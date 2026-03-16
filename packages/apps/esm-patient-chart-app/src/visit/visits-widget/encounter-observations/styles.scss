@@ -1,0 +1,22 @@
+@use '@carbon/layout';
+
+.observation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: layout.$spacing-03;
+  margin-block: layout.$spacing-05;
+  margin-inline: 0 layout.$spacing-05;
+}
+
+.observation > span {
+  align-self: center;
+  justify-self: start;
+}
+
+.parentConcept {
+  font-weight: bold;
+}
+
+.childConcept {
+  padding-inline-start: layout.$spacing-04;
+}

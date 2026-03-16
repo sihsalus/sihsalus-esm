@@ -1,0 +1,50 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: layout.$spacing-04;
+  color: colors.$cool-gray-70;
+  width: 7.5rem;
+  height: 7.5rem;
+  border: 1px solid colors.$cool-gray-80;
+}
+
+.imagePreview {
+  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.altImagePreview {
+  @extend .imagePreview;
+  padding: layout.$spacing-07;
+  height: auto;
+}
+
+.emptyState {
+  padding: layout.$spacing-07;
+}
+
+.editButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 7.5rem;
+  background-color: colors.$cool-gray-80;
+}
+
+.editButton {
+  color: colors.$white-0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &:hover {
+    color: colors.$white-0;
+  }
+}

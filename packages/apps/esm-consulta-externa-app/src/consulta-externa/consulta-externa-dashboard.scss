@@ -1,0 +1,161 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.desktopHeading {
+  text-align: left;
+  text-transform: capitalize;
+
+  h4 {
+    @include type.type-style('heading-compact-02');
+    color: $text-02;
+
+    &:after {
+      content: '';
+      display: block;
+      width: 2rem;
+      padding-top: 3px;
+      border-bottom: 0.375rem solid;
+      @include brand-03(border-bottom-color);
+    }
+  }
+}
+
+.tabsContainer {
+  background-color: white;
+  padding: 0 layout.$spacing-05;
+}
+
+.widgetContainer {
+  padding: layout.$spacing-05 0;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: layout.$spacing-09;
+  text-align: center;
+
+  p {
+    @include type.type-style('body-compact-01');
+    color: $text-02;
+    margin-top: layout.$spacing-03;
+  }
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: layout.$spacing-04 0;
+}
+
+.tableHeaderTitle {
+  @include type.type-style('heading-compact-01');
+  color: $text-02;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: layout.$spacing-02;
+}
+
+.badgePresumptive {
+  color: #da1e28;
+}
+
+.badgeDefinitive {
+  color: #198038;
+}
+
+.badgeNew {
+  color: #0043ce;
+}
+
+.badgeRepeat {
+  color: #6929c4;
+}
+
+.soapSection {
+  margin-bottom: layout.$spacing-05;
+
+  h5 {
+    @include type.type-style('heading-compact-01');
+    color: $text-02;
+    margin-bottom: layout.$spacing-03;
+    padding: layout.$spacing-02 layout.$spacing-03;
+    border-left: 3px solid;
+  }
+
+  p {
+    @include type.type-style('body-compact-01');
+    color: $text-02;
+    padding-left: layout.$spacing-05;
+  }
+}
+
+.soapSubjective h5 {
+  @include brand-03(border-left-color);
+}
+
+.soapObjective h5 {
+  border-left-color: #0043ce;
+}
+
+.soapAssessment h5 {
+  border-left-color: #6929c4;
+}
+
+.soapPlan h5 {
+  border-left-color: #198038;
+}
+
+// Triage styles
+.triageCard {
+  padding: layout.$spacing-03 0;
+}
+
+.triageGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: layout.$spacing-03 layout.$spacing-05;
+
+  @media (min-width: 672px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.vitalRow {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-01;
+}
+
+.vitalLabel {
+  @include type.type-style('label-01');
+  color: $text-02;
+}
+
+.vitalValue {
+  @include type.type-style('body-compact-01');
+  color: $text-02;
+}
+
+.latestTriageTile {
+  margin-bottom: layout.$spacing-05;
+}
+
+.latestTriageHeader {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+  margin-bottom: layout.$spacing-04;
+
+  span:first-child {
+    @include type.type-style('heading-compact-01');
+    color: $text-02;
+  }
+}

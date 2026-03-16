@@ -1,0 +1,185 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.error-tile {
+  width: 60%;
+  margin: 1.25rem auto;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  padding: layout.$spacing-06 0 1.75rem;
+}
+
+/* Tablet */
+:host-context(.omrs-breakpoint-lt-desktop) .error-tile {
+  background-color: $ui-02;
+}
+
+.heading {
+  @include type.type-style('productive-heading-02');
+  color: colors.$gray-100;
+}
+
+.helperText {
+  margin-top: layout.$spacing-03;
+  @include type.type-style('body-01');
+  color: colors.$gray-90;
+}
+
+.separator {
+  @include type.type-style('body-01');
+  color: colors.$gray-90;
+  width: 12rem;
+  margin: 1.375rem auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  background-color: colors.$gray-40;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.separator::before {
+  right: layout.$spacing-05;
+  margin-left: -50%;
+}
+
+.separator::after {
+  left: layout.$spacing-05;
+  margin-right: -50%;
+}
+
+.title-icon-size {
+  height: layout.$spacing-04;
+  width: layout.$spacing-04;
+}
+
+.no-errors {
+  display: none;
+}
+
+.sidebar .open {
+  margin-top: -1px;
+  width: 55%;
+  height: 80%;
+  padding: layout.$spacing-02;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.sidebar .closed {
+  height: 80px;
+  width: 28px;
+  margin-top: -1px;
+}
+
+.error-content .closed {
+  display: none;
+}
+
+.error-content {
+  border-top: 1px solid colors.$gray-20;
+  margin: -(layout.$spacing-02);
+  padding: layout.$spacing-02;
+}
+
+.error-title .closed {
+  transform: rotate(90deg);
+  margin-top: 14px;
+}
+
+.no-padding {
+  margin: 0 (-(layout.$spacing-07));
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.button-set {
+  margin: 0 (-(layout.$spacing-07));
+}
+
+.button-set button {
+  height: layout.$spacing-10;
+  align-items: baseline;
+  min-width: 50%;
+}
+
+/* Desktop */
+:host-context(.omrs-breakpoint-gt-tablet) .form-container {
+  height: 100%;
+  margin: 0 layout.$spacing-07;
+}
+
+:host-context(.omrs-breakpoint-gt-tablet) .button-set {
+  padding: 0;
+}
+
+/* Tablet */
+:host-context(.omrs-breakpoint-lt-desktop) .form-container {
+  height: 100%;
+  margin: 0 layout.$spacing-07;
+}
+
+:host-context(.omrs-breakpoint-lt-desktop) .button-set {
+  padding: layout.$spacing-06 layout.$spacing-05;
+  background-color: $ui-02;
+}
+
+.loader-container {
+  height: 100vh;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50%;
+}
+
+.encounterHeader {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+  border-bottom: 1px solid var(--brand-03);
+  padding: 0.625rem;
+}
+
+.saveAndCloseButtons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 0.625rem;
+  margin-top: layout.$spacing-05;
+  padding-top: layout.$spacing-05;
+  margin-left: 0.625rem;
+  @include type.type-style('body-short-01');
+  border-top: 1px solid colors.$gray-40;
+
+  & button {
+    width: 100%;
+    padding: layout.$spacing-04 layout.$spacing-05;
+  }
+}

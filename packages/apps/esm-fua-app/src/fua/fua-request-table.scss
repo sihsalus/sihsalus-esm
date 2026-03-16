@@ -1,0 +1,150 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.tableContainer {
+  border: 1px solid colors.$gray-20;
+  background-color: colors.$gray-10;
+  padding: 0;
+
+  :global(.cds--data-table-content) {
+    overflow-x: unset;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  th {
+    color: colors.$gray-70;
+  }
+
+  :global(.cds--data-table) {
+    background-color: colors.$gray-20;
+  }
+
+  :global(.cds--table-toolbar) {
+    position: static;
+  }
+
+  :global(.cds--overflow-menu) {
+    background-color: transparent;
+    border: none;
+  }
+
+  :global(.cds--pagination) {
+    border-top: none;
+  }
+
+  .toolbarContent {
+    height: layout.$spacing-07;
+    margin-bottom: layout.$spacing-02;
+  }
+}
+
+.toolbarContent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.toolbarItem {
+  margin-left: layout.$spacing-05;
+  display: flex;
+  align-items: center;
+
+  & p {
+    padding-right: layout.$spacing-03;
+    @include type.type-style('body-01');
+    color: colors.$gray-70;
+  }
+
+  :global(.cds--date-picker__input) {
+    height: layout.$spacing-09;
+  }
+
+  :global(.cds--dropdown) {
+    height: layout.$spacing-09;
+  }
+
+  :global(.cds--list-box__menu:focus) {
+    outline: none;
+  }
+}
+
+.table {
+  width: 100%;
+}
+
+.tableHeader {
+  @include type.type-style('heading-compact-01');
+  color: var(--cds-text-primary);
+}
+
+.tableCell {
+  @include type.type-style('body-compact-01');
+  color: var(--cds-text-primary);
+}
+
+.tableWrapper tr:last-of-type {
+  td {
+    border-bottom: none;
+  }
+}
+
+.tileContainer {
+  background-color: colors.$white;
+  border-top: 1px solid colors.$gray-20;
+  padding: 3rem 0;
+}
+
+.tile {
+  margin: auto;
+  width: fit-content;
+}
+
+.tileContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  @include type.type-style('heading-compact-02');
+  color: colors.$gray-70;
+  margin-bottom: layout.$spacing-03;
+}
+
+.emptyStateHelperText {
+  @include type.type-style('helper-text-02');
+}
+
+.pagination {
+  border-top: 1px solid var(--cds-border-subtle-01);
+  background-color: var(--cds-layer-01);
+}
+
+.actionsCell {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-01;
+}
+
+@media (max-width: 672px) {
+  .toolbarContent {
+    flex-direction: column;
+    align-items: stretch;
+    gap: layout.$spacing-03;
+  }
+
+  .toolbarItem {
+    margin-left: 0;
+    flex-wrap: wrap;
+    gap: layout.$spacing-02;
+  }
+
+  .actionsCell {
+    flex-wrap: wrap;
+    gap: layout.$spacing-02;
+  }
+}

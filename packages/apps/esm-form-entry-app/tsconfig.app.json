@@ -1,0 +1,29 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [
+      "fhir",
+      "node",
+      "webpack-env",
+    ],
+    "target": "ES2022",
+    "paths": {
+      "@openmrs/esm-framework": [
+        "../../node_modules/@openmrs/esm-framework/src/internal"
+      ],
+    }
+  },
+  "files": [
+    "src/index.ts",
+  ],
+  "include": [
+    "../../node_modules/@openmrs/esm-framework/src/declarations.d.ts",
+    "src/**/*.d.ts",
+  ],
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.mock.ts",
+  ]
+}

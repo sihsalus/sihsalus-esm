@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": "^2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "programs-overview-widget",
+      "component": "programsOverview",
+      "meta": {
+        "fullWidth": false
+      },
+      "order": 6
+    },
+    {
+      "name": "programs-details-widget",
+      "slot": "patient-chart-programs-dashboard-slot",
+      "component": "programsDetailedSummary",
+      "order": 6
+    },
+    {
+      "name": "programs-summary-dashboard",
+      "slot": "patient-chart-dashboard-slot",
+      "component": "programsDashboardLink",
+      "meta": {
+        "slot": "patient-chart-programs-dashboard-slot",
+        "path": "Programs"
+      },
+      "order": 10
+    }
+  ],
+  "pages": [],
+  "workspaces": [
+    {
+      "name": "programs-form-workspace",
+      "title": "programEnrollmentWorkspaceTitle",
+      "component": "programsFormWorkspace"
+    }
+  ],
+  "modals": [
+    {
+      "name": "program-delete-confirmation-modal",
+      "component": "deleteProgramConfirmationModal"
+    }
+  ]
+}
+

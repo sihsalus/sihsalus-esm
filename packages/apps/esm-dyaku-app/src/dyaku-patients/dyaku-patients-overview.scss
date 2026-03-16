@@ -1,0 +1,51 @@
+.container {
+  padding: 1rem;
+  background: #f4f4f4;
+  min-height: 100vh;
+}
+
+.searchContainer {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 500px;
+}
+
+.searchInfo {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: #e8f4fd;
+  border: 1px solid #0f62fe;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.searchLabel {
+  color: #161616;
+}
+
+.searchLabel strong {
+  color: #0f62fe;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .searchContainer {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .searchInput {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,102 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.header {
+  border-bottom: 0.0625rem solid $grey-2;
+  margin: 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 50% 10% 1fr;
+  margin: layout.$spacing-03 layout.$spacing-05;
+}
+
+.wrapperContainer fieldset {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+.wrapperContainer :global(.cds--radio-button__label) {
+  justify-content: flex-start;
+}
+
+.radio {
+  margin: layout.$spacing-05 0;
+
+  label {
+    justify-content: flex-start;
+  }
+}
+
+.checkbox {
+  &:not(:first-child) {
+    margin: 0.3rem 0;
+  }
+}
+
+.checkboxContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button {
+  height: layout.$spacing-10;
+  display: flex;
+  align-content: flex-start;
+  align-items: baseline;
+  min-width: 50%;
+
+  :global(.cds--inline-loading) {
+    min-height: layout.$spacing-05 !important;
+  }
+
+  :global(.cds--inline-loading__text) {
+    @include type.type-style('body-01');
+  }
+}
+
+.desktopButtons {
+  margin-top: layout.$spacing-07;
+}
+
+.tabletButtons {
+  margin-top: layout.$spacing-07;
+  padding: layout.$spacing-06 layout.$spacing-05;
+  background-color: $ui-02;
+}
+
+.actionButtons {
+  position: sticky;
+  bottom: 0;
+}
+
+.formContainer {
+  height: 100%;
+}
+
+.formContent {
+  margin: layout.$spacing-05;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Desktop */
+:global(.omrs-breakpoint-gt-tablet) {
+  .form {
+    height: 100%;
+  }
+}
+
+/* Tablet */
+:global(.omrs-breakpoint-lt-desktop) {
+  .form {
+    height: calc(100vh - 9rem);
+  }
+}

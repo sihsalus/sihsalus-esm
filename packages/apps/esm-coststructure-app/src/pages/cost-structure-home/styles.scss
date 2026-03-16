@@ -1,0 +1,44 @@
+@use '@carbon/layout';
+@use '@carbon/colors';
+
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+  padding: layout.$spacing-03 layout.$spacing-05;
+  background-color: colors.$white;
+}
+.search,
+.container {
+  display: flex;
+}
+.container {
+  justify-content: space-between;
+  align-items: center;
+}
+.container > h3 {
+  font-weight: 600;
+  color: #525252;
+}
+.search {
+  gap: 0.3rem;
+  align-items: center;
+}
+
+@media (max-width: 672px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: layout.$spacing-03;
+  }
+
+  .search {
+    flex-wrap: wrap;
+    gap: layout.$spacing-02;
+    width: 100%;
+  }
+
+  .card {
+    padding: layout.$spacing-03;
+  }
+}

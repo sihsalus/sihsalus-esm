@@ -1,0 +1,41 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.widgetCard {
+  border: 1px solid $ui-03;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+
+  .cds--inline-loading {
+    margin-left: auto;
+    margin-right: layout.$spacing-05;
+  }
+}
+
+.backgroundDataFetchingIndicator {
+  display: flex;
+  align-items: center;
+}
+
+.obstetricHeaderActionItems {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.divider {
+  color: colors.$gray-30;
+  font-weight: 300;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .obstetricHeaderActionItems {
+    flex-direction: column;
+    align-items: stretch;
+    gap: layout.$spacing-02;
+  }
+}

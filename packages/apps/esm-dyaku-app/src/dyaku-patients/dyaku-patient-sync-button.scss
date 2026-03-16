@@ -1,0 +1,66 @@
+.syncButton {
+  min-width: 2rem;
+  min-height: 2rem;
+
+  &.synced {
+    color: #24a148;
+    border-color: #24a148;
+
+    &:hover {
+      background-color: #e6f6ea;
+    }
+  }
+
+  &:hover {
+    border-color: #0f62fe;
+  }
+}
+
+.syncingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.resultContainer {
+  position: relative;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.notification {
+  min-height: auto;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+
+  .bx--inline-notification__title {
+    font-size: 0.75rem;
+    margin-bottom: 0.125rem;
+  }
+
+  .bx--inline-notification__subtitle {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 42rem) {
+  .resultContainer {
+    min-width: 150px;
+    max-width: 200px;
+  }
+
+  .notification {
+    padding: 0.25rem;
+    font-size: 0.6875rem;
+
+    .bx--inline-notification__title {
+      font-size: 0.6875rem;
+    }
+
+    .bx--inline-notification__subtitle {
+      font-size: 0.625rem;
+    }
+  }
+}

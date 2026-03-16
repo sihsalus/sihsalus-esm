@@ -1,0 +1,55 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.cameraSection {
+  width: 100%;
+  background-color: $ui-02;
+}
+
+.cameraSection :global(.react-html5-camera-photo) {
+  & > img,
+  & > video {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.uploadFile {
+  color: $ui-02;
+
+  label {
+    max-width: unset;
+  }
+
+  label > div {
+    height: 25rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.modalBody {
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: $breakpoint-tablet-max) {
+  .frameContent {
+    width: 65%;
+  }
+}
+
+.tabList {
+  border-bottom: layout.$spacing-01 solid $ui-03;
+
+  div {
+    position: absolute;
+    bottom: -2px;
+    height: 100%;
+    z-index: 1;
+
+    button > div {
+      align-items: center;
+    }
+  }
+}

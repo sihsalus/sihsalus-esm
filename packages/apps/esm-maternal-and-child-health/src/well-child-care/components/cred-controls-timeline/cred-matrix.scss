@@ -1,0 +1,225 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.widgetCard {
+  border: 1px solid $ui-03;
+  border-bottom: none;
+  width: 100%;
+}
+
+.clinicalDataHeaderActionItems {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: layout.$spacing-05;
+  padding: layout.$spacing-03;
+}
+
+.summaryItem {
+  @include type.type-style('body-compact-01');
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-02;
+}
+
+.overdueCount {
+  color: $danger;
+  font-weight: 600;
+}
+
+// Horizontal scrollable matrix
+.matrixScroll {
+  overflow-x: auto;
+  padding-bottom: layout.$spacing-03;
+}
+
+.matrixGrid {
+  display: inline-flex;
+  gap: 0;
+  min-width: 100%;
+}
+
+// Each age-group column
+.matrixColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 8rem;
+  max-width: 10rem;
+  border-right: 1px solid colors.$gray-20;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.columnHeader {
+  @include type.type-style('label-01');
+  text-align: center;
+  padding: layout.$spacing-03;
+  background-color: colors.$gray-10;
+  border-bottom: 2px solid colors.$gray-30;
+  font-weight: 600;
+  min-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.sublabel {
+  @include type.type-style('label-01');
+  color: colors.$gray-60;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+}
+
+.columnBody {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-02;
+  padding: layout.$spacing-02;
+}
+
+// Compact tile
+.ageTile {
+  @include type.type-style('label-01');
+  text-align: center;
+  padding: layout.$spacing-02 layout.$spacing-03;
+  border-radius: 4px;
+  cursor: default;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  transition: box-shadow 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+  }
+}
+
+.tileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: layout.$spacing-02;
+}
+
+.tileLabel {
+  @include type.type-style('label-01');
+  color: $text-02;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tileDate {
+  @include type.type-style('label-01');
+  color: $text-02;
+  font-size: 0.75rem;
+}
+
+// Status colors
+.tileCompleted {
+  border-left: 4px solid colors.$green-50;
+  background-color: colors.$green-10;
+}
+
+.tileScheduled {
+  border-left: 4px solid colors.$blue-50;
+  background-color: colors.$blue-10;
+}
+
+.tileOverdue {
+  border-left: 4px solid $danger;
+  background-color: colors.$red-10;
+}
+
+.tilePending {
+  border-left: 4px solid colors.$yellow-30;
+  background-color: colors.$yellow-10;
+}
+
+.tileFuture {
+  border-left: 4px solid colors.$gray-30;
+  background-color: colors.$gray-10;
+  opacity: 0.85;
+}
+
+.statusBadge {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 1px 5px;
+  border-radius: 3px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.status-completed {
+  color: colors.$green-60;
+  background-color: colors.$green-20;
+}
+
+.status-scheduled {
+  color: colors.$blue-60;
+  background-color: colors.$blue-20;
+}
+
+.status-overdue {
+  color: colors.$red-70;
+  background-color: colors.$red-20;
+}
+
+.status-pending {
+  color: colors.$yellow-50;
+  background-color: colors.$yellow-20;
+}
+
+.status-future {
+  color: colors.$gray-60;
+  background-color: colors.$gray-20;
+}
+
+.labelUser {
+  @include type.type-style('caption-01');
+  color: colors.$gray-50;
+}
+
+// Responsive: narrower columns on small screens
+@media (max-width: 672px) {
+  .matrixColumn {
+    min-width: 6rem;
+    max-width: 8rem;
+  }
+
+  .columnHeader {
+    padding: layout.$spacing-02;
+    min-height: 2.5rem;
+  }
+
+  .ageTile {
+    padding: layout.$spacing-02;
+    font-size: 0.75rem;
+  }
+
+  .statusBadge {
+    font-size: 0.625rem;
+    padding: 1px 3px;
+  }
+
+  .clinicalDataHeaderActionItems {
+    flex-wrap: wrap;
+    gap: layout.$spacing-03;
+  }
+}

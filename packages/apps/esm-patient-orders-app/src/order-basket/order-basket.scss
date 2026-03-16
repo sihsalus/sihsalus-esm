@@ -1,0 +1,70 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.orderBasketContainer {
+  margin: layout.$spacing-05;
+}
+
+.orderBasketContainer :global(.cds--btn-set .cds--btn) {
+  max-width: 50%;
+  height: layout.$spacing-10;
+}
+
+.orderBasketSlot {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-07;
+}
+
+.orderBasketSlotTablet {
+  gap: layout.$spacing-05;
+}
+
+.buttonSet {
+  padding: 0;
+}
+
+.actionButton {
+  height: layout.$spacing-10;
+  display: flex;
+  align-content: flex-start;
+  align-items: baseline;
+  min-width: 50%;
+
+  :global(.cds--inline-loading) {
+    min-height: layout.$spacing-05;
+  }
+
+  :global(.cds--inline-loading__text) {
+    font-size: unset;
+  }
+}
+
+.inlineNotification,
+.actionNotification {
+  max-width: unset !important;
+  margin-bottom: layout.$spacing-02;
+}
+
+/* Tablet */
+:global(.omrs-breakpoint-lt-desktop) {
+  .container {
+    height: 100%;
+  }
+
+  .buttonSet {
+    padding: layout.$spacing-06 layout.$spacing-05;
+    background-color: $ui-02;
+  }
+}
+
+.orderPanel {
+  margin: layout.$spacing-07 0;
+}

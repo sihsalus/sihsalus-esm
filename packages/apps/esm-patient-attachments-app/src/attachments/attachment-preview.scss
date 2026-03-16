@@ -1,0 +1,76 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.previewContainer {
+  display: grid;
+  grid-template-columns: 1fr 16rem;
+  position: fixed;
+  width: 100vw;
+  top: layout.$spacing-09;
+  bottom: 0;
+  left: 0;
+  z-index: 5001;
+  background-color: colors.$gray-90;
+}
+
+.leftPanel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+}
+
+.rightPanel {
+  background-color: colors.$gray-80;
+  padding: layout.$spacing-05;
+  color: $ui-01;
+}
+
+.closePreviewButton {
+  > svg {
+    fill: white !important;
+  }
+}
+
+.attachmentPreview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  img {
+    max-width: 80%;
+    max-height: 80%;
+  }
+
+  .pdfViewer {
+    width: 90%;
+    height: 90%;
+  }
+}
+
+.overflowMenu {
+  &:hover {
+    background-color: hsla(0, 0%, 55%, 0.12) !important;
+  }
+
+  svg {
+    fill: white;
+  }
+}
+
+.imageDescription {
+  margin-top: layout.$spacing-03;
+}
+
+.menuItem {
+  max-width: none;
+}
+
+.title {
+  @include type.type-style('heading-compact-02');
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

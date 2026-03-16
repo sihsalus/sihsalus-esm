@@ -1,0 +1,14 @@
+.empty-state-message {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  width: 100%;
+
+  & p {
+    margin: 0.2rem;
+  }
+  & p:first-of-type {
+    font-weight: bold;
+  }
+}

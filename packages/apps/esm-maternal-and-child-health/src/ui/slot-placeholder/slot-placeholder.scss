@@ -1,0 +1,30 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: layout.$spacing-07;
+  text-align: center;
+  min-height: 200px;
+}
+
+.icon {
+  color: $text-03;
+  margin-bottom: layout.$spacing-04;
+}
+
+.title {
+  @include type.type-style('heading-compact-01');
+  color: $text-02;
+  margin-bottom: layout.$spacing-03;
+}
+
+.description {
+  @include type.type-style('body-01');
+  color: $text-03;
+  max-width: 400px;
+}

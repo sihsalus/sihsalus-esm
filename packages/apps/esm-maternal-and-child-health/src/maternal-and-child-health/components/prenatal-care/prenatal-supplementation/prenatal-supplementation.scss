@@ -1,0 +1,34 @@
+@use '@carbon/layout';
+
+.card {
+  border-left: 4px solid #005d5d;
+  margin-bottom: layout.$spacing-04;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: layout.$spacing-04;
+
+  h5 {
+    margin: 0;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-04;
+}
+
+.supplementRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: #da1e28;
+  font-size: 0.75rem;
+  margin-top: layout.$spacing-03;
+}

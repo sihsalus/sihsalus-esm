@@ -1,0 +1,102 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.startDateColumn {
+  @include type.type-style('body-compact-01');
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: layout.$spacing-11;
+  padding-bottom: layout.$spacing-02;
+
+  span {
+    margin: 0;
+  }
+}
+
+.tableHeader {
+    @include type.type-style('heading-compact-01');
+    color: $text-02;
+}
+
+.widgetCard {
+  border: 1px solid colors.$gray-20;
+  background-color: colors.$white;
+}
+
+.row {
+  span {
+    margin: auto;
+  }
+
+  p {
+    padding: layout.$spacing-02 0;
+  }
+}
+
+.table {
+  td {
+    border-bottom: none !important;
+  }
+}
+
+.buttons {
+  width: 31%;
+}
+
+
+.removeButton {
+  svg {
+    fill: $danger !important;
+  }
+}
+
+.addButton {
+  svg {
+    fill: currentColor !important;
+  }
+}
+
+.wrapText {
+  word-break: break-all;  /* Break long words */
+  white-space: normal;  /* Allow wrapping */
+  width: 170px;
+}
+
+.subTableWrapText {
+  word-break: break-all;  /* Break long words */
+  white-space: normal;
+}
+
+.expandedRow {
+  width: 100%;
+}
+
+.expandedRow td {
+  width: 100%;
+  padding: 6px;
+}
+
+.seriesTableDiv, .procedureStepTableDiv {
+  border: 2px solid blue;
+  margin-bottom: 5px;
+}
+
+.instanceTableDiv {
+  border: 2px solid green;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.formContainer {
+  height: 100%;
+}
+
+.header {
+  border-bottom: 0.0625rem solid $grey-2;
+  margin: 0;
+}

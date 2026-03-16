@@ -1,0 +1,94 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.widgetContainer {
+  background-color: $ui-background;
+  border: 1px solid $ui-03;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: layout.$spacing-04 0 layout.$spacing-04 layout.$spacing-05;
+}
+
+.toggleButtons {
+  width: fit-content;
+  margin: 0 layout.$spacing-03;
+}
+
+.toggle {
+  padding: layout.$spacing-03;
+  color: $interactive-01;
+  min-height: 0px;
+
+  &:global(.cds--btn--tertiary) {
+    border-color: $interactive-01;
+  }
+
+  &:global(.cds--tooltip__trigger:active:not([disabled])) {
+    border-color: $interactive-01;
+  }
+
+  &:global(.cds--btn--tertiary:active) {
+    border-color: $interactive-01;
+    background-color: colors.$blue-10;
+    color: colors.$blue-10;
+  }
+
+  &:global(.cds--btn--tertiary:focus) {
+    background-color: $interactive-01;
+    color: $ui-background;
+  }
+
+  &:global(.cds--btn--tertiary:hover) {
+    color: $ui-background;
+    background-color: $interactive-01;
+  }
+
+  &:global(.cds--btn--ghost) {
+    border-color: colors.$blue-30;
+  }
+
+  &:global(.cds--btn--ghost:hover) {
+    color: black;
+    background-color: $ui-01;
+  }
+}
+
+.toggle:first-of-type {
+  border-radius: layout.$spacing-02 0 0 layout.$spacing-02;
+
+  &:global(.cds--btn--ghost) {
+    border-right: 0;
+  }
+}
+
+.toggle:last-of-type {
+  border-radius: 0 layout.$spacing-02 layout.$spacing-02 0;
+
+  &:global(.cds--btn--ghost) {
+    border-left: 0;
+  }
+}
+
+.widgetContainer {
+  background-color: $ui-background;
+  position: relative;
+}
+
+.headerActionItems {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: end;
+}
+
+.backgroundDataFetchingIndicator {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: end;
+}

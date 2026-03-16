@@ -1,0 +1,23 @@
+@use '@carbon/layout';
+
+.adverseReactionForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .formField {
+    margin-bottom: layout.$spacing-05;
+  }
+
+  .errorNotification {
+    margin-bottom: layout.$spacing-04;
+  }
+}
+
+.tablet {
+  padding: layout.$spacing-05;
+}
+
+.desktop {
+  padding: layout.$spacing-03 layout.$spacing-05;
+}

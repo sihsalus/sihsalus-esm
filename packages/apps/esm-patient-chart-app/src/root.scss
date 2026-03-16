@@ -1,0 +1,45 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.patientChartWrapper {
+  display: flex;
+  position: relative;
+}
+
+.patientChartWrapper {
+  & > nav {
+    padding-bottom: layout.$spacing-09;
+    scrollbar-width: none;
+  }
+
+  :global(.cds--side-nav__overlay-active) {
+    background-color: transparent;
+  }
+}
+
+// Tablet side nav scrolling
+:global(.omrs-breakpoint-lt-desktop) {
+  .patientChartWrapper {
+    :global(.cds--side-nav) {
+      height: calc(100vh - layout.$spacing-09 - var(--bottom-nav-height));
+    }
+  }
+}
+
+// Overriding styles for RTL support
+html[dir='rtl'] {
+  :global(.cds--date-picker-input__wrapper) {
+    svg {
+      left: layout.$spacing-05;
+      right: unset;
+    }
+  }
+  :global(.cds--side-nav) {
+    right: 0;
+    :global(.active-left-nav-link) {
+      border-right: layout.$spacing-02 solid var(--brand-01);
+      border-left: unset;
+    }
+  }
+}

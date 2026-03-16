@@ -1,0 +1,28 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.emptyState {
+  text-align: center;
+}
+
+.emptyStateContent {
+  @include type.type-style('heading-compact-01');
+  color: $text-02;
+  margin-top: layout.$spacing-05;
+  margin-bottom: layout.$spacing-03;
+}
+
+// Desktop
+:global(.omrs-breakpoint-gt-tablet) {
+  .container {
+    margin: 0;
+  }
+}
+
+// Tablet
+:global(.omrs-breakpoint-lt-desktop) {
+  .container {
+    margin: layout.$spacing-05;
+  }
+}

@@ -1,0 +1,59 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.widgetCard {
+  border: 1px solid $ui-03;
+  width: 100%;
+  max-width: 100%;
+}
+.tile {
+  text-align: center;
+}
+
+.legendTile {
+  padding: layout.$spacing-05;
+  margin-top: layout.$spacing-03;
+  border: 1px solid colors.$gray-20;
+}
+
+.legendTitle {
+  @include type.type-style('heading-compact-01');
+  margin-bottom: layout.$spacing-03;
+}
+
+.legendContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: layout.$spacing-03;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+}
+
+.vaccineCell {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-02;
+}
+
+.vaccineIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: $ui-04;
+  display: inline-block;
+}
+
+.errorContainer {
+  padding: layout.$spacing-05;
+  text-align: center;
+  background-color: colors.$red-10;
+}
+
+.addButton {
+  margin-top: layout.$spacing-03;
+}

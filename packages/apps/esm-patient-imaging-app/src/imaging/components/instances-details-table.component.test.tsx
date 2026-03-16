@@ -1,0 +1,162 @@
+import React, { act } from 'react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
+import InstancesDetailsTable, { InstancesDetailsTableProps } from './instances-details-table.component';
+import * as api from '../../api';
+import { showModal } from '@openmrs/esm-framework';
+
+jest.mock('../../api');
+jest.mock('@openmrs/esm-framework', () => ({
+  useLayoutType: () => 'desktop',
+  usePagination: (data: any[], pagesize: number) => ({
+    results: data.slice(0, pagesize),
+    goto: jest.fn(),
+    currentPage: 1,
+  }),
+  showModal: jest.fn(() => jest.fn()),
+}));
+
+jest.mock('@openmrs/esm-patient-common-lib', () => ({
+  compare: jest.fn((a, b) => (a > b ? 1 : a < b ? -1 : 0)),
+  PatientChartPagination: ({ pageNumber, totalItems }: any) => (
+    <div data-testid="pagination">
+      Page {pageNumber} of {totalItems}
+    </div>
+  ),
+  EmptyState: ({ displayText }: any) => <div data-testid="empty-state">{displayText}</div>,
+}));
+
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string, defaultValue: string) => defaultValue,
+  }),
+}));
+
+describe('InstancesDetailsTable', () => {
+  const orignalError = console.error;
+
+  const mockConfig = {
+    id: 1,
+    orthancBaseUrl: 'http://orthanc.local',
+    orthancProxyUrl: 'http://orthanc.proxy',
+  };
+
+  const defaultProps: InstancesDetailsTableProps = {
+    studyId: 1,
+    studyInstanceUID: '1.2.3',
+    seriesInstanceUID: '1.2.3.4.5',
+    orthancConfig: mockConfig,
+    seriesModality: 'CT',
+  };
+
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation((msg, ...args) => {
+      if (msg.includes('warning') || msg.includes('ResizeObserver')) {
+        return;
+      }
+      orignalError(msg, ...args);
+    });
+  });
+
+  afterAll(() => {
+    console.error = orignalError;
+  });
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    (api.useStudyInstances as jest.Mock).mockReturnValue({
+      data: [
+        {
+          sopInstanceUID: '1.2.3',
+          instanceNumber: 1,
+          imagePositionPatient: '0\\0\\0',
+          numberOfFrames: 10,
+          orthancInstanceUID: 'inst-1',
+        },
+        {
+          sopInstanceUID: '4.5.6',
+          instanceNumber: 2,
+          imagePositionPatient: '1\\0\\0',
+          numberOfFrames: 12,
+          orthancInstanceUID: 'inst-2',
+        },
+      ],
+      error: null,
+      isLoading: false,
+      isValidating: false,
+    });
+
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: {
+        set href(url: string) {
+          this._href = url;
+        },
+        get href() {
+          return this._href;
+        },
+      },
+    });
+  });
+
+  it('renders table with instances and pagination', async () => {
+    await act(async () => {
+      render(<InstancesDetailsTable {...defaultProps} />);
+    });
+
+    // Check table headers
+    expect(screen.getByText('SOP Instance UID')).toBeInTheDocument();
+    expect(screen.getByText('Instance number')).toBeInTheDocument();
+    expect(screen.getByText('Number of frames')).toBeInTheDocument();
+    expect(screen.getByText('Image position of Patient')).toBeInTheDocument();
+    expect(screen.getByText('Action')).toBeInTheDocument();
+
+    // Check table rows
+    expect(screen.getByText('1.2.3')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
+    expect(screen.getByText('10')).toBeInTheDocument();
+    expect(screen.getByText('0\\0\\0')).toBeInTheDocument();
+
+    expect(screen.getByText('4.5.6')).toBeInTheDocument();
+    expect(screen.getByText('2')).toBeInTheDocument();
+    expect(screen.getByText('12')).toBeInTheDocument();
+    expect(screen.getByText('1\\0\\0')).toBeInTheDocument();
+
+    // Check pagination
+    expect(screen.getByTestId('pagination')).toBeInTheDocument();
+  });
+
+  it('triggers preview modal when button clicked', async () => {
+    await act(async () => {
+      render(<InstancesDetailsTable {...defaultProps} />);
+    });
+
+    const row = screen.getByText('1.2.3').closest('tr');
+
+    const localBtn = within(row!).getByLabelText('Instance preview local');
+    const orthancBtn = within(row!).getByLabelText('Instance view in Orthanc');
+
+    fireEvent.click(localBtn);
+
+    await act(async () => {
+      fireEvent.click(orthancBtn);
+    });
+
+    expect(window.location.href).toContain('instances/inst-1/preview');
+  });
+
+  it('shows loading state when data is being fetched', async () => {
+    (api.useStudyInstances as jest.Mock).mockReturnValue({
+      data: [],
+      error: null,
+      isLoading: true,
+      isValidating: false,
+    });
+
+    await act(async () => {
+      render(<InstancesDetailsTable {...defaultProps} />);
+    });
+
+    expect(screen.getByText(/Loading/)).toBeInTheDocument();
+  });
+});

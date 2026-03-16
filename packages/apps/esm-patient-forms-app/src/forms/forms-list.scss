@@ -1,0 +1,56 @@
+@use '@carbon/type';
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.emptyState {
+  text-align: center;
+  border: 1px solid $ui-03;
+}
+
+.emptyStateContent {
+  @include type.type-style('heading-compact-01');
+  color: $text-02;
+  margin-top: layout.$spacing-05;
+  margin-bottom: layout.$spacing-03;
+}
+
+.desktopHeading {
+  h4 {
+    @include type.type-style('heading-compact-02');
+    color: $text-02;
+  }
+}
+
+.tabletHeading {
+  h4 {
+    @include type.type-style('heading-03');
+    color: $text-02;
+  }
+}
+
+.desktopHeading,
+.tabletHeading {
+  text-align: left;
+  text-transform: capitalize;
+  margin-top: layout.$spacing-05;
+  margin-left: layout.$spacing-03;
+  margin-bottom: layout.$spacing-05;
+
+  h4:after {
+    content: '';
+    display: block;
+    width: layout.$spacing-07;
+    padding-top: 0.188rem;
+    border-bottom: 0.375rem solid var(--brand-03);
+  }
+}
+
+// Overriding styles for RTL support
+html[dir='rtl'] {
+  .desktopHeading,
+  .tabletHeading {
+    text-align: right;
+    margin-left: unset;
+    margin-right: layout.$spacing-03;
+  }
+}

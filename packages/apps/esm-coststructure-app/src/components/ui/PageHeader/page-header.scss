@@ -1,0 +1,65 @@
+/* ui/page-header.scss */
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.5rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 1rem;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+}
+
+.placeholderIcon {
+  width: 48px;
+  height: 48px;
+  background: #d9d9d9;
+  border-radius: 6px;
+}
+
+.title {
+  font-size: var(--cds-heading-04-font-size, 1.75rem);
+  font-weight: var(--cds-heading-04-font-weight, 400);
+  line-height: var(--cds-heading-04-line-height, 1.28572);
+  letter-spacing: var(--cds-heading-04-letter-spacing, 0);
+  color: #525252;
+}
+
+.subtitle {
+  margin: 0;
+  margin-top: 2px;
+  color: #6f6f6f;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 672px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .left {
+    gap: 0.5rem;
+  }
+
+  .icon,
+  .placeholderIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+}

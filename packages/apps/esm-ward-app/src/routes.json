@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": "^2.2.0",
+    "emrapi": "^2.0.0 || 2.0.0-SNAPSHOT"
+  },
+  "optionalBackendDependencies": {
+    "bedmanagement": {
+      "version": "^6.0.0 || 6.0.0-SNAPSHOT",
+      "feature": {
+        "flagName": "bedmanagement-module",
+        "label": "Ward App Patient Service",
+        "description": "This module, if installed, provides services for managing patients admitted to the ward."
+      }
+    }
+  },
+  "extensions": [
+    {
+      "name": "ward-dashboard-link",
+      "component": "wardDashboardLink",
+      "slot": "homepage-dashboard-slot",
+      "meta": {
+        "name": "ward",
+        "slot": "ward-dashboard-slot",
+        "title": "Wards"
+      }
+    },
+    {
+      "component": "root",
+      "name": "ward-dashboard",
+      "slot": "ward-dashboard-slot"
+    },
+    {
+      "component": "wardPatientActionButtonExtension",
+      "name": "ward-patient-action-button",
+      "slot": "action-menu-ward-patient-items-slot"
+    },
+    {
+      "component": "wardPatientNotesActionButtonExtension",
+      "name": "ward-inpatient-notes-form-action-button",
+      "slot": "action-menu-ward-patient-items-slot"
+    },
+    {
+      "component": "coloredObsTagCardRowExtension",
+      "name": "colored-obs-tags-card-row",
+      "slot": "ward-patient-card-slot"
+    },
+    {
+      "name": "transfer-swap-patient-siderail-button",
+      "slot": "action-menu-ward-patient-items-slot",
+      "component": "patientTransferAndSwapWorkspaceSiderailIcon"
+    },
+    {
+      "name": "patient-discharge-siderail-button",
+      "slot": "action-menu-ward-patient-items-slot",
+      "component": "patientDischargeWorkspaceSideRailIcon"
+    },
+    {
+      "name": "clinical-forms-workspace-siderail-button",
+      "component": "clinicalFormWorkspaceSideRailIcon",
+      "slot": "action-menu-ward-patient-items-slot"
+    },
+    {
+      "name": "admission-requests-workspace-siderail-button",
+      "component": "admissionRequestsWorkspaceSideRailIcon",
+      "slot": "action-menu-ward-patient-admission-requests-items-slot"
+    },
+    {
+      "name": "create-admission-request-workspace-siderail-button",
+      "component": "createAdmissionEncounterWorkspaceSideRailIcon",
+      "slot": "action-menu-ward-patient-admission-requests-items-slot"
+    },
+    {
+      "component": "defaultWardView",
+      "name": "default-ward",
+      "slot": "default-ward"
+    },
+    {
+      "component": "maternalWardView",
+      "name": "maternal-ward",
+      "slot": "maternal-ward"
+    },
+    {
+      "component": "wardPatientWorkspaceBanner",
+      "name": "ward-patient-workspace-banner",
+      "slot": "ward-workspace-patient-banner-slot"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "admission-requests-workspace",
+      "component": "admissionRequestWorkspace",
+      "title": "admissionRequests",
+      "type": "pending-admission-requests",
+      "width": "wider"
+    },{
+      "name": "create-admission-encounter-workspace",
+      "component": "createAdmissionEncounterWorkspace",
+      "title": "admitPatient",
+      "type": "patient-search-workspace",
+      "width": "wider"
+    },
+    {
+      "name": "ward-patient-notes-workspace",
+      "component": "wardPatientNotesWorkspace",
+      "type": "ward-patient-notes",
+      "title": "inpatientNotesWorkspaceTitle"
+
+    },
+    {
+      "name": "admit-patient-form-workspace",
+      "component": "admitPatientFormWorkspace",
+      "title": "admissionRequests",
+      "type": "admission-requests"
+    },
+    {
+      "name": "ward-patient-workspace",
+      "component": "wardPatientWorkspace",
+      "type": "ward",
+      "title": "Ward patient",
+      "width": "extra-wide"
+    },
+    {
+      "name": "patient-transfer-swap-workspace",
+      "component": "patientTransferAndSwapWorkspace",
+      "title": "transfers",
+      "type": "transfer-swap-bed-form"
+
+    },
+    {
+      "name": "patient-transfer-request-workspace",
+      "component": "patientTransferRequestWorkspace",
+      "title": "transferRequest",
+      "type": "transfer-request-form"
+    },
+    {
+      "name": "patient-discharge-workspace",
+      "component": "patientDischargeWorkspace",
+      "title": "discharge",
+      "type": "ward-patient-discharge"
+    },
+    {
+      "name": "ward-patient-clinical-forms-workspace",
+      "component": "patientClinicalFormsWorkspace",
+      "title": "clinicalForms",
+      "type": "ward-patient-clinical-forms",
+      "width": "wider"
+    },
+    {
+      "name": "cancel-admission-request-workspace",
+      "component": "cancelAdmissionRequestWorkspace",
+      "title": "cancelAdmissionRequest",
+      "type": "cancel-admission-request"
+    }
+  ],
+  "workspaceGroups": [
+    {
+      "name": "ward-patient",
+      "members": [
+        "ward-patient-workspace",
+        "ward-patient-notes-workspace",
+        "patient-transfer-swap-workspace",
+        "patient-discharge-workspace",
+        "ward-patient-clinical-forms-workspace",
+        "add-drug-order",
+        "order-basket",
+        "add-lab-order"
+      ]
+    },
+    {
+      "name": "ward-patient-admission-requests",
+      "members": [
+        "admission-requests-workspace",
+        "create-admission-encounter-workspace"
+      ]
+    }
+  ]
+}

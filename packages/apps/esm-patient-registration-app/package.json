@@ -1,0 +1,61 @@
+{
+  "name": "@pucp-gidis-hiisc/esm-patient-registration-app",
+  "version": "8.3.7",
+  "description": "Patient registration microfrontend for O3",
+  "browser": "dist/pucp-gidis-hiisc-esm-patient-registration-app.js",
+  "main": "src/index.ts",
+  "source": true,
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/openmrs/openmrs-esm-patient-management#readme",
+  "scripts": {
+    "start": "openmrs develop",
+    "serve": "webpack serve --mode=development",
+    "debug": "npm run serve",
+    "build": "webpack --mode production",
+    "analyze": "webpack --mode=production --env.analyze=true",
+    "lint": "cross-env eslint src --ext ts,tsx",
+    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
+    "coverage": "yarn test --coverage",
+    "typescript": "tsc",
+    "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
+    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.extension.tsx' 'src/**/*modal.tsx' 'src/**/*.workspace.tsx' 'src/index.ts' 'src/patient-registration/validation/patient-registration-validation.ts' --config ../../tools/i18next-parser.config.js"
+  },
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openmrs/openmrs-esm-patient-management.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openmrs/openmrs-esm-patient-management/issues"
+  },
+  "dependencies": {
+    "@carbon/react": "^1.71.0",
+    "classnames": "^2.3.2",
+    "formik": "^2.1.5",
+    "lodash-es": "^4.17.15",
+    "uuid": "^8.3.2",
+    "yup": "^0.29.1"
+  },
+  "peerDependencies": {
+    "@openmrs/esm-framework": "workspace:*",
+    "dayjs": "1.x",
+    "react": "18.x",
+    "react-i18next": "11.x",
+    "react-router-dom": "6.x",
+    "swr": "2.x"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "i18next": "^21.10.0",
+    "i18next-parser": "^9.0.2",
+    "webpack": "^5.74.0"
+  }
+}

@@ -1,0 +1,44 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.iframe {
+  width: 100%;
+  min-height: 800px;
+  height: calc(100vh - 200px);
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: spacing.$spacing-05;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  padding: spacing.$spacing-05;
+  text-align: center;
+  color: #da1e28;
+}
+
+.errorMessage {
+  @include type.type-style('body-compact-01');
+  margin-top: spacing.$spacing-03;
+  color: #525252;
+}

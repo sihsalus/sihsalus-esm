@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "fhir2": ">=1.2",
+    "webservices.rest": "^2.24.0",
+    "imaging": ">=1.1.0"
+  },
+  "extensions": [
+    {
+      "name": "imaging-details-widget",
+      "component": "imagingDetailedSummary",
+      "slot": "patient-chart-imaging-dashboard-slot",
+      "online": true,
+      "offline": true,
+      "meta": {
+        "fullWidth": false
+      }
+    },
+    {
+      "name": "imaging-summary-dashboard",
+      "component": "imagingDashboardLink",
+      "slot": "patient-chart-dashboard-slot",
+      "online": true,
+      "offline": true,
+      "order": 11,
+      "meta": {
+        "slot": "patient-chart-imaging-dashboard-slot",
+        "path": "Imaging",
+        "fullWidth": false
+      }
+    },
+    {
+      "name": "study-delete-confirmation-dialog",
+      "component": "studyDeleteConfirmationDialog"
+    },
+    {
+      "name": "series-delete-confirmation-dialog",
+      "component": "seriesDeleteConfirmationDialog"
+    },
+    {
+      "name": "request-delete-confirmation-dialog",
+      "component": "requestDeleteConfirmationDialog"
+    },
+    {
+      "name": "procedureStep-delete-confirmation-dialog",
+      "component": "procedureSteptDeleteConfirmationDialog"
+    },
+    {
+      "name": "instance-preview-dialog",
+      "component": "instancePreviewDialog"
+    }
+  ],
+  
+  "workspaces": [
+    {
+      "name": "upload-studies-form-workspace",
+      "title": "Upload study",
+      "component": "uploadStudiesFormWorkspace",
+      "type": "form"
+    },
+    {
+      "name": "link-studies-form-workspace",
+      "title": "Link studies",
+      "component": "linkStudiesFormWorkspace",
+      "type": "form"
+    },
+    {
+      "name": "assign-studies-form-workspace",
+      "title": "Assign studies",
+      "component": "assignStudiesFormWorkspace",
+      "type": "form",
+      "canMaximize": true,
+      "preferredWindowSize": "maximized"
+    },
+    {
+      "name": "add-request-form-workspace",
+      "title": "Add request",
+      "component": "addNewRequestWorkspace",
+      "type": "form",
+      "canMaximize": true
+    },
+    {
+      "name": "add-procedureStep-form-workspace",
+      "title": "Add procedure step",
+      "component": "addNewProcedureStepWorkspace",
+      "type": "form",
+      "canMaximize": true
+    }
+  ]
+}

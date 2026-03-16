@@ -1,0 +1,26 @@
+@use '@carbon/layout';
+
+.margin {
+  margin: layout.$spacing-07 0;
+  display: flex;
+  flex-direction: row;
+  gap: layout.$spacing-05;
+}
+
+.chartSlot > * {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.chartSlot > * + * {
+  margin-top: layout.$spacing-06;
+}
+
+.container {
+  max-width: 50rem;
+  margin-top: layout.$spacing-09;
+
+  > * + * {
+    margin-top: layout.$spacing-06;
+  }
+}

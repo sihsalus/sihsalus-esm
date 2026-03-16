@@ -1,0 +1,16 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.radioButtonGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: layout.$spacing-05;
+    min-height: layout.$spacing-10;
+    width: 100%;
+    @include type.type-style('body-short-01');
+    color: $text-02;
+    background-color: $ui-01;
+  }

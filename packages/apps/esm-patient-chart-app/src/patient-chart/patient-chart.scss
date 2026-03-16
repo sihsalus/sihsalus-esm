@@ -1,0 +1,71 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+$actionNavOffset: 45px;
+$actionPanelOffset: 256px;
+$actionPanelExpandedOffset: $actionNavOffset + $actionPanelOffset;
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: 1fr;
+  align-items: stretch;
+  width: inherit;
+}
+
+.chartReview {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: start;
+  height: 90%;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: layout.$spacing-10;
+}
+
+.widthContained {
+  max-width: 60rem;
+}
+
+:global(.omrs-breakpoint-gt-small-desktop) .widthContained {
+  max-width: 80rem;
+}
+
+.chartContainer {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+:global(.omrs-breakpoint-gt-small-desktop) .chartContainer {
+  margin-left: var(--omrs-sidenav-width);
+}
+
+.innerChartContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.closeWorkspace {
+  padding-right: 0;
+}
+
+// Overriding styles for RTL support
+html[dir='rtl'] {
+  .chartContainer {
+    padding-right: unset;
+    padding-left: layout.$spacing-01;
+  }
+
+  :global(.omrs-breakpoint-gt-small-desktop) .chartContainer {
+    margin-right: var(--omrs-sidenav-width);
+    margin-left: unset;
+  }
+
+  :global(.omrs-breakpoint-lt-desktop) .innerChartContainer {
+    padding-left: 0;
+    margin-right: unset;
+  }
+}

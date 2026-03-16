@@ -1,0 +1,44 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.widgetCard {
+  background-color: colors.$white;
+  border: 1px solid colors.$gray-20;
+}
+
+.divider {
+  width: 1px;
+  height: layout.$spacing-05;
+  color: colors.$gray-20;
+  margin: 0 layout.$spacing-05;
+}
+
+.vitalsHeaderActionItems {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: end;
+
+  & :global(.cds--content-switcher) {
+    max-width: max-content;
+
+    :global(.cds--content-switcher__label) {
+      height: layout.$spacing-05;
+    }
+  }
+}
+
+.customRow tbody {
+  white-space: nowrap;
+}
+
+.backgroundDataFetchingIndicator {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: end;
+}
+
+.printButton {
+  margin-left: 1.25rem;
+}

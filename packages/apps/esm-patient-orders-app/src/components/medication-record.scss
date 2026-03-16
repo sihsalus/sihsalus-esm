@@ -1,0 +1,63 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.medicationContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: layout.$spacing-03;
+  border-bottom: none;
+}
+
+.widgetCard {
+  border: 1px solid colors.$gray-20;
+  border-bottom: none;
+}
+
+.row {
+  span {
+    margin: auto;
+  }
+
+  p {
+    padding: layout.$spacing-02 0;
+  }
+}
+
+.medicationRecord {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p:not(:first-of-type, :last-of-type) {
+    padding: layout.$spacing-02 0;
+  }
+}
+
+.startDateColumn {
+  @include type.type-style('body-compact-01');
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: layout.$spacing-11;
+  padding-bottom: layout.$spacing-02;
+  margin-right: layout.$spacing-07;
+
+  span {
+    margin: 0;
+  }
+}
+
+.dosage {
+  @include type.type-style('heading-compact-01');
+}
+
+.bodyLong01 {
+  @include type.type-style('body-01');
+}
+
+.label01 {
+  @include type.type-style('label-01');
+}

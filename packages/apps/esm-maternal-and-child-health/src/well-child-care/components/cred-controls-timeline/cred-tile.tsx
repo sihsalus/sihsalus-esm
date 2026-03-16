@@ -1,0 +1,63 @@
+import React from 'react';
+import dayjs from 'dayjs';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { CheckmarkFilled, WarningFilled, EventSchedule, Time, CircleDash } from '@carbon/react/icons';
+import type { ControlStatus } from '../../../hooks/useCREDSchedule';
+import styles from './cred-matrix.scss';
+
+export interface CredTileProps {
+  uuid?: string;
+  controlNumber: number;
+  label: string;
+  date?: string | Date;
+  status: ControlStatus;
+  createdByCurrentUser?: boolean;
+  onDelete?: (id: string) => void;
+}
+
+const STATUS_ICONS: Record<ControlStatus, typeof CheckmarkFilled> = {
+  completed: CheckmarkFilled,
+  scheduled: EventSchedule,
+  overdue: WarningFilled,
+  pending: Time,
+  future: CircleDash,
+};
+
+const CredTile: React.FC<CredTileProps> = ({ controlNumber, label, date, status }) => {
+  const { t } = useTranslation();
+
+  const statusLabels: Record<ControlStatus, string> = {
+    completed: t('statusCompleted', 'Realizado'),
+    scheduled: t('statusScheduled', 'Programado'),
+    overdue: t('statusOverdue', 'Vencido'),
+    pending: t('statusPending', 'Pendiente'),
+    future: t('statusFuture', 'Futuro'),
+  };
+
+  const StatusIcon = STATUS_ICONS[status];
+
+  return (
+    <div
+      className={classNames(styles.ageTile, {
+        [styles.tileCompleted]: status === 'completed',
+        [styles.tileScheduled]: status === 'scheduled',
+        [styles.tileOverdue]: status === 'overdue',
+        [styles.tilePending]: status === 'pending',
+        [styles.tileFuture]: status === 'future',
+      })}
+    >
+      <div className={styles.tileHeader}>
+        <strong>{`#${controlNumber}`}</strong>
+        <span className={classNames(styles.statusBadge, styles[`status-${status}`])}>
+          <StatusIcon size={12} />
+          {statusLabels[status]}
+        </span>
+      </div>
+      <div className={styles.tileLabel}>{label}</div>
+      {date && <div className={styles.tileDate}>{dayjs(date).format('DD/MM/YYYY')}</div>}
+    </div>
+  );
+};
+
+export default CredTile;

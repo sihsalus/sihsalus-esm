@@ -1,0 +1,59 @@
+@use '@carbon/layout';
+
+.card {
+  border-left: 4px solid #24a148;
+  margin-bottom: layout.$spacing-04;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: layout.$spacing-04;
+
+  h5 {
+    margin: 0;
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.label {
+  color: var(--cds-text-02);
+  font-size: 0.875rem;
+}
+
+.value {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.iconSuccess {
+  fill: #198038;
+}
+
+.iconWarning {
+  fill: #da1e28;
+}
+
+.error {
+  color: #da1e28;
+  font-size: 0.75rem;
+  margin-top: layout.$spacing-03;
+}

@@ -1,0 +1,36 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.widgetCard {
+  border: 1px solid $ui-03;
+  background-color: $ui-02;
+}
+
+.biometricsHeaderActionItems {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: end;
+
+  & :global(.cds--content-switcher) {
+    max-width: max-content;
+
+    :global(.cds--content-switcher__label) {
+      height: layout.$spacing-05;
+    }
+  }
+}
+
+.divider {
+  width: 1px;
+  height: layout.$spacing-05;
+  color: $ui-03;
+  margin: 0 layout.$spacing-05;
+}
+
+.backgroundDataFetchingIndicator {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: end;
+}

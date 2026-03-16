@@ -1,0 +1,405 @@
+{
+  "opciones": [
+    {
+      "id": 1,
+      "nombre": "Aparato ortodóntico fijo",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 2,
+      "nombre": "Aparato ortodóntico removible",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 3,
+      "nombre": "Corona",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ],
+      "subopciones": [
+        { "id": 301, "nombre": "CM" },
+        { "id": 302, "nombre": "CF" },
+        { "id": 303, "nombre": "CMC" },
+        { "id": 304, "nombre": "CV" },
+        { "id": 305, "nombre": "CLM" }
+      ]
+    },
+    {
+      "id": 4,
+      "nombre": "Corona temporal",
+      "identificador": "CT",
+      "colores": [{ "id": 102, "name": "red" }]
+    },
+    {
+      "id": 5,
+      "nombre": "Defectos del desarrollo del esmalte",
+      "colores": [{ "id": 102, "name": "red" }],
+      "subopciones": [
+        { "id": 501, "nombre": "O", "descripcion": "Opacidades del esmalte" },
+        { "id": 502, "nombre": "PE" },
+        { "id": 503, "nombre": "Fluorosis" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding5Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding5Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding5Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding5Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding5Design5" },
+        { "number": 6, "nombre": "Diseño 6", "componente": "Finding5Design6" },
+        { "number": 7, "nombre": "Diseño 7", "componente": "Finding5Design7" },
+        { "number": 8, "nombre": "Diseño 8", "componente": "Finding5Design8" },
+        { "number": 9, "nombre": "Diseño 9", "componente": "Finding5Design9" },
+        { "number": 10, "nombre": "Diseño 10", "componente": "Finding5Design10" },
+        { "number": 11, "nombre": "Diseño 11", "componente": "Finding5Design11" },
+        { "number": 12, "nombre": "Diseño 12", "componente": "Finding5Design12" },
+        { "number": 13, "nombre": "Diseño 13", "componente": "Finding5Design13" },
+        { "number": 14, "nombre": "Diseño 14", "componente": "Finding5Design14" }
+      ] 
+    },
+    {
+      "id": 6,
+      "nombre": "Diastema",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 7,
+      "nombre": "Edéntulo total superior / inferior",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 8,
+      "nombre": "Espigo - Muñón",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding8Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding8Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding8Design3" }
+      ]
+    },
+    {
+      "id": 9,
+      "nombre": "Fosas y fisuras profundas",
+      "identificador": "FFP",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 10,
+      "nombre": "Fractura dental",
+      "colores": [{ "id": 102, "name": "red" }],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding10Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding10Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding10Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding10Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding10Design5" },
+        { "number": 6, "nombre": "Diseño 6", "componente": "Finding10Design6" },
+        { "number": 7, "nombre": "Diseño 7", "componente": "Finding10Design7" },
+        { "number": 8, "nombre": "Diseño 8", "componente": "Finding10Design8" }
+      ] 
+    },
+    {
+      "id": 11,
+      "nombre": "Fusión",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 12,
+      "nombre": "Geminación",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 13,
+      "nombre": "Giroversión",
+      "colores": [{ "id": 101, "name": "blue" }],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding13Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding13Design2" }
+      ]
+    },
+    {
+      "id": 14,
+      "nombre": "Impactación",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 15,
+      "nombre": "Implante dental",
+      "identificador": "IMP",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 16,
+      "nombre": "Lesión de caries dental",
+      "colores": [{ "id": 102, "name": "red" }],
+      "subopciones": [
+        { "id": 1601, "nombre": "MB", "descripcion": "Mancha blanca" },
+        { "id": 1602, "nombre": "CE" },
+        { "id": 1603, "nombre": "CD" },
+        { "id": 1604, "nombre": "CDP" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding5Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding5Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding5Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding5Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding5Design5" },
+        { "number": 6, "nombre": "Diseño 6", "componente": "Finding5Design6" },
+        { "number": 7, "nombre": "Diseño 7", "componente": "Finding5Design7" },
+        { "number": 8, "nombre": "Diseño 8", "componente": "Finding5Design8" },
+        { "number": 9, "nombre": "Diseño 9", "componente": "Finding5Design9" },
+        { "number": 10, "nombre": "Diseño 10", "componente": "Finding5Design10" },
+        { "number": 11, "nombre": "Diseño 11", "componente": "Finding5Design11" },
+        { "number": 12, "nombre": "Diseño 12", "componente": "Finding5Design12" },
+        { "number": 13, "nombre": "Diseño 13", "componente": "Finding5Design13" },
+        { "number": 14, "nombre": "Diseño 14", "componente": "Finding5Design14" }
+      ] 
+    },
+    {
+      "id": 17,
+      "nombre": "Macrodoncia",
+      "identificador": "MAC",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 18,
+      "nombre": "Microdoncia",
+      "identificador": "MIC",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 19,
+      "nombre": "Movilidad patológica",
+      "colores": [{ "id": 102, "name": "red" }],
+      "subopciones": [
+        { "id": 1901, "nombre": "M1" },
+        { "id": 1902, "nombre": "M2" },
+        { "id": 1903, "nombre": "M3" }
+      ]
+    },
+    {
+      "id": 20,
+      "nombre": "Pieza dentaria ausente",
+      "colores": [{ "id": 101, "name": "blue" }],
+      "subopciones": [
+        { "id": 2001, "nombre": "DNE" },
+        { "id": 2002, "nombre": "DEX" },
+        { "id": 2003, "nombre": "DAO" }
+      ]
+    },
+    {
+      "id": 21,
+      "nombre": "Pieza dentaria en clavija",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 22,
+      "nombre": "Pieza dentaria ectópica",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 23,
+      "nombre": "Pieza dentaria en erupción",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 24,
+      "nombre": "Pieza dentaria extruida",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 25,
+      "nombre": "Pieza dentaria intruida",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 26,
+      "nombre": "Pieza dentaria supernumeraria",
+      "colores": [{ "id": 101, "name": "blue" }]
+    },
+    {
+      "id": 27,
+      "nombre": "Pulpotomía",
+      "identificador": "PP",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding5Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding5Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding5Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding5Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding5Design5" },
+        { "number": 6, "nombre": "Diseño 6", "componente": "Finding5Design6" },
+        { "number": 7, "nombre": "Diseño 7", "componente": "Finding5Design7" },
+        { "number": 8, "nombre": "Diseño 8", "componente": "Finding5Design8" },
+        { "number": 9, "nombre": "Diseño 9", "componente": "Finding27Design9" }
+      ] 
+    },
+    {
+      "id": 28,
+      "nombre": "Pulpectomía",
+      "identificador": "PC",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 29,
+      "nombre": "Posición anormal dentaria",
+      "colores": [{ "id": 101, "name": "blue" }],
+      "subopciones": [
+        { "id": 2901, "nombre": "M" },
+        { "id": 2902, "nombre": "D" },
+        { "id": 2903, "nombre": "V" },
+        { "id": 2904, "nombre": "P" },
+        { "id": 2905, "nombre": "L" }
+      ]
+    },
+    {
+      "id": 30,
+      "nombre": "Prótesis dental parcial fija",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 31,
+      "nombre": "Prótesis dental completa superior / inferior",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 32,
+      "nombre": "Prótesis dental parcial removible",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ]
+    },
+    {
+      "id": 33,
+      "nombre": "Remanente radicular",
+      "identificador": "RR",
+      "colores": [{ "id": 102, "name": "red" }]
+    },
+    {
+      "id": 34,
+      "nombre": "Restauración definitiva",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ],
+      "subopciones": [
+        { "id": 3401, "nombre": "AM" },
+        { "id": 3402, "nombre": "R" },
+        { "id": 3403, "nombre": "IV" },
+        { "id": 3404, "nombre": "IM" },
+        { "id": 3405, "nombre": "IE" },
+        { "id": 3406, "nombre": "C" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding5Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding5Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding5Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding5Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding5Design5" },
+        { "number": 6, "nombre": "Diseño 6", "componente": "Finding5Design6" },
+        { "number": 7, "nombre": "Diseño 7", "componente": "Finding5Design7" },
+        { "number": 8, "nombre": "Diseño 8", "componente": "Finding5Design8" },
+        { "number": 9, "nombre": "Diseño 9", "componente": "Finding5Design9" },
+        { "number": 10, "nombre": "Diseño 10", "componente": "Finding5Design10" },
+        { "number": 11, "nombre": "Diseño 11", "componente": "Finding5Design11" },
+        { "number": 12, "nombre": "Diseño 12", "componente": "Finding5Design12" },
+        { "number": 13, "nombre": "Diseño 13", "componente": "Finding5Design13" },
+        { "number": 14, "nombre": "Diseño 14", "componente": "Finding5Design14" }
+      ]
+    },
+    {
+      "id": 35,
+      "nombre": "Restauración temporal",
+      "colores": [{ "id": 102, "name": "red" }],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding35Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding35Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding35Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding35Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding35Design5" },
+        { "number": 6, "nombre": "Diseño 6", "componente": "Finding35Design6" },
+        { "number": 7, "nombre": "Diseño 7", "componente": "Finding35Design7" },
+        { "number": 8, "nombre": "Diseño 8", "componente": "Finding35Design8" },
+        { "number": 9, "nombre": "Diseño 9", "componente": "Finding35Design9" },
+        { "number": 10, "nombre": "Diseño 10", "componente": "Finding35Design10" },
+        { "number": 11, "nombre": "Diseño 11", "componente": "Finding35Design11" },
+        { "number": 12, "nombre": "Diseño 12", "componente": "Finding35Design12" },
+        { "number": 13, "nombre": "Diseño 13", "componente": "Finding35Design13" },
+        { "number": 14, "nombre": "Diseño 14", "componente": "Finding35Design14" }
+      ]
+    },
+    {
+      "id": 36,
+      "nombre": "Sellantes",
+      "identificador": "S",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding36Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding36Design2" }
+      ]
+    },
+    {
+      "id": 37,
+      "nombre": "Superficie desgastada",
+      "identificador": "DES",
+      "colores": [{ "id": 102, "name": "red" }],
+      "subopciones": [
+        { "id": 3701, "nombre": "Abrasión" },
+        { "id": 3702, "nombre": "Atricción" },
+        { "id": 3703, "nombre": "Abfracción" }
+      ],
+      "designs": [
+        { "number": 1, "nombre": "Diseño 1", "componente": "Finding37Design1" },
+        { "number": 2, "nombre": "Diseño 2", "componente": "Finding37Design2" },
+        { "number": 3, "nombre": "Diseño 3", "componente": "Finding37Design3" },
+        { "number": 4, "nombre": "Diseño 4", "componente": "Finding37Design4" },
+        { "number": 5, "nombre": "Diseño 5", "componente": "Finding37Design5" }
+      ]
+    },
+    {
+      "id": 38,
+      "nombre": "Tratamiento de conducto",
+      "colores": [
+        { "id": 101, "name": "blue" },
+        { "id": 102, "name": "red" }
+      ],
+      "subopciones": [
+        { "id": 3801, "nombre": "TC" },
+        { "id": 3802, "nombre": "PC" }
+      ]
+    },
+    {
+      "id": 39,
+      "nombre": "Transposición dentaria",
+      "colores": [{ "id": 101, "name": "blue" }]
+    }
+  ]
+}

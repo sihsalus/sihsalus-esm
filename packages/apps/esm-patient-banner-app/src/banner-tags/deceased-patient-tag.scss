@@ -1,0 +1,15 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.tooltipPadding {
+  padding: layout.$spacing-02;
+}
+
+.tooltipSmallText {
+  font-size: 80%;
+}
+
+.tagOverride {
+  background-color: colors.$gray-80;
+  color: colors.$gray-20;
+}

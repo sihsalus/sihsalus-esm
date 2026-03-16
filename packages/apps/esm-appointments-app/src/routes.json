@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": "^2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "home-appointments",
+      "slot": "homepage-widgets-slot",
+      "component": "homeAppointments",
+      "order": 1
+    },
+    {
+      "name": "clinical-appointments-dashboard-link",
+      "slot": "homepage-dashboard-slot",
+      "component": "appointmentsDashboardLink",
+      "meta": {
+        "name": "appointments",
+        "slot": "clinical-appointments-dashboard-slot",
+        "title": "Appointments"
+      }
+    },
+    {
+      "component": "root",
+      "name": "clinical-appointments-dashboard",
+      "slot": "clinical-appointments-dashboard-slot"
+    },
+    {
+      "name": "appointments-calendar-dashboard-link",
+      "slot": "calendar-dashboard-slot",
+      "component": "appointmentsCalendarDashboardLink"
+    },
+    {
+      "name": "todays-appointments-dashboard",
+      "slot": "todays-appointment-slot",
+      "component": "homeAppointments"
+    },
+    {
+      "name": "expected-appointments-panel",
+      "slot": "scheduled-appointments-panels-slot",
+      "component": "appointmentsList"
+    },
+    {
+      "name": "checked-in-appointments-panel",
+      "slot": "scheduled-appointments-panels-slot",
+      "component": "appointmentsList"
+    },
+    {
+      "name": "completed-appointments-panel",
+      "slot": "scheduled-appointments-panels-slot",
+      "component": "appointmentsList"
+    },
+    {
+      "name": "missed-appointments-panel",
+      "slot": "scheduled-appointments-panels-slot",
+      "component": "appointmentsList"
+    },
+    {
+      "name": "cancelled-appointments-panel",
+      "slot": "scheduled-appointments-panels-slot",
+      "component": "appointmentsList"
+    },
+    {
+      "name": "early-appointments-panel",
+      "component": "earlyAppointments"
+    },
+    {
+      "name": "patient-appointments-summary-dashboard",
+      "component": "patientAppointmentsSummaryDashboardLink",
+      "slot": "patient-chart-dashboard-slot",
+      "order": 11,
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "hideDashboardTitle": true,
+        "path": "Appointments",
+        "slot": "patient-chart-appointments-dashboard-slot",
+        "title": "Appointments"
+      }
+    },
+    {
+      "name": "patientAppointments-details-widget",
+      "component": "patientAppointmentsDetailedSummary",
+      "slot": "patient-chart-appointments-dashboard-slot",
+      "meta": {
+        "columnSpan": 1
+      }
+    },
+    {
+      "name": "patient-upcoming-appointment-widget",
+      "component": "patientUpcomingAppointmentsWidget",
+      "slot": "visit-form-top-slot"
+    },
+    {
+      "name": "search-patient",
+      "component": "searchPatient"
+    },
+    {
+      "name": "home-appointments-tile",
+      "slot": "home-metrics-tiles-slot",
+      "component": "homeAppointmentsTile"
+    }
+  ],
+  "modals": [
+    {
+      "name": "end-appointment-modal",
+      "component": "endAppointmentModal"
+    },
+    {
+      "name": "cancel-appointment-modal",
+      "component": "cancelAppointmentModal"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "appointments-form-workspace",
+      "component": "appointmentsFormWorkspace",
+      "title": "createNewAppointment",
+      "type": "form"
+    }
+  ]
+}

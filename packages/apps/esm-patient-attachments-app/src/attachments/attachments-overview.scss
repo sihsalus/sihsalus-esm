@@ -1,0 +1,35 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as vars;
+
+.overview {
+  background-color: vars.$ui-02;
+}
+
+.attachmentHeaderActionItems {
+  align-items: center;
+  display: flex;
+  justify-content: end;
+
+  & :global(.cds--content-switcher) {
+    max-width: max-content;
+
+    :global(.cds--content-switcher__label) {
+      height: layout.$spacing-05;
+    }
+  }
+}
+
+.divider {
+  width: 1px;
+  height: layout.$spacing-05;
+  color: colors.$gray-20;
+  margin: 0 layout.$spacing-05;
+}
+
+.validatingDataIcon {
+  align-items: center;
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: center;
+}

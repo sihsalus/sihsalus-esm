@@ -1,0 +1,66 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+@media screen {
+  .printPage {
+    background-color: colors.$white;
+    display: none;
+  }
+}
+
+@media print {
+  @page {
+    size: auto;
+    margin: layout.$spacing-08;
+    font-size: smaller;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: colors.$white;
+  }
+
+  .patientDetails {
+    @include type.type-style('body-compact-02');
+    margin: 0 layout.$spacing-03;
+  }
+
+  .patientInfo {
+    color: colors.$gray-80;
+    @include type.type-style('body-compact-02');
+  }
+
+  .name {
+    @include type.type-style('heading-compact-02');
+    margin-right: layout.$spacing-03;
+  }
+
+  .footer {
+    font-size: layout.$spacing-04;
+    display: flex;
+  }
+
+  .date {
+    margin-left: layout.$spacing-06;
+  }
+
+  .gender {
+    text-transform: capitalize;
+  }
+
+  .printedBy {
+    @include type.type-style('body-compact-01');
+    margin: 0 layout.$spacing-02;
+    font-size: smaller;
+  }
+
+  .subheader {
+    @include type.type-style('heading-03');
+    color: colors.$gray-70;
+    padding: layout.$spacing-03;
+    text-align: center;
+  }
+}

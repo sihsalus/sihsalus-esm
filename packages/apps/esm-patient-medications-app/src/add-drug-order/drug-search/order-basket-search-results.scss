@@ -1,0 +1,130 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+/** For OrderBasketSearchResults */
+.container {
+  margin: layout.$spacing-03 layout.$spacing-05 0;
+}
+
+.searchResultsCount {
+  @include type.type-style('body-compact-01');
+  color: $text-02;
+}
+
+.orderBasketSearchResultsHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: layout.$spacing-03;
+  align-items: center;
+}
+
+/** For DrugSearchResultItem */
+.searchResultTile {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid $grey-2;
+
+  &:not(:last-of-type) {
+    margin-bottom: layout.$spacing-03;
+  }
+}
+
+.tabletSearchResultTile {
+  &:not(:last-of-type) {
+    margin-bottom: layout.$spacing-04;
+  }
+}
+
+.searchResultTileContent {
+  padding: layout.$spacing-03 layout.$spacing-05;
+}
+
+.searchResultActions {
+  border-top: 1px solid $grey-2;
+  padding: 0 layout.$spacing-05;
+  display: flex;
+  justify-content: flex-end;
+
+  svg {
+    fill: currentColor !important;
+  }
+}
+
+.errorLabel {
+  @extend .label01;
+  color: $danger;
+}
+
+.searchResultSkeletonWrapper {
+  margin: layout.$spacing-03 layout.$spacing-05 layout.$spacing-03;
+
+  :global(.cds--skeleton__text) {
+    margin: 0;
+  }
+
+  .searchResultCntSkeleton {
+    margin-right: layout.$spacing-07;
+  }
+
+  .skeletonTile {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.emptyState {
+  margin: layout.$spacing-05;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: layout.$spacing-07;
+  border: 1px solid $ui-03;
+  text-align: center;
+  background-color: $ui-01;
+}
+
+:global(.omrs-breakpoint-lt-small-desktop) .emptyState {
+  background-color: $ui-02;
+}
+
+.link {
+  color: $interactive-01;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.resultsContainer::-webkit-scrollbar {
+  width: layout.$spacing-03;
+}
+
+.resultsContainer::-webkit-scrollbar-thumb {
+  border-radius: layout.$spacing-02;
+}
+
+.drugAlreadyPrescribed {
+  margin: 0 layout.$spacing-03 layout.$spacing-03 0;
+  text-align: right;
+  @include type.type-style('label-01');
+  color: $text-02;
+}
+
+.productiveHeading01 {
+  @include type.type-style('heading-compact-01');
+  margin-bottom: layout.$spacing-03;
+}
+
+.bodyShort01 {
+  @include type.type-style('body-compact-01');
+}
+
+.label01 {
+  @include type.type-style('label-01');
+}
+
+.text02 {
+  color: $text-02;
+}

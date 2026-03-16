@@ -1,0 +1,63 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.trackingCard {
+  margin-bottom: layout.$spacing-05;
+  padding: layout.$spacing-05;
+  border-left: 4px solid colors.$purple-60;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: layout.$spacing-04;
+
+  h5 {
+    @include type.type-style('heading-compact-01');
+    color: colors.$gray-80;
+    margin: 0;
+  }
+}
+
+.indicators {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.iconSuccess {
+  fill: colors.$green-60;
+}
+
+.iconPending {
+  fill: colors.$gray-50;
+}
+
+.completed {
+  @include type.type-style('body-compact-01');
+  color: colors.$green-60;
+}
+
+.pending {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-60;
+}
+
+.summary {
+  margin-top: layout.$spacing-04;
+  padding-top: layout.$spacing-03;
+  border-top: 1px solid colors.$gray-20;
+}
+
+.count {
+  @include type.type-style('label-01');
+  color: colors.$gray-60;
+}

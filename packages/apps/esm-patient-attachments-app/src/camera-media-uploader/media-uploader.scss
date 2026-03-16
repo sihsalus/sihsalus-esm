@@ -1,0 +1,32 @@
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as vars;
+
+.errorContainer {
+  margin: layout.$spacing-05 0;
+}
+
+.uploadFile {
+  color: vars.$ui-02;
+  width: 100%;
+  height: 406px;
+
+  div > button {
+    max-width: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height: 406px;
+    position: relative;
+  }
+
+  label {
+    max-width: unset;
+  }
+
+  label > div {
+    height: 25rem;
+    justify-content: center;
+    align-items: center;
+  }
+}

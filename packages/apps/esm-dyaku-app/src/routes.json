@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "pages": [
+    {
+      "component": "dyakuPatientsPage",
+      "route": "dyaku-patients",
+      "online": true,
+      "offline": true
+    }
+  ],
+  "extensions": [
+    {
+      "name": "system-administration-dyaku-patients",
+      "slot": "system-admin-page-card-link-slot",
+      "component": "dyakuPatientsLink",
+      "online": true,
+      "offline": true
+    }
+  ]
+}

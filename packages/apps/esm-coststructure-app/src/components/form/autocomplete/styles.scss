@@ -1,0 +1,33 @@
+.container {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+}
+.procedure-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 10;
+}
+.procedure {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: '1px solid #f5f5f5';
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.procedure > p:nth-child(2) {
+  font-size: 0.8em;
+  color: #555;
+}
+.procedure > p:first-child {
+  font-weight: 500;
+}
