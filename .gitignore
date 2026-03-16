@@ -1,86 +1,12 @@
-# Dependencies
 node_modules/
-
-# Build outputs
 dist/
-build/
-*.tgz
-
-# Turborepo
-.turbo/
-
-# TypeScript
-*.tsbuildinfo
-
-# Testing
 coverage/
-.nyc_output/
-test-results/
-playwright-report/
-playwright/.cache/
-e2e/storageState.json
-
-# Linting & formatting
+.turbo/
+*.tsbuildinfo
 .eslintcache
-
-# Environment
+.DS_Store
 .env
 .env.local
 .env.*.local
-
-# IDE
-.idea/
-*.iml
-.vscode/settings.json
-.vscode/launch.json
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Runtime
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# Docker
-docker-compose.override.yml
-
-# i18next namespace directories
-moduleName/
-
-# Yarn Berry (v4) — PnP disabled, track releases and patches
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-.yarn-integrity
-
-# Yalc
-.yalc/
-yalc.lock
-
-# Angular (legacy)
-.angular/
-
-# Claude AI (local settings only, project settings tracked)
-.claude/settings.local.json
-.claude/*.jsonl
-
-# Misc
-*.bak
-*.orig
+*.pem
+*.key

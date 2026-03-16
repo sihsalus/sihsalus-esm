@@ -1,0 +1,102 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "ui": "stream",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**",
+        "!src/**/*.test.*",
+        "!src/**/setup-tests.*",
+        "tsconfig.json",
+        "tsconfig.build.json",
+        "webpack.config.js",
+        "rspack.config.js",
+        "rspack.config.cjs",
+        ".swcrc",
+        "postcss.config.js",
+        "translations/**",
+        "dependencies.json",
+        "$TURBO_ROOT$/packages/framework/tsconfig.json"
+      ],
+      "outputs": ["dist/**"],
+      "env": [
+        "NODE_ENV",
+        "SIHSALUS_AUTH_MODE",
+        "SIHSALUS_FHIR_BASE"
+      ]
+    },
+    "build:development": {
+      "dependsOn": ["^build:development"],
+      "inputs": [
+        "src/**",
+        "!src/**/*.test.*",
+        "tsconfig.json",
+        "webpack.config.js",
+        "rspack.config.js",
+        "translations/**",
+        "$TURBO_ROOT$/packages/framework/tsconfig.json"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "inputs": [
+        "src/**",
+        "__mocks__/**",
+        "mock.ts",
+        "mock-jest.ts",
+        "mock-jest.tsx",
+        "vitest.config.ts",
+        "setup-tests.ts"
+      ]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "coverage": {
+      "inputs": [
+        "src/**",
+        "__mocks__/**",
+        "vitest.config.ts",
+        "setup-tests.ts"
+      ],
+      "outputs": ["coverage/**"]
+    },
+    "lint": {
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "$TURBO_ROOT$/.eslintrc"
+      ]
+    },
+    "typescript": {
+      "dependsOn": ["^typescript"],
+      "inputs": [
+        "src/**",
+        "tsconfig.json",
+        "tsconfig.build.json",
+        "$TURBO_ROOT$/packages/framework/tsconfig.json"
+      ]
+    },
+    "extract-translations": {
+      "inputs": [
+        "src/**/*.component.tsx",
+        "src/**/*.extension.tsx",
+        "src/**/*.modal.tsx",
+        "src/**/*.resource.ts"
+      ]
+    },
+    "e2e": {
+      "dependsOn": ["build"],
+      "outputs": ["e2e/results/**"],
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

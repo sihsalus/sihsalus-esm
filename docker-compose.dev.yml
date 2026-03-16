@@ -1,0 +1,21 @@
+services:
+  frontend:
+    build:
+      context: .
+      target: builder
+    command: yarn dev
+    volumes:
+      - ./packages:/app/packages
+      - ./config:/app/config
+    ports:
+      - "8080:8080"
+    environment:
+      - SIHSALUS_AUTH_MODE=openmrs
+      - BACKEND_URL=http://backend:8080
+    depends_on:
+      - backend
+
+  backend:
+    image: openmrs/openmrs-reference-application:latest
+    ports:
+      - "8081:8080"
