@@ -66,6 +66,7 @@
   "resolutions": {
     "sass": "^1.54.3",
     "zustand": "^4.5.5",
-    "webpack": "5.99.9"
+    "webpack": "5.99.9",
+    "html-webpack-plugin": "^5.5.0"
   }
 }
