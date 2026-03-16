@@ -270,28 +270,26 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
       optimizationConfig,
     ),
     plugins: [
-      new ForkTsCheckerWebpackPlugin({
-        issue: {
-          exclude: [
-            {
-              severity: 'error',
-              code: 'TS2786',
-            },
-            {
-              file: '**/*.test.*',
-            },
-            {
-              file: '**/setup-tests.*',
-            },
-          ],
-        },
-        typescript: {
-          diagnosticOptions: {
-            semantic: true,
-            syntactic: true,
-          },
-        },
-      }),
+      ...(mode !== production
+        ? [
+            new ForkTsCheckerWebpackPlugin({
+              issue: {
+                exclude: [
+                  {
+                    severity: 'error',
+                    code: 'TS2786',
+                  },
+                  {
+                    file: '**/*.test.*',
+                  },
+                  {
+                    file: '**/setup-tests.*',
+                  },
+                ],
+              },
+            }),
+          ]
+        : []),
       new CleanWebpackPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: env && env.analyze ? 'server' : 'disabled',
