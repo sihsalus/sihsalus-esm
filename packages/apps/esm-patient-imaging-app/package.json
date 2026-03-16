@@ -1,5 +1,5 @@
 {
-  "name": "@pucp-gidis-hiisc/esm-patient-imaging-app",
+  "name": "@openmrs/esm-patient-imaging-app",
   "version": "1.0.0-alpha",
   "license": "MPL-2.0",
   "description": "Patient imaging microfrontend for the OpenMRS SPA",
