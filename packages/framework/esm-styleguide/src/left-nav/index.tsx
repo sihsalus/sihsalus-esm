@@ -15,6 +15,8 @@ import styles from './left-nav.module.scss';
  * Extended props for the LeftNavMenu component
  */
 interface LeftNavMenuProps extends SideNavProps {
+  /** HTML inert attribute for accessibility */
+  inert?: boolean;
   /**
    * Flag indicating if this component is a child of the header component.
    * When true, the component renders the left nav menu.
@@ -43,6 +45,7 @@ export const LeftNavMenu = React.forwardRef<HTMLElement, LeftNavMenuProps>((prop
         className={styles.leftNav}
         expanded
         isFixedNav
+        // @ts-expect-error — HTML inert attribute not yet in Carbon's SideNav types
         inert={typeof inert === 'boolean' ? inert : undefined}
         ref={ref}
         {...restProps}
