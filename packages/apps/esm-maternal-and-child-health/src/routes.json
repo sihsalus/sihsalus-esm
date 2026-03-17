@@ -55,7 +55,11 @@
     {
       "name": "maternal-and-child-health-dashboard-group-link",
       "component": "maternalAndChildHealthSideNavGroup",
-      "slot": "patient-chart-dashboard-slot"
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "maternal-and-child-health-slot",
+        "isFolder": true
+      }
     },
     {
       "name": "family-planning-dashboard",
@@ -369,7 +373,11 @@
     {
       "name": "well-child-care-dashboard-group-link",
       "component": "wellChildCareSideNavGroup",
-      "slot": "patient-chart-dashboard-slot"
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "well-child-care-slot",
+        "isFolder": true
+      }
     },
     {
       "name": "early-stimulation-dashboard",

@@ -4,7 +4,7 @@ import styles from './clinical-view-section.scss';
 import { Information as InformationIcon } from '@carbon/react/icons';
 import { Tooltip } from '@carbon/react';
 import { ExtensionSlot } from '@openmrs/esm-framework';
-import { registerNavGroup } from './nav-group';
+import { registerNavGroup } from '@openmrs/esm-patient-common-lib';
 
 interface ClinicalViewSectionProps {
   basePath: string;

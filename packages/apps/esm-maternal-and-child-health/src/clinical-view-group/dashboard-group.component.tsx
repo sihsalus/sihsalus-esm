@@ -3,7 +3,7 @@ import { ExtensionSlot, useLayoutType } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
 import { SideNavItems, SideNavMenu } from '@carbon/react';
 import styles from './dashboard-group.scss';
-import { registerNavGroup } from './nav-group';
+import { registerNavGroup } from '@openmrs/esm-patient-common-lib';
 
 export interface DashboardGroupExtensionProps {
   title: string;

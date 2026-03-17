@@ -7,7 +7,11 @@
     {
       "name": "clinical-view-section",
       "component": "clinicalViewPatientDashboard",
-      "slot": "patient-chart-dashboard-slot"
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "clinical-view-section",
+        "isFolder": true
+      }
     },
     {
       "name": "case-encounter-link",
@@ -133,7 +137,11 @@
     {
       "name": "hiv-care-and-treatment-dashboard-group-link",
       "slot": "special-clinics-slot",
-      "component": "hivCareAndTreatMentSideNavGroup"
+      "component": "hivCareAndTreatMentSideNavGroup",
+      "meta": {
+        "slot": "hiv-care-and-treatment-slot",
+        "isFolder": true
+      }
     },
     {
       "name": "hts-clinical-view",
