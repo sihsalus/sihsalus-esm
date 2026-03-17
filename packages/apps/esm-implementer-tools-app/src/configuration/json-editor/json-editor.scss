@@ -1,16 +1,15 @@
 @use '@carbon/colors';
 @use '@carbon/layout';
-@use '@carbon/react/scss/theme';
 
 .toolbar {
   display: flex;
   button {
-    background-color: theme.$button-primary;
+    background-color: var(--cds-button-primary, #0f62fe);
     &:hover {
-      background-color: theme.$button-primary-hover;
+      background-color: var(--cds-button-primary-hover, #0353e9);
     }
   }
-  background-color: theme.$layer-accent;
+  background-color: var(--cds-layer-accent-01, #e0e0e0);
 }
 
 .alert {

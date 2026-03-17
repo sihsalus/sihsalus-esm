@@ -1,8 +1,9 @@
 {
   "name": "@openmrs/esm-form-entry-app",
+  "private": true,
   "version": "9.2.2",
   "license": "MPL-2.0",
-  "description": "Angular form engine for O3",
+  "description": "Angular form engine for O3 (EXCLUDED: requires Angular CLI + deps, fix separately)",
   "browser": "dist/openmrs-esm-form-entry-app.js",
   "main": "src/index.ts",
   "source": true,
