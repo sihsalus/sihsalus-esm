@@ -229,7 +229,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
                 options: {
                   api: 'modern-compiler',
                   implementation: require.resolve('sass-embedded'),
-                  sassOptions: { quietDeps: true, loadPaths: [resolve(root, 'node_modules'), resolve(root, '..', '..', '..', 'node_modules')] },
+                  sassOptions: { quietDeps: true },
                 },
               },
             ],

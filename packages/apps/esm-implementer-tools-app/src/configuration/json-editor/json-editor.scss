@@ -1,14 +1,13 @@
 @use '@carbon/colors';
 @use '@carbon/layout';
 @use '@carbon/react/scss/theme';
-@use '@carbon/styles/scss/components/button';
 
 .toolbar {
   display: flex;
   button {
-    background-color: button.$button-primary;
+    background-color: theme.$button-primary;
     &:hover {
-      background-color: button.$button-primary-hover;
+      background-color: theme.$button-primary-hover;
     }
   }
   background-color: theme.$layer-accent;
