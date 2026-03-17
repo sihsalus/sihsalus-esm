@@ -13,7 +13,7 @@ const visitContextStoreActions = {
     };
   },
   mutateVisit(currState: VisitStoreState) {
-    for (const mutateCallback of Object.values(currState.mutateVisitCallbacks ?? {})) {
+    for (const mutateCallback of Object.values(currState.mutateVisitCallbacks)) {
       mutateCallback();
     }
     return {};

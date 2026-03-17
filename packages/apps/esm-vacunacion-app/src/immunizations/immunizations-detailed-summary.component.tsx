@@ -31,7 +31,7 @@ import {
   EmptyState,
   ErrorState,
   PatientChartPagination,
-  usePatientChartStore,
+  useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
 import { immunizationFormSub, latestFirst, linkConfiguredSequences } from './utils';
 import { useImmunizations } from '../hooks/useImmunizations';
@@ -51,7 +51,7 @@ const ImmunizationsDetailedSummary: React.FC<ImmunizationsDetailedSummaryProps> 
   const { immunizationsConfig } = useConfig();
   const displayText = t('immunizations__lower', 'immunizations');
   const headerTitle = t('immunizations', 'Immunizations');
-  const { visitContext } = usePatientChartStore(patientUuid);
+  const { currentVisit: visitContext } = useVisitOrOfflineVisit(patientUuid);
   const isTablet = useLayoutType() === 'tablet';
   const sequenceDefinitions = immunizationsConfig?.sequenceDefinitions;
 

@@ -15,8 +15,8 @@ import { useTranslation } from 'react-i18next';
 import {
   CardHeader,
   EmptyState,
-  usePatientChartStore,
   launchStartVisitPrompt,
+  useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
 import { launchWorkspace } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
@@ -71,7 +71,7 @@ const CareSummaryTable: React.FC<CareSummaryTableProps> = ({
 }) => {
   const { t } = useTranslation();
   const { prenatalEncounters, isValidating, mutate } = useEncountersHook(patientUuid);
-  const { visitContext: currentVisit } = usePatientChartStore(patientUuid);
+  const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
 
   const launchForm = useCallback(() => {
     try {

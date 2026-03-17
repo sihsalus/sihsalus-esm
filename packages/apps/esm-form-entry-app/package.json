@@ -11,7 +11,7 @@
     "start": "openmrs develop",
     "serve": "ng serve --port 4200 --live-reload true",
     "debug": "yarn run serve",
-    "build": "ng build --configuration production",
+    "build:angular": "ng build --configuration production",
     "lint": "ng lint"
   },
   "openmrs:develop": {

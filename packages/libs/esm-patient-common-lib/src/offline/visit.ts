@@ -148,5 +148,5 @@ function offlineVisitToVisit(offlineVisit: OfflineVisit): Visit {
     patient: {
       uuid: offlineVisit.patient,
     },
-  };
+  } as Visit;
 }

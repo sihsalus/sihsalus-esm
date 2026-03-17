@@ -8,7 +8,7 @@ export function toLocationObject(openmrsRestForm: any): Location {
   return {
     uuid: openmrsRestForm.uuid,
     display: openmrsRestForm.display,
-  };
+  } as Location;
 }
 
 export function getLocations(

@@ -18,8 +18,8 @@ import {
   CardHeader,
   EmptyState,
   ErrorState,
-  usePatientChartStore,
   launchStartVisitPrompt,
+  useVisitOrOfflineVisit,
   PatientChartPagination,
 } from '@openmrs/esm-patient-common-lib';
 import {
@@ -75,7 +75,7 @@ const PatientSummaryTable = <T,>({
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { data, isLoading, error, mutate } = dataHook(patientUuid);
-  const { visitContext: currentVisit } = usePatientChartStore(patientUuid);
+  const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
 
   const launchForm = useCallback(() => {
     try {

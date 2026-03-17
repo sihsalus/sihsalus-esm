@@ -70,7 +70,7 @@ export async function importDynamic<T = any>(
     throw new Error(error);
   }
 
-  container.init(__webpack_share_scopes__.default);
+  container.init((globalThis as any).__webpack_share_scopes__.default);
 
   const factory = await container.get(share);
   const module = factory();
@@ -182,7 +182,7 @@ export async function getCurrentImportMap() {
 }
 
 interface FederatedModule {
-  init: (scope: typeof __webpack_share_scopes__.default) => void;
+  init: (scope: Record<string, { loaded?: 1; get: () => Promise<unknown>; from: string; eager: boolean }>) => void;
   get: (_export: string) => Promise<() => unknown>;
 }
 

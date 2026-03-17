@@ -45,7 +45,6 @@ export const LeftNavMenu = React.forwardRef<HTMLElement, LeftNavMenuProps>((prop
         className={styles.leftNav}
         expanded
         isFixedNav
-        // @ts-expect-error — HTML inert attribute not yet in Carbon's SideNav types
         inert={typeof inert === 'boolean' ? inert : undefined}
         ref={ref}
         {...restProps}

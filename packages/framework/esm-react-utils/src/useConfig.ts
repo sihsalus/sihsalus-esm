@@ -97,7 +97,7 @@ function useExtensionConfigStore(store: StoreApi<ExtensionsConfigStore>, extensi
 }
 
 function useExtensionConfig(extension: ExtensionData | undefined) {
-  const store = useMemo(getExtensionsConfigStore, []);
+  const store = useMemo(getExtensionsConfigStore, []) as StoreApi<ExtensionsConfigStore>;
   const state = useExtensionConfigStore(store, extension);
 
   if (!state && extension) {
