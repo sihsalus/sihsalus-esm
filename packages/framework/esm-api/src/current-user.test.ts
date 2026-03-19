@@ -1,5 +1,4 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import '@testing-library/jest-dom/vitest';
 import { Observable } from 'rxjs';
 import {
   userHasAccess,

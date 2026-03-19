@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
 import useAbortController from './useAbortController';
 
 describe('useAbortController', () => {

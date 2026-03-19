@@ -126,12 +126,14 @@
       "Bash(then echo \"$file\" fi done)",
       "Read(//home/duvet05/frontend-web/packages/__mocks__/**)",
       "Bash(tee:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Read(//home/duvet05/frontend-web/packages/framework/esm-react-utils/**)"
     ],
     "deny": [],
     "additionalDirectories": [
       "/home/duvet05/frontend-web/packages/apps",
-      "/tmp/esm-pm-mocks/__mocks__"
+      "/tmp/esm-pm-mocks/__mocks__",
+      "/home/duvet05/frontend-web/packages/framework/esm-config"
     ]
   }
 }

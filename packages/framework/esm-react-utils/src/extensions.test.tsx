@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useReducer } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import '@testing-library/jest-dom/vitest';
 import userEvent from '@testing-library/user-event';
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 import { registerFeatureFlag, setFeatureFlag } from '@openmrs/esm-feature-flags';

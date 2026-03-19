@@ -1,10 +1,4 @@
-import * as matchers from '@testing-library/jest-dom/matchers';
-import { afterEach, expect, vi } from 'vitest';
-import type {} from '@openmrs/esm-globals';
-import { cleanup } from '@testing-library/react';
-
-expect.extend(matchers);
-
+// happy-dom v20 doesn't expose localStorage as callable methods; provide an in-memory shim.
 const _localStorageData: Record<string, string> = {};
 const _localStorageShim: Storage = {
   getItem: (key) => _localStorageData[key] ?? null,
@@ -16,18 +10,3 @@ const _localStorageShim: Storage = {
 };
 Object.defineProperty(globalThis, 'localStorage', { value: _localStorageShim, writable: true });
 Object.defineProperty(window, 'localStorage', { value: _localStorageShim, writable: true });
-
-global.window.openmrsBase = '/openmrs';
-global.window.spaBase = '/spa';
-global.window.getOpenmrsSpaBase = () => '/openmrs/spa/';
-
-vi.mock('@openmrs/esm-navigation', async () => {
-  const actual = await vi.importActual('@openmrs/esm-navigation');
-
-  return {
-    ...actual,
-    navigate: vi.fn(),
-  };
-});
-
-afterEach(cleanup);

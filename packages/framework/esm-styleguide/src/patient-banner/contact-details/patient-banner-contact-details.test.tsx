@@ -1,7 +1,6 @@
 /** @module @category UI */
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import '@testing-library/jest-dom/vitest';
 import { screen } from '@testing-library/react';
 import { usePatient } from '@openmrs/esm-react-utils';
 import { usePatientAttributes, usePatientContactAttributes } from './usePatientAttributes';

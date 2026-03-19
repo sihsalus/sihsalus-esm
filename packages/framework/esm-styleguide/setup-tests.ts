@@ -1,7 +1,9 @@
-import { afterEach, vi } from 'vitest';
+import * as matchers from '@testing-library/jest-dom/matchers';
+import { afterEach, expect, vi } from 'vitest';
 import type {} from '@openmrs/esm-globals';
 import { cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
+
+expect.extend(matchers);
 
 vi.mock('@openmrs/esm-api', async () => ({
   ...(await vi.importActual('@openmrs/esm-api')),
