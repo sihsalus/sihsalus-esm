@@ -1,0 +1,15 @@
+{
+  "name": "@sihsalus/constants",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MPL-2.0",
+  "description": "Centralized UUID registry and magic constants for SIH Salus",
+  "main": "src/index.ts",
+  "source": true,
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "typescript": "tsc",
+    "lint": "eslint src --ext ts,tsx",
+    "test": "vitest run --passWithNoTests"
+  }
+}

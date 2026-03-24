@@ -13,7 +13,7 @@ import {
 } from './current-user';
 import type * as openmrsFetchExport from './openmrs-fetch';
 import { openmrsFetch } from './openmrs-fetch';
-import { reportError } from '@openmrs/esm-error-handling';
+import { reportError } from '@openmrs/esm-globals';
 import type { LoggedInUser, Privilege, Role, Session } from './types';
 
 // Mock only the function calls, not constants
@@ -25,9 +25,13 @@ vi.mock('./openmrs-fetch', async () => {
   };
 });
 
-vi.mock('@openmrs/esm-error-handling', () => ({
-  reportError: vi.fn(),
-}));
+vi.mock('@openmrs/esm-globals', async () => {
+  const actual = await vi.importActual<typeof import('@openmrs/esm-globals')>('@openmrs/esm-globals');
+  return {
+    ...actual,
+    reportError: vi.fn(),
+  };
+});
 
 const mockOpenmrsFetch = vi.mocked(openmrsFetch);
 const mockReportError = vi.mocked(reportError);

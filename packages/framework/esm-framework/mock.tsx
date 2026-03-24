@@ -10,7 +10,6 @@ window.i18next = { ...window.i18next, language: 'en' };
 export * from '@openmrs/esm-api/mock';
 export * from '@openmrs/esm-emr-api/mock';
 export * from '@openmrs/esm-config/mock';
-export * from '@openmrs/esm-context';
 export * from '@openmrs/esm-expression-evaluator/src/public';
 export * from '@openmrs/esm-extensions/mock';
 export * from '@openmrs/esm-react-utils/mock';
@@ -30,17 +29,16 @@ export function setupPaths(config: any) {
   window.getOpenmrsSpaBase = () => `${window.spaBase}/`;
 }
 
-/* esm-dynamic-loading */
-export const importDynamic = vi.fn();
-
-/* esm-error-handling */
 export const createErrorHandler = () => vi.fn().mockReturnValue(NEVER);
 
 export const reportError = vi.fn().mockImplementation((error) => {
   throw error;
 });
 
-/* esm-feature-flags */
+/* esm-dynamic-loading */
+export const importDynamic = vi.fn();
+
+/* esm-state (feature flags) */
 export const registerFeatureFlags = vi.fn();
 export const getFeatureFlag = vi.fn().mockReturnValue(true);
 export const subscribeToFeatureFlag = vi.fn((name: string, callback) => callback(true));

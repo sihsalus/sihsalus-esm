@@ -1,6 +1,6 @@
 /** @module @category Feature Flags */
 import { useStore } from './useStore';
-import { featureFlagsStore } from '@openmrs/esm-feature-flags';
+import { featureFlagsStore } from '@openmrs/esm-state';
 
 /** Use this function to tell whether a feature flag is toggled on or off.
  *

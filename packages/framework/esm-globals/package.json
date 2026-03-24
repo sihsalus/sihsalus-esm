@@ -17,6 +17,8 @@
   },
   "source": true,
   "scripts": {
+    "test": "cross-env TZ=UTC vitest run --passWithNoTests",
+    "test:watch": "cross-env TZ=UTC vitest watch --passWithNoTests",
     "build": "rimraf dist && swc --strip-leading-paths src -d dist",
     "build:development": "rimraf dist && swc --strip-leading-paths src -d dist",
     "typescript": "tsc --project tsconfig.build.json",
@@ -53,7 +55,10 @@
     "@swc/cli": "^0.7.7",
     "@swc/core": "^1.11.29",
     "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "happy-dom": "^20.6.0",
     "rimraf": "^6.0.1",
-    "single-spa": "^6.0.3"
+    "single-spa": "^6.0.3",
+    "vitest": "^4.0.18"
   }
 }

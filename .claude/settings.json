@@ -127,13 +127,21 @@
       "Read(//home/duvet05/frontend-web/packages/__mocks__/**)",
       "Bash(tee:*)",
       "Bash(echo:*)",
-      "Read(//home/duvet05/frontend-web/packages/framework/esm-react-utils/**)"
+      "Read(//home/duvet05/frontend-web/packages/framework/esm-react-utils/**)",
+      "Bash(head -5 grep -rn \"useConfig\" /home/duvet05/frontend-web/packages/framework/esm-react-utils/src/useConfig*)",
+      "Bash(npm info:*)",
+      "Bash(npm pack:*)",
+      "Read(//home/duvet05/frontend-web/**)",
+      "WebFetch(domain:yarnpkg.com)",
+      "WebFetch(domain:gist.github.com)"
     ],
     "deny": [],
     "additionalDirectories": [
       "/home/duvet05/frontend-web/packages/apps",
       "/tmp/esm-pm-mocks/__mocks__",
-      "/home/duvet05/frontend-web/packages/framework/esm-config"
+      "/home/duvet05/frontend-web/packages/framework/esm-config",
+      "/home/duvet05/frontend-web/node_modules",
+      "/home/duvet05/frontend-web"
     ]
   }
 }

@@ -8,7 +8,7 @@ module.exports = {
   transform: {
     '^.+\\.[jt]sx?$': ['@swc/jest'],
   },
-  transformIgnorePatterns: ['/node_modules/(?!@openmrs|.+\\.pnp\\.[^\\/]+$)'],
+  transformIgnorePatterns: ['/node_modules/(?!@openmrs|uuid|.+\\.pnp\\.[^\\/]+$)'],
   moduleNameMapper: {
     '@openmrs/esm-framework': '@openmrs/esm-framework/mock',
     '\\.(s?css)$': 'identity-obj-proxy',

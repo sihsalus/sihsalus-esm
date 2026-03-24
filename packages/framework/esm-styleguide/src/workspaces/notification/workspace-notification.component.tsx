@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Button, ComposedModal, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { escapeRegExp } from 'lodash-es';
 import { navigate } from '@openmrs/esm-navigation';
-import { reportError } from '@openmrs/esm-error-handling';
+import { reportError } from '@openmrs/esm-globals';
 import { getCoreTranslation } from '@openmrs/esm-translations';
 import { type SingleSpaCustomEventDetail } from 'single-spa';
 import {

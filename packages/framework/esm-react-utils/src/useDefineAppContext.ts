@@ -1,6 +1,6 @@
 /** @module @category Context */
 import { useEffect, useRef } from 'react';
-import { getContext, registerContext, unregisterContext, updateContext } from '@openmrs/esm-context';
+import { getContext, registerContext, unregisterContext, updateContext } from '@openmrs/esm-state';
 import { shallowEqual } from '@openmrs/esm-utils';
 
 /**

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { renderHook } from '@testing-library/react';
-import { getContext, unregisterContext } from '@openmrs/esm-context';
+import { getContext, unregisterContext } from '@openmrs/esm-state';
 import { useDefineAppContext } from './useDefineAppContext';
 
 const namespace = 'test-context';

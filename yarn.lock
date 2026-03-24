@@ -6369,7 +6369,6 @@ __metadata:
   resolution: "@openmrs/esm-api@workspace:packages/framework/esm-api"
   dependencies:
     "@openmrs/esm-config": "workspace:*"
-    "@openmrs/esm-error-handling": "workspace:*"
     "@openmrs/esm-globals": "workspace:*"
     "@openmrs/esm-navigation": "workspace:*"
     "@swc/cli": "npm:^0.7.7"
@@ -6384,7 +6383,6 @@ __metadata:
     vitest: "npm:^4.0.18"
   peerDependencies:
     "@openmrs/esm-config": 9.x
-    "@openmrs/esm-error-handling": 9.x
     "@openmrs/esm-globals": 9.x
     "@openmrs/esm-navigation": 9.x
   languageName: unknown
@@ -6500,24 +6498,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openmrs/esm-context@workspace:*, @openmrs/esm-context@workspace:packages/framework/esm-context":
-  version: 0.0.0-use.local
-  resolution: "@openmrs/esm-context@workspace:packages/framework/esm-context"
-  dependencies:
-    "@openmrs/esm-globals": "workspace:*"
-    "@openmrs/esm-state": "workspace:*"
-    "@swc/cli": "npm:^0.7.7"
-    "@swc/core": "npm:^1.11.29"
-    "@vitest/coverage-v8": "npm:^4.0.18"
-    concurrently: "npm:^9.1.2"
-    rimraf: "npm:^6.0.1"
-    vitest: "npm:^4.0.18"
-  peerDependencies:
-    "@openmrs/esm-globals": 9.x
-    "@openmrs/esm-state": 9.x
-  languageName: unknown
-  linkType: soft
-
 "@openmrs/esm-devtools-app@workspace:packages/apps/esm-devtools-app":
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-devtools-app@workspace:packages/apps/esm-devtools-app"
@@ -6586,23 +6566,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openmrs/esm-error-handling@workspace:*, @openmrs/esm-error-handling@workspace:packages/framework/esm-error-handling":
-  version: 0.0.0-use.local
-  resolution: "@openmrs/esm-error-handling@workspace:packages/framework/esm-error-handling"
-  dependencies:
-    "@openmrs/esm-globals": "workspace:*"
-    "@swc/cli": "npm:^0.7.7"
-    "@swc/core": "npm:^1.11.29"
-    "@vitest/coverage-v8": "npm:^4.0.18"
-    cross-env: "npm:^7.0.3"
-    happy-dom: "npm:^20.6.0"
-    rimraf: "npm:^6.0.1"
-    vitest: "npm:^4.0.18"
-  peerDependencies:
-    "@openmrs/esm-globals": 9.x
-  languageName: unknown
-  linkType: soft
-
 "@openmrs/esm-expression-evaluator@workspace:*, @openmrs/esm-expression-evaluator@workspace:packages/framework/esm-expression-evaluator":
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-expression-evaluator@workspace:packages/framework/esm-expression-evaluator"
@@ -6631,7 +6594,6 @@ __metadata:
     "@openmrs/esm-api": "workspace:*"
     "@openmrs/esm-config": "workspace:*"
     "@openmrs/esm-expression-evaluator": "workspace:*"
-    "@openmrs/esm-feature-flags": "workspace:*"
     "@openmrs/esm-state": "workspace:*"
     "@openmrs/esm-utils": "workspace:*"
     "@swc/cli": "npm:^0.7.7"
@@ -6648,27 +6610,8 @@ __metadata:
     "@openmrs/esm-api": 9.x
     "@openmrs/esm-config": 9.x
     "@openmrs/esm-expression-evaluator": 9.x
-    "@openmrs/esm-feature-flags": 9.x
     "@openmrs/esm-state": 9.x
     "@openmrs/esm-utils": 9.x
-    single-spa: 6.x
-  languageName: unknown
-  linkType: soft
-
-"@openmrs/esm-feature-flags@workspace:*, @openmrs/esm-feature-flags@workspace:packages/framework/esm-feature-flags":
-  version: 0.0.0-use.local
-  resolution: "@openmrs/esm-feature-flags@workspace:packages/framework/esm-feature-flags"
-  dependencies:
-    "@openmrs/esm-globals": "workspace:*"
-    "@openmrs/esm-state": "workspace:*"
-    "@swc/cli": "npm:^0.7.7"
-    "@swc/core": "npm:^1.11.29"
-    concurrently: "npm:^9.1.2"
-    rimraf: "npm:^6.0.1"
-    single-spa: "npm:^6.0.3"
-  peerDependencies:
-    "@openmrs/esm-globals": 9.x
-    "@openmrs/esm-state": 9.x
     single-spa: 6.x
   languageName: unknown
   linkType: soft
@@ -6791,13 +6734,10 @@ __metadata:
   dependencies:
     "@openmrs/esm-api": "workspace:*"
     "@openmrs/esm-config": "workspace:*"
-    "@openmrs/esm-context": "workspace:*"
     "@openmrs/esm-dynamic-loading": "workspace:*"
     "@openmrs/esm-emr-api": "workspace:*"
-    "@openmrs/esm-error-handling": "workspace:*"
     "@openmrs/esm-expression-evaluator": "workspace:*"
     "@openmrs/esm-extensions": "workspace:*"
-    "@openmrs/esm-feature-flags": "workspace:*"
     "@openmrs/esm-globals": "workspace:*"
     "@openmrs/esm-navigation": "workspace:*"
     "@openmrs/esm-offline": "workspace:*"
@@ -6863,8 +6803,11 @@ __metadata:
     "@swc/core": "npm:^1.11.29"
     "@types/fhir": "npm:0.0.31"
     concurrently: "npm:^9.1.2"
+    cross-env: "npm:^7.0.3"
+    happy-dom: "npm:^20.6.0"
     rimraf: "npm:^6.0.1"
     single-spa: "npm:^6.0.3"
+    vitest: "npm:^4.0.18"
   peerDependencies:
     single-spa: 6.x
   languageName: unknown
@@ -7091,6 +7034,8 @@ __metadata:
     "@openmrs/esm-patient-common-lib": "workspace:*"
     "@rspack/cli": "npm:1.3.15"
     lodash-es: "npm:^4.17.21"
+    react-barcode: "npm:^1.5.3"
+    react-to-print: "npm:^3.0.4"
   peerDependencies:
     "@openmrs/esm-framework": "workspace:*"
     "@openmrs/esm-patient-common-lib": "workspace:*"
@@ -7537,11 +7482,8 @@ __metadata:
   dependencies:
     "@openmrs/esm-api": "workspace:*"
     "@openmrs/esm-config": "workspace:*"
-    "@openmrs/esm-context": "workspace:*"
     "@openmrs/esm-emr-api": "workspace:*"
-    "@openmrs/esm-error-handling": "workspace:*"
     "@openmrs/esm-extensions": "workspace:*"
-    "@openmrs/esm-feature-flags": "workspace:*"
     "@openmrs/esm-globals": "workspace:*"
     "@openmrs/esm-navigation": "workspace:*"
     "@openmrs/esm-state": "workspace:*"
@@ -7566,11 +7508,8 @@ __metadata:
   peerDependencies:
     "@openmrs/esm-api": 9.x
     "@openmrs/esm-config": 9.x
-    "@openmrs/esm-context": 9.x
     "@openmrs/esm-emr-api": 9.x
-    "@openmrs/esm-error-handling": 9.x
     "@openmrs/esm-extensions": 9.x
-    "@openmrs/esm-feature-flags": 9.x
     "@openmrs/esm-globals": 9.x
     "@openmrs/esm-navigation": 9.x
     "@openmrs/esm-state": 9.x
@@ -7592,8 +7531,8 @@ __metadata:
     "@openmrs/esm-config": "workspace:*"
     "@openmrs/esm-dynamic-loading": "workspace:*"
     "@openmrs/esm-extensions": "workspace:*"
-    "@openmrs/esm-feature-flags": "workspace:*"
     "@openmrs/esm-globals": "workspace:*"
+    "@openmrs/esm-state": "workspace:*"
     "@openmrs/esm-utils": "workspace:*"
     "@swc/cli": "npm:^0.7.7"
     "@swc/core": "npm:^1.11.29"
@@ -7609,8 +7548,8 @@ __metadata:
     "@openmrs/esm-config": 9.x
     "@openmrs/esm-dynamic-loading": 9.x
     "@openmrs/esm-extensions": 9.x
-    "@openmrs/esm-feature-flags": 9.x
     "@openmrs/esm-globals": 9.x
+    "@openmrs/esm-state": 9.x
     "@openmrs/esm-utils": 9.x
     single-spa: 6.x
   languageName: unknown
@@ -7809,7 +7748,6 @@ __metadata:
     "@openmrs/esm-api": "workspace:*"
     "@openmrs/esm-config": "workspace:*"
     "@openmrs/esm-emr-api": "workspace:*"
-    "@openmrs/esm-error-handling": "workspace:*"
     "@openmrs/esm-extensions": "workspace:*"
     "@openmrs/esm-globals": "workspace:*"
     "@openmrs/esm-navigation": "workspace:*"
@@ -7843,7 +7781,6 @@ __metadata:
     "@openmrs/esm-api": 9.x
     "@openmrs/esm-config": 9.x
     "@openmrs/esm-emr-api": 9.x
-    "@openmrs/esm-error-handling": 9.x
     "@openmrs/esm-extensions": 9.x
     "@openmrs/esm-globals": 9.x
     "@openmrs/esm-navigation": 9.x
@@ -7897,6 +7834,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     rxjs: "npm:^6.5.3"
     semver: "npm:^7.7.3"
+    timezone-mock: "npm:^1.4.2"
     vitest: "npm:^4.0.18"
   peerDependencies:
     "@openmrs/esm-globals": 9.x
@@ -10798,6 +10736,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sihsalus/audit-logger@workspace:packages/libs/audit-logger":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/audit-logger@workspace:packages/libs/audit-logger"
+  peerDependencies:
+    "@openmrs/esm-framework": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@sihsalus/constants@workspace:packages/libs/constants":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/constants@workspace:packages/libs/constants"
+  languageName: unknown
+  linkType: soft
+
 "@sihsalus/esm-coststructure-app@workspace:packages/apps/esm-coststructure-app":
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-coststructure-app@workspace:packages/apps/esm-coststructure-app"
@@ -11048,6 +11000,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sihsalus/fhir-client@workspace:packages/libs/fhir-client":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/fhir-client@workspace:packages/libs/fhir-client"
+  peerDependencies:
+    "@openmrs/esm-framework": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@sihsalus/frontend-web@workspace:.":
   version: 0.0.0-use.local
   resolution: "@sihsalus/frontend-web@workspace:."
@@ -11084,6 +11044,22 @@ __metadata:
     swc-loader: "npm:0.2.7"
     turbo: "npm:^2.5.2"
     typescript: "npm:^5.8.3"
+  languageName: unknown
+  linkType: soft
+
+"@sihsalus/keycloak-auth@workspace:packages/libs/keycloak-auth":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/keycloak-auth@workspace:packages/libs/keycloak-auth"
+  peerDependencies:
+    "@openmrs/esm-framework": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@sihsalus/rbac@workspace:packages/libs/rbac":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/rbac@workspace:packages/libs/rbac"
+  peerDependencies:
+    "@openmrs/esm-framework": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -25853,6 +25829,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsbarcode@npm:^3.8.0":
+  version: 3.12.3
+  resolution: "jsbarcode@npm:3.12.3"
+  checksum: 10c0/da6683fe036eb288b92159d4f46b96cc376bcd0b7048715aaa7dc47f20e3d6d505b59e645818ed9685c399ed79c513197e30cf0540c94627d9dee19d0a67ddaa
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:~0.1.0":
   version: 0.1.1
   resolution: "jsbn@npm:0.1.1"
@@ -31853,6 +31836,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-barcode@npm:^1.5.3":
+  version: 1.6.1
+  resolution: "react-barcode@npm:1.6.1"
+  dependencies:
+    jsbarcode: "npm:^3.8.0"
+    prop-types: "npm:^15.6.2"
+  peerDependencies:
+    react: 16 - 19
+  checksum: 10c0/2d20114e631b2a0c4f93f7e95ec4b517d0db9705e303977684ff3f102331574a4c700db857003394e679a42a4afac1bff992a48dd37a4964ff0f95506942c71d
+  languageName: node
+  linkType: hard
+
 "react-base16-styling@npm:^0.6.0":
   version: 0.6.0
   resolution: "react-base16-styling@npm:0.6.0"
@@ -32448,6 +32443,15 @@ __metadata:
     react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/26ee1eb3a30031c58ae45cdc8db11f86150509a1dcb190d703333b5df65deb1eb0bc9f856261466909b2a9567cee7894fcd71e637a1a722be2bbf93740349c61
+  languageName: node
+  linkType: hard
+
+"react-to-print@npm:^3.0.4":
+  version: 3.3.0
+  resolution: "react-to-print@npm:3.3.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ~19
+  checksum: 10c0/a49e3f23499ad883a36676f059354518811093338f603dc4a0cf00a27c13c4729bc0d5d5377ce44b0dd2e2531e61d6485c5812b1c59389d0a32129dea068e83a
   languageName: node
   linkType: hard
 
@@ -36007,18 +36011,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:^2.2.4, swr@npm:^2.3.6, swr@npm:^2.x":
-  version: 2.4.1
-  resolution: "swr@npm:2.4.1"
-  dependencies:
-    dequal: "npm:^2.0.3"
-    use-sync-external-store: "npm:^1.6.0"
-  peerDependencies:
-    react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/34d61fb4653ac8875ad24e7c6da37e210b0e90fce0815dc59f013b7554a0bd267e79aac0f8ae5fbf04992e2a1815ee3da581b0dab3ed6ac4c2ce0e82b351320f
-  languageName: node
-  linkType: hard
-
 "symbol-observable@npm:4.0.0":
   version: 4.0.0
   resolution: "symbol-observable@npm:4.0.0"
@@ -36341,6 +36333,13 @@ __metadata:
   version: 1.1.0
   resolution: "thunky@npm:1.1.0"
   checksum: 10c0/369764f39de1ce1de2ba2fa922db4a3f92e9c7f33bcc9a713241bc1f4a5238b484c17e0d36d1d533c625efb00e9e82c3e45f80b47586945557b45abb890156d2
+  languageName: node
+  linkType: hard
+
+"timezone-mock@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "timezone-mock@npm:1.4.2"
+  checksum: 10c0/1cfebf978517f2800f524394b5f5fd1928dec22c9685a4f082211711f2ab07fe6d0bc34e8698e11b64c2e530cc738f8c42d1b4199393be5f5de8dfa77a3f1115
   languageName: node
   linkType: hard
 

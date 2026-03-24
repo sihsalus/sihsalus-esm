@@ -21,7 +21,7 @@ import {
   getExtensionsConfigStore,
 } from '@openmrs/esm-config';
 import { evaluateAsBoolean } from '@openmrs/esm-expression-evaluator';
-import { type FeatureFlagsStore, featureFlagsStore } from '@openmrs/esm-feature-flags';
+import { type FeatureFlagsStore, featureFlagsStore } from '@openmrs/esm-state';
 import { subscribeConnectivityChanged } from '@openmrs/esm-globals';
 import { isOnline as isOnlineFn } from '@openmrs/esm-utils';
 import { isEqual, merge } from 'lodash-es';

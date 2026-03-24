@@ -1,5 +1,5 @@
 /** @module @category API */
-import { reportError } from '@openmrs/esm-error-handling';
+import { reportError } from '@openmrs/esm-globals';
 import { createGlobalStore } from '@openmrs/esm-state';
 import { isUndefined } from 'lodash-es';
 import { Observable } from 'rxjs';

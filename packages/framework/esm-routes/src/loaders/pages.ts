@@ -10,7 +10,7 @@ import {
   type RouteDefinition,
   type WorkspaceDefinition,
 } from '@openmrs/esm-globals';
-import { getFeatureFlag } from '@openmrs/esm-feature-flags';
+import { getFeatureFlag } from '@openmrs/esm-state';
 import { routeRegex } from './helpers';
 import {
   tryRegisterExtension,

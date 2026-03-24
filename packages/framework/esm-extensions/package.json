@@ -59,7 +59,6 @@
     "@openmrs/esm-api": "9.x",
     "@openmrs/esm-config": "9.x",
     "@openmrs/esm-expression-evaluator": "9.x",
-    "@openmrs/esm-feature-flags": "9.x",
     "@openmrs/esm-state": "9.x",
     "@openmrs/esm-utils": "9.x",
     "single-spa": "6.x"
@@ -68,7 +67,6 @@
     "@openmrs/esm-api": "workspace:*",
     "@openmrs/esm-config": "workspace:*",
     "@openmrs/esm-expression-evaluator": "workspace:*",
-    "@openmrs/esm-feature-flags": "workspace:*",
     "@openmrs/esm-state": "workspace:*",
     "@openmrs/esm-utils": "workspace:*",
     "@swc/cli": "^0.7.7",

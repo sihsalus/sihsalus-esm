@@ -1,6 +1,6 @@
 /** @module @category Context */
 import { useEffect, useState } from 'react';
-import { subscribeToContext } from '@openmrs/esm-context';
+import { subscribeToContext } from '@openmrs/esm-state';
 import { shallowEqual } from '@openmrs/esm-utils';
 
 /**

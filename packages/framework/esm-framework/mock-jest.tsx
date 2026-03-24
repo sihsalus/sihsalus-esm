@@ -9,7 +9,6 @@ window.i18next = { ...window.i18next, language: 'en' };
 export * from '@openmrs/esm-api/mock';
 export * from '@openmrs/esm-emr-api/mock';
 export * from '@openmrs/esm-config/mock';
-export * from '@openmrs/esm-context';
 export * from '@openmrs/esm-expression-evaluator/src/public';
 export * from '@openmrs/esm-extensions/mock';
 export * from '@openmrs/esm-react-utils/mock';
@@ -32,14 +31,13 @@ export function setupPaths(config: any) {
 /* esm-dynamic-loading */
 export const importDynamic = jest.fn();
 
-/* esm-error-handling */
 export const createErrorHandler = () => jest.fn().mockReturnValue(NEVER);
 
 export const reportError = jest.fn().mockImplementation((error) => {
   throw error;
 });
 
-/* esm-feature-flags */
+/* esm-state (feature flags) */
 export const registerFeatureFlags = jest.fn();
 export const getFeatureFlag = jest.fn().mockReturnValue(true);
 export const subscribeToFeatureFlag = jest.fn((name: string, callback) => callback(true));

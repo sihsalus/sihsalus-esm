@@ -66,3 +66,7 @@ function instrumentedStore<T>(name: string, store: StoreApi<T>) {
     resetMock: () => store.setState(initialStates[name]),
   } as unknown as MockedStore<T>;
 }
+
+// Context (merged from esm-context)
+export { registerContext, unregisterContext, getContext, updateContext, subscribeToContext } from './src/context';
+export type { ContextCallback } from './src/context';

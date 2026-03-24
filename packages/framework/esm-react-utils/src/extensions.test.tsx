@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { act, render, screen, waitFor, within } from '@testing-library/react';
-import { registerFeatureFlag, setFeatureFlag } from '@openmrs/esm-feature-flags';
+import { registerFeatureFlag, setFeatureFlag } from '@openmrs/esm-state';
 import {
   attach,
   getExtensionNameFromId,

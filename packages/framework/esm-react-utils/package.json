@@ -61,11 +61,8 @@
   "peerDependencies": {
     "@openmrs/esm-api": "9.x",
     "@openmrs/esm-config": "9.x",
-    "@openmrs/esm-context": "9.x",
     "@openmrs/esm-emr-api": "9.x",
-    "@openmrs/esm-error-handling": "9.x",
     "@openmrs/esm-extensions": "9.x",
-    "@openmrs/esm-feature-flags": "9.x",
     "@openmrs/esm-globals": "9.x",
     "@openmrs/esm-navigation": "9.x",
     "@openmrs/esm-state": "9.x",
@@ -81,11 +78,8 @@
   "devDependencies": {
     "@openmrs/esm-api": "workspace:*",
     "@openmrs/esm-config": "workspace:*",
-    "@openmrs/esm-context": "workspace:*",
     "@openmrs/esm-emr-api": "workspace:*",
-    "@openmrs/esm-error-handling": "workspace:*",
     "@openmrs/esm-extensions": "workspace:*",
-    "@openmrs/esm-feature-flags": "workspace:*",
     "@openmrs/esm-globals": "workspace:*",
     "@openmrs/esm-navigation": "workspace:*",
     "@openmrs/esm-state": "workspace:*",

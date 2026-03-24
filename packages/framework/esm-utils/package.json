@@ -71,6 +71,7 @@
     "happy-dom": "^20.6.0",
     "rimraf": "^6.0.1",
     "rxjs": "^6.5.3",
+    "timezone-mock": "^1.4.2",
     "vitest": "^4.0.18"
   }
 }
