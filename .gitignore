@@ -21,3 +21,4 @@ CLAUDE.md
 !.yarn/plugins
 !.yarn/sdks
 .pnp.*
+yarn.lock.backup
