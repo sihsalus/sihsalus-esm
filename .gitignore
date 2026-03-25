@@ -22,3 +22,16 @@ CLAUDE.md
 !.yarn/sdks
 .pnp.*
 yarn.lock.backup
+
+# TypeScript build artifacts in libs src/
+packages/libs/*/src/**/*.js
+packages/libs/*/src/**/*.d.ts
+packages/libs/*/src/**/*.js.map
+packages/libs/*/src/**/*.d.ts.map
+
+# Backup and temporary files
+*.bak
+*.orig
+*.swp
+*.tmp
+*~

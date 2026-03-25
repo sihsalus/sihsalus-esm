@@ -134,7 +134,10 @@
       "Read(//home/duvet05/frontend-web/**)",
       "WebFetch(domain:yarnpkg.com)",
       "WebFetch(domain:gist.github.com)",
-      "Bash(# Check if there''s a different @carbon/styles used by esm-styleguide find /home/duvet05/frontend-web/packages/framework/esm-styleguide -path \"\"*/node_modules/@carbon/styles/package.json\"\")"
+      "Bash(# Check if there''s a different @carbon/styles used by esm-styleguide find /home/duvet05/frontend-web/packages/framework/esm-styleguide -path \"\"*/node_modules/@carbon/styles/package.json\"\")",
+      "Bash(script -qc 'yarn turbo test --force --concurrency=4 --continue' /tmp/turbo-test-full.log)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); deps={**d.get\\(''''dependencies'''',{}\\), **d.get\\(''''peerDependencies'''',{}\\)}; framework=[k for k in deps if ''''framework'''' in k or ''''esm-api'''' in k or ''''esm-config'''' in k]; print\\(''''\\\\n''''.join\\(framework\\) if framework else ''''No framework deps''''\\)\")",
+      "Bash(npx vitest:*)"
     ],
     "deny": [],
     "additionalDirectories": [
@@ -142,7 +145,8 @@
       "/tmp/esm-pm-mocks/__mocks__",
       "/home/duvet05/frontend-web/packages/framework/esm-config",
       "/home/duvet05/frontend-web/node_modules",
-      "/home/duvet05/frontend-web"
+      "/home/duvet05/frontend-web",
+      "/tmp"
     ]
   }
 }
