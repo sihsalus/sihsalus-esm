@@ -14,6 +14,10 @@ declare global {
 window.openmrsBase = '/openmrs';
 window.spaBase = '/spa';
 window.getOpenmrsSpaBase = () => '/openmrs/spa/';
+
+// Ensure i18next locale is available for components that call getLocale()
+// (e.g. Carbon DatePicker via @openmrs/esm-styleguide) before the framework mock loads.
+window.i18next = { ...(window.i18next ?? {}), language: 'en' } as any;
 window.URL.createObjectURL = jest.fn();
 window.HTMLElement.prototype.scrollIntoView = jest.fn();
 window.HTMLFormElement.prototype.requestSubmit = jest.fn();
