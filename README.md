@@ -7,7 +7,7 @@ Built on [OpenMRS 3.x](https://openmrs.org/) with the single-spa microfrontend a
 ## Prerequisites
 
 - **Node.js** >= 20
-- **Yarn** 4.10.3 (via Corepack: `corepack enable && corepack prepare yarn@4.10.3 --activate`)
+- **Yarn** 4.13.0 (via Corepack: `corepack enable && corepack prepare yarn@4.13.0 --activate`)
 - **Docker** (for containerized deployment)
 
 ## Quick Start
@@ -33,20 +33,27 @@ yarn openmrs develop --backend http://localhost:8080/openmrs --port 9090
 
 ```
 packages/
-  shell/esm-app-shell/              # single-spa host, import map loader, service worker
-  framework/esm-*/                  # 17 framework libraries (@openmrs/esm-*)
-  tooling/openmrs/                  # CLI (openmrs develop, build, assemble)
-  tooling/webpack-config/           # Shared webpack configuration
-  apps/esm-*-app/                   # All frontend modules (~50 packages)
-  libs/rbac/                        # HIPAA role-based access control
-  libs/fhir-client/                 # Typed FHIR R4 client
-  libs/audit-logger/                # Client-side audit logging
-  libs/keycloak-auth/               # Keycloak OIDC adapter
-  libs/constants/                   # Centralized UUIDs and constants
-config/                             # SPA build config, import map, routes
-e2e/                                # Playwright E2E tests
-scripts/                            # Build utilities
+  tooling/
+    openmrs/                            # CLI (openmrs develop, build, assemble)
+    webpack-config/                     # Shared webpack configuration
+    rspack-config/                      # Rspack configuration (experimental)
+  apps/                                 # 41 frontend modules (esm-*-app)
+  libs/
+    rbac/                               # @sihsalus/rbac — HIPAA role-based access control
+    fhir-client/                        # @sihsalus/fhir-client — Typed FHIR R4 client
+    audit-logger/                       # @sihsalus/audit-logger — Client-side audit logging
+    keycloak-auth/                      # @sihsalus/keycloak-auth — Keycloak OIDC adapter
+    constants/                          # @sihsalus/constants — Centralized UUIDs and constants
+    esm-patient-common-lib/             # @openmrs/esm-patient-common-lib — Shared patient utilities
+  tools/                                # Test utilities (setup-tests, test-utils)
+scripts/
+  assemble-importmap.js                 # Import map assembly for SPA build
+  fix-workspace-deps.js                 # Workspace dependency fixer
+e2e/                                    # Playwright E2E tests
+docs/                                   # Architecture docs and ADRs
 ```
+
+> **Note:** The OpenMRS framework (`@openmrs/esm-framework`) and app shell (`@openmrs/esm-app-shell`) are consumed as npm dependencies, not vendored in this repo.
 
 ## Commands
 
@@ -63,7 +70,7 @@ yarn openmrs develop --sources <path>       # Dev server with specific module(s)
 ```bash
 yarn build                                  # Build all packages
 yarn build:apps                             # Build only app packages
-yarn build:framework                        # Build only framework packages
+yarn assemble                               # Assemble import map
 yarn turbo run build --filter=<package>     # Build single package
 ```
 
@@ -73,7 +80,6 @@ yarn turbo run build --filter=<package>     # Build single package
 yarn test                                   # Run all unit tests
 yarn turbo run test --filter='@sihsalus/*' # Test SIH Salus packages only
 yarn test:e2e                               # Run Playwright E2E tests
-yarn turbo run coverage                     # Tests with coverage
 ```
 
 ### Quality
@@ -84,10 +90,18 @@ yarn typecheck                              # TypeScript check all packages
 yarn verify                                 # lint + typecheck + test
 ```
 
+### Concurrency
+
+This monorepo has 50+ packages. Avoid high concurrency on resource-constrained machines:
+
+```bash
+yarn turbo run build --concurrency=4
+yarn turbo run test --filter=@openmrs/esm-login-app   # Single package
+```
+
 ### Docker
 
 ```bash
-# Build SPA static assets (output in dist/spa/)
 docker build -t sihsalus/frontend-web .
 ```
 
@@ -112,7 +126,7 @@ Nginx / reverse proxy configuration is managed in the infra repo (`sihsalus-dist
 | `esm-billing-app` | `@openmrs/esm-billing-app` |
 | `esm-patient-immunizations-app` | `@openmrs/esm-patient-immunizations-app` |
 
-Custom modules with no upstream equivalent: `esm-coststructure-app`, `esm-dyaku-app`, `esm-fua-app`, `esm-indicators-app`, `esm-maternal-and-child-health-app`, `esm-consulta-externa-app`, `esm-sihsalus-widgets-app`.
+Custom modules with no upstream equivalent: `esm-coststructure-app`, `esm-dyaku-app`, `esm-fua-app`, `esm-indicadores-app`, `esm-maternal-and-child-health`, `esm-consulta-externa-app`, `esm-vacunacion-app`.
 
 ## Environment Variables
 
