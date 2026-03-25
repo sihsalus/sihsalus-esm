@@ -58,14 +58,26 @@ export async function runStart(args: StartArgs) {
 
   const mergedImportmap: { imports: Record<string, string> } = { imports: {} };
 
+  // Build a set of "base names" from local modules to detect duplicates under different scopes
+  // e.g. local "@sihsalus/esm-fua-app" should exclude backend "@pucp-gidis-hiisc/esm-fua-app"
+  const localBaseNames = new Set(
+    Object.keys(localImportmap.imports).map((name) => name.replace(/^@[^/]+\//, '')),
+  );
+
   if (backendImportmap?.imports) {
-    // Add backend modules first (as base)
+    let skippedCount = 0;
+    // Add backend modules first (as base), skipping duplicates
     for (const [name, url] of Object.entries(backendImportmap.imports)) {
+      const baseName = name.replace(/^@[^/]+\//, '');
+      if (localBaseNames.has(baseName)) {
+        skippedCount++;
+        continue;
+      }
       // Resolve relative URLs against the backend
       const resolvedUrl = url.startsWith('.') ? `${backendUrl}/openmrs/spa/${url.replace(/^\.\//, '')}` : url;
       mergedImportmap.imports[name] = resolvedUrl;
     }
-    logInfo(`Backend importmap: ${Object.keys(backendImportmap.imports).length} modules`);
+    logInfo(`Backend importmap: ${Object.keys(backendImportmap.imports).length} modules (${skippedCount} skipped as duplicates)`);
   } else {
     logWarn(`Could not fetch backend importmap — using local modules only`);
   }
