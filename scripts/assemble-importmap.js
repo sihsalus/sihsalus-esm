@@ -38,15 +38,17 @@ for (const distDir of appDirs) {
   fs.copyFileSync(entryFilePath, path.join(outDir, entryFileName));
   importmap.imports[pkg.name] = `./${entryFileName}`;
 
-  // Also copy chunk files that the entry bundle may reference (CSS, async chunks)
+  // Also copy chunk files that the entry bundle may reference (CSS, async chunks, JS chunks)
   for (const file of fs.readdirSync(distDir)) {
-    const dest = path.join(outDir, file);
-    // Don't overwrite the entry bundle or files from other apps
     if (file === entryFileName) continue;
-    // Copy CSS and sourcemap files (these tend to have unique hashed names)
-    if (file.endsWith('.css') || file.endsWith('.map')) {
-      fs.copyFileSync(path.join(distDir, file), dest);
+    // Skip build manifests and package metadata
+    if (file.endsWith('.buildmanifest.json')) continue;
+    const dest = path.join(outDir, file);
+    if (fs.existsSync(dest)) {
+      console.warn(`  WARN ${pkg.name}: skipping ${file} (already exists from another app)`);
+      continue;
     }
+    fs.copyFileSync(path.join(distDir, file), dest);
   }
 
   // Collect routes
