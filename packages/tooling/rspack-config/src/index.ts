@@ -207,6 +207,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
                   syntax: 'typescript',
                   tsx: true,
                 },
+                target: 'es2020',
               },
             },
           },
@@ -274,7 +275,14 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
           maxAsyncRequests: 3,
           maxInitialRequests: 1,
         },
-        minimizer: [new rspack.SwcJsMinimizerRspackPlugin(), new rspack.LightningCssMinimizerRspackPlugin()],
+        minimizer: [
+          new rspack.SwcJsMinimizerRspackPlugin(),
+          new rspack.LightningCssMinimizerRspackPlugin({
+            minimizerOptions: {
+              targets: ['last 2 Chrome versions', 'Firefox ESR', 'last 2 Safari versions'],
+            },
+          }),
+        ],
       },
       optimizationConfig,
     ),
