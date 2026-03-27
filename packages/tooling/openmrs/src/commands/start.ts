@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { basename, resolve } from 'node:path';
 
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
@@ -28,6 +28,62 @@ async function fetchBackendJson(url: string): Promise<Record<string, unknown> | 
   return null;
 }
 
+interface LocalDiscovery {
+  importmap: { imports: Record<string, string> };
+  routes: Record<string, unknown>;
+  distDirs: string[];
+}
+
+/**
+ * Auto-discover locally-built @sihsalus/* modules from packages/apps/,
+ * eliminating the need for `yarn assemble` during development.
+ */
+function discoverLocalModules(rootDir: string): LocalDiscovery {
+  const importmap: { imports: Record<string, string> } = { imports: {} };
+  const routes: Record<string, unknown> = {};
+  const distDirs: string[] = [];
+
+  const appsDir = resolve(rootDir, 'packages', 'apps');
+  if (!existsSync(appsDir)) return { importmap, routes, distDirs };
+
+  const entries = readdirSync(appsDir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (!entry.isDirectory() || !entry.name.startsWith('esm-')) continue;
+
+    const pkgJsonPath = resolve(appsDir, entry.name, 'package.json');
+    if (!existsSync(pkgJsonPath)) continue;
+
+    const pkg = JSON.parse(readFileSync(pkgJsonPath, 'utf8'));
+    if (pkg.private || !pkg.name?.startsWith('@sihsalus/')) continue;
+
+    const distDir = resolve(appsDir, entry.name, 'dist');
+    if (!existsSync(distDir)) continue;
+
+    const browserField = pkg.browser || pkg.module || pkg.main;
+    if (!browserField) continue;
+
+    const entryFile = basename(browserField);
+    const entryPath = resolve(appsDir, entry.name, browserField);
+    if (!existsSync(entryPath)) continue;
+
+    importmap.imports[pkg.name] = `./${entryFile}`;
+    distDirs.push(distDir);
+
+    const routesPath = resolve(appsDir, entry.name, 'src', 'routes.json');
+    if (existsSync(routesPath)) {
+      routes[pkg.name] = {
+        ...JSON.parse(readFileSync(routesPath, 'utf8')),
+        version: pkg.version || '0.0.0',
+      };
+    }
+
+    logInfo(`  Discovered ${pkg.name} -> ${entryFile}`);
+  }
+
+  return { importmap, routes, distDirs };
+}
+
 export async function runStart(args: StartArgs) {
   const { backend, host, port, open, addCookie } = args;
   const expressApp = express();
@@ -44,14 +100,10 @@ export async function runStart(args: StartArgs) {
     .replace(/href="\/openmrs\/spa/g, `href="${spaPath}`)
     .replace(/src="\/openmrs\/spa/g, `src="${spaPath}`);
 
-  // Build merged importmap: all local modules take precedence over backend.
-  // Now that the app-shell is built locally with rspack (same MF runtime as apps),
-  // all modules are compatible and can be served locally.
-  let localImportmap: { imports: Record<string, string> } = { imports: {} };
-  const importmapPath = resolve(spaDist, 'importmap.json');
-  if (existsSync(importmapPath)) {
-    localImportmap = JSON.parse(readFileSync(importmapPath, 'utf8'));
-  }
+  // Auto-discover locally-built @sihsalus/* modules directly from packages/apps/
+  logInfo('Discovering local @sihsalus/* modules...');
+  const discovery = discoverLocalModules(process.cwd());
+  const localImportmap = discovery.importmap;
 
   logInfo(`Local modules: ${Object.keys(localImportmap.imports).length}`);
 
@@ -95,11 +147,7 @@ export async function runStart(args: StartArgs) {
   logInfo(`Merged importmap: ${localCount} local + ${backendOnlyCount} from backend = ${totalCount} total`);
 
   // Build merged routes
-  let localRoutes: Record<string, unknown> = {};
-  const routesPath = resolve(spaDist, 'routes.registry.json');
-  if (existsSync(routesPath)) {
-    localRoutes = JSON.parse(readFileSync(routesPath, 'utf8'));
-  }
+  const localRoutes = discovery.routes;
 
   const backendRoutes = (await fetchBackendJson(`${backendUrl}/openmrs/spa/routes.registry.json`)) as Record<
     string,
@@ -132,10 +180,14 @@ export async function runStart(args: StartArgs) {
   const indexHtmlPathMatcher = /\/openmrs\/spa\/(?!.*\.(js|woff2?|json|css|.{2,3}$)).*$/;
   expressApp.get(indexHtmlPathMatcher, (_, res) => res.contentType('text/html').send(indexContent));
 
-  // Serve static assets: dist/spa first (assembled app bundles), then shell dist as fallback
+  // Serve local module dist directories (auto-discovered from packages/apps/)
+  for (const distDir of discovery.distDirs) {
+    expressApp.use(spaPath, express.static(distDir, { index: false }));
+  }
+
+  // Fallback to dist/spa if it exists (from yarn assemble)
   if (existsSync(spaDist)) {
     expressApp.use(spaPath, express.static(spaDist, { index: false }));
-    logInfo(`Serving assembled SPA from ${spaDist}`);
   }
   expressApp.use(spaPath, express.static(shellDist, { index: false }));
 
