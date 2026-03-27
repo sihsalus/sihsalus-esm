@@ -13,7 +13,7 @@
     "assemble": "node scripts/assemble-importmap.js",
     "dev": "turbo run dev",
     "start": "openmrs develop",
-    "serve": "openmrs start",
+    "serve": "turbo run build --filter=openmrs --filter='@sihsalus/*' --concurrency=4 && openmrs start",
     "serve:prod": "turbo run build && node scripts/assemble-importmap.js && openmrs start",
     "test": "turbo run test",
     "test:e2e": "playwright test",
