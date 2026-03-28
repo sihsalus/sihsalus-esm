@@ -38,11 +38,13 @@ export async function runStart(args: StartArgs) {
   const pageUrl = `http://${host}:${port}${spaPath}`;
 
   // Rewrite index.html to use local importmap and routes instead of dev3.openmrs.org
+  // Also disable offline/service-worker to prevent stale caches during local dev.
   const indexContent = readFileSync(resolve(shellDist, 'index.html'), 'utf8')
     .replace(/https:\/\/dev3\.openmrs\.org\/openmrs\/spa\/importmap\.json/g, `${spaPath}/importmap.json`)
     .replace(/https:\/\/dev3\.openmrs\.org\/openmrs\/spa/g, spaPath)
     .replace(/href="\/openmrs\/spa/g, `href="${spaPath}`)
-    .replace(/src="\/openmrs\/spa/g, `src="${spaPath}`);
+    .replace(/src="\/openmrs\/spa/g, `src="${spaPath}`)
+    .replace(/offline:\s*true/g, 'offline: false');
 
   // Build merged importmap: all local modules take precedence over backend.
   // Now that the app-shell is built locally with rspack (same MF runtime as apps),
@@ -80,16 +82,34 @@ export async function runStart(args: StartArgs) {
 
   if (backendImportmap?.imports) {
     let skippedCount = 0;
+    let addedCount = 0;
     for (const [name, url] of Object.entries(backendImportmap.imports)) {
       const baseName = name.replace(/^@[^/]+\//, '');
       if (localBaseNames.has(baseName)) {
         skippedCount++;
         continue;
       }
-      const resolvedUrl = url.startsWith('.') ? `${backendUrl}/openmrs/spa/${url.replace(/^\.\//, '')}` : url;
-      mergedImportmap.imports[name] = resolvedUrl;
+
+      // If the module was downloaded during assembly, it's already in the local
+      // importmap with a relative path. Only add backend modules that exist locally;
+      // skip modules whose bundles weren't successfully downloaded (e.g. 404 on backend).
+      if (localImportmap.imports[name]) {
+        addedCount++;
+        continue; // already in local importmap, will be added below
+      }
+
+      // Check if the bundle was downloaded to dist/spa during assembly
+      const cleanRelUrl = url.replace(/^\.\//, '');
+      const localPath = resolve(spaDist, cleanRelUrl);
+      if (existsSync(localPath)) {
+        mergedImportmap.imports[name] = `./${cleanRelUrl}`;
+        addedCount++;
+      } else {
+        skippedCount++;
+        logWarn(`  Skip ${name}: not available locally`);
+      }
     }
-    logInfo(`Backend importmap: ${Object.keys(backendImportmap.imports).length} modules (${skippedCount} skipped as local duplicates)`);
+    logInfo(`Backend importmap: ${Object.keys(backendImportmap.imports).length} modules (${addedCount} available, ${skippedCount} skipped)`);
   } else {
     logWarn(`Could not fetch backend importmap — using local modules only`);
   }
@@ -163,6 +183,15 @@ export async function runStart(args: StartArgs) {
             proxyReq.setHeader('cookie', newCookie);
           }
         },
+        onProxyRes(proxyRes) {
+          // Remove CSP headers from backend — they block browser requests
+          // when serving from localhost (the backend's CSP allowlist doesn't
+          // include all the origins the local dev server needs).
+          if (proxyRes.headers) {
+            delete proxyRes.headers['content-security-policy'];
+            delete proxyRes.headers['content-security-policy-report-only'];
+          }
+        },
       },
     ),
   );
@@ -170,8 +199,11 @@ export async function runStart(args: StartArgs) {
   // Fallback: serve index.html for any unmatched route (SPA client-side routing)
   expressApp.get('/*', (_, res) => res.contentType('text/html').send(indexContent));
 
-  expressApp.listen(port, host, () => {
-    logInfo(`Listening at http://${host}:${port}`);
+  // Bind to 0.0.0.0 to listen on both IPv4 and IPv6, avoiding issues where
+  // "localhost" resolves to only ::1 (IPv6) but the browser tries 127.0.0.1 first.
+  const listenHost = host === 'localhost' ? '0.0.0.0' : host;
+  expressApp.listen(port, listenHost, () => {
+    logInfo(`Listening at http://localhost:${port}`);
     logInfo(`SPA available at ${pageUrl}`);
 
     if (open) {
