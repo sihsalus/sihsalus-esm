@@ -1,0 +1,82 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.tooltipcontainer {
+  background-color: $ui-02;
+  padding: layout.$spacing-05;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 22.5rem;
+  border-radius: layout.$spacing-02;
+  gap: layout.$spacing-04;
+
+  .tooltipheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: layout.$spacing-01;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .tooltiptitle {
+      @include type.type-style('heading-02');
+      margin-bottom: layout.$spacing-02;
+    }
+
+    .closeButton {
+      min-height: layout.$spacing-05;
+      padding: 0;
+      align-self: flex-start;
+    }
+  }
+
+  .tooltipcontent {
+    color: $color-gray-70;
+    @include type.type-style('body-compact-01');
+    width: 100%;
+    margin-top: layout.$spacing-01;
+  }
+
+  .tooltipfooter {
+    margin-top: layout.$spacing-03;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tooltipstep {
+      color: $color-gray-70;
+      @include type.type-style('body-compact-01');
+    }
+
+    .buttonContainer {
+      display: flex;
+      gap: layout.$spacing-03;
+
+      .buttonback,
+      .buttonnext {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: layout.$spacing-02;
+        width: layout.$spacing-12;
+
+        .arrowLeft,
+        .arrowContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: layout.$spacing-02;
+        }
+
+        .arrowLeft svg {
+          fill: $color-blue-60-2 !important;
+          margin-right: layout.$spacing-02;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "fhir2": ">=1.2",
+    "webservices.rest": ">=2.2.0",
+    "reportingrest": "^1.0.0 || ^2.0.0",
+    "reporting": ">=1.27.0"
+  },
+  "pages": [
+    {
+      "component": "cohortBuilder",
+      "route": "cohort-builder",
+      "online": true,
+      "offline": true
+    }
+  ],
+  "extensions": [
+    {
+      "name": "system-administration-cohort-builder-card-link",
+      "slot": "system-admin-page-card-link-slot",
+      "component": "cohortBuilderAdminPageCardLink",
+      "online": true,
+      "offline": true
+    }
+  ],
+  "modals": [
+    {
+      "name": "clear-search-history-modal",
+      "component": "clearSearchHistoryModal"
+    },
+    {
+      "name": "clear-item-from-search-history-modal",
+      "component": "clearItemFromSearchHistoryModal"
+    },
+    {
+      "name": "delete-cohort-modal",
+      "component": "deleteCohortModal"
+    },
+    {
+      "name": "delete-query-modal",
+      "component": "deleteQueryModal"
+    },
+    {
+      "name": "save-cohort-modal",
+      "component": "saveCohortModal"
+    },
+    {
+      "name": "save-query-modal",
+      "component": "saveQueryModal"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.searchHeaderContainer {
+  height: layout.$spacing-11;
+  display: flex;
+  align-items: center;
+  background-color: colors.$white-0;
+  border-top: 0.0125rem solid colors.$gray-20;
+  border-bottom: 0.0125rem solid colors.$gray-20;
+  padding: 0 layout.$spacing-05;
+}
+
+.searchBarWrapper {
+  min-width: 35rem;
+}
+
+.searchBarWrapper > div button {
+  height: auto;
+}
+
+.padded {
+  padding: layout.$spacing-05;
+}

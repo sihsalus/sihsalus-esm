@@ -1,0 +1,60 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.tablet {
+  padding: layout.$spacing-06 layout.$spacing-05;
+  background-color: $ui-02;
+}
+
+.desktop {
+  padding: 0rem;
+}
+
+.button {
+  height: 4rem;
+  display: flex;
+  align-content: flex-start;
+  align-items: baseline;
+  min-width: 50%;
+}
+
+.container {
+  margin: layout.$spacing-05 0rem;
+  background-color: $ui-background;
+
+  & section {
+    margin: layout.$spacing-02 layout.$spacing-05 0;
+  }
+}
+
+.desktopEditSchedule {
+  background-color: $ui-background;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.outputFormatDiv {
+  margin-bottom: 50px;
+  display: flex;
+  padding: 32px 16px 16px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.basicInputElement {
+  width: 300px;
+  height: 30px;
+  margin-bottom: 30px;
+}
+
+.buttonsDiv {
+  margin-top: 50px;
+}
+
+.reportButton {
+  max-width: none !important;
+  width: 350px !important;
+}

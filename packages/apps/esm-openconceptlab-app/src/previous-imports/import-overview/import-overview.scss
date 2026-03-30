@@ -1,0 +1,10 @@
+@use "@carbon/layout";
+@use "@carbon/type";
+
+.heading01 {
+  @include type.type-style('heading-01');
+}
+
+.indentedContent {
+  margin-left: layout.$spacing-07;
+}

@@ -1,0 +1,26 @@
+@use '@carbon/type';
+@use '@carbon/layout';
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 layout.$spacing-04;
+  font-size: type.type-scale(2);
+  .actionButtonIcon {
+    margin-right: layout.$spacing-02;
+    color: white;
+    fill: white;
+  }
+}
+
+.actionRejectButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 layout.$spacing-04;
+  font-size: type.type-scale(2);
+  border: none;
+}

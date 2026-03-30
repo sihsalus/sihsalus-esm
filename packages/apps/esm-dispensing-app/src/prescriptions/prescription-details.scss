@@ -1,0 +1,87 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.prescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  margin-bottom: layout.$spacing-05;
+
+  &:global(.cds--tile) {
+    min-height: 3rem !important;
+    padding-left: 10px !important;
+  }
+}
+
+.prescriptionContainer > :global(.cds--tile) {
+  min-height: 3rem !important;
+  padding-left: 10px !important;
+  margin: auto;
+}
+
+.allergiesTile {
+  height: layout.$spacing-06;
+  padding: 0 layout.$spacing-03 0 0;
+  border-left: layout.$spacing-02 solid #f1c21b;
+  background-color: rgba(253, 209, 58, 0.3);
+  margin: auto;
+  width: 100%;
+}
+
+.allergiesContent {
+  margin: auto;
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  div {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  p {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    width: 80%;
+  }
+
+  a {
+    margin: auto;
+    color: #0f62fe;
+    text-decoration: none;
+    text-align: right;
+  }
+}
+
+svg.allergiesIcon {
+  fill: #f1c21b;
+  vertical-align: middle;
+}
+
+.allergiesCount {
+  font-weight: bold;
+}
+
+.prescribedHeader {
+  padding-top: layout.$spacing-03;
+  padding-bottom: layout.$spacing-03;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: $danger;
+}
+
+.emptyState {
+  @include type.type-style('body-01');
+  color: $text-02;
+  margin: layout.$spacing-05 0;
+}
+
+.skeletonTile {
+  width: 100%;
+}

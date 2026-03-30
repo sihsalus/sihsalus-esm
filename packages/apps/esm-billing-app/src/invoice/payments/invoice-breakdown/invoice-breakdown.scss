@@ -1,0 +1,29 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.invoiceBreakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  margin: layout.$spacing-03 0;
+}
+
+.label {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-100;
+  text-align: left;
+}
+
+.value {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-100;
+  text-align: left;
+  margin-left: layout.$spacing-03;
+}
+
+.extendedLabel {
+  @include type.type-style('heading-compact-01');
+  color: crimson;
+  text-align: left;
+}

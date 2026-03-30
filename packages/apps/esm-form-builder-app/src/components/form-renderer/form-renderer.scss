@@ -1,0 +1,57 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.container {
+  background-color: colors.$white-0;
+  padding: layout.$spacing-05;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 95vh;
+}
+
+.loadingContainer {
+  @extend .container;
+  background-color: colors.$gray-10;
+  margin-top: layout.$spacing-11;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+}
+
+.emptyStateTile {
+  width: 80%;
+  margin: 1.25rem auto;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+  padding: layout.$spacing-06;
+}
+
+.errorStateTile {
+  @extend .emptyStateTile;
+
+  .helperText {
+    margin: layout.$spacing-04 0;
+  }
+
+  button {
+    margin-top: layout.$spacing-02;
+  }
+}
+
+.heading {
+  @include type.type-style('heading-compact-02');
+  color: colors.$gray-100;
+}
+
+.helperText {
+  margin-top: layout.$spacing-03;
+  @include type.type-style('body-01');
+  color: colors.$gray-90;
+}

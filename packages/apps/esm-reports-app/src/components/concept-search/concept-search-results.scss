@@ -1,0 +1,107 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.container {
+  position: relative;
+  z-index: 1000;
+  margin: layout.$spacing-03 0 0 0;
+  background: $ui-01;
+  border: 1px solid $ui-03;
+  border-radius: layout.$spacing-02;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.searchResultsCount {
+  @include type.type-style('body-compact-01');
+  color: $text-02;
+}
+
+.conceptBasketSearchResultsHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: layout.$spacing-03;
+  align-items: center;
+  padding: layout.$spacing-03 layout.$spacing-03 0 layout.$spacing-03;
+  border-bottom: 1px solid $ui-03;
+  padding-bottom: layout.$spacing-03;
+}
+
+.tabletSearchResultTile {
+  &:not(:last-of-type) {
+    margin-bottom: layout.$spacing-04;
+  }
+}
+
+.searchResultSkeletonWrapper {
+  margin: layout.$spacing-03 0;
+  padding: layout.$spacing-03;
+
+  :global(.cds--skeleton__text) {
+    margin: 0;
+  }
+
+  .searchResultCntSkeleton {
+    margin-right: layout.$spacing-07;
+  }
+
+  .skeletonTile {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.emptyState {
+  margin: layout.$spacing-03;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: layout.$spacing-05;
+  text-align: center;
+  background-color: $ui-01;
+}
+
+:global(.omrs-breakpoint-lt-small-desktop) .emptyState {
+  background-color: $ui-02;
+}
+
+.link {
+  color: $interactive-01;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.resultsContainer {
+  padding: layout.$spacing-03;
+}
+
+.resultsContainer div[role='option'] {
+  margin: 0;
+  padding: layout.$spacing-03;
+  cursor: pointer;
+  border-radius: layout.$spacing-02;
+  @include type.type-style('body-compact-01');
+}
+
+.resultsContainer div[role='option']:hover,
+.resultsContainer div[role='option']:focus {
+  background-color: $ui-03;
+  outline: 2px solid $interactive-01;
+  outline-offset: -2px;
+}
+
+.resultsContainer::-webkit-scrollbar-thumb {
+  border-radius: layout.$spacing-02;
+}
+
+.productiveHeading01 {
+  @include type.type-style('heading-compact-01');
+  margin-bottom: layout.$spacing-03;
+}
+
+.bodyShort01 {
+  @include type.type-style('body-compact-01');
+}

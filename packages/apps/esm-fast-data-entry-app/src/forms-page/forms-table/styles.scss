@@ -1,0 +1,19 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.toolbarWrapper {
+  position: relative;
+  display: flex;
+  height: layout.$spacing-09;
+  justify-content: flex-end;
+}
+
+.tableToolbar {
+  width: 20%;
+  min-width: 12.5rem;
+}
+
+.inactiveLink {
+  color: colors.$gray-40;
+  cursor: not-allowed;
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "fhir2": ">=1.2",
+    "webservices.rest": ">=2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "system-administration-app-menu-link",
+      "slot": "app-menu-slot",
+      "component": "systemAdminAppMenuLink"
+    },
+    {
+      "name": "system-admin-page-link",
+      "slot": "system-admin-page-card-link-slot",
+      "component": "legacySystemAdminPageCardLink",
+      "order": 0
+    }
+  ],
+  "pages": [
+    {
+      "component": "root",
+      "route": "system-administration"
+    }
+  ]
+}

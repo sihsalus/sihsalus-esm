@@ -1,0 +1,26 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.conditionContainer {
+  background-color: colors.$white-0;
+  margin-bottom: layout.$spacing-05;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+
+  td {
+    padding-left: 2rem !important;
+  }
+}
+
+.conditionColumn {
+  width: 70%;
+}
+
+.onsetDateColumn {
+  width: 30%;
+  text-align: left;
+}

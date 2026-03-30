@@ -1,0 +1,134 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.container {
+  padding: layout.$spacing-05;
+  background-color: colors.$gray-10;
+}
+
+.backgroundDataFetchingIndicator {
+  flex: 1;
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbarWrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+:global(.omrs-breakpoint-lt-desktop) {
+  .toolbarWrapper {
+    height: layout.$spacing-09;
+  }
+}
+
+:global(.omrs-breakpoint-gt-tablet) {
+  .toolbarWrapper {
+    height: layout.$spacing-07;
+  }
+}
+
+.tableToolbar {
+  width: 20%;
+  min-width: 12.5rem;
+}
+
+.headerContainer {
+  background-color: colors.$gray-10;
+}
+
+.searchbox {
+  input {
+    outline: 2px solid colors.$orange-40 !important;
+  }
+}
+
+.link {
+  text-decoration: none;
+}
+
+.table {
+  tr {
+    &:last-of-type {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  td {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.tableContainer {
+  padding: 0;
+
+  :global(.cds--data-table-content) {
+    border: 1px solid colors.$gray-20;
+    border-bottom: none;
+    overflow: visible;
+  }
+
+  :global(.cds--table-toolbar) {
+    position: relative;
+    height: layout.$spacing-07;
+    min-height: 0rem;
+    overflow: visible;
+    top: 0;
+  }
+
+  &:global(.cds--data-table-container) {
+    padding-top: 0rem;
+  }
+}
+
+.filterContainer {
+  flex: 1;
+
+  :global(.cds--dropdown__wrapper--inline) {
+    gap: 0;
+  }
+
+  :global(.cds--list-box__menu-icon) {
+    height: layout.$spacing-05;
+  }
+}
+
+.filterDropdown {
+  margin-bottom: layout.$spacing-03;
+}
+
+.content {
+  @include type.type-style('heading-compact-02');
+  color: colors.$gray-70;
+  margin-bottom: layout.$spacing-03;
+}
+
+.tileContainer {
+  background-color: colors.$white-0;
+  border-top: 1px solid colors.$gray-70;
+  padding: layout.$spacing-11 0;
+}
+
+.tile {
+  margin: auto;
+  width: fit-content;
+}
+
+.tileContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.warningMessage {
+  margin: layout.$spacing-05 0;
+}
