@@ -6,7 +6,7 @@ import { URL } from 'node:url';
 import axios from 'axios';
 import glob from 'glob';
 
-import { getMainBundle, getAppRoutes } from './dependencies';
+import { getMainBundle, getAppRoutes, type PackageManifest } from './dependencies';
 import { startDevServer } from './devserver';
 import { logFail, logInfo, logWarn } from './logger';
 import { getAvailablePort } from './port';
@@ -152,7 +152,7 @@ const defaultConfigPath = resolve(__dirname, '..', '..', 'default-rspack-config.
 function runProjectDevServer(
   configPath: string,
   port: number,
-  project: Record<string, unknown>,
+  project: PackageManifest,
   sourceDirectory: string,
   importMap: Record<string, string>,
   routes: Record<string, unknown>,
@@ -161,8 +161,8 @@ function runProjectDevServer(
   const host = `http://localhost:${port}`;
 
   startDevServer(configPath, port, sourceDirectory);
-  importMap[project.name] = `${host}/${bundle.name}`;
-  routes[project.name] = getAppRoutes(sourceDirectory, project);
+  importMap[project.name as string] = `${host}/${bundle.name}`;
+  routes[project.name as string] = getAppRoutes(sourceDirectory, project);
 }
 
 export async function runProject(
@@ -223,13 +223,13 @@ export async function runProject(
       const port = await getAvailablePort(nextPortToCheck);
       nextPortToCheck = port + 1;
 
-      runProjectDevServer(defaultConfigPath, port, project, sourceDirectory, importMap, routes, true);
+      runProjectDevServer(defaultConfigPath, port, project, sourceDirectory, importMap, routes);
     } else {
       // Find next available port
       const port = await getAvailablePort(nextPortToCheck);
       nextPortToCheck = port + 1;
 
-      runProjectDevServer(rspackConfigPath, port, project, sourceDirectory, importMap, routes, true);
+      runProjectDevServer(rspackConfigPath, port, project, sourceDirectory, importMap, routes);
     }
   }
 

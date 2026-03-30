@@ -1,16 +1,26 @@
-import { basename, dirname, resolve } from 'node:path';
 import { existsSync, readFileSync, statSync } from 'node:fs';
+import { basename, dirname, resolve } from 'node:path';
+
 import { inc } from 'semver';
+
+export interface PackageManifest {
+  name?: string;
+  version?: string;
+  browser?: string;
+  module?: string;
+  main?: string;
+  [key: string]: unknown;
+}
 
 export function getSharedDependencies() {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   return require('@openmrs/esm-app-shell/dependencies.json');
 }
 
-export function getMainBundle(project: any) {
+export function getMainBundle(project: PackageManifest) {
   const file = project.browser || project.module || project.main;
 
-  if (!Boolean(file)) {
+  if (!file) {
     throw Error(
       'Could not find project to run. If you ran this outside of a directory containing an app, make sure you specify --sources.',
     );
@@ -23,7 +33,7 @@ export function getMainBundle(project: any) {
   };
 }
 
-export function getAppRoutes(sourceDirectory: string, project: any): Record<string, unknown> {
+export function getAppRoutes(sourceDirectory: string, project: PackageManifest): Record<string, unknown> {
   const routesPath = resolve(sourceDirectory, 'src', 'routes.json');
 
   if (!existsSync(routesPath)) {
