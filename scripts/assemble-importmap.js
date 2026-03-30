@@ -4,9 +4,9 @@ const glob = require('glob');
 
 const importmap = { imports: {} };
 const routesRegistry = {};
-const outDir = 'dist/spa';
+const outDir = process.env.SPA_OUTPUT_DIR || 'dist/spa';
 
-// Backend URL for downloading pre-built @openmrs/* modules (only used at build time)
+// Backend URL for downloading @openmrs/* modules at runtime
 const BACKEND_URL = process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
 
 // Clean and recreate output directory
