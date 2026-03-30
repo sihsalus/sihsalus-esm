@@ -8,10 +8,9 @@ export function trimEnd(text: string, chr: string): string {
 }
 
 export function removeTrailingSlash(path: string): string {
-  const i = path.length - 1;
-  return path[i] === '/' ? removeTrailingSlash(path.slice(0, i)) : path;
+  return path.replace(/\/+$/, '');
 }
 
 export function contentHash(obj: object) {
-  return createHash('sha256').update(JSON.stringify(obj)).digest('hex');
+  return createHash('sha1').update(JSON.stringify(obj)).digest('hex');
 }

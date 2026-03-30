@@ -9,7 +9,6 @@ export interface PackageManifest {
   browser?: string;
   module?: string;
   main?: string;
-  [key: string]: unknown;
 }
 
 export function getSharedDependencies() {

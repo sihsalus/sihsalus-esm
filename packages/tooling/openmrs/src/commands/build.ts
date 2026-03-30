@@ -2,17 +2,8 @@ import { copyFileSync, existsSync, readdirSync, readFileSync, statSync } from 'f
 import { spawn } from 'node:child_process';
 import { basename, join, parse, resolve } from 'node:path';
 
-import {
-  checkImportmapJson,
-  checkRoutesJson,
-  getImportMap,
-  getRoutes,
-  getRspackBin,
-  getShellDir,
-  logInfo,
-} from '../utils';
+import { checkImportmapJson, checkRoutesJson, getImportMap, getRoutes, rspackBin, shellDir, logInfo } from '../utils';
 import { setShellEnvVars } from '../utils/config';
-
 
 /* eslint-disable no-console */
 
@@ -136,8 +127,8 @@ export async function runBuild(args: BuildArgs) {
   const mode = (buildConfig.env || args.env) === 'development' ? 'development' : 'production';
 
   await new Promise<void>((res, rej) => {
-    const ps = spawn(process.execPath, [getRspackBin(), 'build', '--mode', mode, '--output-path', args.target], {
-      cwd: getShellDir(),
+    const ps = spawn(process.execPath, [rspackBin, 'build', '--mode', mode, '--output-path', args.target], {
+      cwd: shellDir,
       stdio: 'inherit',
     });
     ps.on('error', rej);

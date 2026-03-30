@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 
 import type { ImportmapDeclaration } from '../utils';
-import { getRspackBin, getShellDir, logInfo } from '../utils';
+import { rspackBin, shellDir, logInfo } from '../utils';
 import { setShellEnvVars } from '../utils/config';
 
 export interface DebugArgs {
@@ -33,8 +33,8 @@ export function runDebug(args: DebugArgs) {
   return new Promise<void>((res, rej) => {
     const ps = spawn(
       process.execPath,
-      [getRspackBin(), 'serve', '--mode', 'development', '--port', String(args.port), '--host', args.host],
-      { cwd: getShellDir(), stdio: 'inherit' },
+      [rspackBin, 'serve', '--mode', 'development', '--port', String(args.port), '--host', args.host],
+      { cwd: shellDir, stdio: 'inherit' },
     );
     ps.on('error', rej);
     // code === null means the process was killed by a signal (e.g. Ctrl+C); treat as clean exit
