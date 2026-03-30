@@ -1,19 +1,18 @@
 # Dockerfile
 
 # Stage 1: Build local @sihsalus/* modules — deterministic, no network required
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 RUN corepack enable && corepack prepare yarn@4.13.0 --activate
 
 # Copy workspace files first for better layer caching
 COPY package.json yarn.lock .yarnrc.yml turbo.json ./
 COPY packages/ ./packages/
-COPY config/ ./config/
 COPY scripts/ ./scripts/
 
 ENV CI=true
 RUN yarn install --immutable
-RUN yarn turbo run build --filter='./packages/apps/*' --filter='./packages/shell/*'
+RUN yarn turbo run build --filter='./packages/apps/*'
 
 # Stage 2: Init container image
 # This image runs at deployment time (not build time) to:
@@ -21,7 +20,7 @@ RUN yarn turbo run build --filter='./packages/apps/*' --filter='./packages/shell
 #   2. Fetch @openmrs/* modules from the running backend
 #   3. Assemble the final importmap and write everything to SPA_OUTPUT_DIR
 # The infra repo mounts a shared volume at SPA_OUTPUT_DIR; nginx serves from it.
-FROM node:20-alpine AS init
+FROM node:22-alpine AS init
 WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
