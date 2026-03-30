@@ -8,7 +8,7 @@ This directory contains architecture documentation and decision records for the 
 
 ## Architecture Overview
 
-SIH Salus is a Hospital Information System built as a **Turborepo monorepo** with **single-spa** microfrontend architecture on top of **OpenMRS 3.x**.
+SIH Salus is a Hospital Information System built as a **Turborepo monorepo** with **single-spa** microfrontend architecture on top of **OpenMRS 3.x**, using **Rspack** as the bundler.
 
 ### Key Design Decisions
 
@@ -19,14 +19,14 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 
 ### Package Organization
 
-| Directory | Contents |
-|---|---|
-| `packages/apps/` | 41 frontend ESM modules (upstream + custom) |
-| `packages/libs/` | 6 shared libraries (RBAC, FHIR client, audit logger, Keycloak auth, constants, patient-common-lib) |
-| `packages/tooling/` | CLI (`openmrs`), webpack-config, rspack-config |
-| `packages/tools/` | Test utilities (setup-tests, test-utils) |
-| `scripts/` | Build scripts (import map assembly, workspace dep fixer) |
-| `e2e/` | Playwright E2E tests |
+| Directory           | Contents                                                                                           |
+| ------------------- | -------------------------------------------------------------------------------------------------- |
+| `packages/apps/`    | 41 frontend ESM modules (upstream + custom)                                                        |
+| `packages/libs/`    | 6 shared libraries (RBAC, FHIR client, audit logger, Keycloak auth, constants, patient-common-lib) |
+| `packages/tooling/` | CLI (`openmrs`), webpack-config, rspack-config                                                     |
+| `packages/tools/`   | Test utilities (setup-tests, test-utils)                                                           |
+| `scripts/`          | Build scripts (import map assembly, workspace dep fixer)                                           |
+| `e2e/`              | Playwright E2E tests                                                                               |
 
 ### Module Types
 

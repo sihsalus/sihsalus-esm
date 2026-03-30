@@ -3,7 +3,7 @@
 # Stage 1: Install dependencies and build
 FROM node:20-alpine AS builder
 WORKDIR /app
-RUN corepack enable && corepack prepare yarn@4.10.3 --activate
+RUN corepack enable && corepack prepare yarn@4.13.0 --activate
 
 # Copy workspace files first for better layer caching
 COPY package.json yarn.lock .yarnrc.yml turbo.json ./

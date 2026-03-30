@@ -4,7 +4,7 @@ const glob = require('glob');
 const WORKSPACE_DEPS = [
   '@openmrs/esm-framework',
   '@openmrs/esm-patient-common-lib',
-  '@openmrs/webpack-config',
+  '@openmrs/rspack-config',
   'openmrs',
 ];
 
