@@ -1,4 +1,5 @@
-import { util } from 'webpack';
+import { createHash } from 'node:crypto';
+import { resolve } from 'node:path';
 
 export function trimEnd(text: string, chr: string): string {
   while (text.endsWith(chr)) {
@@ -13,7 +14,15 @@ export function removeTrailingSlash(path: string): string {
 }
 
 export function contentHash(obj: object) {
-  const hash = util.createHash('xxhash64');
-  hash.update(JSON.stringify(obj), 'UTF-8');
-  return hash.digest().toString('hex');
+  return createHash('sha256').update(JSON.stringify(obj)).digest('hex');
+}
+
+export function getShellDir(): string {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return resolve(require.resolve('@openmrs/esm-app-shell/package.json'), '..');
+}
+
+export function getRspackBin(): string {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  return resolve(require.resolve('@rspack/cli/package.json'), '..', 'bin', 'rspack.js');
 }

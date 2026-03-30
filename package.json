@@ -22,7 +22,7 @@
     "verify": "turbo run lint typescript test",
     "clean": "turbo run clean && rm -rf dist/spa",
     "setup": "yarn install && turbo run build",
-    "postinstall": "husky install"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
@@ -35,7 +35,6 @@
     "@types/fhir": "0.0.31",
     "@types/react": "^18.3.21",
     "@types/react-dom": "^18.3.0",
-    "@types/webpack-env": "^1.16.4",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.35.0",
     "cross-env": "^10.1.0",
@@ -47,7 +46,6 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-testing-library": "^7.1.1",
     "fake-indexeddb": "^4.0.2",
-    "fork-ts-checker-webpack-plugin": "^7.2.13",
     "husky": "^8.0.3",
     "i18next-parser": "^9.3.0",
     "identity-obj-proxy": "^3.0.0",

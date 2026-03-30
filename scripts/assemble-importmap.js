@@ -12,23 +12,30 @@ const BACKEND_URL = process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.p
 // Clean and recreate output directory
 fs.mkdirSync(outDir, { recursive: true });
 
-// ── Phase 1: Copy locally-built @sihsalus/* app bundles ───────────────
-console.log('\n=== Phase 1: Local @sihsalus/* modules ===');
+// ── Phase 1: Copy locally-built app bundles (@sihsalus/* and @openmrs/* overrides) ──
+console.log('\n=== Phase 1: Local modules ===');
 const appDirs = glob.sync('packages/apps/esm-*/dist');
 const localBaseNames = new Set();
+
+// Track packages found locally but without a built dist, for a summary warning
+const notBuilt = [];
 
 for (const distDir of appDirs) {
   const pkgJsonPath = path.join(distDir, '..', 'package.json');
   if (!fs.existsSync(pkgJsonPath)) continue;
 
   const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
-  if (pkg.private) continue;
-  // Only include @sihsalus/* modules locally — @openmrs/* come from backend
-  if (!pkg.name.startsWith('@sihsalus/')) continue;
+  if (pkg.private) {
+    console.log(`  SKIP ${pkg.name}: private package`);
+    continue;
+  }
+
+  const isLocalOverride = !pkg.name.startsWith('@sihsalus/');
+  const tag = isLocalOverride ? '[override]' : '[local]   ';
 
   const browserField = pkg.browser || pkg.module || pkg.main;
   if (!browserField) {
-    console.warn(`  SKIP ${pkg.name}: no browser/module/main field`);
+    console.warn(`  SKIP ${tag} ${pkg.name}: no browser/module/main field`);
     continue;
   }
 
@@ -36,7 +43,8 @@ for (const distDir of appDirs) {
   const entryFilePath = path.join(distDir, '..', browserField);
 
   if (!fs.existsSync(entryFilePath)) {
-    console.warn(`  SKIP ${pkg.name}: entry bundle not found at ${browserField}`);
+    notBuilt.push(pkg.name);
+    console.warn(`  SKIP ${tag} ${pkg.name}: dist not found at ${browserField} — run build first`);
     continue;
   }
 
@@ -45,12 +53,14 @@ for (const distDir of appDirs) {
   localBaseNames.add(pkg.name.replace(/^@[^/]+\//, ''));
 
   // Copy chunk files
+  let chunkCount = 0;
   for (const file of fs.readdirSync(distDir)) {
     if (file === entryFileName) continue;
     if (file.endsWith('.buildmanifest.json')) continue;
     const dest = path.join(outDir, file);
     if (fs.existsSync(dest)) continue;
     fs.copyFileSync(path.join(distDir, file), dest);
+    chunkCount++;
   }
 
   // Collect routes
@@ -62,7 +72,12 @@ for (const distDir of appDirs) {
     };
   }
 
-  console.log(`  OK ${pkg.name} -> ${entryFileName}`);
+  console.log(`  OK  ${tag} ${pkg.name} -> ${entryFileName} (${chunkCount} chunks)`);
+}
+
+if (notBuilt.length > 0) {
+  console.warn(`\n  WARNING: ${notBuilt.length} local package(s) have no dist — they will be fetched from the backend:`);
+  for (const name of notBuilt) console.warn(`    - ${name}`);
 }
 
 // ── Phase 2: Download @openmrs/* modules from backend ─────────────────
@@ -104,15 +119,18 @@ async function downloadBackendModules() {
 
   const backendEntries = Object.entries(backendImportmap.imports || {});
   console.log(`  Backend has ${backendEntries.length} modules`);
+  console.log(`  Local overrides (will skip backend version): ${[...localBaseNames].join(', ') || '(none)'}`);
 
   let downloaded = 0;
   let skipped = 0;
+  const skippedNames = [];
 
   for (const [name, relUrl] of backendEntries) {
     const baseName = name.replace(/^@[^/]+\//, '');
 
-    // Skip if we have a local version (e.g. @sihsalus/esm-fua-app overrides @pucp-gidis-hiisc/esm-fua-app)
+    // Skip if we have a local version (covers @sihsalus/* and @openmrs/* local overrides)
     if (localBaseNames.has(baseName)) {
+      skippedNames.push(name);
       skipped++;
       continue;
     }
@@ -189,6 +207,10 @@ async function downloadBackendModules() {
   }
 
   console.log(`  Downloaded: ${downloaded} | Skipped (local override): ${skipped}`);
+  if (skippedNames.length > 0) {
+    console.log('  Skipped modules (local build used instead):');
+    for (const name of skippedNames) console.log(`    - ${name}`);
+  }
 }
 
 // ── Phase 3: Copy app-shell dist ──────────────────────────────────────

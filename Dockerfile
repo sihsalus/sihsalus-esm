@@ -11,6 +11,7 @@ COPY packages/ ./packages/
 COPY config/ ./config/
 COPY scripts/ ./scripts/
 
+ENV CI=true
 RUN yarn install --immutable
 RUN yarn turbo run build --filter='./packages/apps/*' --filter='./packages/shell/*'
 

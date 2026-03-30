@@ -1,8 +1,7 @@
 import type { ImportmapDeclaration, RoutesDeclaration } from './importmap';
 import { setEnvVariables } from './variables';
-import type { Configuration as WebpackConfig } from 'webpack';
 
-export interface WebpackOptions {
+export interface ShellOptions {
   backend?: string;
   defaultLocale?: string;
   importmap?: ImportmapDeclaration;
@@ -19,7 +18,14 @@ export interface WebpackOptions {
   assets?: Array<string>;
 }
 
-export function loadWebpackConfig(options: WebpackOptions = {}) {
+/** @deprecated Use ShellOptions */
+export type WebpackOptions = ShellOptions;
+
+/**
+ * Sets OMRS_* environment variables from the provided options so they can
+ * be read by the app-shell's rspack.config.ts at build/serve time.
+ */
+export function setShellEnvVars(options: ShellOptions = {}): void {
   const variables: Record<string, unknown> = {};
 
   if (typeof options.backend === 'string') {
@@ -94,15 +100,4 @@ export function loadWebpackConfig(options: WebpackOptions = {}) {
   }
 
   setEnvVariables(variables);
-
-  const config:
-    | ((env: Record<string, unknown>) => WebpackConfig)
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    | WebpackConfig = require('@openmrs/esm-app-shell/webpack.config.js');
-
-  if (typeof config === 'function') {
-    return config({});
-  }
-
-  return config;
 }
