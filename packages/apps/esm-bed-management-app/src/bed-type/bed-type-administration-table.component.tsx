@@ -39,7 +39,7 @@ const BedTypeAdministrationTable: React.FC = () => {
   const { bedTypes, errorLoadingBedTypes, isLoadingBedTypes, isValidatingBedTypes, mutateBedTypes } = useBedTypes();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setPageSize] = useState(10);
+  const [, setPageSize] = useState(10);
   const [editData, setEditData] = useState<BedTypeData>();
   const [pageSize] = useState(10);
   const [showBedTypeModal, setAddBedTypeModal] = useState(false);

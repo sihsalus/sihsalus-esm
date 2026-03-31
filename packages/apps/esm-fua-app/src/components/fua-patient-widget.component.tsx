@@ -1,10 +1,9 @@
 import { DataTableSkeleton, Tag, Tile, Button } from '@carbon/react';
 import { View } from '@carbon/react/icons';
-import { formatDate, launchWorkspace, useConfig } from '@openmrs/esm-framework';
+import { formatDate, launchWorkspace } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { Config } from '../config-schema';
 import { useFuasByPatient } from '../hooks/useFuaRequests';
 
 import styles from './fua-patient-widget.scss';

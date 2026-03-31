@@ -1,9 +1,9 @@
-import React from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import userEvent from '@testing-library/user-event';
-import { type AppProps } from 'single-spa';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { type AppProps } from 'single-spa';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import Root from './devtools.component';
 

@@ -13,7 +13,7 @@ export default function Root(props: AppProps) {
   return showDevTools() ? <DevTools {...props} /> : null;
 }
 
-function DevTools(props: AppProps) {
+function DevTools(_props: AppProps) {
   const [devToolsOpen, setDevToolsOpen] = useState(false);
   const [isOverridden, setIsOverridden] = useState(importMapOverridden);
 

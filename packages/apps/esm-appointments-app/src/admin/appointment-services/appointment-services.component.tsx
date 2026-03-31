@@ -13,6 +13,7 @@ import { validationSchema } from './appointment-services-validation';
 import styles from './appointment-services.scss';
 
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AppointmentServicesProps {}
 
 const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
@@ -20,7 +21,7 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
   const { appointmentServiceInitialValue, addNewAppointmentService } = useAppointmentServices();
 
   const locations = useLocations(appointmentLocationTagName);
-  const handleSubmit = async (values: AppointmentService, helpers: FormikHelpers<AppointmentService>) => {
+  const handleSubmit = async (values: AppointmentService, _helpers: FormikHelpers<AppointmentService>) => {
     const payload = {
       name: values.name,
       startTime: values.startTime.concat(':00'),

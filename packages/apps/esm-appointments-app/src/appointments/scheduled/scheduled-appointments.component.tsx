@@ -161,9 +161,11 @@ function ExtensionWrapper({
     ) {
       currentConfig.current = extension.config;
       currentDateType.current = dateType;
-      shouldDisplayExtensionTab(extension?.config, dateType)
-        ? showExtensionTab(extension.name)
-        : hideExtensionTab(extension.name);
+      if (shouldDisplayExtensionTab(extension?.config, dateType)) {
+        showExtensionTab(extension.name);
+      } else {
+        hideExtensionTab(extension.name);
+      }
     }
   }, [extension, dateType, showExtensionTab, hideExtensionTab]);
 

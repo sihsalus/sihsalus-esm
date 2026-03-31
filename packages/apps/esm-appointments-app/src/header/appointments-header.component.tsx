@@ -21,7 +21,7 @@ const AppointmentsHeader: React.FC<AppointmentHeaderProps> = ({ title, onChange 
   const { selectedDate, setSelectedDate } = useContext(SelectedDateContext);
   const { serviceTypes } = useAppointmentServices();
 
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [, setSelectedItems] = useState([]);
 
   const handleMultiSelectChange = useCallback(
     ({ selectedItems }) => {

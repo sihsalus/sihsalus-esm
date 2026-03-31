@@ -11,7 +11,7 @@ import {
 import { formatDate, parseDate, showSnackbar, type Visit } from '@openmrs/esm-framework';
 import { ErrorState } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useMutateAppointments } from '../form/appointments-form.resource';
@@ -21,6 +21,7 @@ import { changeAppointmentStatus, usePatientAppointments } from './patient-appoi
 import styles from './patient-upcoming-appointments-card.scss';
 
 interface VisitFormCallbacks {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onVisitCreatedOrUpdated: (visit: Visit) => Promise<any>;
 }
 

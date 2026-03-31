@@ -8,7 +8,6 @@ import {
   useSession,
 } from '@openmrs/esm-framework';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import styles from './header.scss';
 
@@ -17,7 +16,6 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
-  const { t } = useTranslation();
   const userSession = useSession();
   const userLocation = userSession?.sessionLocation?.display;
 

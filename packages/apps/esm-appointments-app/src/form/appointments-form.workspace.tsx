@@ -332,9 +332,9 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
     // check if Duplicate Response Occurs
     const response: FetchResponse = await checkAppointmentConflict(appointmentPayload);
     let errorMessage = t('appointmentConflict', 'Appointment conflict');
-    if (response?.data?.hasOwnProperty('SERVICE_UNAVAILABLE')) {
+    if (Object.prototype.hasOwnProperty.call(response?.data, 'SERVICE_UNAVAILABLE')) {
       errorMessage = t('serviceUnavailable', 'Appointment time is outside of service hours');
-    } else if (response?.data?.hasOwnProperty('PATIENT_DOUBLE_BOOKING')) {
+    } else if (Object.prototype.hasOwnProperty.call(response?.data, 'PATIENT_DOUBLE_BOOKING')) {
       if (context !== 'editing') {
         errorMessage = t('patientDoubleBooking', 'Patient already booked for an appointment at this time');
       } else {
@@ -897,6 +897,7 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
 };
 
 function TimeAndDuration({ t, watch, control, services, errors }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const defaultDuration = services?.find((service) => service.name === watch('selectedService'))?.durationMins || null;
 
   return (

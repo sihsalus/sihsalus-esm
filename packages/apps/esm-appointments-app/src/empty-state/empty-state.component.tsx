@@ -12,7 +12,7 @@ export interface EmptyStateProps {
   launchForm?(): void;
 }
 
-export const EmptyState: React.FC<EmptyStateProps> = ({ headerTitle, displayText, launchForm }) => {
+export const EmptyState: React.FC<EmptyStateProps> = ({ headerTitle, displayText, launchForm: _launchForm }) => {
   const isTablet = useLayoutType() === 'tablet';
 
   return (
@@ -24,6 +24,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ headerTitle, displayText
         <EmptyDataIllustration />
         <p className={styles.content}>
           <Trans i18nKey="emptyStateText" displayText={displayText}>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             There are no <span className={styles.displayText}>{{ displayText } as any}</span> to display
           </Trans>
         </p>

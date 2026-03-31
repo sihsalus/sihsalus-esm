@@ -13,10 +13,10 @@ import offlineToolsPageActionsComponent from './offline-actions/offline-actions-
 import offlineToolsPatientChartComponent from './offline-actions/offline-actions-patient-chart-widget.component';
 import offlineToolsActionsComponent from './offline-actions/offline-actions.component';
 import { setupSynchronizingOfflineActionsNotifications } from './offline-actions/synchronizing-notification';
+import offlineToolsPatientsComponent from './offline-patients/offline-patients.component';
 import offlineToolsPatientsCardComponent from './offline-patients/patients-overview-card.component';
 import offlineToolsLinkComponent from './offline-tools-app-menu-link.component';
 import offlineToolsComponent from './root.component';
-import offlineToolsPatientsComponent from './offline-patients/offline-patients.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 

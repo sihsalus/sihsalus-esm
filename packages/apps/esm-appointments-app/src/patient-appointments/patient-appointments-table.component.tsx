@@ -1,9 +1,3 @@
-import classNames from 'classnames';
-import dayjs from 'dayjs';
-import React, { useEffect, useMemo } from 'react';
-
-dayjs.extend(utc);
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   type DataTableHeader,
@@ -15,15 +9,20 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import { formatDatetime, parseDate, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import React, { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { type Appointment } from '../types';
 
 import { PatientAppointmentsActionMenu } from './patient-appointments-action-menu.component';
 import styles from './patient-appointments-action-menu.scss';
 
-const utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
 
 const pageSize = 10;
 

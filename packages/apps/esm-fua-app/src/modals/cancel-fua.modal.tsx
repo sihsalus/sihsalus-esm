@@ -42,7 +42,7 @@ const CancelFuaModal: React.FC<CancelFuaModalProps> = ({ closeModal, fuaRequest,
 
       onCancelled?.();
       closeModal();
-    } catch (error) {
+    } catch {
       showSnackbar({
         title: t('error', 'Error'),
         subtitle: t('errorCancellingFua', 'Ocurrió un error al cancelar el FUA'),

@@ -75,7 +75,7 @@ const PatientCell: React.FC<{ visitUuid: string }> = ({ visitUuid }) => {
 const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' }) => {
   const { t } = useTranslation();
 
-  const { fuaOrders, isLoading, isError, mutate } = useFuaRequests({
+  const { fuaOrders, isLoading, mutate } = useFuaRequests({
     status: statusFilter !== 'all' ? statusFilter : null,
     excludeCanceled: true,
   });

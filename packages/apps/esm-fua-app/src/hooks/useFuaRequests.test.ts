@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { openmrsFetch, useAppContext } from '@openmrs/esm-framework';
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import useSWR from 'swr';
 
 import { useFuaRequests, setFuaEstado, cancelFuaRequest, useFuasByPatient } from './useFuaRequests';

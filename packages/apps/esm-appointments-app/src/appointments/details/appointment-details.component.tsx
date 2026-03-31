@@ -14,7 +14,7 @@ interface AppointmentDetailsProps {
 
 const AppointmentDetails: React.FC<AppointmentDetailsProps> = ({ appointment }) => {
   const { t } = useTranslation();
-  const [isEnabledQuery, setIsEnabledQuery] = useState(false);
+  const [, setIsEnabledQuery] = useState(false);
   const { appointmentsCount, isLoading } = usePatientAppointmentHistory(appointment.patient.uuid);
   const { patient } = usePatient(appointment.patient.uuid);
 

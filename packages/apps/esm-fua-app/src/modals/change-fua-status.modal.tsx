@@ -80,7 +80,7 @@ const ChangeFuaStatusModal: React.FC<ChangeFuaStatusModalProps> = ({ closeModal,
 
       onStatusChanged?.();
       closeModal();
-    } catch (error) {
+    } catch {
       showSnackbar({
         title: t('error', 'Error'),
         subtitle: t('errorChangingStatus', 'Ocurrió un error al cambiar el estado del FUA'),

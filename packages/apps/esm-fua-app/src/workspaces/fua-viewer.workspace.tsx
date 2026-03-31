@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import FuaHtmlViewer from '../components/fua-html-viewer.component';
 
@@ -8,8 +7,7 @@ interface FuaViewerWorkspaceProps {
   closeWorkspace?: () => void;
 }
 
-const FuaViewerWorkspace: React.FC<FuaViewerWorkspaceProps> = ({ fuaId, closeWorkspace }) => {
-  const { t } = useTranslation();
+const FuaViewerWorkspace: React.FC<FuaViewerWorkspaceProps> = ({ fuaId, closeWorkspace: _closeWorkspace }) => {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>

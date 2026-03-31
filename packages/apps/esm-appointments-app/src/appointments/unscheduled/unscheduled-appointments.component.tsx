@@ -30,7 +30,7 @@ const UnscheduledAppointments: React.FC = () => {
   const [pageSize, setPageSize] = useState(25);
 
   const [searchString, setSearchString] = useState('');
-  const { data: unscheduledAppointments, isLoading, error } = useUnscheduledAppointments();
+  const { data: unscheduledAppointments, isLoading } = useUnscheduledAppointments();
   const searchResults = useSearchResults(unscheduledAppointments, searchString);
   const { customPatientChartUrl } = useConfig<ConfigObject>();
 

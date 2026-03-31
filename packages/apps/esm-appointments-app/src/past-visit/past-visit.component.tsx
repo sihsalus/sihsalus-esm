@@ -27,7 +27,7 @@ export interface FormattedEncounter {
 
 const PastVisit: React.FC<PastVisitProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
-  const { data: pastVisits, error, isLoading } = usePastVisits(patientUuid);
+  const { data: pastVisits, isLoading } = usePastVisits(patientUuid);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const isTablet = useLayoutType() === 'tablet';
 

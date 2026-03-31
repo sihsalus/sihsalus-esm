@@ -78,6 +78,7 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
   useEffect(
     () => (isNew ? moduleNameRef.current?.focus() : inputRef.current?.focus()),
     // Only fired on initial mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
