@@ -291,7 +291,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
       mode !== production &&
         new TsCheckerRspackPlugin({
           issue: {
-            exclude: [{ file: '**/node_modules/**' }],
+            exclude: [(issue) => issue.file?.includes('node_modules') ?? false],
           },
         }),
       new CleanWebpackPlugin(),

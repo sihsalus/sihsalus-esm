@@ -79,6 +79,6 @@ describe('Import component', () => {
 
 function waitForLoadingToFinish() {
   return waitFor(() => {
-    expect(screen.getByText('Import Concepts')).toBeVisible, { timeout: 2000 };
+    expect(screen.getByText('Import Concepts')).toBeVisible();
   });
 }

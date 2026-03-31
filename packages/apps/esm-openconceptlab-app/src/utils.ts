@@ -14,7 +14,7 @@ export const isVersionDefinedInUrl = (subscriptionUrl: string) => {
   let url;
   try {
     url = new URL(subscriptionUrl);
-  } catch (e) {
+  } catch {
     return false;
   }
 
