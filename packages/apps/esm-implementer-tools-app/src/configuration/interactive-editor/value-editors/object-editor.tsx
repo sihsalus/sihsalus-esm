@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StructuredListBody, StructuredListCell, StructuredListRow, StructuredListWrapper, Tile } from '@carbon/react';
 import { Type } from '@openmrs/esm-framework';
 import cloneDeep from 'lodash-es/cloneDeep';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ExtensionSlotConfigureValueObject } from '@openmrs/esm-framework';
 import { useAssignedExtensions } from '@openmrs/esm-framework';
 import isEqual from 'lodash-es/isEqual';
@@ -66,6 +67,7 @@ function ExtensionSlotConfigTree({ config, path }: ExtensionSlotConfigProps) {
     if (shouldFocus) {
       itemRef.current?.scrollIntoView();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uiSelectedPath]);
 
   function setActiveExtensionSlotOnMouseEnter(moduleName, slotName) {

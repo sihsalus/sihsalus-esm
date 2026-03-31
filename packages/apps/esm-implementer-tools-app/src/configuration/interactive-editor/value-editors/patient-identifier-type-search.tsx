@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Search, StructuredListCell, StructuredListRow, StructuredListWrapper } from '@carbon/react';
 import uniqueId from 'lodash-es/uniqueId';
 import React, { useState, useMemo } from 'react';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Search, StructuredListCell, StructuredListRow, StructuredListWrapper } from '@carbon/react';
 import debounce from 'lodash-es/debounce';
 import uniqueId from 'lodash-es/uniqueId';

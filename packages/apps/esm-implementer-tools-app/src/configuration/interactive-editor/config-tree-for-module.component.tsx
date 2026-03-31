@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { pickBy } from 'lodash-es';
 import React from 'react';
 

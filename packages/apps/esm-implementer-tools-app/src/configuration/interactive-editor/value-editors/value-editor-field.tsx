@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Checkbox, NumberInput, TextInput } from '@carbon/react';
 import { Type } from '@openmrs/esm-framework';
 import uniqueId from 'lodash-es/uniqueId';

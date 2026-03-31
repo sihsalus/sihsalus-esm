@@ -25,6 +25,7 @@ export function ValueEditor({ element, customType, path, handleSaveToConfigurati
   const [error, setError] = useState<string | null>(null);
 
   const valueType = customType ?? element._type;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const validators = element._validators ?? [];
 
   let elementSchema: ConfigValueDescriptor | Config | undefined = undefined;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Column, FlexGrid, Row, TextInput, Toggle } from '@carbon/react';
 import type { Config } from '@openmrs/esm-framework/src/internal';
 import {
@@ -27,10 +28,10 @@ const JsonEditor = React.lazy(() => import('./json-editor/json-editor.component'
 
 function isLeaf(configNode: Config) {
   return (
-    configNode.hasOwnProperty('_default') ||
+    Object.prototype.hasOwnProperty.call(configNode, '_default') ||
     configNode['_type'] ||
-    configNode.hasOwnProperty('_value') ||
-    configNode.hasOwnProperty('_source')
+    Object.prototype.hasOwnProperty.call(configNode, '_value') ||
+    Object.prototype.hasOwnProperty.call(configNode, '_source')
   );
 }
 

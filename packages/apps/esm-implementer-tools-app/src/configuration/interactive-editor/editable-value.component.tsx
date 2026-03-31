@@ -61,6 +61,7 @@ export default function EditableValue({ path, element, customType }: EditableVal
     };
     update(implementerToolsStore.getState());
     return implementerToolsStore.subscribe(update);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -79,6 +80,7 @@ export default function EditableValue({ path, element, customType }: EditableVal
     if (!editing && isEqual(state.configPathBeingEdited, path)) {
       implementerToolsStore.setState({ configPathBeingEdited: null });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editing]);
 
   return (

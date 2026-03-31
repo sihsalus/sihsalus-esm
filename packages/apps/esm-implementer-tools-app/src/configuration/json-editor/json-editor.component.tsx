@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './json-editor.scss';
 
+import ace from 'ace-builds/src-noconflict/ace';
 import 'ace-builds/src-noconflict/mode-json';
 import 'ace-builds/src-noconflict/theme-dracula';
-import ace from 'ace-builds/src-noconflict/ace';
 
 // Configure ace to bundle workers locally (webpack 5 asset modules)
 // Using new URL() syntax instead of deprecated file-loader or CDN for offline compatibility
@@ -41,12 +41,14 @@ export default function JsonEditor({ height }: JsonEditorProps) {
     setError('');
     clearConfigErrors();
     temporaryConfigStore.setState({ config });
-  }, [editorValue, temporaryConfig.config]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editorValue]);
 
   useEffect(() => {
     if (editorValue != JSON.stringify(temporaryConfig.config, null, 2)) {
       setKey((k) => `${k}+`); // just keep appending plus signs
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [temporaryConfig.config]);
 
   return (
