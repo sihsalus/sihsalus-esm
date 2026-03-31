@@ -74,7 +74,7 @@ function getFrameworkVersion() {
 
 function makeIdent(name: string): string {
   if (name.includes('/')) {
-    name = name.slice(name.indexOf('/'));
+    name = name.slice(name.indexOf('/') + 1);
   }
   if (name.endsWith('-app')) {
     name = name.slice(0, -4);
@@ -179,6 +179,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
     loader: require.resolve('css-loader'),
     options: {
       modules: {
+        namedExport: false,
         localIdentName: `${ident}__[name]__[local]___[hash:base64:5]`,
       },
     },

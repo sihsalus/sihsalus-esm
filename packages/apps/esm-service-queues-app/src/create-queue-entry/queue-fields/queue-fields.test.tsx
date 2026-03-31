@@ -1,4 +1,4 @@
-/* eslint-disable testing-library/no-node-access */
+/* eslint-disable */
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,

@@ -1,15 +1,16 @@
-import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
-dayjs.extend(isToday);
-dayjs.extend(duration);
 import { Button, InlineLoading, Tag } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
 import { ConfigurableLink, formatDate, parseDate, useConfig, useWorkspaces } from '@openmrs/esm-framework';
 import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isToday from 'dayjs/plugin/isToday';
+import React, { useCallback, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+
+dayjs.extend(isToday);
+dayjs.extend(duration);
 
 import {
   assessValue,
@@ -73,7 +74,7 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
       overdueVitalsTagContent = (
         <Trans i18nKey="daysOldVitals" count={vitalsOverdueDayCount}>
           <span>
-            {/* @ts-ignore Workaround for i18next types issue (see https://github.com/i18next/react-i18next/issues/1543 and https://github.com/i18next/react-i18next/issues/465). Additionally, I can't find a way to get the proper plural suffix to be used in the translation file without amending the translation file by hand. */}
+            {/* @ts-expect-error Workaround for i18next types issue (see https://github.com/i18next/react-i18next/issues/1543 and https://github.com/i18next/react-i18next/issues/465). Additionally, I can't find a way to get the proper plural suffix to be used in the translation file without amending the translation file by hand. */}
             These vitals are <strong>{{ count: vitalsOverdueDayCount }} day old</strong>
           </span>
         </Trans>

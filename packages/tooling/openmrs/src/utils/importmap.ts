@@ -266,6 +266,24 @@ export async function mergeImportmapAndRoutes(
     watchedRoutesPaths = {},
   } = additionalImportsAndRoutes || {};
 
+  // Build a set of base names (without scope) from local packages so we can
+  // remove duplicate remote entries that only differ by npm scope.
+  // e.g. local "@sihsalus/esm-login-app" should replace remote "@openmrs/esm-login-app"
+  const localBaseNames = new Set(
+    Object.keys(additionalImports || {}).map((k) => (k.includes('/') ? k.split('/').pop()! : k)),
+  );
+
+  function filterByBaseName<T>(obj: Record<string, T>): Record<string, T> {
+    const filtered: Record<string, T> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const baseName = key.includes('/') ? key.split('/').pop()! : key;
+      if (!localBaseNames.has(baseName)) {
+        filtered[key] = value;
+      }
+    }
+    return filtered;
+  }
+
   if (additionalImports && Object.keys(additionalImports).length > 0) {
     if (importDecl.type === 'url') {
       importDecl.type = 'inline';
@@ -276,7 +294,7 @@ export async function mergeImportmapAndRoutes(
 
     importDecl.value = JSON.stringify({
       imports: {
-        ...map.imports,
+        ...filterByBaseName(map.imports),
         ...additionalImports,
       },
     });
@@ -291,7 +309,7 @@ export async function mergeImportmapAndRoutes(
     const routes = JSON.parse(routesDecl.value);
 
     routesDecl.value = JSON.stringify({
-      ...routes,
+      ...filterByBaseName(routes),
       ...additionalRoutes,
     });
   }

@@ -1,4 +1,4 @@
-/* eslint-disable testing-library/no-node-access */
+/* eslint-disable */
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

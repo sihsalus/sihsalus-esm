@@ -108,9 +108,9 @@ describe('GroupedTimeline', () => {
 
     renderGroupedTimeline(contextWithInterpretations as FilterContextProps);
 
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     const highCell = screen.getByText('100').closest('div');
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     const normalCell = screen.getByText('50').closest('div');
 
     // TODO: Add tests for low interpretation

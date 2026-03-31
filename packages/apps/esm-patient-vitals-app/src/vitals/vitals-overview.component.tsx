@@ -77,7 +77,7 @@ const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, 
       age: age(patient?.patient?.birthDate),
       gender: getGender(patient?.patient?.gender),
       location: patient?.patient?.address?.[0].city,
-      identifiers: identifiers?.length ? identifiers.map(({ value, type }) => value) : [],
+      identifiers: identifiers?.length ? identifiers.map(({ value, type: _type }) => value) : [],
     };
   }, [patient, t, excludePatientIdentifierCodeTypes?.uuids]);
 

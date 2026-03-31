@@ -116,7 +116,7 @@ describe('ListDetails', () => {
     expect(screen.getByText('Delete')).toBeInTheDocument();
     expect(screen.getByText('Cancel')).toBeInTheDocument();
 
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     expect(screen.getByText('Delete').closest('button')).toBeEnabled();
 
     await userEvent.click(screen.getByText('Cancel'));

@@ -71,9 +71,9 @@ describe('VisitSummary', () => {
     expect(malariaTag).toBeInTheDocument();
     expect(hivTag).toBeInTheDocument();
 
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     expect(malariaTag.closest('div')).toHaveClass('cds--tag--red');
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     expect(hivTag.closest('div')).toHaveClass('cds--tag--blue');
   });
 

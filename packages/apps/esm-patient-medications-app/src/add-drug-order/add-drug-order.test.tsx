@@ -1,4 +1,4 @@
-/* eslint-disable testing-library/no-node-access, @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { closeWorkspace, useSession } from '@openmrs/esm-framework';
 import { type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';

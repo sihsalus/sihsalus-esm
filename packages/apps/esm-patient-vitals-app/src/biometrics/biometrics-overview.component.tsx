@@ -8,7 +8,7 @@ interface BiometricsProps {
   basePath: string;
 }
 
-const BiometricsOverview: React.FC<BiometricsProps> = ({ patientUuid, basePath }) => {
+const BiometricsOverview: React.FC<BiometricsProps> = ({ patientUuid, basePath: _basePath }) => {
   const { t } = useTranslation();
   const pageSize = 5;
   const pageUrl = `\${openmrsSpaBase}/patient/${patientUuid}/chart/Vitals & Biometrics`;
