@@ -5,7 +5,6 @@ import {
   getSyncLifecycle,
   messageOmrsServiceWorker,
   restBaseUrl,
-  translateFrom,
 } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 

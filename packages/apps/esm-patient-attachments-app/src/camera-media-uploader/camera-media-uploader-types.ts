@@ -3,6 +3,7 @@ import { type UploadedFile, type FetchResponse } from '@openmrs/esm-framework';
 export interface CameraMediaUploaderContextType {
   multipleFiles?: boolean;
   collectDescription?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   saveFile?: (file: UploadedFile) => Promise<FetchResponse<any>>;
   closeModal?: () => void;
   onCompletion?: () => void;

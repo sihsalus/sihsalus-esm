@@ -38,7 +38,7 @@ import {
 } from './allergy-form.resource';
 import styles from './allergy-form.scss';
 
-const allergyFormSchema = (t: TFunction) =>
+const allergyFormSchema = (_t: TFunction) =>
   z.object({
     allergen: z
       .object({

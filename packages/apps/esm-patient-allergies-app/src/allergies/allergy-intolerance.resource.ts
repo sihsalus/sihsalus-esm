@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fhirBaseUrl, openmrsFetch, openmrsObservableFetch, restBaseUrl } from '@openmrs/esm-framework';
-import capitalize from 'lodash-es/capitalize';
 import { map } from 'rxjs/operators';
 import useSWR from 'swr';
 

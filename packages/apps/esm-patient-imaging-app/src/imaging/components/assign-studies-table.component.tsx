@@ -25,6 +25,7 @@ import { buildURL } from '../utils/help';
 export interface AssignStudiesTableProps {
   data?: StudiesWithScores | null;
   patientUuid: string;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   assignStudyFunction: Function;
 }
 

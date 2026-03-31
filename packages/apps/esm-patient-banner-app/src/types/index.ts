@@ -15,6 +15,7 @@ export interface VisitType {
 export interface Patient {
   uuid: string;
   display: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   identifiers: Array<any>;
   person: Person;
 }
