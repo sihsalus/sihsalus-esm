@@ -1,6 +1,3 @@
-import React, { forwardRef, useCallback, useContext, useMemo } from 'react';
-import classNames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 import {
   ConfigurableLink,
   getPatientName,
@@ -9,9 +6,14 @@ import {
   PatientPhoto,
   useConfig,
 } from '@openmrs/esm-framework';
-import type { FHIRPatientType, SearchedPatient } from '../types';
+import classNames from 'classnames';
+import React, { forwardRef, useCallback, useContext, useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import { type PatientSearchConfig } from '../config-schema';
 import { PatientSearchContext } from '../patient-search-context';
+import type { FHIRPatientType, SearchedPatient } from '../types';
+
 import styles from './compact-patient-banner.scss';
 
 interface ClickablePatientContainerProps {

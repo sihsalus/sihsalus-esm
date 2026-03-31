@@ -1,9 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Button, Header } from '@carbon/react';
 import { ArrowLeft, Close } from '@carbon/react/icons';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './overlay.scss';
 
 interface OverlayProps {

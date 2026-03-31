@@ -1,10 +1,12 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, navigate, useConfig, useSession } from '@openmrs/esm-framework';
-import { renderWithRouter } from 'tools';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockSession } from '__mocks__';
+import React from 'react';
+import { renderWithRouter } from 'tools';
+
 import { configSchema, type PatientSearchConfig } from '../config-schema';
+
 import CompactPatientSearchComponent from './compact-patient-search.component';
 
 const mockUseConfig = jest.mocked(useConfig<PatientSearchConfig>);

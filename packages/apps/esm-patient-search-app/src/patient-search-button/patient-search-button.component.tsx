@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
 import { Button } from '@carbon/react';
 import { Search } from '@carbon/react/icons';
 import { launchWorkspace } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type PatientSearchWorkspaceProps } from '../patient-search-workspace/patient-search.workspace';
 
 interface PatientSearchButtonProps {
@@ -10,7 +11,7 @@ interface PatientSearchButtonProps {
   overlayHeader?: string;
   selectPatientAction?: (patientUuid: string) => {};
   searchQueryUpdatedAction?: (query: string) => {};
-  buttonProps?: Object;
+  buttonProps?: object;
   isOpen?: boolean;
   searchQuery?: string;
 }

@@ -1,10 +1,14 @@
-import React from 'react';
+import { useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useConfig, useLayoutType } from '@openmrs/esm-framework';
-import RefineSearch from './refine-search.component';
+import React from 'react';
+
 import { type PatientSearchConfig } from '../../config-schema';
+
 import { usePersonAttributeType } from './person-attributes.resource';
+import RefineSearch from './refine-search.component';
+
+
 
 const mockUseConfig = jest.mocked(useConfig);
 const mockUseLayoutType = jest.mocked(useLayoutType);

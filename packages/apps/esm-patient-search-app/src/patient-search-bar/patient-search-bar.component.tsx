@@ -1,10 +1,11 @@
+import { Button, Search } from '@carbon/react';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Search } from '@carbon/react';
+
 import styles from './patient-search-bar.scss';
 
 interface PatientSearchBarProps {
-  buttonProps?: Object;
+  buttonProps?: object;
   initialSearchTerm?: string;
   onChange?: (searchTerm) => void;
   onClear: () => void;

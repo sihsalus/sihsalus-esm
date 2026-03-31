@@ -1,10 +1,12 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, restBaseUrl, useConfig } from '@openmrs/esm-framework';
-import { type SearchedPatient } from '../types';
+import { render, screen } from '@testing-library/react';
+import dayjs from 'dayjs';
+import React from 'react';
+
 import { configSchema, type PatientSearchConfig } from '../config-schema';
 import { PatientSearchContext } from '../patient-search-context';
+import { type SearchedPatient } from '../types';
+
 import CompactPatientBanner from './compact-patient-banner.component';
 
 const mockUseConfig = jest.mocked(useConfig<PatientSearchConfig>);

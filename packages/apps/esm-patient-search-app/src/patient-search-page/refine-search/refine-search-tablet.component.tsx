@@ -1,17 +1,19 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
 import { type Control } from 'react-hook-form';
-import { type AdvancedPatientSearchState, type SearchFieldConfig, type SearchFieldType } from '../../types';
+import { useTranslation } from 'react-i18next';
+
 import {
   type BuiltInFieldConfig,
   type PatientSearchConfig,
   type PersonAttributeFieldConfig,
 } from '../../config-schema';
-import { SearchField } from './search-field.component';
+import { type AdvancedPatientSearchState, type SearchFieldConfig, type SearchFieldType } from '../../types';
+
 import styles from './refine-search-tablet.scss';
+import { SearchField } from './search-field.component';
 
 interface RefineSearchTabletProps {
   showRefineSearchDialog: boolean;

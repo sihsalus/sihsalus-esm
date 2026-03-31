@@ -1,4 +1,3 @@
-import useSWRImmutable from 'swr/immutable';
 import {
   type FetchResponse,
   fhirBaseUrl,
@@ -9,6 +8,8 @@ import {
 } from '@openmrs/esm-framework';
 import { useEffect, useMemo } from 'react';
 import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
+
 import {
   type ConceptResponse,
   type LocationEntry,
@@ -60,8 +61,8 @@ export function useLocations(
   const debouncedQuery = useDebounce(searchQuery);
 
   const constructUrl = useMemo(() => {
-    let url = `${fhirBaseUrl}/Location?`;
-    let urlSearchParameters = new URLSearchParams();
+    const url = `${fhirBaseUrl}/Location?`;
+    const urlSearchParameters = new URLSearchParams();
     urlSearchParameters.append('_summary', 'data');
 
     if (!debouncedQuery) {
