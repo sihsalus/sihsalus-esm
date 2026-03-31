@@ -14,7 +14,6 @@ import {
 import { AddIcon, formatDate, parseDate, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
-import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { patientAllergiesFormWorkspace } from '../constants';
