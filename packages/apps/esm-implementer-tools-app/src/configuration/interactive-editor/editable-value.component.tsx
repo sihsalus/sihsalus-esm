@@ -145,6 +145,7 @@ export default function EditableValue({ path, element, customType }: EditableVal
 
 // A substitute for the lodash.set function, which seems to be broken,
 // at least within Jest.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function set<T>(obj: T, path: Array<string>, value: any): T {
   if (path.length > 1) {
     obj[path[0]] = set(obj[path[0]] ?? {}, path.slice(1), value);

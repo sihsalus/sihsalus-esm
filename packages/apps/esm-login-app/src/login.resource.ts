@@ -33,7 +33,7 @@ export function useLoginLocations(
   searchQuery: string = '',
   useLoginLocationTag: boolean,
 ): LoginLocationData {
-  const { t } = useTranslation();
+  useTranslation();
   const debouncedSearchQuery = useDebounce(searchQuery);
 
   function constructUrl(page: number, prevPageData: FetchResponse<LocationResponse>) {

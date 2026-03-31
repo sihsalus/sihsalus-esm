@@ -2,7 +2,7 @@ import { Button, Form, PasswordInput, InlineLoading, Tile } from '@carbon/react'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
-import { Controller, FieldError, useForm, type SubmitHandler } from 'react-hook-form';
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 

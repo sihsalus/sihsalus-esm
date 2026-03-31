@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
 const importmap = { imports: {} };
 const routesRegistry = {};
@@ -11,7 +10,10 @@ fs.mkdirSync(outDir, { recursive: true });
 
 // ── Phase 1: Copy locally-built app bundles (@sihsalus/* and @openmrs/* overrides) ──
 console.log('\n=== Phase 1: Local modules ===');
-const appDirs = glob.sync('packages/apps/esm-*/dist');
+const appDirs = fs.readdirSync('packages/apps', { withFileTypes: true })
+  .filter(d => d.isDirectory() && d.name.startsWith('esm-'))
+  .map(d => path.join('packages/apps', d.name, 'dist'))
+  .filter(d => fs.existsSync(d));
 const localBaseNames = new Set();
 
 // Track packages found locally but without a built dist, for a summary warning
@@ -49,14 +51,15 @@ for (const distDir of appDirs) {
   importmap.imports[pkg.name] = `./${entryFileName}`;
   localBaseNames.add(pkg.name.replace(/^@[^/]+\//, ''));
 
-  // Copy chunk files
+  // Copy chunk files (skip directories and manifests)
   let chunkCount = 0;
-  for (const file of fs.readdirSync(distDir)) {
-    if (file === entryFileName) continue;
-    if (file.endsWith('.buildmanifest.json')) continue;
-    const dest = path.join(outDir, file);
+  for (const entry of fs.readdirSync(distDir, { withFileTypes: true })) {
+    if (!entry.isFile()) continue;
+    if (entry.name === entryFileName) continue;
+    if (entry.name.endsWith('.buildmanifest.json')) continue;
+    const dest = path.join(outDir, entry.name);
     if (fs.existsSync(dest)) continue;
-    fs.copyFileSync(path.join(distDir, file), dest);
+    fs.copyFileSync(path.join(distDir, entry.name), dest);
     chunkCount++;
   }
 
@@ -89,8 +92,8 @@ async function downloadNpmModules() {
   let pacote;
   try {
     pacote = require('pacote');
-  } catch {
-    console.error('  ERROR: pacote not available. Run yarn install.');
+  } catch (e) {
+    console.error('  ERROR: pacote not available:', e.message);
     process.exit(1);
   }
 

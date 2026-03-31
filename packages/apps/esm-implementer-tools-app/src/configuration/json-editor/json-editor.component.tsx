@@ -1,15 +1,14 @@
 import { Button } from '@carbon/react';
 import { clearConfigErrors, temporaryConfigStore, useStore } from '@openmrs/esm-framework/src/internal';
+import ace from 'ace-builds/src-noconflict/ace';
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-dracula';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 import AceEditor from 'react-ace';
 import { useTranslation } from 'react-i18next';
 
 import styles from './json-editor.scss';
-
-import ace from 'ace-builds/src-noconflict/ace';
-import 'ace-builds/src-noconflict/mode-json';
-import 'ace-builds/src-noconflict/theme-dracula';
 
 // Configure ace to bundle workers locally (webpack 5 asset modules)
 // Using new URL() syntax instead of deprecated file-loader or CDN for offline compatibility
