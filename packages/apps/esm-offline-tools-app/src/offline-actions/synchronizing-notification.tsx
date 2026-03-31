@@ -1,6 +1,6 @@
 import type { OfflineSynchronizationStore } from '@openmrs/esm-framework/src/internal';
 import { getOfflineSynchronizationStore, showNotification, useStore } from '@openmrs/esm-framework/src/internal';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getI18n, useTranslation } from 'react-i18next';
 
 let showNewModalOnNextSynchronization = true;

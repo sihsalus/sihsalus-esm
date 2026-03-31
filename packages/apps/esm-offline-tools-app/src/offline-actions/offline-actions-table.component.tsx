@@ -240,7 +240,7 @@ function filterTableRows({
   headers,
   cellsById,
   inputValue,
-  // @ts-ignore `getCellId` is not in the types, but present in Carbon.
+  // @ts-expect-error `getCellId` is not in the types, but present in Carbon.
   getCellId,
 }) {
   return rowIds.filter((rowId) =>
