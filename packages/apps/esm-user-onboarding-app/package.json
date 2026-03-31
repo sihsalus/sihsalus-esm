@@ -10,7 +10,7 @@
     "start": "openmrs develop",
     "serve": "rspack serve --mode=development",
     "build": "rspack --mode=production --mode production",
-    "analyze": "webpack --mode=production --env analyze=true",
+    "analyze": "rspack --mode=production --env analyze=true",
     "lint": "eslint src --ext js,jsx,ts,tsx --max-warnings 0",
     "prettier": "prettier --write \"src/**/*.{ts,tsx}\" --list-different",
     "typescript": "tsc",

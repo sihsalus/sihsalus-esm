@@ -1,35 +1,62 @@
 # SIH Salus Frontend Monorepo Migration Plan
 
-**Version:** 1.0
-**Date:** 2026-03-14
+**Version:** 1.2
+**Date original:** 2026-03-14 | **Última actualización:** 2026-03-30
 **Repository:** `sihsalus/frontend-web`
 **Author:** Architecture Team — PUCP-GIDIS-HIISC
 
 ---
 
+## Current Status (2026-03-30)
+
+| Phase | Estado |
+|-------|--------|
+| 0 — Scaffolding | ✅ DONE |
+| 1 — Import openmrs-esm-core | ❌ CANCELLED — framework/shell consumidos como npm deps |
+| 2 — Migrate Upstream Modules | ✅ DONE |
+| 3 — Migrate Custom Modules | ✅ DONE |
+| 4 — RBAC | 🔶 IN PROGRESS — estructura de libs creada, falta wire-up |
+| 5 — Styling | ⏳ PENDING |
+| 6 — FHIR | 🔶 IN PROGRESS — `@sihsalus/fhir-client` creado, falta implementación |
+| 7 — Extension Reduction | ⏳ PENDING |
+| 8 — Testing & QA | ⏳ PENDING — 80% threshold activo, cobertura real pendiente |
+| 9 — Build/Docker/Deploy | ✅ DONE — init container con `pacote`, distinto al plan original |
+| 10 — Docs & Handoff | ⏳ PENDING |
+
+**Decisiones arquitectónicas que divergieron del plan original:**
+- Phase 1 cancelada: framework (`@openmrs/esm-framework`) y shell (`@openmrs/esm-app-shell`) se consumen como npm deps, no se vendorizan.
+- `packages/shell/` existe pero NO está en workspaces — es solo referencia local al npm dep.
+- Phase 9 reimplementada: en lugar de un script simple de copia, se usa un **init container** que corre `assemble-importmap.js` en deployment time. El script descarga módulos `@openmrs/*` desde **npm registry** usando `pacote` (no desde el backend en vivo). Configuración via `config/spa-assemble-config.json`.
+- Override resolution: módulos locales `@openmrs/*` (ej. `esm-patient-registration-app`) ahora se incluyen correctamente en el importmap — el filtro original `@sihsalus/*`-only fue un bug corregido.
+- Stack: Node 22, Turborepo `100%` concurrency, `@swc/core` 1.15.21, sass 1.98.0, swr 2.4.1.
+
+---
+
 ## Executive Summary
 
-This document defines the phased migration of the SIH Salus frontend from a distributed multi-repo architecture (OpenMRS upstream + custom `sihsalus-esm-modules`) into a **single Turborepo-powered monorepo** at `sihsalus/frontend-web`. The monorepo absorbs `openmrs-esm-core` v9.0.2 as the foundation, consolidates ~50 frontend modules, and introduces HIPAA-compliant RBAC, FHIR-first data access, and Keycloak OIDC support.
+This document defines the phased migration of the SIH Salus frontend from a distributed multi-repo architecture (OpenMRS upstream + custom `sihsalus-esm-modules`) into a **single Turborepo-powered monorepo** at `sihsalus/frontend-web`. The monorepo consolidates ~50 frontend modules and introduces HIPAA-compliant RBAC, FHIR-first data access, and Keycloak OIDC support. The OpenMRS framework (`@openmrs/esm-framework`) and app shell are consumed as external npm dependencies — not vendorized into the monorepo.
 
 ---
 
 ## Phase Summary Table
 
-| Phase | Description | Size | Depends On | Key Risk |
-|-------|-------------|------|------------|----------|
-| 0 | Repository Scaffolding & Turborepo Setup | M | — | Tooling compatibility |
-| 1 | Import `openmrs-esm-core` as Foundation | L | 0 | Build pipeline adaptation |
-| 2 | Migrate OpenMRS Upstream Modules | XL | 1 | Import path breakage, test failures |
-| 3 | Migrate Custom SIH Salus Modules | M | 1 | Scope rename, override resolution |
-| 4 | HIPAA-Compliant RBAC Implementation | L | 1,3 | Privilege model mapping |
-| 5 | Styling Consolidation | M | 2,3 | Carbon/Tailwind conflicts |
-| 6 | FHIR-First Data Access Refactor | L | 2,3 | Missing FHIR endpoints |
-| 7 | Extension System Reduction | M | 2,3 | Broken slots/navigation |
-| 8 | Testing & Quality Assurance | L | 2,3,4,5,6,7 | Coverage gaps |
-| 9 | Build, Docker & Deployment Integration | L | 8 | Image size, Nginx routing |
-| 10 | Documentation & Handoff | S | 9 | — |
+| Phase | Description | Size | Depends On | Key Risk | Status |
+|-------|-------------|------|------------|----------|--------|
+| 0 | Repository Scaffolding & Turborepo Setup | M | — | Tooling compatibility | ✅ DONE |
+| 1 | Import `openmrs-esm-core` as Foundation | L | 0 | Build pipeline adaptation | ❌ CANCELLED |
+| 2 | Migrate OpenMRS Upstream Modules | XL | 1 | Import path breakage, test failures | ✅ DONE |
+| 3 | Migrate Custom SIH Salus Modules | M | 1 | Scope rename, override resolution | ✅ DONE |
+| 4 | HIPAA-Compliant RBAC Implementation | L | 1,3 | Privilege model mapping | 🔶 IN PROGRESS |
+| 5 | Styling Consolidation | M | 2,3 | Carbon/Tailwind conflicts | ⏳ PENDING |
+| 6 | FHIR-First Data Access Refactor | L | 2,3 | Missing FHIR endpoints | 🔶 IN PROGRESS |
+| 7 | Extension System Reduction | M | 2,3 | Broken slots/navigation | ⏳ PENDING |
+| 8 | Testing & Quality Assurance | L | 2,3,4,5,6,7 | Coverage gaps | ⏳ PENDING |
+| 9 | Build, Docker & Deployment Integration | L | 8 | Image size, Nginx routing | ✅ DONE |
+| 10 | Documentation & Handoff | S | 9 | — | ⏳ PENDING |
 
 > **Parallelism:** Phases 2 & 3 can run in parallel. Phases 4, 5, 6, 7 can run in parallel after 2 & 3 complete. Phase 8 is the convergence gate.
+>
+> **Note (2026-03-30):** Phase 1 was cancelled — framework/shell are npm deps. Phases 0, 2, 3, 9 complete. Phase 4 and 6 partially implemented (lib scaffolding done, implementation pending).
 
 ---
 
@@ -82,8 +109,8 @@ graph TD
     end
 
     subgraph Tooling
-        WEBPACK_CFG[webpack-config]
-        CLI[sihsalus-cli]
+        RSPACK_CFG[rspack-config]
+        CLI[openmrs-cli]
     end
 
     subgraph Libs
@@ -178,9 +205,9 @@ Initialize `sihsalus/frontend-web` with Turborepo, the chosen package manager, s
 
 **Choice:** Yarn 4 with PnP disabled (using `nodeLinker: node-modules`).
 
-**Why not pnpm?** Despite pnpm's stricter dependency isolation, the entire OpenMRS ecosystem (`openmrs-esm-core`, all upstream modules, the `openmrs` CLI) is built and tested exclusively with Yarn 4. The CLI's `develop` command, the `webpack-config` package, and the service worker build all assume Yarn workspace resolution. Switching to pnpm would require patching the CLI, fixing phantom dependency issues across ~50 modules, and maintaining those patches against upstream. The migration risk is not justified.
+**Why not pnpm?** Despite pnpm's stricter dependency isolation, the entire OpenMRS ecosystem (`openmrs-esm-core`, all upstream modules, the `openmrs` CLI) is built and tested exclusively with Yarn 4. The CLI's `develop` command, the `rspack-config` package, and the service worker build all assume Yarn workspace resolution. Switching to pnpm would require patching the CLI, fixing phantom dependency issues across ~50 modules, and maintaining those patches against upstream. The migration risk is not justified.
 
-**Why `nodeLinker: node-modules`?** PnP mode is incompatible with several OpenMRS tooling assumptions (direct `node_modules` paths in webpack configs, `require.resolve` calls in the CLI). Using `node-modules` mode gives us Yarn 4's workspace features and speed without PnP compatibility issues.
+**Why `nodeLinker: node-modules`?** PnP mode is incompatible with several OpenMRS tooling assumptions (direct `node_modules` paths in rspack/webpack configs, `require.resolve` calls in the CLI). Using `node-modules` mode gives us Yarn 4's workspace features and speed without PnP compatibility issues.
 
 ### Detailed Steps
 
@@ -638,6 +665,8 @@ This phase creates a fresh repository. Rollback = `git reset --hard` to the init
 ---
 
 ## Phase 1 — Import `openmrs-esm-core` as Foundation
+
+> ❌ **CANCELLED (2026-03-25)** — Los 19 paquetes del framework y el app-shell tienen interdependencias de build demasiado complejas para vendorizarlos. Decisión final: `@openmrs/esm-framework` y `@openmrs/esm-app-shell` se consumen como npm deps externos. Los 3 paquetes de tooling (`openmrs` CLI, `rspack-config`) y 6 apps core sí fueron migrados al monorepo como parte de esta fase. `packages/shell/esm-app-shell` existe como referencia local pero NO está en workspaces.
 
 ### Objective
 
@@ -2263,6 +2292,12 @@ Test infrastructure is additive — no rollback needed. Failing tests don't affe
 ---
 
 ## Phase 9 — Build, Docker & Deployment Integration
+
+> ✅ **DONE (2026-03-30)** — Implementado con cambios significativos respecto al plan original:
+> - **Init container pattern** (no imagen nginx): Stage 1 build local → Stage 2 init container que corre `assemble-importmap.js` en deployment time, escribe al volumen compartido con nginx.
+> - **`assemble-importmap.js` reescrito**: 4 fases (local @sihsalus/* + @openmrs/* overrides → npm via `pacote` → app-shell → write importmap). Config via `config/spa-assemble-config.json` o `SPA_ASSEMBLE_CONFIG` env var.
+> - **Node 22**, `SPA_OUTPUT_DIR` env var, copias recursivas con `fs.cpSync`.
+> - El script del plan original (abajo) es la versión primitiva — la implementación real está en `scripts/assemble-importmap.js`.
 
 ### Objective
 

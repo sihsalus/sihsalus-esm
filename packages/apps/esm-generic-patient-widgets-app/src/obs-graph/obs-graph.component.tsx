@@ -86,7 +86,7 @@ const ObsGraph: React.FC<ObsGraphProps> = ({ patientUuid }) => {
           </label>
           <Tabs id="concept-tab-group" className={styles.verticalTabs} type="default">
             <TabList className={styles.tablist} aria-label="Obs tabs">
-              {config.data.map(({ concept, label }, index) => {
+              {config.data.map(({ concept, label }) => {
                 const tabClasses = classNames(styles.tab, styles.bodyLong01, {
                   [styles.selectedTab]: selectedConcept.label === label,
                 });

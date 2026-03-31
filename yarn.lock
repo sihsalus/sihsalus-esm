@@ -7503,6 +7503,7 @@ __metadata:
     "@rspack/core": "npm:1.3.15"
     "@swc/core": "npm:1.15.21"
     "@types/lodash-es": "npm:^4.17.12"
+    browserslist-config-openmrs: "npm:1.0.1"
     clean-webpack-plugin: "npm:4.0.0"
     copy-webpack-plugin: "npm:11.0.0"
     css-loader: "npm:5.2.7"
@@ -10599,7 +10600,7 @@ __metadata:
     react-hook-form: "npm:^7.56.1"
     react-i18next: "npm:^11.18.6"
     turbo: "npm:^2.5.2"
-    typescript: "npm:^4.9.5"
+    typescript: "npm:^5.8.3"
     zod: "npm:^3.24.3"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
@@ -10658,7 +10659,7 @@ __metadata:
     rxjs: "npm:^6.6.7"
     swr: "npm:^2.3.6"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^4.9.5"
+    typescript: "npm:^5.8.3"
     zod: "npm:^4.1.12"
   peerDependencies:
     "@carbon/react": 1.x
@@ -10837,7 +10838,7 @@ __metadata:
     semver: "npm:^7.5.4"
     swr: "npm:^2.2.4"
     turbo: "npm:^2.5.2"
-    typescript: "npm:^4.9.5"
+    typescript: "npm:^5.8.3"
     uuid: "npm:^9.0.1"
   peerDependencies:
     "@carbon/react": 1.x
@@ -11185,11 +11186,9 @@ __metadata:
     "@testing-library/jest-dom": "npm:^5.16.5"
     "@testing-library/react": "npm:^16.3.2"
     "@testing-library/user-event": "npm:^14.4.3"
-    "@types/dotenv": "npm:^8.2.3"
     "@types/jest": "npm:^28.1.8"
     "@types/react": "npm:^18.3.21"
     "@types/react-dom": "npm:^18.3.0"
-    "@types/webpack-env": "npm:^1.18.1"
     "@typescript-eslint/eslint-plugin": "npm:^8.45.0"
     "@typescript-eslint/parser": "npm:^8.45.0"
     dayjs: "npm:^1.11.11"
@@ -11197,23 +11196,18 @@ __metadata:
     eslint-plugin-import: "npm:^2.31.0"
     eslint-plugin-react-hooks: "npm:^5.0.0"
     file-saver: "npm:^2.0.5"
-    husky: "npm:^8.0.0"
     i18next-parser: "npm:^9.3.0"
     identity-obj-proxy: "npm:^3.0.0"
     jest: "npm:^28.1.3"
     jest-cli: "npm:^28.1.3"
     jest-environment-jsdom: "npm:^28.1.3"
-    lint-staged: "npm:^14.0.1"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    prettier: "npm:^2.8.8"
-    pretty-quick: "npm:^3.1.3"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-hook-form: "npm:^7.52.1"
     react-i18next: "npm:^16.0.0"
     react-router-dom: "npm:^6.11.2"
-    turbo: "npm:^2.5.2"
     typescript: "npm:^5.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
@@ -13509,15 +13503,6 @@ __metadata:
   version: 4.0.2
   resolution: "@types/deep-eql@npm:4.0.2"
   checksum: 10c0/bf3f811843117900d7084b9d0c852da9a044d12eb40e6de73b552598a6843c21291a8a381b0532644574beecd5e3491c5ff3a0365ab86b15d59862c025384844
-  languageName: node
-  linkType: hard
-
-"@types/dotenv@npm:^8.2.3":
-  version: 8.2.3
-  resolution: "@types/dotenv@npm:8.2.3"
-  dependencies:
-    dotenv: "npm:*"
-  checksum: 10c0/af9178da617959cddc8259aaa3f16c474523ead469f4a03490de2f2d1cafc8615c5d0d1ed3fad837096218126421c38cd46b4065548bb5aee3cc002c518b69f7
   languageName: node
   linkType: hard
 
@@ -17495,6 +17480,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"browserslist-config-openmrs@npm:1.0.1":
+  version: 1.0.1
+  resolution: "browserslist-config-openmrs@npm:1.0.1"
+  checksum: 10c0/cdfdbb041d45628b2a8799eee080ddb4c70ab21d33f9f216d77a48a570c2265e6ee5bcfee69ddb23bcab6ff6d8b9abd5ec58b31a629750711f569bee099c78f7
+  languageName: node
+  linkType: hard
+
 "browserslist-config-single-spa@npm:^1.0.1":
   version: 1.0.1
   resolution: "browserslist-config-single-spa@npm:1.0.1"
@@ -20739,17 +20731,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:*, dotenv@npm:^17.3.1":
-  version: 17.3.1
-  resolution: "dotenv@npm:17.3.1"
-  checksum: 10c0/c78e0c2d5a549c751e544cc60e2b95e7cb67e0c551f42e094d161c6b297aa44b630a3c2dcacf5569e529a6c2a6b84e2ab9be8d37b299d425df5a18b81ce4a35f
-  languageName: node
-  linkType: hard
-
 "dotenv@npm:^16.0.3, dotenv@npm:^16.3.1, dotenv@npm:^16.4.1, dotenv@npm:^16.4.5, dotenv@npm:^16.4.7":
   version: 16.6.1
   resolution: "dotenv@npm:16.6.1"
   checksum: 10c0/15ce56608326ea0d1d9414a5c8ee6dcf0fffc79d2c16422b4ac2268e7e2d76ff5a572d37ffe747c377de12005f14b3cc22361e79fc7f1061cce81f77d2c973dc
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^17.3.1":
+  version: 17.3.1
+  resolution: "dotenv@npm:17.3.1"
+  checksum: 10c0/c78e0c2d5a549c751e544cc60e2b95e7cb67e0c551f42e094d161c6b297aa44b630a3c2dcacf5569e529a6c2a6b84e2ab9be8d37b299d425df5a18b81ce4a35f
   languageName: node
   linkType: hard
 
@@ -22280,23 +22272,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "execa@npm:4.1.0"
-  dependencies:
-    cross-spawn: "npm:^7.0.0"
-    get-stream: "npm:^5.0.0"
-    human-signals: "npm:^1.1.1"
-    is-stream: "npm:^2.0.0"
-    merge-stream: "npm:^2.0.0"
-    npm-run-path: "npm:^4.0.0"
-    onetime: "npm:^5.1.0"
-    signal-exit: "npm:^3.0.2"
-    strip-final-newline: "npm:^2.0.0"
-  checksum: 10c0/02211601bb1c52710260edcc68fb84c3c030dc68bafc697c90ada3c52cc31375337de8c24826015b8382a58d63569ffd203b79c94fef217d65503e3e8d2c52ba
-  languageName: node
-  linkType: hard
-
 "execa@npm:^5.0.0":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
@@ -23700,7 +23675,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-stream@npm:^5.0.0, get-stream@npm:^5.1.0":
+"get-stream@npm:^5.1.0":
   version: 5.2.0
   resolution: "get-stream@npm:5.2.0"
   dependencies:
@@ -24849,13 +24824,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"human-signals@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "human-signals@npm:1.1.1"
-  checksum: 10c0/18810ed239a7a5e23fb6c32d0fd4be75d7cd337a07ad59b8dbf0794cb0761e6e628349ee04c409e605fe55344716eab5d0a47a62ba2a2d0d367c89a2b4247b1e
-  languageName: node
-  linkType: hard
-
 "human-signals@npm:^2.1.0":
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
@@ -24895,7 +24863,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^8.0.0, husky@npm:^8.0.3":
+"husky@npm:^8.0.3":
   version: 8.0.3
   resolution: "husky@npm:8.0.3"
   bin:
@@ -25119,7 +25087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^5.2.0, ignore@npm:^5.2.4, ignore@npm:^5.3.0, ignore@npm:^5.3.1":
+"ignore@npm:^5.2.0, ignore@npm:^5.2.4, ignore@npm:^5.3.1":
   version: 5.3.2
   resolution: "ignore@npm:5.3.2"
   checksum: 10c0/f9f652c957983634ded1e7f02da3b559a0d4cc210fca3792cb67f1b153623c9c42efdc1c4121af171e295444459fc4a9201101fb041b1104a3c000bccb188337
@@ -31276,7 +31244,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-path@npm:^4.0.0, npm-run-path@npm:^4.0.1":
+"npm-run-path@npm:^4.0.1":
   version: 4.0.1
   resolution: "npm-run-path@npm:4.0.1"
   dependencies:
@@ -32463,13 +32431,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^3.0.1":
-  version: 3.0.2
-  resolution: "picomatch@npm:3.0.2"
-  checksum: 10c0/916fd248c43e3f60cd20d564f19d7af3093e1fdc14477eb75083d25ccd1df8a9c14d86a8106f50064e4c8c9c690885336cbded36b93f4c593a14feeaa1f8f4e0
-  languageName: node
-  linkType: hard
-
 "picomatch@npm:^4.0.3":
   version: 4.0.3
   resolution: "picomatch@npm:4.0.3"
@@ -32945,25 +32906,6 @@ __metadata:
   version: 1.0.3
   resolution: "pretty-hrtime@npm:1.0.3"
   checksum: 10c0/67cb3fc283a72252b49ac488647e6a01b78b7aa1b8f2061834aa1650691229081518ef3ca940f77f41cc8a8f02ba9eeb74b843481596670209e493062f2e89e0
-  languageName: node
-  linkType: hard
-
-"pretty-quick@npm:^3.1.3":
-  version: 3.3.1
-  resolution: "pretty-quick@npm:3.3.1"
-  dependencies:
-    execa: "npm:^4.1.0"
-    find-up: "npm:^4.1.0"
-    ignore: "npm:^5.3.0"
-    mri: "npm:^1.2.0"
-    picocolors: "npm:^1.0.0"
-    picomatch: "npm:^3.0.1"
-    tslib: "npm:^2.6.2"
-  peerDependencies:
-    prettier: ^2.0.0
-  bin:
-    pretty-quick: dist/cli.js
-  checksum: 10c0/fae5d5e5a49f05368b5787d8b25106eb8a593624561395616a4f19f37105700996ea5d8030231c66041d00f77b081bb3e01a527b5fff2fa9ab0a892c71870011
   languageName: node
   linkType: hard
 
@@ -38928,7 +38870,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.2.4, typescript@npm:^4.9.5":
+"typescript@npm:^4.2.4":
   version: 4.9.5
   resolution: "typescript@npm:4.9.5"
   bin:
@@ -38958,7 +38900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^4.2.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^4.9.5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^4.2.4#optional!builtin<compat/typescript>":
   version: 4.9.5
   resolution: "typescript@patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"
   bin:
