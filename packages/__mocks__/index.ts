@@ -47,7 +47,3 @@ export * from './visitQueueEntry.mock';
 export * from './visits-pc.mock';
 export * from './vitals-and-biometrics.mock';
 export * from './vitals-concept-metadata.mock';
-
-// --- Conflicting mocks (not re-exported, import directly from file) ---
-// location.mock.ts — conflicts with locations.mock.ts on 'mockLocations'
-// patient-pc.mock.ts — conflicts with patient.mock.ts on 'mockPatientAlice'

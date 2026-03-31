@@ -3,12 +3,10 @@
 
 require('dotenv').config({ quiet: true });
 const { spawn } = require('child_process');
-const { createReadStream, existsSync, readFileSync, writeFileSync, mkdtempSync, statSync } = require('fs');
-const { resolve, join, extname } = require('path');
-const { tmpdir } = require('os');
-const http = require('http');
-const chalk = require('chalk');
+const { existsSync, readFileSync, readdirSync, symlinkSync, unlinkSync, statSync } = require('fs');
+const { resolve, join } = require('path');
 
+const chalk = require('chalk');
 const logInfo = (msg) => console.log(`${chalk.green.bold('[start-dev]')} ${msg}`);
 const logWarn = (msg) => console.warn(`${chalk.yellow.bold('[start-dev]')} ${chalk.yellow(msg)}`);
 const logFail = (msg) => console.error(`${chalk.red.bold('[start-dev]')} ${chalk.red(msg)}`);
@@ -28,49 +26,50 @@ const assembledImportmap = resolve(__dirname, '..', 'dist', 'spa', 'importmap.js
 const assembledRoutes = resolve(__dirname, '..', 'dist', 'spa', 'routes.registry.json');
 const distSpa = resolve(__dirname, '..', 'dist', 'spa');
 
-const MIME_TYPES = {
-  '.js': 'application/javascript',
-  '.json': 'application/json',
-  '.css': 'text/css',
-  '.woff': 'font/woff',
-  '.woff2': 'font/woff2',
-};
+// The app-shell's dist directory — the openmrs CLI serves static files from here.
+const shellDist = resolve(
+  require.resolve('@openmrs/esm-app-shell/package.json'),
+  '..',
+  'dist',
+);
 
-function createStaticServer(dir) {
-  return http.createServer((req, res) => {
-    const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
-    const filePath = join(dir, pathname);
+/**
+ * Symlink pre-built bundles and chunks from dist/spa/ into the app-shell dist
+ * directory so the openmrs CLI's express.static serves them at /openmrs/spa/.
+ *
+ * This ensures webpack lazy chunks (including translations) resolve correctly
+ * since publicPath:'auto' resolves to /openmrs/spa/ at runtime.
+ */
+function linkDistSpaIntoShell() {
+  if (!existsSync(distSpa)) {
+    return [];
+  }
 
-    if (!existsSync(filePath)) {
-      res.writeHead(404);
-      res.end();
-      return;
-    }
-
-    res.writeHead(200, {
-      'Content-Type': MIME_TYPES[extname(filePath)] || 'application/octet-stream',
-      'Access-Control-Allow-Origin': '*',
-    });
-    createReadStream(filePath).pipe(res);
-  });
-}
-
-function rewriteImportmap(importmapPath, devApps, staticPort) {
-  const importmap = JSON.parse(readFileSync(importmapPath, 'utf8'));
-
-  for (const [name, url] of Object.entries(importmap.imports)) {
-    const isDevApp = devApps.some((app) => name.includes(app));
-    if (!isDevApp && typeof url === 'string' && url.startsWith('./')) {
-      importmap.imports[name] = `http://localhost:${staticPort}/${url.slice(2)}`;
+  const created = [];
+  for (const entry of readdirSync(distSpa)) {
+    const src = join(distSpa, entry);
+    const dest = join(shellDist, entry);
+    if (!existsSync(dest)) {
+      symlinkSync(src, dest);
+      created.push(dest);
     }
   }
 
-  // Write to a temp file because the CLI's getImportMap regex treats any string
-  // containing "http://" as a URL, so inline JSON with http:// URLs won't work.
-  const tmpDir = mkdtempSync(join(tmpdir(), 'sihsalus-dev-'));
-  const tmpFile = join(tmpDir, 'importmap.json');
-  writeFileSync(tmpFile, JSON.stringify(importmap));
-  return tmpFile;
+  if (created.length > 0) {
+    logInfo(`Enlazados ${created.length} archivos de dist/spa/ en app-shell dist`);
+  }
+
+  return created;
+}
+
+function cleanupSymlinks(links) {
+  for (const link of links) {
+    try {
+      unlinkSync(link);
+    } catch {
+      // ignore — best effort cleanup
+    }
+  }
 }
 
 function startDevServer(args) {
@@ -102,18 +101,14 @@ if (devAppsEnv) {
       logWarn(`El importmap ensamblado tiene ${hoursOld}h de antigüedad. Considera ejecutar: yarn assemble`);
     }
 
-    // Start a static server for dist/spa/ so non-dev apps can load their bundles
-    const staticServer = createStaticServer(distSpa);
+    // Symlink dist/spa/ contents into the app-shell dist so the CLI serves
+    // pre-built bundles AND their chunks (translations, vendor splits, etc.)
+    const createdLinks = linkDistSpaIntoShell();
+    process.on('exit', () => cleanupSymlinks(createdLinks));
 
-    staticServer.listen(0, () => {
-      const staticPort = staticServer.address().port;
-      logInfo(`Sirviendo bundles pre-construidos desde dist/spa/ en puerto ${staticPort}`);
-
-      const importmapFile = rewriteImportmap(assembledImportmap, apps, staticPort);
-      startDevServer(['--importmap', importmapFile, '--routes', assembledRoutes, ...sourcesArgs]);
-    });
-
-    process.on('exit', () => staticServer.close());
+    // Pass assembled importmap & routes — relative paths resolve correctly
+    // because the bundles are now available in the shell dist directory.
+    startDevServer(['--importmap', assembledImportmap, '--routes', assembledRoutes, ...sourcesArgs]);
   } else {
     logWarn('No se encontró importmap ensamblado. Solo las apps en SIHSALUS_DEV_APPS estarán disponibles.');
     logWarn('Para tener todas las apps: yarn assemble');

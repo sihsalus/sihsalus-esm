@@ -1,5 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
+
+const logInfo = (msg) => console.log(`${chalk.green.bold('[assemble]')} ${msg}`);
+const logWarn = (msg) => console.warn(`${chalk.yellow.bold('[assemble]')} ${chalk.yellow(msg)}`);
+const logFail = (msg) => console.error(`${chalk.red.bold('[assemble]')} ${chalk.red(msg)}`);
 
 const importmap = { imports: {} };
 const routesRegistry = {};
@@ -9,7 +14,7 @@ const outDir = process.env.SPA_OUTPUT_DIR || 'dist/spa';
 fs.mkdirSync(outDir, { recursive: true });
 
 // ── Phase 1: Copy locally-built app bundles (@sihsalus/* and @openmrs/* overrides) ──
-console.log('\n=== Phase 1: Local modules ===');
+logInfo('Fase 1: Módulos locales');
 const appDirs = fs.readdirSync('packages/apps', { withFileTypes: true })
   .filter(d => d.isDirectory() && d.name.startsWith('esm-'))
   .map(d => path.join('packages/apps', d.name, 'dist'))
@@ -25,7 +30,7 @@ for (const distDir of appDirs) {
 
   const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
   if (pkg.private) {
-    console.log(`  SKIP ${pkg.name}: private package`);
+    logInfo(`SKIP ${pkg.name}: paquete privado`);
     continue;
   }
 
@@ -34,7 +39,7 @@ for (const distDir of appDirs) {
 
   const browserField = pkg.browser || pkg.module || pkg.main;
   if (!browserField) {
-    console.warn(`  SKIP ${tag} ${pkg.name}: no browser/module/main field`);
+    logWarn(`SKIP ${tag} ${pkg.name}: sin campo browser/module/main en package.json`);
     continue;
   }
 
@@ -43,7 +48,7 @@ for (const distDir of appDirs) {
 
   if (!fs.existsSync(entryFilePath)) {
     notBuilt.push(pkg.name);
-    console.warn(`  SKIP ${tag} ${pkg.name}: dist not found at ${browserField} — run build first`);
+    logWarn(`SKIP ${tag} ${pkg.name}: dist no encontrado en ${browserField} — ejecuta build primero`);
     continue;
   }
 
@@ -72,12 +77,12 @@ for (const distDir of appDirs) {
     };
   }
 
-  console.log(`  OK  ${tag} ${pkg.name} -> ${entryFileName} (${chunkCount} chunks)`);
+  logInfo(`OK ${tag} ${pkg.name} -> ${entryFileName} (${chunkCount} chunks)`);
 }
 
 if (notBuilt.length > 0) {
-  console.warn(`\n  WARNING: ${notBuilt.length} local package(s) have no dist — run 'yarn build' first:`);
-  for (const name of notBuilt) console.warn(`    - ${name}`);
+  logWarn(`${notBuilt.length} paquete(s) local(es) sin dist — ejecuta 'yarn build' primero:`);
+  for (const name of notBuilt) logWarn(`  - ${name}`);
 }
 
 // ── Phase 2: Download pinned npm modules from spa-assemble-config.json ────────────
@@ -85,7 +90,7 @@ async function downloadNpmModules() {
   const configPath = process.env.SPA_ASSEMBLE_CONFIG || 'config/spa-assemble-config.json';
 
   if (!fs.existsSync(configPath)) {
-    console.log('\n=== Phase 2: npm modules — skipped (config/spa-assemble-config.json not found) ===');
+    logInfo('Fase 2: módulos npm — omitida (config/spa-assemble-config.json no encontrado)');
     return;
   }
 
@@ -93,14 +98,14 @@ async function downloadNpmModules() {
   try {
     pacote = require('pacote');
   } catch (e) {
-    console.error('  ERROR: pacote not available:', e.message);
+    logFail(`pacote no disponible: ${e.message}`);
     process.exit(1);
   }
 
   const { frontendModules = {} } = JSON.parse(fs.readFileSync(configPath, 'utf8'));
   const entries = Object.entries(frontendModules);
 
-  console.log(`\n=== Phase 2: npm modules (${entries.length} pinned) ===`);
+  logInfo(`Fase 2: módulos npm (${entries.length} fijados)`);
 
   const tmpBase = path.join(outDir, '.npm-tmp');
 
@@ -108,7 +113,7 @@ async function downloadNpmModules() {
     const baseName = name.replace(/^@[^/]+\//, '');
 
     if (localBaseNames.has(baseName)) {
-      console.log(`  SKIP [npm]  ${name}@${version}: local build takes precedence`);
+      logInfo(`SKIP [npm] ${name}@${version}: build local tiene precedencia`);
       continue;
     }
 
@@ -122,7 +127,7 @@ async function downloadNpmModules() {
       const browserField = pkg.browser || pkg.module || pkg.main;
 
       if (!browserField) {
-        console.warn(`  SKIP [npm]  ${name}: no browser/module/main field in package`);
+        logWarn(`SKIP [npm] ${name}: sin campo browser/module/main en paquete`);
         continue;
       }
 
@@ -154,7 +159,7 @@ async function downloadNpmModules() {
 
       console.log(`  OK  [npm]  ${name}@${version} -> ${versionedSubdir}/${entryFileName}`);
     } catch (e) {
-      console.warn(`  WARN [npm] ${spec}: ${e.message} — skipping`);
+      logWarn(`[npm] ${spec}: ${e.message} — omitido`);
     }
   }
 
@@ -169,7 +174,7 @@ function copyAppShell() {
   try {
     shellDist = path.join(path.dirname(require.resolve('@openmrs/esm-app-shell/package.json')), 'dist');
   } catch {
-    console.warn('  WARN: @openmrs/esm-app-shell not found');
+    logWarn('@openmrs/esm-app-shell no encontrado — el SPA no tendrá shell');
     return;
   }
 
@@ -189,12 +194,12 @@ function writeOutputs() {
   const values = Object.values(importmap.imports);
   const dupes = values.filter((v, i) => values.indexOf(v) !== i);
   if (dupes.length > 0) {
-    console.error(`\n  WARNING: Duplicate bundle filenames detected!`);
+    logFail('Nombres de bundle duplicados detectados — esto causará colisiones en runtime:');
     for (const dupe of [...new Set(dupes)]) {
       const apps = Object.entries(importmap.imports)
         .filter(([, v]) => v === dupe)
         .map(([k]) => k);
-      console.error(`    ${dupe}: ${apps.join(', ')}`);
+      logFail(`  ${dupe}: ${apps.join(', ')}`);
     }
   }
 
