@@ -63,6 +63,7 @@
     "@types/react": "^18.3.21",
     "@types/semver": "^7",
     "@types/tar": "^4.0.3",
+    "eslint": "^8.55.0",
     "vitest": "^4.0.18"
   }
 }

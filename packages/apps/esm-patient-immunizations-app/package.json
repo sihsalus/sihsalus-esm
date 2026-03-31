@@ -55,6 +55,8 @@
   },
   "devDependencies": {
     "@openmrs/esm-patient-common-lib": "workspace:*",
-    "openmrs": "workspace:*"
+    "eslint": "^8.55.0",
+    "openmrs": "workspace:*",
+    "typescript": "^5.8.3"
   }
 }

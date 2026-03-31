@@ -51,6 +51,8 @@
     "swr": "2.x"
   },
   "devDependencies": {
-    "openmrs": "workspace:*"
+    "eslint": "^8.55.0",
+    "openmrs": "workspace:*",
+    "typescript": "^5.8.3"
   }
 }
