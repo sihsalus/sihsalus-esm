@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: node:20-alpine
+    image: node:22-alpine
     working_dir: /app
     command: sh -c "corepack enable && yarn dev"
     volumes:
@@ -15,6 +15,6 @@ services:
       - backend
 
   backend:
-    image: openmrs/openmrs-reference-application:latest
+    image: openmrs/openmrs-reference-application:nightly
     ports:
       - "8081:8080"

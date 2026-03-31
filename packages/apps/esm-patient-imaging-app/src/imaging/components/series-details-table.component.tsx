@@ -120,7 +120,7 @@ const SeriesDetailsTable: React.FC<SeriesDetailsTableProps> = ({
             size={isTablet ? 'lg' : 'sm'}
             label={t('orthancExplorer2', 'Show data in orthanc explorere')}
             onClick={() =>
-              (window.location.href = `${getBrowserUrl(orthancConfig)}/ui/app/#/filtered-studies?StudyInstanceUID=${studyInstanceUID}&expand=series`)
+              (window.location.href = `${getBrowserUrl(orthancConfig)}/ui/app/#/filtered-studies?StudyInstanceUID=${encodeURIComponent(studyInstanceUID)}&expand=series`)
             }
           >
             <img className="orthanc-img" src={orthancExplorer} style={{ width: 26, height: 26, marginTop: 0 }}></img>
