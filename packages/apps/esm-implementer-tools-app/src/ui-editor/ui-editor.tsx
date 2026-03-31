@@ -31,7 +31,7 @@ interface SlotOverlayProps {
 export default function UiEditor() {
   const { t } = useTranslation();
   const { slots, extensions } = useStore(getExtensionInternalStore());
-  const { isOpen: areImplementerToolsOpen } = useStore(implementerToolsStore);
+  useStore(implementerToolsStore);
 
   const getExtensionCount = (slotName: string, moduleName: string) => {
     if (!extensions || !moduleName) return 0;

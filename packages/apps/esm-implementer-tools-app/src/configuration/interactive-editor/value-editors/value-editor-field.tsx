@@ -39,7 +39,7 @@ export function ValueEditorField({ element, path, valueType, value, onChange, er
       checked={value}
       hideLabel
       labelText=""
-      onChange={(event, { checked, id }) => onChange(checked)}
+      onChange={(_event, { checked, id: _id }) => onChange(checked)}
       invalid={Boolean(error)}
       invalidText={error}
     />
