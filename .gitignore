@@ -29,6 +29,11 @@ packages/libs/*/src/**/*.d.ts
 packages/libs/*/src/**/*.js.map
 packages/libs/*/src/**/*.d.ts.map
 
+# Playwright
+e2e/storage-state.json
+test-results/
+playwright-report/
+
 # Large binary test fixtures (use Git LFS or download at test time)
 **/__mocks__/*.zip
 
