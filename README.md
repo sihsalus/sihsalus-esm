@@ -13,21 +13,21 @@ Built on [OpenMRS 3.x](https://openmrs.org/) with the single-spa microfrontend a
 ## Quick Start
 
 ```bash
-# Clone
-git clone https://github.com/sihsalus/frontend-web.git
+# 1. Clonar e instalar
+git clone <url-del-repo>
 cd frontend-web
-
-# Install dependencies
+corepack enable          # activa la versión de Yarn incluida en .yarn/releases/
 yarn install
 
-# Build all packages
-yarn build
+# 2. Configurar entorno (opcional — tiene defaults apuntando al servidor dev)
+cp .env.example .env     # editar si se necesita apuntar a otro backend
 
-# Start dev server (requires OpenMRS backend at localhost:8080)
+# 3. Levantar el dev server
 yarn start
-# or with explicit backend URL:
-yarn openmrs develop --backend http://localhost:8080/openmrs --port 9090
+# → http://localhost:8080/openmrs/spa/
 ```
+
+El dev server hace proxy de las peticiones de API al backend definido en `SIHSALUS_BACKEND_URL` (ver [.env.example](.env.example)).
 
 ## Repository Structure
 
@@ -60,9 +60,9 @@ docs/                                   # Architecture docs and ADRs
 ### Development
 
 ```bash
-yarn setup                                  # Install + build all
-yarn start                                  # Dev server (openmrs develop)
-yarn openmrs develop --sources <path>       # Dev server with specific module(s)
+yarn install                                # Instalar dependencias
+yarn start                                  # Dev server → proxy a SIHSALUS_BACKEND_URL
+SIHSALUS_BACKEND_URL=http://... yarn start  # Apuntar a otro backend en esta sesión
 ```
 
 ### Building
@@ -130,13 +130,15 @@ Custom modules with no upstream equivalent: `esm-coststructure-app`, `esm-dyaku-
 
 ## Environment Variables
 
-| Variable | Default | Description |
+Crea un archivo `.env` en la raíz del repo (ver [.env.example](.env.example)):
+
+| Variable | Default | Descripción |
 |---|---|---|
-| `SPA_PATH` | `/openmrs/spa` | Base path for SPA assets |
-| `API_URL` | `/openmrs` | OpenMRS backend API base |
-| `BACKEND_URL` | `http://backend:8080` | Backend URL for Nginx proxy |
-| `SPA_DEFAULT_LOCALE` | `es` | Default locale |
-| `SIHSALUS_AUTH_MODE` | `openmrs` | Auth mode: `openmrs` or `keycloak` |
+| `SIHSALUS_BACKEND_URL` | `http://hii1sc-dev.inf.pucp.edu.pe` | Backend OpenMRS al que se hace proxy en dev y se descarga el importmap |
+| `SIHSALUS_AUTH_MODE` | `openmrs` | Modo de auth: `openmrs` (básico) o `keycloak` (OIDC) |
+| `SIHSALUS_FHIR_BASE` | *(derivado del backend)* | URL base de FHIR R4 |
+| `SPA_PATH` | `/openmrs/spa` | Base path para los assets del SPA |
+| `API_URL` | `/openmrs` | Base path de la API de OpenMRS |
 
 ## HIPAA Compliance
 
