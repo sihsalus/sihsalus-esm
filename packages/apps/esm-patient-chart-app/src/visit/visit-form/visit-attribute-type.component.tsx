@@ -11,6 +11,7 @@ import {
   TextInputSkeleton,
 } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
+import { safeEvaluateExpression } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import React, { useEffect, useId, useMemo } from 'react';
 import { Controller, type ControllerRenderProps, useFormContext } from 'react-hook-form';
@@ -34,23 +35,6 @@ interface VisitAttributeTypeFieldsProps {
   >;
 }
 
-/**
- * Evaluates a given expression using the provided visitAttributes.
- *
- * @param {string} expression - The expression to be evaluated. This should be a string of JavaScript code.
- * @param {VisitAttributes} visitAttributes - An object containing visit attributes which will be used in the evaluation of the expression.
- *
- * @returns {boolean} - The boolean value of the result of the evaluated expression.
- *
- */
-function evaluateExpression(expression: string, visitAttributes: VisitAttributes) {
-  const func = new Function('visitAttributes', `return ${expression};`);
-
-  const result = func(visitAttributes);
-
-  return Boolean(result);
-}
-
 const VisitAttributeTypeFields: React.FC<VisitAttributeTypeFieldsProps> = ({ setErrorFetchingResources }) => {
   const { visitAttributeTypes } = useConfig<ChartConfig>();
   const { control, getValues } = useFormContext<VisitFormData>();
@@ -62,7 +46,7 @@ const VisitAttributeTypeFields: React.FC<VisitAttributeTypeFieldsProps> = ({ set
           const { visitAttributes } = getValues();
 
           const showAttributeType = attributeType?.showWhenExpression
-            ? evaluateExpression(attributeType?.showWhenExpression, visitAttributes)
+            ? safeEvaluateExpression(attributeType.showWhenExpression, { visitAttributes })
             : true;
 
           return (

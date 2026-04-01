@@ -1,19 +1,11 @@
-const printDocumentInternal = (content: string) => {
-  const newWin = window.open('', 'Print-Window');
-  if (newWin) {
-    newWin.document.open();
-    newWin.document.write(content);
-    newWin.document.close();
-    // setTimeout(function () {
-    //     if (newWin) {
-    //         newWin.close();
-    //     }
-    // }, 10);
-  }
-};
-
 export const printDocument = (content: string) => {
-  setTimeout(() => {
-    printDocumentInternal(content);
-  }, 300);
+  const iframe = document.createElement('iframe');
+  iframe.style.position = 'fixed';
+  iframe.style.left = '-9999px';
+  iframe.srcdoc = content;
+  iframe.onload = () => {
+    iframe.contentWindow?.print();
+    iframe.remove();
+  };
+  document.body.appendChild(iframe);
 };
