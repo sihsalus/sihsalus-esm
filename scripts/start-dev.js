@@ -90,10 +90,10 @@ async function startWithProxy(cliArgs) {
     }),
   );
 
-  app.listen(8080, () => {
-    logInfo(`Proxy :8080 → internal CLI :${cliPort}`);
-    logInfo(`SPA → ${chalk.cyan.underline(`http://localhost:8080${spaPath}`)}`);
-
+  const proxyPort = Number(process.env.SIHSALUS_PORT) || 8080;
+  app.listen(proxyPort, () => {
+    logInfo(`Proxy :${proxyPort} → internal CLI :${cliPort}`);
+    logInfo(`SPA → ${chalk.cyan.underline(`http://localhost:${proxyPort}${spaPath}`)}`);
   });
 
   startCli(['--port', String(cliPort), '--open', 'false', ...cliArgs]);
