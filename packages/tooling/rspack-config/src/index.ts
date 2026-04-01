@@ -309,7 +309,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
       new ModuleFederationPlugin({
         // Look in the `esm-dynamic-loading` framework package for an explanation of how modules
         // get loaded into the application.
-        name,
+        name: slugify(name),
         library: { type: 'var', name: slugify(name) },
         filename,
         exposes: {
