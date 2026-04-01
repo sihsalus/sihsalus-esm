@@ -2,7 +2,7 @@ import { getAsyncLifecycle, defineConfigSchema, getSyncLifecycle } from '@openmr
 import { configSchema } from './config-schema';
 import Tutorial from './tutorial/tutorial.component';
 
-const moduleName = '@openmrs/esm-user-onboarding-app';
+const moduleName = '@sihsalus/esm-user-onboarding-app';
 
 const options = {
   featureName: 'user-onboarding',

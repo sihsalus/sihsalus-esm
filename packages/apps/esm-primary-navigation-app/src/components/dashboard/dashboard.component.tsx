@@ -76,7 +76,7 @@ export default function Dashboard({ basePath, moduleName }: DashboardProps) {
 
 // t('noPathInDashboardExtension', 'Cannot render the dashboard extension without the property "path" being set in the configuration schema')
 function DashboardInternal({ basePath }: { basePath: string }) {
-  const { t } = useTranslation('@openmrs/esm-primary-navigation-app');
+  const { t } = useTranslation('@sihsalus/esm-primary-navigation-app');
   const config = useConfig<DashboardConfig>();
 
   if (!config.path) {

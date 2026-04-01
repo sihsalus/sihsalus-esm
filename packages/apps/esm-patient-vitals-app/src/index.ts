@@ -16,7 +16,7 @@ import vitalsMainComponent from './vitals/vitals-main.component';
 import vitalsSummaryComponent from './vitals/vitals-summary.component';
 import vitalsHeaderComponent from './vitals-and-biometrics-header/vitals-header.component';
 
-const moduleName = '@openmrs/esm-patient-vitals-app';
+const moduleName = '@sihsalus/esm-patient-vitals-app';
 
 const options = {
   featureName: 'patient-vitals',

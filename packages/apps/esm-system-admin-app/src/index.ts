@@ -2,7 +2,7 @@ import { getAsyncLifecycle, defineConfigSchema, registerBreadcrumbs } from '@ope
 
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-system-admin-app';
+const moduleName = '@sihsalus/esm-system-admin-app';
 
 const options = {
   featureName: 'system-administration',
