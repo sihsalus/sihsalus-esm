@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import { Button } from '@carbon/react';
+import { Calendar, Hospital } from '@carbon/react/icons';
+import { ExtensionSlot, isDesktop, launchWorkspace, navigate, useLayoutType } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Hospital } from '@carbon/react/icons';
-import { Button } from '@carbon/react';
-import { ExtensionSlot, isDesktop, launchWorkspace, navigate, useLayoutType } from '@openmrs/esm-framework';
+
 import { spaHomePage } from '../constants';
 import SelectedDateContext from '../hooks/selectedDateContext';
+
 import styles from './metrics-header.scss';
 
 dayjs.extend(isToday);

@@ -1,5 +1,3 @@
-import React from 'react';
-import classNames from 'classnames';
 import {
   StructuredListHead,
   StructuredListCell,
@@ -7,8 +5,11 @@ import {
   StructuredListBody,
   StructuredListWrapper,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { formatDatetime, parseDate } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type FormattedEncounter } from './past-visit.component';
 import styles from './past-visit.scss';
 

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
 import type { SwitcherItem } from '@carbon/react';
 import { Tabs, Tab, TabList, TabPanels, TabPanel, ContentSwitcher, Switch } from '@carbon/react';
-import styles from '../../hiv-testing-component.scss';
+import { CardHeader } from '@openmrs/esm-patient-common-lib';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import styles from '../../hiv-testing-component.scss';
+
 import HivScreeningEncounters from './tabs/hiv-screening.component';
 import HivTestingEncounters from './tabs/hiv-testing.component';
-import { CardHeader } from '@openmrs/esm-patient-common-lib';
+
 
 interface OverviewListProps {
   patientUuid: string;

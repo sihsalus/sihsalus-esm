@@ -1,9 +1,12 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { navigate } from '@openmrs/esm-framework';
-import { useAddablePatientLists } from '../api/api-remote';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockPatient } from '__mocks__';
+import React from 'react';
+
+import { useAddablePatientLists } from '../api/api-remote';
+
+
 import AddPatient from './add-patient.modal';
 
 const mockNavigate = jest.mocked(navigate);

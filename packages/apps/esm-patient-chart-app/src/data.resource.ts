@@ -1,6 +1,6 @@
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
 interface CauseOfDeathFetchResponse {
   uuid: string;

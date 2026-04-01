@@ -1,5 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -29,9 +27,14 @@ import {
   parseDate,
   usePagination,
 } from '@openmrs/esm-framework';
-import styles from './queue-linelist-base-table.scss';
-import { type FilterTypes } from '../types';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+
 import { getGender } from '../helpers/functions';
+import { type FilterTypes } from '../types';
+
+import styles from './queue-linelist-base-table.scss';
 
 /**
  * FIXME Temporarily moved here

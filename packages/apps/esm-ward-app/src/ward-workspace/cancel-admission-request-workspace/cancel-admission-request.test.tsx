@@ -1,14 +1,16 @@
-import React from 'react';
+import { useAppContext, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useAppContext, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
 import { mockInpatientRequestAlice, mockLocationInpatientWard, mockPatientAlice } from '__mocks__';
+import React from 'react';
 import { renderWithSwr } from 'tools';
+
+import { mockWardViewContext } from '../../../mock';
 import useWardLocation from '../../hooks/useWardLocation';
 import type { WardPatient, WardViewContext } from '../../types';
 import { useCreateEncounter } from '../../ward.resource';
+
 import CancelAdmissionRequestWorkspace from './cancel-admission-request.workspace';
-import { mockWardViewContext } from '../../../mock';
 
 jest.mock('../../hooks/useWardLocation', () => jest.fn());
 

@@ -1,8 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { useVisitTypes } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockVisitTypes } from '__mocks__';
+import React from 'react';
+
 import BaseVisitType from './base-visit-type.component';
 
 const mockUseVisitTypes = jest.mocked(useVisitTypes);

@@ -12,8 +12,10 @@ import { CardHeader, EmptyDataIllustration, usePaginationInfo } from '@openmrs/e
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
+
 import type { ConfigObject } from '../../config-schema';
 import GenericTable from '../../specialized-clinics/generic-nav-links/generic-table.component';
+
 import styles from './case-encounter-header.scss';
 import { deleteEncounter, useInfiniteVisits } from './case-encounter-table.resource';
 

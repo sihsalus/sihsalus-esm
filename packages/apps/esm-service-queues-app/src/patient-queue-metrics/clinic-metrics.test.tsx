@@ -1,5 +1,3 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -8,8 +6,12 @@ import {
   useLocations,
   useSession,
 } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import { mockMetrics, mockServiceTypes, mockLocations, mockSession } from '__mocks__';
+import React from 'react';
+
 import { type ConfigObject, configSchema } from '../config-schema';
+
 import ClinicMetrics from './clinic-metrics.component';
 
 const mockOpenmrsFetch = jest.mocked(openmrsFetch);

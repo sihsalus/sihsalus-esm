@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { isDesktop, showModal, useLayoutType } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type QueueEntry } from '../types';
 
 interface ClearQueueEntriesProps {

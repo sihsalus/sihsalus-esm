@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
 import { LeftNavMenu, useOnClickOutside } from '@openmrs/esm-framework';
+import React, { useEffect } from 'react';
 
 interface VisitHeaderSideMenuProps {
   isExpanded: boolean;

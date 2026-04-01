@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import { filterByServiceType } from '../utils';
+
 import { useAppointmentList } from '../../hooks/useAppointmentList';
 import AppointmentsTable from '../common-components/appointments-table.component';
+import { filterByServiceType } from '../utils';
 
 interface AppointmentsListProps {
   appointmentServiceTypes?: Array<string>;

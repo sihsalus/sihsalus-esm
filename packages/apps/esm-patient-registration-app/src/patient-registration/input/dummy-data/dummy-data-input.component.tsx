@@ -1,7 +1,9 @@
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 import { v4 } from 'uuid';
+
 import { type FormValues } from '../../patient-registration.types';
+
 import styles from './../input.scss';
 
 interface DummyDataInputProps {

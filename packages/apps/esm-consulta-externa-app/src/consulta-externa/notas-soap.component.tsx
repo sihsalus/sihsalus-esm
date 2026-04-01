@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   Accordion,
@@ -10,8 +8,12 @@ import {
 import { Add } from '@carbon/react/icons';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
 import { launchWorkspace } from '@openmrs/esm-framework';
-import { useSoapNotes } from '../hooks/useSoapNotes';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../config-schema';
+import { useSoapNotes } from '../hooks/useSoapNotes';
+
 import styles from './consulta-externa-dashboard.scss';
 
 interface NotasSoapProps {

@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import QueuePatientBaseTable from './queue-linelist-base-table.component';
+
 import { useServiceQueueEntries } from '../active-visits/active-visits-table.resource';
+
+import QueuePatientBaseTable from './queue-linelist-base-table.component';
 
 const ServicesTable: React.FC = () => {
   const { t } = useTranslation();
 
   const currentPathName: string = window.location.pathname.replace('%20', ' ');
-  let service = currentPathName.split('/')[6];
-  let locationUuid = currentPathName.split('/')[8];
+  const service = currentPathName.split('/')[6];
+  const locationUuid = currentPathName.split('/')[8];
   const { serviceQueueEntries, isLoading } = useServiceQueueEntries(service, locationUuid);
 
   const tableHeaders = useMemo(

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import HeaderedQuickInfo from '../components/headered-quick-info.component';
 import OverviewCard from '../components/overview-card.component';
 import { routes } from '../constants';

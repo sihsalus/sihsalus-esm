@@ -1,6 +1,7 @@
 import { age } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type Encounter } from '../../types';
 
 export interface WardPatientTimeSinceAdmissionProps {

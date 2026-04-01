@@ -2,6 +2,7 @@ import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@car
 import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { deleteCondition, useConditions } from './conditions.resource';
 import styles from './delete-condition.scss';
 

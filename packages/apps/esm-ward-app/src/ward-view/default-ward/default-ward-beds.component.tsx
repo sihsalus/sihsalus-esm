@@ -1,8 +1,10 @@
 import { useAppContext } from '@openmrs/esm-framework';
 import React from 'react';
+
 import WardBed from '../../beds/ward-bed.component';
 import { type WardPatient, type WardViewContext } from '../../types';
 import { bedLayoutToBed } from '../ward-view.resource';
+
 import DefaultWardPatientCard from './default-ward-patient-card.component';
 
 function DefaultWardBeds() {

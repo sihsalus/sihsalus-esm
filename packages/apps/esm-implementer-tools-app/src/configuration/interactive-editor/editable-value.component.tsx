@@ -1,6 +1,3 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { isEqual, cloneDeep, unset } from 'lodash-es';
 import { Button } from '@carbon/react';
 import { EditIcon, ResetIcon } from '@openmrs/esm-framework';
 import {
@@ -11,10 +8,15 @@ import {
   type Validator,
   type Type,
 } from '@openmrs/esm-framework/src/internal';
+import { isEqual, cloneDeep, unset } from 'lodash-es';
+import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { implementerToolsStore, type ImplementerToolsStore } from '../../store';
+
 import { DisplayValue } from './display-value';
-import { ValueEditor, type CustomValueType } from './value-editor';
 import styles from './editable-value.styles.scss';
+import { ValueEditor, type CustomValueType } from './value-editor';
 
 export interface EditableValueProps {
   path: Array<string>;
@@ -59,6 +61,7 @@ export default function EditableValue({ path, element, customType }: EditableVal
     };
     update(implementerToolsStore.getState());
     return implementerToolsStore.subscribe(update);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -77,6 +80,7 @@ export default function EditableValue({ path, element, customType }: EditableVal
     if (!editing && isEqual(state.configPathBeingEdited, path)) {
       implementerToolsStore.setState({ configPathBeingEdited: null });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editing]);
 
   return (
@@ -141,6 +145,7 @@ export default function EditableValue({ path, element, customType }: EditableVal
 
 // A substitute for the lodash.set function, which seems to be broken,
 // at least within Jest.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function set<T>(obj: T, path: Array<string>, value: any): T {
   if (path.length > 1) {
     obj[path[0]] = set(obj[path[0]] ?? {}, path.slice(1), value);

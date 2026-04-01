@@ -1,14 +1,17 @@
-import { useCallback, useEffect, useMemo } from 'react';
 import { fhirBaseUrl, restBaseUrl, openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import type { FHIRResource, FetchResponse } from '@openmrs/esm-framework';
+import type { ObsRecord } from '@openmrs/esm-patient-common-lib';
+import { useCallback, useEffect, useMemo } from 'react';
+import type { KeyedMutator } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import useSWRInfinite from 'swr/infinite';
-import type { ObsRecord } from '@openmrs/esm-patient-common-lib';
-import type { KeyedMutator } from 'swr';
+import { z } from 'zod';
+
 import type { ConfigObject } from '../../config-schema';
+
 import { assessValue, calculateBodyMassIndex, getReferenceRangesForConcept, interpretBloodPressure } from './helpers';
 import type { FHIRSearchBundleResponse, MappedVitals, PatientVitalsAndBiometrics, VitalsResponse } from './types';
-import { z } from 'zod';
+
 
 const NewbornVitalsSchema = z
   .object({
@@ -295,8 +298,8 @@ function handleFetch({ patientUuid, conceptUuids, page, prevPageData }: VitalsAn
     return null;
   }
 
-  let url = `${fhirBaseUrl}/Observation?subject:Patient=${patientUuid}&`;
-  let urlSearchParams = new URLSearchParams();
+  const url = `${fhirBaseUrl}/Observation?subject:Patient=${patientUuid}&`;
+  const urlSearchParams = new URLSearchParams();
 
   urlSearchParams.append('code', conceptUuids);
   urlSearchParams.append('_summary', 'data');

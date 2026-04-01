@@ -17,6 +17,7 @@ interface CameraMediaUploaderModalProps {
   collectDescription?: boolean;
   multipleFiles?: boolean;
   onCompletion?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   saveFile: (file: UploadedFile) => Promise<FetchResponse<any>>;
   title?: string;
 }

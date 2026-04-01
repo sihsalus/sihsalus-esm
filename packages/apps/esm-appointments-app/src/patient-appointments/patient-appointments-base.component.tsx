@@ -1,15 +1,17 @@
-import React, { useContext, useState } from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
 import { Button, ContentSwitcher, DataTableSkeleton, InlineLoading, Layer, Switch, Tile } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyDataIllustration, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { usePatientAppointments } from './patient-appointments.resource';
-import PatientAppointmentsTable from './patient-appointments-table.component';
-import styles from './patient-appointments-base.scss';
+import dayjs from 'dayjs';
+import React, { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 
 import PatientAppointmentContext, { PatientAppointmentContextTypes } from '../hooks/patientAppointmentContext';
+
+import styles from './patient-appointments-base.scss';
+import PatientAppointmentsTable from './patient-appointments-table.component';
+import { usePatientAppointments } from './patient-appointments.resource';
 
 interface PatientAppointmentsBaseProps {
   patientUuid: string;

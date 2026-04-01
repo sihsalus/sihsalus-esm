@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   Button,
   DataTable,
@@ -18,9 +17,10 @@ import {
 } from '@carbon/react';
 import { Add, TrashCan, Play, Renew } from '@carbon/react/icons';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useIndicatorsCRUD, useEvaluateIndicator } from './hooks/useIndicators';
-import type { IndicatorDefinition } from './hooks/useIndicators';
 import styles from './indicators-dashboard.module.scss';
 
 const IndicatorsDashboard: React.FC = () => {

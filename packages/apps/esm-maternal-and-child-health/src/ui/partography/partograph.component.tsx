@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -15,11 +13,13 @@ import {
   Button,
 } from '@carbon/react';
 import { Add, ChartLineSmooth } from '@carbon/react/icons';
-import { EmptyDataIllustration, ErrorState, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
 import { formatDate, isDesktop, parseDate, useLayoutType, launchWorkspace2 } from '@openmrs/esm-framework';
-import styles from './labour-delivery.scss';
-import { usePartograph } from '../../hooks/usePartograph';
+import { EmptyDataIllustration, ErrorState, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { usePartograph } from '../../hooks/usePartograph';
 import {
   CervicalDilation,
   ContractionDuration,
@@ -30,6 +30,8 @@ import {
   SurgicalProcedure,
   descentOfHeadObj,
 } from '../../utils';
+
+import styles from './labour-delivery.scss';
 import PartographChart from './partograph-chart';
 
 interface PartographyProps {

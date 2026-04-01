@@ -1,15 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, InlineLoading } from '@carbon/react';
 import { Add, Analytics, Table } from '@carbon/react/icons';
-import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import { formatDate, parseDate, useConfig, useLayoutType, launchWorkspace2 } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useCurrentPregnancy } from '../../../../hooks/useCurrentPregnancy';
-import PaginatedLabourHistory from './paginated-labour-history.component';
-import LabourHistoryChart from './labour-history-chart.component';
 import type { LabourHistoryTableRow } from '../../../common/types';
 
+import LabourHistoryChart from './labour-history-chart.component';
 import styles from './labour-history-overview.scss';
+import PaginatedLabourHistory from './paginated-labour-history.component';
 
 interface LabourHistoryOverviewProps {
   patientUuid: string;

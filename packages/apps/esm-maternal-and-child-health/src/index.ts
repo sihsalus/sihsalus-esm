@@ -1,26 +1,25 @@
 // index.ts
-import type React from 'react';
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
+import type React from 'react';
+
 import { createDashboardGroup } from './clinical-view-group/createDashboardGroup';
 import { configSchema } from './config-schema';
 
 // Maternal and Child Health Components
-import {
-  labourAndDeliveryDashboardMeta,
-  maternalAndChildHealthNavGroup,
-  postnatalDashboardMeta,
-  prenatalDashboardMeta,
-  familyPlanningDashboardMeta,
-  cancerPreventionDashboardMeta,
-} from './maternal-and-child-health/dashboard.meta';
+import { CancerPrevention } from './maternal-and-child-health/cancer-prevention.component';
+import BreastScreening from './maternal-and-child-health/components/cancer-prevention/breast-screening/breast-screening.component';
+import CancerFollowup from './maternal-and-child-health/components/cancer-prevention/cancer-followup/cancer-followup.component';
+import CervicalScreening from './maternal-and-child-health/components/cancer-prevention/cervical-screening/cervical-screening.component';
+import ContraceptiveMethods from './maternal-and-child-health/components/family-planning/contraceptive-methods/contraceptive-methods.component';
+import FpCounseling from './maternal-and-child-health/components/family-planning/fp-counseling/fp-counseling.component';
+import FpFollowup from './maternal-and-child-health/components/family-planning/fp-followup/fp-followup.component';
+import DeliveryOrAbortionTable from './maternal-and-child-health/components/labour-delivery/deliveryOrAbortion.component';
+import SummaryOfLaborAndPostpartumTable from './maternal-and-child-health/components/labour-delivery/summaryOfLaborAndPostpartum.component';
 import { LabourDelivery } from './maternal-and-child-health/labour-delivery.component';
 import { PostnatalCare } from './maternal-and-child-health/postnatal-care.component';
 import { PrenatalCare } from './maternal-and-child-health/prenatal-care.component';
 import { FamilyPlanning } from './maternal-and-child-health/family-planning.component';
-import { CancerPrevention } from './maternal-and-child-health/cancer-prevention.component';
-import DeliveryOrAbortionTable from './maternal-and-child-health/components/labour-delivery/deliveryOrAbortion.component';
-import SummaryOfLaborAndPostpartumTable from './maternal-and-child-health/components/labour-delivery/summaryOfLaborAndPostpartum.component';
 import ImmediatePostpartumTable from './maternal-and-child-health/components/postnatal-care/immediatePostpartum.component';
 import PostpartumControlTable from './maternal-and-child-health/components/postnatal-care/postpartumControl.component';
 import CurrentPregnancyTable from './maternal-and-child-health/components/prenatal-care/currentPregnancy.component';
@@ -31,18 +30,20 @@ import RiskClassification from './maternal-and-child-health/components/prenatal-
 import PsychoprophylaxisWidget from './maternal-and-child-health/components/prenatal-care/psychoprophylaxis/psychoprophylaxis.component';
 import PrenatalSupplementationWidget from './maternal-and-child-health/components/prenatal-care/prenatal-supplementation/prenatal-supplementation.component';
 import PostpartumTrackingWidget from './maternal-and-child-health/components/postnatal-care/postpartum-tracking.component';
-import PartographChart from './ui/partography/partograph-chart';
+import {
+  labourAndDeliveryDashboardMeta,
+  maternalAndChildHealthNavGroup,
+  postnatalDashboardMeta,
+  prenatalDashboardMeta,
+  familyPlanningDashboardMeta,
+  cancerPreventionDashboardMeta,
+} from './maternal-and-child-health/dashboard.meta';
+import ChildMedicalHistory from './ui/conditions-filter/conditions-overview.component';
 import { ObstetricHistoryBase } from './ui/obstetric-history-widget';
+import PartographChart from './ui/partography/partograph-chart';
 
 // Well Child Care Components
-import {
-  childImmunizationScheduleDashboardMeta,
-  neonatalCareDashboardMeta,
-  wellChildCareNavGroup,
-  wellChildControlDashboardMeta,
-  earlyStimulationDashboardMeta,
-  childNutritionDashboardMeta,
-} from './well-child-care/dashboard.meta';
+import SlotPlaceholder from './ui/slot-placeholder/slot-placeholder.component';
 import { ChildImmunizationSchedule } from './well-child-care/child-immunization.component';
 import { NeonatalCare } from './well-child-care/neonatal-care.component';
 import { WellChildControl } from './well-child-care/well-child-control.component';
@@ -66,20 +67,12 @@ import AnemiaScreening from './well-child-care/components/anemia-screening/anemi
 import SupplementationTracker from './well-child-care/components/supplementation/supplementation-tracker.component';
 import ScreeningIndicators from './well-child-care/components/screening/screening-indicators.component';
 import DevelopmentOverview from './well-child-care/components/development-overview/development-overview.component';
-import ChildMedicalHistory from './ui/conditions-filter/conditions-overview.component';
-import SlotPlaceholder from './ui/slot-placeholder/slot-placeholder.component';
 import PrenatalAntecedents from './well-child-care/components/neonatal-register/prenatal-history/prenatal-history.component';
 import CREDFormActionButton from './well-child-care/components/cred-form-action-button.component';
 
 // Family Planning Components
-import ContraceptiveMethods from './maternal-and-child-health/components/family-planning/contraceptive-methods/contraceptive-methods.component';
-import FpCounseling from './maternal-and-child-health/components/family-planning/fp-counseling/fp-counseling.component';
-import FpFollowup from './maternal-and-child-health/components/family-planning/fp-followup/fp-followup.component';
 
 // Cancer Prevention Components
-import CervicalScreening from './maternal-and-child-health/components/cancer-prevention/cervical-screening/cervical-screening.component';
-import BreastScreening from './maternal-and-child-health/components/cancer-prevention/breast-screening/breast-screening.component';
-import CancerFollowup from './maternal-and-child-health/components/cancer-prevention/cancer-followup/cancer-followup.component';
 
 // Child Nutrition Components
 import NutritionalAssessment from './well-child-care/components/child-nutrition/nutritional-assessment/nutritional-assessment.component';
@@ -90,6 +83,14 @@ import NutritionFollowup from './well-child-care/components/child-nutrition/nutr
 import StimulationSessions from './well-child-care/components/early-stimulation/stimulation-sessions/stimulation-sessions.component';
 import StimulationFollowup from './well-child-care/components/early-stimulation/stimulation-followup/stimulation-followup.component';
 import StimulationCounseling from './well-child-care/components/early-stimulation/stimulation-counseling/stimulation-counseling.component';
+import {
+  childImmunizationScheduleDashboardMeta,
+  neonatalCareDashboardMeta,
+  wellChildCareNavGroup,
+  wellChildControlDashboardMeta,
+  earlyStimulationDashboardMeta,
+  childNutritionDashboardMeta,
+} from './well-child-care/dashboard.meta';
 
 // Module Configuration
 const moduleName = '@sihsalus/esm-maternal-and-child-health-app';

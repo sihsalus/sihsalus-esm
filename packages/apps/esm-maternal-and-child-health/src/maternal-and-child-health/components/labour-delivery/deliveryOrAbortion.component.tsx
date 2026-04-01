@@ -1,8 +1,9 @@
+import { useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfig } from '@openmrs/esm-framework';
-import PatientObservationGroupTable from '../../../ui/patient-observation-group-table/patient-observation-group-table.component';
+
 import type { ConfigObject } from '../../../config-schema';
+import PatientObservationGroupTable from '../../../ui/patient-observation-group-table/patient-observation-group-table.component';
 
 interface DeliveryOrAbortionProps {
   patientUuid: string;

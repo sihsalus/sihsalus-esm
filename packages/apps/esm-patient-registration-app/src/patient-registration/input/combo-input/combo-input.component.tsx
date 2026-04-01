@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
 import { TextInput, Layer } from '@carbon/react';
-import SelectionTick from './selection-tick.component';
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import styles from '../input.scss';
+
+import SelectionTick from './selection-tick.component';
 
 interface ComboInputProps {
   entries: Array<string>;

@@ -1,6 +1,3 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { IconButton, RadioButton, RadioButtonGroup, RadioButtonSkeleton, Search } from '@carbon/react';
 import { type RadioButtonGroupProps } from '@carbon/react/lib/components/RadioButtonGroup/RadioButtonGroup';
 import {
@@ -12,8 +9,13 @@ import {
   useLayoutType,
   type Location,
 } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import useEmrConfiguration from '../hooks/useEmrConfiguration';
 import useLocations from '../hooks/useLocations';
+
 import styles from './location-selector.scss';
 
 interface LocationSelectorProps extends RadioButtonGroupProps {

@@ -1,13 +1,16 @@
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Tab, TabList, TabPanel, TabPanels, Tabs, Tag } from '@carbon/react';
 import { formatTime, type OpenmrsResource, parseDate } from '@openmrs/esm-framework';
-import NotesSummary from './notes-summary.component';
-import MedicationSummary from './medications-summary.component';
-import TestsSummary from './tests-summary.component';
+import classNames from 'classnames';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { Encounter, Note, Observation, Order, OrderItem } from '../../types';
 import styles from '../visit-detail-overview.scss';
+
+import MedicationSummary from './medications-summary.component';
+import NotesSummary from './notes-summary.component';
+import TestsSummary from './tests-summary.component';
+
 
 interface DiagnosisItem {
   diagnosis: string;
@@ -21,7 +24,7 @@ interface VisitSummaryProps {
 
 const VisitSummary: React.FC<VisitSummaryProps> = ({ encounters, patientUuid }) => {
   const { t } = useTranslation();
-  const [tabSelected, setSelectedTab] = useState(0);
+  const [, setSelectedTab] = useState(0);
 
   const [diagnoses, notes, medications]: [Array<DiagnosisItem>, Array<Note>, Array<OrderItem>] = useMemo(() => {
     // Medication Tab

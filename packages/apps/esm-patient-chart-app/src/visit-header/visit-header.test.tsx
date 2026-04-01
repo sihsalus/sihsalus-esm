@@ -1,6 +1,3 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
   age,
   getHistory,
@@ -13,8 +10,12 @@ import {
   useVisit,
 } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { getByTextWithMarkup, mockPatient, mockPatientWithLongName } from 'tools';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockCurrentVisit } from '__mocks__';
+import React from 'react';
+import { getByTextWithMarkup, mockPatient, mockPatientWithLongName } from 'tools';
+
 import VisitHeader from './visit-header.component';
 
 const mockAge = jest.mocked(age);

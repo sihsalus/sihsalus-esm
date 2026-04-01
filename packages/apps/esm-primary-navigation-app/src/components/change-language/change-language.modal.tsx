@@ -1,7 +1,3 @@
-import classNames from 'classnames';
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { capitalize } from 'lodash-es';
 import {
   Button,
   Checkbox,
@@ -13,6 +9,11 @@ import {
   RadioButtonGroup,
 } from '@carbon/react';
 import { useAbortController, useSession } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import { capitalize } from 'lodash-es';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { updateSessionLocale, updateUserProperties } from './change-language.resource';
 import styles from './change-language.scss';
 

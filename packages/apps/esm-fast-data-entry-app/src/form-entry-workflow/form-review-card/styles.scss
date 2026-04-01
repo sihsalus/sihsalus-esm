@@ -1,0 +1,37 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.formReviewCard {
+  background-color: colors.$white-0;
+  padding: layout.$spacing-02;
+}
+
+.formReviewCard :global(.cds--accordion) :global(.cds--accordion__item) {
+  border: none;
+}
+
+.formReviewCard :global(.cds--accordion__title) {
+  display: flex;
+  align-items: baseline;
+  column-gap: layout.$spacing-05;
+}
+
+.formReviewCard :global(.cds--accordion__content) {
+  padding: layout.$spacing-03;
+}
+
+.dataField {
+  @include type.type-style('code-02');
+  background-color: colors.$gray-10;
+  padding: layout.$spacing-03;
+}
+
+.displayName {
+  @include type.type-style('heading-02');
+  font-weight: bold;
+}
+
+.identifier {
+  @include type.type-style('body-compact-01')
+}

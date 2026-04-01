@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { getI18n, useTranslation } from 'react-i18next';
 import type { OfflineSynchronizationStore } from '@openmrs/esm-framework/src/internal';
 import { getOfflineSynchronizationStore, showNotification, useStore } from '@openmrs/esm-framework/src/internal';
+import { useEffect, useState } from 'react';
+import { getI18n, useTranslation } from 'react-i18next';
 
 let showNewModalOnNextSynchronization = true;
 let currentSynchronizationIndex = 0;
@@ -17,7 +17,7 @@ export function setupSynchronizingOfflineActionsNotifications() {
       showNewModalOnNextSynchronization = false;
       currentSynchronizationIndex++;
 
-      let activeSynchronizationIndex = currentSynchronizationIndex;
+      const activeSynchronizationIndex = currentSynchronizationIndex;
       showNotification({
         title: getI18n().t('offlineActionsSynchronizationNotificationTitle', 'Upload'),
         description: SynchronizingNotification({ mySynchronizationIndex: { activeSynchronizationIndex } }),

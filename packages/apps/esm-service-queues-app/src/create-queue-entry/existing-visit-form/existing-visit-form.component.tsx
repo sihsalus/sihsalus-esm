@@ -3,8 +3,10 @@ import { ExtensionSlot, useLayoutType, type Visit } from '@openmrs/esm-framework
 import classNames from 'classnames';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useMutateQueueEntries } from '../../hooks/useQueueEntries';
 import QueueFields from '../queue-fields/queue-fields.component';
+
 import styles from './existing-visit-form.scss';
 
 interface ExistingVisitFormProps {

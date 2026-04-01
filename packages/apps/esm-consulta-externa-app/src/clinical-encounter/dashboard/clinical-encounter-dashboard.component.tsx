@@ -1,7 +1,4 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import ClinicalEncounter from '../clinical-enc.component';
-import SurgicalSummary from '../summary/surgical summary/surgical-summary.component';
+import { Layer, Tab, TabList, TabPanel, TabPanels, Tabs, Tile } from '@carbon/react';
 import {
   Activity,
   CloudMonitoring,
@@ -9,14 +6,12 @@ import {
   Friendship,
   ReminderMedical,
 } from '@carbon/react/icons';
-import { Layer, Tab, TabList, TabPanel, TabPanels, Tabs, Tile } from '@carbon/react';
-import styles from './in-patient.scss';
-import InPatientSummary from '../summary/in-patient-medical-summary/in-patient-medical-summary.component';
-import OutPatientSocialHistory from '../summary/out-patient-summary/patient-social-history.component';
-import OutPatientMedicalHistory from '../summary/out-patient-summary/patient-medical-history.component';
 import { useConfig, useVisit } from '@openmrs/esm-framework';
-import { useClinicalEncounter } from '../../hooks/useClinicalEncounter';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../config-schema';
+import { useClinicalEncounter } from '../../hooks/useClinicalEncounter';
 import {
   AdmissionDate_UUID,
   PriorityOfAdmission_UUID,
@@ -30,6 +25,16 @@ import {
   Smoking_Duration_UUID,
   Other_Substance_Abuse_UUID,
 } from '../../utils/constants';
+import ClinicalEncounter from '../clinical-enc.component';
+import InPatientSummary from '../summary/in-patient-medical-summary/in-patient-medical-summary.component';
+import OutPatientMedicalHistory from '../summary/out-patient-summary/patient-medical-history.component';
+import OutPatientSocialHistory from '../summary/out-patient-summary/patient-social-history.component';
+import SurgicalSummary from '../summary/surgical summary/surgical-summary.component';
+
+import styles from './in-patient.scss';
+
+
+
 
 interface ClinicalEncounterDashboardProps {
   patientUuid: string;

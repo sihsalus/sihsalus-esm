@@ -1,5 +1,3 @@
-import useSWR, { mutate } from 'swr';
-import useSWRInfinite from 'swr/infinite';
 import {
   openmrsFetch,
   restBaseUrl,
@@ -9,6 +7,9 @@ import {
   type Privilege,
   type Visit,
 } from '@openmrs/esm-framework';
+import useSWR, { mutate } from 'swr';
+import useSWRInfinite from 'swr/infinite';
+
 import { type ChartConfig } from '../../config-schema';
 
 const customRepresentation =

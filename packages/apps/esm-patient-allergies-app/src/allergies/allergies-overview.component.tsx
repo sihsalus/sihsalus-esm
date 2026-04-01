@@ -19,7 +19,6 @@ import {
   launchPatientWorkspace,
   PatientChartPagination,
 } from '@openmrs/esm-patient-common-lib';
-import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

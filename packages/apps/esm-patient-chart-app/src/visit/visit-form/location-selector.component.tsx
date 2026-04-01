@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
-import isEmpty from 'lodash/isEmpty';
 import { ComboBox } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import { type Control, Controller } from 'react-hook-form';
 import {
   type Location,
   type OpenmrsResource,
@@ -12,11 +7,19 @@ import {
   useLocations,
   useFeatureFlag,
 } from '@openmrs/esm-framework';
-import { type VisitFormData } from './visit-form.resource';
-import { useDefaultFacilityLocation } from '../hooks/useDefaultFacilityLocation';
+import classNames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
+import React, { useEffect, useState } from 'react';
+import { type Control, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import { type ChartConfig } from '../../config-schema';
-import styles from './visit-form.scss';
+import { useDefaultFacilityLocation } from '../hooks/useDefaultFacilityLocation';
 import { useDefaultVisitLocation } from '../hooks/useDefaultVisitLocation';
+
+import { type VisitFormData } from './visit-form.resource';
+import styles from './visit-form.scss';
+
 
 interface LocationSelectorProps {
   control: Control<VisitFormData>;

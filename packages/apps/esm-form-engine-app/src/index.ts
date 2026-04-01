@@ -2,7 +2,7 @@ import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
 
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-form-engine-app';
+const moduleName = '@sihsalus/esm-form-engine-app';
 
 const options = {
   featureName: 'form-engine',

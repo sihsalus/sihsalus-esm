@@ -1,9 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
 import { Button, Column, Form, InlineLoading, InlineNotification, Row, Stack, TextArea } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   type DefaultWorkspaceProps,
   type PatientUuid,
@@ -12,9 +8,15 @@ import {
   translateFrom,
   useSession,
 } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import { moduleName } from '../../../constant';
-import { savePatientNote } from '../notes.resource';
 import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
+import { savePatientNote } from '../notes.resource';
+
 import styles from './notes-form.scss';
 
 type NotesFormData = z.infer<typeof noteFormSchema>;

@@ -1,14 +1,16 @@
-import React, { useContext, useMemo } from 'react';
-import classNames from 'classnames';
-import dayjs, { type Dayjs } from 'dayjs';
 import { User } from '@carbon/react/icons';
 import { navigate, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import dayjs, { type Dayjs } from 'dayjs';
+import React, { useContext, useMemo } from 'react';
+
 import { spaHomePage } from '../../constants';
 import { isSameMonth } from '../../helpers';
-import { type DailyAppointmentsCountByService } from '../../types';
 import SelectedDateContext from '../../hooks/selectedDateContext';
-import MonthlyWorkloadViewExpanded from './monthly-workload-view-expanded.component';
+import { type DailyAppointmentsCountByService } from '../../types';
+
 import styles from './monthly-view-workload.scss';
+import MonthlyWorkloadViewExpanded from './monthly-workload-view-expanded.component';
 
 export interface MonthlyWorkloadViewProps {
   events: Array<DailyAppointmentsCountByService>;

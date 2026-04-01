@@ -1,12 +1,14 @@
+import { ErrorState, formatDate, parseDate } from '@openmrs/esm-framework';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ErrorState, formatDate, parseDate } from '@openmrs/esm-framework';
-import { useClinicalMetrics, useAllAppointmentsByDate, useScheduledAppointments } from '../hooks/useClinicalMetrics';
-import { useAppointmentList } from '../hooks/useAppointmentList';
+
 import SelectedDateContext from '../hooks/selectedDateContext';
+import { useAppointmentList } from '../hooks/useAppointmentList';
+import { useClinicalMetrics, useAllAppointmentsByDate, useScheduledAppointments } from '../hooks/useClinicalMetrics';
+
+import styles from './appointments-metrics.scss';
 import MetricsCard from './metrics-card.component';
 import MetricsHeader from './metrics-header.component';
-import styles from './appointments-metrics.scss';
 
 interface AppointmentMetricsProps {
   appointmentServiceTypes: Array<string>;

@@ -1,3 +1,14 @@
+import { ChartCodes, CategoryCodes, MeasurementTypeCodesLabel, TimeUnitCodes, GenderCodes, CategoryLabels } from '..';
+import type { ChartData } from '..';
+
+import { hcfa_b_0_5_y_p, hcfa_b_0_13_w_p } from './Percentiles/hcfa-boys';
+import { hcfa_g_0_5_y_p, hcfa_g_0_13_w_p } from './Percentiles/hcfa-girls';
+import { lhfa_b_0_2_y_p, lhfa_b_0_13_w_p, lhfa_b_2_5_y_p } from './Percentiles/lhfa-boys';
+import { lhfa_g_0_2_y_p, lhfa_g_0_13_w_p, lhfa_g_2_5_y_p } from './Percentiles/lhfa-girls';
+import { wfa_b_0_5_y_p, wfa_b_0_13_w_p } from './Percentiles/wfa-boys';
+import { wfa_g_0_5_y_p, wfa_g_0_13_w_p } from './Percentiles/wfa-girls';
+import { wfh_b_2_5_y_p, wfl_b_0_2_y_p } from './Percentiles/wfhl-boys';
+import { wfh_g_2_5_y_p, wfl_g_0_2_y_p } from './Percentiles/wfhl-girls';
 import { hcfa_b_0_5_y_z, hcfa_b_0_13_w_z } from './ZScores/hcfa-boys';
 import { hcfa_g_0_5_y_z, hcfa_g_0_13_w_z } from './ZScores/hcfa-girls';
 import { lhfa_b_0_2_y_z, lhfa_b_0_13_w_z, lhfa_b_2_5_y_z } from './ZScores/lhfa-boys';
@@ -6,16 +17,7 @@ import { wfa_b_0_5_y_z, wfa_b_0_13_w_z } from './ZScores/wfa-boys';
 import { wfa_g_0_5_y_z, wfa_g_0_13_w_z } from './ZScores/wfa-girls';
 import { wfh_g_2_5_y_z, wfl_g_0_2_y_z } from './ZScores/wfhl-girls';
 import { wfh_b_2_5_y_z, wfl_b_0_2_y_z } from './ZScores/wfhl-boys';
-import { hcfa_b_0_5_y_p, hcfa_b_0_13_w_p } from './Percentiles/hcfa-boys';
-import { hcfa_g_0_5_y_p, hcfa_g_0_13_w_p } from './Percentiles/hcfa-girls';
-import { lhfa_b_0_2_y_p, lhfa_b_0_13_w_p, lhfa_b_2_5_y_p } from './Percentiles/lhfa-boys';
-import { lhfa_g_0_2_y_p, lhfa_g_0_13_w_p, lhfa_g_2_5_y_p } from './Percentiles/lhfa-girls';
-import { wfa_b_0_5_y_p, wfa_b_0_13_w_p } from './Percentiles/wfa-boys';
-import { wfa_g_0_5_y_p, wfa_g_0_13_w_p } from './Percentiles/wfa-girls';
-import { wfh_g_2_5_y_p, wfl_g_0_2_y_p } from './Percentiles/wfhl-girls';
-import { wfh_b_2_5_y_p, wfl_b_0_2_y_p } from './Percentiles/wfhl-boys';
-import { ChartCodes, CategoryCodes, MeasurementTypeCodesLabel, TimeUnitCodes, GenderCodes, CategoryLabels } from '..';
-import type { ChartData } from '..';
+
 
 export const chartData: ChartData = {
   [CategoryCodes.hcfa_b]: {

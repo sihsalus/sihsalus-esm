@@ -1,10 +1,13 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/react';
 import { openmrsFetch, getConfig, useConfig, getDefaultsFromConfigSchema } from '@openmrs/esm-framework';
-import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { visitOverviewDetailMockData } from '__mocks__';
+import React from 'react';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+
+import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
+
+
 import VisitDetailOverview from './visit-detail-overview.component';
 
 const mockGetConfig = getConfig as jest.Mock;

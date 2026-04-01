@@ -1,5 +1,6 @@
-import React from 'react';
 import { ChartRelationship } from '@carbon/react/icons';
+import React from 'react';
+
 import styles from './fua-header.scss';
 
 const FuaIllustration: React.FC = () => {

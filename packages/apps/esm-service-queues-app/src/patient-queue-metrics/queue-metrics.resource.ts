@@ -1,7 +1,8 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type Appointment, type QueueServiceInfo } from '../types';
+import useSWR from 'swr';
+
 import { startOfDay } from '../constants';
+import { type Appointment, type QueueServiceInfo } from '../types';
 
 export function useServiceMetricsCount(service: string, location: string) {
   const status = 'Waiting';

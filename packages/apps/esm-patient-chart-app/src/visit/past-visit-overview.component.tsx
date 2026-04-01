@@ -1,4 +1,3 @@
-import React, { useMemo, useCallback } from 'react';
 import {
   Button,
   DataTable,
@@ -12,11 +11,13 @@ import {
   TableCell,
   type DataTableHeader,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { EditIcon, setCurrentVisit } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps, ErrorState } from '@openmrs/esm-patient-common-lib';
-import { usePastVisits } from './visits-widget/visit.resource';
+import React, { useMemo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './past-visit-overview.scss';
+import { usePastVisits } from './visits-widget/visit.resource';
 
 const PastVisitOverview: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid, closeWorkspace }) => {
   const { t, i18n } = useTranslation();

@@ -1,5 +1,6 @@
-import React from 'react';
 import dayjs from 'dayjs';
+import React from 'react';
+
 import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
 
 export const QueueTablePatientAgeCell = ({ queueEntry }: QueueTableCellComponentProps) => {

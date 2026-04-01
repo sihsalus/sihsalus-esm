@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { usePagination } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { SearchedPatient } from '../types';
-import { EmptyState, ErrorState, LoadingState, PatientSearchResults } from './patient-search-views.component';
 import Pagination from '../ui-components/pagination/pagination.component';
+
 import styles from './patient-search-lg.scss';
+import { EmptyState, ErrorState, LoadingState, PatientSearchResults } from './patient-search-views.component';
 
 interface PatientSearchComponentProps {
   query: string;

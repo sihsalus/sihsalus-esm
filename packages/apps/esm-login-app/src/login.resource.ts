@@ -1,7 +1,3 @@
-import { useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import useSwrInfinite, { type SWRInfiniteResponse } from 'swr/infinite';
-import useSwrImmutable from 'swr/immutable';
 import {
   fhirBaseUrl,
   openmrsFetch,
@@ -11,6 +7,10 @@ import {
   type Session,
   useDebounce,
 } from '@openmrs/esm-framework';
+import { useEffect, useMemo } from 'react';
+import useSwrImmutable from 'swr/immutable';
+import useSwrInfinite, { type SWRInfiniteResponse } from 'swr/infinite';
+
 import type { LocationEntry, LocationResponse } from './types';
 
 // "swr/infinite" doesn't export InfiniteKeyedMutator directly
@@ -32,7 +32,7 @@ export function useLoginLocations(
   searchQuery: string = '',
   useLoginLocationTag: boolean,
 ): LoginLocationData {
-  const { t } = useTranslation();
+
   const debouncedSearchQuery = useDebounce(searchQuery);
 
   function constructUrl(page: number, prevPageData: FetchResponse<LocationResponse>) {
@@ -56,8 +56,8 @@ export function useLoginLocations(
       ).toString();
     }
 
-    let url = `${fhirBaseUrl}/Location?`;
-    let urlSearchParameters = new URLSearchParams();
+    const url = `${fhirBaseUrl}/Location?`;
+    const urlSearchParameters = new URLSearchParams();
     urlSearchParameters.append('_summary', 'data');
 
     if (count) {

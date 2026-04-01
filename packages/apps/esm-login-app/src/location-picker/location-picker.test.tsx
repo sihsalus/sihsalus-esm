@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,13 +13,16 @@ import {
   type Session,
   type FetchResponse,
 } from '@openmrs/esm-framework';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { mockConfig } from '../../__mocks__/config.mock';
 import {
   mockLoginLocations,
   validatingLocationFailureResponse,
   validatingLocationSuccessResponse,
 } from '../../__mocks__/locations.mock';
-import { mockConfig } from '../../__mocks__/config.mock';
 import renderWithRouter from '../test-helpers/render-with-router';
+
 import LocationPickerView from './location-picker-view.component';
 
 const fistLocation = {

@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Dropdown } from '@carbon/react';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { updateSelectedService, useSelectedService, useSelectedQueueLocationUuid } from '../helpers/helpers';
-import { useActiveVisits, useAverageWaitTime } from './clinic-metrics.resource';
-import { useServiceMetricsCount } from './queue-metrics.resource';
 import { useQueueEntries } from '../hooks/useQueueEntries';
 import useQueueServices from '../hooks/useQueueService';
 import { type Concept } from '../types';
+
+import { useActiveVisits, useAverageWaitTime } from './clinic-metrics.resource';
+import styles from './clinic-metrics.scss';
 import MetricsCard from './metrics-card.component';
 import MetricsHeader from './metrics-header.component';
-import styles from './clinic-metrics.scss';
+import { useServiceMetricsCount } from './queue-metrics.resource';
 
 export interface Service {
   display: string;

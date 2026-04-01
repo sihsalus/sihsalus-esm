@@ -1,16 +1,17 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, type OpenmrsResource, useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockSession } from '__mocks__';
+import React from 'react';
+
 import { type ActiveVisitsConfigSchema, configSchema } from '../config-schema';
-import { useActiveVisits, useObsConcepts } from './active-visits.resource';
-import ActiveVisitsTable from './active-visits.component';
 import { type ActiveVisit, type Observation } from '../types';
+
+import ActiveVisitsTable from './active-visits.component';
+import { useActiveVisits, useObsConcepts } from './active-visits.resource';
 
 const mockUseActiveVisits = jest.mocked(useActiveVisits);
 const mockUseObsConcepts = jest.mocked(useObsConcepts);
-const mockIsDesktop = jest.mocked(useObsConcepts);
 const mockUseConfig = jest.mocked(useConfig<ActiveVisitsConfigSchema>);
 
 jest.mock('./active-visits.resource', () => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import DyakuPatientsOverview from './dyaku-patients-overview.component';
 
 const DyakuPatientsPage: React.FC = () => {

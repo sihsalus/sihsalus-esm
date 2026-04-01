@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
 import { ModalHeader, ModalBody, ModalFooter, Button, TextArea, InlineLoading } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { cancelFuaRequest, type FuaRequest } from '../hooks/useFuaRequests';
+
 import styles from './fua-modals.scss';
 
 interface CancelFuaModalProps {
@@ -40,7 +42,7 @@ const CancelFuaModal: React.FC<CancelFuaModalProps> = ({ closeModal, fuaRequest,
 
       onCancelled?.();
       closeModal();
-    } catch (error) {
+    } catch {
       showSnackbar({
         title: t('error', 'Error'),
         subtitle: t('errorCancellingFua', 'Ocurrió un error al cancelar el FUA'),

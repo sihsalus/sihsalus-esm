@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+
 import type { AppointmentSummary, ObsReferenceRanges, ObservationInterpretation } from '../types';
 
 export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<Record<string, any>> = []) => {
@@ -47,7 +48,7 @@ export const monthDays = (currentDate: Dayjs) => {
   const monthDays = dayjs(currentDate).daysInMonth();
   const lastMonth = dayjs(currentDate).subtract(1, 'month');
   const nextMonth = dayjs(currentDate).add(1, 'month');
-  let days: Dayjs[] = [];
+  const days: Dayjs[] = [];
 
   for (let i = lastMonth.daysInMonth() - monthStart.day() + 1; i <= lastMonth.daysInMonth(); i++) {
     days.push(dayjs().month(lastMonth.month()).date(i));

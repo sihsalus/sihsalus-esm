@@ -1,5 +1,3 @@
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   StructuredListBody,
   StructuredListCell,
@@ -8,11 +6,15 @@ import {
   StructuredListWrapper,
 } from '@carbon/react';
 import { type OpenmrsResource, formatTime, parseDate } from '@openmrs/esm-framework';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type Note, type Encounter, type Observation, type DiagnosisItem } from '../../types/index';
+import styles from '../current-visit.scss';
 import { useVitalsFromObs } from '../hooks/useVitalsConceptMetadata';
+
 import TriageNote from './triage-note.component';
 import Vitals from './vitals.component';
-import styles from '../current-visit.scss';
 
 interface CurrentVisitProps {
   patientUuid: string;

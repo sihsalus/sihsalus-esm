@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import { CaretLeft, CaretRight } from '@carbon/react/icons';
+import classNames from 'classnames';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './pagination.scss';
 
 interface PaginationProps {

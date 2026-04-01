@@ -1,5 +1,6 @@
 import { openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
 import { baseUrl } from '../constants';
 
 const API_URL = `${baseUrl}/humanresource`;

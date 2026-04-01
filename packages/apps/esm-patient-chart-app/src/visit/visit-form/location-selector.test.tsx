@@ -1,12 +1,15 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { useForm, FormProvider } from 'react-hook-form';
 import { getDefaultsFromConfigSchema, useConfig, useLocations, useSession } from '@openmrs/esm-framework';
-import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockLocationsResponse, mockSessionDataResponse } from '__mocks__';
-import { type VisitFormData } from './visit-form.resource';
+import React from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+
+import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
+
+
 import LocationSelector from './location-selector.component';
+import { type VisitFormData } from './visit-form.resource';
 
 const mockSession = jest.mocked(useSession);
 const mockUseLocations = jest.mocked(useLocations);

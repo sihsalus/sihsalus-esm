@@ -1,5 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -17,13 +15,20 @@ import {
 } from '@carbon/react';
 import { Add, Edit } from '@carbon/react/icons';
 import { ErrorState, isDesktop as desktopLayout, useLayoutType } from '@openmrs/esm-framework';
-import type { BedTagData } from '../types';
-import { useBedTags } from '../summary/summary.resource';
-import BedTagForm from './new-tag-form.component';
-import CardHeader from '../card-header/card-header.component';
-import EditBedTagForm from './edit-tag-form.component';
-import Header from '../header/header.component';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from '../bed-administration/bed-administration-table.scss';
+import CardHeader from '../card-header/card-header.component';
+import Header from '../header/header.component';
+import { useBedTags } from '../summary/summary.resource';
+import type { BedTagData } from '../types';
+
+import EditBedTagForm from './edit-tag-form.component';
+import BedTagForm from './new-tag-form.component';
+
+
+
 
 const BedTagAdministrationTable: React.FC = () => {
   const { t } = useTranslation();

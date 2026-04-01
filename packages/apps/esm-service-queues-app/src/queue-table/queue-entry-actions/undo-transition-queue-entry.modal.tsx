@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type QueueEntry } from '../../types';
+
 import { undoTransition } from './queue-entry-actions.resource';
 import QueueEntryConfirmActionModal from './queue-entry-confirm-action.modal';
 

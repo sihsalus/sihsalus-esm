@@ -1,6 +1,7 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
+import useSWR from 'swr';
+
 import type { ConfigObject } from '../config-schema';
 
 interface SupplementItem {

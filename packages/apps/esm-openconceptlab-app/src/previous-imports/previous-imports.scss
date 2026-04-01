@@ -1,0 +1,39 @@
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+
+.grid {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.productiveHeading03 {
+  @include type.type-style('heading-03');
+  margin-bottom: layout.$spacing-03;
+}
+
+.pagination {
+  @include type.type-style('body-compact-01');
+  background-color: colors.$white-0;
+  color: colors.$gray-70;
+  border: 1px solid colors.$gray-20;
+  display: flex;
+}
+
+.tableBordered {
+  border: 1px solid colors.$gray-20;
+}
+
+.tableRow > td {
+  background-color: colors.$white-0;
+  border-bottom: 1px solid colors.$gray-20 !important;
+}
+
+.tableExpandedRow > td {
+  padding-left: layout.$spacing-09 !important;
+  padding-right: layout.$spacing-09;
+  padding-top: layout.$spacing-05;
+  padding-bottom: layout.$spacing-05;
+}

@@ -1,0 +1,139 @@
+import { Type } from '@openmrs/esm-framework';
+
+/**
+ * This is the config schema.
+ *
+ */
+
+export const configSchema = {
+  formCategories: {
+    _type: Type.Array,
+    _description: 'Organize forms into categories. A form can belong to multiple categories.',
+    _elements: {
+      name: {
+        _type: Type.String,
+        _description: 'Category name',
+      },
+      forms: {
+        _type: Type.Array,
+        _description: 'List of forms for this category.',
+        _elements: {
+          formUUID: {
+            _type: Type.UUID,
+            _description: 'UUID of form',
+          },
+          name: {
+            _type: Type.String,
+            _description: 'Name of form',
+          },
+          disableGroupSession: {
+            _type: Type.Boolean,
+            _description: 'Disable group sessions for this form',
+            _default: false,
+          },
+        },
+      },
+    },
+    _default: [],
+  },
+  formCategoriesToShow: {
+    _type: Type.Array,
+    _description: 'Forms to show by default on the forms app home page.',
+    _elements: {
+      _type: Type.String,
+      _description: 'Name of category',
+    },
+    _default: [],
+  },
+  groupSessionConcepts: {
+    sessionName: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for Session Name',
+      _default: 'e2559620-900b-4f66-ae41-0b9c4adfb654',
+    },
+    sessionDate: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for Session Date',
+      _default: 'ceaca505-6dff-4940-8a43-8c060a0924d7',
+    },
+    practitionerName: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for Practitioner Name',
+      _default: 'f1a2d58c-1a0e-4148-931a-aac224649fdc',
+    },
+    sessionNotes: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for Session Notes',
+      _default: 'fa8fedc0-c066-4da3-8dc1-2ad8621fc480',
+    },
+    cohortTypeId: {
+      _type: Type.UUID,
+      _description: 'UUID of cohort type',
+      _default: 'eee9970e-7ca0-4e8c-a280-c33e9d5f6a04',
+    },
+    cohortId: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for cohort identifier',
+      _default: '5461f231-7e59-4be8-93a4-6d49fd13c00a',
+    },
+    cohortName: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for cohort name',
+      _default: '6029f289-92a6-4a68-80f1-3078d0152449',
+    },
+    sessionUuid: {
+      _type: Type.UUID,
+      _description: 'UUID of concept for session identifier',
+      _default: '6a803908-8a5b-4598-adea-19358c83529a',
+    },
+  },
+  specificQuestions: {
+    _type: Type.Array,
+    _description: 'List of specific questions to populate forms.',
+    _elements: {
+      forms: {
+        _type: Type.Array,
+        _description: 'List of form UUIDs for which the question applies.',
+        _elements: {
+          _type: Type.UUID,
+        },
+        _default: [],
+      },
+      questionId: {
+        _type: Type.String,
+        _description: 'ID of the question.',
+        _default: '',
+      },
+    },
+    _default: [],
+  },
+  patientLocationMismatchCheck: {
+    _type: Type.Boolean,
+    _description:
+      'Whether to prompt for confirmation if the selected patient is not at the same location as the current session.',
+    _default: false,
+  },
+  enforcePatientListLocationMatch: {
+    _type: Type.Boolean,
+    _description: 'If true, prevents adding patients from a different location than the current session.',
+    _default: false,
+  },
+};
+
+export type Form = {
+  formUUID: Type.UUID;
+  name: Type.String;
+  disableGroupSession: Type.Boolean;
+};
+
+export type Category = {
+  name: string;
+  forms: Array<Form>;
+};
+
+export type Config = {
+  formCategories: Array<Category>;
+  formCategoriesToShow: Array<string>;
+  patientLocationMismatchCheck: Type.Boolean;
+  enforcePatientListLocationMatch: Type.Boolean;
+};

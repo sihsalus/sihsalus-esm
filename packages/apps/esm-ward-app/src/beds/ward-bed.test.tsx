@@ -1,6 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+
 import {
   mockAdmissionLocation,
   mockLocationInpatientWard,
@@ -13,6 +14,7 @@ import useWardLocation from '../hooks/useWardLocation';
 import { type WardPatient } from '../types';
 import DefaultWardPatientCard from '../ward-view/default-ward/default-ward-patient-card.component';
 import { bedLayoutToBed, filterBeds } from '../ward-view/ward-view.resource';
+
 import WardBed from './ward-bed.component';
 
 const defaultConfig: WardConfigObject = getDefaultsFromConfigSchema(configSchema);

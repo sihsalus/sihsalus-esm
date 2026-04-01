@@ -1,8 +1,10 @@
+import { Layer, Tile } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, Tile } from '@carbon/react';
+
 import { type SearchedPatient } from '../types';
 import EmptyDataIllustration from '../ui-components/empty-data-illustration.component';
+
 import PatientBanner, { PatientBannerSkeleton } from './patient-banner/banner/patient-banner.component';
 import styles from './patient-search-lg.scss';
 

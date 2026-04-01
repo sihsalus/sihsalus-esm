@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type ObsElementConfig } from '../../config-schema';
 import { type WardPatient } from '../../types';
 import { useElementConfig } from '../../ward-view/ward-view.resource';

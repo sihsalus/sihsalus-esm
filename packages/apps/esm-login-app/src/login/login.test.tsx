@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { waitFor, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
   getSessionStore,
   refetchCurrentUser,
@@ -10,8 +6,14 @@ import {
   useConnectivity,
   useSession,
 } from '@openmrs/esm-framework';
+import { waitFor, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useState } from 'react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { mockConfig } from '../../__mocks__/config.mock';
 import renderWithRouter from '../test-helpers/render-with-router';
+
 import Login from './login.component';
 
 const mockGetSessionStore = vi.mocked(getSessionStore);
@@ -20,10 +22,6 @@ const mockUseConfig = vi.mocked(useConfig);
 const mockUseConnectivity = vi.mocked(useConnectivity);
 const mockUseSession = vi.mocked(useSession);
 
-const loginLocations = [
-  { uuid: '111', display: 'Earth' },
-  { uuid: '222', display: 'Mars' },
-];
 
 describe('Login', () => {
   beforeEach(() => {
@@ -128,7 +126,8 @@ describe('Login', () => {
 
   // TODO: Complete the test
   it('sends the user to the location select page on login if there is more than one location', async () => {
-    let refreshUser = (user: any) => {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let refreshUser = (_user: any) => {};
     mockLogin.mockImplementation(() => {
       refreshUser({
         display: 'my name',

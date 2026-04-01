@@ -1,7 +1,8 @@
+import { openmrsFetch, useAppContext } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { openmrsFetch, useAppContext } from '@openmrs/esm-framework';
+
 import { ModuleFuaRestURL } from '../constant';
 
 export interface FuaEstado {

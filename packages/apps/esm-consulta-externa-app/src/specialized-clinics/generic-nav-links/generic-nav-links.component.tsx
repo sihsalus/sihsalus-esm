@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
-import last from 'lodash-es/last';
 import { ConfigurableLink, useConfig } from '@openmrs/esm-framework';
+import last from 'lodash-es/last';
+import React, { useMemo } from 'react';
 import { BrowserRouter, useLocation, useParams } from 'react-router-dom';
+
 import type { ConfigObject } from '../../config-schema';
 
 export const basePath = '${openmrsSpaBase}/patient/';

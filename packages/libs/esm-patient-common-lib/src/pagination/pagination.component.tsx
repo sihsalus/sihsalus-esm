@@ -11,6 +11,7 @@ interface PatientChartPaginationProps {
   totalItems: number;
   pageNumber: number;
   pageSize: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onPageNumberChange?: any;
   dashboardLinkUrl?: string;
   dashboardLinkLabel?: string;

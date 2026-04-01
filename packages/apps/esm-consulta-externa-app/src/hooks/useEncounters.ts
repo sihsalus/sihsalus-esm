@@ -1,8 +1,9 @@
 import type { FetchResponse } from '@openmrs/esm-framework';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import useSWR from 'swr';
-import type { Encounter } from '../types';
 import pickBy from 'lodash/pickBy';
+import useSWR from 'swr';
+
+import type { Encounter } from '../types';
 
 const useEncounters = (patientUuid: string, encounterTypeUuid: string, fromdate?: string, todate?: string) => {
   const customeRepresntation = 'custom:(uuid,display,encounterDatetime,obs:(uuid,display,value:(uuid,display)))';

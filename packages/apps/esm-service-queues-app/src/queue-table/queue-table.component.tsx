@@ -1,6 +1,3 @@
-import React, { useEffect, useState, type FC } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -21,7 +18,12 @@ import {
   Tile,
 } from '@carbon/react';
 import { isDesktop, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useEffect, useState, type FC } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type QueueEntry, type QueueTableColumn } from '../types';
+
 import { useColumns } from './cells/columns.resource';
 import styles from './queue-table.scss';
 

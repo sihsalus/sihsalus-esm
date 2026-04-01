@@ -1,6 +1,6 @@
+import { showModal, navigate } from '@openmrs/esm-framework';
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { showModal, navigate } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
 
 function getUrlWithoutPrefix(url: string) {

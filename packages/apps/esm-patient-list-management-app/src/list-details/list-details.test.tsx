@@ -1,10 +1,12 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { OpenmrsCohortMember, OpenmrsCohort } from '../api/types';
-import { usePatientListDetails, usePatientListMembers } from '../api/hooks';
-import { deletePatientList } from '../api/api-remote';
+import React from 'react';
 import { getByTextWithMarkup } from 'tools';
+
+import { deletePatientList } from '../api/api-remote';
+import { usePatientListDetails, usePatientListMembers } from '../api/hooks';
+import type { OpenmrsCohortMember, OpenmrsCohort } from '../api/types';
+
 import ListDetails from './list-details.component';
 
 const mockUsePatientListDetails = jest.mocked(usePatientListDetails);
@@ -114,7 +116,7 @@ describe('ListDetails', () => {
     expect(screen.getByText('Delete')).toBeInTheDocument();
     expect(screen.getByText('Cancel')).toBeInTheDocument();
 
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     expect(screen.getByText('Delete').closest('button')).toBeEnabled();
 
     await userEvent.click(screen.getByText('Cancel'));

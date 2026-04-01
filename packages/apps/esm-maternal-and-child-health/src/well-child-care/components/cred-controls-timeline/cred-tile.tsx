@@ -1,9 +1,11 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { CheckmarkFilled, WarningFilled, EventSchedule, Time, CircleDash } from '@carbon/react/icons';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ControlStatus } from '../../../hooks/useCREDSchedule';
+
 import styles from './cred-matrix.scss';
 
 export interface CredTileProps {

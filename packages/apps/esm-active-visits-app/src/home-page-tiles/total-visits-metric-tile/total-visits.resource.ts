@@ -1,6 +1,6 @@
 import { openmrsFetch, restBaseUrl, type Visit } from '@openmrs/esm-framework';
-import useSWR from 'swr';
 import dayjs from 'dayjs';
+import useSWR from 'swr';
 
 const useTotalVisits = () => {
   const customRepresentation = 'custom:(uuid,startDatetime,stopDatetime)';

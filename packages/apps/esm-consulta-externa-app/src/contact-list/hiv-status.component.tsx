@@ -1,7 +1,9 @@
 import { SkeletonText } from '@carbon/react';
 import React from 'react';
+
 import useRelativeHTSEncounter from '../hooks/useRelativeHTSEncounter';
 import useRelativeHivEnrollment from '../hooks/useRelativeHivEnrollment';
+
 import { getHivStatusBasedOnEnrollmentAndHTSEncounters } from './contact-list.resource';
 
 interface HIVStatusProps {

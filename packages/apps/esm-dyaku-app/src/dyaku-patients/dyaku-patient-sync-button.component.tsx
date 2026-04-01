@@ -2,6 +2,7 @@ import { Button, InlineLoading, InlineNotification } from '@carbon/react';
 import { CheckmarkOutline, CloudUpload } from '@carbon/react/icons';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './dyaku-patient-sync-button.scss';
 import { useDyakuSync, type DyakuPatient, type SyncResult } from './dyaku-patients.resource';
 

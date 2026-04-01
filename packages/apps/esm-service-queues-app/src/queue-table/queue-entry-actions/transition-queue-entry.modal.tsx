@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { convertTime12to24 } from '../../helpers/time-helpers';
 import { type QueueEntry } from '../../types';
+
 import QueueEntryActionModal from './queue-entry-actions.modal';
 import { transitionQueueEntry } from './queue-entry-actions.resource';
-import { convertTime12to24 } from '../../helpers/time-helpers';
 
 interface TransitionQueueEntryModalProps {
   queueEntry: QueueEntry;

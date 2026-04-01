@@ -1,8 +1,9 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle, registerBreadcrumbs } from '@openmrs/esm-framework';
+
+import addPatientLinkComponent from './add-patient-link.extension';
 import { esmPatientRegistrationSchema } from './config-schema';
 import { moduleName, patientRegistration } from './constants';
 import { setupOffline } from './offline';
-import addPatientLinkComponent from './add-patient-link.extension';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 

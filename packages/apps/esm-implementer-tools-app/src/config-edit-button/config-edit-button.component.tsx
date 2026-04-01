@@ -1,6 +1,7 @@
 import React from 'react';
-import { implementerToolsStore } from '../store';
 import { useTranslation } from 'react-i18next';
+
+import { implementerToolsStore } from '../store';
 
 interface ConfigEditButtonProps {
   configPath: string[];

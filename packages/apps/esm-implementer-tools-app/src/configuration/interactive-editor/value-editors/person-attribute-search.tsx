@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Search, StructuredListCell, StructuredListRow, StructuredListWrapper } from '@carbon/react';
 import debounce from 'lodash-es/debounce';
 import uniqueId from 'lodash-es/uniqueId';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { performPersonAttributeTypeSearch } from './person-attribute-search.resource';
 import styles from './uuid-search.scss';
-import { useTranslation } from 'react-i18next';
-import { Search, StructuredListCell, StructuredListRow, StructuredListWrapper } from '@carbon/react';
 
 interface PersonAttributeTypeSearchBoxProps {
   value: string;

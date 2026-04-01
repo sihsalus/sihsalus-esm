@@ -1,8 +1,8 @@
-import React from 'react';
 import { Button } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { EditIcon, UserHasAccess, type Visit, useLayoutType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface EditVisitDetailsActionItemProps {
   patientUuid: string;

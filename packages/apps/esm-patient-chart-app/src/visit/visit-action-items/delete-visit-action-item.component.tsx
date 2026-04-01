@@ -1,6 +1,6 @@
-import React from 'react';
 import { Button } from '@carbon/react';
 import { TrashCanIcon, UserHasAccess, type Visit, showModal, useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface DeleteVisitActionItemProps {

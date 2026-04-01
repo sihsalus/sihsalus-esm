@@ -1,5 +1,3 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   InlineLoading,
   InlineNotification,
@@ -12,12 +10,16 @@ import {
 } from '@carbon/react';
 import type { Visit } from '@openmrs/esm-framework';
 import { formatDate, parseDate, showSnackbar } from '@openmrs/esm-framework';
-import { changeAppointmentStatus, usePatientAppointments } from './patient-appointments.resource';
 import { ErrorState } from '@openmrs/esm-patient-common-lib';
-import styles from './patient-upcoming-appointments-card.scss';
 import dayjs from 'dayjs';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { Appointment } from '../../types';
 import { useMutateAppointments } from '../form/appointments-form.resource';
+
+import { changeAppointmentStatus, usePatientAppointments } from './patient-appointments.resource';
+import styles from './patient-upcoming-appointments-card.scss';
 
 interface VisitFormCallbacks {
   onVisitCreatedOrUpdated: (visit: Visit) => Promise<void>;

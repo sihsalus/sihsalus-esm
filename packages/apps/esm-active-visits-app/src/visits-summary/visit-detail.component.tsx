@@ -1,13 +1,15 @@
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { ContentSwitcher, DataTableSkeleton, Switch } from '@carbon/react';
-import { useVisit } from './visit.resource';
-import { type Encounter } from '../types';
 import { formatDatetime, formatTime, parseDate } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { type Encounter } from '../types';
+
+import styles from './visit-detail-overview.scss';
+import { useVisit } from './visit.resource';
 import EncounterList from './visits-components/encounter-list.component';
 import VisitSummary from './visits-components/visit-summary.component';
-import styles from './visit-detail-overview.scss';
 
 interface VisitDetailComponentProps {
   visitUuid: string;

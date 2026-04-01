@@ -1,8 +1,10 @@
-import React, { memo, useMemo } from 'react';
-import { DashboardGroupExtension } from './dashboard-group.component';
 import { usePatient } from '@openmrs/esm-framework';
+import React, { memo, useMemo } from 'react';
+
 import { evaluateExpression } from '../utils/expression-helper';
+
 import { usePatientEnrollment } from './clinical-view-group.resource';
+import { DashboardGroupExtension } from './dashboard-group.component';
 
 type DashboardGroupProps = {
   title: string;

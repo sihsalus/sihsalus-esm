@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useCodedConceptObservations } from './relationships.resource';
 
 const ConceptObservations: React.FC<{ patientUuid; conceptUuid }> = ({ patientUuid, conceptUuid }) => {

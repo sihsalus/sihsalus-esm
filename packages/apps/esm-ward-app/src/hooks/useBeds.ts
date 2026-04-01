@@ -1,4 +1,5 @@
 import { restBaseUrl, useOpenmrsFetchAll } from '@openmrs/esm-framework';
+
 import { type Bed, type BedStatus } from '../types/index';
 
 interface BedSearchCriteria {
@@ -9,7 +10,7 @@ interface BedSearchCriteria {
 
 export function useBeds(searchCriteria?: BedSearchCriteria) {
   const searchParam = new URLSearchParams();
-  for (let [key, value] of Object.entries(searchCriteria)) {
+  for (const [key, value] of Object.entries(searchCriteria)) {
     if (value != null) {
       searchParam.append(key, value?.toString());
     }

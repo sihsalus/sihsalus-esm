@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs';
 import { fork } from 'child_process';
 import { resolve } from 'node:path';
+
+import yargs from 'yargs';
+
+import type * as commands from './commands';
 import {
   getAvailablePort,
   getImportmapAndRoutes,
@@ -12,8 +15,6 @@ import {
   runProject,
   trimEnd,
 } from './utils';
-
-import type * as commands from './commands';
 
 const runner = resolve(__dirname, `runner.js`);
 const root = resolve(__dirname, '..');
@@ -214,12 +215,6 @@ yargs.command(
         default: false,
         describe: 'Determines if a service worker should be installed for offline support.',
         type: 'boolean',
-      })
-      .option('use-rspack', {
-        default: undefined,
-        describe:
-          "Set this flag to force the CLI to attempt to use the Rspack Dev Server. Note that this will fail if the project you are using it in doesn't use Rspack.",
-        type: 'boolean',
       }),
   async (args) => {
     let port: number;
@@ -242,7 +237,7 @@ yargs.command(
       ...proxyImportmapAndRoutes(
         await mergeImportmapAndRoutes(
           await getImportmapAndRoutes(args.importmap, args.routes, port),
-          await runProject(port, args.sources as string[], args['use-rspack']),
+          await runProject(port, args.sources as string[]),
           args.backend,
           args.spaPath,
         ),

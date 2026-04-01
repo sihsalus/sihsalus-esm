@@ -1,8 +1,3 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday';
-import utc from 'dayjs/plugin/utc';
 import {
   Button,
   DataTable,
@@ -36,14 +31,21 @@ import {
   launchWorkspace,
   usePagination,
 } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import utc from 'dayjs/plugin/utc';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { type ConfigObject } from '../../config-schema';
 import { EmptyState } from '../../empty-state/empty-state.component';
 import { exportAppointmentsToSpreadsheet } from '../../helpers/excel';
 import { useTodaysVisits } from '../../hooks/useTodaysVisits';
 import { type Appointment } from '../../types';
-import { type ConfigObject } from '../../config-schema';
-import { getPageSizes, useAppointmentSearchResults } from '../utils';
-import AppointmentActions from './appointments-actions.component';
 import AppointmentDetails from '../details/appointment-details.component';
+import { getPageSizes, useAppointmentSearchResults } from '../utils';
+
+import AppointmentActions from './appointments-actions.component';
 import styles from './appointments-table.scss';
 
 dayjs.extend(utc);

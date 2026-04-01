@@ -1,13 +1,15 @@
-import React from 'react';
 import { Button, InlineLoading, Tab, Tabs, TabList, TabPanel, TabPanels } from '@carbon/react';
-import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import { formatDatetime, parseDate, useConfig, ExtensionSlot } from '@openmrs/esm-framework';
+import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { ChartConfig } from '../../config-schema';
-import { mapEncounters, useInfiniteVisits } from './visit.resource';
-import VisitsTable from './past-visits-components/visits-table';
+
 import VisitSummary from './past-visits-components/visit-summary.component';
+import VisitsTable from './past-visits-components/visits-table';
 import styles from './visit-detail-overview.scss';
+import { mapEncounters, useInfiniteVisits } from './visit.resource';
 
 interface VisitOverviewComponentProps {
   patientUuid: string;

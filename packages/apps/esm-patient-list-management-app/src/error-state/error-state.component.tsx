@@ -1,7 +1,8 @@
-import React from 'react';
 import { Layer, Tile } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './error-state.scss';
 
 export interface ErrorStateProps {

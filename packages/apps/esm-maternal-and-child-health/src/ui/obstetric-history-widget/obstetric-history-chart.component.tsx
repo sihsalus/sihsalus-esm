@@ -1,14 +1,16 @@
 // obstetric-history-chart.component.tsx
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Tab, TabListVertical, TabPanel, TabPanels, TabsVertical, Tile } from '@carbon/react';
 import { LineChart, ScaleTypes } from '@carbon/charts-react';
+import { Tab, TabListVertical, TabPanel, TabPanels, TabsVertical, Tile } from '@carbon/react';
 import { formatDate, parseDate } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../config-schema';
 import type { PatientPrenatalAntecedents } from '../../types';
-import type { ObstetricDisplayDataType } from './obstetric-history.schema';
+
 import styles from './obstetric-history-chart.scss';
+import type { ObstetricDisplayDataType } from './obstetric-history.schema';
 
 interface ObstetricHistoryChartProps {
   obstetricData: ObstetricDisplayDataType;

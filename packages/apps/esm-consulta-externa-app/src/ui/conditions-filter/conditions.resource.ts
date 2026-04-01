@@ -1,6 +1,7 @@
 import { fhirBaseUrl, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import { useMemo, useState } from 'react';
 import useSWR from 'swr';
+
 import { type FHIRCondition, type FHIRConditionResponse } from './types';
 
 export type Condition = {

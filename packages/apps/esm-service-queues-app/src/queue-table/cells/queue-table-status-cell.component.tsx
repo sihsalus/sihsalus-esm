@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { type StatusColumnConfig } from '../../config-schema';
 import QueueStatus from '../../queue-entry-table-components/queue-status.component';
 import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
-import { type StatusColumnConfig } from '../../config-schema';
 
 export const queueTableStatusColumn: QueueTableColumnFunction = (key, header, config: StatusColumnConfig) => {
   const QueueTableStatusCell = ({ queueEntry }: QueueTableCellComponentProps) => {

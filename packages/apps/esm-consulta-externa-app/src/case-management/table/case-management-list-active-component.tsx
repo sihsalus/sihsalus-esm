@@ -1,5 +1,3 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Pagination,
@@ -17,7 +15,6 @@ import {
   Tag,
   OverflowMenuItem,
 } from '@carbon/react';
-import { CardHeader, EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
 import {
   ConfigurableLink,
   isDesktop,
@@ -27,9 +24,14 @@ import {
   useLayoutType,
   useSession,
 } from '@openmrs/esm-framework';
-import styles from './case-management-list.scss';
-import { useActivecases } from '../workspace/case-management.resource';
+import { CardHeader, EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { extractNameString, uppercaseText } from '../../utils/expression-helper';
+import { useActivecases } from '../workspace/case-management.resource';
+
+import styles from './case-management-list.scss';
 
 interface CaseManagementListActiveProps {
   setActiveCasesCount: (count: number) => void;

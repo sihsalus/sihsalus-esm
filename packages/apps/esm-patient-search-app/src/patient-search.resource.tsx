@@ -1,7 +1,8 @@
+import { openmrsFetch, useSession, type FetchResponse, restBaseUrl } from '@openmrs/esm-framework';
 import { useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
-import { openmrsFetch, useSession, type FetchResponse, restBaseUrl } from '@openmrs/esm-framework';
+
 import type { PatientSearchResponse, SearchedPatient, User } from './types';
 
 type InfinitePatientSearchResponse = FetchResponse<{

@@ -1,10 +1,13 @@
 import { SideNav, SideNavItems, SideNavLink } from '@carbon/react';
-import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import styles from './layout.scss';
 import { Document, Report, DocumentAdd } from '@carbon/react/icons';
 import { navigate } from '@openmrs/esm-framework';
+import React from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+
 import { baseName } from '../../constants';
+
+import styles from './layout.scss';
+
 const CostStructureLayout: React.FC = () => {
   const location = useLocation();
   const currLocation = location.pathname;

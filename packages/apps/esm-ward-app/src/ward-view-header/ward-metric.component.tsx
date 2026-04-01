@@ -1,5 +1,6 @@
-import React from 'react';
 import { SkeletonPlaceholder } from '@carbon/react';
+import React from 'react';
+
 import styles from './ward-metric.scss';
 
 interface WardMetricProps {

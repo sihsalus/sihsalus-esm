@@ -5,11 +5,17 @@
 // Framework and Common Imports
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-import { createDashboardGroup } from './clinical-view-group/createDashboardGroup';
-import { createLeftPanelLink } from './left-panel-link.component';
 
-// Configuration and Schema
+import CaseEncounterOverviewComponent from './case-management/encounters/case-encounter-overview.component';
+import EndRelationshipWorkspace from './case-management/workspace/case-management-workspace.component';
+import CaseManagementForm from './case-management/workspace/case-management.workspace';
+import WrapComponent from './case-management/wrap/wrap.component';
+import ClinicalEncounterDashboard from './clinical-encounter/dashboard/clinical-encounter-dashboard.component';
+import ClinicalViewSection from './clinical-view-group/clinical-view-section.component';
+import { createDashboardGroup } from './clinical-view-group/createDashboardGroup';
 import { configSchema } from './config-schema';
+import ConsultaExternaDashboard from './consulta-externa/consulta-externa-dashboard.component';
+import ContactList from './contact-list/contact-list.component';
 import {
   caseEncounterDashboardMeta,
   caseManagementDashboardMeta,
@@ -20,25 +26,21 @@ import {
   relationshipsDashboardMeta,
   socialHistoryDashboardMeta,
 } from './dashboard.meta';
+import { createLeftPanelLink } from './left-panel-link.component';
+
+// Configuration and Schema
 
 // ================================================================================
 // CASE MANAGEMENT DOMAIN
 // ================================================================================
-import CaseEncounterOverviewComponent from './case-management/encounters/case-encounter-overview.component';
-import EndRelationshipWorkspace from './case-management/workspace/case-management-workspace.component';
-import CaseManagementForm from './case-management/workspace/case-management.workspace';
-import WrapComponent from './case-management/wrap/wrap.component';
 
 // ================================================================================
 // CLINICAL ENCOUNTERS DOMAIN
 // ================================================================================
-import ClinicalEncounterDashboard from './clinical-encounter/dashboard/clinical-encounter-dashboard.component';
-import ClinicalViewSection from './clinical-view-group/clinical-view-section.component';
 
 // ================================================================================
 // CONTACT LIST DOMAIN
 // ================================================================================
-import ContactList from './contact-list/contact-list.component';
 import ContactListForm from './contact-list/contact-list.workspace';
 
 // ================================================================================
@@ -66,9 +68,6 @@ import Relationships from './relationships/relationships.component';
 // ================================================================================
 import GenericDashboard from './specialized-clinics/generic-nav-links/generic-dashboard.component';
 import GenericNavLinks from './specialized-clinics/generic-nav-links/generic-nav-links.component';
-import { specialClinicsNavGroup } from './specialized-clinics/special-clinic-dashboard.meta';
-
-// HIV Care & Treatment Services
 import DefaulterTracing from './specialized-clinics/hiv-care-and-treatment-services/defaulter-tracing/defaulter-tracing.component';
 import {
   defaulterTracingDashboardMeta,
@@ -76,11 +75,13 @@ import {
   htsDashboardMeta,
 } from './specialized-clinics/hiv-care-and-treatment-services/hiv-care-and-treatment-dashboard.meta';
 import HivTestingEncountersList from './specialized-clinics/hiv-care-and-treatment-services/hiv-testing-services/views/hiv-testing/hiv-testing-services.component';
+import { specialClinicsNavGroup } from './specialized-clinics/special-clinic-dashboard.meta';
+
+// HIV Care & Treatment Services
 
 // ================================================================================
 // CONSULTA EXTERNA DOMAIN
 // ================================================================================
-import ConsultaExternaDashboard from './consulta-externa/consulta-externa-dashboard.component';
 
 // ================================================================================
 // SOCIAL HISTORY DOMAIN

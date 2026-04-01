@@ -1,6 +1,7 @@
 import { Toggletip, ToggletipButton, ToggletipContent, Tooltip } from '@carbon/react';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import React, { type ReactNode } from 'react';
+
 import styles from '../ward-patient-card.scss';
 
 interface WardPatientResponsiveTooltipProps {

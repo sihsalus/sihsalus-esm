@@ -1,8 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { HeaderGlobalAction } from '@carbon/react';
 import { UserFollow } from '@carbon/react/icons';
 import { navigate } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './add-patient-link.scss';
 
 export default function Root() {

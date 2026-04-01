@@ -1,0 +1,31 @@
+@use '@carbon/layout';
+@use '@carbon/colors';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.diagnosesContainer {
+  background-color: colors.$white-0;
+  margin-bottom: layout.$spacing-05;
+
+  :global(.cds--tile) {
+    min-height: unset !important;
+    padding: layout.$spacing-05 !important;
+  }
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+
+  td {
+    padding-left: 2rem !important;
+  }
+}
+
+.diagnosisColumn {
+  width: 70%;
+}
+
+.statusColumn {
+  width: 30%;
+  text-align: left;
+}

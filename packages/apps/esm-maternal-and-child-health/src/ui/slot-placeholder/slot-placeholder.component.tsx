@@ -1,7 +1,8 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Layer, Tile } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './slot-placeholder.scss';
 
 interface SlotPlaceholderProps {

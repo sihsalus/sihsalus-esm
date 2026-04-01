@@ -1,12 +1,15 @@
-import React, { useMemo } from 'react';
-import { useConfig, usePatient, useVisit } from '@openmrs/esm-framework';
-import { useTranslation } from 'react-i18next';
 import { Tabs, Tab, TabList, TabPanels, TabPanel } from '@carbon/react';
-import { EncounterList } from './encounter-list.component';
-import { getMenuItemTabsConfiguration } from '../utils/encounter-list-config-builder';
-import styles from './encounter-list-tabs.scss';
-import { filter } from '../utils/helpers';
+import { useConfig, usePatient, useVisit } from '@openmrs/esm-framework';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type Encounter } from '../types';
+import { getMenuItemTabsConfiguration } from '../utils/encounter-list-config-builder';
+import { filter } from '../utils/helpers';
+
+import styles from './encounter-list-tabs.scss';
+import { EncounterList } from './encounter-list.component';
+
 
 interface EncounterListTabsComponentProps {
   patientUuid: string;

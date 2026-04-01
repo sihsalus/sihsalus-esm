@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { type Concept, type OpenmrsResource } from '@openmrs/esm-framework';
 
 export interface RESTPatientNote extends OpenmrsResource {

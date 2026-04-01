@@ -1,6 +1,7 @@
-import React from 'react';
 import { navigate } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './edit-patient-details-button.scss';
 
 interface EditPatientDetailsButtonProps {

@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -16,8 +14,12 @@ import {
 import { Add } from '@carbon/react/icons';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
 import { launchWorkspace } from '@openmrs/esm-framework';
-import { useDiagnosisHistory } from '../hooks/useDiagnosisHistory';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../config-schema';
+import { useDiagnosisHistory } from '../hooks/useDiagnosisHistory';
+
 import styles from './consulta-externa-dashboard.scss';
 
 interface DiagnosticoClasificadoProps {

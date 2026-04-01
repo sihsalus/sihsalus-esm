@@ -1,9 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, within } from '@testing-library/react';
 import { getConfig, showModal, userHasAccess } from '@openmrs/esm-framework';
-import { mockPatient, renderWithSwr } from 'tools';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockEncounters } from '__mocks__';
+import React from 'react';
+import { mockPatient, renderWithSwr } from 'tools';
+
 import VisitsTable from './visits-table.component';
 
 const defaultProps = {

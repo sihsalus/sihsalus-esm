@@ -1,9 +1,11 @@
 import { useDefineAppContext } from '@openmrs/esm-framework';
 import React from 'react';
+
 import { useWardPatientGrouping } from '../../hooks/useWardPatientGrouping';
 import { type MaternalWardViewContext, type WardViewContext } from '../../types';
 import WardViewHeader from '../../ward-view-header/ward-view-header.component';
 import Ward from '../ward.component';
+
 import MaternalWardBeds from './maternal-ward-beds.component';
 import MaternalWardPatientCardHeader from './maternal-ward-patient-card-header.component';
 import MaternalWardPendingPatients from './maternal-ward-pending-patients.component';

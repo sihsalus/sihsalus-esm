@@ -3,6 +3,7 @@ import { Add } from '@carbon/react/icons';
 import { EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './search-empty-state.scss';
 
 type SearchEmptyStateProps = {

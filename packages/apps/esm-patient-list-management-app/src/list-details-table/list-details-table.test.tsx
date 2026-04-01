@@ -1,5 +1,6 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
+
 import ListDetailsTable from './list-details-table.component';
 
 describe('ListDetailsTable', () => {
@@ -45,7 +46,7 @@ describe('ListDetailsTable', () => {
 
   const mockOnChange = jest.fn();
 
-  let pagination = {
+  const pagination = {
     usePagination: true,
     currentPage: 1,
     onChange: mockOnChange,

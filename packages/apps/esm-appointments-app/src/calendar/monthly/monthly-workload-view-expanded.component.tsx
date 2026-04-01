@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
 import { Popover, PopoverContent } from '@carbon/react';
+import React, { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './monthly-view-workload.scss';
 import MonthlyWorkloadView, { type MonthlyWorkloadViewProps } from './monthly-workload-view.component';
-import { useTranslation } from 'react-i18next';
+
 
 interface MonthlyWorkloadViewExpandedProps extends MonthlyWorkloadViewProps {
   count: number;

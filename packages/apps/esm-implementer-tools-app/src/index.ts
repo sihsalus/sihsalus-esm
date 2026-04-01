@@ -1,11 +1,12 @@
 import { getSyncLifecycle } from '@openmrs/esm-framework';
-import implementerToolsComponent from './implementer-tools.component';
+
 import globalImplementerToolsComponent from './global-implementer-tools.component';
 import implementerToolsButtonComponent from './implementer-tools.button';
+import implementerToolsComponent from './implementer-tools.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-implementer-tools-app';
+const moduleName = '@sihsalus/esm-implementer-tools-app';
 const options = {
   featureName: 'Implementer Tools',
   moduleName,

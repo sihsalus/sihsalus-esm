@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { useAddressHierarchy } from './address-hierarchy.resource';
 import { Search } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useAddressHierarchy } from './address-hierarchy.resource';
 import styles from './address-search.scss';
 
 interface AddressSearchComponentProps {

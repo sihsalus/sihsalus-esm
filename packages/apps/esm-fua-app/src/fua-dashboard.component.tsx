@@ -1,12 +1,13 @@
-import React, { useMemo, useState } from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
 import { useDefineAppContext } from '@openmrs/esm-framework';
-import { type DateFilterContext } from './types';
-import FuaOrdersTabs from './fua-tabs/fua-tabs.component';
-import FuaSummaryTiles from './fua-tiles/fua-summary-tiles.component';
+import dayjs from 'dayjs';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { FuaHeader } from './fua/fua-header';
 import styles from './fua-dashboard.scss';
+import FuaOrdersTabs from './fua-tabs/fua-tabs.component';
+import FuaSummaryTiles from './fua-tiles/fua-summary-tiles.component';
+import { type DateFilterContext } from './types';
 
 const FuaDashboard: React.FC = () => {
   const { t } = useTranslation();

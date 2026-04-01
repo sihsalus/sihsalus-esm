@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import React from 'react';
+
 import styles from './shared-page-layout.styles.scss';
 
 export interface SharedPageLayoutProps {

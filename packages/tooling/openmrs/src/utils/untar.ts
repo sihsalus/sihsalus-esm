@@ -1,7 +1,9 @@
-import * as tar from 'tar';
-import { createGunzip } from 'zlib';
 import type { EventEmitter } from 'events';
+import { createGunzip } from 'zlib';
 
+import * as tar from 'tar';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- tar.Parse constructor not typed as newable in @types/tar
 const TarParser = tar.Parse as any;
 
 interface ReadEntry extends EventEmitter {

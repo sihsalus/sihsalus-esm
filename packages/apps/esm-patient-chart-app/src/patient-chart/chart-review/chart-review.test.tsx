@@ -1,13 +1,14 @@
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { screen, render } from '@testing-library/react';
 import {
   type AssignedExtension,
   type ExtensionSlotState,
   useExtensionStore,
   useExtensionSlotMeta,
 } from '@openmrs/esm-framework';
+import { screen, render } from '@testing-library/react';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { mockPatient } from 'tools';
+
 import ChartReview from './chart-review.component';
 
 const mockUseExtensionStore = jest.mocked(useExtensionStore);

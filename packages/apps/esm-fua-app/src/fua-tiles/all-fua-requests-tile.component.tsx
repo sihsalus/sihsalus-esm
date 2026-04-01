@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFuaRequests } from '../hooks/useFuaRequests';
+
 import FuaSummaryTile from '../components/summary-tiles/summary-tile.component';
+import { useFuaRequests } from '../hooks/useFuaRequests';
 
 const AllFuaRequestsTile = () => {
   const { t } = useTranslation();

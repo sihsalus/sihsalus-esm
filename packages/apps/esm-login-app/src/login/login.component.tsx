@@ -1,6 +1,3 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Button, InlineLoading, InlineNotification, PasswordInput, TextInput, Tile } from '@carbon/react';
 import {
   ArrowRightIcon,
@@ -11,9 +8,14 @@ import {
   useConnectivity,
   useSession,
 } from '@openmrs/esm-framework';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { type ConfigSchema } from '../config-schema';
-import Logo from '../logo.component';
 import Footer from '../footer.component';
+import Logo from '../logo.component';
+
 import styles from './login.scss';
 
 export interface LoginReferrer {

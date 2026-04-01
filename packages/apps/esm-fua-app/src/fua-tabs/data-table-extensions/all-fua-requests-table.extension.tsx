@@ -1,4 +1,5 @@
 import React from 'react';
+
 import FuaRequestTable from '../../fua/fuaRequestTable';
 
 const AllFuaRequestsTable: React.FC = () => {

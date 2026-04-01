@@ -1,4 +1,3 @@
-import React, { useEffect, forwardRef, useReducer, type Dispatch, useState, useRef } from 'react';
 import {
   Button,
   Search,
@@ -10,12 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import fuzzy from 'fuzzy';
 import { useDebounce, type ImportMap, showModal, resetAllRoutesOverrides } from '@openmrs/esm-framework/src/internal';
-import type { Module } from './types';
+import classNames from 'classnames';
+import fuzzy from 'fuzzy';
+import React, { useEffect, forwardRef, useReducer, type Dispatch, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './list.scss';
+import type { Module } from './types';
 
 interface ImportMapListState {
   notOverriddenMap: ImportMap;

@@ -1,7 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import NavGroupExtension from './nav-group.component';
+import React from 'react';
+
 import { registerNavGroup } from './nav-group';
+import NavGroupExtension from './nav-group.component';
 
 jest.mock('./nav-group', () => ({
   registerNavGroup: jest.fn(),

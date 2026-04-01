@@ -1,8 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { mockPatient } from 'tools';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { mockPatient } from 'tools';
+
 import StartVisitButton from './start-visit-button.component';
 
 const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);

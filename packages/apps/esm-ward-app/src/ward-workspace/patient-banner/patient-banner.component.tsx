@@ -1,6 +1,8 @@
 import { useAppContext } from '@openmrs/esm-framework';
 import React from 'react';
+
 import type { WardPatientCardType, WardViewContext } from '../../types';
+
 import styles from './style.scss';
 
 const WardPatientWorkspaceBanner: WardPatientCardType = ({ wardPatient }) => {

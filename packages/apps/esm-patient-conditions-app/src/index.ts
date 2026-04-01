@@ -1,4 +1,4 @@
-import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle, translateFrom } from '@openmrs/esm-framework';
+import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 
 import conditionsDetailedSummaryComponent from './conditions/conditions-detailed-summary.component';
@@ -6,7 +6,7 @@ import conditionsOverviewComponent from './conditions/conditions-overview.compon
 import { configSchema } from './config-schema';
 import { dashboardMeta } from './dashboard.meta';
 
-const moduleName = '@openmrs/esm-patient-conditions-app';
+const moduleName = '@sihsalus/esm-patient-conditions-app';
 
 const options = {
   featureName: 'patient-conditions',

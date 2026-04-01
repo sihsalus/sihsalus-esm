@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type SectionDefinition } from '../../config-schema';
 import { Field } from '../field/field.component';
 

@@ -2,6 +2,7 @@ import { DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCel
 import type { DataTableHeader } from '@carbon/react';
 import { TrashCan, Edit } from '@carbon/react/icons';
 import React from 'react';
+
 import type { CostStructure, Procedure } from '../../../types';
 
 interface IRow {

@@ -6,11 +6,13 @@ import type { SubmitHandler } from 'react-hook-form';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
+
 import type { ConfigObject } from '../config-schema';
 import { useMappedRelationshipTypes } from '../family-partner-history/relationships.resource';
 import PatientSearchCreate from '../relationships/forms/patient-search-create-form.component';
 import { relationshipFormSchema, saveRelationship } from '../relationships/relationship.resources';
 import { uppercaseText } from '../utils/expression-helper';
+
 import styles from './other-relationships.scss';
 
 const schema = relationshipFormSchema

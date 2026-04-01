@@ -1,15 +1,17 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, navigate, useConfig } from '@openmrs/esm-framework';
-import { configSchema, type ConfigObject } from '../config-schema';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import {
   type MappedVisitQueueEntry,
   serveQueueEntry,
   updateQueueEntry,
 } from '../active-visits/active-visits-table.resource';
-import { requeueQueueEntry } from './transition-queue-entry.resource';
+import { configSchema, type ConfigObject } from '../config-schema';
+
 import TransitionQueueEntryModal from './transition-queue-entry.modal';
+import { requeueQueueEntry } from './transition-queue-entry.resource';
 
 const mockNavigate = jest.mocked(navigate);
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);

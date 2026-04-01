@@ -1,11 +1,13 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { type ConfigObject, configSchema } from '../../config-schema';
-import type { Appointment, AppointmentKind, AppointmentStatus } from '../../types';
-import { exportAppointmentsToSpreadsheet } from '../../helpers/excel';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { getByTextWithMarkup } from 'tools';
+
+import { type ConfigObject, configSchema } from '../../config-schema';
+import { exportAppointmentsToSpreadsheet } from '../../helpers/excel';
+import type { Appointment, AppointmentKind, AppointmentStatus } from '../../types';
+
 import AppointmentsTable from './appointments-table.component';
 
 const defaultProps = {

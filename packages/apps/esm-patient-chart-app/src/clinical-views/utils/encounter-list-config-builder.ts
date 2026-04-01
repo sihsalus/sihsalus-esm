@@ -1,10 +1,4 @@
-import {
-  getObsFromEncounter,
-  getMultipleObsFromEncounter,
-  resolveValueUsingMappings,
-  getConceptFromMappings,
-  getConditionalConceptValue,
-} from './helpers';
+import { renderTag } from '../encounter-list/tag.component';
 import {
   type Encounter,
   type ColumnDefinition,
@@ -15,7 +9,14 @@ import {
   type NamedColumn,
   type ConfigConcepts,
 } from '../types';
-import { renderTag } from '../encounter-list/tag.component';
+
+import {
+  getObsFromEncounter,
+  getMultipleObsFromEncounter,
+  resolveValueUsingMappings,
+  getConceptFromMappings,
+  getConditionalConceptValue,
+} from './helpers';
 
 export interface FormattedColumn {
   key: string;

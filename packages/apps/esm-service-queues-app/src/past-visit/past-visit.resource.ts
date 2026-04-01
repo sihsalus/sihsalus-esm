@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl, type Visit } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
+import useSWR from 'swr';
 
 export function usePastVisits(patientUuid: string) {
   const customRepresentation =

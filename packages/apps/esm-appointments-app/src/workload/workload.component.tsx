@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import { useAppointmentService } from '../form/appointments-form.resource';
-import { useCalendarDistribution, useMonthlyCalendarDistribution } from './workload.resource';
+
 import MonthlyCalendarView from './monthly-view-workload/monthly-view.component';
+import { useCalendarDistribution, useMonthlyCalendarDistribution } from './workload.resource';
 import styles from './workload.scss';
 
 interface WorkloadProps {
@@ -14,8 +16,9 @@ const Workload: React.FC<WorkloadProps> = ({ selectedService, appointmentDate, o
   const { data: services } = useAppointmentService();
   const serviceUuid = services?.find((service) => service.name === selectedService)?.uuid;
 
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab] = useState(0);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const calendarWorkload = useCalendarDistribution(serviceUuid, selectedTab === 0 ? 'week' : 'month', appointmentDate);
 
   const monthlyCalendarWorkload = useMonthlyCalendarDistribution(

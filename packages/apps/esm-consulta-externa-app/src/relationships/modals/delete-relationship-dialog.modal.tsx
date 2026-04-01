@@ -1,6 +1,7 @@
 import { Button, ButtonSet, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './relationship-modal.scss';
 
 type DeleteRelationshipConfirmDialogProps = {

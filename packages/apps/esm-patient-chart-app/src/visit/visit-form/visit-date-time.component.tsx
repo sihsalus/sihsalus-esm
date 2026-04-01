@@ -1,11 +1,12 @@
-import React from 'react';
-import classNames from 'classnames';
-import dayjs from 'dayjs';
 import { DatePicker, DatePickerInput, SelectItem, TimePicker, TimePickerSelect } from '@carbon/react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { ResponsiveWrapper } from '@openmrs/esm-framework';
 import { type amPm } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import dayjs from 'dayjs';
+import React from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import { type VisitFormData } from './visit-form.resource';
 import styles from './visit-form.scss';
 

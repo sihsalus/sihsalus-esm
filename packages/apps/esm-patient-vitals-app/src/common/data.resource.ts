@@ -216,11 +216,12 @@ export function useVitalsAndBiometrics(patientUuid: string, mode: VitalsAndBiome
             [getInterpretationKey(getVitalsMapKey(vitalSign.code))]: vitalSign.interpretation,
           });
         } else {
-          vitalSign.value &&
+          if (vitalSign.value) {
             vitalsHashTable.set(recordedDate, {
               [getVitalsMapKey(vitalSign.code)]: vitalSign.value,
               [getInterpretationKey(getVitalsMapKey(vitalSign.code))]: vitalSign.interpretation,
             });
+          }
         }
 
         return vitalsHashTable;

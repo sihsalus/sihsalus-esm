@@ -3,9 +3,10 @@ import { formatDatetime, ResponsiveWrapper, useLayoutType } from '@openmrs/esm-f
 import { debounce } from 'lodash-es';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { CompletedFormInfo, Form } from './types';
+
 import styles from './forms-list.scss';
 import FormsTable from './forms-table.component';
+import type { CompletedFormInfo, Form } from './types';
 
 export type FormsListProps = {
   completedForms?: Array<CompletedFormInfo>;

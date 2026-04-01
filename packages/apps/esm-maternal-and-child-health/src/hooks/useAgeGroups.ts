@@ -2,6 +2,7 @@
 
 import { useConfig } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
+
 import type { ConfigObject } from '../config-schema';
 import {
   calculateAgeInDays,

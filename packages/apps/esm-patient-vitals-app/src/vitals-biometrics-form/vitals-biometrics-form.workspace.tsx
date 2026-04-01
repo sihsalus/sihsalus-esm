@@ -175,7 +175,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
       setShowErrorMessage(true);
       setShowErrorNotification(false);
 
-      data?.computedBodyMassIndex && delete data.computedBodyMassIndex;
+      if (data?.computedBodyMassIndex) { delete data.computedBodyMassIndex; }
 
       const allFieldsAreValid = Object.entries(formData)
         .filter(([, value]) => Boolean(value))

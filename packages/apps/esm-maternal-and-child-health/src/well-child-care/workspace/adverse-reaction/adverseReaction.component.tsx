@@ -1,5 +1,3 @@
-import React, { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -10,7 +8,11 @@ import {
   InlineNotification,
 } from '@carbon/react';
 import { OpenmrsDatePicker, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import React, { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { DefaultPatientWorkspaceProps } from '../../../types';
+
 import styles from './adverse-reaction-form.scss';
 
 interface AdverseReaction {

@@ -1,7 +1,3 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import fuzzy from 'fuzzy';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -18,14 +14,20 @@ import {
   TextInput,
   Tile,
 } from '@carbon/react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { WarningFilled } from '@carbon/react/icons';
-import { EmptyState, type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ExtensionSlot, useLayoutType, showSnackbar, ResponsiveWrapper, useConfig } from '@openmrs/esm-framework';
-import { markPatientDeceased, useCausesOfDeath } from '../data.resource';
+import { EmptyState, type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import fuzzy from 'fuzzy';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import { type ChartConfig } from '../config-schema';
+import { markPatientDeceased, useCausesOfDeath } from '../data.resource';
+
 import styles from './mark-patient-deceased-form.scss';
 
 const MarkPatientDeceasedForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, patientUuid }) => {

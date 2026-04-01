@@ -1,0 +1,54 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.historyAndCommentsContainer {
+  max-width: 80%;
+
+  form {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+
+  form input {
+    vertical-align: middle;
+    margin: 0 0.625rem 0 0;
+    padding: 0.625rem;
+    border: 1px solid #8d8d8d !important;
+    background-color: white;
+  }
+  form button {
+    width: 90px;
+    height: 1.25rem;
+    min-height: layout.$spacing-08 !important;
+  }
+
+  form :global(.cds--btn--ghost) {
+    width: 8rem !important;
+  }
+
+  .medicationEventActionMenu {
+    float: right;
+  }
+}
+
+.menuitem {
+  max-width: none;
+}
+
+.historyHeader {
+  padding-top: layout.$spacing-03;
+  padding-bottom: layout.$spacing-03;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: $danger;
+}
+
+.emptyState {
+  @include type.type-style('body-01');
+  color: $text-02;
+  margin: layout.$spacing-05 0;
+}

@@ -1,8 +1,10 @@
-import React from 'react';
 import { Tile } from '@carbon/react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import useActiveVisits from './active-visits.resource';
+
 import styles from '../homepage-tiles.scss';
+
+import useActiveVisits from './active-visits.resource';
 
 const ActiveVisitsTile: React.FC = () => {
   const { count } = useActiveVisits();

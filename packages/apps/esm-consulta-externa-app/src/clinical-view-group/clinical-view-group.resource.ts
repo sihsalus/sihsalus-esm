@@ -1,8 +1,8 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { useMemo } from 'react';
-import uniqBy from 'lodash-es/uniqBy';
 import type { PatientProgram } from '@openmrs/esm-patient-common-lib';
+import uniqBy from 'lodash-es/uniqBy';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 
 const customRepresentation = `custom:(uuid,display,program,dateEnrolled,dateCompleted,location:(uuid,display))`;
 

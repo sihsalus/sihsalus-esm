@@ -1,5 +1,3 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, DataTableSkeleton } from '@carbon/react';
 import {
   ArrowLeftIcon,
@@ -14,8 +12,11 @@ import {
   useVisit,
   type DefaultWorkspaceProps,
 } from '@openmrs/esm-framework';
-import ExistingVisitFormComponent from './existing-visit-form/existing-visit-form.component';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './create-queue-entry.scss';
+import ExistingVisitFormComponent from './existing-visit-form/existing-visit-form.component';
 
 interface PatientSearchProps extends DefaultWorkspaceProps {
   selectedPatientUuid: string;

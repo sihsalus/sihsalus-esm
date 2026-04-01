@@ -1,5 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -18,13 +16,18 @@ import {
 } from '@carbon/react';
 import { Add, Edit } from '@carbon/react/icons';
 import { ErrorState, isDesktop as desktopLayout, useLayoutType } from '@openmrs/esm-framework';
-import type { BedTypeData } from '../types';
-import { useBedTypes } from '../summary/summary.resource';
-import CardHeader from '../card-header/card-header.component';
-import BedTypeForm from './new-bed-type-form.component';
-import EditBedTypeForm from './edit-bed-type.component';
-import Header from '../header/header.component';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from '../bed-administration/bed-administration-table.scss';
+import CardHeader from '../card-header/card-header.component';
+import Header from '../header/header.component';
+import { useBedTypes } from '../summary/summary.resource';
+import type { BedTypeData } from '../types';
+
+import EditBedTypeForm from './edit-bed-type.component';
+import BedTypeForm from './new-bed-type-form.component';
+
 
 const BedTypeAdministrationTable: React.FC = () => {
   const { t } = useTranslation();
@@ -36,7 +39,7 @@ const BedTypeAdministrationTable: React.FC = () => {
   const { bedTypes, errorLoadingBedTypes, isLoadingBedTypes, isValidatingBedTypes, mutateBedTypes } = useBedTypes();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setPageSize] = useState(10);
+  const [, setPageSize] = useState(10);
   const [editData, setEditData] = useState<BedTypeData>();
   const [pageSize] = useState(10);
   const [showBedTypeModal, setAddBedTypeModal] = useState(false);

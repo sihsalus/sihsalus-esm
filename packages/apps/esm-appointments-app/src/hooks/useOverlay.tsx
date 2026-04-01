@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export interface OverlayStore {
   isOverlayOpen: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: any;
   header: string;
 }
@@ -13,6 +14,7 @@ const getOverlayStore = () => {
   return getGlobalStore('appointment-store', initialState);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const launchOverlay = (headerTitle: string, componentToRender: any) => {
   const store = getOverlayStore();
   store.setState({ isOverlayOpen: true, component: componentToRender, header: headerTitle });

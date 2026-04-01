@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import type { OpenmrsResource } from '@openmrs/esm-framework';
 import classNames from 'classnames';
+import React, { useEffect, useMemo, useState } from 'react';
+
 import { useInfinitePatientSearch } from '../patient-search.resource';
 import { type AdvancedPatientSearchState } from '../types';
+
+import styles from './advanced-patient-search.scss';
 import PatientSearchComponent from './patient-search-lg.component';
 import RefineSearch, { initialFilters } from './refine-search/refine-search.component';
-import styles from './advanced-patient-search.scss';
-import type { OpenmrsResource } from '@openmrs/esm-framework';
 
 interface AdvancedPatientSearchProps {
   query: string;

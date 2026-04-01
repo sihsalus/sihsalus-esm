@@ -1,0 +1,23 @@
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+
+.main {
+  background-color: colors.$white-0;
+}
+
+.moduleHeader {
+  @include type.type-style('heading-03');
+  padding-left: layout.$spacing-05;
+  padding-top: layout.$spacing-05;
+  padding-bottom: layout.$spacing-05;
+}
+
+.tabList {
+  padding: 0 layout.$spacing-05;
+}
+
+.tabPanel {
+  height: 100%;
+  background-color: colors.$gray-10;
+}

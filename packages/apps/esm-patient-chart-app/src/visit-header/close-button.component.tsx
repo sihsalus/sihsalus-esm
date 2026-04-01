@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
 import { HeaderGlobalAction } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { getHistory, goBackInHistory, navigate, CloseFilledIcon } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './close-button.scss';
 
 export function CloseButton({ patientUuid }: { patientUuid: string }) {

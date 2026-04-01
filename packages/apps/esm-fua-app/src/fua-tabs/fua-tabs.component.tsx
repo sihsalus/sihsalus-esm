@@ -1,7 +1,9 @@
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+
 import FuaRequestTable from '../fua/fuaRequestTable';
+
 import styles from './fua-tabs.scss';
 
 const FuaOrdersTabs: React.FC = () => {

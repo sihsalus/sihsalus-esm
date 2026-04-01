@@ -1,9 +1,10 @@
-import { renderHook } from '@testing-library/react';
 import { type FetchResponse, useSession } from '@openmrs/esm-framework';
+import { renderHook } from '@testing-library/react';
 import { mockSession } from '__mocks__';
 import { useParams } from 'react-router-dom';
-import useWardLocation from './useWardLocation';
+
 import useLocation from './useLocation';
+import useWardLocation from './useWardLocation';
 
 jest.mock('@openmrs/esm-framework', () => ({
   useSession: jest.fn(),

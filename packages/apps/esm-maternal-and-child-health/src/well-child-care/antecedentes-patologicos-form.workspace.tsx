@@ -1,7 +1,8 @@
 import { useConfig } from '@openmrs/esm-framework';
-import { type DefaultPatientWorkspaceProps } from '../types';
 import React from 'react';
+
 import type { ConfigObject } from '../config-schema';
+import { type DefaultPatientWorkspaceProps } from '../types';
 import ConditionsFormWorkspace from '../ui/conditions-filter/conditions-form.workspace';
 
 interface AntecedentesPatologicosFormWorkspaceProps extends DefaultPatientWorkspaceProps {}

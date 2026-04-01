@@ -1,10 +1,12 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import { esmPatientChartSchema, type ChartConfig } from '../config-schema';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { mockPatient } from 'tools';
+
+import { esmPatientChartSchema, type ChartConfig } from '../config-schema';
 import { markPatientDeceased, useCausesOfDeath } from '../data.resource';
+
 import MarkPatientDeceasedForm from './mark-patient-deceased-form.workspace';
 
 const originalLocation = window.location;

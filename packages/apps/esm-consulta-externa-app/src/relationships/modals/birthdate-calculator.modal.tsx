@@ -13,6 +13,7 @@ import {
 } from '@carbon/react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './relationship-modal.scss';
 
 interface BirthDateCalculatorProps {

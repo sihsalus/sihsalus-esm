@@ -1,5 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import { type ProvidersQueueRoom, type QueueRoom } from '../types';
 
 export function useQueueRooms(location: string, queueUuid: string) {

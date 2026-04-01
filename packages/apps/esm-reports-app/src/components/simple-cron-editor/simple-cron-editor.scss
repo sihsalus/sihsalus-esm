@@ -1,0 +1,34 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.dangerLabel01 {
+  @include type.type-style('label-01');
+  color: $danger;
+}
+
+.cronEditor {
+  display: inline;
+}
+
+.cronEditorField {
+  float: left;
+}
+
+.cronTimePickerField {
+  float: left;
+  width: min-content;
+}
+
+.cronEditorFieldSeparator {
+  float: left;
+  height: layout.$spacing-08;
+  margin-top: 1.25rem;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.cronContainer {
+  padding: layout.$spacing-05;
+}

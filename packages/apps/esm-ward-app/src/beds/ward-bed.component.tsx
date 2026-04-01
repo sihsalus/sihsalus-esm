@@ -1,8 +1,10 @@
 import React, { type ReactNode } from 'react';
+
 import { type Bed } from '../types';
+
+import BedShareDivider from './bed-share-divider.component';
 import EmptyBed from './empty-bed.component';
 import styles from './ward-bed.scss';
-import BedShareDivider from './bed-share-divider.component';
 
 export interface WardBedProps {
   patientCards: Array<ReactNode>;

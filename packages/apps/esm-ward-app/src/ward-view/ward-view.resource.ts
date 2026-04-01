@@ -1,6 +1,8 @@
 import { showNotification, useConfig, type Location, type Patient } from '@openmrs/esm-framework';
 import type { TFunction } from 'i18next';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
   type PendingItemsElementConfig,
   type ColoredObsTagsElementConfig,
@@ -20,7 +22,6 @@ import type {
   WardMetrics,
   WardPatientGroupDetails,
 } from '../types';
-import { useTranslation } from 'react-i18next';
 
 // the server side has 2 slightly incompatible types for Bed
 export function bedLayoutToBed(bedLayout: BedLayout): Bed {
@@ -38,7 +39,7 @@ export function bedLayoutToBed(bedLayout: BedLayout): Bed {
 export function filterBeds(admissionLocation: AdmissionLocationFetchResponse): BedLayout[] {
   // admissionLocation.bedLayouts can contain row+column positions with no bed,
   // filter out layout positions with no real bed
-  let collator = new Intl.Collator([], { numeric: true });
+  const collator = new Intl.Collator([], { numeric: true });
   const bedLayouts = admissionLocation.bedLayouts
     .filter((bl) => bl.bedId)
     .sort((bedA, bedB) => collator.compare(bedA.bedNumber, bedB.bedNumber));

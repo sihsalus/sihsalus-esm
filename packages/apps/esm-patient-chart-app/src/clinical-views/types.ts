@@ -231,7 +231,7 @@ export interface EncounterTileColumn {
   getObsValue: (encounter: Encounter) => string;
   getSummaryObsValue?: (encounter: Encounter) => string;
   encounter?: Encounter;
-  hasSummary?: Boolean;
+  hasSummary?: boolean;
 }
 export interface EncounterTileProps {
   patientUuid: string;

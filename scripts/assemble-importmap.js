@@ -1,42 +1,65 @@
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
+const chalk = require('chalk');
+
+const logInfo = (msg) => console.log(`${chalk.green.bold('[assemble]')} ${msg}`);
+const logWarn = (msg) => console.warn(`${chalk.yellow.bold('[assemble]')} ${chalk.yellow(msg)}`);
+const logFail = (msg) => console.error(`${chalk.red.bold('[assemble]')} ${chalk.red(msg)}`);
 
 const importmap = { imports: {} };
 const routesRegistry = {};
-const outDir = 'dist/spa';
+const outDir = process.env.SPA_OUTPUT_DIR || 'dist/spa';
 
-// Backend URL for downloading pre-built @openmrs/* modules (only used at build time)
-const BACKEND_URL = process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
+/** Ensures resolvedPath stays inside baseDir. Exits on traversal attempt. */
+function assertInsideDir(resolvedPath, baseDir, label) {
+  const real = path.resolve(resolvedPath);
+  const base = path.resolve(baseDir);
+  if (!real.startsWith(base + path.sep) && real !== base) {
+    logFail(`Path traversal blocked (${label}): ${resolvedPath} escapes ${baseDir}`);
+    process.exit(1);
+  }
+}
 
 // Clean and recreate output directory
 fs.mkdirSync(outDir, { recursive: true });
 
-// ── Phase 1: Copy locally-built @sihsalus/* app bundles ───────────────
-console.log('\n=== Phase 1: Local @sihsalus/* modules ===');
-const appDirs = glob.sync('packages/apps/esm-*/dist');
+// ── Phase 1: Copy locally-built app bundles (@sihsalus/* and @openmrs/* overrides) ──
+logInfo('Phase 1: Local modules');
+const appDirs = fs.readdirSync('packages/apps', { withFileTypes: true })
+  .filter(d => d.isDirectory() && d.name.startsWith('esm-'))
+  .map(d => path.join('packages/apps', d.name, 'dist'))
+  .filter(d => fs.existsSync(d));
 const localBaseNames = new Set();
+
+// Track packages found locally but without a built dist, for a summary warning
+const notBuilt = [];
 
 for (const distDir of appDirs) {
   const pkgJsonPath = path.join(distDir, '..', 'package.json');
   if (!fs.existsSync(pkgJsonPath)) continue;
 
   const pkg = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf8'));
-  if (pkg.private) continue;
-  // Only include @sihsalus/* modules locally — @openmrs/* come from backend
-  if (!pkg.name.startsWith('@sihsalus/')) continue;
+  if (pkg.private) {
+    logInfo(`SKIP ${pkg.name}: private package`);
+    continue;
+  }
+
+  const isLocalOverride = !pkg.name.startsWith('@sihsalus/');
+  const tag = isLocalOverride ? '[override]' : '[local]   ';
 
   const browserField = pkg.browser || pkg.module || pkg.main;
   if (!browserField) {
-    console.warn(`  SKIP ${pkg.name}: no browser/module/main field`);
+    logWarn(`SKIP ${tag} ${pkg.name}: no browser/module/main field in package.json`);
     continue;
   }
 
   const entryFileName = path.basename(browserField);
   const entryFilePath = path.join(distDir, '..', browserField);
+  assertInsideDir(entryFilePath, path.join(distDir, '..'), `${pkg.name} browserField`);
 
   if (!fs.existsSync(entryFilePath)) {
-    console.warn(`  SKIP ${pkg.name}: entry bundle not found at ${browserField}`);
+    notBuilt.push(pkg.name);
+    logWarn(`SKIP ${tag} ${pkg.name}: dist not found at ${browserField} — run build first`);
     continue;
   }
 
@@ -44,13 +67,16 @@ for (const distDir of appDirs) {
   importmap.imports[pkg.name] = `./${entryFileName}`;
   localBaseNames.add(pkg.name.replace(/^@[^/]+\//, ''));
 
-  // Copy chunk files
-  for (const file of fs.readdirSync(distDir)) {
-    if (file === entryFileName) continue;
-    if (file.endsWith('.buildmanifest.json')) continue;
-    const dest = path.join(outDir, file);
+  // Copy chunk files (skip directories and manifests)
+  let chunkCount = 0;
+  for (const entry of fs.readdirSync(distDir, { withFileTypes: true })) {
+    if (!entry.isFile()) continue;
+    if (entry.name === entryFileName) continue;
+    if (entry.name.endsWith('.buildmanifest.json')) continue;
+    const dest = path.join(outDir, entry.name);
     if (fs.existsSync(dest)) continue;
-    fs.copyFileSync(path.join(distDir, file), dest);
+    fs.copyFileSync(path.join(distDir, entry.name), dest);
+    chunkCount++;
   }
 
   // Collect routes
@@ -60,193 +86,158 @@ for (const distDir of appDirs) {
       ...JSON.parse(fs.readFileSync(routesPath, 'utf8')),
       version: pkg.version || '0.0.0',
     };
+  } else {
+    logWarn(`${pkg.name}: no routes.json — will have no pages or extensions registered`);
   }
 
-  console.log(`  OK ${pkg.name} -> ${entryFileName}`);
+  logInfo(`OK ${tag} ${pkg.name} -> ${entryFileName} (${chunkCount} chunks)`);
 }
 
-// ── Phase 2: Download @openmrs/* modules from backend ─────────────────
-console.log('\n=== Phase 2: Download backend modules ===');
+if (notBuilt.length > 0) {
+  logWarn(`${notBuilt.length} local package(s) without dist — run 'yarn build' first:`);
+  for (const name of notBuilt) logWarn(`  - ${name}`);
+}
 
-async function downloadBackendModules() {
-  console.log(`  Fetching importmap from ${BACKEND_URL}...`);
+// ── Phase 2: Download pinned npm modules from spa-assemble-config.json ────────────
+async function downloadNpmModules() {
+  const configPath = process.env.SPA_ASSEMBLE_CONFIG || 'config/spa-assemble-config.json';
 
-  // Fetch backend importmap
-  let backendImportmap;
+  if (!fs.existsSync(configPath)) {
+    logInfo('Phase 2: npm modules — skipped (config/spa-assemble-config.json not found)');
+    return;
+  }
+
+  let pacote;
   try {
-    const resp = await fetch(`${BACKEND_URL}/openmrs/spa/importmap.json`);
-    backendImportmap = await resp.json();
+    pacote = require('pacote');
   } catch (e) {
-    console.error(`  ERROR: Cannot fetch backend importmap: ${e.message}`);
-    console.error('  Set SIHSALUS_BACKEND_URL to your backend server URL');
+    logFail(`pacote not available: ${e.message}`);
     process.exit(1);
   }
 
-  // Fetch backend routes
-  let backendRoutes = {};
-  try {
-    const resp = await fetch(`${BACKEND_URL}/openmrs/spa/routes.registry.json`);
-    backendRoutes = await resp.json();
-  } catch (e) {
-    console.warn(`  WARN: Cannot fetch backend routes: ${e.message}`);
-  }
+  const { frontendModules = {} } = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  const entries = Object.entries(frontendModules);
 
-  // Known aliases: backend modules that map to different local names
-  // When a local app replaces a backend module with a different name,
-  // add the mapping here so the backend version gets excluded.
-  const BACKEND_ALIASES = {
-    'esm-indicators-app': 'esm-indicadores-app',
-    'esm-patient-immunizations-app': 'esm-vacunacion-app',
-  };
-  for (const [backendName, localName] of Object.entries(BACKEND_ALIASES)) {
-    if (localBaseNames.has(localName)) localBaseNames.add(backendName);
-  }
+  logInfo(`Phase 2: npm modules (${entries.length} pinned)`);
 
-  const backendEntries = Object.entries(backendImportmap.imports || {});
-  console.log(`  Backend has ${backendEntries.length} modules`);
+  const os = require('os');
+  const tmpBase = fs.mkdtempSync(path.join(os.tmpdir(), 'sihsalus-assemble-'));
 
-  let downloaded = 0;
-  let skipped = 0;
-
-  for (const [name, relUrl] of backendEntries) {
+  for (const [name, version] of entries) {
     const baseName = name.replace(/^@[^/]+\//, '');
 
-    // Skip if we have a local version (e.g. @sihsalus/esm-fua-app overrides @pucp-gidis-hiisc/esm-fua-app)
     if (localBaseNames.has(baseName)) {
-      skipped++;
+      logInfo(`SKIP [npm] ${name}@${version}: local build takes precedence`);
       continue;
     }
 
-    // Backend modules live in subdirectories: ./openmrs-esm-foo-app-1.0.0/openmrs-esm-foo-app.js
-    // We must preserve this directory structure so chunk imports work correctly
-    const cleanRelUrl = relUrl.replace(/^\.\//, '');
-    const subDir = path.dirname(cleanRelUrl); // e.g. "openmrs-esm-foo-app-1.0.0"
-    const localSubDir = path.join(outDir, subDir);
-    const fullUrl = `${BACKEND_URL}/openmrs/spa/${cleanRelUrl}`;
+    const spec = `${name}@${version}`;
+    const tmpDir = path.join(tmpBase, baseName);
 
-    // Create subdirectory
-    fs.mkdirSync(localSubDir, { recursive: true });
+    try {
+      await pacote.extract(spec, tmpDir, { cache: path.join(tmpBase, '.cache') });
 
-    // Download entry bundle
-    const entryFile = path.basename(cleanRelUrl);
-    const entryDest = path.join(localSubDir, entryFile);
+      const pkg = JSON.parse(fs.readFileSync(path.join(tmpDir, 'package.json'), 'utf8'));
+      const browserField = pkg.browser || pkg.module || pkg.main;
 
-    if (!fs.existsSync(entryDest)) {
-      try {
-        const resp = await fetch(fullUrl);
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        fs.writeFileSync(entryDest, Buffer.from(await resp.arrayBuffer()));
-      } catch (e) {
-        console.warn(`  SKIP ${name}: download failed (${e.message})`);
+      if (!browserField) {
+        logWarn(`SKIP [npm] ${name}: no browser/module/main field in package`);
         continue;
       }
-    }
 
-    // Keep the same relative path so chunks resolve correctly
-    importmap.imports[name] = `./${cleanRelUrl}`;
-    downloaded++;
+      // Validate browserField doesn't escape the package directory
+      assertInsideDir(path.join(tmpDir, browserField), tmpDir, `${name} browserField`);
 
-    // Download all chunk files from the same directory using buildmanifest
-    try {
-      const manifestUrl = `${fullUrl}.buildmanifest.json`;
-      const mResp = await fetch(manifestUrl);
-      if (mResp.ok) {
-        const manifest = await mResp.json();
-        // Extract chunk file names from chunks[].files and chunks[].auxiliaryFiles
-        const chunkFiles = new Set();
-        for (const chunk of (manifest.chunks || [])) {
-          for (const f of (chunk.files || [])) chunkFiles.add(f);
-          for (const f of (chunk.auxiliaryFiles || [])) chunkFiles.add(f);
-        }
-        // Also check top-level files
-        for (const f of (manifest.files || [])) chunkFiles.add(f);
+      // Preserve versioned directory (mirrors upstream convention for chunk resolution)
+      const versionedSubdir = `${baseName}-${version}`;
+      const versionedDir = path.join(outDir, versionedSubdir);
+      fs.mkdirSync(versionedDir, { recursive: true });
 
-        let dlCount = 0;
-        for (const chunkFile of chunkFiles) {
-          const chunkDest = path.join(localSubDir, chunkFile);
-          if (!fs.existsSync(chunkDest)) {
-            try {
-              const cResp = await fetch(`${BACKEND_URL}/openmrs/spa/${subDir}/${chunkFile}`);
-              if (cResp.ok) {
-                fs.writeFileSync(chunkDest, Buffer.from(await cResp.arrayBuffer()));
-                dlCount++;
-              }
-            } catch { /* skip failed chunks */ }
-          }
-        }
-        console.log(`  OK ${name} (${dlCount} chunks)`);
+      // Copy all files from the package dist directory (recursive for chunks/subdirs)
+      const pkgDistDir = path.join(tmpDir, path.dirname(browserField));
+      if (fs.existsSync(pkgDistDir) && pkgDistDir !== tmpDir) {
+        fs.cpSync(pkgDistDir, versionedDir, { recursive: true, force: true });
       } else {
-        console.log(`  OK ${name} (no manifest)`);
+        // browserField is at the package root (no subdirectory)
+        fs.copyFileSync(path.join(tmpDir, browserField), path.join(versionedDir, path.basename(browserField)));
       }
-    } catch {
-      console.log(`  OK ${name} (no manifest)`);
-    }
 
-    // Merge routes
-    if (backendRoutes[name] && !routesRegistry[name]) {
-      routesRegistry[name] = backendRoutes[name];
+      const entryFileName = path.basename(browserField);
+      importmap.imports[name] = `./${versionedSubdir}/${entryFileName}`;
+
+      // Collect routes
+      const routesPath = path.join(tmpDir, 'src', 'routes.json');
+      if (fs.existsSync(routesPath) && !routesRegistry[name]) {
+        routesRegistry[name] = {
+          ...JSON.parse(fs.readFileSync(routesPath, 'utf8')),
+          version,
+        };
+      }
+
+      logInfo(`OK [npm] ${name}@${version} -> ${versionedSubdir}/${entryFileName}`);
+    } catch (e) {
+      logWarn(`[npm] ${spec}: ${e.message} — skipped`);
     }
   }
 
-  console.log(`  Downloaded: ${downloaded} | Skipped (local override): ${skipped}`);
+  // Cleanup tmp dir
+  fs.rmSync(tmpBase, { recursive: true, force: true });
 }
 
 // ── Phase 3: Copy app-shell dist ──────────────────────────────────────
 function copyAppShell() {
-  console.log('\n=== Phase 3: App shell ===');
+  logInfo('Phase 3: App shell');
   let shellDist;
   try {
     shellDist = path.join(path.dirname(require.resolve('@openmrs/esm-app-shell/package.json')), 'dist');
   } catch {
-    console.warn('  WARN: @openmrs/esm-app-shell not found');
+    logWarn('@openmrs/esm-app-shell not found — SPA will have no shell');
     return;
   }
 
   if (fs.existsSync(shellDist)) {
-    for (const file of fs.readdirSync(shellDist)) {
-      const dest = path.join(outDir, file);
-      if (!fs.existsSync(dest)) {
-        fs.copyFileSync(path.join(shellDist, file), dest);
-      }
-    }
-    console.log(`  OK app-shell dist copied`);
+    fs.cpSync(shellDist, outDir, { recursive: true, force: false });
+    logInfo('OK app-shell dist copied');
   }
 }
 
 // ── Phase 4: Write importmap.json and routes ──────────────────────────
 function writeOutputs() {
-  console.log('\n=== Phase 4: Write outputs ===');
-  const importmapJson = JSON.stringify(importmap, null, 2);
-  fs.writeFileSync(path.join(outDir, 'importmap.json'), importmapJson);
-
-  fs.writeFileSync(
-    path.join(outDir, 'routes.registry.json'),
-    JSON.stringify(routesRegistry, null, 2),
-  );
+  logInfo('Phase 4: Write outputs');
+  fs.writeFileSync(path.join(outDir, 'importmap.json'), JSON.stringify(importmap, null, 2));
+  fs.writeFileSync(path.join(outDir, 'routes.registry.json'), JSON.stringify(routesRegistry, null, 2));
 
   // Verify no duplicate bundle filenames
   const values = Object.values(importmap.imports);
   const dupes = values.filter((v, i) => values.indexOf(v) !== i);
   if (dupes.length > 0) {
-    console.error(`\n  WARNING: Duplicate bundle filenames detected!`);
+    logFail('Duplicate bundle names detected — this will cause runtime collisions:');
     for (const dupe of [...new Set(dupes)]) {
       const apps = Object.entries(importmap.imports)
         .filter(([, v]) => v === dupe)
         .map(([k]) => k);
-      console.error(`    ${dupe}: ${apps.join(', ')}`);
+      logFail(`  ${dupe}: ${apps.join(', ')}`);
     }
   }
 
-  const localCount = Object.values(importmap.imports).filter(v => v.startsWith('./')).length;
-  const remoteCount = Object.keys(importmap.imports).length - localCount;
-  console.log(`\n  Import map: ${localCount} local + ${remoteCount} remote = ${Object.keys(importmap.imports).length} total`);
-  console.log(`  Routes: ${Object.keys(routesRegistry).length} modules`);
+  // Detect modules in importmap without registered routes
+  const withoutRoutes = Object.keys(importmap.imports).filter((name) => !routesRegistry[name]);
+  if (withoutRoutes.length > 0) {
+    logWarn(`${withoutRoutes.length} module(s) without registered routes (will have no pages/extensions):`);
+    for (const name of withoutRoutes) logWarn(`  - ${name}`);
+  }
+
+  logInfo(`Import map: ${Object.keys(importmap.imports).length} total modules`);
+  logInfo(`Routes: ${Object.keys(routesRegistry).length} modules`);
 }
 
 // ── Main ──────────────────────────────────────────────────────────────
 (async () => {
-  await downloadBackendModules();
+  await downloadNpmModules();
   copyAppShell();
   writeOutputs();
-  console.log('\nDone! dist/spa/ is self-contained.');
-})();
+  logInfo('Done! dist/spa/ is self-contained.');
+})().catch((err) => {
+  logFail(err.message);
+  process.exit(1);
+});

@@ -1,13 +1,16 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import { type Queue } from '../types';
-import { useProvidersQueueRoom, useQueueRooms } from './add-provider-queue-room.resource';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
+
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
-import { useQueues } from '../hooks/useQueues';
 import useQueueServices from '../hooks/useQueueService';
+import { useQueues } from '../hooks/useQueues';
+import { type Queue } from '../types';
+
 import AddProviderQueueRoom from './add-provider-queue-room.modal';
+import { useProvidersQueueRoom, useQueueRooms } from './add-provider-queue-room.resource';
 
 const mockCloseModal = jest.fn();
 const mockShowSnackbar = jest.mocked(showSnackbar);

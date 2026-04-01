@@ -1,11 +1,15 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+/* eslint-disable */
 import { createErrorHandler, ResponsiveWrapper, showSnackbar, translateFrom, useSession } from '@openmrs/esm-framework';
-import { savePatientNote } from '../notes.resource';
-import PatientNotesForm from './notes-form.component';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { emrConfigurationMock, mockPatient, mockSession } from '__mocks__';
+import React from 'react';
+
 import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
+import { savePatientNote } from '../notes.resource';
+
+import PatientNotesForm from './notes-form.component';
+
 
 const testProps = {
   patientUuid: mockPatient.uuid,

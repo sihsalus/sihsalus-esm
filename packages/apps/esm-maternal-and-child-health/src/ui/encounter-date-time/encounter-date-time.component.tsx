@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { type Control, Controller, type FieldPath, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+
 import styles from './encounter-date-time.scss';
 
 interface EncounterDateTimeSectionProps {

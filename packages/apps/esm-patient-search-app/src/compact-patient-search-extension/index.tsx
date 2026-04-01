@@ -1,19 +1,21 @@
-import React, { useCallback, useState, useMemo, useRef, useEffect } from 'react';
 import { Button, Search } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { useConfig, navigate, interpolateString } from '@openmrs/esm-framework';
-import { type PatientSearchConfig } from '../config-schema';
-import { useInfinitePatientSearch } from '../patient-search.resource';
-import { PatientSearchContext } from '../patient-search-context';
-import useArrowNavigation from '../hooks/useArrowNavigation';
+import React, { useCallback, useState, useMemo, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import PatientSearch from '../compact-patient-search/patient-search.component';
+import { type PatientSearchConfig } from '../config-schema';
+import useArrowNavigation from '../hooks/useArrowNavigation';
+import { PatientSearchContext } from '../patient-search-context';
+import { useInfinitePatientSearch } from '../patient-search.resource';
+
 import styles from './compact-patient-search.scss';
 
 interface CompactPatientSearchProps {
   initialSearchTerm: string;
   /** An action to take when the patient is selected, other than navigation. If not provided, navigation takes place. */
   selectPatientAction?: (patientUuid: string) => undefined;
-  buttonProps?: Object;
+  buttonProps?: object;
 }
 
 const CompactPatientSearchComponent: React.FC<CompactPatientSearchProps> = ({
@@ -57,7 +59,7 @@ const CompactPatientSearchComponent: React.FC<CompactPatientSearchProps> = ({
   );
 
   const handleFocusToInput = useCallback(() => {
-    let len = inputRef.current.value?.length ?? 0;
+    const len = inputRef.current.value?.length ?? 0;
     inputRef.current.setSelectionRange(len, len);
     inputRef.current.focus();
   }, [inputRef]);

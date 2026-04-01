@@ -1,7 +1,8 @@
-import useSWR from 'swr';
-import type { OpenmrsEncounter } from '../types';
 import type { OpenmrsResource } from '@openmrs/esm-framework';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
+import type { OpenmrsEncounter } from '../types';
 import {
   MchEncounterType_UUID,
   PartographEncounterFormUuid,

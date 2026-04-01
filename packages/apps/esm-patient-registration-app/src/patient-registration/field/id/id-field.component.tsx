@@ -1,9 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, SkeletonText } from '@carbon/react';
 import { ArrowRight, TrashCan } from '@carbon/react/icons';
 import { useLayoutType, useConfig, isDesktop, UserHasAccess } from '@openmrs/esm-framework';
-import IdentifierSelectionOverlay from './identifier-selection-overlay.component';
+import React, { useCallback, useContext, useEffect, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+
+
+import { ResourcesContext } from '../../../offline.resources';
 import IdentifierInput from '../../input/custom-input/identifier/identifier-input.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import type {
@@ -12,8 +14,9 @@ import type {
   PatientIdentifierType,
   PatientIdentifierValue,
 } from '../../patient-registration.types';
-import { ResourcesContext } from '../../../offline.resources';
 import styles from '../field.scss';
+
+import IdentifierSelectionOverlay from './identifier-selection-overlay.component';
 
 export function setIdentifierSource(
   identifierSource: IdentifierSource,

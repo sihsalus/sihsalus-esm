@@ -1,6 +1,3 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, within } from '@testing-library/react';
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -10,11 +7,16 @@ import {
   useLocations,
   useSession,
 } from '@openmrs/esm-framework';
-import { configSchema, type ConfigObject } from '../config-schema';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockUseAppointmentServiceData, mockSession, mockLocations, mockProviders } from '__mocks__';
+import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
-import { saveAppointment } from './appointments-form.resource';
+
+import { configSchema, type ConfigObject } from '../config-schema';
 import { useProviders } from '../hooks/useProviders';
+
+import { saveAppointment } from './appointments-form.resource';
 import AppointmentForm from './appointments-form.workspace';
 
 const defaultProps = {

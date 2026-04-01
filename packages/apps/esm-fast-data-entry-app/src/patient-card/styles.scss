@@ -1,0 +1,44 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.cardContainer {
+  padding: layout.$spacing-05;
+  display: flex;
+  cursor: pointer;
+}
+
+.skeletonText {
+  max-width: 8rem;
+}
+
+.identifier {
+  font-weight: 300;
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+}
+
+.displayName {
+  font-weight: bold;
+}
+
+.activeDisplayName {
+  color: colors.$blue-50;
+}
+
+.inactiveCard {
+  &:hover {
+    background-color: colors.$gray-30;
+  }
+}
+
+.patientInfo {
+  flex-grow: 1;
+}
+
+.statusSuccess {
+  fill: colors.$green-60;
+}
+
+.statusWarning  {
+  fill: colors.$yellow-40;
+}

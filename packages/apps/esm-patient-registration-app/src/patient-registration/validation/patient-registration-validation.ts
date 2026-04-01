@@ -1,10 +1,11 @@
-import dayjs from 'dayjs';
-import * as Yup from 'yup';
-import mapValues from 'lodash/mapValues';
 import { translateFrom } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import mapValues from 'lodash/mapValues';
+import * as Yup from 'yup';
+
 import { type RegistrationConfig } from '../../config-schema';
-import { type FormValues } from '../patient-registration.types';
 import { getDatetime } from '../patient-registration.resource';
+import { type FormValues } from '../patient-registration.types';
 
 const t = (key: string, value: string) => translateFrom('@openmrs/esm-framework', key, value);
 

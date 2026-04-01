@@ -1,6 +1,3 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Table,
@@ -15,13 +12,20 @@ import {
   TableRow,
 } from '@carbon/react';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type Observation } from '../../types';
-import EncounterObservations from './encounter-observations.component';
 import styles from '../visit-detail-overview.scss';
+
+import EncounterObservations from './encounter-observations.component';
 
 interface EncounterListProps {
   encounters: Array<{
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     id: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     time: any;
     encounterType: string;
     provider: string;

@@ -1,5 +1,3 @@
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Table,
@@ -12,9 +10,13 @@ import {
   InlineLoading,
   SkeletonText,
 } from '@carbon/react';
-import { ErrorState, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { ErrorState, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useCurrentPregnancy } from '../../../../hooks/useCurrentPregnancy';
+
 import styles from './labour-history-summary.scss';
 
 // Types

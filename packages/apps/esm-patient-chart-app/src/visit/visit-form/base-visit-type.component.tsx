@@ -1,12 +1,13 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { useFormContext, Controller } from 'react-hook-form';
 import { Layer, RadioButton, RadioButtonGroup, Search, StructuredListSkeleton, Tile } from '@carbon/react';
-import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import { useDebounce, useLayoutType, usePagination, type VisitType } from '@openmrs/esm-framework';
-import { type VisitFormData } from './visit-form.resource';
+import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import React, { useState, useMemo, useCallback } from 'react';
+import { useFormContext, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import styles from './base-visit-type.scss';
+import { type VisitFormData } from './visit-form.resource';
 
 interface BaseVisitTypeProps {
   visitTypes: Array<VisitType>;

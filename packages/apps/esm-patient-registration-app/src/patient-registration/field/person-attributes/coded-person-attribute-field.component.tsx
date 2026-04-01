@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Field } from 'formik';
 import { Layer, Select, SelectItem } from '@carbon/react';
 import { reportError } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import { Field } from 'formik';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type PersonAttributeTypeResponse } from '../../patient-registration.types';
 import { useConceptAnswers } from '../field.resource';
+
 import styles from './../field.scss';
 
 export interface CodedPersonAttributeFieldProps {

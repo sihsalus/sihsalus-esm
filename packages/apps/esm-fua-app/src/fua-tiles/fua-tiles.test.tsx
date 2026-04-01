@@ -1,10 +1,12 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
+
 import { useFuaRequests } from '../hooks/useFuaRequests';
+
 import AllFuaRequestsTile from './all-fua-requests-tile.component';
-import InProgressFuaRequestsTile from './in-progress-fua-requests-tile.component';
 import CompletedFuaRequestsTile from './completed-fua-requests-tile.component';
 import EnviadoFuaRequestsTile from './enviado-fua-requests-tile.component';
+import InProgressFuaRequestsTile from './in-progress-fua-requests-tile.component';
 
 jest.mock('../hooks/useFuaRequests');
 

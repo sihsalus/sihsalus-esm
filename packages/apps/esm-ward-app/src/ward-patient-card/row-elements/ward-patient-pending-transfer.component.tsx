@@ -3,6 +3,7 @@ import { Movement } from '@carbon/react/icons';
 import { CloseOutlineIcon, launchWorkspace } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type WardPatient, type WardPatientWorkspaceProps } from '../../types';
 import styles from '../ward-patient-card.scss';
 

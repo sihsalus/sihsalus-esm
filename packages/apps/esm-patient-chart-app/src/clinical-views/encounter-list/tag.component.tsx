@@ -1,7 +1,8 @@
-import React from 'react';
 import { Tag } from '@carbon/react';
-import { getObsFromEncounter, findObs } from '../utils/helpers';
+import React from 'react';
+
 import { type ConfigConcepts, type Encounter } from '../types';
+import { getObsFromEncounter, findObs } from '../utils/helpers';
 
 export const renderTag = (
   encounter: Encounter,

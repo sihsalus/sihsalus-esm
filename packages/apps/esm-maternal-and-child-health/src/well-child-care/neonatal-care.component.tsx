@@ -6,8 +6,9 @@ import {
   UserFollow,
   WatsonHealthCobbAngle,
 } from '@carbon/react/icons';
-import React, { useMemo } from 'react';
 import { usePatient } from '@openmrs/esm-framework';
+import React, { useMemo } from 'react';
+
 import type { TabConfig } from '../ui/tabbed-dashboard/tabbed-dashboard.component';
 import TabbedDashboard from '../ui/tabbed-dashboard/tabbed-dashboard.component';
 

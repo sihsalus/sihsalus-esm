@@ -1,11 +1,13 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { ContentSwitcher, NumberInput, Switch, TextInput } from '@carbon/react';
+import classNames from 'classnames';
+import React from 'react';
 import { type Control, Controller } from 'react-hook-form';
-import styles from './search-field.scss';
-import { PersonAttributeField } from './person-attribute-field.component';
+import { useTranslation } from 'react-i18next';
+
 import { type AdvancedPatientSearchState, type SearchFieldConfig } from '../../types';
+
+import { PersonAttributeField } from './person-attribute-field.component';
+import styles from './search-field.scss';
 
 interface SearchFieldProps {
   field: SearchFieldConfig;

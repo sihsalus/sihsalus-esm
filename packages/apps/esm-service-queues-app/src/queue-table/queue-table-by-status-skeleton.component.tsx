@@ -1,5 +1,6 @@
 import { DataTableSkeleton, SkeletonText } from '@carbon/react';
 import React from 'react';
+
 import styles from './queue-table.scss';
 
 export const QueueTableByStatusSkeleton = () => {

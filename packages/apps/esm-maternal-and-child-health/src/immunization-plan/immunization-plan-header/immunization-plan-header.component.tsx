@@ -1,10 +1,11 @@
-import React from 'react';
 import { DatePickerInput, DatePicker } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { Location, UserFollow } from '@carbon/react/icons';
 import { useSession } from '@openmrs/esm-framework';
-import ImmunizationIllustration from './immunization-plan-illustration.component';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './immunization-plan-header.scss';
+import ImmunizationIllustration from './immunization-plan-illustration.component';
 
 interface ImmunizationPlanHeaderProps {
   title: string;

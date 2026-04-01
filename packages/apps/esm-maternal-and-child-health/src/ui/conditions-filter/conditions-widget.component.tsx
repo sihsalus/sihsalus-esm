@@ -18,15 +18,17 @@ import {
   useDebounce,
   useSession,
 } from '@openmrs/esm-framework';
-import { type DefaultPatientWorkspaceProps } from '../../types';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import 'dayjs/plugin/utc';
+import type { TFunction } from 'i18next';
 import React, { type Dispatch, useCallback, useEffect, useRef, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
+
 import type { ConfigObject } from '../../config-schema';
+import { type DefaultPatientWorkspaceProps } from '../../types';
+
 import styles from './conditions-form.scss';
 import { type ConditionsFormSchema } from './conditions-form.workspace';
 import {

@@ -1,8 +1,10 @@
-import useSWRImmutable from 'swr';
-import { useCallback, useMemo } from 'react';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import type { OpenmrsEncounter } from '../types';
 import isNull from 'lodash-es/isNull';
+import { useCallback, useMemo } from 'react';
+import useSWRImmutable from 'swr';
+
+import type { OpenmrsEncounter } from '../types';
+
 
 export const encounterRepresentation =
   'custom:(uuid,encounterDatetime,encounterType,location:(uuid,name),' +

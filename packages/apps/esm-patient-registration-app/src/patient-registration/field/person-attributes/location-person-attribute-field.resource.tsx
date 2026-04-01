@@ -1,7 +1,9 @@
-import { useMemo } from 'react';
 import { type FetchResponse, fhirBaseUrl, openmrsFetch, useDebounce } from '@openmrs/esm-framework';
-import { type LocationEntry, type LocationResponse } from './esm-service-queues-app-types';
+import { useMemo } from 'react';
 import useSWR from 'swr';
+
+import { type LocationEntry, type LocationResponse } from './esm-service-queues-app-types';
+
 
 interface UseLocationsResult {
   locations: Array<LocationEntry>;
@@ -13,8 +15,8 @@ export function useLocations(locationTag: string | null, searchQuery: string = '
   const debouncedSearchQuery = useDebounce(searchQuery);
 
   const constructUrl = useMemo(() => {
-    let url = `${fhirBaseUrl}/Location?`;
-    let urlSearchParameters = new URLSearchParams();
+    const url = `${fhirBaseUrl}/Location?`;
+    const urlSearchParameters = new URLSearchParams();
     urlSearchParameters.append('_summary', 'data');
 
     if (!debouncedSearchQuery) {

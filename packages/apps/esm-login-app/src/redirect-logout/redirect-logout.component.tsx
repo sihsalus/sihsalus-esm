@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
 import { navigate, setUserLanguage, useConfig, useConnectivity, useSession } from '@openmrs/esm-framework';
 import { clearHistory } from '@openmrs/esm-framework/src/internal';
+import { useEffect } from 'react';
+
 import { type ConfigSchema } from '../config-schema';
+
 import { performLogout } from './logout.resource';
 
 const RedirectLogout: React.FC = () => {

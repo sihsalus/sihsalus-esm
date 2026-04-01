@@ -10,6 +10,7 @@ import {
 } from '__mocks__';
 import React from 'react';
 import { renderWithSwr } from 'tools';
+
 import { useQueueRooms } from '../add-provider-queue-room-modal/add-provider-queue-room.resource';
 import { type ConfigObject, configSchema } from '../config-schema';
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';

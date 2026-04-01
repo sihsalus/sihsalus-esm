@@ -1,8 +1,10 @@
-/* eslint-disable testing-library/no-node-access */
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { Form, Formik } from 'formik';
+/* eslint-disable */
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Form, Formik } from 'formik';
+import React from 'react';
+
 import { esmPatientRegistrationSchema, type RegistrationConfig } from '../../../../config-schema';
 import { ResourcesContext, type Resources } from '../../../../offline.resources';
 import {
@@ -15,8 +17,9 @@ import type {
   IdentifierSource,
   PatientIdentifierValue,
 } from '../../../patient-registration.types';
+
 import IdentifierInput from './identifier-input.component';
-import userEvent from '@testing-library/user-event';
+
 
 const mockIdentifierTypes = [
   {

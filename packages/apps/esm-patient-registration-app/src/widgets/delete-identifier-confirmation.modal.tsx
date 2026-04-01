@@ -1,6 +1,7 @@
+import { Button, ModalBody, ModalHeader, ModalFooter } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalBody, ModalHeader, ModalFooter } from '@carbon/react';
+
 import styles from './delete-identifier-confirmation.scss';
 
 interface DeleteIdentifierConfirmationModalProps {

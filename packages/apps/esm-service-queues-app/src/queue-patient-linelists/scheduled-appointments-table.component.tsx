@@ -1,5 +1,3 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -31,11 +29,16 @@ import {
   formatDate,
   launchWorkspace,
 } from '@openmrs/esm-framework';
-import styles from './queue-linelist-base-table.scss';
-import { updateSelectedAppointmentStatus, useSelectedAppointmentStatus } from '../helpers/helpers';
-import { useAppointments } from './queue-linelist.resource';
-import { getGender } from '../helpers/functions';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ConfigObject } from '../config-schema';
+import { getGender } from '../helpers/functions';
+import { updateSelectedAppointmentStatus, useSelectedAppointmentStatus } from '../helpers/helpers';
+
+import styles from './queue-linelist-base-table.scss';
+import { useAppointments } from './queue-linelist.resource';
+
 
 /**
  * FIXME Temporarily moved here

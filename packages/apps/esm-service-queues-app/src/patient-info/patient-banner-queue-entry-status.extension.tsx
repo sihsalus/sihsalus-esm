@@ -1,9 +1,11 @@
 import { Tag , Button } from '@carbon/react';
-import React from 'react';
-import { useQueueEntries } from '../hooks/useQueueEntries';
-import styles from './patient-banner-queue-entry-status.scss';
-import { useTranslation } from 'react-i18next';
 import { isDesktop, showModal, useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useQueueEntries } from '../hooks/useQueueEntries';
+
+import styles from './patient-banner-queue-entry-status.scss';
 
 // See: patient-banner-patient-info.component.tsx
 interface PatientBannerQueueEntryStatusProps {

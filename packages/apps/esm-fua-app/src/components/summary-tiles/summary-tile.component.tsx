@@ -1,5 +1,6 @@
-import React from 'react';
 import { Tile } from '@carbon/react';
+import React from 'react';
+
 import styles from './summary-tiles.scss';
 
 interface FuaSummaryTileProps {

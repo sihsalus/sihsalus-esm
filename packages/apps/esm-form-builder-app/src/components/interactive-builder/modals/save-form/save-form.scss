@@ -1,0 +1,16 @@
+@use '@carbon/layout';
+
+.spinner {
+  &:global(.cds--inline-loading) {
+    min-height: layout.$spacing-05;
+  }
+
+  :global(.cds--inline-loading__text) {
+    font-size: unset;
+  }
+}
+
+.saveFormBody {
+  max-height: 75vh;
+  overflow-y: auto;
+}

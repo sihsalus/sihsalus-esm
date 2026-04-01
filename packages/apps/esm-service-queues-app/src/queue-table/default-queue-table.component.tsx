@@ -1,4 +1,3 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DataTableSkeleton, Dropdown, Layer, TableToolbarSearch } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import {
@@ -10,7 +9,10 @@ import {
   showToast,
   useLayoutType,
 } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import ClearQueueEntries from '../clear-queue-entries-modal/clear-queue-entries.component';
 import {
   updateSelectedQueueStatus,
   updateSelectedService,
@@ -18,11 +20,11 @@ import {
   useSelectedQueueStatus,
   useSelectedService,
 } from '../helpers/helpers';
-import { useColumns } from './cells/columns.resource';
 import { useQueueEntries } from '../hooks/useQueueEntries';
-import useQueueStatuses from '../hooks/useQueueStatuses';
 import useQueueServices from '../hooks/useQueueService';
-import ClearQueueEntries from '../clear-queue-entries-modal/clear-queue-entries.component';
+import useQueueStatuses from '../hooks/useQueueStatuses';
+
+import { useColumns } from './cells/columns.resource';
 import QueueTableExpandedRow from './queue-table-expanded-row.component';
 import QueueTable from './queue-table.component';
 import styles from './queue-table.scss';

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { omrsDateFormat } from './constants';
+
 import AppointmentTabs from './appointments/appointment-tabs.component';
+import { omrsDateFormat } from './constants';
 import AppointmentsHeader from './header/appointments-header.component';
-import AppointmentMetrics from './metrics/appointments-metrics.component';
 import SelectedDateContext from './hooks/selectedDateContext';
+import AppointmentMetrics from './metrics/appointments-metrics.component';
 
 const Appointments: React.FC = () => {
   const { t } = useTranslation();

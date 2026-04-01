@@ -1,5 +1,5 @@
-import React from 'react';
 import { LeftNavMenu, useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
 
 interface SideMenuPanelProps extends SideNavProps {}
 

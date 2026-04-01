@@ -1,8 +1,10 @@
+import { useField } from 'formik';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAddressEntries, useAddressEntryFetchConfig } from './address-hierarchy.resource';
-import { useField } from 'formik';
+
 import ComboInput from '../../input/combo-input/combo-input.component';
+
+import { useAddressEntries, useAddressEntryFetchConfig } from './address-hierarchy.resource';
 
 interface AddressComboBoxProps {
   attribute: {

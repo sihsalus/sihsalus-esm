@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useConfig, showSnackbar } from '@openmrs/esm-framework';
 import { InlineLoading } from '@carbon/react';
+import { useConfig, showSnackbar } from '@openmrs/esm-framework';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { Config } from '../config-schema';
+
 import styles from './fua-viewer-page.scss';
 
 const FuaViewerPage: React.FC = () => {

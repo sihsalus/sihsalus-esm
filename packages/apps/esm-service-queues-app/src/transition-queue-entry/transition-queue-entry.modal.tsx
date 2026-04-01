@@ -1,15 +1,17 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ModalBody, ModalFooter, ModalHeader, Tag } from '@carbon/react';
 import { navigate, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import { type ConfigObject } from '../config-schema';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
   type MappedVisitQueueEntry,
   serveQueueEntry,
   updateQueueEntry,
 } from '../active-visits/active-visits-table.resource';
-import { requeueQueueEntry } from './transition-queue-entry.resource';
+import { type ConfigObject } from '../config-schema';
 import { useMutateQueueEntries } from '../hooks/useQueueEntries';
+
+import { requeueQueueEntry } from './transition-queue-entry.resource';
 import styles from './transition-queue-entry.scss';
 
 interface TransitionQueueEntryModalProps {

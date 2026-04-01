@@ -1,8 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
-import { useVisit } from './visit.resource';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import VisitDetailComponent from './visit-detail.component';
+import { useVisit } from './visit.resource';
 
 const mockUseVisit = jest.mocked(useVisit);
 const defaultProps = {

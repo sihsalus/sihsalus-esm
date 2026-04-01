@@ -1,6 +1,7 @@
 //FETCH APPOINTMENTS FOR CRED SERVICE
-import useSWR from 'swr';
 import { restBaseUrl, openmrsFetch } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import type { AppointmentsFetchResponse, Appointment } from '../types';
 
 export default function useAppointmentsCRED(patientUuid: string) {

@@ -1,5 +1,6 @@
 import { openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
 import type { Encounter } from '../../ui/encounter-list/encounter.resource';
 
 export const useEncounters = (

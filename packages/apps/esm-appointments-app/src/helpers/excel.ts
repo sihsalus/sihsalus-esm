@@ -1,8 +1,9 @@
-import { writeFile, utils, type WorkSheet } from 'xlsx';
 import { fetchCurrentPatient, formatDate, getConfig } from '@openmrs/esm-framework';
-import { type Appointment } from '../types';
+import { writeFile, utils, type WorkSheet } from 'xlsx';
+
 import { type ConfigObject } from '../config-schema';
 import { moduleName } from '../constants';
+import { type Appointment } from '../types';
 
 type RowData = {
   id: string; // Corresponds to the UUID of an appointment

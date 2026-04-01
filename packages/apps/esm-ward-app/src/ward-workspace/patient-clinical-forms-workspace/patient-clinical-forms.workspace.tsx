@@ -1,5 +1,6 @@
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
+
 import type { WardPatientWorkspaceProps } from '../../types';
 import WardPatientWorkspaceBanner from '../patient-banner/patient-banner.component';
 

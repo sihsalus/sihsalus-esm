@@ -1,10 +1,12 @@
-import React from 'react';
+import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { mockAppointmentsData } from '__mocks__';
+import React from 'react';
 import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'tools';
+
 import { type AppointmentsFetchResponse } from '../types';
+
 import AppointmentsBase from './patient-appointments-base.component';
 
 const testProps = {

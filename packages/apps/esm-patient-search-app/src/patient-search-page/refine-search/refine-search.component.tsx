@@ -1,15 +1,18 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Button, Layer } from '@carbon/react';
-import { useForm } from 'react-hook-form';
-import { type AdvancedPatientSearchState, type SearchFieldConfig, type SearchFieldType } from '../../types';
 import { useConfig, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import {
   type BuiltInFieldConfig,
   type PatientSearchConfig,
   type PersonAttributeFieldConfig,
 } from '../../config-schema';
+import { type AdvancedPatientSearchState, type SearchFieldConfig, type SearchFieldType } from '../../types';
+
+
 import { RefineSearchTablet } from './refine-search-tablet.component';
 import styles from './refine-search.scss';
 import { SearchField } from './search-field.component';

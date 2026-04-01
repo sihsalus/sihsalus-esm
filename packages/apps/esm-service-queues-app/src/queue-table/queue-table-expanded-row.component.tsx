@@ -1,6 +1,7 @@
+import { Tab, Tabs, TabPanels, TabPanel, TabList } from '@carbon/react';
 import React, { type FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tab, Tabs, TabPanels, TabPanel, TabList } from '@carbon/react';
+
 import CurrentVisit from '../current-visit/current-visit-summary.component';
 import PastVisit from '../past-visit/past-visit.component';
 import { type QueueEntry } from '../types';

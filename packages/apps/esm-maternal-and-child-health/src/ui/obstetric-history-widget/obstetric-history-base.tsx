@@ -1,6 +1,4 @@
 // obstetric-history-base.component.tsx
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, InlineLoading } from '@carbon/react';
 import { useConfig, useLayoutType, AddIcon, launchWorkspace2 } from '@openmrs/esm-framework';
 import {
@@ -8,11 +6,15 @@ import {
   EmptyState,
   ErrorState,
 } from '@openmrs/esm-patient-common-lib';
-import { usePrenatalAntecedents, usePrenatalConceptMetadata } from '../../hooks/usePrenatalAntecedents';
-import ObstetricHistoryTable from './obstetric-history-table.component';
-import ObstetricHistoryChart from './obstetric-history-chart.component';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../config-schema';
+import { usePrenatalAntecedents, usePrenatalConceptMetadata } from '../../hooks/usePrenatalAntecedents';
+
 import styles from './obstetric-history-base.scss';
+import ObstetricHistoryChart from './obstetric-history-chart.component';
+import ObstetricHistoryTable from './obstetric-history-table.component';
 
 interface ObstetricHistoryBaseProps {
   patientUuid: string;

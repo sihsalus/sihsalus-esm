@@ -1,16 +1,20 @@
-import React, { useContext, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-dayjs.extend(isSameOrBefore);
 import isEmpty from 'lodash-es/isEmpty';
-import styles from './metrics-card.scss';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+dayjs.extend(isSameOrBefore);
+
 import SelectedDateContext from '../hooks/selectedDateContext';
+
+import styles from './metrics-card.scss';
 
 interface MetricsCardProps {
   label: string;
   value: number;
   headerLabel: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   count?: { pendingAppointments: Array<any>; arrivedAppointments: Array<any> };
 }
 

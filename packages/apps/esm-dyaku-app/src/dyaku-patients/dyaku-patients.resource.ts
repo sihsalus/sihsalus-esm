@@ -1,5 +1,6 @@
 import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
 import type { ConfigObject } from '../config-schema';
 
 /** OID del sistema de identificación DNI en Perú (Dyaku/RENHICE FHIR) */

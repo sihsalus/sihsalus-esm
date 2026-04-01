@@ -1,4 +1,4 @@
-import { util } from 'webpack';
+import { createHash } from 'node:crypto';
 
 export function trimEnd(text: string, chr: string): string {
   while (text.endsWith(chr)) {
@@ -8,12 +8,9 @@ export function trimEnd(text: string, chr: string): string {
 }
 
 export function removeTrailingSlash(path: string): string {
-  const i = path.length - 1;
-  return path[i] === '/' ? removeTrailingSlash(path.slice(0, i)) : path;
+  return path.replace(/\/+$/, '');
 }
 
 export function contentHash(obj: object) {
-  const hash = util.createHash('xxhash64');
-  hash.update(JSON.stringify(obj), 'UTF-8');
-  return hash.digest().toString('hex');
+  return createHash('sha1').update(JSON.stringify(obj)).digest('hex');
 }

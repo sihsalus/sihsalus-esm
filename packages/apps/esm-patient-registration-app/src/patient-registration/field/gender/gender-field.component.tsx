@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
 import { RadioButton, RadioButtonGroup } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import { PatientRegistrationContext } from '../../patient-registration-context';
-import { useField } from 'formik';
-import { type RegistrationConfig } from '../../../config-schema';
 import { useConfig } from '@openmrs/esm-framework';
+import { useField } from 'formik';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { type RegistrationConfig } from '../../../config-schema';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 import styles from '../field.scss';
 
 export const GenderField: React.FC = () => {

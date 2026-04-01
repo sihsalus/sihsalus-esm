@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
+import useSWR from 'swr';
 
 type Obs = {
   uuid: string;

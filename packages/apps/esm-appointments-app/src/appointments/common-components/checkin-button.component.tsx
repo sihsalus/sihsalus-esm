@@ -1,12 +1,13 @@
-import React from 'react';
 import { Button } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import { type Appointment } from '../../types';
+import { navigate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import utc from 'dayjs/plugin/utc';
-import { navigate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ConfigObject } from '../../config-schema';
+import { type Appointment } from '../../types';
 dayjs.extend(utc);
 dayjs.extend(isToday);
 

@@ -1,0 +1,16 @@
+.actionBtns {
+  display: flex;
+  gap: 0;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+.extensionSlot {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}

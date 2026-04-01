@@ -1,8 +1,9 @@
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type RelationshipValue } from '../../patient-registration.types';
+
 import { personRelationshipRepresentation } from '../../../constants';
+import { type RelationshipValue } from '../../patient-registration.types';
 
 export interface Relationship {
   display: string;

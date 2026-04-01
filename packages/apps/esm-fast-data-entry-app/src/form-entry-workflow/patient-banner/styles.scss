@@ -1,0 +1,57 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.container {
+  height: layout.$spacing-11;
+  display: flex;
+  align-items: center;
+  background-color: colors.$white-0;
+  border-top: 0.0125rem solid colors.$gray-20;
+  border-bottom: 0.0125rem solid colors.$gray-20;
+  padding: 0 layout.$spacing-05;
+}
+
+.photoPlaceholder {
+  height: 48px;
+  width: 48px;
+}
+
+.patientName {
+  @include type.type-style('heading-03');
+  font-weight: 600;
+}
+
+.patientInfoContent {
+  width: 100%;
+  margin-left: 1rem;
+}
+
+.patientInfoRow {
+  display: flex;
+  align-items: center;
+  & > button {
+    min-height: 2rem;
+  }
+  @include type.type-style('body-compact-02');
+  color: colors.$gray-70;
+  column-gap: 0.8rem;
+}
+
+.patientEditBtn {
+  color: colors.$gray-100;
+  margin: layout.$spacing-03;
+}
+
+.patientBannerContainer {
+  display: flex;
+  width: 100%;
+  position: sticky;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 0;
+}
+
+.patientBannerContainer > div {
+  width: 100%;
+}

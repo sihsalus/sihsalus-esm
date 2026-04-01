@@ -82,6 +82,7 @@ export interface SessionData {
     display: string;
     person: DisplayMetadata;
     identifier: string;
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     attributes: Array<{}>;
     retired: boolean;
     links: Links;

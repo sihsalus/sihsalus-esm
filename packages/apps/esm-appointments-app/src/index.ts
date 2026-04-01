@@ -5,6 +5,7 @@ import {
   getSyncLifecycle,
   registerBreadcrumbs,
 } from '@openmrs/esm-framework';
+
 import { configSchema } from './config-schema';
 import { createDashboardLink } from './createDashboardLink.component';
 import { dashboardMeta, appointmentCalendarDashboardMeta, patientChartDashboardMeta } from './dashboard.meta';
@@ -17,7 +18,7 @@ import {
   missedAppointmentsPanelConfigSchema,
 } from './scheduled-appointments-config-schema';
 
-const moduleName = '@openmrs/esm-appointments-app';
+const moduleName = '@sihsalus/esm-appointments-app';
 
 const options = {
   featureName: 'appointments',

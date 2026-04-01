@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+
 import type { ChartData } from '../data-sets';
 
 export function useChartDataForGender(gender: string, chartData: ChartData = {}) {

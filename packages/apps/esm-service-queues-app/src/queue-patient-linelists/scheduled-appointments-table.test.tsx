@@ -1,9 +1,12 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { type ConfigObject, configSchema } from '../config-schema';
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockAppointmentsData } from '__mocks__';
+import React from 'react';
+
+import { type ConfigObject, configSchema } from '../config-schema';
+
+
 import AppointmentsTable from './scheduled-appointments-table.component';
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);

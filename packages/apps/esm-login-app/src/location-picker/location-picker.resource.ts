@@ -1,7 +1,8 @@
+import { type FetchResponse, openmrsFetch, setUserProperties, showSnackbar, useSession } from '@openmrs/esm-framework';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSwrImmutable from 'swr/immutable';
-import { type FetchResponse, openmrsFetch, setUserProperties, showSnackbar, useSession } from '@openmrs/esm-framework';
+
 import { useValidateLocationUuid } from '../login.resource';
 import { type LocationResponse } from '../types';
 
@@ -36,7 +37,7 @@ export function useDefaultLocation(isUpdateFlow: boolean) {
           defaultLocation: locationUuid,
         };
         await setUserProperties(userUuid, updatedUserProperties);
-      } else if (!!userProperties?.defaultLocation) {
+      } else if (userProperties?.defaultLocation) {
         // If the user doesn't want to save the preference,
         // the old preference should be deleted
         const updatedUserProperties = { ...userProperties };

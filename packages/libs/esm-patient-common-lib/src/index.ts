@@ -3,6 +3,7 @@ export * from './compare';
 export * from './dashboards/createDashboardLink';
 export * from './dashboards/DashboardExtension';
 export * from './empty-state';
+export * from './expression-evaluator';
 export * from './error-state';
 export * from './form-entry-interop';
 export * from './form-entry/form-entry';

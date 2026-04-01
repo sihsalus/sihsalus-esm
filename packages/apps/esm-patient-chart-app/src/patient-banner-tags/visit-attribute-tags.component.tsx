@@ -1,7 +1,8 @@
-import React from 'react';
 import { Tag } from '@carbon/react';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
 import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
+
 import { type ChartConfig } from '../config-schema';
 
 interface VisitAttributeTagsProps {

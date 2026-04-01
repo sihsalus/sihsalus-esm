@@ -1,7 +1,3 @@
-import React, { useState } from 'react';
-import { z } from 'zod';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   ComposedModal,
@@ -15,10 +11,15 @@ import {
   TextArea,
   TextInput,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { getCoreTranslation, type Location } from '@openmrs/esm-framework';
-import type { BedType, BedTypeData } from '../types';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import styles from '../modals.scss';
+import type { BedType, BedTypeData } from '../types';
 
 const BedTypeAdministrationSchema = z.object({
   name: z.string().max(255),

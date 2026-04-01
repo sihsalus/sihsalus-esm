@@ -1,6 +1,7 @@
-import React from 'react';
 import { interpolateUrl, useConfig } from '@openmrs/esm-framework';
 import { type TFunction } from 'i18next';
+import React from 'react';
+
 import { type ConfigSchema } from './config-schema';
 import styles from './login/login.scss';
 

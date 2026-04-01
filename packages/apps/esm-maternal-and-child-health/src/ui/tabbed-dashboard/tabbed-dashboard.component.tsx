@@ -1,8 +1,9 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { ExtensionSlot } from '@openmrs/esm-framework';
 import { Layer, Tile } from '@carbon/react';
+import { ExtensionSlot } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useState, useMemo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './tabbed-dashboard.scss';
 
 export interface TabConfig {

@@ -18,6 +18,7 @@ import {
 import { useLayoutType, usePagination } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import DyakuPatientSyncButton from './dyaku-patient-sync-button.component';
 import DyakuPatientsSync from './dyaku-patients-sync.component';
 import styles from './dyaku-patients-table.scss';

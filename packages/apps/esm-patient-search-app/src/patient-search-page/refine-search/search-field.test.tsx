@@ -1,10 +1,12 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { SearchField } from './search-field.component';
-import { usePersonAttributeType } from './person-attributes.resource';
-import { type AdvancedPatientSearchState, type SearchFieldConfig } from '../../types';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { renderWithSwr } from 'tools';
+
+import { type AdvancedPatientSearchState, type SearchFieldConfig } from '../../types';
+
+import { usePersonAttributeType } from './person-attributes.resource';
+import { SearchField } from './search-field.component';
 
 jest.mock('./person-attributes.resource', () => ({
   usePersonAttributeType: jest.fn(),

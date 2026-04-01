@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
 import { ChemistryReference } from '@carbon/react/icons';
-import styles from '../ward-patient-card.scss';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type WardPatient } from '../../types';
+
 import { usePatientPendingOrders } from '../../hooks/usePatientPendingOrders';
+import { type WardPatient } from '../../types';
+import styles from '../ward-patient-card.scss';
 
 export interface WardPatientPendingOrderProps {
   wardPatient: WardPatient;

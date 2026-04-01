@@ -1,7 +1,8 @@
-import useSWR from 'swr';
-import type { Encounter, Observation } from '../ui/encounter-list/encounter.resource';
 import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import type { ConfigObject } from '../config-schema'; // Adjust the import path as needed
+import type { Encounter, Observation } from '../ui/encounter-list/encounter.resource';
 import { encounterRepresentation } from '../utils/constants'; // Adjust the import path as needed
 
 export function useImmediateNewbornAttentions(patientUuid: string) {

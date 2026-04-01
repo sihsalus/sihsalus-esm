@@ -58,7 +58,7 @@ const ObsTable: React.FC<ObsTableProps> = ({ patientUuid }) => {
               break;
 
             case 'Number': {
-              const decimalPlaces: number | undefined = config.data.find((ele: any) => ele.concept === obs.conceptUuid)
+              const decimalPlaces: number | undefined = config.data.find((ele: { concept: string }) => ele.concept === obs.conceptUuid)
                 ?.decimalPlaces;
 
               if (obs.valueQuantity?.value % 1 !== 0) {

@@ -17,6 +17,7 @@ import React, { useEffect, useMemo } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
+
 import type { ConfigObject } from '../config-schema';
 import { useMappedRelationshipTypes } from '../family-partner-history/relationships.resource';
 import PatientSearchCreate from '../relationships/forms/patient-search-create-form.component';
@@ -25,6 +26,7 @@ import {
   PARTNER_HIV_STATUS_CONCEPT_UUID,
   PNS_APROACH_CONCEPT_UUID,
 } from '../relationships/relationships-constants';
+
 import { contactListConceptMap } from './contact-list-concept-map';
 import styles from './contact-list-form.scss';
 import {

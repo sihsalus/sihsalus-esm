@@ -1,12 +1,14 @@
 import { showNotification, useAppContext, useFeatureFlag } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { WardViewContext } from '../types';
 import {
   getWardMetricNameTranslation,
   getWardMetrics,
   getWardMetricValueTranslation,
 } from '../ward-view/ward-view.resource';
+
 import WardMetric from './ward-metric.component';
 import styles from './ward-metrics.scss';
 

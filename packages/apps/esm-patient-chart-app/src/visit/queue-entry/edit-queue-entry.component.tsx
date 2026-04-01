@@ -1,9 +1,10 @@
-import React, { type ComponentProps, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import { EditIcon, showModal, useLayoutType } from '@openmrs/esm-framework';
-import { type MappedVisitQueueEntry } from './queue.resource';
+import React, { type ComponentProps, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './edit-queue-entry.scss';
+import { type MappedVisitQueueEntry } from './queue.resource';
 
 interface EditQueueEntryProps {
   queueEntry: MappedVisitQueueEntry;

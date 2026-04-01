@@ -1,14 +1,16 @@
-import React, { useContext, useMemo } from 'react';
-import classNames from 'classnames';
-import { Field } from 'formik';
-import { useTranslation } from 'react-i18next';
 import { InlineNotification, Layer, Select, SelectItem } from '@carbon/react';
 import { OpenmrsDatePicker, useConfig } from '@openmrs/esm-framework';
-import { type ConceptResponse } from '../../patient-registration.types';
+import classNames from 'classnames';
+import { Field } from 'formik';
+import React, { useContext, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type FieldDefinition, type RegistrationConfig } from '../../../config-schema';
 import { Input } from '../../input/basic-input/input/input.component';
-import { useConcept, useConceptAnswers } from '../field.resource';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+import { type ConceptResponse } from '../../patient-registration.types';
+import { useConcept, useConceptAnswers } from '../field.resource';
+
 import styles from './../field.scss';
 
 export interface ObsFieldProps {

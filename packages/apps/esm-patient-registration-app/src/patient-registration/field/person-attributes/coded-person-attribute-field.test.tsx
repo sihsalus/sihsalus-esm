@@ -1,7 +1,9 @@
-import React from 'react';
-import { Form, Formik } from 'formik';
 import { render, screen } from '@testing-library/react';
+import { Form, Formik } from 'formik';
+import React from 'react';
+
 import { useConceptAnswers } from '../field.resource';
+
 import { CodedPersonAttributeField } from './coded-person-attribute-field.component';
 
 const mockUseConceptAnswers = jest.mocked(useConceptAnswers);

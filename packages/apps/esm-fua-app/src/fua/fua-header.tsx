@@ -1,7 +1,8 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Calendar, Location } from '@carbon/react/icons';
 import { useSession, formatDate } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './fua-header.scss';
 import FuaIllustration from './fua-illustration';
 

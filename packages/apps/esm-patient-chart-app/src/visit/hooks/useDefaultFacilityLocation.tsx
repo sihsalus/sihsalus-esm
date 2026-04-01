@@ -1,5 +1,6 @@
 import { type FetchResponse, openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
+
 import { type ChartConfig } from '../../config-schema';
 
 export const useDefaultFacilityLocation = () => {

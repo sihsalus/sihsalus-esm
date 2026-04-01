@@ -1,5 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -19,13 +17,17 @@ import {
 } from '@carbon/react';
 import { Add, Edit } from '@carbon/react/icons';
 import { ErrorState, isDesktop as desktopLayout, useLayoutType, usePagination } from '@openmrs/esm-framework';
-import type { BedWithLocation } from '../types';
-import { useBedsGroupedByLocation } from '../summary/summary.resource';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import CardHeader from '../card-header/card-header.component';
-import EditBedForm from './edit-bed-form.component';
 import Header from '../header/header.component';
-import NewBedForm from './new-bed-form.component';
+import { useBedsGroupedByLocation } from '../summary/summary.resource';
+import type { BedWithLocation } from '../types';
+
 import styles from './bed-administration-table.scss';
+import EditBedForm from './edit-bed-form.component';
+import NewBedForm from './new-bed-form.component';
 
 const BedAdministrationTable: React.FC = () => {
   const { t } = useTranslation();

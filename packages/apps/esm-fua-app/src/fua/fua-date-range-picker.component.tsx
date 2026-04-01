@@ -1,9 +1,11 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
 import { DatePicker, DatePickerInput } from '@carbon/react';
 import { useAppContext } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type DateFilterContext } from '../types';
+
 import styles from './fua-date-range-picker.scss';
 
 export const FuaDateRangePicker = () => {

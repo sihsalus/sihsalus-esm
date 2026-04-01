@@ -1,7 +1,7 @@
+import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { of } from 'rxjs';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import {
   useConfig,
@@ -11,10 +11,13 @@ import {
   type Session,
   useLeftNavStore,
 } from '@openmrs/esm-framework';
-import { isDesktop } from './utils';
-import { mockUser } from '../__mocks__/mock-user';
+
 import { mockSession } from '../__mocks__/mock-session';
+import { mockUser } from '../__mocks__/mock-user';
+
 import Root from './root.component';
+import { isDesktop } from './utils';
+
 
 const mockUserObservable = of(mockUser);
 const mockSessionObservable = of({ data: mockSession });

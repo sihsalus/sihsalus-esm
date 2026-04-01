@@ -1,8 +1,10 @@
-import React from 'react';
 import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { isDesktop, showModal, useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
+
 import styles from './queue-table-action-cell.scss';
 
 export function QueueTableActionCell({ queueEntry }: QueueTableCellComponentProps) {

@@ -1,9 +1,11 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import useSWR from 'swr';
-import { type Identifier } from '../types';
-import { configSchema } from '../config-schema';
-import SelectedDateContext from './selectedDateContext';
 import { useContext } from 'react';
+import useSWR from 'swr';
+
+import { configSchema } from '../config-schema';
+import { type Identifier } from '../types';
+
+import SelectedDateContext from './selectedDateContext';
 
 export interface Response {
   age: number;

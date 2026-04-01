@@ -1,5 +1,8 @@
+import { spawn } from 'node:child_process';
+
 import type { ImportmapDeclaration } from '../utils';
-import { loadWebpackConfig, logInfo, logWarn } from '../utils';
+import { rspackBin, shellDir, logInfo } from '../utils';
+import { setShellEnvVars } from '../utils/config';
 
 export interface DebugArgs {
   port: number;
@@ -14,12 +17,7 @@ export interface DebugArgs {
 }
 
 export function runDebug(args: DebugArgs) {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const webpack = require('webpack');
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const WebpackDevServer = require('webpack-dev-server');
-
-  const config = loadWebpackConfig({
+  setShellEnvVars({
     importmap: args.importmap,
     backend: args.backend,
     apiUrl: args.apiUrl,
@@ -32,24 +30,16 @@ export function runDebug(args: DebugArgs) {
 
   logInfo(`Starting the dev server ...`);
 
-  const { host, port } = args;
-  const options = {
-    ...(config['devServer'] ?? {}),
-    port,
-    host,
-    publicPath: args.spaPath,
-    stats: { colors: true },
-  };
-
-  const server = new WebpackDevServer(webpack(config), options);
-
-  server.listen(port, host, (err?: Error) => {
-    if (err) {
-      logWarn(`Error: ${err}`);
-    } else {
-      logInfo(`Listening at http://${host}:${port}`);
-    }
+  return new Promise<void>((res, rej) => {
+    const ps = spawn(
+      process.execPath,
+      [rspackBin, 'serve', '--mode', 'development', '--port', String(args.port), '--host', args.host],
+      { cwd: shellDir, stdio: 'inherit' },
+    );
+    ps.on('error', rej);
+    // code === null means the process was killed by a signal (e.g. Ctrl+C); treat as clean exit
+    ps.on('exit', (code) =>
+      code === 0 || code === null ? res() : rej(new Error(`rspack serve exited with code ${code}`)),
+    );
   });
-
-  return new Promise<void>(() => {});
 }

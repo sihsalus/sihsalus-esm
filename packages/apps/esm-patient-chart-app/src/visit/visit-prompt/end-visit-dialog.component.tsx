@@ -1,10 +1,12 @@
-import React from 'react';
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar, updateVisit, useVisit, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useInfiniteVisits2 } from '../visits-widget/visit.resource';
-import styles from './end-visit-dialog.scss';
+
 import { type ChartConfig } from '../../config-schema';
+import { useInfiniteVisits2 } from '../visits-widget/visit.resource';
+
+import styles from './end-visit-dialog.scss';
 
 // Placeholder for useFUATemplate hook
 const useFUATemplate = (templateUuid: string) => {

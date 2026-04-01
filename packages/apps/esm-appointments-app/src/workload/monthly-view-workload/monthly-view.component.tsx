@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
 import dayjs from 'dayjs';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { monthDays } from '../../helpers';
+
 import DaysOfWeekCard from '../../calendar/monthly/days-of-week.component';
-import MonthlyWorkloadCard from './monthlyWorkCard';
+import { monthDays } from '../../helpers';
 import SelectedDateContext from '../../hooks/selectedDateContext';
+
 import styles from './monthly-workload.scss';
+import MonthlyWorkloadCard from './monthlyWorkCard';
 
 interface MonthlyCalendarViewProps {
   calendarWorkload: Array<{ count: number; date: string }>;

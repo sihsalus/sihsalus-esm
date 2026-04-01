@@ -1,8 +1,9 @@
-import React from 'react';
+import { openmrsFetch, setCurrentVisit } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { openmrsFetch, setCurrentVisit } from '@openmrs/esm-framework';
+import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+
 import PastVisitOverview from './past-visit-overview.component';
 
 const defaultProps = {

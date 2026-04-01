@@ -1,14 +1,16 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync, readFileSync } from 'node:fs';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve, dirname, basename } from 'node:path';
 import { Readable } from 'node:stream';
-import { prompt, type Question } from 'inquirer';
-import { rimraf } from 'rimraf';
+
 import axios from 'axios';
+import { prompt, type Question } from 'inquirer';
+import merge from 'lodash/merge';
 import npmRegistryFetch from 'npm-registry-fetch';
 import pacote from 'pacote';
+import { rimraf } from 'rimraf';
 import semver from 'semver';
-import merge from 'lodash/merge';
+
 import { contentHash, logInfo, logWarn, untar } from '../utils';
 import { getNpmRegistryConfiguration } from '../utils/npmConfig';
 
@@ -194,7 +196,7 @@ async function downloadPackage(
     const packageName = esmVersion ? `${esmName}@${esmVersion}` : esmName;
     const tarManifest = await pacote.manifest(packageName, fetchOptions);
 
-    if (!Boolean(tarManifest) || !Boolean(tarManifest._resolved) || !Boolean(tarManifest._integrity)) {
+    if (!tarManifest || !tarManifest._resolved || !tarManifest._integrity) {
       throw new Error(`Failed to load manifest for ${packageName} from registry ${fetchOptions.registry}`);
     }
 
@@ -214,7 +216,7 @@ async function extractFiles(buffer: Buffer, targetDir: string): Promise<[string,
   const entryModule = packageJson.browser ?? packageJson.module ?? packageJson.main;
   const fileName = basename(entryModule);
   const sourceDir = dirname(entryModule);
-  let outputDir = `${targetDir}-${version}`;
+  const outputDir = `${targetDir}-${version}`;
   await mkdir(outputDir, { recursive: true });
 
   await Promise.all(
@@ -280,9 +282,7 @@ export async function runAssemble(args: AssembleArgs) {
           `Routes file ${appRoutes} does not exist. We expect that routes file to be defined by ${esmName}. Note that this means that no pages or extensions for ${esmName} will be available.`,
         );
 
-        if (routes.hasOwnProperty(esmName)) {
-          delete routes[esmName];
-        }
+        delete routes[esmName];
       }
 
       importmap.imports[esmName] = `${publicUrl}/${dirName}/${fileName}`;

@@ -1,6 +1,7 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { useSystemSetting } from '../hooks/useSystemSetting';
+
 import { useConcept } from '../hooks/useConcept';
+import { useSystemSetting } from '../hooks/useSystemSetting';
 
 export function useServiceConcepts() {
   const { systemSetting: serviceConceptSetting } = useSystemSetting('queue.serviceConceptSetName');

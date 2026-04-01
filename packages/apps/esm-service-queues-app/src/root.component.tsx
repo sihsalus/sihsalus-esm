@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AppointmentsTable from './queue-patient-linelists/scheduled-appointments-table.component';
+
 import Home from './home.component';
 import ServicesTable from './queue-patient-linelists/queue-services-table.component';
+import AppointmentsTable from './queue-patient-linelists/scheduled-appointments-table.component';
 import QueueScreen from './queue-screen/queue-screen.component';
 import QueueTableByStatusView from './views/queue-table-by-status-view.component';
 

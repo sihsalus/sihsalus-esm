@@ -1,8 +1,10 @@
 import React, { type ReactNode } from 'react';
-import styles from './ward-view-header.scss';
-import AdmissionRequestsBar from './admission-requests-bar.component';
+
 import useWardLocation from '../hooks/useWardLocation';
+
+import AdmissionRequestsBar from './admission-requests-bar.component';
 import WardMetrics from './ward-metrics.component';
+import styles from './ward-view-header.scss';
 
 interface WardViewHeaderProps {
   wardPendingPatients: ReactNode;

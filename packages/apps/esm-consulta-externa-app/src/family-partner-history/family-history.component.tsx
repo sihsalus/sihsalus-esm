@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -16,7 +14,6 @@ import {
   Button,
 } from '@carbon/react';
 import { Add, Edit, TrashCan } from '@carbon/react/icons';
-import { EmptyDataIllustration, ErrorState, CardHeader, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import {
   ConfigurableLink,
   isDesktop,
@@ -25,11 +22,17 @@ import {
   useLayoutType,
   usePagination,
 } from '@openmrs/esm-framework';
-import { usePatientRelationships } from './relationships.resource';
-import ConceptObservations from './concept-obs.component';
+import { EmptyDataIllustration, ErrorState, CardHeader, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+
 import type { ConfigObject } from '../config-schema';
-import styles from './family-history.scss';
 import { deleteRelationship } from '../relationships/relationship.resources';
+
+import ConceptObservations from './concept-obs.component';
+import styles from './family-history.scss';
+import { usePatientRelationships } from './relationships.resource';
 
 interface FamilyHistoryProps {
   patientUuid: string;

@@ -1,0 +1,26 @@
+@use "@carbon/layout";
+@use "@carbon/type";
+
+.grid {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.productiveHeading03 {
+  @include type.type-style('heading-03');
+  margin-bottom: layout.$spacing-03;
+}
+
+.form {
+  margin-top: layout.$spacing-07;
+}
+
+.formText {
+  padding-bottom: layout.$spacing-05;
+}
+
+.fileUploaderDropContainer {
+  margin-bottom: layout.$spacing-06;
+}

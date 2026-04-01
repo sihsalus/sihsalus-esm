@@ -2,8 +2,10 @@ import { ContentSwitcher, Switch } from '@carbon/react';
 import { useFeatureFlag } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { WardPatientWorkspaceProps } from '../../types';
 import WardPatientWorkspaceBanner from '../patient-banner/patient-banner.component';
+
 import PatientAdmitOrTransferForm from './patient-admit-or-transfer-request-form.component';
 import PatientBedSwapForm from './patient-bed-swap-form.component';
 import styles from './patient-transfer-swap.scss';

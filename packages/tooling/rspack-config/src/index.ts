@@ -38,11 +38,7 @@
  */
 import { existsSync, statSync } from 'fs';
 import { basename, dirname, resolve } from 'path';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
-// eslint-disable-next-line no-restricted-imports
-import { isArray, merge, mergeWith } from 'lodash';
-import { inc } from 'semver';
+
 import rspack, {
   container,
   CopyRspackPlugin,
@@ -51,6 +47,11 @@ import rspack, {
   type RuleSetRule,
   type RspackOptionsNormalized as RspackConfiguration,
 } from '@rspack/core';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// eslint-disable-next-line no-restricted-imports
+import { isArray, merge, mergeWith } from 'lodash';
+import { inc } from 'semver';
+import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { StatsWriterPlugin } from 'webpack-stats-plugin';
 
@@ -73,7 +74,7 @@ function getFrameworkVersion() {
 
 function makeIdent(name: string): string {
   if (name.includes('/')) {
-    name = name.slice(name.indexOf('/'));
+    name = name.slice(name.indexOf('/') + 1);
   }
   if (name.endsWith('-app')) {
     name = name.slice(0, -4);
@@ -81,14 +82,14 @@ function makeIdent(name: string): string {
   return name;
 }
 
-function mergeFunction(objValue: any, srcValue: any) {
+function mergeFunction(objValue: unknown, srcValue: unknown) {
   if (isArray(objValue)) {
     return objValue.concat(srcValue);
   }
 }
 
 function slugify(name: string) {
-  return name.replace(/[\/\-@]/g, '_');
+  return name.replace(/[/\-@]/g, '_');
 }
 
 function fileExistsSync(name: string) {
@@ -178,6 +179,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
     loader: require.resolve('css-loader'),
     options: {
       modules: {
+        namedExport: false,
         localIdentName: `${ident}__[name]__[local]___[hash:base64:5]`,
       },
     },
@@ -199,7 +201,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
         merge(
           {
             test: /\.m?(js|ts|tsx)$/,
-            exclude: /node_modules(?![\/\\]@openmrs)/,
+            exclude: /node_modules(?![/\\]@openmrs)/,
             loader: 'swc-loader',
             options: {
               jsc: {
@@ -249,6 +251,10 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
     },
     mode,
     devtool: mode === production ? 'hidden-nosources-source-map' : 'source-map',
+    stats: mode === production ? 'normal' : 'errors-warnings',
+    infrastructureLogging: {
+      level: 'warn',
+    },
     devServer: {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -287,7 +293,12 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
       optimizationConfig,
     ),
     plugins: [
-      mode !== production && new TsCheckerRspackPlugin(),
+      mode !== production &&
+        new TsCheckerRspackPlugin({
+          issue: {
+            exclude: [(issue) => issue.file?.includes('node_modules') ?? false],
+          },
+        }),
       new CleanWebpackPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: env && env.analyze ? 'server' : 'disabled',
@@ -359,6 +370,10 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
     ].filter(Boolean),
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.json'],
+      extensionAlias: {
+        '.js': ['.ts', '.tsx', '.js'],
+        '.jsx': ['.tsx', '.jsx'],
+      },
       alias: {
         '@openmrs/esm-framework': '@openmrs/esm-framework/src/internal',
         'lodash.debounce': 'lodash-es/debounce',

@@ -9,6 +9,7 @@ import type {
   Visit,
 } from '@openmrs/esm-framework';
 import type React from 'react';
+
 import type { useWardPatientGrouping } from '../hooks/useWardPatientGrouping';
 
 interface WardPatientCardProps {

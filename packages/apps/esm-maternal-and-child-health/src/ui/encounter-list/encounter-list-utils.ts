@@ -1,4 +1,5 @@
 import { formatDate, parseDate } from '@openmrs/esm-framework';
+
 import { TRUE_CONCEPT_UUID } from '../../utils/constants';
 
 export function getEncounterValues(encounter: Record<string, string>, param: string, isDate?: boolean) {
@@ -31,7 +32,7 @@ export function getObsFromEncounters(encounters: Array<Record<string, any>>, obs
 }
 
 export function getMultipleObsFromEncounter(encounter: Record<string, any>, obsConcepts: Array<string>) {
-  let observations = [];
+  const observations = [];
   obsConcepts.map((concept) => {
     const obs = getObsFromEncounter(encounter, concept);
     if (obs !== '--') {
@@ -88,7 +89,7 @@ export function mapObsValueToFormLabel(
     } else if (answerConceptUuid === '2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA') {
       answerConceptUuid = '1';
     }
-    let theDisplay = formConceptMap[conceptUuid]?.answers[answerConceptUuid];
+    const theDisplay = formConceptMap[conceptUuid]?.answers[answerConceptUuid];
 
     if (typeof theDisplay !== 'undefined') {
       return theDisplay;
@@ -136,7 +137,7 @@ export function mapConceptToFormLabel(conceptUuid: string, formConceptMap: Recor
     return defaultValue;
   }
 
-  let theDisplay = formConceptMap[conceptUuid] ? formConceptMap[conceptUuid].display : defaultValue;
+  const theDisplay = formConceptMap[conceptUuid] ? formConceptMap[conceptUuid].display : defaultValue;
 
   return theDisplay;
 }
@@ -151,8 +152,8 @@ export function generateFormLabelsFromJSON() {
   htsScreeningJson.pages.forEach((page) => {
     page.sections.forEach((section) => {
       section.questions.forEach((question) => {
-        let answersMap = {};
-        let questionObject = {};
+        const answersMap = {};
+        const questionObject = {};
         question.questionOptions.answers?.forEach((ans) => {
           answersMap[ans.concept] = ans.label;
         });

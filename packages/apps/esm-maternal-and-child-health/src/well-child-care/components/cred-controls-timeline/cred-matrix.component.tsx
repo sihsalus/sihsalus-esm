@@ -1,12 +1,14 @@
+import { DataTableSkeleton } from '@carbon/react';
+import { useConfig } from '@openmrs/esm-framework';
+import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DataTableSkeleton } from '@carbon/react';
-import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
-import { useConfig } from '@openmrs/esm-framework';
+
+import type { ConfigObject } from '../../../config-schema';
 import { useCREDSchedule, type CREDControlWithStatus } from '../../../hooks/useCREDSchedule';
+
 import styles from './cred-matrix.scss';
 import CredTile from './cred-tile';
-import type { ConfigObject } from '../../../config-schema';
 
 interface CredControlsMatrixProps {
   patientUuid: string;

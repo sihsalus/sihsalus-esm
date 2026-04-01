@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "billing": ">=2.0.0",
+    "webservices.rest": ">=2.24.0"
+  },
+  "pages": [
+    {
+      "component": "billableServicesHome",
+      "route": "billable-services"
+    }
+  ],
+  "extensions": [
+    {
+      "component": "billingDashboardLink",
+      "name": "billing-dashboard-link",
+      "slot": "homepage-dashboard-slot",
+      "meta": {
+        "name": "billing",
+        "title": "billing",
+        "slot": "billing-dashboard-slot"
+      }
+    },
+    {
+      "component": "root",
+      "name": "billing-dashboard-root",
+      "slot": "billing-dashboard-slot"
+    },
+    {
+      "name": "billing-patient-summary",
+      "component": "billingPatientSummary",
+      "slot": "patient-chart-billing-dashboard-slot",
+      "order": 10,
+      "meta": {
+        "columnSpan": 4
+      }
+    },
+    {
+      "name": "billing-summary-dashboard-link",
+      "component": "billingSummaryDashboardLink",
+      "slot": "patient-chart-dashboard-slot",
+      "order": 11,
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-billing-dashboard-slot",
+        "path": "Billing history"
+      }
+    },
+    {
+      "name": "billable-services-app-menu-item",
+      "component": "billableServicesAppMenuItem",
+      "slot": "app-menu-item-slot",
+      "meta": {
+        "name": "Billable Services"
+      }
+    },
+    {
+      "name": "billing-checkin-form",
+      "slot": "extra-visit-attribute-slot",
+      "component": "billingCheckInForm"
+    },
+    {
+      "slot": "system-admin-page-card-link-slot",
+      "component": "billableServicesCardLink",
+      "name": "billable-services-admin-card-link"
+    },
+    {
+      "name": "patient-banner-billing-tags",
+      "component": "visitAttributeTags",
+      "slot": "patient-banner-tags-slot",
+      "order": 2
+    },
+    {
+      "name": "billable-services-left-panel-link",
+      "component": "billableServicesLeftPanelLink",
+      "slot": "billable-services-left-panel-slot",
+      "order": 0
+    },
+    {
+      "name": "billing-settings-left-panel-menu",
+      "component": "billingSettingsLeftPanelMenu",
+      "slot": "billable-services-left-panel-slot",
+      "order": 1
+    }
+  ],
+  "modals": [
+    {
+      "name": "add-cash-point-modal",
+      "component": "addCashPointModal"
+    },
+    {
+      "name": "payment-mode-form-modal",
+      "component": "paymentModeFormModal"
+    },
+    {
+      "name": "delete-payment-mode-modal",
+      "component": "deletePaymentModeModal"
+    },
+    {
+      "name": "edit-bill-item-modal",
+      "component": "editBillLineItemModal"
+    },
+    {
+      "name": "edit-bill-line-item-modal",
+      "component": "editBillLineItemModal"
+    },
+    {
+      "name": "require-billing-modal",
+      "component": "requirePaymentModal"
+    },
+    {
+      "name": "delete-line-item-confirmation-modal",
+      "component": "deleteLineItemConfirmationModal"
+    }
+  ],
+  "workspaces2": [
+    {
+      "name": "billing-form-workspace",
+      "component": "billingFormWorkspace",
+      "window": "billing-form-window"
+    },
+    {
+      "name": "billable-service-form",
+      "component": "billableServiceFormWorkspace",
+      "window": "billable-service-form-window"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "billing-form-window",
+      "group": "billingFormWorkspaceGroup"
+    },
+    {
+      "name": "billable-service-form-window",
+      "group": "billingFormWorkspaceGroup",
+      "width": "wider"
+    }
+  ],
+  "workspaceGroups2": [
+    {
+      "name": "billingFormWorkspaceGroup",
+      "overlay": false
+    }
+  ]
+}

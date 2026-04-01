@@ -1,9 +1,11 @@
+import { useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { vi, describe, it, expect } from 'vitest';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { useConfig } from '@openmrs/esm-framework';
+
 import { type ConfigSchema } from '../../config-schema';
+
 import Logo from './logo.component';
 
 vi.mock('@openmrs/esm-framework', async (importOriginal) => {

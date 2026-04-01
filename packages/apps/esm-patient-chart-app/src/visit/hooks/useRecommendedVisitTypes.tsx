@@ -1,6 +1,7 @@
+import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
+
 import { type ChartConfig } from '../../config-schema';
 
 interface EnrollmentVisitType {

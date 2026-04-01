@@ -1,10 +1,13 @@
-/* eslint-disable testing-library/no-node-access */
-import React from 'react';
-import { screen, within } from '@testing-library/react';
+/* eslint-disable */
 import { getDefaultsFromConfigSchema, useConfig, useSession } from '@openmrs/esm-framework';
-import { renderWithSwr } from 'tools';
-import { type ConfigObject, configSchema } from '../config-schema';
+import { screen, within } from '@testing-library/react';
 import { mockPriorityNonUrgent, mockPriorityUrgent, mockQueueEntries, mockSession } from '__mocks__';
+import React from 'react';
+import { renderWithSwr } from 'tools';
+
+import { type ConfigObject, configSchema } from '../config-schema';
+
+
 import QueueTable from './queue-table.component';
 
 const mockUseSession = jest.mocked(useSession);

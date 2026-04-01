@@ -1,16 +1,18 @@
-import React from 'react';
+import { Button } from '@carbon/react';
+import { TaskComplete } from '@carbon/react/icons';
+import { navigate, showModal, useConfig } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import utc from 'dayjs/plugin/utc';
-import { Button } from '@carbon/react';
-import { TaskComplete } from '@carbon/react/icons';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { navigate, showModal, useConfig } from '@openmrs/esm-framework';
-import { type Appointment, AppointmentStatus } from '../../types';
+
 import { type ConfigObject } from '../../config-schema';
 import { useTodaysVisits } from '../../hooks/useTodaysVisits';
-import CheckInButton from './checkin-button.component';
+import { type Appointment, AppointmentStatus } from '../../types';
+
 import styles from './appointments-actions.scss';
+import CheckInButton from './checkin-button.component';
 
 dayjs.extend(utc);
 dayjs.extend(isToday);

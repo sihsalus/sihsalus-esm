@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { ClaimManagementHeader } from '../header/case-management-header';
-import CaseManagementTabs from '../tabs/case-management-tabs.component';
 import MetricsHeader from '../metrics/case-management-header.component';
+import CaseManagementTabs from '../tabs/case-management-tabs.component';
 
 const WrapComponent: React.FC = () => {
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);

@@ -1,6 +1,6 @@
 import { type FetchResponse, openmrsFetch, type OpenmrsResource, restBaseUrl } from '@openmrs/esm-framework';
-import useSWRImmutable from 'swr/immutable';
 import { useMemo } from 'react';
+import useSWRImmutable from 'swr/immutable';
 
 interface EmrApiConfigurationResponse {
   atFacilityVisitType: OpenmrsResource;

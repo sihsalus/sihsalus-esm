@@ -1,6 +1,7 @@
 import { useSession, type Visit, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
+
 import { type WaitTime } from '../types';
 
 export function useActiveVisits() {

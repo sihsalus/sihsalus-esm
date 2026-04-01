@@ -1,8 +1,9 @@
-import React from 'react';
-import { screen } from '@testing-library/react';
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
-import { renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { screen } from '@testing-library/react';
 import { mockAppointmentsData } from '__mocks__';
+import React from 'react';
+import { renderWithSwr, waitForLoadingToFinish } from 'tools';
+
 import AppointmentTabs from './appointment-tabs.component';
 
 const mockOpenmrsFetch = jest.mocked(openmrsFetch);

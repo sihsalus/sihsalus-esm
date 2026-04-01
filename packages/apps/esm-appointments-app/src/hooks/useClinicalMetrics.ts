@@ -1,16 +1,18 @@
-import { useContext, useMemo } from 'react';
-import { uniqBy } from 'lodash-es';
-import dayjs from 'dayjs';
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import { uniqBy } from 'lodash-es';
+import { useContext, useMemo } from 'react';
+import useSWR from 'swr';
+
 import { omrsDateFormat } from '../constants';
 import {
   flattenAppointmentSummary,
   getHighestAppointmentServiceLoad,
   getServiceCountByAppointmentType,
 } from '../helpers';
-import SelectedDateContext from './selectedDateContext';
 import { type Appointment, type AppointmentSummary } from '../types';
+
+import SelectedDateContext from './selectedDateContext';
 
 export const useClinicalMetrics = () => {
   const { selectedDate } = useContext(SelectedDateContext);

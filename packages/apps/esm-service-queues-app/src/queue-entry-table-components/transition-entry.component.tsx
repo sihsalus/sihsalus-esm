@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
-import { mutate } from 'swr';
 import { Button } from '@carbon/react';
 import { Notification } from '@carbon/react/icons';
 import { restBaseUrl, showModal, showNotification } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
+
 import { type MappedVisitQueueEntry, serveQueueEntry } from '../active-visits/active-visits-table.resource';
+
 import styles from './transition-entry.scss';
 
 interface TransitionMenuProps {

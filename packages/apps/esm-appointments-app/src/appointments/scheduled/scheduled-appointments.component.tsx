@@ -1,8 +1,4 @@
-import React, { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ContentSwitcher, Switch } from '@carbon/react';
-import dayjs from 'dayjs';
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 import {
   ExtensionSlot,
   Extension,
@@ -12,7 +8,13 @@ import {
   useLayoutType,
   isDesktop,
 } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import React, { useCallback, useContext, useEffect, useReducer, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import SelectedDateContext from '../../hooks/selectedDateContext';
+
 import styles from './scheduled-appointments.scss';
 
 dayjs.extend(isSameOrBefore);
@@ -108,7 +110,7 @@ const ScheduledAppointments: React.FC<ScheduledAppointmentsProps> = ({ appointme
 function useAllowedExtensions() {
   const [allowedExtensions, dispatch] = useReducer(
     (state: Record<string, boolean>, action: { type: 'show_extension' | 'hide_extension'; extension: string }) => {
-      let addedState = {} as Record<string, boolean>;
+      const addedState = {} as Record<string, boolean>;
       switch (action.type) {
         case 'show_extension':
           addedState[action.extension] = true;
@@ -159,9 +161,11 @@ function ExtensionWrapper({
     ) {
       currentConfig.current = extension.config;
       currentDateType.current = dateType;
-      shouldDisplayExtensionTab(extension?.config, dateType)
-        ? showExtensionTab(extension.name)
-        : hideExtensionTab(extension.name);
+      if (shouldDisplayExtensionTab(extension?.config, dateType)) {
+        showExtensionTab(extension.name);
+      } else {
+        hideExtensionTab(extension.name);
+      }
     }
   }, [extension, dateType, showExtensionTab, hideExtensionTab]);
 

@@ -1,6 +1,8 @@
-import React from 'react';
 import { interpolateUrl, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+
 import { type ConfigSchema } from '../../config-schema';
+
 import styles from './logo.scss';
 
 const Logo: React.FC = () => {

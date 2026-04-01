@@ -1,6 +1,7 @@
 import { type FetchResponse, openmrsFetch, type OpenmrsResource, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
+
 import type { DispositionType } from '../types';
 
 interface LocationTag extends OpenmrsResource {

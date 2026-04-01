@@ -3,11 +3,13 @@ import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import styles from './queue-table.scss';
+
 import { useQueueEntries } from '../hooks/useQueueEntries';
 import { type Concept, type Queue, type QueueTableTabConfig } from '../types';
+
 import { QueueTableByStatusSkeleton } from './queue-table-by-status-skeleton.component';
 import QueueTable from './queue-table.component';
+import styles from './queue-table.scss';
 
 interface QueueTableByStatusProps {
   selectedQueue: Queue; // the selected queue

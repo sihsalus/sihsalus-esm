@@ -1,16 +1,18 @@
+import { NumberInput } from '@carbon/react';
 import React from 'react';
 import { Controller, type UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { type CostStructureFormValues } from '../schema/costructure-schema';
-import { NumberInput } from '@carbon/react';
+
 import { calculateAsignedCostGeneral } from '../../../utils/publicservices';
 import NoContent from '../../ui/NoContent/NoContent';
+import { type CostStructureFormValues } from '../schema/costructure-schema';
+
 import styles from './tabs.styles.scss';
 interface Props {
   form: UseFormReturn<CostStructureFormValues>;
 }
 export default function GeneralServiceTab({ form }: Props) {
-  const { control, setValue, watch } = form;
+  const { control, watch } = form;
   const { t } = useTranslation();
 
   const annualServices = watch('annualServicesCost');

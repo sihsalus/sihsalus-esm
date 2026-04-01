@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
 
 // reprevents a column showing which queue a queue entry belongs to

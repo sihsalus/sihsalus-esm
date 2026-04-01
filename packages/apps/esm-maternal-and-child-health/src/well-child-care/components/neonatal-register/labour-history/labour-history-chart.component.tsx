@@ -1,11 +1,13 @@
+import { LineChart } from '@carbon/charts-react';
+import { Tab, Tabs, TabList } from '@carbon/react';
+import { formatDate, parseDate } from '@openmrs/esm-framework';
+import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tab, Tabs, TabList } from '@carbon/react';
-import { LineChart } from '@carbon/charts-react';
-import classNames from 'classnames';
-import { formatDate, parseDate } from '@openmrs/esm-framework';
-import styles from './labour-history-chart.scss';
+
 import type { LabourHistoryTableRow } from '../../../common/types';
+
+import styles from './labour-history-chart.scss';
 
 interface LabourHistoryChartProps {
   patientHistory: Array<LabourHistoryTableRow>;

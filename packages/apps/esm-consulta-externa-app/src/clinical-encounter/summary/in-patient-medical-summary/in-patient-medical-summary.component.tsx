@@ -1,14 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { OverflowMenu, OverflowMenuItem, InlineLoading } from '@carbon/react';
 import { launchWorkspace, useConfig } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
-import { OverflowMenu, OverflowMenuItem, InlineLoading } from '@carbon/react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import type { KeyedMutator } from 'swr';
+
 import type { ConfigObject } from '../../../config-schema';
+import type { OpenmrsEncounter } from '../../../types';
+import styles from '../../dashboard/in-patient.scss';
 import SummaryCard from '../summary-card.component';
 
-import styles from '../../dashboard/in-patient.scss';
-import type { OpenmrsEncounter } from '../../../types';
-import type { KeyedMutator } from 'swr';
 
 interface InPatientSummaryProps {
   patientUuid: string;

@@ -1,5 +1,7 @@
 import { restBaseUrl, useOpenmrsFetchAll } from '@openmrs/esm-framework';
+
 import type { DispositionType, InpatientRequest } from '../types';
+
 import useWardLocation from './useWardLocation';
 
 // prettier-ignore

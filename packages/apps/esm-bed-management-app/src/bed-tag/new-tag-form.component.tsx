@@ -1,8 +1,10 @@
+import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showSnackbar } from '@openmrs/esm-framework';
+
 import { saveBedTag, useBedTags, useLocationsWithAdmissionTag } from '../summary/summary.resource';
 import { type BedTagData } from '../types';
+
 import BedTagsAdministrationForm from './bed-tags-admin-form.component';
 
 interface BedTagFormProps {

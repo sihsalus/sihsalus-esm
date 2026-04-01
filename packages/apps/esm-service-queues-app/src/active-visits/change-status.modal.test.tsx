@@ -1,7 +1,3 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render, within } from '@testing-library/react';
-import { mockServices, mockSession, mockLocations, mockMappedQueueEntry } from '__mocks__';
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -10,7 +6,13 @@ import {
   useLocations,
   useSession,
 } from '@openmrs/esm-framework';
+import { screen, render, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { mockServices, mockSession, mockLocations, mockMappedQueueEntry } from '__mocks__';
+import React from 'react';
+
 import { configSchema, type ConfigObject } from '../config-schema';
+
 import { updateQueueEntry } from './active-visits-table.resource';
 import ChangeStatusModal from './change-status.modal';
 

@@ -1,5 +1,3 @@
-import React, { Fragment, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Table,
@@ -10,8 +8,11 @@ import {
   TableCell,
   TableContainer,
 } from '@carbon/react';
-import type { ResolvedDependenciesModule } from './openmrs-backend-dependencies';
+import React, { Fragment, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './backend-dependencies.styles.scss';
+import type { ResolvedDependenciesModule } from './openmrs-backend-dependencies';
 
 export interface BackendDependencies {
   backendDependencies: Array<ResolvedDependenciesModule>;

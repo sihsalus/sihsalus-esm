@@ -1,5 +1,3 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -13,7 +11,6 @@ import {
   Stack,
   Toggle,
 } from '@carbon/react';
-import dayjs from 'dayjs';
 import {
   type DefaultWorkspaceProps,
   OpenmrsDatePicker,
@@ -22,7 +19,12 @@ import {
   useLayoutType,
   useVisitTypes,
 } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { datePickerFormat, datePickerPlaceHolder } from '../constants';
+
 import styles from './queue-linelist-filter.scss';
 
 const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) => {

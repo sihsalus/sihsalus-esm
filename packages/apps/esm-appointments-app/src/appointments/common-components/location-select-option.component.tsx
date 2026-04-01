@@ -1,6 +1,6 @@
+import { SelectItem } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { SelectItem } from '@carbon/react';
 
 interface SelectLocationProps {
   selectedLocation: string;

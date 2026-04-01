@@ -1,8 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import ChangeFuaStatusModal, { FUA_ESTADOS } from './change-fua-status.modal';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+
 import { setFuaEstado } from '../hooks/useFuaRequests';
+
+import ChangeFuaStatusModal, { FUA_ESTADOS } from './change-fua-status.modal';
 
 jest.mock('../hooks/useFuaRequests', () => ({
   setFuaEstado: jest.fn(),

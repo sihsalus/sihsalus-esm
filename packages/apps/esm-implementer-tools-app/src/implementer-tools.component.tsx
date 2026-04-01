@@ -1,11 +1,12 @@
+import { showToast, UserHasAccess, useStore } from '@openmrs/esm-framework';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showToast, UserHasAccess, useStore } from '@openmrs/esm-framework';
-import { implementerToolsStore, showModuleDiagnostics, togglePopup } from './store';
+
 import { hasInvalidDependencies } from './backend-dependencies/openmrs-backend-dependencies';
 import { useBackendDependencies } from './backend-dependencies/useBackendDependencies';
 import { useFrontendModules } from './hooks';
 import styles from './implementer-tools.styles.scss';
+import { implementerToolsStore, showModuleDiagnostics, togglePopup } from './store';
 
 const Popup = React.lazy(() => import('./popup/popup.component'));
 const UiEditor = React.lazy(() => import('./ui-editor/ui-editor'));

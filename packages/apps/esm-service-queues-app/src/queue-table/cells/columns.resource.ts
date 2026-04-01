@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
 import { showToast, useConfig } from '@openmrs/esm-framework';
+import { useMemo } from 'react';
 import { useTranslation, type TFunction } from 'react-i18next';
+
 import {
   builtInColumns,
   defaultColumnConfig,
@@ -9,6 +10,8 @@ import {
   type ConfigObject,
 } from '../../config-schema';
 import { type QueueTableColumn } from '../../types';
+
+import { queueTableActionColumn } from './queue-table-action-cell.component';
 import { queueTableComingFromColumn } from './queue-table-coming-from-cell.component';
 import { queueTableExtensionColumn } from './queue-table-extension-cell.component';
 import { queueTableNameColumn } from './queue-table-name-cell.component';
@@ -20,7 +23,6 @@ import { queueTableStatusColumn } from './queue-table-status-cell.component';
 import { queueTableVisitAttributeQueueNumberColumn } from './queue-table-visit-attribute-queue-number-cell.component';
 import { queueTableVisitStartTimeColumn } from './queue-table-visit-start-time-cell.component';
 import { queueTableWaitTimeColumn } from './queue-table-wait-time-cell.component';
-import { queueTableActionColumn } from './queue-table-action-cell.component';
 
 // returns the columns to display for a queue table of a particular queue + status.
 // For a table displaying all entries of a particular queue, the status param should be null

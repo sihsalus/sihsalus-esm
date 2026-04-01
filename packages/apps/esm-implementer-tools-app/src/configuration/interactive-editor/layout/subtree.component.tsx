@@ -1,5 +1,6 @@
-import React from 'react';
 import { StructuredListBody, StructuredListCell, StructuredListRow, StructuredListWrapper } from '@carbon/react';
+import React from 'react';
+
 import styles from './layout.styles.scss';
 
 export interface SubtreeProps {

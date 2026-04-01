@@ -1,8 +1,9 @@
+import { type LoggedInUser, type Session, useSession } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { type LoggedInUser, type Session, useSession } from '@openmrs/esm-framework';
+
 import ChangeLanguageModal from './change-language.modal';
 
 const mockUser = {

@@ -1,5 +1,6 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
+
 import { type Concept } from '../types';
 
 export function useConcept(uuid: string) {

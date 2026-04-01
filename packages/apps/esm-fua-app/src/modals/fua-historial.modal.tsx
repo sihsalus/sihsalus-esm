@@ -1,9 +1,11 @@
-import React from 'react';
 import { ModalHeader, ModalBody, ModalFooter, Button, SkeletonText, Tag, InlineNotification } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { formatDate } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useFuaHistorial } from '../hooks/useFuaHistorial';
 import type { FuaRequest } from '../hooks/useFuaRequests';
+
 import styles from './fua-modals.scss';
 
 interface FuaHistorialModalProps {

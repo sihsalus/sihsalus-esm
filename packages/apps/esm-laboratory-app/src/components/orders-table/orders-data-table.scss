@@ -1,0 +1,129 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.tableContainer {
+  border: 1px solid colors.$gray-20;
+  background-color: colors.$gray-10;
+  padding: 0;
+
+  :global(.cds--data-table-content) {
+    overflow-x: unset;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  th {
+    color: colors.$gray-70;
+  }
+
+  :global(.cds--data-table) {
+    background-color: colors.$gray-20;
+  }
+
+  :global(.cds--table-toolbar) {
+    position: static;
+  }
+
+  :global(.cds--overflow-menu) {
+    background-color: transparent;
+    border: none;
+  }
+
+  :global(.cds--pagination) {
+    border-top: none;
+  }
+
+  .toolbarContent {
+    height: layout.$spacing-07;
+    margin-bottom: layout.$spacing-02;
+  }
+}
+
+.toolbarItem {
+  margin-left: layout.$spacing-05;
+  display: flex;
+  align-items: center;
+
+  & p {
+    padding-right: layout.$spacing-03;
+    @include type.type-style('body-01');
+    color: colors.$gray-70;
+  }
+
+  :global(.cds--date-picker__input) {
+    height: layout.$spacing-09;
+  }
+
+  :global(.cds--dropdown) {
+    height: layout.$spacing-09;
+  }
+
+  :global(.cds--list-box__menu:focus) {
+    outline: none;
+  }
+}
+
+.tableWrapper tr:last-of-type {
+  td {
+    border-bottom: none;
+  }
+}
+
+.tileContainer {
+  background-color: colors.$white;
+  border-top: 1px solid colors.$gray-20;
+  padding: 3rem 0;
+}
+
+.tile {
+  margin: auto;
+  width: fit-content;
+}
+
+.tileContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  @include type.type-style('heading-compact-02');
+  color: colors.$gray-70;
+  margin-bottom: layout.$spacing-03;
+}
+
+.singleLineDisplay {
+  white-space: nowrap;
+}
+
+.emptyStateHelperText {
+  @include type.type-style('helper-text-02');
+}
+
+.hiddenRow {
+  display: none;
+}
+
+.tableToolBar {
+  height: auto;
+  align-items: flex-end;
+
+  :global(.cds--toolbar-search-container-expandable) {
+    align-self: flex-end;
+  }
+}
+
+.menuitem {
+  max-width: none;
+}
+
+.transitionOverflowMenuItemSlot {
+  min-width: 100%;
+
+  :global(.cds--overflow-menu-options__btn) {
+    min-width: 100%;
+  }
+}

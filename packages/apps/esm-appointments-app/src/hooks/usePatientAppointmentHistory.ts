@@ -1,9 +1,13 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type AppointmentsFetchResponse } from '../types';
-import useSWR from 'swr';
 import dayjs from 'dayjs';
-import SelectedDateContext from './selectedDateContext';
 import { useContext } from 'react';
+import useSWR from 'swr';
+
+import { type AppointmentsFetchResponse } from '../types';
+
+
+import SelectedDateContext from './selectedDateContext';
+
 
 export function usePatientAppointmentHistory(patientUuid: string) {
   const abortController = new AbortController();

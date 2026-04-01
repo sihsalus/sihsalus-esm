@@ -1,7 +1,7 @@
-import useSWR from 'swr';
 import { type FetchResponse, restBaseUrl } from '@openmrs/esm-framework';
 import { openmrsFetch } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
+import useSWR from 'swr';
 
 export interface PatientIdentifierType {
   uuid: string;

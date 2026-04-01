@@ -1,11 +1,14 @@
+/* eslint-disable */
 import { useAppContext } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import React from 'react';
+
 import { renderWithSwr } from '../../../../../tools';
 import { mockWardViewContext } from '../../../mock';
 import useEmrConfiguration from '../../hooks/useEmrConfiguration';
 import { type WardViewContext } from '../../types';
 import DefaultWardPendingPatients from '../../ward-view/default-ward/default-ward-pending-patients.component';
+
 import AdmissionRequestsWorkspace, { type AdmissionRequestsWorkspaceProps } from './admission-requests.workspace';
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);

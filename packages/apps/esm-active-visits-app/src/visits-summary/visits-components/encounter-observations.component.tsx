@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { SkeletonText } from '@carbon/react';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type Observation } from '../../types';
 import styles from '../visit-detail-overview.scss';
 

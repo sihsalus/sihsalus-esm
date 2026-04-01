@@ -1,5 +1,3 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, Header, HeaderGlobalBar, HeaderMenuButton, Tag, Tooltip } from '@carbon/react';
 import {
   age,
@@ -15,9 +13,13 @@ import {
   getCoreTranslation,
 } from '@openmrs/esm-framework';
 import { launchPatientWorkspace, useSystemVisitSetting } from '@openmrs/esm-patient-common-lib';
-import { type MappedQueuePriority, useVisitQueueEntry } from '../visit/queue-entry/queue.resource';
-import { CloseButton } from './close-button.component';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { EditQueueEntry } from '../visit/queue-entry/edit-queue-entry.component';
+import { type MappedQueuePriority, useVisitQueueEntry } from '../visit/queue-entry/queue.resource';
+
+import { CloseButton } from './close-button.component';
 import RetrospectiveVisitLabel from './retrospective-visit-label.component';
 import VisitHeaderSideMenu from './visit-header-side-menu.component';
 import styles from './visit-header.scss';

@@ -1,7 +1,3 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { BrowserRouter as Router, useParams } from 'react-router-dom';
-import { render, screen, within } from '@testing-library/react';
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -9,15 +5,21 @@ import {
   useConfig,
   usePatient,
 } from '@openmrs/esm-framework';
-import type { AddressTemplate, Encounter, FormValues } from './patient-registration.types';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockedAddressTemplate } from '__mocks__';
+import React from 'react';
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import { mockPatient } from 'tools';
-import { saveEncounter, savePatient } from './patient-registration.resource';
+
 import { esmPatientRegistrationSchema, type RegistrationConfig } from '../config-schema';
 import { ResourcesContext } from '../offline.resources';
+
 import { FormManager } from './form-manager';
-import { PatientRegistration } from './patient-registration.component';
 import { useInitialFormValues } from './patient-registration-hooks';
+import { PatientRegistration } from './patient-registration.component';
+import { saveEncounter, savePatient } from './patient-registration.resource';
+import type { AddressTemplate, Encounter, FormValues } from './patient-registration.types';
 
 const mockSaveEncounter = jest.mocked(saveEncounter);
 const mockSavePatient = savePatient as jest.Mock;

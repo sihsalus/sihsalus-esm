@@ -1,11 +1,13 @@
-import React from 'react';
-import classNames from 'classnames';
-import capitalize from 'lodash-es/capitalize';
-import { useTranslation } from 'react-i18next';
 import { Tile } from '@carbon/react';
 import { formatDate } from '@openmrs/esm-framework';
-import { getDosage } from '../past-visit.resource';
+import classNames from 'classnames';
+import capitalize from 'lodash-es/capitalize';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type OrderItem } from '../../types/index';
+import { getDosage } from '../past-visit.resource';
+
 import styles from './past-visit-summary.scss';
 interface MedicationProps {
   medications: Array<OrderItem>;

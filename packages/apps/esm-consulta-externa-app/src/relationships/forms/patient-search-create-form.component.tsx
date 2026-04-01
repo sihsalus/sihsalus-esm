@@ -16,14 +16,16 @@ import React, { useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
+
 import { Autosuggest } from '../../autosuggest/autosuggest.component';
+import PatientSearchInfo from '../../autosuggest/patient-search-info.component';
 import SearchEmptyState from '../../autosuggest/search-empty-state.component';
 import { contactListConceptMap } from '../../contact-list/contact-list-concept-map';
 import type { relationshipFormSchema } from '../relationship.resources';
 import { fetchPerson } from '../relationship.resources';
-import styles from './form.scss';
 import { MARITAL_STATUS_CONCEPT_UUID } from '../relationships-constants';
-import PatientSearchInfo from '../../autosuggest/patient-search-info.component';
+
+import styles from './form.scss';
 
 type PatientSearchCreateProps = {};
 
@@ -65,7 +67,7 @@ const PatientSearchCreate: React.FC<PatientSearchCreateProps> = () => {
             <ContentSwitcher
               selectedIndex={field.value == 'search' ? 0 : 1}
               onChange={(value) => {
-                let { index, name, text } = value;
+                const { index, name, text } = value;
                 field.onChange(name);
               }}>
               <Switch name="search" text={t('searchPatient', 'Search patient')} />

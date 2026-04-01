@@ -1,10 +1,6 @@
 // perinatal-register-form.tsx
-import React, { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, ButtonSkeleton, ButtonSet, Column, Form, InlineNotification, Stack } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   createErrorHandler,
   showSnackbar,
@@ -14,7 +10,11 @@ import {
   usePatient,
   useVisit,
 } from '@openmrs/esm-framework';
-import type { DefaultPatientWorkspaceProps } from '../../../types';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import type { ConfigObject } from '../../../config-schema';
 import {
   usePrenatalAntecedents,
@@ -22,7 +22,9 @@ import {
   usePrenatalConceptMetadata,
   invalidateCachedPrenatalAntecedents,
 } from '../../../hooks/usePrenatalAntecedents';
+import type { DefaultPatientWorkspaceProps } from '../../../types';
 import GenericInput from '../../../ui/generic-input/generic-input.component';
+
 import styles from './perinatal-register-form.scss';
 
 // Definir el esquema de validación con Zod

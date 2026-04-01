@@ -1,6 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+
 import { type PatientSearchConfig, configSchema } from './config-schema';
 import PatientSearchRootComponent from './root.component';
 

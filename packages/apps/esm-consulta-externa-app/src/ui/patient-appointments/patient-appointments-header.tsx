@@ -4,6 +4,7 @@ import { PatientBannerPatientInfo, PatientPhoto, getPatientName } from '@openmrs
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import styles from './patient-appointments-header.scss';
 
 interface PatientAppointmentsHeaderProps {

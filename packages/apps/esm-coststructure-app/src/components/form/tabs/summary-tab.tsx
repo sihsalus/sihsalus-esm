@@ -1,24 +1,23 @@
 import React from 'react';
 import { type UseFormReturn } from 'react-hook-form';
-import { type CostStructureFormValues } from '../schema/costructure-schema';
-import styles from './tabs.styles.scss';
 
+
+import { calculateCostEquipment, calculateDepreciationMinutes } from '../../../utils/equipments';
 import { calculateCostPerMinuteHumanResource, calculateUnitCostHumanResource } from '../../../utils/humanresource';
-
 import {
   calculateDepreciationByMinutes,
   calculateInfrastructureStandardCost,
   calculateTotalValidConsruction,
 } from '../../../utils/infrastructure';
-
-import { calculateCostEquipment, calculateDepreciationMinutes } from '../../../utils/equipments';
-
 import {
   calculateAsignedCost,
   calculateAsignedCostGeneral,
   calculateUnitCostService,
 } from '../../../utils/publicservices';
 import { calculateStandarCostSupply } from '../../../utils/supply';
+import { type CostStructureFormValues } from '../schema/costructure-schema';
+
+import styles from './tabs.styles.scss';
 
 interface Props {
   form: UseFormReturn<CostStructureFormValues>;

@@ -1,9 +1,9 @@
 import { copyFileSync, existsSync, readdirSync, readFileSync, statSync } from 'fs';
-import { checkImportmapJson, checkRoutesJson, getImportMap, getRoutes, loadWebpackConfig, logInfo } from '../utils';
+import { spawn } from 'node:child_process';
 import { basename, join, parse, resolve } from 'node:path';
-import type { webpack } from 'webpack';
 
-type WebpackExport = typeof webpack;
+import { checkImportmapJson, checkRoutesJson, getImportMap, getRoutes, rspackBin, shellDir, logInfo } from '../utils';
+import { setShellEnvVars } from '../utils/config';
 
 /* eslint-disable no-console */
 
@@ -48,18 +48,16 @@ function loadBuildConfig(buildConfigPath?: string): BuildConfig {
 }
 
 function addConfigFilesFromPaths(configPaths: Array<string>, targetDir: string) {
-  for (let configPath of configPaths) {
+  for (const configPath of configPaths) {
     const realPath = resolve(configPath);
     copyFileSync(realPath, join(targetDir, basename(configPath)));
   }
 }
 
 export async function runBuild(args: BuildArgs) {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const webpack: WebpackExport = require('webpack');
   const buildConfig = loadBuildConfig(args.buildConfig);
   const configUrls = buildConfig.configUrls || args.configUrls;
-  for (let configPath of buildConfig.configPaths || args.configPaths) {
+  for (const configPath of buildConfig.configPaths || args.configPaths) {
     configUrls.push(basename(configPath));
   }
 
@@ -110,7 +108,7 @@ export async function runBuild(args: BuildArgs) {
     }
   }
 
-  const config = loadWebpackConfig({
+  setShellEnvVars({
     importmap: importMap,
     routes,
     env: buildConfig.env || args.env,
@@ -126,32 +124,18 @@ export async function runBuild(args: BuildArgs) {
 
   logInfo(`Running build process ...`);
 
-  const compiler = webpack({
-    ...config,
-    output: {
-      ...config.output,
-      path: args.target,
-    },
-  });
+  const mode = (buildConfig.env || args.env) === 'development' ? 'development' : 'production';
 
-  return await new Promise<void>((resolve, reject) => {
-    compiler.run((err, stats) => {
-      if (err || stats?.hasErrors()) {
-        reject(err ?? new Error(stats?.compilation.errors.toString()));
-      } else {
-        if (stats) {
-          console.log(
-            stats.toString({
-              colors: true,
-            }),
-          );
-        }
-
-        addConfigFilesFromPaths(buildConfig.configPaths || args.configPaths, args.target);
-
-        logInfo(`Build finished.`);
-        resolve();
-      }
+  await new Promise<void>((res, rej) => {
+    const ps = spawn(process.execPath, [rspackBin, 'build', '--mode', mode, '--output-path', args.target], {
+      cwd: shellDir,
+      stdio: 'inherit',
     });
+    ps.on('error', rej);
+    ps.on('exit', (code) => (code === 0 ? res() : rej(new Error(`rspack exited with code ${code}`))));
   });
+
+  addConfigFilesFromPaths(buildConfig.configPaths || args.configPaths, args.target);
+
+  logInfo(`Build finished.`);
 }

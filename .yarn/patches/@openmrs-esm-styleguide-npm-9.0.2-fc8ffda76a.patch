@@ -1,0 +1,13 @@
+diff --git a/src/pagination/pagination.component.tsx b/src/pagination/pagination.component.tsx
+index 17725fba8193636180cdd29d8c5e75459343e664..b76e38d4439f5ed088d5481067dfa634b3a4d050 100644
+--- a/src/pagination/pagination.component.tsx
++++ b/src/pagination/pagination.component.tsx
+@@ -15,7 +15,7 @@ export interface PaginationProps {
+   /** The size of each page */
+   pageSize: number;
+   /** A callback to be called when the page changes */
+-  onPageNumberChange?: CarbonPaginationProps['onChange'];
++  onPageNumberChange?: (data: { page: number; pageSize: number }) => void;
+   /** An optional URL the user should be directed to if they click on the link to see all results */
+   dashboardLinkUrl?: string;
+   /** Optional text to display instead of the default "See all" */

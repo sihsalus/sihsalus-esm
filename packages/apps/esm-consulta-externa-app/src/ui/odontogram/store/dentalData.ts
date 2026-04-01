@@ -1,4 +1,5 @@
 import { createGlobalStore, useStore } from '@openmrs/esm-framework';
+
 import { teeth as initialTeeth } from '../data/teethData.json';
 
 interface DentalFinding {

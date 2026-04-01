@@ -1,11 +1,14 @@
-import React, { useCallback } from 'react';
 import {
   type AssignedExtension,
   ExtensionSlot,
   useConfig,
 } from '@openmrs/esm-framework';
-import styles from './fua-summary-tiles.scss';
+import React, { useCallback } from 'react';
+
 import { type Config } from '../config-schema';
+
+import styles from './fua-summary-tiles.scss';
+
 
 const FuaSummaryTiles: React.FC = () => {
   const { enableFuaApprovalWorkflow } = useConfig<Config>();

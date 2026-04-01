@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
 import { InlineNotification, Search, SkeletonText } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import { ExtensionSlot, isDesktop, launchWorkspace, showToast, useLayoutType } from '@openmrs/esm-framework';
-import type { Concept, Queue, QueueEntry } from '../types';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useQueueEntries } from '../hooks/useQueueEntries';
+import PatientQueueHeader from '../patient-queue-header/patient-queue-header.component';
 import { useColumns } from '../queue-table/cells/columns.resource';
 import { QueueTableByStatusSkeleton } from '../queue-table/queue-table-by-status-skeleton.component';
-import PatientQueueHeader from '../patient-queue-header/patient-queue-header.component';
-import QueueTable from '../queue-table/queue-table.component';
 import QueueTableMetrics from '../queue-table/queue-table-metrics.component';
+import QueueTable from '../queue-table/queue-table.component';
 import styles from '../queue-table/queue-table.scss';
+import type { Concept, Queue, QueueEntry } from '../types';
 
 interface QueueTablesForAllStatusesProps {
   selectedQueue: Queue; // the selected queue

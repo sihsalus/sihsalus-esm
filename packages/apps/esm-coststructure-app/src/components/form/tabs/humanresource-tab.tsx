@@ -1,20 +1,24 @@
-import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { type CostStructureFormValues } from '../schema/costructure-schema';
-import React from 'react';
 import { Button, NumberInput, Select, SelectItem } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
+import React from 'react';
+import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import useGetHumanResource from '../../../hooks/use-get-humanresource';
-import styles from './tabs.styles.scss';
-import NoContent from '../../ui/NoContent/NoContent';
 import { calculateCostPerMinuteHumanResource, calculateUnitCostHumanResource } from '../../../utils/humanresource';
+import NoContent from '../../ui/NoContent/NoContent';
+import { type CostStructureFormValues } from '../schema/costructure-schema';
+
+
+import styles from './tabs.styles.scss';
+
 interface Props {
   form: UseFormReturn<CostStructureFormValues>;
 }
 export default function HumanResourceTab({ form }: Props) {
-  const { control, setValue, watch } = form;
+  const { control, watch } = form;
   const { t } = useTranslation();
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control,
     name: 'humanResourceCost',
   });

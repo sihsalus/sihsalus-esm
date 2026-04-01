@@ -1,2 +1,2 @@
 export const basePath = '/patient/:patientUuid/chart';
-export const moduleName = '@openmrs/esm-patient-tests-app';
+export const moduleName = '@sihsalus/esm-patient-tests-app';

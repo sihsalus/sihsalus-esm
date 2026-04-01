@@ -1,6 +1,6 @@
-import React from 'react';
 import { Type, useConfig } from '@openmrs/esm-framework';
 import { DashboardGroupExtension } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
 
 export const genericNavGroupConfigSchema = {
   title: {

@@ -1,10 +1,11 @@
-import React, { type ChangeEvent, useCallback, useContext } from 'react';
 import { ContentSwitcher, Layer, Switch, TextInput } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import { useField } from 'formik';
-import { PatientRegistrationContext } from '../../patient-registration-context';
 import { OpenmrsDatePicker, useConfig } from '@openmrs/esm-framework';
+import { useField } from 'formik';
+import React, { type ChangeEvent, useCallback, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type RegistrationConfig } from '../../../config-schema';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 import styles from '../field.scss';
 
 const calcBirthdate = (yearDelta, monthDelta, dateOfBirth) => {

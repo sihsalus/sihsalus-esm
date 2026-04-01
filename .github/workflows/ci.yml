@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Enable Corepack
         run: corepack enable
@@ -37,7 +37,7 @@ jobs:
           restore-keys: yarn-
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: HUSKY=0 yarn install --immutable
 
       - name: Turbo Cache
         uses: actions/cache@v4

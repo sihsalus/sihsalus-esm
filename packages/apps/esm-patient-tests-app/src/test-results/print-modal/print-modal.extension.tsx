@@ -49,7 +49,7 @@ function PrintModal({ patientUuid, closeDialog }) {
       uuids: string[];
     };
   }>({
-    externalModuleName: '@openmrs/esm-patient-banner-app',
+    externalModuleName: '@sihsalus/esm-patient-banner-app',
   });
   const headerTitle = t('testResults_title', 'Test Results');
   const datePickerPlaceHolder = 'dd/mm/yyyy';

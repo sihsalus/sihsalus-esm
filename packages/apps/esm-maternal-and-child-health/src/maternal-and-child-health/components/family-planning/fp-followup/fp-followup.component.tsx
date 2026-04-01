@@ -1,6 +1,7 @@
+import { Tile, Tag } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tile, Tag } from '@carbon/react';
+
 import styles from './fp-followup.scss';
 
 interface FpFollowupProps {

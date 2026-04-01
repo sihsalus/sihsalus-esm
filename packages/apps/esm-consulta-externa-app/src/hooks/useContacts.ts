@@ -1,6 +1,7 @@
 import { formatDate, openmrsFetch, parseDate, useConfig } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
+
 import type { ConfigObject } from '../config-schema';
 import type { Contact, Person, Relationship } from '../types';
 

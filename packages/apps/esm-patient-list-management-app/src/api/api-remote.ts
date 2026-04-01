@@ -1,6 +1,3 @@
-import { useTranslation } from 'react-i18next';
-import { type TFunction } from 'i18next';
-import useSWR from 'swr';
 import {
   type LoggedInUser,
   openmrsFetch,
@@ -13,7 +10,12 @@ import {
   toOmrsIsoString,
   useConfig,
 } from '@openmrs/esm-framework';
+import { type TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
+
 import { type ConfigSchema } from '../config-schema';
+
 import {
   type AddPatientData,
   type AddablePatientListViewModel,

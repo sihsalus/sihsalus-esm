@@ -1,5 +1,6 @@
-import React from 'react';
 import { Loading } from '@carbon/react';
+import React from 'react';
+
 import styles from './loading.scss';
 
 const LoadingIcon: React.FC = () => (

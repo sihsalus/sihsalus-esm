@@ -1,8 +1,9 @@
-import { useCallback } from 'react';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
+import { useCallback } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+
 import type {
   AppointmentPayload,
   AppointmentService,

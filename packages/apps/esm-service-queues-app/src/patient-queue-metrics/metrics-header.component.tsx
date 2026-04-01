@@ -1,5 +1,3 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { ComboButton, MenuItem } from '@carbon/react';
 import {
   UserHasAccess,
@@ -10,7 +8,11 @@ import {
   useLayoutType,
   useSession,
 } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { spaBasePath } from '../constants';
+
 import styles from './metrics-header.scss';
 
 const MetricsHeader = () => {

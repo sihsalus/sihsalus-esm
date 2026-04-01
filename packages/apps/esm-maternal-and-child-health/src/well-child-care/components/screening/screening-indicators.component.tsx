@@ -1,5 +1,3 @@
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -14,10 +12,14 @@ import {
   Button,
 } from '@carbon/react';
 import { CheckmarkFilled, Time, Add } from '@carbon/react/icons';
-import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
-import { useScreeningIndicators } from '../../../hooks/useScreeningIndicators';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../../config-schema';
+import { useScreeningIndicators } from '../../../hooks/useScreeningIndicators';
+
 import styles from './screening-indicators.scss';
 
 interface ScreeningIndicatorsProps {

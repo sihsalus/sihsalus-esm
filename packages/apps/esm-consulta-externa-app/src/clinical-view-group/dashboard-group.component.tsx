@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { ExtensionSlot, useLayoutType } from '@openmrs/esm-framework';
-import { useTranslation } from 'react-i18next';
 import { SideNavItems, SideNavMenu } from '@carbon/react';
-import styles from './dashboard-group.scss';
+import { ExtensionSlot, useLayoutType } from '@openmrs/esm-framework';
 import { registerNavGroup } from '@openmrs/esm-patient-common-lib';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import styles from './dashboard-group.scss';
+
 
 export interface DashboardGroupExtensionProps {
   title: string;

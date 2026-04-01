@@ -3,7 +3,9 @@ import { ExtensionSlot, useFeatureFlag } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import useWardLocation from '../hooks/useWardLocation';
+
 import { useWardConfig } from './ward-view.resource';
 import styles from './ward-view.scss';
 

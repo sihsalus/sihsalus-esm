@@ -2,8 +2,10 @@ import { Tile, InlineLoading } from '@carbon/react';
 import { PatientPhoto, usePatient } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styles from './patient-info.scss';
+
 import { formatPatientName } from '../../utils/expression-helper';
+
+import styles from './patient-info.scss';
 
 const PatientInfo: React.FC<{ patientUuid: string }> = ({ patientUuid }) => {
   const { isLoading, patient, error } = usePatient(patientUuid);

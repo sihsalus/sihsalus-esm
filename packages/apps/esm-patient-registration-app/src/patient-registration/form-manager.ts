@@ -8,18 +8,10 @@ import {
   type StyleguideConfigObject,
   toOmrsIsoString,
 } from '@openmrs/esm-framework';
+
+import { type RegistrationConfig } from '../config-schema';
 import { patientRegistration } from '../constants';
-import {
-  type AttributeValue,
-  type CapturePhotoProps,
-  type Encounter,
-  type FormValues,
-  type Patient,
-  type PatientIdentifier,
-  type PatientRegistration,
-  type PatientUuidMapType,
-  type RelationshipValue,
-} from './patient-registration.types';
+
 import {
   addPatientIdentifier,
   deletePatientIdentifier,
@@ -34,7 +26,17 @@ import {
   updatePatientIdentifier,
   updateRelationship,
 } from './patient-registration.resource';
-import { type RegistrationConfig } from '../config-schema';
+import {
+  type AttributeValue,
+  type CapturePhotoProps,
+  type Encounter,
+  type FormValues,
+  type Patient,
+  type PatientIdentifier,
+  type PatientRegistration,
+  type PatientUuidMapType,
+  type RelationshipValue,
+} from './patient-registration.types';
 
 export type SavePatientForm = (
   isNewPatient: boolean,
@@ -221,7 +223,7 @@ export class FormManager {
     initialIdentifierValues: FormValues['identifiers'], // Initial identifiers assigned to the patient
     location: string,
   ): Promise<Array<PatientIdentifier>> {
-    let identifierTypeRequests = Object.values(patientIdentifiers)
+    const identifierTypeRequests = Object.values(patientIdentifiers)
       /* Since default identifier-types will be present on the form and are also in the not-required state,
         therefore we might be running into situations when there's no value and no source associated,
         hence filtering these fields out.

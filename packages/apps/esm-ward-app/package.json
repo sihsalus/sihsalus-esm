@@ -1,5 +1,5 @@
 {
-  "name": "@openmrs/esm-ward-app",
+  "name": "@sihsalus/esm-ward-app",
   "version": "8.3.1",
   "description": "Ward and bed management module for O3",
   "browser": "dist/openmrs-esm-ward-app.js",
@@ -13,12 +13,12 @@
     "debug": "npm run serve",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "cross-env eslint src --ext ts,tsx",
+    "lint": "eslint src --ext ts,tsx",
     "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
     "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
     "coverage": "yarn test --coverage",
     "typescript": "tsc",
-    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.resource.ts' 'src/index.ts' 'src/**/**.workspace.tsx' --config ../../tools/i18next-parser.config.js"
+    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.resource.ts' 'src/index.ts' 'src/**/**.workspace.tsx' --config ../../tooling/i18next-parser.config.js"
   },
   "browserslist": [
     "extends browserslist-config-openmrs"
@@ -52,7 +52,9 @@
   },
   "devDependencies": {
     "@rspack/cli": "1.3.15",
-    "cross-env": "^7.0.3",
-    "jest": "^29.7.0"
+    "eslint": "^8.55.0",
+    "jest": "^29.7.0",
+    "openmrs": "workspace:*",
+    "typescript": "^5.8.3"
   }
 }

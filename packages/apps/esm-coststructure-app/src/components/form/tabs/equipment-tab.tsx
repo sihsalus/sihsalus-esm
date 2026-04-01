@@ -1,14 +1,15 @@
+import { Button, NumberInput, Select, SelectItem } from '@carbon/react';
+import { Add, TrashCan } from '@carbon/react/icons';
+import React from 'react';
 import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { type CostStructureFormValues } from '../schema/costructure-schema';
-import React from 'react';
-import { Add, TrashCan } from '@carbon/react/icons';
-import { Button, NumberInput, Select, SelectItem } from '@carbon/react';
+
 import useGetEquipment from '../../../hooks/use-get-equipment';
 import { calculateCostEquipment, calculateDepreciationMinutes } from '../../../utils/equipments';
-import PaperIlustration from '../../ilustration/paper-ilustration';
-import styles from './tabs.styles.scss';
 import NoContent from '../../ui/NoContent/NoContent';
+import { type CostStructureFormValues } from '../schema/costructure-schema';
+
+import styles from './tabs.styles.scss';
 interface Props {
   form: UseFormReturn<CostStructureFormValues>;
 }

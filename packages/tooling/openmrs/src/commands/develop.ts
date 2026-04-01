@@ -1,8 +1,10 @@
-import express from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import { basename, resolve } from 'node:path';
 import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
+import { basename, resolve } from 'node:path';
+
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+
 import { type ImportmapDeclaration, type RoutesDeclaration, logInfo, logWarn, removeTrailingSlash } from '../utils';
 
 /* eslint-disable no-console */

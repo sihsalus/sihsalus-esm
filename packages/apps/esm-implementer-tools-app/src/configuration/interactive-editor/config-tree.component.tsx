@@ -1,8 +1,11 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Accordion, AccordionItem } from '@carbon/react';
-import { ConfigTreeForModule } from './config-tree-for-module.component';
-import { implementerToolsStore } from '../../store';
+import React from 'react';
 import { useStore } from 'zustand';
+
+import { implementerToolsStore } from '../../store';
+
+import { ConfigTreeForModule } from './config-tree-for-module.component';
 import styles from './config-tree.styles.scss';
 
 export interface ConfigTreeProps {

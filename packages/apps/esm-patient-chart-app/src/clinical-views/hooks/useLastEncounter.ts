@@ -1,6 +1,7 @@
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { type Encounter } from '../types';
 import useSWR from 'swr';
+
+import { type Encounter } from '../types';
 
 const encounterRepresentation =
   'custom:(uuid,encounterDatetime,encounterType,location:(uuid,name),' +

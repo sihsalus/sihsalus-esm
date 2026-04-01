@@ -1,9 +1,10 @@
 // ../ui/tabbed-dashboard/tabbed-dashboard.component.tsx
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Extension, ExtensionSlot } from '@openmrs/esm-framework';
 import { Layer, Tab, TabList, TabPanel, TabPanels, Tabs, Tile } from '@carbon/react';
+import { Extension, ExtensionSlot } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './tabbed-dashboard.scss';
 
 export interface TabConfig {

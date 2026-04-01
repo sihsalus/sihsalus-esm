@@ -1,5 +1,6 @@
-import React from 'react';
 import { ConfigurableLink, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+
 import { type ConfigObject } from '../../config-schema';
 import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
 

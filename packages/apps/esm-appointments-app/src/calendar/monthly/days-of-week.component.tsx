@@ -1,6 +1,7 @@
-import React from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import React from 'react';
+
 import styles from './days-of-week.scss';
 
 interface DaysOfWeekProps {

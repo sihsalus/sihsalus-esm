@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useQueue } from '../hooks/useQueue';
+
 import QueueTablesForAllStatuses from './queue-tables-for-all-statuses.component';
 
 const QueueTableByStatusView: React.FC = () => {

@@ -1,9 +1,11 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar, updateVisit, useVisit } from '@openmrs/esm-framework';
-import { changeAppointmentStatus } from '../../patient-appointments/patient-appointments.resource';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useMutateAppointments } from '../../form/appointments-form.resource';
+import { changeAppointmentStatus } from '../../patient-appointments/patient-appointments.resource';
+
 import styles from './end-appointment.scss';
 
 interface EndAppointmentModalProps {

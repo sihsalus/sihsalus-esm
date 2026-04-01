@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Accordion, AccordionItem } from '@carbon/react';
 import { ComponentContext, ExtensionSlot, useConfig, Type } from '@openmrs/esm-framework/src/internal';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const navGroupFeatureName = 'Nav Group';
 

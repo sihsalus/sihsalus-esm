@@ -1,9 +1,10 @@
-import React from 'react';
 import { Button } from '@carbon/react';
 import { ArrowLeft } from '@carbon/react/icons';
+import { PatientBannerPatientInfo, PatientPhoto, getPatientName } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { PatientBannerPatientInfo, PatientPhoto, getPatientName } from '@openmrs/esm-framework';
+
 import styles from './patient-appointments-header.scss';
 
 interface PatientAppointmentsHeaderProps {

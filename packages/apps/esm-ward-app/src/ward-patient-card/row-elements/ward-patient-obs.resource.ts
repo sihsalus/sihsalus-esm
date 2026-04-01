@@ -1,7 +1,8 @@
 import { restBaseUrl, useOpenmrsFetchAll, type Concept } from '@openmrs/esm-framework';
-import { type Observation } from '../../types';
 import { type TFunction } from 'i18next';
+
 import { type ColoredObsTagConfig } from '../../config-schema';
+import { type Observation } from '../../types';
 
 // prettier-ignore
 export const obsCustomRepresentation = 

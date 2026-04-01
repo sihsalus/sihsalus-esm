@@ -1,0 +1,26 @@
+@use "@carbon/layout";
+@use "@carbon/type";
+
+.grid {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.productiveHeading03 {
+  @include type.type-style('heading-03');
+  margin-bottom: layout.$spacing-03;
+}
+
+.formGroup {
+  margin-bottom: layout.$spacing-05;
+}
+
+.unsubscribeText {
+  padding-bottom: layout.$spacing-05;
+}
+
+.unsubscribeForm {
+  margin-top: layout.$spacing-05;
+}

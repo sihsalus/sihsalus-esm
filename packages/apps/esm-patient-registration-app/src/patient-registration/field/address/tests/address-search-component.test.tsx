@@ -1,13 +1,14 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
+import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { mockedAddressTemplate, mockedAddressOptions, mockedOrderedFields } from '__mocks__';
 import { Formik, Form, useFormikContext } from 'formik';
+import React from 'react';
+
+import { type RegistrationConfig, esmPatientRegistrationSchema } from '../../../../config-schema';
 import { type Resources, ResourcesContext } from '../../../../offline.resources';
 import { PatientRegistrationContext } from '../../../patient-registration-context';
-import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { useAddressHierarchy, useOrderedAddressHierarchyLevels } from '../address-hierarchy.resource';
-import { type RegistrationConfig, esmPatientRegistrationSchema } from '../../../../config-schema';
-import { mockedAddressTemplate, mockedAddressOptions, mockedOrderedFields } from '__mocks__';
 import AddressSearchComponent from '../address-search.component';
 
 const mockUseConfig = jest.mocked(useConfig<RegistrationConfig>);

@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import useSWRImmutable from 'swr/immutable';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Grid, Row } from '@carbon/react';
 import { ExtensionSlot, useConnectivity, useSession } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import useSWRImmutable from 'swr/immutable';
+
 import {
   ResourcesContext,
   fetchAddressTemplate,

@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { fhirBaseUrl, getLocale, openmrsFetch } from '@openmrs/esm-framework';
+import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
 
 interface FHIRResponse {

@@ -8,6 +8,7 @@ import {
 } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './growth-chart-overview.scss';
 import GrowthChart from './growth-chart.component';
 import { useBiometrics } from './hooks/useBiometrics';

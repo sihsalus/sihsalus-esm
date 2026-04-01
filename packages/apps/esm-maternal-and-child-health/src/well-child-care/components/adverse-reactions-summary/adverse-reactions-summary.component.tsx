@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { usePatient, launchWorkspace2 } from '@openmrs/esm-framework';
 import { EmptyState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AdverseReactionsSummary: React.FC = () => {
   const { t } = useTranslation();

@@ -1,9 +1,12 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { DummyDataInput, dummyFormValues } from './dummy-data-input.component';
+import React from 'react';
+
+
 import { initialFormValues } from '../../patient-registration.component';
 import { type FormValues } from '../../patient-registration.types';
+
+import { DummyDataInput, dummyFormValues } from './dummy-data-input.component';
 
 describe('Dummy data input', () => {
   let formValues: FormValues = initialFormValues;

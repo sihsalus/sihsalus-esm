@@ -1,6 +1,3 @@
-import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -18,9 +15,13 @@ import {
 } from '@carbon/react';
 import { AddIcon, formatDate, parseDate, useLayoutType, launchWorkspace2 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { ConditionsActionMenu } from './conditions-action-menu.component';
-import { useConditions, type ConditionTableHeader, useConditionsSorting } from './conditions.resource';
 import styles from './conditions-detailed-summary.scss';
+import { useConditions, type ConditionTableHeader, useConditionsSorting } from './conditions.resource';
 
 function ConditionsDetailedSummary({ patient }) {
   const { t } = useTranslation();

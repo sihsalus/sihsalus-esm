@@ -1,8 +1,9 @@
 import { ActionMenuButton, DocumentIcon, useWorkspaces, launchWorkspace2 } from '@openmrs/esm-framework';
 import { useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
-import { formEntryWorkspace, htmlFormEntryWorkspace } from '../../types';
 import React, { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { formEntryWorkspace, htmlFormEntryWorkspace } from '../../types';
 
 interface CREDFormActionButtonProps {
   patientUuid: string;

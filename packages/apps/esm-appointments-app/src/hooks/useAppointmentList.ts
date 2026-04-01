@@ -1,8 +1,10 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type AppointmentsFetchResponse } from '../types';
 import dayjs from 'dayjs';
 import { useContext } from 'react';
+import useSWR from 'swr';
+
+import { type AppointmentsFetchResponse } from '../types';
+
 import SelectedDateContext from './selectedDateContext';
 
 export const useAppointmentList = (appointmentStatus: string, date?: string) => {

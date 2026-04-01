@@ -1,7 +1,8 @@
-import useSWR from 'swr';
-import type { OpenmrsEncounter } from '../types';
 import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import type { ConfigObject } from '../config-schema';
+import type { OpenmrsEncounter } from '../types';
 import { DeliveryForm_UUID, MchEncounterType_UUID, encounterRepresentation } from '../utils/constants';
 
 export function useNeonatalSummary(patientUuid: string, encounterType: string) {

@@ -1,0 +1,86 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 95vh;
+  padding-right: layout.$spacing-07;
+  :global(.cds--modal-content:focus) {
+    outline: none;
+  }
+
+  :global(.cds--tooltip) {
+    z-index: 1;
+  }
+}
+
+.editableFieldsContainer {
+  margin: layout.$spacing-05 0;
+  border-bottom: 1px solid colors.$gray-20;
+}
+
+.addQuestionButton {
+  margin: layout.$spacing-04 0;
+}
+
+.header {
+  margin: layout.$spacing-07 0;
+}
+
+.sectionLabel {
+  @include type.type-style('heading-02');
+}
+
+.explainer {
+  margin: layout.$spacing-05 layout.$spacing-03;
+
+  p {
+    margin: layout.$spacing-06 0;
+
+    &:first-of-type {
+      @include type.type-style('heading-04');
+    }
+  }
+}
+
+.sectionExplainer {
+  margin: layout.$spacing-05 layout.$spacing-03;
+}
+
+.startButton {
+  margin: layout.$spacing-05 0;
+}
+
+.editorContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: layout.$spacing-02 layout.$spacing-03;
+  padding-right: layout.$spacing-03;
+  align-items: center;
+  width: 100%;
+}
+
+.addSectionButton {
+  margin: layout.$spacing-05;
+}
+
+.validationErrorMessage {
+  margin-left: layout.$spacing-05;
+  color: colors.$red-60;
+  font-size: layout.$spacing-03;
+}
+
+.answerErrors {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+  margin-left: layout.$spacing-06;
+  margin-top: layout.$spacing-05;
+  font-size: layout.$spacing-03;
+}
+
+.dragOverlay {
+  background-color: rgba(255, 255, 255, 0.6);
+}

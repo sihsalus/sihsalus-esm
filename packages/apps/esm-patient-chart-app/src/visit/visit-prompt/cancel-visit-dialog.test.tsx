@@ -1,11 +1,13 @@
-import React from 'react';
+import { useVisit, openmrsFetch, showSnackbar, type FetchResponse } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useVisit, openmrsFetch, showSnackbar, type FetchResponse } from '@openmrs/esm-framework';
 import { mockCurrentVisit, mockVisitQueueEntries } from '__mocks__';
+import React from 'react';
 import { mockPatient } from 'tools';
-import { type MappedVisitQueueEntry, useVisitQueueEntry } from '../queue-entry/queue.resource';
+
 import { removeQueuedPatient } from '../hooks/useServiceQueue';
+import { type MappedVisitQueueEntry, useVisitQueueEntry } from '../queue-entry/queue.resource';
+
 import CancelVisitDialog from './cancel-visit-dialog.component';
 
 const mockCloseModal = jest.fn();

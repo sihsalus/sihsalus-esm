@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
+
 import { createAndGetWardPatientGrouping } from '../ward-view/ward-view.resource';
+
 import { useAdmissionLocation } from './useAdmissionLocation';
 import { useInpatientAdmission } from './useInpatientAdmission';
-import { useInpatientRequest } from './useInpatientRequest';
 import { useInpatientAdmissionByPatients } from './useInpatientAdmissionByPatients';
+import { useInpatientRequest } from './useInpatientRequest';
 import useWardLocation from './useWardLocation';
 
 export function useWardPatientGrouping() {

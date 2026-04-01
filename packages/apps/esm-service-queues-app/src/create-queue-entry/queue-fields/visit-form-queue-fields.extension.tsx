@@ -1,5 +1,6 @@
 import { type Visit } from '@openmrs/esm-framework';
 import React from 'react';
+
 import QueueFields from './queue-fields.component';
 
 interface VisitFormCallbacks {

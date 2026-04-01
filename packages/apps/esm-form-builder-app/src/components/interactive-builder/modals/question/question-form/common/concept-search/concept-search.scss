@@ -1,0 +1,84 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.label {
+  margin-bottom: layout.$spacing-02;
+}
+
+.searchContainer {
+  position: relative;
+}
+
+.error {
+  width: 100%;
+  max-width: unset;
+  padding: '0rem';
+  margin-bottom: layout.$spacing-05;
+}
+
+.loader {
+  padding: layout.$spacing-04 layout.$spacing-03;
+}
+
+.concept {
+  padding: layout.$spacing-04;
+  border-bottom: 1px solid colors.$gray-20;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.conceptList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: colors.$white-0;
+  max-height: 14rem;
+  overflow-y: auto;
+  border: 1px solid colors.$gray-20;
+  border-top: none;
+  z-index: 1000;
+}
+
+.conceptList li:hover {
+  background-color: colors.$gray-20;
+}
+
+.dropdownContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.emptyResults {
+  @include type.type-style('body-compact-01');
+  color: colors.$gray-70;
+  min-height: layout.$spacing-05;
+}
+
+.oclLauncherBanner {
+  padding: layout.$spacing-03 layout.$spacing-05;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: colors.$gray-50;
+
+  p {
+    color: colors.$white-0;
+  }
+}
+
+.oclLink {
+  color: colors.$blue-10;
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-left: layout.$spacing-02;
+  }
+}

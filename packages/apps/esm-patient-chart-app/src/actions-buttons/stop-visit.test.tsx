@@ -1,10 +1,11 @@
-import React from 'react';
-import StopVisitOverflowMenuItem from './stop-visit.component';
+import { showModal, useVisit } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { showModal, useVisit } from '@openmrs/esm-framework';
 import { mockCurrentVisit } from '__mocks__';
+import React from 'react';
 import { mockPatient } from 'tools';
+
+import StopVisitOverflowMenuItem from './stop-visit.component';
 
 const mockUseVisit = jest.mocked(useVisit);
 const mockShowModal = jest.mocked(showModal);

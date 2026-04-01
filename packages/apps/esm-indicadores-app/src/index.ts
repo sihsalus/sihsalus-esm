@@ -1,4 +1,5 @@
 import { getSyncLifecycle, defineConfigSchema } from '@openmrs/esm-framework';
+
 import { configSchema } from './config-schema';
 import RootComponent from './root.component';
 

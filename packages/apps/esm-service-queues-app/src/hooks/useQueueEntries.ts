@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import isEqual from 'lodash-es/isEqual';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { useSWRConfig } from 'swr/_internal';
-import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+
 import { type QueueEntry, type QueueEntrySearchCriteria } from '../types';
 
 type QueueEntryResponse = FetchResponse<{
@@ -25,7 +26,7 @@ function getInitialUrl(rep: string, searchCriteria?: QueueEntrySearchCriteria) {
   searchParam.append('totalCount', 'true');
 
   if (searchCriteria) {
-    for (let [key, value] of Object.entries(searchCriteria)) {
+    for (const [key, value] of Object.entries(searchCriteria)) {
       if (value != null) {
         searchParam.append(key, value?.toString());
       }
@@ -189,7 +190,7 @@ export function useQueueEntries(searchCriteria?: QueueEntrySearchCriteria, rep: 
 
 export function useQueueEntriesMetrics(searchCriteria?: QueueEntrySearchCriteria) {
   const searchParam = new URLSearchParams();
-  for (let [key, value] of Object.entries(searchCriteria)) {
+  for (const [key, value] of Object.entries(searchCriteria)) {
     if (value != null) {
       searchParam.append(key, value?.toString());
     }

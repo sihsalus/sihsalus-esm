@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -15,8 +13,12 @@ import {
 import { Add } from '@carbon/react/icons';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
 import { launchWorkspace } from '@openmrs/esm-framework';
-import { useChiefComplaint } from '../hooks/useChiefComplaint';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../config-schema';
+import { useChiefComplaint } from '../hooks/useChiefComplaint';
+
 import styles from './consulta-externa-dashboard.scss';
 
 interface MotivoConsultaProps {

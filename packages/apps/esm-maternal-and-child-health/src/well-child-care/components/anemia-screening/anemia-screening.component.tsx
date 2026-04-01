@@ -1,5 +1,3 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTableSkeleton,
   Tag,
@@ -10,10 +8,14 @@ import {
   StructuredListCell,
 } from '@carbon/react';
 import { WarningFilled, CheckmarkFilled, Add } from '@carbon/react/icons';
-import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
-import { useAnemiaScreening } from '../../../hooks/useAnemiaScreening';
+import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../../config-schema';
+import { useAnemiaScreening } from '../../../hooks/useAnemiaScreening';
+
 import styles from './anemia-screening.scss';
 
 interface AnemiaScreeningProps {

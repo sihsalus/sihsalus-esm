@@ -1,5 +1,6 @@
-import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { age, formatDate, parseDate, type Visit } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+
 import type {
   ConfigConcepts,
   Encounter,
@@ -38,7 +39,7 @@ export function launchEncounterForm(
   });
 }
 
-export function getEncounterValues(encounter: Encounter, param: string, isDate?: Boolean) {
+export function getEncounterValues(encounter: Encounter, param: string, isDate?: boolean) {
   if (isDate) return formatDate(encounter[param]);
   else return encounter[param] ?? '--';
 }
@@ -98,7 +99,7 @@ export function getConceptFromMappings(encounter: Encounter, concepts: Array<str
 }
 
 export function getMultipleObsFromEncounter(encounter: Encounter, obsConcepts: Array<string>, config: ConfigConcepts) {
-  let observations = [];
+  const observations = [];
   obsConcepts.map((concept) => {
     const obs = getObsFromEncounter({ encounter: encounter, obsConcept: concept, config: config });
     if (obs !== '--') {

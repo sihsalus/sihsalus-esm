@@ -1,8 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { SwitcherItem, Toggle } from '@carbon/react';
 import { Network_3 } from '@carbon/react/icons';
 import { getCurrentOfflineMode, setCurrentOfflineMode } from '@openmrs/esm-framework/src/internal';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './offline-actions-mode-button.scss';
 
 function doNotCloseMenu(ev: React.SyntheticEvent) {

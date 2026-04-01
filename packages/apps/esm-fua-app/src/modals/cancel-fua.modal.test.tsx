@@ -1,8 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import CancelFuaModal from './cancel-fua.modal';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
+
 import { cancelFuaRequest } from '../hooks/useFuaRequests';
+
+import CancelFuaModal from './cancel-fua.modal';
 
 jest.mock('../hooks/useFuaRequests', () => ({
   cancelFuaRequest: jest.fn(),

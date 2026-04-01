@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import AddNewProcedureStepWorkspace, { AddNewProcedureStepWorkspaceProps } from './add-procedureStep-form.workspace';
+import AddNewProcedureStepWorkspace, { type AddNewProcedureStepWorkspaceProps } from './add-procedureStep-form.workspace';
 import * as api from '../../api';
-import { RequestProcedure } from '../../types';
+import { type RequestProcedure } from '../../types';
 import userEvent from '@testing-library/user-event';
 
 jest.mock('../../api');

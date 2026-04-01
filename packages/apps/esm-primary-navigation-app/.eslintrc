@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/order": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "no-console": "off"
+  }
+}

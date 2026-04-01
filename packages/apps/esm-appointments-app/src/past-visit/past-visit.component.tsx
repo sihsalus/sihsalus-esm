@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { StructuredListSkeleton, Tab, Tabs } from '@carbon/react';
 import { formatDate, type OpenmrsResource, parseDate, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type Observation } from '../types';
-import { usePastVisits } from './past-visit.resource';
+
 import EncounterList from './encounter-list.component';
+import { usePastVisits } from './past-visit.resource';
 import styles from './past-visit.scss';
 
 interface PastVisitProps {
@@ -25,7 +27,7 @@ export interface FormattedEncounter {
 
 const PastVisit: React.FC<PastVisitProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
-  const { data: pastVisits, error, isLoading } = usePastVisits(patientUuid);
+  const { data: pastVisits, isLoading } = usePastVisits(patientUuid);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   const isTablet = useLayoutType() === 'tablet';
 

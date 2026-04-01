@@ -4,6 +4,9 @@ import groupBy from 'lodash-es/groupBy';
 import isUndefined from 'lodash-es/isUndefined';
 import map from 'lodash-es/map';
 import orderBy from 'lodash-es/orderBy';
+
+import { type ExistingDoses, type ImmunizationFormData, type ImmunizationGrouped } from '../types';
+
 import {
   type Code,
   type FHIRImmunizationBundle,
@@ -12,7 +15,6 @@ import {
   type Reference,
 } from './fhir-immunization-domain';
 
-import { type ExistingDoses, type ImmunizationFormData, type ImmunizationGrouped } from '../types';
 
 const mapToImmunizationDose = (immunizationBundleEntry: FHIRImmunizationBundleEntry): ExistingDoses => {
   const immunizationResource = immunizationBundleEntry?.resource;

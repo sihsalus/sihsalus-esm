@@ -1,6 +1,7 @@
 import { ErrorState, useAppContext } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type InpatientRequest, type WardViewContext } from '../../types';
 import AdmissionRequestNoteRow from '../../ward-patient-card/card-rows/admission-request-note-row.component';
 import CodedObsTagsRow from '../../ward-patient-card/card-rows/coded-obs-tags-row.component';

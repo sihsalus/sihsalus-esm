@@ -1,6 +1,8 @@
+import { type FetchResponse, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
-import { type FetchResponse, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
+
+import { type BedManagementConfig } from '../config-schema';
 import type {
   AdmissionLocation,
   Bed,
@@ -12,7 +14,6 @@ import type {
   LocationFetchResponse,
   MappedBedData,
 } from '../types';
-import { type BedManagementConfig } from '../config-schema';
 
 export const useLocationsWithAdmissionTag = () => {
   const { admissionLocationTagName } = useConfig<BedManagementConfig>();

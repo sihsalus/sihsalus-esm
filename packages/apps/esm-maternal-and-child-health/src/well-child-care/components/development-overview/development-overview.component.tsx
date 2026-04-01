@@ -1,8 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, Tile, Tag } from '@carbon/react';
 import { Growth, Education } from '@carbon/react/icons';
 import { launchWorkspace2 } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './development-overview.scss';
 
 interface DevelopmentOverviewProps {

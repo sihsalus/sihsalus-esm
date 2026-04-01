@@ -4,7 +4,7 @@ This directory contains architecture documentation and decision records for the 
 
 ## Contents
 
-- [ADRs](adr/) — Architecture Decision Records
+- ADRs — Architecture Decision Records (pending, not yet created)
 
 ## Architecture Overview
 
@@ -23,7 +23,7 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 | ------------------- | -------------------------------------------------------------------------------------------------- |
 | `packages/apps/`    | 41 frontend ESM modules (upstream + custom)                                                        |
 | `packages/libs/`    | 6 shared libraries (RBAC, FHIR client, audit logger, Keycloak auth, constants, patient-common-lib) |
-| `packages/tooling/` | CLI (`openmrs`), webpack-config, rspack-config                                                     |
+| `packages/tooling/` | CLI (`openmrs`), rspack-config                                                                     |
 | `packages/tools/`   | Test utilities (setup-tests, test-utils)                                                           |
 | `scripts/`          | Build scripts (import map assembly, workspace dep fixer)                                           |
 | `e2e/`              | Playwright E2E tests                                                                               |

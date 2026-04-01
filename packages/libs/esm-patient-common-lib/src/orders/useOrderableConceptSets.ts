@@ -4,7 +4,6 @@ import {
   type OpenmrsResource,
   reportError,
   restBaseUrl,
-  showSnackbar,
 } from '@openmrs/esm-framework';
 import { useEffect, useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
@@ -61,6 +60,7 @@ function useOrderableConceptSWR(searchTerm: string, orderableConceptSets?: Array
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface OrderableConcept extends OpenmrsResource {}
 
 export function useOrderableConceptSets(searchTerm: string, orderableConcepts: Array<string>) {

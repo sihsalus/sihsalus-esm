@@ -1,13 +1,15 @@
+import { Button, NumberInput, Select, SelectItem } from '@carbon/react';
+import { Add, TrashCan } from '@carbon/react/icons';
 import React, { useState } from 'react';
 import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { type CostStructureFormValues } from '../schema/costructure-schema';
+
 import useGetInfrastructure from '../../../hooks/use-get-infrastructure';
-import { Button, IconButton, NumberInput, Select, SelectItem, Table } from '@carbon/react';
-import { Add, TrashCan } from '@carbon/react/icons';
 import { calculateDepreciationByMinutes, calculateTotalValidConsruction } from '../../../utils/infrastructure';
-import styles from './tabs.styles.scss';
 import NoContent from '../../ui/NoContent/NoContent';
+import { type CostStructureFormValues } from '../schema/costructure-schema';
+
+import styles from './tabs.styles.scss';
 interface CalculateFields {
   totalConstruction: number;
   depreciationPerMinute: number;
@@ -22,13 +24,13 @@ export default function InfrastructureTab({ form }: Props) {
   const { t } = useTranslation();
 
   const { infrastructure: infrastructures } = useGetInfrastructure();
-  const { control, setValue, watch } = form;
+  const { control, setValue } = form;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'infrastructures',
   });
 
-  const { fields: publicServiceFields, append: publicServiceAppend } = useFieldArray({
+  const { append: publicServiceAppend } = useFieldArray({
     control,
     name: 'publicServices',
   });

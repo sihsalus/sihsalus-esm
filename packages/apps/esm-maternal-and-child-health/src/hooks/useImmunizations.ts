@@ -1,5 +1,6 @@
 import { fhirBaseUrl, openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
 import { type FHIRImmunizationBundle } from '../immunization-plan/fhir-immunization-domain';
 import { mapFromFHIRImmunizationBundle } from '../immunization-plan/fhir-immunization-mapper';
 

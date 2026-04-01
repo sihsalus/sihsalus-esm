@@ -1,12 +1,14 @@
+import { exec } from 'child_process';
+import { existsSync, readFileSync } from 'node:fs';
+import { basename, resolve } from 'node:path';
+import { URL } from 'node:url';
+
 import axios from 'axios';
 import glob from 'glob';
-import { URL } from 'node:url';
-import { basename, resolve } from 'node:path';
-import { existsSync, readFileSync } from 'node:fs';
-import { exec } from 'child_process';
-import { logFail, logInfo, logWarn } from './logger';
+
+import { getMainBundle, getAppRoutes, type PackageManifest } from './dependencies';
 import { startDevServer } from './devserver';
-import { getMainBundle, getAppRoutes } from './dependencies';
+import { logFail, logInfo, logWarn } from './logger';
 import { getAvailablePort } from './port';
 
 async function readImportmap(path: string, backend?: string, spaPath?: string) {
@@ -145,29 +147,27 @@ async function matchAny(baseDir: string, patterns: Array<string>) {
   return matches;
 }
 
-const defaultConfigPath = resolve(__dirname, '..', '..', 'default-webpack-config.js');
+const defaultConfigPath = resolve(__dirname, '..', '..', 'default-rspack-config.js');
 
 function runProjectDevServer(
   configPath: string,
   port: number,
-  project: any,
+  project: PackageManifest,
   sourceDirectory: string,
   importMap: Record<string, string>,
   routes: Record<string, unknown>,
-  useRspack: boolean = false,
 ) {
   const bundle = getMainBundle(project);
   const host = `http://localhost:${port}`;
 
-  startDevServer(configPath, port, sourceDirectory, useRspack);
-  importMap[project.name] = `${host}/${bundle.name}`;
-  routes[project.name] = getAppRoutes(sourceDirectory, project);
+  startDevServer(configPath, port, sourceDirectory);
+  importMap[project.name as string] = `${host}/${bundle.name}`;
+  routes[project.name as string] = getAppRoutes(sourceDirectory, project);
 }
 
 export async function runProject(
   basePort: number,
   sourceDirectoryPatterns: Array<string>,
-  useRspack?: boolean,
 ): Promise<{
   importMap: Record<string, string>;
   routes: Record<string, unknown>;
@@ -189,10 +189,8 @@ export async function runProject(
     const projectFile = resolve(sourceDirectory, 'package.json');
     const routesFile = resolve(sourceDirectory, 'src', 'routes.json');
 
-    const configPath = resolve(sourceDirectory, 'webpack.config.js');
     const rspackConfigPath = resolve(sourceDirectory, 'rspack.config.js');
-    const hasConfig = typeof useRspack !== 'undefined' ? !useRspack : existsSync(configPath);
-    const hasRspackConfig = typeof useRspack !== 'undefined' ? useRspack : existsSync(rspackConfigPath);
+    const hasRspackConfig = existsSync(rspackConfigPath);
 
     logInfo(`Looking in directory "${sourceDirectory}" ...`);
 
@@ -218,9 +216,8 @@ export async function runProject(
       cp.stderr?.pipe(process.stderr);
       // connect to either startup.url or a computed value based on startup.host
       importMap[project.name] = startup.url || `${startup.host}/${basename(project.browser)}`;
-    } else if (!hasConfig && !hasRspackConfig) {
-      // try to locate and run via default webpack
-      logWarn(`No "webpack.config.js" found in directory "${sourceDirectory}". Trying to use default config ...`);
+    } else if (!hasRspackConfig) {
+      logWarn(`No "rspack.config.js" found in directory "${sourceDirectory}". Trying to use default config ...`);
 
       // Find next available port
       const port = await getAvailablePort(nextPortToCheck);
@@ -232,12 +229,7 @@ export async function runProject(
       const port = await getAvailablePort(nextPortToCheck);
       nextPortToCheck = port + 1;
 
-      if (hasConfig) {
-        // run via specialized webpack.config.js
-        runProjectDevServer(configPath, port, project, sourceDirectory, importMap, routes);
-      } else {
-        runProjectDevServer(rspackConfigPath, port, project, sourceDirectory, importMap, routes, true);
-      }
+      runProjectDevServer(rspackConfigPath, port, project, sourceDirectory, importMap, routes);
     }
   }
 
@@ -418,7 +410,12 @@ export function proxyImportmapAndRoutes(
   const spaPathRegEx = new RegExp('^' + spaPath.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&').replace(/-/g, '\\x2d'));
 
   Object.keys(importmap.imports).forEach((key) => {
-    const url = new URL(importmap.imports[key], backendUrl);
+    const value = importmap.imports[key];
+    // Skip entries that are already relative paths — they don't need proxying
+    if (value.startsWith('./') || value.startsWith('../') || !value.includes('://')) {
+      return;
+    }
+    const url = new URL(value, backendUrl);
     if (url.protocol === backendUrl.protocol && url.host === backendUrl.host) {
       importmap.imports[key] = `./${url.pathname.replace(spaPathRegEx, '')}${url.search}${url.hash}`;
     }

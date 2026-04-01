@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Table,
@@ -12,6 +10,9 @@ import {
   TableToolbar,
 } from '@carbon/react';
 import { isDesktop, useLayoutType, useSession, useVisitContextStore } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './observation-group-details.scss';
 
 export interface ObservationRow {

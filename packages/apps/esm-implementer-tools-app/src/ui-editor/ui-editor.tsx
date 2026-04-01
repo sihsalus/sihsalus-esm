@@ -1,7 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { type TFunction } from 'i18next';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import {
   CloseIcon,
@@ -9,9 +5,15 @@ import {
   useStore,
   useStoreWithActions,
 } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import { type TFunction } from 'i18next';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { type ImplementerToolsStore, implementerToolsStore } from '../store';
+
 import { ExtensionOverlay } from './extension-overlay.component';
 import { Portal } from './portal';
-import { type ImplementerToolsStore, implementerToolsStore } from '../store';
 import styles from './styles.scss';
 
 interface ExitButtonProps {
@@ -29,12 +31,12 @@ interface SlotOverlayProps {
 export default function UiEditor() {
   const { t } = useTranslation();
   const { slots, extensions } = useStore(getExtensionInternalStore());
-  const { isOpen: areImplementerToolsOpen } = useStore(implementerToolsStore);
+  useStore(implementerToolsStore);
 
   const getExtensionCount = (slotName: string, moduleName: string) => {
     if (!extensions || !moduleName) return 0;
 
-    let count = 0;
+    const count = 0;
 
     const slot = slots?.[slotName];
 

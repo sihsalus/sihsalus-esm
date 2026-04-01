@@ -2,9 +2,11 @@ import { Button, ButtonSkeleton, Row } from '@carbon/react';
 import { Microscope } from '@carbon/react/icons';
 import { useConfig, launchWorkspace } from '@openmrs/esm-framework';
 import React from 'react';
+
 import type { ConfigObject } from '../config-schema';
 import useRelativeHTSEncounter from '../hooks/useRelativeHTSEncounter';
 import useRelativeHivEnrollment from '../hooks/useRelativeHivEnrollment';
+
 import { getHivStatusBasedOnEnrollmentAndHTSEncounters } from './contact-list.resource';
 
 interface ContactActionsProps {

@@ -1,8 +1,9 @@
-import React from 'react';
+import { formatDate, formatTime, parseDate } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import capitalize from 'lodash-es/capitalize';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatTime, parseDate } from '@openmrs/esm-framework';
+
 import { type OrderItem } from '../../types';
 import styles from '../visit-detail-overview.scss';
 

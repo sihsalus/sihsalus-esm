@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import { opciones as initialOpciones } from '../data/optionsData.json';
 
 interface DentalColor {

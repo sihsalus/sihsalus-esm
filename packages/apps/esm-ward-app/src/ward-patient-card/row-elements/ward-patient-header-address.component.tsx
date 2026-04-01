@@ -1,5 +1,6 @@
-import React from 'react';
 import { type Patient } from '@openmrs/esm-framework';
+import React from 'react';
+
 import { useElementConfig } from '../../ward-view/ward-view.resource';
 
 export interface WardPatientAddressProps {

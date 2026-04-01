@@ -1,8 +1,3 @@
-import React, { useCallback } from 'react';
-import { type TFunction, useTranslation } from 'react-i18next';
-import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import {
   Button,
   Checkbox,
@@ -17,14 +12,14 @@ import {
   SelectItem,
   Stack,
 } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { type TFunction, useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
-import {
-  addProviderToQueueRoom,
-  updateProviderToQueueRoom,
-  useProvidersQueueRoom,
-  useQueueRooms,
-} from './add-provider-queue-room.resource';
 import {
   updatedSelectedQueueRoomTimestamp,
   updateIsPermanentProviderQueueRoom,
@@ -37,6 +32,13 @@ import {
   useSelectedService,
 } from '../helpers/helpers';
 import useQueueServices from '../hooks/useQueueService';
+
+import {
+  addProviderToQueueRoom,
+  updateProviderToQueueRoom,
+  useProvidersQueueRoom,
+  useQueueRooms,
+} from './add-provider-queue-room.resource';
 import styles from './add-provider-queue-room.scss';
 
 interface AddProviderQueueRoomModalProps {

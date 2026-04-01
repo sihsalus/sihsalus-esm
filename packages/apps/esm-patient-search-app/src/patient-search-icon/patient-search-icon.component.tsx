@@ -1,7 +1,3 @@
-import React, { useCallback, useState, useEffect, useMemo } from 'react';
-import { preload } from 'swr';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { HeaderGlobalAction } from '@carbon/react';
 import { Close, Search } from '@carbon/react/icons';
 import {
@@ -13,10 +9,16 @@ import {
   useOnClickOutside,
   useSession,
 } from '@openmrs/esm-framework';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { preload } from 'swr';
+
 import CompactPatientSearchComponent from '../compact-patient-search/compact-patient-search.component';
-import PatientSearchOverlay from '../patient-search-overlay/patient-search-overlay.component';
-import styles from './patient-search-icon.scss';
 import { PatientSearchContext } from '../patient-search-context';
+import PatientSearchOverlay from '../patient-search-overlay/patient-search-overlay.component';
+
+import styles from './patient-search-icon.scss';
 
 interface PatientSearchLaunchProps {}
 

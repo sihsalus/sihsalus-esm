@@ -1,7 +1,4 @@
-import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { Button, Checkbox, InlineLoading } from '@carbon/react';
-import { useLocation, type Location, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
   getCoreTranslation,
   LocationPicker,
@@ -11,9 +8,15 @@ import {
   useConnectivity,
   useSession,
 } from '@openmrs/esm-framework';
-import { useDefaultLocation, useLocationCount } from './location-picker.resource';
+import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation, type Location, useSearchParams } from 'react-router-dom';
+
+
 import type { ConfigSchema } from '../config-schema';
 import type { LoginReferrer } from '../login/login.component';
+
+import { useDefaultLocation, useLocationCount } from './location-picker.resource';
 import styles from './location-picker.scss';
 
 interface LocationPickerProps {
@@ -97,6 +100,7 @@ const LocationPickerView: React.FC<LocationPickerProps> = ({ hideWelcomeMessage,
         console.error('Expected location data is missing', { firstLocation, locationCount });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationCount, isLoadingLocationCount]);
 
   // Handle cases where the login location is present in the userProperties.

@@ -1,6 +1,7 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import CancelPatientEdit from './cancel-patient-edit.modal';
 
 describe('CancelPatientEdit modal', () => {

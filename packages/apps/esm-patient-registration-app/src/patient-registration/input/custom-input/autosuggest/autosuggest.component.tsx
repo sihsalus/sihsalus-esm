@@ -1,6 +1,7 @@
-import React, { type HTMLAttributes, useEffect, useRef, useState } from 'react';
 import { Layer, Search, type SearchProps } from '@carbon/react';
 import classNames from 'classnames';
+import React, { type HTMLAttributes, useEffect, useRef, useState } from 'react';
+
 import styles from './autosuggest.scss';
 
 // FIXME Temporarily included types from Carbon

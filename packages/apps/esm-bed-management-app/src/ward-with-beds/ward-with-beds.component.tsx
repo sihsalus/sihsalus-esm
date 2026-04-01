@@ -1,6 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -18,9 +15,14 @@ import {
 } from '@carbon/react';
 import { ArrowLeft, Add } from '@carbon/react/icons';
 import { navigate, usePagination } from '@openmrs/esm-framework';
-import { useBedsForLocation, useLocationName } from '../summary/summary.resource';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+
 import NewBedForm from '../bed-administration/new-bed-form.component';
 import Header from '../header/header.component';
+import { useBedsForLocation, useLocationName } from '../summary/summary.resource';
+
 import styles from './ward-with-beds.scss';
 
 type RouteParams = { location: string };

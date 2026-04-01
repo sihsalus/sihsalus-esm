@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import CardsContainer from './cards-container.component';
-import OfflinePatientTable from '../offline-patients/offline-patient-table.component';
+
 import SharedPageLayout from '../components/shared-page-layout.component';
+import OfflinePatientTable from '../offline-patients/offline-patient-table.component';
+
+import CardsContainer from './cards-container.component';
 import styles from './home.styles.scss';
 
 /**

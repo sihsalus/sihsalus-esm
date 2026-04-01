@@ -1,9 +1,4 @@
 // tepsi-form.tsx
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   ButtonSet,
@@ -17,6 +12,7 @@ import {
   Tile,
   Tag,
 } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   showSnackbar,
   useConfig,
@@ -26,8 +22,14 @@ import {
   useVisit,
   getPatientName,
 } from '@openmrs/esm-framework';
-import type { DefaultPatientWorkspaceProps } from '../../../types';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import type { ConfigObject } from '../../../config-schema';
+import type { DefaultPatientWorkspaceProps } from '../../../types';
+
 import styles from './tepsi-form.scss';
 
 // Definir tipos para TEPSI

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
 import { getGlobalStore } from '@openmrs/esm-framework';
+import { useEffect, useState } from 'react';
+
 import type { AppointmentSummary } from '../types';
 
 export const getServiceCountByAppointmentType = (

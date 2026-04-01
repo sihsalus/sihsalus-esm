@@ -1,12 +1,14 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Layer, Tile } from '@carbon/react';
 import { CheckmarkFilled, WarningFilled } from '@carbon/react/icons';
 import { getDynamicOfflineDataHandlers } from '@openmrs/esm-framework';
-import { useLastSyncStateOfPatient } from '../hooks/offline-patient-data-hooks';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+
 import SharedPageLayout from '../components/shared-page-layout.component';
+import { useLastSyncStateOfPatient } from '../hooks/offline-patient-data-hooks';
+
 import styles from './offline-patient-sync-details.styles.scss';
 
 const OfflinePatientSyncDetails: React.FC = () => {

@@ -1,9 +1,11 @@
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Tile, Tag, InlineLoading } from '@carbon/react';
 import { ErrorState, useConfig } from '@openmrs/esm-framework';
-import { useSchemasConceptSet } from '../../hooks/useSchemasConceptSet';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ConfigObject } from '../../config-schema';
+import { useSchemasConceptSet } from '../../hooks/useSchemasConceptSet';
+
 import styles from './legend.scss';
 
 interface LegendItem {

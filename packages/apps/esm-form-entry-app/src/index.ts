@@ -8,7 +8,7 @@ import { configSchema } from './config-schema';
 // @ts-ignore
 require('./styles.css?ngGlobalStyle');
 
-const moduleName = '@openmrs/esm-form-entry-app';
+const moduleName = '@sihsalus/esm-form-entry-app';
 
 export const importTranslation = import.meta.webpackContext('../translations', {
   regExp: /\.json$/,

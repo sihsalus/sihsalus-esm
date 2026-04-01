@@ -1,0 +1,6 @@
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.unknownParameterTypeSpan {
+  text-align: left;
+  color: $danger;
+}

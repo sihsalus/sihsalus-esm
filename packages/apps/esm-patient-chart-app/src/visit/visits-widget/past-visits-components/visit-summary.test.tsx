@@ -1,10 +1,13 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { ExtensionSlot, getConfig, getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { type ChartConfig, esmPatientChartSchema } from '../../../config-schema';
-import { mockPatient } from 'tools';
+import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { visitOverviewDetailMockData, visitOverviewDetailMockDataNotEmpty } from '__mocks__';
+import React from 'react';
+import { mockPatient } from 'tools';
+
+import { type ChartConfig, esmPatientChartSchema } from '../../../config-schema';
+
+
 import VisitSummary from './visit-summary.component';
 
 const mockExtensionSlot = ExtensionSlot as jest.Mock;
@@ -68,9 +71,9 @@ describe('VisitSummary', () => {
     expect(malariaTag).toBeInTheDocument();
     expect(hivTag).toBeInTheDocument();
 
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     expect(malariaTag.closest('div')).toHaveClass('cds--tag--red');
-    // eslint-disable-next-line testing-library/no-node-access
+    // eslint-disable-next-line
     expect(hivTag.closest('div')).toHaveClass('cds--tag--blue');
   });
 

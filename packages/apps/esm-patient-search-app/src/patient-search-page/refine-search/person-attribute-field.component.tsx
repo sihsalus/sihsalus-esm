@@ -1,16 +1,19 @@
-import React, { useMemo, useRef, useState } from 'react';
 import { ComboBox, InlineLoading, InlineNotification, TextInput, TextInputSkeleton } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { type OpenmrsResource } from '@openmrs/esm-framework';
+import React, { useMemo, useRef, useState } from 'react';
 import { type Control, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
+import { type AdvancedPatientSearchState, type SearchFieldConfig } from '../../types';
+
 import {
   useAttributeConceptAnswers,
   useConfiguredAnswerConcepts,
   useLocations,
   usePersonAttributeType,
 } from './person-attributes.resource';
-import { type AdvancedPatientSearchState, type SearchFieldConfig } from '../../types';
 import styles from './search-field.scss';
-import { type OpenmrsResource } from '@openmrs/esm-framework';
+
 
 export interface PersonAttributeFieldProps {
   field: SearchFieldConfig;

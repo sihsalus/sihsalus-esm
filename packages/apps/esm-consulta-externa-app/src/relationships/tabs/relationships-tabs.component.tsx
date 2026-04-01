@@ -1,10 +1,12 @@
-import React from 'react';
 import { TabPanels, TabPanel, TabList, Tabs, Tab } from '@carbon/react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styles from './relationships-tabs.scss';
+
 import ContactList from '../../contact-list/contact-list.component';
 import FamilyHistory from '../../family-partner-history/family-history.component';
 import { OtherRelationships } from '../../other-relationships/other-relationships.component';
+
+import styles from './relationships-tabs.scss';
 
 interface RelationshipsTabProps {
   patientUuid: string;

@@ -1,10 +1,12 @@
-import React from 'react';
-import { Form, Formik } from 'formik';
 import { render, screen } from '@testing-library/react';
+import { Form, Formik } from 'formik';
+import React from 'react';
+
 import { type FieldDefinition } from '../../../config-schema';
-import { usePersonAttributeType } from './person-attributes.resource';
 import { useConceptAnswers } from '../field.resource';
+
 import { PersonAttributeField } from './person-attribute-field.component';
+import { usePersonAttributeType } from './person-attributes.resource';
 
 jest.mock('./person-attributes.resource', () => ({
   ...jest.requireActual('./person-attributes.resource'),

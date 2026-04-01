@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { OverflowMenuItem } from '@carbon/react';
 import { useVisit, showModal } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './action-button.scss';
 
 interface CancelVisitOverflowMenuItemProps {

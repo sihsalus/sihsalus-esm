@@ -1,7 +1,8 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { showModal } from '@openmrs/esm-framework';
+import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import AddPastVisitOverflowMenuItem from './add-past-visit.component';
 
 const mockShowModal = jest.mocked(showModal);

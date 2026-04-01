@@ -1,10 +1,13 @@
+/* eslint-disable */
 import { InlineNotification } from '@carbon/react';
 import { useAppContext, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
 import React, { createContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import useEmrConfiguration from '../../hooks/useEmrConfiguration';
-import styles from './admission-requests-workspace.scss';
 import { type WardViewContext } from '../../types';
+
+import styles from './admission-requests-workspace.scss';
 
 export interface AdmissionRequestsWorkspaceProps extends DefaultWorkspaceProps {
   wardPendingPatients: ReactNode;

@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+
 import type { AppointmentSummary, ObsReferenceRanges, ObservationInterpretation } from '../types';
 
 interface FlattenedAppointmentSummary {
@@ -34,7 +35,7 @@ export const getServiceCountByAppointmentType = (
 export const formatAMPM = (date) => {
   let hours = date.getHours();
   let minutes = date.getMinutes();
-  let ampm = hours >= 12 ? 'PM' : 'AM';
+  const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -52,7 +53,7 @@ export const monthDays = (currentDate: Dayjs) => {
   const monthDays = dayjs(currentDate).daysInMonth();
   const lastMonth = dayjs(currentDate).subtract(1, 'month');
   const nextMonth = dayjs(currentDate).add(1, 'month');
-  let days: Dayjs[] = [];
+  const days: Dayjs[] = [];
 
   for (let i = lastMonth.daysInMonth() - monthStart.day() + 1; i <= lastMonth.daysInMonth(); i++) {
     days.push(dayjs().month(lastMonth.month()).date(i));

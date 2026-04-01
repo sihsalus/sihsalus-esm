@@ -1,6 +1,7 @@
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter';
 import PatientSummaryTable from '../../../ui/patient-summary-table/patient-summary-table.component';

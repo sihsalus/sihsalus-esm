@@ -1,6 +1,3 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Tab, TabList, TabPanel, TabPanels, Tabs, Tag } from '@carbon/react';
 import {
   Extension,
@@ -13,6 +10,10 @@ import {
   type Visit,
 } from '@openmrs/esm-framework';
 import type { ExternalOverviewProps } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import {
   mapEncounters,
   type Diagnosis,
@@ -22,11 +23,12 @@ import {
   type Order,
   type OrderItem,
 } from '../visit.resource';
+
 import MedicationSummary from './medications-summary.component';
 import NotesSummary from './notes-summary.component';
 import TestsSummary from './tests-summary.component';
-import VisitsTable from './visits-table/visits-table.component';
 import styles from './visit-summary.scss';
+import VisitsTable from './visits-table/visits-table.component';
 
 interface DiagnosisItem {
   diagnosis: string;

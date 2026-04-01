@@ -1,6 +1,3 @@
-import React, { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import uniqueId from 'lodash-es/uniqueId';
 import {
   InlineLoading,
   Search,
@@ -9,6 +6,10 @@ import {
   StructuredListWrapper,
   Tile,
 } from '@carbon/react';
+import uniqueId from 'lodash-es/uniqueId';
+import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { Concept } from './concept-search.resource';
 import { useConceptLookup } from './concept-search.resource';
 import styles from './uuid-search.scss';

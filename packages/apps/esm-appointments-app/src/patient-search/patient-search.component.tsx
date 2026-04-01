@@ -1,5 +1,6 @@
-import React from 'react';
 import { ExtensionSlot, launchWorkspace } from '@openmrs/esm-framework';
+import React from 'react';
+
 import styles from './patient-search.scss';
 
 const PatientSearch: React.FC = () => {

@@ -1,8 +1,9 @@
-import React from 'react';
 import { Pagination } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework';
-import { usePaginationInfo } from './use-pagination-info.component';
+import React from 'react';
+
 import styles from './custom-pagination.scss';
+import { usePaginationInfo } from './use-pagination-info.component';
 
 interface CustomPaginationProps {
   currentItems: number;

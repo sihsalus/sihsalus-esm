@@ -3,12 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { launchWorkspace, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
+import type { TFunction } from 'i18next';
 import React, { useEffect, useState } from 'react';
 import { Controller, FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import { z } from 'zod';
+
 import type { ConfigObject } from '../../config-schema';
+
 import styles from './conditions-form.scss';
 import ConditionsWidget from './conditions-widget.component';
 import { type ConditionDataTableRow, useConditions } from './conditions.resource';

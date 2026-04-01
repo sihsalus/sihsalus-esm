@@ -1,4 +1,5 @@
-import React from 'react';
+import { Button } from '@carbon/react';
+import { Renew } from '@carbon/react/icons';
 import {
   getOfflineSynchronizationStore,
   isDesktop,
@@ -7,13 +8,14 @@ import {
   useLayoutType,
   useStore,
 } from '@openmrs/esm-framework/src/internal';
-import { Button } from '@carbon/react';
-import { Renew } from '@carbon/react/icons';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { usePendingSyncItems } from '../hooks/offline-actions';
-import OfflineActions from './offline-actions.component';
+
 import SharedPageLayout from '../components/shared-page-layout.component';
+import { usePendingSyncItems } from '../hooks/offline-actions';
+
 import styles from './offline-actions-page.styles.scss';
+import OfflineActions from './offline-actions.component';
 
 const OfflineActionsPage: React.FC = () => {
   const { t } = useTranslation();

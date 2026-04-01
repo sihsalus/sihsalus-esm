@@ -1,8 +1,8 @@
-import React from 'react';
 import { FilterableMultiSelect } from '@carbon/react';
 import { useAssignedExtensions } from '@openmrs/esm-framework';
+import React from 'react';
 
-export function ExtensionSlotRemove({ slotName, slotModuleName, value, setValue }) {
+export function ExtensionSlotRemove({ slotName, slotModuleName: _slotModuleName, value, setValue }) {
   const assignedIds = useAssignedExtensions(slotName).map((e) => e.id);
 
   return (

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type Bed } from '../../types';
 import styles from '../ward-patient-card.scss';
 

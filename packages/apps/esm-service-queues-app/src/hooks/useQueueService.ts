@@ -1,8 +1,10 @@
 import { getLocale } from '@openmrs/esm-framework';
-import { useMemo } from 'react';
-import { useQueues } from './useQueues';
 import uniqBy from 'lodash-es/uniqBy';
+import { useMemo } from 'react';
+
 import { useSelectedQueueLocationUuid } from '../helpers/helpers';
+
+import { useQueues } from './useQueues';
 
 function useQueueServices() {
   const currentQueueLocation = useSelectedQueueLocationUuid();

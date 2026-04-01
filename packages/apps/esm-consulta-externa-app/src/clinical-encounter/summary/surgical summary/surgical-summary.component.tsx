@@ -1,15 +1,17 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { OverflowMenu, OverflowMenuItem, InlineLoading } from '@carbon/react';
 import { formatDate, parseDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
-import { AdmissionDate_UUID, PriorityOfAdmission_UUID, AdmissionWard_UUID } from '../../../utils/constants';
-import { getObsFromEncounter } from '../../../ui/encounter-list/encounter-list-utils';
-import type { ConfigObject } from '../../../config-schema';
-import SummaryCard from '../summary-card.component';
-import styles from '../../dashboard/in-patient.scss';
-import type { OpenmrsEncounter } from '../../../types';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
+
+import type { ConfigObject } from '../../../config-schema';
+import type { OpenmrsEncounter } from '../../../types';
+import { getObsFromEncounter } from '../../../ui/encounter-list/encounter-list-utils';
+import { AdmissionDate_UUID, PriorityOfAdmission_UUID, AdmissionWard_UUID } from '../../../utils/constants';
+import styles from '../../dashboard/in-patient.scss';
+import SummaryCard from '../summary-card.component';
+
 
 interface SurgicalSummaryProps {
   patientUuid: string;

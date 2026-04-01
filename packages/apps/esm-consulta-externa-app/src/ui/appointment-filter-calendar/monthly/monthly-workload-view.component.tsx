@@ -1,11 +1,14 @@
-import React, { useContext, useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
-import styles from './monthly-view-workload.scss';
+import React, { useContext, useMemo } from 'react';
+
+
+import SelectedDateContext from '../../../hooks/selectedDateContext';
 import type { PatientAppointment } from '../../../types';
 import { isSameMonth } from '../../../utils/utils';
-import SelectedDateContext from '../../../hooks/selectedDateContext';
+
+import styles from './monthly-view-workload.scss';
 
 export interface MonthlyWorkloadViewProps {
   events: Array<PatientAppointment>;

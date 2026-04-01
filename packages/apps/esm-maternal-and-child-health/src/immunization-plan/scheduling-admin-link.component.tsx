@@ -1,7 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Layer, ClickableTile } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const SchedulingAdminLink: React.FC = () => {
   const { t } = useTranslation();

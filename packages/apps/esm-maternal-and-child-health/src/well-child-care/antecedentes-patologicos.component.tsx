@@ -1,5 +1,6 @@
 import { useConfig } from '@openmrs/esm-framework';
 import React from 'react';
+
 import type { ConfigObject } from '../config-schema';
 import GenericConditionsOverview from '../ui/conditions-filter/generic-conditions-overview.component';
 

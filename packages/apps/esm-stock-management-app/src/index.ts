@@ -18,7 +18,7 @@ import StockUserScopes from './stock-user-role-scopes/stock-user-role-scopes.com
 import TransactionsBincardPrintPreviewModal from './stock-items/add-stock-item/transactions/printout/transactions-print-bincard-preview.modal';
 import TransactionsStockcardPrintPreviewModal from './stock-items/add-stock-item/transactions/printout/transactions-print-stockcard-preview.modal';
 
-const moduleName = '@openmrs/esm-stock-management-app';
+const moduleName = '@sihsalus/esm-stock-management-app';
 
 const options = {
   featureName: 'stock-management',

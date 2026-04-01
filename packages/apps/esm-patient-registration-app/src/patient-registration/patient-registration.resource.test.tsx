@@ -1,4 +1,5 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+
 import { savePatient } from './patient-registration.resource';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;

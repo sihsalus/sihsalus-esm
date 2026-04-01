@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   DataTable,
   TableContainer,
@@ -13,10 +12,12 @@ import {
   TableExpandedRow,
   Button,
 } from '@carbon/react';
-import EncounterObservations from './encounter-observations/encounter-observations.component';
-import capitalize from 'lodash-es/capitalize';
 import { formatDate } from '@openmrs/esm-framework';
+import capitalize from 'lodash-es/capitalize';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
+import EncounterObservations from './encounter-observations/encounter-observations.component';
 
 interface GenericTableEncounter {
   uuid: string;

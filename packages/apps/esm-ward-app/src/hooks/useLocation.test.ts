@@ -1,6 +1,7 @@
-import useSWRImmutable from 'swr/immutable';
-import { renderHook } from '@testing-library/react';
 import { restBaseUrl } from '@openmrs/esm-framework';
+import { renderHook } from '@testing-library/react';
+import useSWRImmutable from 'swr/immutable';
+
 import useLocation from './useLocation';
 
 jest.mock('swr/immutable', () =>

@@ -1,13 +1,15 @@
 import { Button, ButtonSet, Form, InlineLoading, InlineNotification } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLayoutType } from '@openmrs/esm-framework';
-import { type DefaultPatientWorkspaceProps } from '../../types';
 import classNames from 'classnames';
+import type { TFunction } from 'i18next';
 import React, { useState } from 'react';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import { z } from 'zod';
+
+import { type DefaultPatientWorkspaceProps } from '../../types';
+
 import styles from './conditions-form.scss';
 import ConditionsWidget from './conditions-widget.component';
 import { type ConditionDataTableRow, useConditions } from './conditions.resource';

@@ -1,4 +1,5 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
+
 import { configSchema } from './config-schema';
 import { createLeftPanelLink } from './left-panel-link.component';
 import rootComponent from './root.component';

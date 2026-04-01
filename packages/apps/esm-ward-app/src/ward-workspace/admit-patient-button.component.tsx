@@ -9,6 +9,7 @@ import {
 } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import useWardLocation from '../hooks/useWardLocation';
 import type { DispositionType, WardPatient, WardPatientWorkspaceProps, WardViewContext } from '../types';
 import { useAdmitPatient } from '../ward.resource';

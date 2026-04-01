@@ -1,5 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import type { PatientAppointment } from '../../types';
 
 type AppointmentFilters = {

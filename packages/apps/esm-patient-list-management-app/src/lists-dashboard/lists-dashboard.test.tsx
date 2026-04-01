@@ -1,9 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { useLocation } from 'react-router-dom';
 import { type FetchResponse, openmrsFetch, restBaseUrl, useSession } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockSession } from '__mocks__';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
 import ListsDashboard from './lists-dashboard.component';
 
 const mockOpenmrsFetch = jest.mocked(openmrsFetch);

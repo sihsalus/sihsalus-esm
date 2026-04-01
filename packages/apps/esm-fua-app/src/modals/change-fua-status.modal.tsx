@@ -1,8 +1,10 @@
-import React, { useState, useCallback } from 'react';
 import { ModalHeader, ModalBody, ModalFooter, Button, Select, SelectItem, InlineLoading } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { setFuaEstado, type FuaRequest } from '../hooks/useFuaRequests';
+
 import styles from './fua-modals.scss';
 
 interface ChangeFuaStatusModalProps {
@@ -78,7 +80,7 @@ const ChangeFuaStatusModal: React.FC<ChangeFuaStatusModalProps> = ({ closeModal,
 
       onStatusChanged?.();
       closeModal();
-    } catch (error) {
+    } catch {
       showSnackbar({
         title: t('error', 'Error'),
         subtitle: t('errorChangingStatus', 'Ocurrió un error al cambiar el estado del FUA'),

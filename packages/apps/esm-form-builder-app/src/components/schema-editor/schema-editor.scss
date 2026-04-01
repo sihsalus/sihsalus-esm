@@ -1,0 +1,32 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.validationErrorsContainer {
+  display: flex;
+  gap: layout.$spacing-05;
+
+  :global(.cds--actionable-notification) {
+    max-width: 38rem;
+  }
+  :global(.cds--actionable-notification__details) {
+    margin: 0 0 0 0.8125rem !important;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-05;
+  font-size: 0.875rem;
+
+  .paginationIcon {
+    fill: colors.$blue-50;
+    cursor: pointer;
+  }
+
+  .disabledIcon {
+    fill: colors.$gray-40;
+    cursor: not-allowed;
+  }
+}

@@ -1,10 +1,12 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { SkeletonText } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
-import styles from './encounter-observation-component.scss';
-import { mapConceptToFormLabel, mapObsValueToFormLabel } from '../encounter-list/encounter-list-utils';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { Observation } from '../../types';
+import { mapConceptToFormLabel, mapObsValueToFormLabel } from '../encounter-list/encounter-list-utils';
+
+import styles from './encounter-observation-component.scss';
 
 interface EncounterObservationsProps {
   observations: Array<Observation>;
@@ -20,7 +22,7 @@ const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observati
   }
 
   if (observations?.length > 0) {
-    const filteredObservations = !!obsConceptUuidsToHide.length
+    const filteredObservations = obsConceptUuidsToHide.length
       ? observations?.filter((obs) => {
           return !obsConceptUuidsToHide.includes(obs?.concept?.uuid);
         })

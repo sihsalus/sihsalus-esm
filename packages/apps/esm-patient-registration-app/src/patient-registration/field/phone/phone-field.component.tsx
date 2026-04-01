@@ -1,7 +1,8 @@
-import React from 'react';
-import { PersonAttributeField } from '../person-attributes/person-attribute-field.component';
 import { useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+
 import { type RegistrationConfig } from '../../../config-schema';
+import { PersonAttributeField } from '../person-attributes/person-attribute-field.component';
 
 export function PhoneField() {
   const config = useConfig<RegistrationConfig>();

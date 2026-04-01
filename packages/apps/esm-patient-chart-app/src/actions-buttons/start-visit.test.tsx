@@ -1,10 +1,12 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, useConfig, useVisit, type VisitReturnType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { type ChartConfig, esmPatientChartSchema } from '../config-schema';
+import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { mockPatient } from 'tools';
+
+import { type ChartConfig, esmPatientChartSchema } from '../config-schema';
+
 import StartVisitOverflowMenuItem from './start-visit.component';
 
 const mockUseConfig = jest.mocked(useConfig<ChartConfig>);

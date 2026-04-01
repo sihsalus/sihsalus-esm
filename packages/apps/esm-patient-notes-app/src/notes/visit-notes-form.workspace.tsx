@@ -78,7 +78,7 @@ interface DiagnosisSearchProps {
   setIsSearching: (isSearching: boolean) => void;
 }
 
-const createSchema = (t: TFunction) => {
+const createSchema = (_t: TFunction) => {
   return z.object({
     noteDate: z.date(),
     primaryDiagnosisSearch: z.string(),
@@ -357,7 +357,7 @@ const VisitNotesForm: React.FC<DefaultPatientWorkspaceProps> = ({
         .then((response) => {
           if (response.status === 201) {
             return Promise.all(
-              combinedDiagnoses.map((diagnosis, position: number) => {
+              combinedDiagnoses.map((diagnosis, _position: number) => {
                 const diagnosesPayload: DiagnosisPayload = {
                   encounter: response.data.uuid,
                   patient: patientUuid,

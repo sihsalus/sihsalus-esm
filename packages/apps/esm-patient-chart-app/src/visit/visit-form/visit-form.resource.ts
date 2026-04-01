@@ -1,7 +1,8 @@
 import { openmrsFetch, restBaseUrl, useConnectivity, useVisitTypes, type Visit } from '@openmrs/esm-framework';
 import { type amPm } from '@openmrs/esm-patient-common-lib';
-import { useOfflineVisitType } from '../hooks/useOfflineVisitType';
 import { useState } from 'react';
+
+import { useOfflineVisitType } from '../hooks/useOfflineVisitType';
 
 export type VisitFormData = {
   visitStartDate: Date;

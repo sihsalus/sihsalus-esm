@@ -1,5 +1,3 @@
-import React, { Fragment, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Table,
@@ -13,6 +11,9 @@ import {
 } from '@carbon/react';
 import { useStore } from '@openmrs/esm-framework';
 import { featureFlagsStore, setFeatureFlag } from '@openmrs/esm-framework/src/internal';
+import React, { Fragment, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './feature-flags.scss';
 
 export function FeatureFlags() {

@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import SharedPageLayout from '../components/shared-page-layout.component';
+
 import OfflinePatientSyncDetails from './offline-patient-sync-details.component';
 import OfflinePatientTable from './offline-patient-table.component';
-import SharedPageLayout from '../components/shared-page-layout.component';
 import styles from './offline-patients.styles.scss';
 
 export interface OfflinePatientsProps {

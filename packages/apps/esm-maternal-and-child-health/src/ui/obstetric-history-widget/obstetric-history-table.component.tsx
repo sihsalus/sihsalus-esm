@@ -1,6 +1,4 @@
 // obstetric-history-table.component.tsx
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   TableContainer,
@@ -11,6 +9,9 @@ import {
   TableBody,
   TableCell,
 } from '@carbon/react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './obstetric-history-table.scss';
 import type { ObstetricTableRowType } from './obstetric-history.schema';
 

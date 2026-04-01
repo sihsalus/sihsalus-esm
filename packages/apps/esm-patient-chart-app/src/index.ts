@@ -7,25 +7,26 @@ import {
 } from '@openmrs/esm-framework';
 import * as PatientCommonLib from '@openmrs/esm-patient-common-lib';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-import { esmPatientChartSchema } from './config-schema';
-import genericDashboardComponent, { genericDashboardConfigSchema } from './side-nav/generic-dashboard.component';
-import genericNavGroupComponent, { genericNavGroupConfigSchema } from './side-nav/generic-nav-group.component';
-import { moduleName } from './constants';
-import { setupCacheableRoutes, setupOfflineVisitsSync } from './offline';
-import { summaryDashboardMeta, encountersDashboardMeta } from './dashboard.meta';
+
 import addPastVisitActionButtonComponent from './actions-buttons/add-past-visit.component';
 import cancelVisitActionButtonComponent from './actions-buttons/cancel-visit.component';
-import currentVisitSummaryComponent from './visit/visits-widget/current-visit-summary.component';
 import markPatientAliveActionButtonComponent from './actions-buttons/mark-patient-alive.component';
 import markPatientDeceasedActionButtonComponent from './actions-buttons/mark-patient-deceased.component';
-import pastVisitsDetailOverviewComponent from './visit/past-visit-overview.component';
-import pastVisitsOverviewComponent from './visit/visits-widget/visit-detail-overview.component';
-import patientChartPageComponent from './root.component';
-import patientDetailsTileComponent from './patient-details-tile/patient-details-tile.component';
 import startVisitActionButtonComponent from './actions-buttons/start-visit.component';
-import startVisitActionButtonOnPatientSearch from './visit/start-visit-button.component';
 import stopVisitActionButtonComponent from './actions-buttons/stop-visit.component';
+import { esmPatientChartSchema } from './config-schema';
+import { moduleName } from './constants';
+import { summaryDashboardMeta, encountersDashboardMeta } from './dashboard.meta';
+import { setupCacheableRoutes, setupOfflineVisitsSync } from './offline';
 import visitAttributeTagsComponent from './patient-banner-tags/visit-attribute-tags.component';
+import patientDetailsTileComponent from './patient-details-tile/patient-details-tile.component';
+import patientChartPageComponent from './root.component';
+import genericDashboardComponent, { genericDashboardConfigSchema } from './side-nav/generic-dashboard.component';
+import genericNavGroupComponent, { genericNavGroupConfigSchema } from './side-nav/generic-nav-group.component';
+import pastVisitsDetailOverviewComponent from './visit/past-visit-overview.component';
+import startVisitActionButtonOnPatientSearch from './visit/start-visit-button.component';
+import currentVisitSummaryComponent from './visit/visits-widget/current-visit-summary.component';
+import pastVisitsOverviewComponent from './visit/visits-widget/visit-detail-overview.component';
 
 // This allows @openmrs/esm-patient-common-lib to be accessed by modules that are not
 // using webpack. This is used for ngx-formentry.

@@ -7,9 +7,11 @@ import {
 } from '@openmrs/esm-framework/src/internal';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import OfflineActionsTable from './offline-actions-table.component';
+
 import { usePendingSyncItems, useSyncItemPatients } from '../hooks/offline-actions';
+
 import NoActionsEmptyState from './no-actions-empty-state.component';
+import OfflineActionsTable from './offline-actions-table.component';
 
 export interface OfflineActionsProps {
   /**

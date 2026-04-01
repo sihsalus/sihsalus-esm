@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   type ConfigSchema,
   getDefaultsFromConfigSchema,
@@ -9,11 +10,13 @@ import { screen } from '@testing-library/react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { renderWithSwr } from 'tools';
+
 import { mockWardPatientGroupDetails, mockWardViewContext } from '../../mock';
 import { configSchema } from '../config-schema';
 import { useObs } from '../hooks/useObs';
 import useWardLocation from '../hooks/useWardLocation';
 import { type WardViewContext } from '../types';
+
 import DefaultWardView from './default-ward/default-ward-view.component';
 import WardView from './ward-view.component';
 

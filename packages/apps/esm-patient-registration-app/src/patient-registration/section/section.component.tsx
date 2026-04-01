@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { type SectionDefinition } from '../../config-schema';
-import { GenericSection } from './generic-section.component';
+
 import { DeathInfoSection } from './death-info/death-info-section.component';
 import { DemographicsSection } from './demographics/demographics-section.component';
+import { GenericSection } from './generic-section.component';
 import { RelationshipsSection } from './patient-relationships/relationships-section.component';
 
 export interface SectionProps {

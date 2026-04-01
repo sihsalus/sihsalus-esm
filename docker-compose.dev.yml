@@ -1,21 +1,20 @@
 services:
   frontend:
-    build:
-      context: .
-      target: builder
-    command: yarn dev
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "corepack enable && yarn dev"
     volumes:
-      - ./packages:/app/packages
-      - ./config:/app/config
+      - .:/app
+      - /app/node_modules
     ports:
       - "8080:8080"
     environment:
+      - SIHSALUS_BACKEND_URL=http://backend:8080
       - SIHSALUS_AUTH_MODE=openmrs
-      - BACKEND_URL=http://backend:8080
     depends_on:
       - backend
 
   backend:
-    image: openmrs/openmrs-reference-application:latest
+    image: openmrs/openmrs-reference-application:nightly
     ports:
       - "8081:8080"

@@ -1,6 +1,7 @@
+import { type Visit, showSnackbar, useVisit } from '@openmrs/esm-framework';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type Visit, showSnackbar, useVisit } from '@openmrs/esm-framework';
+
 import { deleteVisit, restoreVisit, useVisits } from '../visits-widget/visit.resource';
 
 export function useDeleteVisit(patientUuid: string, visit: Visit, onVisitDelete = () => {}, onVisitRestore = () => {}) {

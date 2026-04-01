@@ -1,5 +1,6 @@
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
+
 import { type WardPatientCardType } from '../../types';
 import WardPatientAge from '../../ward-patient-card/row-elements/ward-patient-age.component';
 import WardPatientBedNumber from '../../ward-patient-card/row-elements/ward-patient-bed-number.component';

@@ -1,7 +1,8 @@
-import { useCallback, useContext, useEffect, useMemo } from 'react';
-import { useField } from 'formik';
-import useSWRImmutable from 'swr/immutable';
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
+import { useField } from 'formik';
+import { useCallback, useContext, useEffect, useMemo } from 'react';
+import useSWRImmutable from 'swr/immutable';
+
 import { PatientRegistrationContext } from '../../patient-registration-context';
 
 interface AddressFields {
@@ -68,7 +69,7 @@ export function useAddressEntryFetchConfig(addressField: string) {
   const addressFieldSearchConfig = useMemo(() => {
     let fetchEntriesForField = true;
     const previousSelectedFields = orderedFields?.slice(0, index) ?? [];
-    let previousSelectedValues = [];
+    const previousSelectedValues = [];
     for (const fieldName of previousSelectedFields) {
       if (!addressValues[fieldName]) {
         fetchEntriesForField = false;

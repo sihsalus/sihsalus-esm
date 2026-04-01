@@ -3,9 +3,11 @@ import { CloseIcon, useAssignedExtensions, UserAvatarIcon, useOnClickOutside } f
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import UserMenuPanel from '../navbar-header-panels/user-menu-panel.component';
-import { type MenuButtonProps } from './types';
+
 import styles from './navbar.scss';
+import { type MenuButtonProps } from './types';
 
 /**
  * This component displays the user menu button and the menu itself (when toggled on)

@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
 import { Link, Tile } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { useConfig, ArrowRightIcon } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ConfigSchema } from './config-schema';
 import styles from './footer.scss';
 

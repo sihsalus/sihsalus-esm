@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch } from '@openmrs/esm-framework';
 import { useCallback } from 'react';
+import useSWR from 'swr';
 
 const BASE_URL = '/ws/module/indicators/api/indicators';
 

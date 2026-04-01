@@ -1,9 +1,10 @@
-import React from 'react';
-import CareSummaryTable from '../../../ui/care-summary-table/cara-summary-table';
-import { useTranslation } from 'react-i18next';
-import { useInmmediatePostpartumPeriod } from '../../../hooks/useInmmediatePostpartum';
-import type { ConfigObject } from '../../../config-schema';
 import { useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import type { ConfigObject } from '../../../config-schema';
+import { useInmmediatePostpartumPeriod } from '../../../hooks/useInmmediatePostpartum';
+import CareSummaryTable from '../../../ui/care-summary-table/cara-summary-table';
 
 const ImmediatePostpartumTable: React.FC<{ patientUuid: string }> = ({ patientUuid }) => {
   const { t } = useTranslation();

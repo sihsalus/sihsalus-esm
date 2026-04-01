@@ -1,10 +1,11 @@
-import React, { type ComponentProps, useCallback } from 'react';
-import styles from './active-visit-buttons.scss';
-import { useTranslation } from 'react-i18next';
 import { Button, MenuButton, MenuItem } from '@carbon/react';
 import { AddIcon, type Visit } from '@openmrs/esm-framework';
-import { useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
 import { showModal, useLayoutType } from '@openmrs/esm-framework';
+import { useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
+import React, { type ComponentProps, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import styles from './active-visit-buttons.scss';
 
 export interface ActiveVisitActionsInterface {
   visit: Visit;

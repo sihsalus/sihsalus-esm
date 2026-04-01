@@ -1,5 +1,6 @@
-import useSWR from 'swr';
 import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import { type QueueEntry } from '../types';
 
 export function useLatestQueueEntry(patientUuid: string) {

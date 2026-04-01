@@ -35,8 +35,7 @@ El dev server hace proxy de las peticiones de API al backend definido en `SIHSAL
 packages/
   tooling/
     openmrs/                            # CLI (openmrs develop, build, assemble)
-    webpack-config/                     # Shared webpack configuration
-    rspack-config/                      # Rspack configuration (experimental)
+    rspack-config/                      # Shared Rspack configuration
   apps/                                 # 41 frontend modules (esm-*-app)
   libs/
     rbac/                               # @sihsalus/rbac — HIPAA role-based access control

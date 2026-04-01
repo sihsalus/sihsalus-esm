@@ -5,6 +5,7 @@ import {
   registerBreadcrumbs,
   registerFeatureFlag,
 } from '@openmrs/esm-framework';
+
 import { configSchema } from './config-schema';
 import { moduleName } from './constant';
 import { createDashboardLink } from './createDashboardLink.component';

@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Layer, Tab, TabList, TabPanel, TabPanels, Tabs, Tile } from '@carbon/react';
 import {
   Activity,
@@ -10,14 +8,17 @@ import {
   ListChecked,
   UserIdentification,
 } from '@carbon/react/icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './consulta-externa-dashboard.scss';
-import TriageSummary from './triage-summary.component';
-import MotivoConsulta from './motivo-consulta.component';
 import DiagnosticoClasificado from './diagnostico-clasificado.component';
-import NotasSoap from './notas-soap.component';
-import PlanTratamiento from './plan-tratamiento.component';
 import Financiador from './financiador.component';
+import MotivoConsulta from './motivo-consulta.component';
+import NotasSoap from './notas-soap.component';
 import PertenenciaEtnica from './pertenencia-etnica.component';
+import PlanTratamiento from './plan-tratamiento.component';
+import TriageSummary from './triage-summary.component';
 
 interface ConsultaExternaDashboardProps {
   patientUuid: string;

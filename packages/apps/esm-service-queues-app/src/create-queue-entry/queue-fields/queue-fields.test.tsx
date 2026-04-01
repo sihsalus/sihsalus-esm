@@ -1,7 +1,4 @@
-/* eslint-disable testing-library/no-node-access */
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+/* eslint-disable */
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -10,8 +7,14 @@ import {
   useSession,
   type Visit,
 } from '@openmrs/esm-framework';
-import { configSchema, type ConfigObject } from '../../config-schema';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockSession, mockVisitAlice } from '__mocks__';
+import React from 'react';
+
+import { configSchema, type ConfigObject } from '../../config-schema';
+
+
 import QueueFields from './queue-fields.component';
 import { postQueueEntry } from './queue-fields.resource';
 

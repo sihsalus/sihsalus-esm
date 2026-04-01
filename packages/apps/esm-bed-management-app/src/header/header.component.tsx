@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Calendar, Location } from '@carbon/react/icons';
 import {
   ConfigurableLink,
@@ -9,6 +7,8 @@ import {
   PageHeaderContent,
   useSession,
 } from '@openmrs/esm-framework';
+import React from 'react';
+
 import styles from './header.scss';
 
 type HeaderProps = {
@@ -16,7 +16,6 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
-  const { t } = useTranslation();
   const userSession = useSession();
   const userLocation = userSession?.sessionLocation?.display;
 

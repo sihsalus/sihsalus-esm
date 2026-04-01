@@ -1,6 +1,5 @@
 import {
   DataTable,
-  type DataTableRow,
   Table,
   TableCell,
   TableContainer,

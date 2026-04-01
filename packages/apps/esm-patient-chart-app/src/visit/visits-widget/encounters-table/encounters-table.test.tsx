@@ -1,8 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
-import { renderWithSwr } from 'tools';
+import userEvent from '@testing-library/user-event';
 import { mockEncounters2 } from '__mocks__';
+import React from 'react';
+import { renderWithSwr } from 'tools';
+
 import EncountersTable from './encounters-table.component';
 
 const defaultProps = {

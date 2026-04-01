@@ -1,8 +1,3 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import {
   Button,
   Form,
@@ -14,9 +9,15 @@ import {
   PasswordInput,
   Stack,
 } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { showSnackbar } from '@openmrs/esm-framework';
-import { changeUserPassword } from './change-password.resource';
+import React, { useCallback, useState } from 'react';
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import styles from './change-password-modal.scss';
+import { changeUserPassword } from './change-password.resource';
 
 interface ChangePasswordModalProps {
   close(): () => void;

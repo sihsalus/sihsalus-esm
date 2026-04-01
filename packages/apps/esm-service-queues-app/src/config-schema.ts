@@ -1,8 +1,9 @@
 import { Type, validator, validators } from '@openmrs/esm-framework';
-import vitalsConfigSchema, { type VitalsConfigObject } from './current-visit/visit-details/vitals-config-schema';
+
 import biometricsConfigSchema, {
   type BiometricsConfigObject,
 } from './current-visit/visit-details/biometrics-config-schema';
+import vitalsConfigSchema, { type VitalsConfigObject } from './current-visit/visit-details/vitals-config-schema';
 
 const columnTypes = [
   'actions',

@@ -16,16 +16,18 @@ import { mockLocations, mockVisitTypes, mockVisitWithAttributes } from '__mocks_
 import dayjs from 'dayjs';
 import React from 'react';
 import { mockPatient } from 'tools';
+
 import { type ChartConfig, esmPatientChartSchema } from '../../config-schema';
 import { useEmrConfiguration } from '../hooks/useEmrConfiguration';
 import { useVisitAttributeType } from '../hooks/useVisitAttributeType';
-import StartVisitForm from './visit-form.workspace';
+
 import {
   createVisitAttribute,
   deleteVisitAttribute,
   updateVisitAttribute,
   useVisitFormCallbacks,
 } from './visit-form.resource';
+import StartVisitForm from './visit-form.workspace';
 
 const visitUuid = 'test_visit_uuid';
 const visitAttributes = {

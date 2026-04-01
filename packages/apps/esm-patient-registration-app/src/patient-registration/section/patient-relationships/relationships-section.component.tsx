@@ -1,4 +1,3 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   Button,
   Layer,
@@ -10,13 +9,16 @@ import {
 } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { FieldArray } from 'formik';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { ResourcesContext } from '../../../offline.resources';
 import { Autosuggest } from '../../input/custom-input/autosuggest/autosuggest.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
-import { ResourcesContext } from '../../../offline.resources';
 import { fetchPerson } from '../../patient-registration.resource';
 import { type RelationshipValue } from '../../patient-registration.types';
 import sectionStyles from '../section.scss';
+
 import styles from './relationships.scss';
 
 interface RelationshipType {

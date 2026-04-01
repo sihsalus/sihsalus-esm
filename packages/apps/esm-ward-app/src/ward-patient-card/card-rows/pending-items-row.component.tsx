@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
 import { Hourglass } from '@carbon/react/icons';
+import React, { useCallback, useEffect } from 'react';
+
 import { type WardPatient } from '../../types';
 import { useElementConfig } from '../../ward-view/ward-view.resource';
 import { WardPatientPendingOrder } from '../row-elements/ward-patient-pending-order.component';

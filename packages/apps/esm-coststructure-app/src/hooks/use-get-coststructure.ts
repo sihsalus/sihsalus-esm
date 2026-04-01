@@ -1,14 +1,11 @@
+import { openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
+import { baseUrl } from '../constants';
 import {
-  AnnualServiceCost,
   type CostStructure,
-  EquipmentCost,
-  HumanResourceCost,
-  InfrastructureCost,
   type Procedure,
 } from '../types';
-import { openmrsFetch } from '@openmrs/esm-framework';
-import { baseUrl } from '../constants';
 
 const API_URL = `${baseUrl}/list`;
 

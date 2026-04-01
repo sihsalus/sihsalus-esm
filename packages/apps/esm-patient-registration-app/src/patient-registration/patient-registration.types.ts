@@ -1,5 +1,7 @@
 import { type OpenmrsResource, type Session } from '@openmrs/esm-framework';
+
 import { type RegistrationConfig } from '../config-schema';
+
 import { type SavePatientTransactionManager } from './form-manager';
 
 interface NameValue {

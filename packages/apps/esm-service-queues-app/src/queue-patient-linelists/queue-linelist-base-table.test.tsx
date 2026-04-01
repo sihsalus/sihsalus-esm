@@ -1,8 +1,9 @@
-import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockMappedAppointmentsData } from '__mocks__';
+import React from 'react';
 import { renderWithSwr } from 'tools';
+
 import QueuePatientBaseTable from './queue-linelist-base-table.component';
 
 const tableHeaders = [

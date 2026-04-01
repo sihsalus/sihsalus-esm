@@ -1,4 +1,3 @@
-import React, { useCallback, useMemo, useState } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -18,7 +17,6 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import {
   ConfigurableLink,
   ErrorState,
@@ -28,11 +26,15 @@ import {
   useLayoutType,
   usePagination,
 } from '@openmrs/esm-framework';
-import { EmptyDataIllustration } from './empty-data-illustration.component';
-import { useActiveVisits, useActiveVisitsSorting, useObsConcepts, useTableHeaders } from './active-visits.resource';
-import styles from './active-visits.scss';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ActiveVisitsConfigSchema } from '../config-schema';
 import { type ActiveVisit } from '../types';
+
+import { useActiveVisits, useActiveVisitsSorting, useObsConcepts, useTableHeaders } from './active-visits.resource';
+import styles from './active-visits.scss';
+import { EmptyDataIllustration } from './empty-data-illustration.component';
 
 const ActiveVisitsTable = () => {
   const { t } = useTranslation();

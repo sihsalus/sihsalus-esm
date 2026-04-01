@@ -1,7 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { useActiveTickets } from './useActiveTickets';
+import React from 'react';
+
 import QueueScreen from './queue-screen.component';
+import { useActiveTickets } from './useActiveTickets';
 
 const mockUseActiveTickets = jest.mocked(useActiveTickets);
 

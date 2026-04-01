@@ -1,6 +1,7 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { useLayoutType } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
+
 import SideMenu from './side-menu.component';
 
 const mockUseLayoutType = jest.mocked(useLayoutType);

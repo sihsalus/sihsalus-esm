@@ -1,6 +1,7 @@
 import { ActionMenuButton, launchWorkspace, UserAvatarIcon } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type AdmissionRequestsWorkspaceProps } from './admission-requests.workspace';
 
 export default function AdmissionRequestsActionButton() {

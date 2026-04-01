@@ -1,7 +1,8 @@
-import React from 'react';
 import { Document } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import { ActionMenuButton, launchWorkspace, useWorkspaces } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { WardPatientWorkspaceProps } from '../types';
 
 const ClinicalFormsWorkspaceSideRailIcon: React.FC = () => {

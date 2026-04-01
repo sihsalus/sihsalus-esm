@@ -1,8 +1,11 @@
+import { useConfig, formatDate, parseDate } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import type { ConfigObject } from '../../../../../../config-schema';
+import { getObsFromEncounter } from '../../../../../../ui/encounter-list/encounter-list-utils';
 import type { EncounterListColumn } from '../../../../../../ui/encounter-list/encounter-list.component';
 import { EncounterList } from '../../../../../../ui/encounter-list/encounter-list.component';
-import { getObsFromEncounter } from '../../../../../../ui/encounter-list/encounter-list-utils';
 import {
   populationTypeConcept,
   disabilityListConcept,
@@ -11,8 +14,6 @@ import {
   testingRecommended,
 } from '../../../constants';
 import { hivScreeningConceptMap } from '../hiv-screening-constants';
-import { useConfig, formatDate, parseDate } from '@openmrs/esm-framework';
-import type { ConfigObject } from '../../../../../../config-schema';
 
 interface HivScreeningEncounterProps {
   patientUuid: string;

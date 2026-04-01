@@ -1,7 +1,7 @@
-import React from 'react';
 import { Type, useConfig } from '@openmrs/esm-framework';
-import { BrowserRouter } from 'react-router-dom';
 import { DashboardExtension } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 export const genericDashboardConfigSchema = {
   title: {
@@ -47,7 +47,7 @@ export default function GenericDashboard({ basePath }: GenericDashboardProps) {
         title={config.title}
         basePath={basePath}
         icon={config.icon}
-        moduleName="@openmrs/esm-patient-chart-app"
+        moduleName="@sihsalus/esm-patient-chart-app"
       />
     </BrowserRouter>
   );

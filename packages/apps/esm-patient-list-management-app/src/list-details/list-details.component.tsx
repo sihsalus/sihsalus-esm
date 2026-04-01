@@ -1,14 +1,16 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import classNames from 'classnames';
-import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Modal, OverflowMenuItem } from '@carbon/react';
 import { OverflowMenuVertical } from '@carbon/react/icons';
 import { navigate, formatDate, parseDate, showSnackbar, CustomOverflowMenu } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+
 import { deletePatientList } from '../api/api-remote';
 import { usePatientListDetails, usePatientListMembers } from '../api/hooks';
 import CreateEditPatientList from '../create-edit-patient-list/create-edit-list.component';
 import ListDetailsTable from '../list-details-table/list-details-table.component';
+
 import styles from './list-details.scss';
 
 interface ListDetails {

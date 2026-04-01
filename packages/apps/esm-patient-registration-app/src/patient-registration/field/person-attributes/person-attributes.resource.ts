@@ -1,5 +1,6 @@
 import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
+
 import { type PersonAttributeTypeResponse } from '../../patient-registration.types';
 
 export function usePersonAttributeType(personAttributeTypeUuid: string): {

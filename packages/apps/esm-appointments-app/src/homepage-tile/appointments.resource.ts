@@ -1,6 +1,6 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import useSWR from 'swr';
 import dayjs from 'dayjs';
+import useSWR from 'swr';
 
 const useAppointmentsData = () => {
   const appointmentDate = dayjs(new Date().setHours(0, 0, 0, 0)).toISOString();

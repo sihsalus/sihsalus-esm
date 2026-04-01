@@ -1,9 +1,11 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type Appointment, type AppointmentsFetchResponse } from '../types/index';
-import { type Provider } from '../types';
-import { startOfDay } from '../constants';
 import dayjs from 'dayjs';
+import useSWR from 'swr';
+
+import { startOfDay } from '../constants';
+import { type Provider } from '../types';
+import { type Appointment, type AppointmentsFetchResponse } from '../types/index';
+
 
 export function useAppointments() {
   const apiUrl = `${restBaseUrl}/appointment/all?forDate=${startOfDay}`;

@@ -1,7 +1,8 @@
 import { getSyncLifecycle, defineConfigSchema } from '@openmrs/esm-framework';
+
 import { configSchema } from './config-schema';
-import RootComponent from './root.component';
 import { createLeftPanelLink } from './left-panel-links.component';
+import RootComponent from './root.component';
 
 const moduleName = '@sihsalus/esm-coststructure-app';
 

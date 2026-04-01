@@ -1,8 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { filterByServiceType } from '../utils';
+
 import { useEarlyAppointmentList } from '../../hooks/useAppointmentList';
 import AppointmentsTable from '../common-components/appointments-table.component';
+import { filterByServiceType } from '../utils';
 
 interface EarlyAppointmentsProps {
   appointmentServiceTypes?: Array<string>;

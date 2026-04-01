@@ -1,0 +1,40 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.description {
+  margin: layout.$spacing-04 0;
+  @include type.type-style('body-compact-01');
+}
+
+.tutorialModal {
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: layout.$spacing-05;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tutorialItem {
+    border-bottom: 1px solid $ui-03;
+    padding-bottom: layout.$spacing-05;
+
+    .tutorialTitle {
+      margin-bottom: layout.$spacing-03;
+      @include type.type-style('heading-02');
+    }
+
+    .tutorialDescription {
+      color: $color-gray-70;
+      @include type.type-style('body-compact-01');
+    }
+
+    .tutorialLink {
+      margin-top: layout.$spacing-03;
+      cursor: pointer;
+    }
+  }
+}
+

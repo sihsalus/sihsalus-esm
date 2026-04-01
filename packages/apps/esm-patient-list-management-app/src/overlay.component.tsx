@@ -1,7 +1,8 @@
-import React from 'react';
 import { Button, Header } from '@carbon/react';
 import { ArrowLeft, Close } from '@carbon/react/icons';
 import { useLayoutType, isDesktop } from '@openmrs/esm-framework';
+import React from 'react';
+
 import styles from './overlay.scss';
 
 interface OverlayProps {

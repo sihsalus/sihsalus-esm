@@ -1,10 +1,3 @@
-import React from 'react';
-import classNames from 'classnames';
-import { type TFunction, useTranslation } from 'react-i18next';
-import { Controller, useForm } from 'react-hook-form';
-import { mutate } from 'swr';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import {
   Button,
   ButtonSet,
@@ -17,6 +10,7 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   type DefaultWorkspaceProps,
   getCoreTranslation,
@@ -24,10 +18,19 @@ import {
   showSnackbar,
   useLayoutType,
 } from '@openmrs/esm-framework';
-import { saveQueueRoom } from './queue-room.resource';
+import classNames from 'classnames';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { type TFunction, useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
+import { z } from 'zod';
+
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
 import { useQueues } from '../hooks/useQueues';
+
 import styles from './queue-room-form.scss';
+import { saveQueueRoom } from './queue-room.resource';
+
 
 const createQueueRoomSchema = (t: TFunction) =>
   z.object({

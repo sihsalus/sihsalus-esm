@@ -1,5 +1,6 @@
-import React from 'react';
 import { ExtensionSlot } from '@openmrs/esm-framework';
+import React from 'react';
+
 import styles from './cards-container.styles.scss';
 
 /**

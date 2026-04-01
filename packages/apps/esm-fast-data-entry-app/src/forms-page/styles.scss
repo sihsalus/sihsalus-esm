@@ -1,0 +1,9 @@
+@use '@carbon/layout';
+
+.mainContent {
+  padding: layout.$spacing-07;
+}
+
+.pageTitle {
+  margin-bottom: layout.$spacing-06;
+}

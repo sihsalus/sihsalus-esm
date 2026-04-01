@@ -8,5 +8,6 @@ export interface FormEntryProps {
   visitStartDatetime?: string;
   visitStopDatetime?: string;
   htmlForm?: HtmlFormEntryForm;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additionalProps?: Record<string, any>;
 }

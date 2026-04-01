@@ -1,0 +1,60 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.container {
+  height: layout.$spacing-11;
+  display: flex;
+  align-items: center;
+  background-color: colors.$white-0;
+  border-top: 0.0125rem solid colors.$gray-20;
+  border-bottom: 0.0125rem solid colors.$gray-20;
+  padding: 0 layout.$spacing-05;
+}
+
+.photoPlaceholder {
+  height: layout.$spacing-09;
+  width: layout.$spacing-09;
+}
+
+.groupAvatar {
+  width: layout.$spacing-09;
+  height: layout.$spacing-09;
+  margin: layout.$spacing-03 layout.$spacing-05 layout.$spacing-03 0;
+  border-radius: 1px;
+}
+
+.groupName {
+  @include type.type-style('heading-03');
+  font-weight: 600;
+}
+
+.groupInfoContent {
+  margin-left: layout.$spacing-05;
+  margin-right: layout.$spacing-10;
+}
+
+.groupInfoRow {
+  display: flex;
+  align-items: center;
+  & > button {
+    min-height: layout.$spacing-07;
+  }
+  @include type.type-style('body-compact-02');
+  color: colors.$gray-70;
+  column-gap: 0.8rem;
+
+}
+.sessionNotesLabel {
+  @include type.type-style('label-01');
+  margin-bottom: layout.$spacing-01
+}
+
+.groupEditBtn {
+  color: colors.$gray-100;
+  margin: layout.$spacing-03;
+}
+
+.groupMetaContent {
+  flex-grow: 1;
+}

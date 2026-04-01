@@ -1,4 +1,4 @@
-/* eslint-disable testing-library/no-node-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { closeWorkspace, useSession } from '@openmrs/esm-framework';
 import { type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
@@ -143,6 +143,7 @@ describe('AddDrugOrderWorkspace drug search', () => {
     renderAddDrugOrderWorkspace();
 
     await user.type(screen.getByRole('searchbox'), 'Aspirin');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { result: hookResult } = renderHook(() =>
       useOrderBasket('medications', ((x) => x) as unknown as PostDataPrepFunction),
     );

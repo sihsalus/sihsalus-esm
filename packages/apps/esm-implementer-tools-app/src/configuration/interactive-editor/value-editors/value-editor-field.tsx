@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import uniqueId from 'lodash-es/uniqueId';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Checkbox, NumberInput, TextInput } from '@carbon/react';
 import { Type } from '@openmrs/esm-framework';
+import uniqueId from 'lodash-es/uniqueId';
+import React, { useState } from 'react';
+
 import type { ConfigValueDescriptor } from '../editable-value.component';
 import type { ValueType } from '../value-editor';
+
 import { ArrayEditor } from './array-editor';
 import { ConceptSearchBox } from './concept-search';
 import { ExtensionSlotAdd } from './extension-slot-add';
+import { ExtensionSlotOrder } from './extension-slot-order';
 import { ExtensionSlotRemove } from './extension-slot-remove';
 import { ObjectEditor } from './object-editor';
-import { ExtensionSlotOrder } from './extension-slot-order';
-import { PersonAttributeTypeSearchBox } from './person-attribute-search';
 import { PatientIdentifierTypeSearchBox } from './patient-identifier-type-search';
+import { PersonAttributeTypeSearchBox } from './person-attribute-search';
 
 export interface ValueEditorFieldProps {
   element: ConfigValueDescriptor;
@@ -37,7 +40,7 @@ export function ValueEditorField({ element, path, valueType, value, onChange, er
       checked={value}
       hideLabel
       labelText=""
-      onChange={(event, { checked, id }) => onChange(checked)}
+      onChange={(_event, { checked, id: _id }) => onChange(checked)}
       invalid={Boolean(error)}
       invalidText={error}
     />

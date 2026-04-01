@@ -1,6 +1,7 @@
-import React from 'react';
 import { Button, ModalHeader, ModalBody, ModalFooter } from '@carbon/react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './start-visit-dialog.scss';
 
 interface ModifyVisitDateConfirmationModalProps {

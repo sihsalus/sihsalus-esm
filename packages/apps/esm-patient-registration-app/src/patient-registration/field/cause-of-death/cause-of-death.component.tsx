@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { Field, useField } from 'formik';
-import { useTranslation } from 'react-i18next';
 import { InlineNotification, Layer, Select, SelectItem, SelectSkeleton, TextInput } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import { Field, useField } from 'formik';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type RegistrationConfig } from '../../../config-schema';
 import { useConceptAnswers } from '../field.resource';
 import styles from '../field.scss';

@@ -1,8 +1,3 @@
-import React, { type CSSProperties, useCallback, useId, useMemo, useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import fuzzy from 'fuzzy';
-import orderBy from 'lodash-es/orderBy';
-import type { TFunction } from 'i18next';
 import {
   Button,
   DataTable,
@@ -29,12 +24,19 @@ import {
   usePagination,
   useSession,
 } from '@openmrs/esm-framework';
-import type { ConfigSchema } from '../config-schema';
-import type { PatientList } from '../api/types';
+import fuzzy from 'fuzzy';
+import type { TFunction } from 'i18next';
+import orderBy from 'lodash-es/orderBy';
+import React, { type CSSProperties, useCallback, useId, useMemo, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { starPatientList } from '../api/api-remote';
-import { CustomPagination } from './custom-pagination.component';
-import { ErrorState } from '../error-state/error-state.component';
+import type { PatientList } from '../api/types';
+import type { ConfigSchema } from '../config-schema';
 import EmptyState from '../empty-state/empty-state.component';
+import { ErrorState } from '../error-state/error-state.component';
+
+import { CustomPagination } from './custom-pagination.component';
 import styles from './lists-table.scss';
 
 /**

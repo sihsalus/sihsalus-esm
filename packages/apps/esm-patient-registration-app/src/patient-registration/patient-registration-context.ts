@@ -1,6 +1,8 @@
 import { useConfig } from '@openmrs/esm-framework';
 import { createContext, type SetStateAction } from 'react';
+
 import { type RegistrationConfig } from '../config-schema';
+
 import { type CapturePhotoProps, type FormValues } from './patient-registration.types';
 
 export interface PatientRegistrationContextProps {

@@ -10,7 +10,7 @@ import useSWR from 'swr';
  * @param restrictByVisitLocationTag
  */
 export function useDefaultVisitLocation(location: Location, restrictByVisitLocationTag: boolean) {
-  let url = `${restBaseUrl}/emrapi/locationThatSupportsVisits?location=${location?.uuid}`;
+  const url = `${restBaseUrl}/emrapi/locationThatSupportsVisits?location=${location?.uuid}`;
 
   const { data, error } = useSWR<FetchResponse>(restrictByVisitLocationTag ? url : null, openmrsFetch);
 

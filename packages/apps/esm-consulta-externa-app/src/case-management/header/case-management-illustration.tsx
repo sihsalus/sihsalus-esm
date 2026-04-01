@@ -1,5 +1,6 @@
-import React from 'react';
 import { ChartRelationship } from '@carbon/react/icons';
+import React from 'react';
+
 import styles from './case-management-header.scss';
 
 const CaseManagementIllustration: React.FC = () => {

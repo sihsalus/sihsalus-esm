@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
 import { useConfig } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+
 import type { ConfigObject } from '../../config-schema';
+
 import { useConditionsSearchFromConceptSet } from './conditions.resource';
 
 /**

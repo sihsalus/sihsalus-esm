@@ -1,9 +1,10 @@
 // AlturaCuelloChart.tsx
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Button, Tag, Tab, TabListVertical, TabPanel, TabPanels, TabsVertical } from '@carbon/react';
 import { LineChart } from '@carbon/charts-react';
+import { Button, Tag, Tab, TabListVertical, TabPanel, TabPanels, TabsVertical } from '@carbon/react';
+import classNames from 'classnames';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import '@carbon/charts-react/styles.css';
 import styles from './altura-cuello-chart.scss';
 

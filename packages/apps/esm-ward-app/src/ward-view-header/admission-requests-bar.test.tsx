@@ -3,8 +3,10 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { renderWithSwr } from 'tools';
+
 import { mockWardViewContext } from '../../mock';
 import { type WardViewContext } from '../types';
+
 import AdmissionRequestsBar from './admission-requests-bar.component';
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);

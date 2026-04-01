@@ -10,6 +10,7 @@ import {
 } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import ClinicalDataChart from './clinical-data-chart.component';
 import styles from './clinical-data-overview.scss';
 import PaginatedClinicalData from './paginated-clinical-data.component';

@@ -1,7 +1,8 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Toggletip, ToggletipButton, ToggletipContent, Tag } from '@carbon/react';
 import { type Visit, formatDatetime, parseDate } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './retrospective-visit-label.scss';
 
 interface RetrospectiveVisitLabelProps {

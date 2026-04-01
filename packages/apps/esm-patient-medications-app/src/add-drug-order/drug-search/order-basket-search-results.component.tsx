@@ -6,7 +6,6 @@ import {
   ShoppingCartArrowDownIcon,
   useConfig,
   useLayoutType,
-  usePatient,
   UserHasAccess,
 } from '@openmrs/esm-framework';
 import { launchPatientWorkspace, useOrderBasket, usePatientChartStore } from '@openmrs/esm-patient-common-lib';
@@ -129,7 +128,6 @@ const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openO
 
   const {
     templates,
-    isLoading: isLoadingTemplates,
     error: fetchingDrugOrderTemplatesError,
   } = useDrugTemplate(drug?.uuid);
   const { t } = useTranslation();

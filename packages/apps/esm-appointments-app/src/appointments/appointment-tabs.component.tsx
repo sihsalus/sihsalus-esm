@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Tab, TabList, Tabs, TabPanel, TabPanels } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ConfigObject } from '../config-schema';
+
+import styles from './appointment-tabs.scss';
 import ScheduledAppointments from './scheduled/scheduled-appointments.component';
 import UnscheduledAppointments from './unscheduled/unscheduled-appointments.component';
-import styles from './appointment-tabs.scss';
 
 interface AppointmentTabsProps {
   appointmentServiceTypes: Array<string>;

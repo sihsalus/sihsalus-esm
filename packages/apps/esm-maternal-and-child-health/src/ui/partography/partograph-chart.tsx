@@ -1,9 +1,13 @@
+import { LineChart } from '@carbon/charts-react';
+import { Tab, Tabs, TabList } from '@carbon/react';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tab, Tabs, TabList } from '@carbon/react';
-import styles from './partograph-chart.scss';
-import { LineChart } from '@carbon/charts-react';
+
 import type { PartograpyComponents } from '../../config-schema';
+
+import styles from './partograph-chart.scss';
+
+
 
 enum ScaleTypes {
   TIME = 'time',

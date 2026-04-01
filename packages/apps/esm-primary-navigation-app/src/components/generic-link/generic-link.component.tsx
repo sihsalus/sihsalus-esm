@@ -1,5 +1,5 @@
-import React from 'react';
 import { ConfigurableLink, Type, useConfig, validators } from '@openmrs/esm-framework';
+import React from 'react';
 
 export const genericLinkConfigSchema = {
   title: {

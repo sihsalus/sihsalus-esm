@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
 import { Activity, Stethoscope } from '@carbon/react/icons';
 import { usePatient } from '@openmrs/esm-framework';
+import React, { useMemo } from 'react';
+
 import TabbedDashboard from '../ui/tabbed-dashboard/tabbed-dashboard.component';
 import type { TabConfig } from '../ui/tabbed-dashboard/tabbed-dashboard.component';
 

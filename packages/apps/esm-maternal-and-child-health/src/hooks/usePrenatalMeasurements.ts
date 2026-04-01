@@ -1,6 +1,7 @@
 // hooks/usePrenatalMeasurements.ts
-import useSWR from 'swr';
 import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+
 import type { ConfigObject } from '../config-schema';
 
 interface PrenatalMeasurement {

@@ -1,13 +1,15 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Button, Tile } from '@carbon/react';
 import { ArrowRight, CircleFilled } from '@carbon/react/icons';
 import { navigate, useConfig } from '@openmrs/esm-framework';
-import { calculateBMI, assessValue, getReferenceRangesForConcept } from '../current-visit.resource';
-import { useVitalsConceptMetadata } from '../hooks/useVitalsConceptMetadata';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type ConfigObject } from '../../config-schema';
 import { type PatientVitals } from '../../types/index';
+import { calculateBMI, assessValue, getReferenceRangesForConcept } from '../current-visit.resource';
+import { useVitalsConceptMetadata } from '../hooks/useVitalsConceptMetadata';
+
 import styles from './triage-note.scss';
 
 interface VitalsComponentProps {

@@ -1,7 +1,8 @@
 import React from 'react';
+
+import { type PriorityColumnConfig } from '../../config-schema';
 import QueuePriority from '../../queue-entry-table-components/queue-priority.component';
 import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
-import { type PriorityColumnConfig } from '../../config-schema';
 
 export const queueTablePriorityColumn: QueueTableColumnFunction = (key, header, config: PriorityColumnConfig) => {
   const QueueTablePriorityCell = ({ queueEntry }: QueueTableCellComponentProps) => {

@@ -1,13 +1,15 @@
-import React, { Fragment, useId, useState } from 'react';
-import classNames from 'classnames';
-import type { Control } from 'react-hook-form';
-import { Controller } from 'react-hook-form';
 import { FormLabel, NumberInput, TextArea } from '@carbon/react';
 import { Warning } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import { useLayoutType, ResponsiveWrapper } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { Fragment, useId, useState } from 'react';
+import type { Control } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import { generatePlaceholder } from '../../common';
 import type { NewbornVitalsFormType } from '../../common/data.resource';
+
 import styles from './vitals-biometrics-input.scss';
 
 type FieldId =

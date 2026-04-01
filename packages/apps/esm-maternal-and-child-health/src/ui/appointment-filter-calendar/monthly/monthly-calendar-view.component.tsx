@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-import MonthlyViewWorkload from './monthly-workload-view.component';
-import MonthlyHeader from './monthly-header.component';
-import styles from '../appointments-calendar-view-view.scss';
-import { monthDays } from '../../../utils/utils';
+import React, { useContext } from 'react';
+
 import SelectedDateContext from '../../../hooks/selectedDateContext';
 import type { PatientAppointment } from '../../../types';
+import { monthDays } from '../../../utils/utils';
+import styles from '../appointments-calendar-view-view.scss';
+
+import MonthlyHeader from './monthly-header.component';
+import MonthlyViewWorkload from './monthly-workload-view.component';
 
 dayjs.extend(isBetween);
 

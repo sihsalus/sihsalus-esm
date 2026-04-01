@@ -1,6 +1,7 @@
-import React from 'react';
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import { type ExternalOverviewProps } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
+
 import { type Encounter } from '../visit.resource';
 
 const TestsSummary = ({ patientUuid, encounters }: { patientUuid: string; encounters: Array<Encounter> }) => {

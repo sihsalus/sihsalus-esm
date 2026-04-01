@@ -1,9 +1,10 @@
-import useSWR from 'swr';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import first from 'lodash-es/first';
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type AppointmentSummary } from '../types';
+import useSWR from 'swr';
+
 import { omrsDateFormat } from '../constants';
+import { type AppointmentSummary } from '../types';
 
 interface AppointmentCount {
   date: string;

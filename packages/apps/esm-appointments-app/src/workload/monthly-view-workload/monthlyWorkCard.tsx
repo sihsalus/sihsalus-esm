@@ -1,8 +1,10 @@
-import React from 'react';
+import { useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import dayjs, { type Dayjs } from 'dayjs';
-import { useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
+
 import { isSameMonth } from '../../helpers';
+
 import styles from './monthly-workload.scss';
 
 interface MonthlyWorkloadComponentProps {

@@ -1,8 +1,3 @@
-import { useEffect, useMemo, useState } from 'react';
-import useSWRInfinite from 'swr/infinite';
-import dayjs from 'dayjs';
-import isToday from 'dayjs/plugin/isToday';
-import last from 'lodash-es/last';
 import {
   type FetchResponse,
   formatDatetime,
@@ -14,9 +9,16 @@ import {
   useSession,
   type Visit,
 } from '@openmrs/esm-framework';
-import useSWR from 'swr';
-import { type ActiveVisit, type VisitResponse } from '../types';
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import last from 'lodash-es/last';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
+import useSWRInfinite from 'swr/infinite';
+
+import { type ActiveVisit, type VisitResponse } from '../types';
+
 
 dayjs.extend(isToday);
 
@@ -36,8 +38,8 @@ export function useActiveVisits() {
       return null;
     }
 
-    let url = `${restBaseUrl}/visit?v=${customRepresentation}&`;
-    let urlSearchParams = new URLSearchParams();
+    const url = `${restBaseUrl}/visit?v=${customRepresentation}&`;
+    const urlSearchParams = new URLSearchParams();
 
     urlSearchParams.append('includeParentLocations', 'true');
     urlSearchParams.append('includeInactive', 'false');
@@ -69,7 +71,7 @@ export function useActiveVisits() {
   const mapVisitProperties = (visit: Visit): ActiveVisit => {
     // create base object
     const activeVisits: ActiveVisit = {
-      age: visit?.patient?.person?.age,
+      age: String(visit?.patient?.person?.age),
       id: visit.uuid,
       idNumber: null,
       gender: visit?.patient?.person?.gender,
@@ -135,7 +137,7 @@ export function useActiveVisits() {
   };
 
   const formattedActiveVisits: Array<ActiveVisit> = data
-    ? [].concat(...data?.map((res) => res?.data?.results?.map(mapVisitProperties)))
+    ? [].concat(...(data?.map((res) => res?.data?.results?.map(mapVisitProperties)) ?? []))
     : [];
 
   return {
@@ -161,7 +163,7 @@ export function useObsConcepts(uuids: Array<string>): {
     }
   };
 
-  const { data, isLoading, error } = useSWR(uuids.length > 0 ? ['obs-concepts', uuids] : null, async () => {
+  const { data, isLoading } = useSWR(uuids.length > 0 ? ['obs-concepts', uuids] : null, async () => {
     const results = await Promise.all(uuids.map(fetchConcept));
     return results.filter((concept) => concept !== null);
   });
@@ -175,6 +177,7 @@ export function useObsConcepts(uuids: Array<string>): {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useActiveVisitsSorting(tableRows: Array<any>) {
   const [sortParams, setSortParams] = useState<{
     key: string;
@@ -185,6 +188,7 @@ export function useActiveVisitsSorting(tableRows: Array<any>) {
     setSortParams({ key, sortDirection });
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getSortValue = (item: any, key: string) => {
     // For observation columns
     if (key.startsWith('obs-')) {
@@ -260,7 +264,7 @@ export function useTableHeaders(obsConcepts: OpenmrsResource[]) {
     config?.activeVisits?.identifiers?.forEach((identifier) => {
       headers.push({
         id: headersIndex++,
-        header: t(identifier?.header?.key, identifier?.header?.default),
+        header: String(t(identifier?.header?.key, identifier?.header?.default)),
         key: identifier?.header?.key,
       });
     });
@@ -268,7 +272,7 @@ export function useTableHeaders(obsConcepts: OpenmrsResource[]) {
     if (!config?.activeVisits?.identifiers) {
       headers.push({
         id: headersIndex++,
-        header: t('idNumber', 'ID Number'),
+        header: t('idNumber', 'ID Number') as string,
         key: 'idNumber',
       });
     }
@@ -276,7 +280,7 @@ export function useTableHeaders(obsConcepts: OpenmrsResource[]) {
     config?.activeVisits?.attributes?.forEach((attribute) => {
       headers.push({
         id: headersIndex++,
-        header: t(attribute?.header?.key, attribute?.header?.default),
+        header: String(t(attribute?.header?.key, attribute?.header?.default)),
         key: attribute?.header?.key,
       });
     });

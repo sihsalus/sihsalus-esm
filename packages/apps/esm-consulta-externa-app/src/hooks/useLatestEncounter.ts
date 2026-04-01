@@ -1,6 +1,7 @@
-import useSWR, { type KeyedMutator } from 'swr';
 import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
 import pickBy from 'lodash/pickBy';
+import useSWR, { type KeyedMutator } from 'swr';
+
 import type { OpenmrsEncounter } from '../types';
 
 const latestEncounterRepresentation =

@@ -1,9 +1,11 @@
-import React from 'react';
 import { Button, Tag } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { ArrowRight } from '@carbon/react/icons';
 import { navigate } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { type DiagnosisItem, type Note } from '../../types/index';
+
 import styles from './triage-note.scss';
 
 interface TriageNoteProps {

@@ -2,15 +2,15 @@ import { Type } from '@openmrs/esm-framework';
 
 export interface ActiveVisitsConfigSchema {
   activeVisits: {
-    pageSize: Number;
-    pageSizes: Array<Number>;
+    pageSize: number;
+    pageSizes: Array<number>;
     identifiers: Array<IdentifiersDefinition>;
     obs: Array<string>;
   };
 }
 
 export interface IdentifiersDefinition {
-  id: Number;
+  id: number;
   header: {
     key: string;
     default: string;

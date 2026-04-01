@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import {
   DataTable,
   Table,
@@ -11,6 +10,8 @@ import {
 } from '@carbon/react';
 import { useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useMemo, useState } from 'react';
+
 import styles from './paginated-clinical-data.scss';
 
 interface PaginatedTableRow {

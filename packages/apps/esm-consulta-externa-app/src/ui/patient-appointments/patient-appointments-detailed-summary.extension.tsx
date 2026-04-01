@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PatientAppointmentsBase from './patient-appointments-base.component';
 
 interface PatientAppointmentsDetailedSummaryProps {

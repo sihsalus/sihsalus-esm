@@ -1,6 +1,6 @@
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 
 interface QueueDurationProps {
   startedAt: Date;

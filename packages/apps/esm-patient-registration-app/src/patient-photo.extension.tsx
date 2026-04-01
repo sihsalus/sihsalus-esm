@@ -1,5 +1,5 @@
-import React from 'react';
 import { PatientPhoto, type PatientPhotoProps } from '@openmrs/esm-framework';
+import React from 'react';
 
 function PatientPhotoExtension(props: PatientPhotoProps) {
   console.warn(

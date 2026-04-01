@@ -7,8 +7,8 @@ export const convertTime12to24 = (time12h: string, timeFormat: amPm) => {
     return [0, 0];
   }
 
-  let [hours, minutes] = time12h.split(':').map((item) => parseInt(item, 10));
-  hours = hours % 12;
+  const [rawHours, minutes] = time12h.split(':').map((item) => parseInt(item, 10));
+  let hours = rawHours % 12;
 
   if (timeFormat === 'PM') {
     hours += 12;

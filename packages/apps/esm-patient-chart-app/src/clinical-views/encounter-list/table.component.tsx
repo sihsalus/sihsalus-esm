@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   DataTable,
   Table,
@@ -9,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
+import React from 'react';
 
 import styles from './table.scss';
 

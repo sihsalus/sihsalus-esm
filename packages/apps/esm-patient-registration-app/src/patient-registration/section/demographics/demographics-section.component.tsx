@@ -1,7 +1,9 @@
-import React, { useContext, useEffect } from 'react';
 import { useField } from 'formik';
+import React, { useContext, useEffect } from 'react';
+
 import { Field } from '../../field/field.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+
 import styles from './../section.scss';
 
 export interface DemographicsSectionProps {

@@ -1,0 +1,68 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.patientSearchResult {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid colors.$gray-20;
+  padding: 0 layout.$spacing-04;
+
+  &:hover,
+  &:focus {
+    background-color: colors.$gray-10;
+  }
+}
+
+.patientSearchResultSelected {
+  background-color: colors.$gray-20;
+}
+
+.patientBanner {
+  display: flex;
+}
+
+.patientName {
+  @include type.type-style('heading-02');
+}
+
+.patientAvatar {
+  width: layout.$spacing-09;
+  height: layout.$spacing-09;
+  margin: layout.$spacing-03 layout.$spacing-05 layout.$spacing-03 0;
+  border-radius: 1px;
+}
+
+.patientInfo {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  margin: layout.$spacing-05;
+  cursor: pointer;
+}
+
+.demographics {
+  margin-top: layout.$spacing-03;
+  @include type.type-style('body-compact-02');
+  color: colors.$gray-70;
+}
+
+.identifiers {
+  @include type.type-style('body-compact-02');
+  color: colors.$gray-50;
+}
+
+.actionsContainer {
+  padding-top: layout.$spacing-03;
+  margin-top: layout.$spacing-05;
+}
+
+.middot {
+  margin: 0 layout.$spacing-03;
+}
+
+.skeletonIcon {
+  height: layout.$spacing-09;
+  width: layout.$spacing-09;
+}

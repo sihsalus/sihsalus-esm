@@ -1,9 +1,11 @@
+import { Button } from '@carbon/react';
+import { WatsonHealthStressBreathEditor } from '@carbon/react/icons';
+import { launchWorkspace, useSession } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { WatsonHealthStressBreathEditor } from '@carbon/react/icons';
-import { Button } from '@carbon/react';
+
 import styles from './case-management-header.scss';
-import { launchWorkspace, useSession } from '@openmrs/esm-framework';
+
 
 interface MetricsHeaderProps {
   activeTabIndex: number;

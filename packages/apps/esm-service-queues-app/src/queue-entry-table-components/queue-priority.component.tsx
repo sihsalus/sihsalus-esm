@@ -1,9 +1,13 @@
-import React from 'react';
 import { DefinitionTooltip, Tag } from '@carbon/react';
-import styles from './queue-priority.scss';
+import classNames from 'classnames';
+import React from 'react';
+
+
 import { type PriorityConfig } from '../config-schema';
 import { type Concept } from '../types';
-import classNames from 'classnames';
+
+import styles from './queue-priority.scss';
+
 
 interface QueuePriorityProps {
   priority: Concept;

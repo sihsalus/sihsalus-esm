@@ -1,13 +1,15 @@
-import React, { useMemo, useState } from 'react';
-import classnames from 'classnames';
-import { useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Tab, Tabs, TabList } from '@carbon/react';
-import { type PatientListFilter, PatientListType } from '../api/types';
+import classnames from 'classnames';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+
 import { useAllPatientLists } from '../api/hooks';
+import { type PatientListFilter, PatientListType } from '../api/types';
 import CreateEditPatientList from '../create-edit-patient-list/create-edit-list.component';
 import Header from '../header/header.component';
 import ListsTable from '../lists-table/lists-table.component';
+
 import styles from './lists-dashboard.scss';
 
 const TabIndices = {

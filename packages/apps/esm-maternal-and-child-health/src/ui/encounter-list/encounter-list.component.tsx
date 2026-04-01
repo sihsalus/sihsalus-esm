@@ -1,8 +1,3 @@
-import { ErrorState, isDesktop, navigate, useLayoutType, usePagination } from '@openmrs/esm-framework';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import styles from './encounter-list.scss';
-import { OTable } from '../data-table/o-table.component';
 import {
   Button,
   Link,
@@ -13,9 +8,16 @@ import {
   Layer,
   Tile,
 } from '@carbon/react';
-import { useEncounterRows } from '../../hooks/useEncounterRows';
+import { ErrorState, isDesktop, navigate, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { EmptyDataIllustration, EmptyState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useEncounterRows } from '../../hooks/useEncounterRows';
 import type { OpenmrsEncounter } from '../../types';
+import { OTable } from '../data-table/o-table.component';
+
+import styles from './encounter-list.scss';
 
 export interface O3FormSchema {
   name: string;

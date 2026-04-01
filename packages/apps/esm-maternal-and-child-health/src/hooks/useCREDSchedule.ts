@@ -1,9 +1,11 @@
-import { useMemo } from 'react';
 import { usePatient } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import useEncountersCRED from './useEncountersCRED';
-import useAppointmentsCRED from './useAppointmentsCRED';
+import { useMemo } from 'react';
+
 import { generateCREDSchedule, type CREDScheduledControl } from '../utils/cred-schedule-rules';
+
+import useAppointmentsCRED from './useAppointmentsCRED';
+import useEncountersCRED from './useEncountersCRED';
 
 export type ControlStatus = 'completed' | 'scheduled' | 'overdue' | 'pending' | 'future';
 

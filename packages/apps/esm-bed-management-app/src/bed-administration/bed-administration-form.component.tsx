@@ -1,8 +1,3 @@
-import React, { useState } from 'react';
-import capitalize from 'lodash-es/capitalize';
-import { z } from 'zod';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   ComboBox,
@@ -19,11 +14,18 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
-import { type TFunction, useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { getCoreTranslation, type Location } from '@openmrs/esm-framework';
-import { type BedAdministrationData } from './bed-administration-types';
-import type { BedType, BedWithLocation } from '../types';
+import capitalize from 'lodash-es/capitalize';
+import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { type TFunction, useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import styles from '../modals.scss';
+import type { BedType, BedWithLocation } from '../types';
+
+import { type BedAdministrationData } from './bed-administration-types';
 
 /**
  * Adds translation for occupancy status options

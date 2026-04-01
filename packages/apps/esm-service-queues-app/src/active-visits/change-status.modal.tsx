@@ -1,4 +1,3 @@
-import React, { useMemo } from 'react';
 import {
   Button,
   ContentSwitcher,
@@ -15,17 +14,20 @@ import {
   Stack,
   Switch,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import { useForm, Controller } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { navigate, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import { type Queue } from '../types';
+import React, { useMemo } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+
 import { type ConfigObject } from '../config-schema';
-import { useQueues } from '../hooks/useQueues';
-import { updateQueueEntry } from './active-visits-table.resource';
-import { useMutateQueueEntries } from '../hooks/useQueueEntries';
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
+import { useMutateQueueEntries } from '../hooks/useQueueEntries';
+import { useQueues } from '../hooks/useQueues';
+import { type Queue } from '../types';
+
+import { updateQueueEntry } from './active-visits-table.resource';
 import styles from './change-status.scss';
 
 interface ChangeStatusModalProps {

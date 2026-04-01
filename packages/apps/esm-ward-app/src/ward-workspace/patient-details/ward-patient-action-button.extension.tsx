@@ -1,6 +1,7 @@
+import { ActionMenuButton, launchWorkspace, UserAvatarIcon } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionMenuButton, launchWorkspace, UserAvatarIcon } from '@openmrs/esm-framework';
+
 import type { WardPatientWorkspaceProps } from '../../types';
 
 export default function WardPatientActionButton() {

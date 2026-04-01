@@ -1,9 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Layer, Tile } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
 import { ConfigurableLink } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './metrics-card.scss';
 
 interface MetricsCardProps {

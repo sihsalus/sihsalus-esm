@@ -1,9 +1,10 @@
-import React, { useId, useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Tab, Tabs, TabList } from '@carbon/react';
 import { LineChart } from '@carbon/charts-react';
+import { Tab, Tabs, TabList } from '@carbon/react';
 import { formatDate, parseDate } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useId, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './clinical-data-chart.scss';
 
 enum ScaleTypes {

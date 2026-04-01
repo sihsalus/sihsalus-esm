@@ -1,5 +1,3 @@
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -16,21 +14,25 @@ import {
   InlineLoading,
   DataTableSkeleton,
 } from '@carbon/react';
+import { AddIcon, launchWorkspace2, useLayoutType, isDesktop, formatDate } from '@openmrs/esm-framework';
 import {
   CardHeader,
   EmptyState,
   ErrorState,
 } from '@openmrs/esm-patient-common-lib';
-import { AddIcon, launchWorkspace2, useLayoutType, isDesktop, formatDate } from '@openmrs/esm-framework';
-import styles from './patient-observation-group-table.scss';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-// Importar tipos desde el componente separado
+import { useFilteredEncounter } from '../../hooks/useFilteredEncounter';
+
 import ObservationGroupDetails, {
   type ObservationGroup,
   type ObservationRow,
 } from './observation-group-details.component';
+import styles from './patient-observation-group-table.scss';
 
-import { useFilteredEncounter } from '../../hooks/useFilteredEncounter';
+// Importar tipos desde el componente separado
+
 
 interface PatientObservationGroupTableProps {
   patientUuid: string;

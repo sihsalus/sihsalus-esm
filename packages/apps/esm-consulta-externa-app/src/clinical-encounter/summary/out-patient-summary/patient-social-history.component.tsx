@@ -1,15 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { formatDate, parseDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
-import {
-  Alcohol_Use_UUID,
-  Alcohol_Use_Duration_UUID,
-  Smoking_UUID,
-  Smoking_Duration_UUID,
-  Other_Substance_Abuse_UUID,
-} from '../../../utils/constants';
-import { getObsFromEncounter } from '../../../ui/encounter-list/encounter-list-utils';
-import { EmptyState, ErrorState, CardHeader } from '@openmrs/esm-patient-common-lib';
 import {
   OverflowMenu,
   OverflowMenuItem,
@@ -24,11 +12,24 @@ import {
   TableBody,
   TableCell,
 } from '@carbon/react';
-import type { ConfigObject } from '../../../config-schema';
 import { Add } from '@carbon/react/icons';
-import type { OpenmrsEncounter } from '../../../types';
+import { formatDate, parseDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
+import { EmptyState, ErrorState, CardHeader } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
 import { mutate } from 'swr';
+
+import type { ConfigObject } from '../../../config-schema';
+import type { OpenmrsEncounter } from '../../../types';
+import { getObsFromEncounter } from '../../../ui/encounter-list/encounter-list-utils';
+import {
+  Alcohol_Use_UUID,
+  Alcohol_Use_Duration_UUID,
+  Smoking_UUID,
+  Smoking_Duration_UUID,
+  Other_Substance_Abuse_UUID,
+} from '../../../utils/constants';
 interface OutPatientSocialHistoryProps {
   patientUuid: string;
   encounters: OpenmrsEncounter[];

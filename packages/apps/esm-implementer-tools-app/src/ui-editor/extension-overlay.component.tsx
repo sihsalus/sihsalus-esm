@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Portal } from './portal';
 import styles from './styles.scss';
 

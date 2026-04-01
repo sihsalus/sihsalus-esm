@@ -1,10 +1,13 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen, within } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, useConfig, useSession } from '@openmrs/esm-framework';
+import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { mockSession } from '__mocks__';
+import React from 'react';
+
 import type { PatientList } from '../api/types';
 import { type ConfigSchema, configSchema } from '../config-schema';
-import { mockSession } from '__mocks__';
+
+
 import ListsTable from './lists-table.component';
 
 const mockUseSession = jest.mocked(useSession);

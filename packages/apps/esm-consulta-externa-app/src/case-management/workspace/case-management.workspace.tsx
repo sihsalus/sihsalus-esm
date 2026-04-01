@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Column, TextArea, Form, Stack, ButtonSet, ComboBox, Button, DatePicker, DatePickerInput } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ExtensionSlot, showSnackbar, useSession } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import styles from './case-management.scss';
-import { ExtensionSlot, showSnackbar, useSession } from '@openmrs/esm-framework';
-import { saveRelationship, useActivecases, useCaseManagers } from './case-management.resource';
-import { extractNameString, uppercaseText } from '../../utils/expression-helper';
-import PatientInfo from './patient-info.component';
+
 import { useMappedRelationshipTypes } from '../../family-partner-history/relationships.resource';
+import { extractNameString, uppercaseText } from '../../utils/expression-helper';
+
+import { saveRelationship, useActivecases, useCaseManagers } from './case-management.resource';
+import styles from './case-management.scss';
+import PatientInfo from './patient-info.component';
+
 
 const schema = z.object({
   caseManager: z.string().nonempty({ message: 'Case Manager is required' }),

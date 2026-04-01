@@ -1,8 +1,10 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { OverflowMenuItem } from '@carbon/react';
 import { showModal } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { usePatientDeceasedStatus } from '../data.resource';
+
 import styles from './action-button.scss';
 
 interface MarkPatientAliveOverflowMenuItemProps {

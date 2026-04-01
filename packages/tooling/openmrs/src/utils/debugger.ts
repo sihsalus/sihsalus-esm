@@ -1,12 +1,12 @@
+import { dirname } from 'node:path';
+
 import {
   rspack,
   type Configuration as RspackConfiguration,
   type DevServer as RspackDevServerConfiguration,
 } from '@rspack/core';
 import { RspackDevServer } from '@rspack/dev-server';
-import { dirname } from 'node:path';
-import webpack, { type Configuration as WebpackConfiguration } from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
+
 import { logInfo } from './logger';
 
 function getWebpackEnv() {
@@ -18,19 +18,16 @@ function getWebpackEnv() {
   };
 }
 
-function loadConfig(configPath: string): WebpackConfiguration | RspackConfiguration {
-  const content:
-    | WebpackConfiguration
-    | RspackConfiguration
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    | ((env: Record<string, unknown>) => WebpackConfiguration | RspackConfiguration) = require(configPath);
+function loadConfig(configPath: string): RspackConfiguration {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const content: RspackConfiguration | ((env: Record<string, unknown>) => RspackConfiguration) = require(configPath);
   if (typeof content === 'function') {
     return content(getWebpackEnv());
   }
   return content;
 }
 
-function startDevServer(configPath: string, port: number, useRspack: boolean = false) {
+function startDevServer(configPath: string, port: number) {
   const config = loadConfig(configPath);
 
   const devServerOptions = {
@@ -39,22 +36,12 @@ function startDevServer(configPath: string, port: number, useRspack: boolean = f
     static: dirname(configPath),
   };
 
-  let server: WebpackDevServer | RspackDevServer;
-  if (!useRspack) {
-    const compiler = webpack(config as WebpackConfiguration);
-
-    server = new WebpackDevServer(devServerOptions as WebpackDevServer.Configuration, compiler);
-  } else {
-    const compiler = rspack(config as RspackConfiguration);
-
-    server = new RspackDevServer(devServerOptions as RspackDevServerConfiguration, compiler);
-  }
+  const compiler = rspack(config);
+  const server = new RspackDevServer(devServerOptions as RspackDevServerConfiguration, compiler);
 
   server.startCallback(() => {
     logInfo(`Listening at http://localhost:${port}`);
   });
 }
 
-process.on('message', ({ source, port, useRspack }: { source: string; port: number; useRspack: boolean }) =>
-  startDevServer(source, port, useRspack),
-);
+process.on('message', ({ source, port }: { source: string; port: number }) => startDevServer(source, port));

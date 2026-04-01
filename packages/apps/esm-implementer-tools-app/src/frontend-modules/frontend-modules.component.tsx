@@ -1,5 +1,3 @@
-import React, { Fragment, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Table,
@@ -10,7 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
+import React, { Fragment, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { FrontendModule } from '../types';
+
 import styles from './frontend-modules.scss';
 
 export interface FrontendModulesProps {
@@ -56,7 +58,7 @@ export const FrontendModules: React.FC<FrontendModulesProps> = ({ frontendModule
                       </TableCell>
                       <TableCell>{esm.version ?? t('unknownVersion', 'unknown')}</TableCell>
                     </TableRow>
-                    {Boolean(esm.extensions) ? (
+                    {esm.extensions ? (
                       <TableRow key={`${esm.name}-extensions-header`}>
                         <TableCell>
                           <span className={styles.moduleComponentHeader}>{t('extensions', 'Extensions')}</span>

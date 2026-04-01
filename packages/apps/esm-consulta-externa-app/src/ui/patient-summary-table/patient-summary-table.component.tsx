@@ -1,5 +1,3 @@
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -15,14 +13,6 @@ import {
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-  launchStartVisitPrompt,
-  useVisitOrOfflineVisit,
-  PatientChartPagination,
-} from '@openmrs/esm-patient-common-lib';
-import {
   launchWorkspace,
   useLayoutType,
   usePagination,
@@ -30,6 +20,17 @@ import {
   parseDate,
   isOmrsDateStrict,
 } from '@openmrs/esm-framework';
+import {
+  CardHeader,
+  EmptyState,
+  ErrorState,
+  launchStartVisitPrompt,
+  useVisitOrOfflineVisit,
+  PatientChartPagination,
+} from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import styles from './patient-summary-table.scss';
 
 // Tipar la respuesta del dataHook

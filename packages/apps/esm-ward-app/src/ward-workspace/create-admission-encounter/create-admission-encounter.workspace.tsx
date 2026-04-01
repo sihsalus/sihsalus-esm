@@ -1,8 +1,8 @@
-import { ArrowLeftIcon, type DefaultWorkspaceProps, useVisit } from '@openmrs/esm-framework';
-
 import { Button, InlineNotification, SkeletonText } from '@carbon/react';
+import { ArrowLeftIcon, type DefaultWorkspaceProps, useVisit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { useAssignedBedByPatient } from '../../hooks/useAssignedBedByPatient';
 import { useInpatientAdmissionByPatients } from '../../hooks/useInpatientAdmissionByPatients';
 import { useInpatientRequestByPatients } from '../../hooks/useInpatientRequestByPatients';

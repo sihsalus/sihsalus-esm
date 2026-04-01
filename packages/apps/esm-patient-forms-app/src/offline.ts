@@ -12,19 +12,35 @@ import {
 import { launchFormEntry } from '@openmrs/esm-patient-common-lib';
 import escapeRegExp from 'lodash-es/escapeRegExp';
 
-// General note on the following imports and this file in general:
-// Yes, the imports below are super super dirty.
-// In fact, the entire content of this file should ideally live inside the `esm-form-entry-app` package.
-// The reason for putting it in here (and doing these nasty imports) is that the code here requires
-// functions from `esm-patient-common-lib`.
-// The issue is integrating that lib in the `esm-form-entry-app` package while also making the build
-// work. Trust me, I tried. But by now, I don't want to waste any more time on this issue when this
-// workaround here exists.
-// If anyone reading this comment wants to take on the challenge, please feel
-// free to do so and, if successful, notify me when `launchPatientWorkspace` can be called
-// from `esm-form-entry-app` and/or directly migrate this file's content to the appropriate location.
-import type { PatientFormSyncItemContent } from '../../esm-form-entry-app/src/app/offline/sync';
-import type { EncounterCreate } from '../../esm-form-entry-app/src/app/types';
+/** Types inlined from the former esm-form-entry-app (Angular) to remove the cross-package dependency. */
+interface EncounterCreate {
+  uuid?: string;
+  encounterDatetime: string;
+  patient: string;
+  encounterType: string;
+  location: string;
+  encounterProviders?: Array<{ uuid?: string; person: string; provider: string }>;
+  obs?: Array<Record<string, any>>;
+  orders?: Array<Record<string, any>>;
+  diagnoses?: Array<Record<string, any>>;
+  form?: string;
+  visit?: string;
+}
+
+interface PersonUpdate {
+  uuid?: string;
+  attributes: Array<{ attributeType: string; value: string }>;
+}
+
+interface PatientFormSyncItemContent {
+  _id: string;
+  formSchemaUuid: string;
+  encounter: Partial<{ uuid: string; encounterDatetime: string }>;
+  _payloads: {
+    encounterCreate?: EncounterCreate;
+    personUpdate?: PersonUpdate;
+  };
+}
 
 import { formEncounterUrl, formEncounterUrlPoc } from './constants';
 import { isFormJsonSchema } from './offline-forms/offline-form-helpers';

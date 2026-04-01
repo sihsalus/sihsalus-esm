@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
 import { InlineLoading } from '@carbon/react';
 import { showSnackbar, useConfig } from '@openmrs/esm-framework';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import styles from './fua-html-viewer.scss';
+
 import type { Config } from '../config-schema';
+
+import styles from './fua-html-viewer.scss';
 
 interface FuaHtmlViewerProps {
   fuaId?: string;

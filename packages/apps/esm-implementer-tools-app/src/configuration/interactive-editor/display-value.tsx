@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StructuredListCell, StructuredListRow } from '@carbon/react';
+import React from 'react';
+
 import styles from './display-value.scss';
 
 export interface DisplayValueProps {

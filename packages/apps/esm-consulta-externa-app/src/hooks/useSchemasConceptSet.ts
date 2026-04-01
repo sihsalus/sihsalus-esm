@@ -1,7 +1,8 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import type { LegendConfigObject } from '../types';
 import type { Concept } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
+import type { LegendConfigObject } from '../types';
 
 interface ConceptWithColour extends Concept {
   colour?: string;

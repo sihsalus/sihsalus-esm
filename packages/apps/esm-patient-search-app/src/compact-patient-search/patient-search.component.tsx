@@ -1,9 +1,11 @@
+import { Layer, Loading, Tile } from '@carbon/react';
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, Loading, Tile } from '@carbon/react';
+
 import { type PatientSearchResponse } from '../types';
-import CompactPatientBanner from './compact-patient-banner.component';
 import EmptyDataIllustration from '../ui-components/empty-data-illustration.component';
+
+import CompactPatientBanner from './compact-patient-banner.component';
 import Loader from './loader.component';
 import styles from './patient-search.scss';
 

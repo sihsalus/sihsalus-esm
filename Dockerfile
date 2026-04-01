@@ -1,26 +1,31 @@
 # Dockerfile
 
-# Stage 1: Install dependencies and build
-FROM node:20-alpine AS builder
+# Stage 1: Build local @sihsalus/* modules — deterministic, no network required
+FROM node:22-alpine AS builder
 WORKDIR /app
 RUN corepack enable && corepack prepare yarn@4.13.0 --activate
 
 # Copy workspace files first for better layer caching
 COPY package.json yarn.lock .yarnrc.yml turbo.json ./
 COPY packages/ ./packages/
-COPY config/ ./config/
 COPY scripts/ ./scripts/
 
+ENV CI=true
 RUN yarn install --immutable
-RUN yarn turbo run build --filter='./packages/apps/*' --filter='./packages/shell/*'
+RUN yarn turbo run build --filter='./packages/apps/*'
 
-# Stage 2: Assemble import map and static assets
-FROM node:20-alpine AS assembler
+# Stage 2: Init container image
+# Runs at deployment time: assembles built modules into SPA_OUTPUT_DIR.
+# The infra repo mounts a shared volume at SPA_OUTPUT_DIR; nginx serves from it.
+FROM node:22-alpine AS init
 WORKDIR /app
-COPY --from=builder /app .
-RUN node scripts/assemble-importmap.js
 
-# Stage 3: Output — just the SPA static files
-# Nginx/reverse proxy configuration is managed in the infra repo
-FROM scratch AS output
-COPY --from=assembler /app/dist/spa /spa
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/packages/apps ./packages/apps
+COPY scripts/assemble-importmap.js ./scripts/
+COPY config/ ./config/
+
+# SPA_OUTPUT_DIR: path to the shared volume nginx will serve
+ENV SPA_OUTPUT_DIR=/spa
+
+CMD ["node", "scripts/assemble-importmap.js"]

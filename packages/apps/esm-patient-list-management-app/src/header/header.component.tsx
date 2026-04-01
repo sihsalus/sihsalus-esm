@@ -1,8 +1,9 @@
+import { Button } from '@carbon/react';
+import { Add } from '@carbon/react/icons';
+import { PageHeader, PageHeaderContent, PatientListsPictogram } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Add } from '@carbon/react/icons';
-import { Button } from '@carbon/react';
-import { PageHeader, PageHeaderContent, PatientListsPictogram } from '@openmrs/esm-framework';
+
 import styles from './header.scss';
 
 interface HeaderProps {

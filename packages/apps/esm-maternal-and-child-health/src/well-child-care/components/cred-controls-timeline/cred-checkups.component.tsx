@@ -1,13 +1,15 @@
-import React, { useCallback, useState, useMemo } from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
 import { Button, InlineLoading, InlineNotification, Tag } from '@carbon/react';
 import { Calendar, Add } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig, useSession, showSnackbar } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useCallback, useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import type { ConfigObject } from '../../../config-schema';
 import { useCREDSchedule } from '../../../hooks/useCREDSchedule';
 import { useMutateAppointments } from '../../../ui/form/appointments-form.resource';
 import { createCREDAppointments } from '../../common/cred-appointments.resource';
-import type { ConfigObject } from '../../../config-schema';
+
 import styles from './cred-schedule.scss';
 
 interface CredCheckupsProps {

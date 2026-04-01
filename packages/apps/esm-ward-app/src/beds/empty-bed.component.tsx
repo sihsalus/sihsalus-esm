@@ -1,8 +1,11 @@
 import React from 'react';
-import styles from './ward-bed.scss';
-import wardPatientCardStyles from '../ward-patient-card/ward-patient-card.scss';
-import { type Bed } from '../types';
 import { useTranslation } from 'react-i18next';
+
+import { type Bed } from '../types';
+import wardPatientCardStyles from '../ward-patient-card/ward-patient-card.scss';
+
+import styles from './ward-bed.scss';
+
 
 interface EmptyBedProps {
   bed: Bed;

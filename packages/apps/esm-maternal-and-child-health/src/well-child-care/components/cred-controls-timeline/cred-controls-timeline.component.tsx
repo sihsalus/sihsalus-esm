@@ -1,11 +1,13 @@
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
 import { Tile } from '@carbon/react';
 import { launchWorkspace2, useConfig, usePatient } from '@openmrs/esm-framework';
+import classNames from 'classnames';
 import dayjs from 'dayjs';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { ConfigObject } from '../../../config-schema';
 import { useCREDSchedule } from '../../../hooks/useCREDSchedule';
+
 import styles from './cred-schedule.scss';
 
 interface CredAgeGroupsProps {

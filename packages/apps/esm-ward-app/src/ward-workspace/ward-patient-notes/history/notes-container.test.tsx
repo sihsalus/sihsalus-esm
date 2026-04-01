@@ -1,9 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PatientNotesHistory from './notes-container.component';
-import { usePatientNotes } from '../notes.resource';
-import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
 import { emrConfigurationMock } from '__mocks__';
+import React from 'react';
+
+import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
+import { usePatientNotes } from '../notes.resource';
+
+import PatientNotesHistory from './notes-container.component';
+
+
 
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
 

@@ -1,5 +1,6 @@
-import React from 'react';
 import { Layer, Tile } from '@carbon/react';
+import React from 'react';
+
 import styles from './ward-card.scss';
 
 interface WardCardProps {

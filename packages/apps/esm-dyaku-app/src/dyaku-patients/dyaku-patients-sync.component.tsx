@@ -1,6 +1,7 @@
 import { Button, InlineLoading, InlineNotification, Modal, ProgressBar } from '@carbon/react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './dyaku-patients-sync.scss';
 import { useDyakuSync, type SyncResult } from './dyaku-patients.resource';
 

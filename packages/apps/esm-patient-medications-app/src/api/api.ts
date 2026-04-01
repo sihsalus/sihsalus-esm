@@ -23,6 +23,7 @@ const customRepresentation =
  * @param orders The orders to sort.
  * @returns The sorted orders.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function sortOrdersByDateActivated(orders: any[]) {
   return orders?.sort(
     (order1, order2) => new Date(order2.dateActivated).getTime() - new Date(order1.dateActivated).getTime(),

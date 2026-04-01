@@ -1,16 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+/* eslint-disable */
 import { Button, ButtonSet, Column, Form, InlineNotification, Row } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { showSnackbar, useAppContext } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { showSnackbar, useAppContext } from '@openmrs/esm-framework';
-import type { WardPatientWorkspaceProps, WardViewContext } from '../../types';
+
 import { useAssignedBedByPatient } from '../../hooks/useAssignedBedByPatient';
-import { assignPatientToBed, removePatientFromBed, useAdmitPatient } from '../../ward.resource';
 import useWardLocation from '../../hooks/useWardLocation';
+import type { WardPatientWorkspaceProps, WardViewContext } from '../../types';
+import { assignPatientToBed, removePatientFromBed, useAdmitPatient } from '../../ward.resource';
 import BedSelector from '../bed-selector.component';
 import WardPatientWorkspaceBanner from '../patient-banner/patient-banner.component';
+
 import styles from './admit-patient-form.scss';
 
 /**

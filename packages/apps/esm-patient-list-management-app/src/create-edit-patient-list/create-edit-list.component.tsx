@@ -1,11 +1,13 @@
-import React, { useCallback, type SyntheticEvent, useEffect, useId, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ButtonSet, Layer, TextArea, TextInput } from '@carbon/react';
 import { useLayoutType, showSnackbar, useSession, useConfig } from '@openmrs/esm-framework';
-import type { ConfigSchema } from '../config-schema';
-import type { NewCohortData, OpenmrsCohort } from '../api/types';
+import React, { useCallback, type SyntheticEvent, useEffect, useId, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { createPatientList, editPatientList } from '../api/api-remote';
+import type { NewCohortData, OpenmrsCohort } from '../api/types';
+import type { ConfigSchema } from '../config-schema';
 import Overlay from '../overlay.component';
+
 import styles from './create-edit-patient-list.scss';
 
 interface CreateEditPatientListProps {

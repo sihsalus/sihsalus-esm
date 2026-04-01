@@ -1,7 +1,9 @@
 import { getPatientName, launchWorkspaceGroup } from '@openmrs/esm-framework';
 import { getPatientChartStore } from '@openmrs/esm-patient-common-lib';
 import React, { type ReactNode } from 'react';
+
 import { type WardPatient } from '../types';
+
 import styles from './ward-patient-card.scss';
 
 interface Props {

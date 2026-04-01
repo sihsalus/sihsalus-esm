@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   DataTable,
   Table,
@@ -12,8 +11,12 @@ import {
   TableExpandRow,
   TableExpandedRow,
 } from '@carbon/react';
-import styles from './o-table.scss';
+import React from 'react';
+
 import EncounterObservations from '../encounter-observation/encounter-observation.component';
+
+import styles from './o-table.scss';
+
 
 interface TableProps {
   tableHeaders: Array<{ key: string; header: string; isSortable?: boolean }>;

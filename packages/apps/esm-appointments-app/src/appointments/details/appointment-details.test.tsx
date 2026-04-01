@@ -1,8 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { usePatient } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { mockPatient } from 'tools';
+
 import type { AppointmentKind, AppointmentStatus, Appointment } from '../../types';
+
 import AppointmentDetails from './appointment-details.component';
 
 const appointment: Appointment = {

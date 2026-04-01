@@ -1,7 +1,8 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { useLayoutType } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import QueueRoomForm from './queue-room-form.workspace';
 
 const mockUseLayoutType = jest.mocked(useLayoutType);

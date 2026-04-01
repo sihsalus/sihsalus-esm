@@ -1,5 +1,5 @@
 {
-  "name": "@openmrs/esm-offline-tools-app",
+  "name": "@sihsalus/esm-offline-tools-app",
   "version": "9.0.2",
   "license": "MPL-2.0",
   "description": "The offline tools microfrontend for the OpenMRS SPA",
@@ -18,7 +18,7 @@
     "analyze": "rspack --mode=production --env analyze=true",
     "typescript": "tsc",
     "lint": "eslint src --ext ts,tsx",
-    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.extension.tsx' 'src/**/*.modal.tsx' --config='../../../tools/i18next-parser.config.js'"
+    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.extension.tsx' 'src/**/*.modal.tsx' --config='../../../tooling/i18next-parser.config.js'"
   },
   "keywords": [
     "openmrs",
@@ -58,7 +58,7 @@
     "@rspack/cli": "1.3.15",
     "@types/lodash-es": "^4.17.12",
     "@vitest/coverage-v8": "^4.0.18",
-    "cross-env": "^7.0.3",
+    "eslint": "^8.55.0",
     "happy-dom": "^20.6.0",
     "openmrs": "workspace:*",
     "react": "^18.3.1",
@@ -66,6 +66,7 @@
     "react-i18next": "^16.0.0",
     "react-router-dom": "^6.3.0",
     "rxjs": "^6.5.3",
+    "typescript": "^5.8.3",
     "vitest": "^4.0.18"
   }
 }

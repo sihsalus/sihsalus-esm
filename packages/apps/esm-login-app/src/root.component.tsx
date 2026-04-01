@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import ChangePassword from './change-password/change-password.component';
 import LocationPickerView from './location-picker/location-picker-view.component';
 import Login from './login/login.component';

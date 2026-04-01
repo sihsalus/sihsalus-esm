@@ -1,7 +1,8 @@
-import React, { type FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, Form, ModalHeader, ModalBody, ModalFooter, Stack, TextInput } from '@carbon/react';
 import { addRoutesOverride, removeRoutesOverride } from '@openmrs/esm-framework/src/internal';
+import React, { type FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import type { Module } from './types';
 
 type ImportMapModalProps = ({ module: Module; isNew: false } | { module: never; isNew: true }) & { close: () => void };
@@ -77,6 +78,7 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
   useEffect(
     () => (isNew ? moduleNameRef.current?.focus() : inputRef.current?.focus()),
     // Only fired on initial mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 

@@ -1,8 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
 import { Tag } from '@carbon/react';
+import classNames from 'classnames';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type DiagnosisItem, type Note } from '../../types/index';
+
 import styles from './past-visit-summary.scss';
 
 interface NotesProps {

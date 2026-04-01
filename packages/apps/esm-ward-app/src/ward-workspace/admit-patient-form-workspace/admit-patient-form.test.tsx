@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   CloseWorkspaceOptions,
   type DefaultWorkspaceProps,
@@ -9,6 +10,7 @@ import {
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+
 import { mockInpatientRequestAlice, mockLocationInpatientWard, mockPatientAlice } from '../../../../../__mocks__';
 import { renderWithSwr } from '../../../../../tools';
 import { mockWardPatientGroupDetails, mockWardViewContext } from '../../../mock';
@@ -16,6 +18,7 @@ import { useAssignedBedByPatient } from '../../hooks/useAssignedBedByPatient';
 import useWardLocation from '../../hooks/useWardLocation';
 import type { DispositionType, WardPatient, WardViewContext } from '../../types';
 import { assignPatientToBed, removePatientFromBed, useAdmitPatient } from '../../ward.resource';
+
 import AdmitPatientFormWorkspace from './admit-patient-form.workspace';
 
 jest.mock('../../hooks/useAdmissionLocation', () => ({

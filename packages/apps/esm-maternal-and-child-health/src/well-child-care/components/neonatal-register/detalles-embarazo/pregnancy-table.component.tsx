@@ -1,9 +1,10 @@
+import { useConfig, launchWorkspace2 } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfig, launchWorkspace2 } from '@openmrs/esm-framework';
+
+import type { ConfigObject } from '../../../../config-schema'; // Ajusta la ruta
 import { useLatestValidEncounter } from '../../../../hooks/useLatestEncounter'; // Ajusta la ruta
 import PatientSummaryTable from '../../../../ui/patient-summary-table/patient-summary-table.component'; // Ajusta la ruta
-import type { ConfigObject } from '../../../../config-schema'; // Ajusta la ruta
 import {
   PREGNANCY_NUMBER_UUID,
   PRENATAL_CARE_NUMBER_UUID,

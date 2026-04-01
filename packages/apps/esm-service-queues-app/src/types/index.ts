@@ -1,5 +1,6 @@
 import { type Visit, type OpenmrsResource, type Location, type Patient } from '@openmrs/esm-framework';
 import type React from 'react';
+
 import { type ColumnConfig } from '../config-schema';
 
 export interface Attribute {

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './error-state.scss';
 
 export interface ErrorStateProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   headerTitle: string;
 }

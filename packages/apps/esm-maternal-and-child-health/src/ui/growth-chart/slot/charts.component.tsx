@@ -1,6 +1,7 @@
+import { Extension, ExtensionSlot } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Extension, ExtensionSlot } from '@openmrs/esm-framework';
+
 import styles from './charts.scss';
 
 export const Charts: React.FC = () => {

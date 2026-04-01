@@ -1,6 +1,3 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   type DataTableHeader,
   DataTable,
@@ -22,8 +19,13 @@ import {
 } from '@carbon/react';
 import { formatDatetime, parseDate, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { ErrorState, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import EncounterObservations from '../encounter-observations';
 import { useEncounters } from '../visit.resource';
+
 import styles from './encounters-table.scss';
 
 interface Encounter {

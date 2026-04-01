@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
-import { useTranslation } from 'react-i18next';
-import capitalize from 'lodash/capitalize';
-import { ErrorState, launchWorkspace, showModal, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import type { ConfigObject } from '../../config-schema';
-import { genericTableHeader, useEncounters } from './useEncounters';
 import { DataTableSkeleton, Button } from '@carbon/react';
-import GenericTable from './generic-table.component';
+import { ErrorState, launchWorkspace, showModal, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import capitalize from 'lodash/capitalize';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { deleteEncounter } from '../../case-management/encounters/case-encounter-table.resource';
+import type { ConfigObject } from '../../config-schema';
+
+import GenericTable from './generic-table.component';
+import { genericTableHeader, useEncounters } from './useEncounters';
 
 type GenericDashboardProps = { patientUuid: string };
 

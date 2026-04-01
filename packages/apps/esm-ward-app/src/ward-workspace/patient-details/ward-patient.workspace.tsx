@@ -1,10 +1,12 @@
 import { attach, ExtensionSlot, useConfig } from '@openmrs/esm-framework';
+import classNames from 'classnames';
 import React from 'react';
+
+import { type WardConfigObject } from '../../config-schema';
 import { type WardPatientWorkspaceProps } from '../../types';
 import WardPatientWorkspaceBanner from '../patient-banner/patient-banner.component';
+
 import styles from './ward-patient.style.scss';
-import { type WardConfigObject } from '../../config-schema';
-import classNames from 'classnames';
 
 attach('ward-patient-workspace-header-slot', 'patient-vitals-info');
 

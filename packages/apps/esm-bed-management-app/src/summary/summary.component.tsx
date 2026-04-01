@@ -1,11 +1,14 @@
-import React from 'react';
 import { DataTableSkeleton } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import { ConfigurableLink, ErrorState } from '@openmrs/esm-framework';
-import { useAdmissionLocations } from './summary.resource';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+
 import EmptyState from '../empty-state/empty-state.component';
 import WardCard from '../ward-card/ward-card.component';
+
+import { useAdmissionLocations } from './summary.resource';
 import styles from './summary.scss';
 
 const Summary: React.FC = () => {

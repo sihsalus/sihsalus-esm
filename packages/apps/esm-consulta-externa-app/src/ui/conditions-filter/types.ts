@@ -14,7 +14,7 @@ export interface FHIRConditionResponse {
 export interface FHIRCondition {
   clinicalStatus: {
     coding: Array<CodingData>;
-    display: String;
+    display: string;
   };
   code: {
     coding: Array<CodingData>;

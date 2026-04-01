@@ -1,11 +1,15 @@
+import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showSnackbar } from '@openmrs/esm-framework';
-import { type BedAdministrationData } from './bed-administration-types';
-import { type BedWithLocation } from '../types';
-import { editBed, useBedType } from './bed-administration.resource';
+
 import { useLocationsWithAdmissionTag } from '../summary/summary.resource';
+import { type BedWithLocation } from '../types';
+
 import BedAdministrationForm from './bed-administration-form.component';
+import { type BedAdministrationData } from './bed-administration-types';
+import { editBed, useBedType } from './bed-administration.resource';
+
+
 
 interface EditBedFormProps {
   editData: BedWithLocation;

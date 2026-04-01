@@ -1,6 +1,8 @@
 import { useAppContext } from '@openmrs/esm-framework';
 import React from 'react';
+
 import { type WardViewContext } from '../../types';
+
 import DefaultWardPatientCard from './default-ward-patient-card.component';
 
 /**

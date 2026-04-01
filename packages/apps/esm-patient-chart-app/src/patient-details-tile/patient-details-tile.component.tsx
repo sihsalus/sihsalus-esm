@@ -1,7 +1,8 @@
+import { age, getPatientName, formatDate, parseDate } from '@openmrs/esm-framework';
+import capitalize from 'lodash-es/capitalize';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import capitalize from 'lodash-es/capitalize';
-import { age, getPatientName, formatDate, parseDate } from '@openmrs/esm-framework';
+
 import styles from './patient-details-tile.scss';
 
 interface PatientDetailsTileInterface {

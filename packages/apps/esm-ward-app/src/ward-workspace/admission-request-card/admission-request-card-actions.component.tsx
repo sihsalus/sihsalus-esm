@@ -2,9 +2,11 @@ import { Button } from '@carbon/react';
 import { launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import type { WardPatientCardType, WardPatientWorkspaceProps } from '../../types';
 import { AdmissionRequestsWorkspaceContext } from '../admission-request-workspace/admission-requests.workspace';
 import AdmitPatientButton from '../admit-patient-button.component';
+
 import styles from './admission-request-card.scss';
 
 const AdmissionRequestCardActions: WardPatientCardType = ({ wardPatient }) => {

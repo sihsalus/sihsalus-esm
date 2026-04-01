@@ -1,0 +1,56 @@
+@use "@carbon/colors";
+
+.systemAdminPage {
+  background-color: colors.$white-0;
+
+  .breadCrumbsContainer {
+    nav {
+      background-color: colors.$gray-10;
+    }
+  }
+
+  .cardsView {
+    background-color: colors.$gray-10;
+    padding-top: 3rem;
+  }
+
+  .cardLinks {
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    display: flex;
+    flex: auto;
+    flex-wrap: wrap;
+
+    div {
+      margin-top: 1rem;
+    }
+
+    :global(.cds--link) {
+      height: 8rem;
+      width: 14rem;
+      position: relative;
+      margin-right: 1rem;
+    }
+
+    :global(.heading) {
+      color: colors.$gray-70;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    :global(.content) {
+      color: colors.$gray-100;
+      font-size: 1rem;
+    }
+
+    :global(.iconWrapper) {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 1rem;
+      svg {
+        color: colors.$blue-60;
+      }
+    }
+  }
+}

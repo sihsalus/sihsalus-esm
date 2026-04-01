@@ -1,6 +1,7 @@
-import React from 'react';
-import classNames from 'classnames';
 import { useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React from 'react';
+
 import styles from './card-header.scss';
 
 interface CardHeaderProps {

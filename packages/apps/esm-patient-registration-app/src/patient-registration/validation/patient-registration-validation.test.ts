@@ -1,7 +1,9 @@
 import { getConfig } from '@openmrs/esm-framework';
-import { type RegistrationConfig } from '../../config-schema';
-import { getValidationSchema } from './patient-registration-validation';
 import dayjs from 'dayjs';
+
+import { type RegistrationConfig } from '../../config-schema';
+
+import { getValidationSchema } from './patient-registration-validation';
 
 const mockGetConfig = jest.mocked(getConfig);
 

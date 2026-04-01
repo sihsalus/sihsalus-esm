@@ -1,0 +1,108 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.medicationDispenseReviewContainer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+
+  :global(.cds--css-grid) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.medicationCardContainer {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: inherit;
+}
+
+.dispenseDetailsContainer {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  gap: layout.$spacing-05;
+}
+
+.substitutionReason {
+  width: 100%;
+}
+
+.substitutionType {
+  width: 100%;
+}
+
+.productiveHeading02 {
+  color: $color-gray-70;
+  @include type.type-style('heading-02');
+}
+
+:global(.omrs-breakpoint-lt-desktop) .formWrapper {
+  background-color: $openmrs-background-grey;
+}
+
+:global(.omrs-breakpoint-gt-tablet) .formWrapper {
+  background-color: $ui-02;
+}
+
+.formGroup {
+  display: flex;
+  margin-bottom: layout.$spacing-02;
+  padding: layout.$spacing-05;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .formGroup > span {
+  flex: 1;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .formGroup > div {
+  flex: 3;
+}
+
+.formGroup span {
+  @extend .productiveHeading02;
+}
+
+.patientInfo {
+  position: sticky;
+  z-index: 1000;
+  background-color: $ui-02;
+  top: layout.$spacing-09;
+  overflow-y: auto;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .formGroup {
+  flex-direction: row;
+}
+
+:global(.omrs-breakpoint-gt-tablet) .formGroup {
+  flex-direction: column;
+}
+
+.buttonGroup {
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .buttonGroup {
+  padding: layout.$spacing-05 layout.$spacing-06;
+  background-color: $ui-02;
+}
+
+.buttonGroup button {
+  max-width: none;
+  width: 50%;
+  height: layout.$spacing-10;
+  align-items: flex-start;
+}
+
+.quantitySummary {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}

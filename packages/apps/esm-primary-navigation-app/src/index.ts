@@ -6,16 +6,17 @@ import {
   navigate,
 } from '@openmrs/esm-framework';
 import { type Application } from 'single-spa';
+
+import changeLanguageLinkComponent from './components/change-language/change-language-link.extension';
+import { dashboardConfigSchema } from './components/dashboard/dashboard.component';
+import genericLinkComponent, { genericLinkConfigSchema } from './components/generic-link/generic-link.component';
+import { NavGroup, navGroupConfigSchema } from './components/nav-group/nav-group.component';
+import AppMenuButton from './components/navbar/app-menu-button.component';
+import UserMenuButton from './components/navbar/user-menu-button.component';
+import userPanelComponent from './components/user-panel-switcher-item/user-panel-switcher.component';
 import { configSchema } from './config-schema';
 import { moduleName } from './constants';
 import primaryNavRootComponent from './root.component';
-import userPanelComponent from './components/user-panel-switcher-item/user-panel-switcher.component';
-import changeLanguageLinkComponent from './components/change-language/change-language-link.extension';
-import { NavGroup, navGroupConfigSchema } from './components/nav-group/nav-group.component';
-import { dashboardConfigSchema } from './components/dashboard/dashboard.component';
-import genericLinkComponent, { genericLinkConfigSchema } from './components/generic-link/generic-link.component';
-import UserMenuButton from './components/navbar/user-menu-button.component';
-import AppMenuButton from './components/navbar/app-menu-button.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 

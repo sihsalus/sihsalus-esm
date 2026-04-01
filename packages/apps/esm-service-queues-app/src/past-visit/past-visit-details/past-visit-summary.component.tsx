@@ -1,8 +1,11 @@
-import React, { useState, useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from '@carbon/react';
 import { formatTime, parseDate, useLayoutType, formatDatetime } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { useVitalsFromObs } from '../../current-visit/hooks/useVitalsConceptMetadata';
+import Vitals from '../../current-visit/visit-details/vitals.component';
 import {
   type Encounter,
   type OrderItem,
@@ -11,12 +14,11 @@ import {
   type DiagnosisItem,
   type Observation,
 } from '../../types/index';
-import { useVitalsFromObs } from '../../current-visit/hooks/useVitalsConceptMetadata';
-import EncounterList from './encounter-list.component';
-import Notes from './notes-list.component';
-import Medications from './medications-list.component';
-import Vitals from '../../current-visit/visit-details/vitals.component';
 import styles from '../past-visit.scss';
+
+import EncounterList from './encounter-list.component';
+import Medications from './medications-list.component';
+import Notes from './notes-list.component';
 
 interface PastVisitSummaryProps {
   encounters: Array<any>;

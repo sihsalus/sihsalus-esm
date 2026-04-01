@@ -9,6 +9,7 @@ import { getByTextWithMarkup, mockPatient } from 'tools';
 import ConditionsForm from './conditions-form.workspace';
 import { createCondition, useConditionsSearch } from './conditions.resource';
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 

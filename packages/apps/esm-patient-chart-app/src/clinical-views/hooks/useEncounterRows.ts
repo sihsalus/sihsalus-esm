@@ -1,6 +1,7 @@
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useCallback, useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+
 import { type Encounter } from '../types';
 
 export const encounterRepresentation =

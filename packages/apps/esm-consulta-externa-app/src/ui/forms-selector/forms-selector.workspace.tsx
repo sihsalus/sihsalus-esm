@@ -3,9 +3,10 @@ import { ArrowLeftIcon, useLayoutType, launchWorkspace } from '@openmrs/esm-fram
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import FormsList from './forms-list.component';
-import type { Form as FormSchema, CompletedFormInfo } from './types';
 import styles from './forms-selector.scss';
+import type { Form as FormSchema, CompletedFormInfo } from './types';
 
 // Generic type for form launch function
 export type FormLaunchHandler = (form: FormSchema, encounterUuid: string) => void;

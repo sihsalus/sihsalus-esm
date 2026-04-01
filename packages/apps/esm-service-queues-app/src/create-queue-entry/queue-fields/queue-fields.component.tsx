@@ -10,11 +10,13 @@ import {
 import { ResponsiveWrapper, showSnackbar, useConfig, useSession, type Visit } from '@openmrs/esm-framework';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { type ConfigObject } from '../../config-schema';
 import { useMutateQueueEntries } from '../../hooks/useQueueEntries';
 import { useQueues } from '../../hooks/useQueues';
 import { AddPatientToQueueContext } from '../create-queue-entry.workspace';
 import { useQueueLocations } from '../hooks/useQueueLocations';
+
 import { postQueueEntry } from './queue-fields.resource';
 import styles from './queue-fields.scss';
 

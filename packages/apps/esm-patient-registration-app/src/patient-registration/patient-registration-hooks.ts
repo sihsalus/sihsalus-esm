@@ -1,4 +1,3 @@
-import { type Dispatch, useEffect, useMemo, useState } from 'react';
 import {
   type FetchResponse,
   type OpenmrsResource,
@@ -8,12 +7,22 @@ import {
   useConfig,
   usePatient,
 } from '@openmrs/esm-framework';
-import camelCase from 'lodash-es/camelCase';
 import dayjs from 'dayjs';
+import camelCase from 'lodash-es/camelCase';
+import { type Dispatch, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { v4 } from 'uuid';
+
 import { type RegistrationConfig } from '../config-schema';
 import { patientRegistration } from '../constants';
+
+import {
+  getAddressFieldValuesFromFhirPatient,
+  getFormValuesFromFhirPatient,
+  getPatientUuidMapFromFhirPatient,
+  getPhonePersonAttributeValueFromFhirPatient,
+  latestFirstEncounter,
+} from './patient-registration-utils';
 import {
   type Encounter,
   type FormValues,
@@ -22,13 +31,6 @@ import {
   type PatientUuidMapType,
   type PersonAttributeResponse,
 } from './patient-registration.types';
-import {
-  getAddressFieldValuesFromFhirPatient,
-  getFormValuesFromFhirPatient,
-  getPatientUuidMapFromFhirPatient,
-  getPhonePersonAttributeValueFromFhirPatient,
-  latestFirstEncounter,
-} from './patient-registration-utils';
 import { useInitialPatientRelationships } from './section/patient-relationships/relationships.resource';
 
 interface DeathInfoResults {
@@ -154,7 +156,7 @@ export function useInitialFormValues(patientUuid: string): [FormValues, Dispatch
   // Set Initial person attributes
   useEffect(() => {
     if (!isLoadingAttributes && attributes) {
-      let personAttributes = {};
+      const personAttributes = {};
       attributes.forEach((attribute) => {
         personAttributes[attribute.attributeType.uuid] =
           attribute.attributeType.format === 'org.openmrs.Concept' && typeof attribute.value === 'object'
@@ -316,7 +318,7 @@ function useInitialPersonAttributes(personUuid: string) {
 
 function useInitialPersonDeathInfo(personUuid: string) {
   const { data, error, isLoading } = useSWR<FetchResponse<DeathInfoResults>, Error>(
-    !!personUuid
+    personUuid
       ? `${restBaseUrl}/person/${personUuid}?v=custom:(uuid,display,causeOfDeath,dead,deathDate,causeOfDeathNonCoded)`
       : null,
     openmrsFetch,

@@ -1,11 +1,14 @@
-import React from 'react';
+import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import { Formik, Form } from 'formik';
-import { initialFormValues } from '../../patient-registration.component';
-import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { DemographicsSection } from './demographics-section.component';
-import { PatientRegistrationContext } from '../../patient-registration-context';
+import React from 'react';
+
 import { type RegistrationConfig, esmPatientRegistrationSchema } from '../../../config-schema';
+import { PatientRegistrationContext } from '../../patient-registration-context';
+import { initialFormValues } from '../../patient-registration.component';
+
+import { DemographicsSection } from './demographics-section.component';
+
 
 const mockUseConfig = jest.mocked(useConfig<RegistrationConfig>);
 

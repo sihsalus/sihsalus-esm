@@ -1,8 +1,11 @@
-import React from 'react';
-import styles from './description.styles.scss';
 import { useStore } from '@openmrs/esm-framework';
-import { implementerToolsStore } from '../../store';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { implementerToolsStore } from '../../store';
+
+import styles from './description.styles.scss';
+
 
 export function Description() {
   const { t } = useTranslation();

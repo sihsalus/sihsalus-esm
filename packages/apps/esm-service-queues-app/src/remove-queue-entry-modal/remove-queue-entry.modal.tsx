@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { parseDate, showSnackbar, useVisit } from '@openmrs/esm-framework';
-import { type MappedQueueEntry } from '../types';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { startOfDay } from '../constants';
-import { useCheckedInAppointments, endQueueEntry } from './remove-queue-entry.resource';
 import { useMutateQueueEntries } from '../hooks/useQueueEntries';
+import { type MappedQueueEntry } from '../types';
+
+import { useCheckedInAppointments, endQueueEntry } from './remove-queue-entry.resource';
 import styles from './remove-queue-entry.scss';
 
 interface RemoveQueueEntryModalProps {

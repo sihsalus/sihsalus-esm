@@ -1,8 +1,9 @@
-import React from 'react';
 import { IconButton } from '@carbon/react';
 import { CloseIcon, getCoreTranslation } from '@openmrs/esm-framework';
-import ImportMap from './import-map.component';
+import React from 'react';
+
 import styles from './devtools-popup.styles.scss';
+import ImportMap from './import-map.component';
 
 type DevToolsPopupProps = {
   close(): void;

@@ -1,6 +1,8 @@
 import { openmrsFetch, restBaseUrl, useOpenmrsFetchAll } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
+
 import { type EncounterPayload } from '../../types';
+
 import { type PatientNote, type RESTPatientNote, type UsePatientNotes } from './types';
 
 export function savePatientNote(payload: EncounterPayload, abortController: AbortController = new AbortController()) {

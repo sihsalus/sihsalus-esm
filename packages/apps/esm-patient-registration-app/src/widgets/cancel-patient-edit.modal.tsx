@@ -1,6 +1,7 @@
+import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+
 import styles from './cancel-patient-edit.scss';
 
 interface CancelPatientEditPropsModal {

@@ -1,6 +1,3 @@
-import React, { useContext, useCallback, useState, useMemo } from 'react';
-import classNames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 import { SkeletonIcon, SkeletonText } from '@carbon/react';
 import {
   ConfigurableLink,
@@ -14,9 +11,14 @@ import {
   useLayoutType,
   useVisit,
 } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useContext, useCallback, useState, useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import { type PatientSearchConfig } from '../../../config-schema';
-import { type FHIRPatientType, type SearchedPatient } from '../../../types';
 import { PatientSearchContext } from '../../../patient-search-context';
+import { type FHIRPatientType, type SearchedPatient } from '../../../types';
+
 import styles from './patient-banner.scss';
 
 interface ClickablePatientContainerProps {

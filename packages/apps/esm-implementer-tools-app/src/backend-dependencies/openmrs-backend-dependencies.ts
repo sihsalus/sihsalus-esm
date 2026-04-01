@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isVersionSatisfied, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import difference from 'lodash-es/difference';
 

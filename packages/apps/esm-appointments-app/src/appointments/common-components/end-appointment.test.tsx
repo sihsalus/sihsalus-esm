@@ -1,6 +1,3 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
   updateVisit,
   showSnackbar,
@@ -9,7 +6,12 @@ import {
   type FetchResponse,
   type Visit,
 } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import { changeAppointmentStatus } from '../../patient-appointments/patient-appointments.resource';
+
 import EndAppointmentModal from './end-appointment.modal';
 
 const closeModal = jest.fn();

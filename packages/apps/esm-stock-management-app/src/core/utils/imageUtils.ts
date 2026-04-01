@@ -5,7 +5,7 @@ export interface PrintLogoData {
 }
 
 export const GetPrintLogo = async (): Promise<PrintLogoData | null> => {
-  const config = await getConfig('@openmrs/esm-stock-management-app');
+  const config = await getConfig('@sihsalus/esm-stock-management-app');
   const printLogoUrl = config?.logo?.src;
   return new Promise((resolve, reject) => {
     if (!printLogoUrl) {

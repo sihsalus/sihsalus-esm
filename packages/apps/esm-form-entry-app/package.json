@@ -1,5 +1,5 @@
 {
-  "name": "@openmrs/esm-form-entry-app",
+  "name": "@sihsalus/esm-form-entry-app",
   "private": true,
   "version": "9.2.2",
   "license": "MPL-2.0",
@@ -11,7 +11,9 @@
     "start": "openmrs develop",
     "serve": "ng serve --port 4200 --live-reload true",
     "debug": "yarn run serve",
+    "build": "ng build --configuration production",
     "build:angular": "ng build --configuration production",
+    "typescript": "echo 'Angular: typecheck runs during ng build'",
     "lint": "ng lint"
   },
   "openmrs:develop": {
@@ -82,8 +84,8 @@
     "@types/jasmine": "~3.6.11",
     "@types/jasminewd2": "~2.0.3",
     "@types/webpack-env": "^1.18.2",
-    "@typescript-eslint/eslint-plugin": "5.48.2",
-    "@typescript-eslint/parser": "5.48.2",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
     "codelyzer": "^6.0.2",
     "copy-webpack-plugin": "^11.0.0",
     "eslint": "^8.33.0",

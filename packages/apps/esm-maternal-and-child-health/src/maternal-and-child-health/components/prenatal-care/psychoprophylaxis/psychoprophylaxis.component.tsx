@@ -1,7 +1,9 @@
+import { Tile, Tag, ProgressBar } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tile, Tag, ProgressBar } from '@carbon/react';
+
 import { usePsychoprophylaxis } from '../../../../hooks/usePsychoprophylaxis';
+
 import styles from './psychoprophylaxis.scss';
 
 interface PsychoprophylaxisProps {

@@ -3,7 +3,9 @@ import { CloseIcon, SwitcherIcon, useAssignedExtensions, useOnClickOutside } fro
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import AppMenuPanel from '../navbar-header-panels/app-menu-panel.component';
+
 import styles from './navbar.scss';
 import { type MenuButtonProps } from './types';
 

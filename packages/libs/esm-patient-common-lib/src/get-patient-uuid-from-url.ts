@@ -5,7 +5,7 @@ import { getPatientUuidFromStore } from './store/patient-chart-store';
  * @returns {string} patientUuid
  */
 export function getPatientUuidFromUrl(): string {
-  const match = /\/patient\/([a-zA-Z0-9\-]+)\/?/.exec(location.pathname);
+  const match = /\/patient\/([a-zA-Z0-9-]+)\/?/.exec(location.pathname);
   const patientUuidFromUrl = match && match[1];
   return patientUuidFromUrl || getPatientUuidFromStore();
 }

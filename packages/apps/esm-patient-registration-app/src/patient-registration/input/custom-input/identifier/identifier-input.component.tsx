@@ -1,16 +1,18 @@
-import React, { useState, useCallback, useContext, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useField } from 'formik';
 import { Button } from '@carbon/react';
 import { TrashCan, Edit, Reset } from '@carbon/react/icons';
-import { ResourcesContext } from '../../../../offline.resources';
 import { showModal, useConfig, UserHasAccess } from '@openmrs/esm-framework';
-import { shouldBlockPatientIdentifierInOfflineMode } from './utils';
+import { useField } from 'formik';
+import React, { useState, useCallback, useContext, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { ResourcesContext } from '../../../../offline.resources';
 import { deleteIdentifierType, setIdentifierSource } from '../../../field/id/id-field.component';
-import { type PatientIdentifierValue } from '../../../patient-registration.types';
 import { PatientRegistrationContext } from '../../../patient-registration-context';
+import { type PatientIdentifierValue } from '../../../patient-registration.types';
 import { Input } from '../../basic-input/input/input.component';
 import styles from '../../input.scss';
+
+import { shouldBlockPatientIdentifierInOfflineMode } from './utils';
 
 interface IdentifierInputProps {
   patientIdentifier: PatientIdentifierValue;

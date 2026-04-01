@@ -1,5 +1,5 @@
-import type npmRegistryFetch from 'npm-registry-fetch';
 import npmConfig from '@pnpm/npm-conf';
+import type npmRegistryFetch from 'npm-registry-fetch';
 
 /**
  * Utility function to load the appropriate configuration for npmRegistryFetch

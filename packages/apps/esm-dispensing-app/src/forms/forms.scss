@@ -1,0 +1,152 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.productiveHeading02 {
+  color: $color-gray-70;
+  @include type.type-style('heading-02');
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .formWrapper {
+  background-color: $openmrs-background-grey;
+}
+
+:global(.omrs-breakpoint-gt-tablet) .formWrapper {
+  background-color: $ui-02;
+}
+
+.formGroup {
+  margin-bottom: layout.$spacing-02;
+  padding: layout.$spacing-05;
+}
+
+.bannerLoading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.patientInfo {
+  position: sticky;
+  z-index: 1000;
+  background-color: $ui-02;
+  top: layout.$spacing-09;
+  overflow-y: auto;
+}
+
+.dateTimeContainer {
+  display: flex;
+  margin: layout.$spacing-05 0;
+}
+
+.timePickersContainer,
+.frequencyAndDay {
+  display: flex;
+
+  > div {
+    margin-right: layout.$spacing-03;
+  }
+}
+
+.datePickerControl {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    margin-bottom: layout.$spacing-05;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+:global(.omrs-breakpoint-lt-desktop) .buttonGroup {
+  padding: layout.$spacing-05 layout.$spacing-06;
+  background-color: $ui-02;
+}
+
+.buttonGroup button {
+  max-width: none;
+  width: 50%;
+  height: layout.$spacing-10;
+  align-items: flex-start;
+}
+
+.contentSwitcherWrapper {
+  display: flex;
+  width: fit-content;
+  justify-content: flex-end;
+  align-items: center;
+  width: 60%;
+}
+
+.contentSwitcherWrapper > div > button {
+  background-color: $ui-02;
+}
+
+.contentSwitcherWrapper > div button:first-child {
+  border-top: 1px solid colors.$blue-30;
+  border-bottom: 1px solid colors.$blue-30;
+  border-left: 1px solid colors.$blue-30;
+  border-right: none;
+  border-radius: layout.$spacing-02 0 0px layout.$spacing-02;
+}
+
+.contentSwitcherWrapper > div button:last-child {
+  border-top: 1px solid colors.$blue-30;
+  border-bottom: 1px solid colors.$blue-30;
+  border-right: 1px solid colors.$blue-30;
+  border-left: none;
+  border-radius: 0px layout.$spacing-02 layout.$spacing-02 0px;
+}
+
+.contentSwitcherWrapper > div > button[aria-selected='true'],
+.contentSwitcherWrapper > div > button[aria-selected='true']:first-child {
+  background-color: $color-blue-10;
+  color: $color-blue-60-2;
+  border-color: $color-blue-60-2;
+  border-right: 1px solid $color-blue-60-2;
+}
+
+.contentSwitcherWrapper > div > button[aria-selected='true'],
+.contentSwitcherWrapper > div > button[aria-selected='true']:last-child {
+  background-color: $color-blue-10;
+  color: $color-blue-60-2;
+  border-color: $color-blue-60-2;
+  border-left: 1px solid $color-blue-60-2;
+}
+
+.contentSwitcherWrapper > div > button[aria-selected='true']:focus {
+  box-shadow: none;
+}
+
+.reviewContainer {
+  margin: 0.8rem 0 0 0 !important;
+}
+
+// copied from .sectionHeader of drug-order-form.scss
+.prescriptionFormSectionHeader {
+  @include type.type-style('heading-01');
+  margin-bottom: layout.$spacing-05;
+}
+
+// copied from .field of drug-order-form.scss
+.prescriptionFormField {
+  margin-bottom: layout.$spacing-05;
+
+  :global(.cds--label) {
+    vertical-align: middle;
+  }
+}

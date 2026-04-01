@@ -1,8 +1,9 @@
-import React from 'react';
 import { Group, InProgress } from '@carbon/react/icons';
+import React from 'react';
+
+import { type StatusConfig } from '../config-schema';
 import styles from '../queue-table/queue-table.scss';
 import { type Concept, type Queue } from '../types';
-import { type StatusConfig } from '../config-schema';
 
 interface QueueStatusProps {
   status: Concept;

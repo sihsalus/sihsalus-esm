@@ -1,14 +1,15 @@
-import React from 'react';
-import find from 'lodash-es/find';
+import { getConfig, messageOmrsServiceWorker, openmrsFetch, restBaseUrl, type Session } from '@openmrs/esm-framework';
 import camelCase from 'lodash-es/camelCase';
 import escapeRegExp from 'lodash-es/escapeRegExp';
-import { getConfig, messageOmrsServiceWorker, openmrsFetch, restBaseUrl, type Session } from '@openmrs/esm-framework';
+import find from 'lodash-es/find';
+import React from 'react';
+
+import { cacheForOfflineHeaders, moduleName } from './constants';
 import type {
   PatientIdentifierType,
   FetchedPatientIdentifierType,
   AddressTemplate,
 } from './patient-registration/patient-registration.types';
-import { cacheForOfflineHeaders, moduleName } from './constants';
 
 export interface Resources {
   addressTemplate: AddressTemplate;
@@ -109,7 +110,7 @@ async function fetchPatientIdentifierTypes(): Promise<Array<FetchedPatientIdenti
 
     const primaryIdentifierTypeUuid = primaryIdentifierTypeResponse?.data?.results?.[0]?.metadataUuid;
 
-    let identifierTypes = primaryIdentifierTypeResponse?.ok
+    const identifierTypes = primaryIdentifierTypeResponse?.ok
       ? [
           mapPatientIdentifierType(
             patientIdentifierTypes?.find((type) => type.uuid === primaryIdentifierTypeUuid),

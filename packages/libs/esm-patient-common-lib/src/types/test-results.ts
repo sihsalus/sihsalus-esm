@@ -10,16 +10,19 @@ export interface ObsRecord {
     reference: string;
     type: string;
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [_: string]: any;
 }
 
 export interface ObsMetaInfo {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [_: string]: any;
   assessValue?: (value: string) => OBSERVATION_INTERPRETATION;
 }
 
 export interface ConceptRecord {
   uuid: ConceptUuid;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [_: string]: any;
 }
 

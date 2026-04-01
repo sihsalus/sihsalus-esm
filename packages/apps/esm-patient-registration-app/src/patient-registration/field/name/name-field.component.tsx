@@ -1,8 +1,9 @@
+import { ContentSwitcher, Switch } from '@carbon/react';
+import { ExtensionSlot, useConfig } from '@openmrs/esm-framework';
+import { useField } from 'formik';
 import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ContentSwitcher, Switch } from '@carbon/react';
-import { useField } from 'formik';
-import { ExtensionSlot, useConfig } from '@openmrs/esm-framework';
+
 import { type RegistrationConfig } from '../../../config-schema';
 import { Input } from '../../input/basic-input/input/input.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';

@@ -1,0 +1,49 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.modal {
+  :global(.cds--modal) {
+    z-index: 90;
+  }
+  :global(.cds--modal-container) {
+    height: 600px;
+  }
+  :global(.cds--modal-content) {
+    height: 100%;
+  }
+}
+
+.searchBar > div > div > div {
+  width: 100%
+}
+
+.searchBar > div button {
+  height: auto;
+}
+
+.formError {
+  color: red;
+}
+
+.patientRow {
+   display: flex;
+   align-items: center;
+   width: "100%";
+   &:nth-child(odd) {
+    background-color: colors.$gray-20;
+  }
+}
+
+.patientName {
+  flex-grow: 1;
+  padding-left: layout.$spacing-05;
+}
+
+.loading {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: layout.$spacing-05;
+}

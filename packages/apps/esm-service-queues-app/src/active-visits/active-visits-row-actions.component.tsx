@@ -1,10 +1,12 @@
+import { useConfig } from '@openmrs/esm-framework';
 import React from 'react';
+
+import { type ConfigObject } from '../config-schema';
 import TransitionMenu from '../queue-entry-table-components/transition-entry.component';
 import { type QueueTableCellComponentProps, type QueueEntry } from '../types';
-import { useConfig } from '@openmrs/esm-framework';
-import { type ConfigObject } from '../config-schema';
-import { mapVisitQueueEntryProperties } from './active-visits-table.resource';
+
 import styles from './active-visits-row-actions.scss';
+import { mapVisitQueueEntryProperties } from './active-visits-table.resource';
 
 // This component is meant to be mounted as an extension in the queue-table-extension-column-slot.
 // Defines the following actions the user can perform on a queue entry:

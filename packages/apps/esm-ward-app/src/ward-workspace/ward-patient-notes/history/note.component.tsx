@@ -1,8 +1,10 @@
-import React from 'react';
-import { type PatientNote } from '../types';
 import { SkeletonText, Tag, Tile } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { type PatientNote } from '../types';
+
 import styles from './styles.scss';
 
 export const InPatientNoteSkeleton: React.FC = () => {

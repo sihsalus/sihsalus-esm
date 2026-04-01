@@ -1,6 +1,7 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import type { ImmunizationWidgetConfigObject, OpenmrsConcept } from '../immunization-plan/fhir-immunization-domain';
 import useSWR from 'swr';
+
+import type { ImmunizationWidgetConfigObject, OpenmrsConcept } from '../immunization-plan/fhir-immunization-domain';
 
 export function useImmunizationsConceptSet(config: ImmunizationWidgetConfigObject): {
   immunizationsConceptSet: OpenmrsConcept | undefined;

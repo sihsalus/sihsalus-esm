@@ -1,6 +1,3 @@
-import React, { type CSSProperties, type HTMLAttributes, useCallback, useId, useMemo, useState } from 'react';
-import fuzzy from 'fuzzy';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -22,8 +19,13 @@ import {
 } from '@carbon/react';
 import { ArrowLeft, TrashCan } from '@carbon/react/icons';
 import { ConfigurableLink, useLayoutType, isDesktop, showSnackbar, useDebounce } from '@openmrs/esm-framework';
+import fuzzy from 'fuzzy';
+import React, { type CSSProperties, type HTMLAttributes, useCallback, useId, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { removePatientFromList } from '../api/api-remote';
 import { EmptyDataIllustration } from '../empty-state/empty-data-illustration.component';
+
 import styles from './list-details-table.scss';
 
 // FIXME Temporarily included types from Carbon

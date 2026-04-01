@@ -1,7 +1,8 @@
-import React from 'react';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
+
 import StartVisitDialog from './start-visit-dialog.component';
 
 const defaultProps = {

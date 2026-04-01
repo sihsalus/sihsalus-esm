@@ -1,7 +1,3 @@
-import React from 'react';
-import { mutate } from 'swr';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, waitFor } from '@testing-library/react';
 import {
   type FetchResponse,
   type Session,
@@ -15,6 +11,11 @@ import {
   useConnectivity,
   useSession,
 } from '@openmrs/esm-framework';
+import { render, waitFor } from '@testing-library/react';
+import React from 'react';
+import { mutate } from 'swr';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import RedirectLogout from './redirect-logout.component';
 
 vi.mock('swr', () => ({

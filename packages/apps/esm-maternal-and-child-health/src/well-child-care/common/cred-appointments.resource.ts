@@ -1,5 +1,6 @@
-import dayjs from 'dayjs';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+
 import type { CREDControlWithStatus } from '../../hooks/useCREDSchedule';
 import type { AppointmentPayload } from '../../types';
 

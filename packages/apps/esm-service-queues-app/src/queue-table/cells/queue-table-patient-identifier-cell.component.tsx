@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { type PatientIdentifierColumnConfig } from '../../config-schema';
 import { type QueueEntry, type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
 

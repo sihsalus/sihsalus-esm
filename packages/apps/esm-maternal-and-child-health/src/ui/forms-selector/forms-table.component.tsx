@@ -14,6 +14,7 @@ import {
 } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import styles from './forms-table.scss';
 import { type Form } from './types';
 

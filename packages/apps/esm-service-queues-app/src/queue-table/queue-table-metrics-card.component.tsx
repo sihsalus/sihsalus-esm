@@ -1,8 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Layer, Tile } from '@carbon/react';
+import classNames from 'classnames';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useQueueEntriesMetrics } from '../hooks/useQueueEntries';
+
 import styles from './queue-table-metrics-card.scss';
 
 interface QueueTableMetricsCardProps {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+
 import { type QueueEntry } from '../../types';
+
 import { updateQueueEntry } from './queue-entry-actions.resource';
 import QueueEntryConfirmActionModal from './queue-entry-confirm-action.modal';
 

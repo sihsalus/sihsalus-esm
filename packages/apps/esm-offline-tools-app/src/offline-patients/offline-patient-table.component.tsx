@@ -1,6 +1,3 @@
-import React, { type ChangeEvent, useMemo, useState } from 'react';
-import { capitalize } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -32,11 +29,16 @@ import {
   useLayoutType,
   type DynamicOfflineDataSyncState,
 } from '@openmrs/esm-framework';
+import { capitalize } from 'lodash-es';
+import React, { type ChangeEvent, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useOfflinePatientsWithEntries, useOfflineRegisteredPatients } from '../hooks/offline-patient-data-hooks';
+
 import EmptyState from './empty-state.component';
 import LastUpdatedTableCell from './last-updated-table-cell.component';
-import PatientNameTableCell from './patient-name-table-cell.component';
 import styles from './offline-patient-table.scss';
+import PatientNameTableCell from './patient-name-table-cell.component';
 
 export interface OfflinePatientTableProps {
   isInteractive: boolean;
@@ -194,7 +196,7 @@ function filterTableRows({
   headers,
   cellsById,
   inputValue,
-  // @ts-ignore `getCellId` is not in the types, but present in Carbon.
+  // @ts-expect-error `getCellId` is not in the types, but present in Carbon.
   getCellId,
 }) {
   return rowIds.filter((rowId) =>

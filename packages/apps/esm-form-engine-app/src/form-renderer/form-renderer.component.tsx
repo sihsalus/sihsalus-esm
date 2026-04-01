@@ -15,7 +15,7 @@ import FormError from './form-error.component';
 import styles from './form-renderer.scss';
 
 interface FormRendererProps extends DefaultPatientWorkspaceProps {
-  additionalProps?: Record<string, any>;
+  additionalProps?: Record<string, unknown>;
   encounterUuid?: string;
   formUuid: string;
   patientUuid: string;
@@ -41,7 +41,9 @@ const FormRenderer: React.FC<FormRendererProps> = ({
 
   const handleCloseForm = useCallback(() => {
     closeWorkspace();
-    !encounterUuid && openClinicalFormsWorkspaceOnFormClose && launchPatientWorkspace(clinicalFormsWorkspaceName);
+    if (!encounterUuid && openClinicalFormsWorkspaceOnFormClose) {
+      launchPatientWorkspace(clinicalFormsWorkspaceName);
+    }
   }, [closeWorkspace, encounterUuid, openClinicalFormsWorkspaceOnFormClose, clinicalFormsWorkspaceName]);
 
   const handleConfirmQuestionDeletion = useCallback(() => {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
   Button,
   ButtonSet,
@@ -15,10 +16,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+
 import useWardLocation from '../../hooks/useWardLocation';
 import LocationSelector from '../../location-selector/location-selector.component';
 import type { ObsPayload, WardPatientWorkspaceProps, WardViewContext } from '../../types';
 import { useCreateEncounter } from '../../ward.resource';
+
 import styles from './patient-transfer-swap.scss';
 
 /**

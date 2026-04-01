@@ -1,10 +1,12 @@
-import React from 'react';
-import { usePatient, useLayoutType, isDesktop, WorkspaceContainer } from '@openmrs/esm-framework';
-import PatientAppointmentsBase from './patient-appointments-base.component';
-import { useParams } from 'react-router-dom';
-import PatientAppointmentContext, { PatientAppointmentContextTypes } from '../../hooks/patientAppointmentContext';
-import PatientAppointmentsHeader from './patient-appointments-header';
 import { DataTableSkeleton } from '@carbon/react';
+import { usePatient, useLayoutType, isDesktop, WorkspaceContainer } from '@openmrs/esm-framework';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+import PatientAppointmentContext, { PatientAppointmentContextTypes } from '../../hooks/patientAppointmentContext';
+
+import PatientAppointmentsBase from './patient-appointments-base.component';
+import PatientAppointmentsHeader from './patient-appointments-header';
 import styles from './patient-appointments-overview.scss';
 
 /**
@@ -15,7 +17,7 @@ import styles from './patient-appointments-overview.scss';
  * @constructor
  */
 const PatientAppointmentsOverview: React.FC = () => {
-  let params = useParams();
+  const params = useParams();
   const response = usePatient(params.patientUuid);
   const layout = useLayoutType();
 

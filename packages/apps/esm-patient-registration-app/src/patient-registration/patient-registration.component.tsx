@@ -1,10 +1,5 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
 import { Button, InlineLoading, Link } from '@carbon/react';
 import { XAxis } from '@carbon/react/icons';
-import { useLocation, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Form, Formik, type FormikHelpers } from 'formik';
 import {
   createErrorHandler,
   interpolateUrl,
@@ -13,18 +8,25 @@ import {
   usePatient,
   usePatientPhoto,
 } from '@openmrs/esm-framework';
-import { getValidationSchema } from './validation/patient-registration-validation';
-import { type CapturePhotoProps, type FormValues } from './patient-registration.types';
-import { PatientRegistrationContext } from './patient-registration-context';
+import classNames from 'classnames';
+import { Form, Formik, type FormikHelpers } from 'formik';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useParams } from 'react-router-dom';
+
+import { builtInSections, type RegistrationConfig, type SectionDefinition } from '../config-schema';
+import { ResourcesContext } from '../offline.resources';
+
+import BeforeSavePrompt from './before-save-prompt';
 import { type SavePatientForm, SavePatientTransactionManager } from './form-manager';
 import { DummyDataInput } from './input/dummy-data/dummy-data-input.component';
-import { cancelRegistration, filterOutUndefinedPatientIdentifiers, scrollIntoView } from './patient-registration-utils';
+import { PatientRegistrationContext } from './patient-registration-context';
 import { useInitialAddressFieldValues, useInitialFormValues, usePatientUuidMap } from './patient-registration-hooks';
-import { ResourcesContext } from '../offline.resources';
-import { builtInSections, type RegistrationConfig, type SectionDefinition } from '../config-schema';
-import { SectionWrapper } from './section/section-wrapper.component';
-import BeforeSavePrompt from './before-save-prompt';
+import { cancelRegistration, filterOutUndefinedPatientIdentifiers, scrollIntoView } from './patient-registration-utils';
 import styles from './patient-registration.scss';
+import { type CapturePhotoProps, type FormValues } from './patient-registration.types';
+import { SectionWrapper } from './section/section-wrapper.component';
+import { getValidationSchema } from './validation/patient-registration-validation';
 
 let exportedInitialFormValuesForTesting = {} as FormValues;
 

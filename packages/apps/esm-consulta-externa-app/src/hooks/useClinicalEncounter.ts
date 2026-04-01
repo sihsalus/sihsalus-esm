@@ -1,7 +1,8 @@
-import useSWR from 'swr';
-import type { OpenmrsEncounter } from '../types';
 import { openmrsFetch } from '@openmrs/esm-framework';
 import sortBy from 'lodash/sortBy';
+import useSWR from 'swr';
+
+import type { OpenmrsEncounter } from '../types';
 
 export const clinicalEncounterRepresentation =
   'custom:(uuid,encounterDatetime,encounterType,location:(uuid,name),diagnoses:(uuid,diagnosis:(coded:(display))),' +

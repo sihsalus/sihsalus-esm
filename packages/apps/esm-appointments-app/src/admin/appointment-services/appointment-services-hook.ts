@@ -1,4 +1,5 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+
 import { type AppointmentService } from '../../types';
 
 const appointmentServiceInitialValue: AppointmentService = {

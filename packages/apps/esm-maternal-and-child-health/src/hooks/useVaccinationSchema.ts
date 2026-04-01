@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import { useState, useEffect, useCallback } from 'react';
 
 // Types (aligned with VaccinationSchedule)
 interface VaccinationData {

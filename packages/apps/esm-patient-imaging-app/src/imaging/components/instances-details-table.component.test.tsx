@@ -1,6 +1,6 @@
 import React, { act } from 'react';
 import { render, screen, fireEvent, within } from '@testing-library/react';
-import InstancesDetailsTable, { InstancesDetailsTableProps } from './instances-details-table.component';
+import InstancesDetailsTable, { type InstancesDetailsTableProps } from './instances-details-table.component';
 import * as api from '../../api';
 import { showModal } from '@openmrs/esm-framework';
 

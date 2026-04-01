@@ -1,6 +1,8 @@
-import React from 'react';
 import { reportError, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+
 import { builtInFields, type RegistrationConfig } from '../../config-schema';
+
 import { AddressComponent } from './address/address-field.component';
 import { CauseOfDeathField } from './cause-of-death/cause-of-death.component';
 import { CustomField } from './custom-field.component';

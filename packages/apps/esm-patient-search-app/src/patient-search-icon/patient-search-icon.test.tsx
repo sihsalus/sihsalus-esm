@@ -1,8 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, isDesktop, useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+
 import { type PatientSearchConfig, configSchema } from '../config-schema';
+
 import PatientSearchLaunch from './patient-search-icon.component';
 
 const mockIsDesktop = jest.mocked(isDesktop);

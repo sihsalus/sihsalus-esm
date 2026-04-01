@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import styles from './clinical-view-section.scss';
-import { Information as InformationIcon } from '@carbon/react/icons';
 import { Tooltip } from '@carbon/react';
+import { Information as InformationIcon } from '@carbon/react/icons';
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import { registerNavGroup } from '@openmrs/esm-patient-common-lib';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import styles from './clinical-view-section.scss';
 
 interface ClinicalViewSectionProps {
   basePath: string;

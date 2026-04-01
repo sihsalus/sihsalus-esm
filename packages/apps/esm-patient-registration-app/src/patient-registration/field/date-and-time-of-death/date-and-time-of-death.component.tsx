@@ -1,10 +1,11 @@
-import React, { useCallback, useContext } from 'react';
+import { Layer, SelectItem, TimePicker, TimePickerSelect } from '@carbon/react';
+import { OpenmrsDatePicker } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { Layer, SelectItem, TimePicker, TimePickerSelect } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
-import { OpenmrsDatePicker } from '@openmrs/esm-framework';
+import React, { useCallback, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import type { FormValues } from '../../patient-registration.types';
 import styles from '../field.scss';

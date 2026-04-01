@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { useSession, type Visit, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
+import useSWR from 'swr';
 
 /**
  * Custom hook to fetch visits from the OpenMRS REST API.

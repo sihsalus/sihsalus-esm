@@ -1,6 +1,15 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
+import {
+  type AdvancedPatientSearchState,
+  type LocationEntry,
+  type PersonAttributeTypeResponse,
+  type SearchFieldConfig,
+} from '../../types';
+
 import { PersonAttributeField, type PersonAttributeFieldProps } from './person-attribute-field.component';
 import {
   useAttributeConceptAnswers,
@@ -8,13 +17,6 @@ import {
   useLocations,
   usePersonAttributeType,
 } from './person-attributes.resource';
-import {
-  type AdvancedPatientSearchState,
-  type LocationEntry,
-  type PersonAttributeTypeResponse,
-  type SearchFieldConfig,
-} from '../../types';
-import { useForm } from 'react-hook-form';
 
 jest.mock('react-hook-form', () => ({
   ...jest.requireActual('react-hook-form'),

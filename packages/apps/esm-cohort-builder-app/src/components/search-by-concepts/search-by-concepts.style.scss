@@ -1,0 +1,44 @@
+.contentSwitcher {
+  height: 2.5rem;
+}
+
+.column {
+  padding-top: 1.5rem;
+}
+
+.dateRange {
+  padding-top: 1.5rem;
+  display: flex;
+}
+
+.text {
+  padding-top: 1.5rem;
+}
+
+.multipleInputs {
+  display: flex;
+  align-items: center;
+}
+
+.timeModifier {
+  width: 300px;
+}
+
+.lastTime {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.operators {
+  width: 60%;
+  padding-right: 1rem;
+}
+
+.value {
+  padding-right: 2rem;
+}
+
+.whatValuesInputs {
+  display: flex;
+  align-items: end;
+}

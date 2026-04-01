@@ -1,7 +1,9 @@
+import { Tile, Tag } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tile, Tag } from '@carbon/react';
+
 import { useObstetricRisk } from '../../../../hooks/useObstetricRisk';
+
 import styles from './risk-classification.scss';
 
 interface RiskClassificationProps {

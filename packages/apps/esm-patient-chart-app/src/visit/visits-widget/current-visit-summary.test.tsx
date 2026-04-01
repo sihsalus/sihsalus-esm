@@ -1,7 +1,8 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { useVisit, getConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { waitForLoadingToFinish } from 'tools';
+
 import CurrentVisitSummary from './current-visit-summary.component';
 
 const mockGetConfig = jest.mocked(getConfig);

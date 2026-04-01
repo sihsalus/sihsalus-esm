@@ -1,7 +1,3 @@
-import React, { useContext, useEffect, useState } from 'react';
-import dayjs from 'dayjs';
-import { Controller, useController, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -36,15 +32,13 @@ import {
   type DefaultWorkspaceProps,
   type FetchResponse,
 } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useContext, useEffect, useState } from 'react';
+import { Controller, useController, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+
 import { type ConfigObject } from '../config-schema';
-import {
-  checkAppointmentConflict,
-  saveAppointment,
-  saveRecurringAppointments,
-  useAppointmentService,
-  useMutateAppointments,
-} from './appointments-form.resource';
 import {
   appointmentLocationTagName,
   dateFormat,
@@ -53,10 +47,18 @@ import {
   moduleName,
   weekDays,
 } from '../constants';
+import SelectedDateContext from '../hooks/selectedDateContext';
 import { useProviders } from '../hooks/useProviders';
 import type { Appointment, AppointmentPayload, RecurringPattern } from '../types';
-import SelectedDateContext from '../hooks/selectedDateContext';
 import Workload from '../workload/workload.component';
+
+import {
+  checkAppointmentConflict,
+  saveAppointment,
+  saveRecurringAppointments,
+  useAppointmentService,
+  useMutateAppointments,
+} from './appointments-form.resource';
 import styles from './appointments-form.scss';
 
 interface AppointmentsFormProps {
@@ -330,9 +332,9 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
     // check if Duplicate Response Occurs
     const response: FetchResponse = await checkAppointmentConflict(appointmentPayload);
     let errorMessage = t('appointmentConflict', 'Appointment conflict');
-    if (response?.data?.hasOwnProperty('SERVICE_UNAVAILABLE')) {
+    if (Object.prototype.hasOwnProperty.call(response?.data, 'SERVICE_UNAVAILABLE')) {
       errorMessage = t('serviceUnavailable', 'Appointment time is outside of service hours');
-    } else if (response?.data?.hasOwnProperty('PATIENT_DOUBLE_BOOKING')) {
+    } else if (Object.prototype.hasOwnProperty.call(response?.data, 'PATIENT_DOUBLE_BOOKING')) {
       if (context !== 'editing') {
         errorMessage = t('patientDoubleBooking', 'Patient already booked for an appointment at this time');
       } else {
@@ -895,6 +897,7 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
 };
 
 function TimeAndDuration({ t, watch, control, services, errors }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const defaultDuration = services?.find((service) => service.name === watch('selectedService'))?.durationMins || null;
 
   return (

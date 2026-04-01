@@ -1,8 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { useVisit } from '@openmrs/esm-framework';
+import { screen, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { mockCurrentVisit } from '__mocks__';
+import React from 'react';
+
 import CancelVisitOverflowMenuItem from './cancel-visit.component';
 
 const mockUseVisit = jest.mocked(useVisit);

@@ -6,11 +6,13 @@ import {
   useOpenmrsSWR,
   getLocale,
 } from '@openmrs/esm-framework';
-import { useSystemSetting } from './useSystemSetting';
 import { useMemo } from 'react';
-import type { Concept } from '../types';
 import useSWRImmutable from 'swr/immutable';
+
+import type { Concept } from '../types';
+
 import { useQueues } from './useQueues';
+import { useSystemSetting } from './useSystemSetting';
 
 function useQueueStatuses() {
   const { queues, isLoading } = useQueues();
