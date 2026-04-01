@@ -92,7 +92,7 @@ const GroupFormWorkflowProvider = ({ children }) => {
   const { user } = useSession();
   const { formUuid } = useParams() as ParamTypes;
   const activeFormUuid = formUuid.split('&')[0];
-  const systemSetting = useGetSystemSetting('@openmrs/esm-fast-data-entry-app.groupSessionVisitTypeUuid');
+  const systemSetting = useGetSystemSetting('@sihsalus/esm-fast-data-entry-app.groupSessionVisitTypeUuid');
   const groupVisitTypeUuid = systemSetting?.result?.data?.results?.[0]?.value;
   const [state, dispatch] = useReducer(reducer, {
     ...initialWorkflowState,

@@ -51,7 +51,7 @@ const FormWorkflowProvider = ({ children }) => {
     ...initialWorkflowState,
     ...initialActions,
   });
-  const systemSetting = useGetSystemSetting('@openmrs/esm-fast-data-entry-app.groupSessionVisitTypeUuid');
+  const systemSetting = useGetSystemSetting('@sihsalus/esm-fast-data-entry-app.groupSessionVisitTypeUuid');
   const singleSessionVisitTypeUuid = systemSetting?.result?.data?.results?.[0]?.value;
 
   const actions = useMemo(
