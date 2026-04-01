@@ -16,7 +16,7 @@ const backend =
   process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
 
 if (!process.env.SIHSALUS_BACKEND_URL) {
-  logWarn(`SIHSALUS_BACKEND_URL no definida, usando default: ${backend}`);
+  logWarn(`SIHSALUS_BACKEND_URL not set, using default: ${backend}`);
 }
 
 // SIHSALUS_DEV_APPS=esm-login-app,esm-home-app  → hot-reload those apps
@@ -91,8 +91,9 @@ async function startWithProxy(cliArgs) {
   );
 
   app.listen(8080, () => {
-    logInfo(`Proxy :8080 → CLI interno :${cliPort}`);
+    logInfo(`Proxy :8080 → internal CLI :${cliPort}`);
     logInfo(`SPA → ${chalk.cyan.underline(`http://localhost:8080${spaPath}`)}`);
+
   });
 
   startCli(['--port', String(cliPort), '--open', 'false', ...cliArgs]);
@@ -103,7 +104,7 @@ if (devAppsEnv) {
   const sourcesArgs = apps.flatMap((app) => {
     const dir = resolve(__dirname, '..', 'packages', 'apps', app);
     if (!existsSync(dir)) {
-      logFail(`App no encontrada: ${dir}`);
+      logFail(`App not found: ${dir}`);
       process.exit(1);
     }
     return ['--sources', dir];
@@ -113,25 +114,25 @@ if (devAppsEnv) {
     const importmapAge = Date.now() - statSync(assembledImportmap).mtimeMs;
     const hoursOld = Math.floor(importmapAge / 3_600_000);
     if (hoursOld >= 24) {
-      logWarn(`El importmap ensamblado tiene ${hoursOld}h de antigüedad. Considera ejecutar: yarn assemble`);
+      logWarn(`Assembled importmap is ${hoursOld}h old. Consider running: yarn assemble`);
     }
 
     // Use reverse proxy: dist/spa bundles + chunks served from same origin
     startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, ...sourcesArgs]);
   } else {
-    logWarn('No se encontró importmap ensamblado. Solo las apps en SIHSALUS_DEV_APPS estarán disponibles.');
-    logWarn('Para tener todas las apps: yarn assemble');
+    logWarn('No assembled importmap found. Only apps in SIHSALUS_DEV_APPS will be available.');
+    logWarn('For all apps: yarn assemble');
     startCli(['--importmap', '{"imports":{}}', '--routes', '{}', ...sourcesArgs]);
   }
 } else {
   // No apps to hot-reload: serve the pre-assembled SPA
   if (!existsSync(assembledImportmap)) {
-    logFail('No se encontró importmap ensamblado.');
-    logFail('  Ejecuta: yarn assemble   (construye el importmap desde los paquetes locales)');
-    logFail('  O define SIHSALUS_DEV_APPS=esm-login-app,... para hot-reload');
+    logFail('No assembled importmap found.');
+    logFail('  Run: yarn assemble   (builds the importmap from local packages)');
+    logFail('  Or set SIHSALUS_DEV_APPS=esm-login-app,... for hot-reload');
     process.exit(1);
   }
-  logInfo('Sirviendo SPA pre-ensamblado (sin hot-reload). Define SIHSALUS_DEV_APPS para desarrollo.');
+  logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
 
   // The openmrs CLI always requires at least one --sources directory with a
   // valid package.json (containing a "browser" field). We point it at
