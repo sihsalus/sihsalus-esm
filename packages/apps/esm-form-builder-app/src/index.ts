@@ -1,7 +1,7 @@
 import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-form-builder-app';
+const moduleName = '@sihsalus/esm-form-builder-app';
 
 const options = {
   featureName: 'form-builder',

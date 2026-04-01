@@ -4,7 +4,7 @@ import patientListsActionButtonComponent from './action-button/patient-lists-act
 import { configSchema } from './config-schema';
 
 
-const moduleName = '@openmrs/esm-patient-lists-app';
+const moduleName = '@sihsalus/esm-patient-lists-app';
 const options = {
   featureName: 'patient-lists',
   moduleName,

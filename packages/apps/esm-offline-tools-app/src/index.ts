@@ -20,7 +20,7 @@ import offlineToolsComponent from './root.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-offline-tools-app';
+const moduleName = '@sihsalus/esm-offline-tools-app';
 const options = {
   featureName: 'offline-tools',
   moduleName,

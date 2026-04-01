@@ -3,7 +3,7 @@ import { type TOptions } from 'i18next';
 
 import type { CustomValueType } from './value-editor';
 
-const moduleName = '@openmrs/esm-implementer-tools-app';
+const moduleName = '@sihsalus/esm-implementer-tools-app';
 const t = (key: string, fallback?: string, options?: Omit<TOptions, 'ns' | 'defaultValue'>) =>
   translateFrom(moduleName, key, fallback, options);
 

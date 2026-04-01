@@ -10,7 +10,7 @@ import {
 
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-patient-search-app';
+const moduleName = '@sihsalus/esm-patient-search-app';
 
 const options = {
   featureName: 'patient-search',

@@ -7,7 +7,7 @@ import { dashboardMeta } from './dashboard.meta';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-patient-attachments-app';
+const moduleName = '@sihsalus/esm-patient-attachments-app';
 
 export function startupApp() {
   defineConfigSchema(moduleName, attachmentsConfigSchema);

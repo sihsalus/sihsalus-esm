@@ -6,7 +6,7 @@ import implementerToolsComponent from './implementer-tools.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-implementer-tools-app';
+const moduleName = '@sihsalus/esm-implementer-tools-app';
 const options = {
   featureName: 'Implementer Tools',
   moduleName,

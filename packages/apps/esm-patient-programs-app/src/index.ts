@@ -6,7 +6,7 @@ import { dashboardMeta } from './dashboard.meta';
 import programsDetailedSummaryComponent from './programs/programs-detailed-summary.component';
 import programsOverviewComponent from './programs/programs-overview.component';
 
-const moduleName = '@openmrs/esm-patient-programs-app';
+const moduleName = '@sihsalus/esm-patient-programs-app';
 
 const options = {
   featureName: 'patient-programs',

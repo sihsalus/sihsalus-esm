@@ -8,7 +8,7 @@ export const importTranslation = require.context('../translations', false, /.jso
 
 const options = {
   featureName: 'help-menu',
-  moduleName: '@openmrs/esm-help-menu-app',
+  moduleName: '@sihsalus/esm-help-menu-app',
 };
 
 export const root = getAsyncLifecycle(() => import('./root.component'), options);

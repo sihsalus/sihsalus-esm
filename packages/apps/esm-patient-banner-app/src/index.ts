@@ -12,7 +12,7 @@ import deceasedPatientTagComponent from './banner-tags/deceased-patient-tag.exte
 import visitTagComponent from './banner-tags/visit-tag.extension';
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-patient-banner-app';
+const moduleName = '@sihsalus/esm-patient-banner-app';
 
 const options = {
   featureName: 'patient-banner',

@@ -1,7 +1,7 @@
 import { getAsyncLifecycle, defineConfigSchema, registerBreadcrumbs } from '@openmrs/esm-framework';
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-fast-data-entry-app';
+const moduleName = '@sihsalus/esm-fast-data-entry-app';
 
 const options = {
   featureName: 'fast-data-entry-app',

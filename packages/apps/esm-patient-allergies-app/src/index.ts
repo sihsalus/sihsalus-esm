@@ -13,7 +13,7 @@ import allergyTileComponent from './allergies/allergies-tile.component';
 import { configSchema } from './config-schema';
 import { dashboardMeta } from './dashboard.meta';
 
-const moduleName = '@openmrs/esm-patient-allergies-app';
+const moduleName = '@sihsalus/esm-patient-allergies-app';
 
 const options = {
   featureName: 'patient-allergies',

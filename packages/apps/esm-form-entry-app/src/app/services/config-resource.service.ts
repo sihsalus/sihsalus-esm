@@ -6,8 +6,8 @@ import { FormEntryConfig } from '../types';
 @Injectable()
 export class ConfigResourceService {
   public getConfig() {
-    let formEntryConfig: ConfigObject = getConfigStore('@openmrs/esm-form-entry-app').getState()?.config;
-    getConfigStore('@openmrs/esm-form-entry-app').subscribe((store) => {
+    let formEntryConfig: ConfigObject = getConfigStore('@sihsalus/esm-form-entry-app').getState()?.config;
+    getConfigStore('@sihsalus/esm-form-entry-app').subscribe((store) => {
       if (store.loaded && store) {
         formEntryConfig = store.config;
       }

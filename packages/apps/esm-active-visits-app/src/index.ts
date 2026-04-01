@@ -2,7 +2,7 @@ import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
 
 import { configSchema } from './config-schema';
 
-const moduleName = '@openmrs/esm-active-visits-app';
+const moduleName = '@sihsalus/esm-active-visits-app';
 
 const options = {
   featureName: 'active-visits',

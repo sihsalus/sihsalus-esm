@@ -3,7 +3,7 @@ import { configSchema } from './config-schema';
 import { createHomeDashboardLink } from './components/create-dashboard-link.component';
 import rootComponent from './root.component';
 
-const moduleName = '@openmrs/esm-laboratory-app';
+const moduleName = '@sihsalus/esm-laboratory-app';
 
 const options = {
   featureName: 'laboratory',

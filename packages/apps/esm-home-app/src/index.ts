@@ -4,7 +4,7 @@ import { configSchema } from './config-schema';
 import rootComponent from './root.component';
 import homeNavMenuComponent from './side-menu/side-menu.component';
 
-const moduleName = '@openmrs/esm-home-app';
+const moduleName = '@sihsalus/esm-home-app';
 const pageName = 'home';
 
 const options = {

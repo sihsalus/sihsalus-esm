@@ -18,7 +18,7 @@ import {
   missedAppointmentsPanelConfigSchema,
 } from './scheduled-appointments-config-schema';
 
-const moduleName = '@openmrs/esm-appointments-app';
+const moduleName = '@sihsalus/esm-appointments-app';
 
 const options = {
   featureName: 'appointments',

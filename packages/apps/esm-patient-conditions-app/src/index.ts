@@ -6,7 +6,7 @@ import conditionsOverviewComponent from './conditions/conditions-overview.compon
 import { configSchema } from './config-schema';
 import { dashboardMeta } from './dashboard.meta';
 
-const moduleName = '@openmrs/esm-patient-conditions-app';
+const moduleName = '@sihsalus/esm-patient-conditions-app';
 
 const options = {
   featureName: 'patient-conditions',

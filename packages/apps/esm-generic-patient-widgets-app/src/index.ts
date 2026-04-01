@@ -5,7 +5,7 @@ import obsSwitchableComponent from './obs-switchable/obs-switchable.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-generic-patient-widgets-app';
+const moduleName = '@sihsalus/esm-generic-patient-widgets-app';
 
 const options = {
   featureName: 'Generic widgets',

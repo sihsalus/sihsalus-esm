@@ -13,7 +13,7 @@ import offlineFormOverviewCardComponent from './offline-forms/offline-forms-over
 import offlineFormsComponent from './offline-forms/offline-forms.component';
 import OfflineToolsNavLink from './offline-forms/offline-tools-nav-link.component';
 
-const moduleName = '@openmrs/esm-patient-forms-app';
+const moduleName = '@sihsalus/esm-patient-forms-app';
 
 const options = {
   featureName: 'patient-forms',

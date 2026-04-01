@@ -10,7 +10,7 @@ import PauseActionButton from './components/prescription-actions/pause-action-bu
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@openmrs/esm-dispensing-app';
+const moduleName = '@sihsalus/esm-dispensing-app';
 
 const options = {
   featureName: 'dispensing',

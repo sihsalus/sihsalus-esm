@@ -18,7 +18,7 @@ import RequirePaymentModal from './modal/require-payment.modal';
 import RootComponent from './root.component';
 import VisitAttributeTags from './invoice/payments/visit-tags/visit-attribute.component';
 
-const moduleName = '@openmrs/esm-billing-app';
+const moduleName = '@sihsalus/esm-billing-app';
 
 const options = {
   featureName: 'billing',

@@ -5,7 +5,7 @@ import { createDashboardLink } from './createDashboardLink.component';
 import { dashboardMeta } from './dashboard.meta';
 import { setupOffline } from './offline';
 
-const moduleName = '@openmrs/esm-patient-list-management-app';
+const moduleName = '@sihsalus/esm-patient-list-management-app';
 
 const options = {
   featureName: 'patient list',

@@ -7,7 +7,7 @@ import immunizationHistorySummaryComponent from './immunizations/immunization-hi
 import immunizationsDetailedSummaryComponent from './immunizations/immunizations-detailed-summary.component';
 import immunizationsOverviewComponent from './immunizations/immunizations-overview.component';
 
-const moduleName = '@openmrs/esm-patient-immunizations-app';
+const moduleName = '@sihsalus/esm-patient-immunizations-app';
 
 const options = {
   featureName: 'patient-immunizations',

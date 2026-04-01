@@ -4,7 +4,7 @@ import { configSchema } from './config-schema';
 import flagTagsComponent from './flags/flags-highlight-bar.component';
 import flagsOverviewComponent from './flags/flags.component';
 
-const moduleName = '@openmrs/esm-patient-flags-app';
+const moduleName = '@sihsalus/esm-patient-flags-app';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
