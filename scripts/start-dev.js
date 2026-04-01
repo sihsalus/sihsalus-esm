@@ -86,6 +86,7 @@ async function startWithProxy(cliArgs) {
       target: `http://localhost:${cliPort}`,
       ws: true,
       changeOrigin: true,
+      logLevel: 'warn',
     }),
   );
 
