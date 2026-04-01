@@ -381,6 +381,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
         'lodash.omit': 'lodash-es/omit',
         'lodash.throttle': 'lodash-es/throttle',
       },
+      tsConfig: existsSync(resolve(root, 'tsconfig.json')) ? resolve(root, 'tsconfig.json') : undefined,
     },
     ...overrides,
   };
