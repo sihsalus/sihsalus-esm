@@ -69,7 +69,7 @@ const ImmunizationsDetailedSummary: React.FC<ImmunizationsDetailedSummaryProps> 
       launchStartVisitPrompt();
       return;
     }
-    launchWorkspace2('immunization-form-workspace');
+    launchWorkspace2('vacunacion-form-workspace');
   }, [visitContext, launchStartVisitPrompt]);
 
   const sortedImmunizations = useMemo(() => {

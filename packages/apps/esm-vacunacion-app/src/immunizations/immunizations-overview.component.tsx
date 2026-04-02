@@ -38,7 +38,7 @@ const ImmunizationsOverview: React.FC<ImmunizationsOverviewProps> = ({ patient, 
   const { data: immunizations, error, isLoading, isValidating } = useImmunizations(patientUuid);
   const { results: paginatedImmunizations, goTo, currentPage } = usePagination(immunizations ?? [], immunizationsCount);
 
-  const launchImmunizationsForm = React.useCallback(() => launchWorkspace2('immunization-form-workspace'), []);
+  const launchImmunizationsForm = React.useCallback(() => launchWorkspace2('vacunacion-form-workspace'), []);
 
   const tableHeaders = [
     {

@@ -64,7 +64,7 @@ const SequenceTable: React.FC<SequenceTableProps> = ({
   );
 
   const handleDeleteImmunization = ({ doseNumber, immunizationId, vaccineUuid }: DeleteImmunizationParams) => {
-    const dispose = showModal('immunization-delete-confirmation-modal', {
+    const dispose = showModal('vacunacion-delete-confirmation-modal', {
       doseNumber,
       immunizationId,
       patientUuid,

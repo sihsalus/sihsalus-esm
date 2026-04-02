@@ -5,54 +5,54 @@
   },
   "extensions": [
     {
-      "name": "immunization-overview-widget",
+      "name": "vacunacion-overview-widget",
       "component": "immunizationsOverview",
       "order": 8
     },
     {
-      "name": "immunization-detailed-history-card",
+      "name": "vacunacion-detailed-history-card",
       "component": "immunizationHistorySummary",
-      "slot": "patient-chart-immunizations-dashboard-slot",
+      "slot": "patient-chart-vacunacion-dashboard-slot",
       "meta": {
         "fullWidth": true
       }
     },
     {
-      "name": "immunization-details-widget",
+      "name": "vacunacion-details-widget",
       "component": "immunizationsDetailedSummary",
-      "slot": "patient-chart-immunizations-dashboard-slot",
+      "slot": "patient-chart-vacunacion-dashboard-slot",
       "meta": {
         "fullWidth": true
       }
     },
     {
-      "name": "immunization-summary-dashboard",
+      "name": "vacunacion-summary-dashboard",
       "component": "immunizationsDashboardLink",
       "slot": "patient-chart-dashboard-slot",
       "meta": {
-        "slot": "patient-chart-immunizations-dashboard-slot",
-        "path": "Immunizations"
+        "slot": "patient-chart-vacunacion-dashboard-slot",
+        "path": "Vacunacion"
       },
-      "order": 8
+      "order": 9
     }
   ],
   "pages": [],
   "modals": [
     {
-      "name": "immunization-delete-confirmation-modal",
+      "name": "vacunacion-delete-confirmation-modal",
       "component": "deleteImmunizationConfirmationModal"
     }
   ],
   "workspaces2": [
     {
-      "name": "immunization-form-workspace",
+      "name": "vacunacion-form-workspace",
       "component": "immunizationFormWorkspace",
-      "window": "immunization-form-window"
+      "window": "vacunacion-form-window"
     }
   ],
   "workspaceWindows2": [
     {
-      "name": "immunization-form-window",
+      "name": "vacunacion-form-window",
       "group": "patient-chart"
     }
   ]

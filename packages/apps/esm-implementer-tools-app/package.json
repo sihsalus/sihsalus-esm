@@ -57,7 +57,7 @@
     "ace-builds": "^1.43.3",
     "eslint": "^8.55.0",
     "happy-dom": "^20.6.0",
-    "openmrs": "workspace:*",
+    "openmrs": "*",
     "react": "^18.3.1",
     "react-ace": "^14.0.1",
     "react-dom": "^18.3.1",
