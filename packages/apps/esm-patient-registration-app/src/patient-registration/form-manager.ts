@@ -311,9 +311,10 @@ export class FormManager {
   ): Patient {
     let birthdate;
     if (values.birthdate instanceof Date) {
-      birthdate = [values.birthdate.getFullYear(), values.birthdate.getMonth() + 1, values.birthdate.getDate()].join(
-        '-',
-      );
+      const y = values.birthdate.getFullYear();
+      const m = String(values.birthdate.getMonth() + 1).padStart(2, '0');
+      const d = String(values.birthdate.getDate()).padStart(2, '0');
+      birthdate = `${y}-${m}-${d}`;
     } else {
       birthdate = values.birthdate;
     }

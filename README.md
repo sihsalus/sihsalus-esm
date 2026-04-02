@@ -23,8 +23,13 @@ yarn install
 cp .env.example .env     # editar si se necesita apuntar a otro backend
 
 # 3. Levantar el dev server
-yarn start
+yarn clean && yarn build && yarn assemble
+SIHSALUS_DEV_APPS=esm-login-app,esm-home-app yarn start
 # → http://localhost:8080/openmrs/spa/
+
+You can also specify the port with the flag
+SIHSALUS_PORT=3000 SIHSALUS_DEV_APPS=esm-login-app,esm-home-app yarn start
+# → http://localhost:3000/openmrs/spa/
 ```
 
 El dev server hace proxy de las peticiones de API al backend definido en `SIHSALUS_BACKEND_URL` (ver [.env.example](.env.example)).
