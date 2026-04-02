@@ -60,7 +60,7 @@ type OpenmrsRspackConfig = Omit<Partial<RspackConfiguration>, 'module'> & {
 };
 
 const production = 'production';
-const { ModuleFederationPlugin } = container;
+const { ModuleFederationPluginV1: ModuleFederationPlugin } = container;
 
 function getFrameworkVersion() {
   try {

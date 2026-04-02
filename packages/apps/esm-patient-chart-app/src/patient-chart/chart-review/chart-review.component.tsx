@@ -36,14 +36,18 @@ const ChartReview: React.FC<ChartReviewProps> = ({ patientUuid, patient, view, s
   const extensionStore = useExtensionStore();
   const { navGroups } = useNavGroups();
 
-  const ungroupedDashboards = extensionStore.slots['patient-chart-dashboard-slot'].assignedExtensions.map((e) =>
-    getDashboardDefinition(e.meta, e.config, e.moduleName),
-  );
+  const slotExists = 'patient-chart-dashboard-slot' in extensionStore.slots;
+
+  const ungroupedDashboards = slotExists
+    ? extensionStore.slots['patient-chart-dashboard-slot'].assignedExtensions.map((e) =>
+        getDashboardDefinition(e.meta, e.config, e.moduleName),
+      )
+    : [];
   const groupedDashboards = navGroups
     .map((slotName) =>
-      extensionStore.slots[slotName].assignedExtensions.map((e) =>
+      extensionStore.slots[slotName]?.assignedExtensions.map((e) =>
         getDashboardDefinition(e.meta, e.config, e.moduleName),
-      ),
+      ) ?? [],
     )
     .flat();
   const dashboards = ungroupedDashboards.concat(groupedDashboards) as Array<DashboardConfig>;
@@ -55,16 +59,30 @@ const ChartReview: React.FC<ChartReviewProps> = ({ patientUuid, patient, view, s
 
   useEffect(() => {
     const activeDashboard = dashboard ?? defaultDashboard;
-    if (setDashboardLayoutMode) {
+    if (setDashboardLayoutMode && activeDashboard) {
       setDashboardLayoutMode(activeDashboard.layoutMode ?? 'contained');
     }
   }, [dashboard, defaultDashboard, setDashboardLayoutMode]);
 
-  if (!('patient-chart-dashboard-slot' in extensionStore.slots)) {
+  console.warn('[ChartReview]', {
+    slotExists,
+    slots: Object.keys(extensionStore.slots),
+    ungroupedCount: ungroupedDashboards.length,
+    groupedCount: groupedDashboards.length,
+    dashboardPaths: dashboards.map((d) => d.path),
+    defaultDashboard: defaultDashboard?.path,
+    currentView: view,
+    matchedDashboard: dashboard?.path,
+    navGroups,
+  });
+
+  if (!slotExists) {
+    console.warn('[ChartReview] RETURNING NULL: patient-chart-dashboard-slot NOT in extension store');
     return null;
   }
 
   if (!defaultDashboard) {
+    console.warn('[ChartReview] RETURNING NULL: No default dashboard found');
     return null;
   } else if (!dashboard) {
     return (

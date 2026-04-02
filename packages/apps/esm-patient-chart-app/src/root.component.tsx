@@ -6,6 +6,8 @@ import PatientChart from './patient-chart/patient-chart.component';
 import styles from './root.scss';
 
 export default function Root() {
+  const currentPath = window.location.pathname;
+  console.warn('[patient-chart Root]', { spaRoot, basePath, dashboardPath, currentPath });
   return (
     <>
       <div className={styles.patientChartWrapper}>
