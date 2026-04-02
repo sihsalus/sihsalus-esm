@@ -42,7 +42,7 @@
   },
   "peerDependencies": {
     "@openmrs/esm-framework": "9.0.2",
-    "@openmrs/esm-patient-common-lib": "workspace:*",
+    "@openmrs/esm-patient-common-lib": "*",
     "dayjs": "1.x",
     "react": "18.x",
     "react-i18next": "16.x",
