@@ -17,7 +17,7 @@ const VisitHeaderSideMenu: React.FC<VisitHeaderSideMenuProps> = ({ isExpanded, t
     return () => window.removeEventListener('popstate', popstateHandler);
   }, [toggleSideMenu]);
 
-  return isExpanded ? <LeftNavMenu ref={menuRef} /> : null;
+  return isExpanded ? <LeftNavMenu isChildOfHeader ref={menuRef} /> : null;
 };
 
 export default VisitHeaderSideMenu;

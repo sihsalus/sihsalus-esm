@@ -13,22 +13,15 @@
     scrollbar-width: none;
   }
 
-}
-
-// On large-desktop the sidebar is persistent. The patientChartWrapper's stacking
-// context (position:relative) covers the sidebar portal, so we raise the portal
-// and disable the transparent overlay that blocks clicks.
-// On smaller screens the sidebar collapses and the overlay must remain clickable
-// to allow closing the sidebar, so these overrides only apply to large-desktop.
-:global(.omrs-breakpoint-gt-small-desktop) {
-  :global(#omrs-left-nav-container) {
-    z-index: 1;
-  }
-
   :global(.cds--side-nav__overlay-active) {
     background-color: transparent;
-    pointer-events: none;
   }
+}
+
+// The left nav portal container needs z-index to sit above the patientChartWrapper
+// (which has position:relative). Without this, the sidebar is covered by the chart content.
+:global(#omrs-left-nav-container) {
+  z-index: 1;
 }
 
 // Tablet side nav scrolling
