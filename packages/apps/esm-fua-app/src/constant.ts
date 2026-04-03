@@ -1,1 +1,1 @@
-export const ModuleFuaRestURL = '/module/fua';
+export const ModuleFuaRestURL = '/ws/module/fua';

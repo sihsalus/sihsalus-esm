@@ -57,7 +57,7 @@ describe('useFuaRequests', () => {
 
     const { result } = renderHook(() => useFuaRequests());
 
-    expect(mockUseSWR).toHaveBeenCalledWith('/module/fua/list', openmrsFetch);
+    expect(mockUseSWR).toHaveBeenCalledWith('/ws/module/fua/list', openmrsFetch);
     expect(result.current.fuaOrders).toHaveLength(2);
   });
 
@@ -73,7 +73,7 @@ describe('useFuaRequests', () => {
     renderHook(() => useFuaRequests({ status: 'IN_PROGRESS' }));
 
     const calledUrl = (mockUseSWR as jest.Mock).mock.calls[0][0] as string;
-    expect(calledUrl).toContain('/module/fua/solicitudes');
+    expect(calledUrl).toContain('/ws/module/fua/solicitudes');
     expect(calledUrl).toContain('status=En%20Proceso');
     expect(calledUrl).toContain('fechaInicio=2024-01-01');
     expect(calledUrl).toContain('fechaFin=2024-01-31');
@@ -163,7 +163,7 @@ describe('setFuaEstado', () => {
     await setFuaEstado(42, 3, abortController);
 
     expect(mockOpenmrsFetch).toHaveBeenCalledWith(
-      '/module/fua/estado/update/42',
+      '/ws/module/fua/estado/update/42',
       expect.objectContaining({ method: 'PUT', body: { estadoId: 3 } }),
     );
   });
@@ -177,7 +177,7 @@ describe('cancelFuaRequest', () => {
     await cancelFuaRequest(7, 'Duplicado', abortController);
 
     expect(mockOpenmrsFetch).toHaveBeenCalledWith(
-      '/module/fua/estado/update/7',
+      '/ws/module/fua/estado/update/7',
       expect.objectContaining({
         method: 'PUT',
         body: { estadoId: 6, comentario: 'Duplicado' },
@@ -198,7 +198,7 @@ describe('useFuasByPatient', () => {
 
     renderHook(() => useFuasByPatient('patient-uuid-123'));
 
-    expect(mockUseSWR).toHaveBeenCalledWith('/module/fua/patient/patient-uuid-123', openmrsFetch);
+    expect(mockUseSWR).toHaveBeenCalledWith('/ws/module/fua/patient/patient-uuid-123', openmrsFetch);
   });
 
   it('passes null URL when patientUuid is null (skip fetch)', () => {

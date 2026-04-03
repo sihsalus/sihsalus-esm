@@ -145,7 +145,7 @@ export function cancelFuaRequest(fuaId: number, comment: string, abortController
 
 /**
  * Fetch all FUAs for a specific patient.
- * OMOD endpoint: GET /module/fua/patient/{patientUuid}
+ * OMOD endpoint: GET /ws/module/fua/patient/{patientUuid}
  */
 export function useFuasByPatient(patientUuid: string | null | undefined) {
   const url = patientUuid ? `${ModuleFuaRestURL}/patient/${patientUuid}` : null;
