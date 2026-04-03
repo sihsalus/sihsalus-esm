@@ -24,10 +24,11 @@
   z-index: 1;
 }
 
-// On non-large-desktop, hide the sidebar by default and show it when the
-// hamburger toggle adds the expanded class. This avoids rendering a second
-// LeftNavMenu that conflicts with the framework's instance.
-:global(.omrs-breakpoint-lt-desktop) {
+// On small-desktop the primary navigation already portals a LeftNavMenu into
+// #omrs-left-nav-container. Hide it by default and reveal when the hamburger
+// toggle adds the expanded class. Target small-desktop only (gt-tablet but not
+// gt-small-desktop, which is large-desktop where the sidebar is always visible).
+:global(.omrs-breakpoint-gt-tablet):not(:global(.omrs-breakpoint-gt-small-desktop)) {
   :global(#omrs-left-nav-container) :global(.cds--side-nav) {
     transform: translateX(-100%);
     transition: transform 0.11s cubic-bezier(0.2, 0, 1, 0.9);
