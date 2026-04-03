@@ -9,6 +9,7 @@ import {
   useConfig,
   useLayoutType,
   useSession,
+  Workspace2,
 } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
@@ -213,156 +214,160 @@ const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<{}, {}>> = ({
     ],
   );
   return (
-    <FormProvider {...formProps}>
-      <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap={5} className={styles.container}>
-          <ResponsiveWrapper>
-            <Controller
-              name="vaccinationDate"
-              control={control}
-              render={({ field, fieldState }) => (
-                <OpenmrsDatePicker
-                  {...field}
-                  className={styles.datePicker}
-                  id="vaccinationDate"
-                  invalid={Boolean(fieldState?.error?.message)}
-                  invalidText={fieldState?.error?.message}
-                  labelText={t('vaccinationDate', 'Vaccination date')}
-                  maxDate={new Date()}
-                />
-              )}
-            />
-          </ResponsiveWrapper>
-          <ResponsiveWrapper>
-            <Controller
-              name="vaccineUuid"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <Dropdown
-                  disabled={!!immunizationToEditMeta}
-                  id="immunization"
-                  invalid={!!errors?.vaccineUuid}
-                  invalidText={errors?.vaccineUuid?.message}
-                  itemToString={(item) =>
-                    immunizationsConceptSet?.answers.find((candidate) => candidate.uuid === item)?.display
-                  }
-                  items={immunizationsConceptSet?.answers?.map((item) => item.uuid) || []}
-                  label={t('selectImmunization', 'Select immunization')}
-                  onChange={(val) => onChange(val.selectedItem)}
-                  selectedItem={value}
-                  titleText={t('immunization', 'Immunization')}
-                />
-              )}
-            />
-          </ResponsiveWrapper>
-          {vaccineUuid && (
+    <Workspace2 title={t('immunizationWorkspaceTitle', 'Immunization')} hasUnsavedChanges={isDirty}>
+      <FormProvider {...formProps}>
+        <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <Stack gap={5} className={styles.container}>
             <ResponsiveWrapper>
-              <DoseInput
-                vaccine={vaccineUuid}
-                sequences={config.sequenceDefinitions}
+              <Controller
+                name="vaccinationDate"
                 control={control}
-                existingDoseNumbers={existingDoseNumbers}
+                render={({ field, fieldState }) => (
+                  <OpenmrsDatePicker
+                    {...field}
+                    className={styles.datePicker}
+                    id="vaccinationDate"
+                    invalid={Boolean(fieldState?.error?.message)}
+                    invalidText={fieldState?.error?.message}
+                    labelText={t('vaccinationDate', 'Vaccination date')}
+                    maxDate={new Date()}
+                  />
+                )}
               />
             </ResponsiveWrapper>
-          )}
-          <div className={styles.vaccineBatchHeading}>{t('vaccineBatchInformation', 'Vaccine Batch Information')}</div>
-          <ResponsiveWrapper>
-            <Controller
-              name="manufacturer"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  id="manufacturer"
-                  labelText={t('manufacturer', 'Manufacturer')}
-                  onChange={(evt) => onChange(evt.target.value)}
-                  type="text"
-                  value={value}
+            <ResponsiveWrapper>
+              <Controller
+                name="vaccineUuid"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Dropdown
+                    disabled={!!immunizationToEditMeta}
+                    id="immunization"
+                    invalid={!!errors?.vaccineUuid}
+                    invalidText={errors?.vaccineUuid?.message}
+                    itemToString={(item) =>
+                      immunizationsConceptSet?.answers.find((candidate) => candidate.uuid === item)?.display
+                    }
+                    items={immunizationsConceptSet?.answers?.map((item) => item.uuid) || []}
+                    label={t('selectImmunization', 'Select immunization')}
+                    onChange={(val) => onChange(val.selectedItem)}
+                    selectedItem={value}
+                    titleText={t('immunization', 'Immunization')}
+                  />
+                )}
+              />
+            </ResponsiveWrapper>
+            {vaccineUuid && (
+              <ResponsiveWrapper>
+                <DoseInput
+                  vaccine={vaccineUuid}
+                  sequences={config.sequenceDefinitions}
+                  control={control}
+                  existingDoseNumbers={existingDoseNumbers}
                 />
-              )}
-            />
-          </ResponsiveWrapper>
-          <ResponsiveWrapper>
-            <Controller
-              name="lotNumber"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  id="lotNumber"
-                  labelText={t('lotNumber', 'Lot Number')}
-                  onChange={(evt) => onChange(evt.target.value)}
-                  type="text"
-                  value={value}
-                />
-              )}
-            />
-          </ResponsiveWrapper>
-          <ResponsiveWrapper>
-            <Controller
-              name="expirationDate"
-              control={control}
-              render={({ field, fieldState }) => (
-                <OpenmrsDatePicker
-                  {...field}
-                  className={styles.datePicker}
-                  id="vaccinationExpiration"
-                  invalid={Boolean(fieldState?.error?.message)}
-                  invalidText={fieldState?.error?.message}
-                  labelText={t('expirationDate', 'Expiration date')}
-                  minDate={vaccinationDate}
-                />
-              )}
-            />
-          </ResponsiveWrapper>
-          <ResponsiveWrapper>
-            <Controller
-              name="note"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextArea
-                  enableCounter
-                  id="note"
-                  invalidText={errors?.note?.message}
-                  labelText={t('note', 'Note')}
-                  maxCount={255}
-                  onChange={(evt) => onChange(evt.target.value)}
-                  placeholder={t('immunizationNotePlaceholder', 'For example: mild redness at injection site')}
-                  value={value}
-                />
-              )}
-            />
-          </ResponsiveWrapper>
-          <ResponsiveWrapper>
-            <Controller
-              name="nextDoseDate"
-              control={control}
-              render={({ field, fieldState }) => (
-                <OpenmrsDatePicker
-                  {...field}
-                  className={styles.datePicker}
-                  id="nextDoseDate"
-                  invalid={Boolean(fieldState?.error?.message)}
-                  invalidText={fieldState?.error?.message}
-                  labelText={t('nextDoseDate', 'Next dose date')}
-                  minDate={vaccinationDate}
-                />
-              )}
-            />
-          </ResponsiveWrapper>
-        </Stack>
-        <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
-          <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
-            {getCoreTranslation('cancel')}
-          </Button>
-          <Button className={styles.button} kind="primary" disabled={isSubmitting} type="submit">
-            {isSubmitting ? (
-              <InlineLoading className={styles.spinner} description={t('saving', 'Saving') + '...'} />
-            ) : (
-              <span>{getCoreTranslation('save')}</span>
+              </ResponsiveWrapper>
             )}
-          </Button>
-        </ButtonSet>
-      </Form>
-    </FormProvider>
+            <div className={styles.vaccineBatchHeading}>
+              {t('vaccineBatchInformation', 'Vaccine Batch Information')}
+            </div>
+            <ResponsiveWrapper>
+              <Controller
+                name="manufacturer"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    id="manufacturer"
+                    labelText={t('manufacturer', 'Manufacturer')}
+                    onChange={(evt) => onChange(evt.target.value)}
+                    type="text"
+                    value={value}
+                  />
+                )}
+              />
+            </ResponsiveWrapper>
+            <ResponsiveWrapper>
+              <Controller
+                name="lotNumber"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <TextInput
+                    id="lotNumber"
+                    labelText={t('lotNumber', 'Lot Number')}
+                    onChange={(evt) => onChange(evt.target.value)}
+                    type="text"
+                    value={value}
+                  />
+                )}
+              />
+            </ResponsiveWrapper>
+            <ResponsiveWrapper>
+              <Controller
+                name="expirationDate"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <OpenmrsDatePicker
+                    {...field}
+                    className={styles.datePicker}
+                    id="vaccinationExpiration"
+                    invalid={Boolean(fieldState?.error?.message)}
+                    invalidText={fieldState?.error?.message}
+                    labelText={t('expirationDate', 'Expiration date')}
+                    minDate={vaccinationDate}
+                  />
+                )}
+              />
+            </ResponsiveWrapper>
+            <ResponsiveWrapper>
+              <Controller
+                name="note"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <TextArea
+                    enableCounter
+                    id="note"
+                    invalidText={errors?.note?.message}
+                    labelText={t('note', 'Note')}
+                    maxCount={255}
+                    onChange={(evt) => onChange(evt.target.value)}
+                    placeholder={t('immunizationNotePlaceholder', 'For example: mild redness at injection site')}
+                    value={value}
+                  />
+                )}
+              />
+            </ResponsiveWrapper>
+            <ResponsiveWrapper>
+              <Controller
+                name="nextDoseDate"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <OpenmrsDatePicker
+                    {...field}
+                    className={styles.datePicker}
+                    id="nextDoseDate"
+                    invalid={Boolean(fieldState?.error?.message)}
+                    invalidText={fieldState?.error?.message}
+                    labelText={t('nextDoseDate', 'Next dose date')}
+                    minDate={vaccinationDate}
+                  />
+                )}
+              />
+            </ResponsiveWrapper>
+          </Stack>
+          <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
+            <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
+              {getCoreTranslation('cancel')}
+            </Button>
+            <Button className={styles.button} kind="primary" disabled={isSubmitting} type="submit">
+              {isSubmitting ? (
+                <InlineLoading className={styles.spinner} description={t('saving', 'Saving') + '...'} />
+              ) : (
+                <span>{getCoreTranslation('save')}</span>
+              )}
+            </Button>
+          </ButtonSet>
+        </Form>
+      </FormProvider>
+    </Workspace2>
   );
 };
 
