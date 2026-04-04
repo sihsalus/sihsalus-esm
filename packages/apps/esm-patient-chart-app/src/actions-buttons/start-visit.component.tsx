@@ -12,7 +12,8 @@ interface StartVisitOverflowMenuItemProps {
 
 const StartVisitOverflowMenuItem: React.FC<StartVisitOverflowMenuItemProps> = ({ patient }) => {
   const { t } = useTranslation();
-  const { currentVisit } = useVisit(patient?.id);
+  const { activeVisit, currentVisit } = useVisit(patient?.id);
+  const effectiveVisit = currentVisit ?? activeVisit;
   const isDeceased = Boolean(patient?.deceasedDateTime);
 
   const handleLaunchModal = useCallback(
@@ -24,7 +25,7 @@ const StartVisitOverflowMenuItem: React.FC<StartVisitOverflowMenuItemProps> = ({
   );
 
   return (
-    !currentVisit &&
+    !effectiveVisit &&
     !isDeceased && (
       <OverflowMenuItem
         className={styles.menuitem}

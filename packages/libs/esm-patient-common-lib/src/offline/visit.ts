@@ -34,7 +34,20 @@ export function useVisitOrOfflineVisit(patientUuid: string) {
   const onlineVisit = useVisit(patientUuid);
   const offlineVisit = useOfflineVisit(patientUuid);
 
-  return isOnline ? onlineVisit : offlineVisit;
+  if (!isOnline) {
+    return offlineVisit;
+  }
+
+  // In this framework version (9.x), useVisit().currentVisit requires the visit
+  // context store to be initialized with the patient UUID (which only happens for
+  // retrospective visits). For regular active visits, currentVisit stays null even
+  // though activeVisit is correctly populated from the API. Fall back to activeVisit
+  // so all downstream consumers (workspace launchers, form entry, etc.) can detect
+  // the active visit.
+  return {
+    ...onlineVisit,
+    currentVisit: onlineVisit.currentVisit ?? onlineVisit.activeVisit,
+  };
 }
 
 /**
