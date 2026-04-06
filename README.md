@@ -6,7 +6,7 @@ Built on [OpenMRS 3.x](https://openmrs.org/) with the single-spa microfrontend a
 
 ## Prerequisites
 
-- **Node.js** >= 20
+- **Node.js** 24 LTS
 - **Yarn** 4.13.0 (via Corepack: `corepack enable && corepack prepare yarn@4.13.0 --activate`)
 - **Docker** (for containerized deployment)
 
@@ -17,6 +17,7 @@ Built on [OpenMRS 3.x](https://openmrs.org/) with the single-spa microfrontend a
 git clone <url-del-repo>
 cd frontend-web
 corepack enable          # activa la versión de Yarn incluida en .yarn/releases/
+nvm use                  # usa la versión definida en .nvmrc
 yarn install
 
 # 2. Configurar entorno (opcional — tiene defaults apuntando al servidor dev)
