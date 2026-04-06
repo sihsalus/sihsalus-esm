@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "typescript": "tsc",
-    "lint": "eslint src --ext ts,tsx",
+    "lint": "eslint .",
     "test": "vitest run --passWithNoTests"
   },
   "devDependencies": {
