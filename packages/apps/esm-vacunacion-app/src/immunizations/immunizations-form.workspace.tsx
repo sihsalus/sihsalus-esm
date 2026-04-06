@@ -29,7 +29,7 @@ import styles from './immunizations-form.scss';
 import { savePatientImmunization } from './immunizations.resource';
 import { immunizationFormSub } from './utils';
 
-const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<{}, {}>> = ({
+const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string, never>, Record<string, never>>> = ({
   closeWorkspace,
   groupProps: { patientUuid, patient, visitContext },
 }) => {

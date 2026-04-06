@@ -27,7 +27,7 @@ export interface ImmunizationsOverviewProps {
   patientUuid: string;
 }
 
-const ImmunizationsOverview: React.FC<ImmunizationsOverviewProps> = ({ patient, patientUuid, basePath }) => {
+const ImmunizationsOverview: React.FC<ImmunizationsOverviewProps> = ({ patient: _patient, patientUuid, basePath }) => {
   const { t } = useTranslation();
   const immunizationsCount = 5;
   const displayText = t('immunizations__lower', 'immunizations');

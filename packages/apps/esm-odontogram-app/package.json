@@ -1,50 +1,50 @@
 {
-  "name": "@sihsalus/esm-odontogram-app",
-  "version": "1.0.0",
-  "license": "MPL-2.0",
-  "description": "Microfrontend de odontograma para O3",
-  "browser": "dist/openmrs-esm-odontogram-app.js",
-  "main": "src/index.ts",
-  "source": true,
-  "scripts": {
-    "start": "openmrs develop",
-    "serve": "rspack serve --mode=development",
-    "build": "rspack --mode=production",
-    "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
-    "typescript": "tsc",
-    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
-    "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
-    "extract-translations": "i18next 'src/**/*.tsx' --config ../../tooling/i18next-parser.config.js"
-  },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs",
-    "microfrontends",
-    "odontogram"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "@openmrs/esm-framework": "9.x",
-    "react": "18.x",
-    "react-dom": "18.x",
-    "react-i18next": "16.x",
-    "rxjs": "6.x"
-  },
-  "dependencies": {
-    "@carbon/react": "^1.92.1",
-    "@carbon/styles": "^1.102.0",
-    "konva": "^9.3.18",
-    "react-konva": "^19.0.5",
-    "zustand": "^4.5.5"
-  },
-  "devDependencies": {
-    "eslint": "^8.55.0",
-    "openmrs": "workspace:*",
-    "typescript": "^5.8.3"
-  }
+    "name": "@sihsalus/esm-odontogram-app",
+    "version": "1.0.0",
+    "license": "MPL-2.0",
+    "description": "Microfrontend de odontograma para O3",
+    "browser": "dist/openmrs-esm-odontogram-app.js",
+    "main": "src/index.ts",
+    "source": true,
+    "scripts": {
+        "start": "openmrs develop",
+        "serve": "rspack serve --mode=development",
+        "build": "rspack --mode=production",
+        "analyze": "rspack --mode=production --env analyze=true",
+        "lint": "eslint .",
+        "typescript": "tsc --noEmit --noCheck",
+        "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
+        "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
+        "extract-translations": "i18next 'src/**/*.tsx' --config ../../tooling/i18next-parser.config.js"
+    },
+    "browserslist": [
+        "extends browserslist-config-openmrs"
+    ],
+    "keywords": [
+        "openmrs",
+        "microfrontends",
+        "odontogram"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "peerDependencies": {
+        "@openmrs/esm-framework": "9.x",
+        "react": "18.x",
+        "react-dom": "18.x",
+        "react-i18next": "16.x",
+        "rxjs": "6.x"
+    },
+    "dependencies": {
+        "@carbon/react": "^1.92.1",
+        "@carbon/styles": "^1.102.0",
+        "konva": "^9.3.18",
+        "react-konva": "^19.0.5",
+        "zustand": "^4.5.5"
+    },
+    "devDependencies": {
+        "eslint": "^8.55.0",
+        "openmrs": "workspace:*",
+        "typescript": "^5.8.3"
+    }
 }

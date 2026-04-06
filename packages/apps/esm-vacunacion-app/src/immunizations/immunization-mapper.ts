@@ -81,7 +81,7 @@ export const mapFromFHIRImmunizationBundle = (
 
   const validGroups = Object.entries(groupByImmunization).filter(([key]) => key);
 
-  const groups = validGroups.map(([key, immunizationsForOneVaccine]) => {
+  const groups = validGroups.map(([, immunizationsForOneVaccine]) => {
     const existingDoses: Array<ExistingDoses> = immunizationsForOneVaccine
       .map(mapToImmunizationDoseFromResource)
       .filter((dose) => dose !== null);

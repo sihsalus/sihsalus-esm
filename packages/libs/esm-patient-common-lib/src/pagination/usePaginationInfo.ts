@@ -16,14 +16,12 @@ export function usePaginationInfo(pageSize: number, totalItems: number, pageNumb
   }, [pageSize, totalItems]);
 
   const itemsDisplayed = useMemo(() => {
-    let pageItemsCount = 0;
-    if (pageSize > totalItems) {
-      pageItemsCount = totalItems;
-    } else if (pageSize * pageNumber > totalItems) {
-      pageItemsCount = pageSize * (pageNumber - 1) + currentItems;
-    } else {
-      pageItemsCount = pageSize * pageNumber;
-    }
+    const pageItemsCount =
+      pageSize > totalItems
+        ? totalItems
+        : pageSize * pageNumber > totalItems
+          ? pageSize * (pageNumber - 1) + currentItems
+          : pageSize * pageNumber;
 
     return t('paginationItemsCount', `{{pageItemsCount}} / {{count}} items`, { count: totalItems, pageItemsCount });
   }, [pageSize, totalItems, pageNumber, currentItems, t]);

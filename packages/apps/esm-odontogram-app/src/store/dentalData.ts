@@ -1,8 +1,9 @@
 // @ts-expect-error TS(2792): Cannot find module 'zustand'. Did you mean to set ... Remove this comment to see the full error message
 import { create } from "zustand";
-// @ts-expect-error TS(2792): Cannot find module '../data/teethData.json'. Did y... Remove this comment to see the full error message
-import { teeth as initialTeeth } from "../data/teethData.json";
+import teethData from "../data/teethData.json";
 import useSpaceBetweenLegendsDataStore from "./spaceBetweenMainSectionsOnTheCanvasData";
+
+const initialTeeth = (teethData as any).teeth ?? teethData ?? [];
 
 // @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
 const useDentalDataStore = create((set, get) => ({

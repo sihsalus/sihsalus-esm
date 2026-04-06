@@ -7,7 +7,7 @@ import {
   useSession,
 } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockCurrentVisit, mockSessionDataResponse } from '__mocks__';
 import dayjs from 'dayjs';
@@ -22,10 +22,7 @@ import { savePatientImmunization } from './immunizations.resource';
 import { immunizationFormSub } from './utils';
 
 const mockCloseWorkspace = jest.fn();
-const mockCloseWorkspaceWithSavedChanges = jest.fn();
-const mockPromptBeforeClosing = jest.fn();
 const mockSavePatientImmunization = savePatientImmunization as jest.Mock;
-const mockSetTitle = jest.fn();
 const mockUseConfig = jest.mocked<() => ImmunizationConfigObject>(useConfig);
 const mockUseSession = jest.mocked(useSession);
 const mockToOmrsIsoString = jest.mocked(toOmrsIsoString);
@@ -67,7 +64,7 @@ jest.mock('./immunizations.resource', () => ({
   savePatientImmunization: jest.fn(),
 }));
 
-const testProps: PatientWorkspace2DefinitionProps<{}, {}> = {
+const testProps: PatientWorkspace2DefinitionProps<Record<string, never>, Record<string, never>> = {
   closeWorkspace: mockCloseWorkspace,
   groupProps: {
     patientUuid: mockPatient.id,
@@ -254,7 +251,6 @@ describe('Immunizations Form', () => {
     const vaccineField = screen.getByRole('combobox', { name: /Immunization/i });
     const doseField = screen.getByRole('spinbutton', { name: /Dose number within series/i });
     const lotField = screen.getByRole('textbox', { name: /Lot number/i });
-    const NoteField = screen.getByRole('textbox', { name: /note/i });
     const manufacturerField = screen.getByRole('textbox', { name: /Manufacturer/i });
     const expirationDateField = screen.getByRole('textbox', { name: /Expiration date/i });
     const saveButton = screen.getByRole('button', { name: /Save/i });

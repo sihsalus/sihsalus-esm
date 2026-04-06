@@ -1,21 +1,22 @@
 // @ts-expect-error TS(2792): Cannot find module 'zustand'. Did you mean to set ... Remove this comment to see the full error message
 import { create } from "zustand";
-import {
-  spaceBetweenLegends as initialSpaceBetweenLegends,
-  intermediateSpaceOnTheCanvasOfFinding1 as initialIntermediateSpaceOnTheCanvasOfFinding1,
-  intermediateSpaceOnTheCanvasOfFinding2 as initialIntermediateSpaceOnTheCanvasOfFinding2,
-  intermediateSpaceOnTheCanvasOfFinding24 as initialIntermediateSpaceOnTheCanvasOfFinding24,
-  intermediateSpaceOnTheCanvasOfFinding25 as initialIntermediateSpaceOnTheCanvasOfFinding25,
-  intermediateSpaceOnTheCanvasOfFinding30 as initialIntermediateSpaceOnTheCanvasOfFinding30,
-  intermediateSpaceOnTheCanvasOfFinding31 as initialIntermediateSpaceOnTheCanvasOfFinding31,
-  intermediateSpaceOnTheCanvasOfFinding32 as initialIntermediateSpaceOnTheCanvasOfFinding32,
-  intermediateSpaceOnTheCanvasOfFinding7 as initialIntermediateSpaceOnTheCanvasOfFinding7,
-  intermediateSpaceOnTheCanvasOfFinding6 as initialIntermediateSpaceOnTheCanvasOfFinding6,
-  intermediateSpaceOnTheCanvasOfFinding26 as initialIntermediateSpaceOnTheCanvasOfFinding26,
-  intermediateSpaceOnTheCanvasOfFinding39 as initialIntermediateSpaceOnTheCanvasOfFinding39,
-// @ts-expect-error TS(2792): Cannot find module '../data/spacingBetweenMainSect... Remove this comment to see the full error message
-} from "../data/spacingBetweenMainSectionsOnTheCanvas.json";
+import spacingData from "../data/spacingBetweenMainSectionsOnTheCanvas.json";
 import useDentalDataStore from "./dentalData";
+
+const {
+  spaceBetweenLegends: initialSpaceBetweenLegends,
+  intermediateSpaceOnTheCanvasOfFinding1: initialIntermediateSpaceOnTheCanvasOfFinding1,
+  intermediateSpaceOnTheCanvasOfFinding2: initialIntermediateSpaceOnTheCanvasOfFinding2,
+  intermediateSpaceOnTheCanvasOfFinding24: initialIntermediateSpaceOnTheCanvasOfFinding24,
+  intermediateSpaceOnTheCanvasOfFinding25: initialIntermediateSpaceOnTheCanvasOfFinding25,
+  intermediateSpaceOnTheCanvasOfFinding30: initialIntermediateSpaceOnTheCanvasOfFinding30,
+  intermediateSpaceOnTheCanvasOfFinding31: initialIntermediateSpaceOnTheCanvasOfFinding31,
+  intermediateSpaceOnTheCanvasOfFinding32: initialIntermediateSpaceOnTheCanvasOfFinding32,
+  intermediateSpaceOnTheCanvasOfFinding7: initialIntermediateSpaceOnTheCanvasOfFinding7,
+  intermediateSpaceOnTheCanvasOfFinding6: initialIntermediateSpaceOnTheCanvasOfFinding6,
+  intermediateSpaceOnTheCanvasOfFinding26: initialIntermediateSpaceOnTheCanvasOfFinding26,
+  intermediateSpaceOnTheCanvasOfFinding39: initialIntermediateSpaceOnTheCanvasOfFinding39,
+} = (spacingData as any) ?? {};
 // Archivo para definir los diseños. Se tendrán dos funciones para cada hallazgo: toggleColor y calculateDynamicDesign
 // @ts-expect-error TS(7006): Parameter 'set' implicitly has an 'any' type.
 const useSpaceBetweenLegendsDataStore = create((set, get) => ({

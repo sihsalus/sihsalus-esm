@@ -6,17 +6,8 @@ import SpaceBetweenLegends from "./spacingBetweenMainSectionsOnTheCanvas/SpaceBe
 import SpaceBetweenTeeth from "./spacingBetweenMainSectionsOnTheCanvas/SpaceBetweenTeeth"
 import ToothDetails from "./ToothDetails"
 import ToothVisualization from "./ToothVisualization"
-// @ts-expect-error TS(2792): Cannot find module '../data/teethData.json'. Did y... Remove this comment to see the full error message
-import { teeth } from "../data/teethData.json"
-import {
-  spaceBetweenLegends, intermediateSpaceOnTheCanvasOfFinding1, intermediateSpaceOnTheCanvasOfFinding2,
-  intermediateSpaceOnTheCanvasOfFinding24, intermediateSpaceOnTheCanvasOfFinding25,
-  intermediateSpaceOnTheCanvasOfFinding30, intermediateSpaceOnTheCanvasOfFinding31,
-  intermediateSpaceOnTheCanvasOfFinding32, intermediateSpaceOnTheCanvasOfFinding7,
-  intermediateSpaceOnTheCanvasOfFinding6, intermediateSpaceOnTheCanvasOfFinding26,
-  intermediateSpaceOnTheCanvasOfFinding39
-// @ts-expect-error TS(2792): Cannot find module '../data/spacingBetweenMainSect... Remove this comment to see the full error message
-} from "../data/spacingBetweenMainSectionsOnTheCanvas.json"
+import teethData from "../data/teethData.json"
+import spacingData from "../data/spacingBetweenMainSectionsOnTheCanvas.json"
 // @ts-expect-error TS(1259): Module '"/home/duvet05/react-odontogram-v2/node_mo... Remove this comment to see the full error message
 import React from "react"
 import FormComponent from "./FormComponent"
@@ -31,6 +22,23 @@ import SpaceBetweenFinding32 from "./spacingBetweenMainSectionsOnTheCanvas/Spaci
 import SpaceBetweenFinding13 from "./spacingBetweenMainSectionsOnTheCanvas/SpacingBetweenFinding13"
 import SpacingBetweenFinding26 from "./spacingBetweenMainSectionsOnTheCanvas/SpacingBetweenFinding26"
 import SpacingBetweenFinding39 from "./spacingBetweenMainSectionsOnTheCanvas/SpacingBetweenFinding39"
+
+const teeth = (teethData as any).teeth ?? teethData ?? [];
+const {
+  spaceBetweenLegends = [],
+  intermediateSpaceOnTheCanvasOfFinding1 = [],
+  intermediateSpaceOnTheCanvasOfFinding2 = [],
+  intermediateSpaceOnTheCanvasOfFinding24 = [],
+  intermediateSpaceOnTheCanvasOfFinding25 = [],
+  intermediateSpaceOnTheCanvasOfFinding30 = [],
+  intermediateSpaceOnTheCanvasOfFinding31 = [],
+  intermediateSpaceOnTheCanvasOfFinding32 = [],
+  intermediateSpaceOnTheCanvasOfFinding7 = [],
+  intermediateSpaceOnTheCanvasOfFinding6 = [],
+  intermediateSpaceOnTheCanvasOfFinding26 = [],
+  intermediateSpaceOnTheCanvasOfFinding39 = [],
+} = (spacingData as any) ?? {};
+
 export default function AdultUpperTeeth() {
 
   return <>
