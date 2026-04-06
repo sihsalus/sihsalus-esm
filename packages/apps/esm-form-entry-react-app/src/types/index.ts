@@ -1,0 +1,152 @@
+import { type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+
+/**
+ * Config interface matching the Angular app's configSchema exactly.
+ */
+export interface FormEntryReactConfig {
+  /** @deprecated use customDataSources instead */
+  dataSources: {
+    /** @deprecated should be converted to customDataSource */
+    monthlySchedule: boolean;
+  };
+  customDataSources: Array<{
+    name: string;
+    moduleName: string;
+    moduleExport: 'default' | string;
+  }>;
+  appointmentsResourceUrl: string;
+  customEncounterDatetime: boolean;
+}
+
+/**
+ * Props passed to the form-widget-slot extension by form-entry.workspace.tsx.
+ * This contract must match what the Angular app received.
+ */
+export interface FormWidgetProps extends DefaultWorkspaceProps {
+  formUuid: string;
+  patientUuid: string;
+  patient: fhir.Patient;
+  view: string;
+  visitUuid: string;
+  visitTypeUuid?: string;
+  visitStartDatetime: string;
+  visitStopDatetime?: string;
+  encounterUuid?: string;
+  isOffline: boolean;
+  additionalProps?: Record<string, any>;
+  clinicalFormsWorkspaceName?: string;
+}
+
+/**
+ * Form state values for the global ampath-form-state store.
+ */
+export type FormState =
+  | 'initial'
+  | 'loading'
+  | 'loadingError'
+  | 'ready'
+  | 'readyWithValidationErrors'
+  | 'submitting'
+  | 'submitted'
+  | 'submissionError';
+
+/** REST API types ported from the Angular app */
+
+export interface OpenmrsResource {
+  display: string;
+  uuid: string;
+  links?: Array<{ rel: string; uri: string }>;
+}
+
+export interface Observation {
+  uuid: string;
+  concept: {
+    uuid: string;
+    display: string;
+    conceptClass: { uuid: string; display: string };
+  };
+  display: string;
+  groupMembers: null | Array<{
+    uuid: string;
+    concept: { uuid: string; display: string };
+    value: { uuid: string; display: string };
+  }>;
+  value: any;
+  obsDatetime: string;
+}
+
+export interface Order {
+  uuid: string;
+  dateActivated: string;
+  dose: number;
+  doseUnits: OpenmrsResource;
+  orderNumber: number;
+  display: string;
+  drug: { uuid: string; name: string; strength: string };
+  duration: number;
+  durationUnits: OpenmrsResource;
+  frequency: OpenmrsResource;
+  numRefills: number;
+  orderer: { uuid: string; person: { uuid: string; display: string } };
+  orderType: OpenmrsResource;
+  route: OpenmrsResource;
+  auditInfo: { dateVoided: string };
+}
+
+export interface Diagnosis {
+  uuid: string;
+  display: string;
+  diagnosis: { coded?: { uuid: string; display?: string }; nonCoded?: string };
+  certainty: string;
+  rank: number;
+}
+
+export interface Encounter {
+  uuid: string;
+  encounterDatetime: string;
+  encounterProviders: Array<{
+    uuid: string;
+    display: string;
+    encounterRole: OpenmrsResource;
+    provider: { uuid: string; person: { uuid: string; display: string } };
+  }>;
+  encounterType: OpenmrsResource;
+  visit?: { uuid: string; startDatetime: string; stopDatetime?: string };
+  obs: Array<Observation>;
+  orders: Array<Order>;
+  diagnoses: Array<Diagnosis>;
+  patient: OpenmrsResource;
+  location: OpenmrsResource;
+}
+
+export interface EncounterCreate {
+  uuid?: string;
+  encounterDatetime: string;
+  patient: string;
+  encounterType: string;
+  location: string;
+  encounterProviders?: Array<{ uuid?: string; person: string; provider: string }>;
+  obs?: Array<any>;
+  orders?: Array<any>;
+  diagnoses?: Array<any>;
+  form?: string;
+  visit?: string;
+}
+
+export interface PersonUpdate {
+  uuid?: string;
+  attributes: Array<{ attributeType: string; value: string }>;
+}
+
+/**
+ * Content stored in the sync queue for offline form submissions.
+ */
+export interface PatientFormSyncItemContent {
+  _id: string;
+  formSchemaUuid: string;
+  encounter: Partial<Encounter>;
+  _payloads: {
+    encounterCreate?: EncounterCreate;
+    personUpdate?: PersonUpdate;
+  };
+}

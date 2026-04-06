@@ -118,11 +118,6 @@ export const esmPatientChartSchema = {
     },
     _default: [
       {
-        uuid: '57ea0cbb-064f-4d09-8cf4-e8228700491c',
-        required: false,
-        displayInThePatientBanner: true,
-      },
-      {
         uuid: 'aac48226-d143-4274-80e0-264db4e368ee',
         required: false,
         displayInThePatientBanner: true,

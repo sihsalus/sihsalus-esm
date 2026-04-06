@@ -473,14 +473,14 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
 
       const abortController = new AbortController();
 
-      if (config.showExtraVisitAttributesSlot) {
-        const { handleCreateExtraVisitInfo, attributes } = extraVisitInfo ?? {};
+      const { handleCreateExtraVisitInfo, attributes: extraAttributes } = extraVisitInfo ?? {};
+      if (Array.isArray(extraAttributes) && extraAttributes.length > 0) {
         if (!payload.attributes) {
           payload.attributes = [];
         }
-        payload.attributes.push(...attributes);
-        handleCreateExtraVisitInfo && handleCreateExtraVisitInfo();
+        payload.attributes.push(...extraAttributes);
       }
+      handleCreateExtraVisitInfo?.();
 
       if (isOnline) {
         const visitRequest = visitToEdit?.uuid
@@ -590,7 +590,6 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
     [
       closeWorkspace,
       config.offlineVisitTypeUuid,
-      config.showExtraVisitAttributesSlot,
       displayVisitStopDateTimeFields,
       extraVisitInfo,
       handleVisitAttributes,
@@ -763,7 +762,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
               </section>
             )}
 
-            <ExtensionSlot state={{ patientUuid, setExtraVisitInfo }} name="extra-visit-attribute-slot" />
+            <MemoizedExtraVisitSlot patientUuid={patientUuid} setExtraVisitInfo={setExtraVisitInfo} />
 
             {/* Visit type attribute fields. These get shown when visit attribute types are configured */}
             <section>
@@ -867,6 +866,40 @@ const VisitFormExtensionSlot: React.FC<VisitFormExtensionSlotProps> = React.memo
       </ExtensionSlot>
     );
   },
+);
+
+/**
+ * Error boundary + memoized wrapper for the extra-visit-attribute-slot.
+ * The billing extension parcel can crash during single-spa lifecycle transitions
+ * (UPDATING/UNMOUNTING) due to a framework-level race condition. Without this
+ * boundary, the error propagates through React's commit phase and crashes the
+ * entire visit form, preventing the workspace from closing after visit creation.
+ */
+class ExtraVisitSlotErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch() {
+    // Swallow the parcel lifecycle error silently
+  }
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
+const MemoizedExtraVisitSlot = React.memo(
+  ({ patientUuid, setExtraVisitInfo }: { patientUuid: string; setExtraVisitInfo: (state: any) => void }) => (
+    <ExtraVisitSlotErrorBoundary>
+      <ExtensionSlot state={{ patientUuid, setExtraVisitInfo }} name="extra-visit-attribute-slot" />
+    </ExtraVisitSlotErrorBoundary>
+  ),
 );
 
 export default StartVisitForm;

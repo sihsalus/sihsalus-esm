@@ -11035,6 +11035,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sihsalus/esm-form-entry-react-app@workspace:packages/apps/esm-form-entry-react-app":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/esm-form-entry-react-app@workspace:packages/apps/esm-form-entry-react-app"
+  dependencies:
+    "@carbon/react": "npm:^1.47.0"
+    "@openmrs/esm-form-engine-lib": "npm:latest"
+    "@openmrs/esm-patient-common-lib": "npm:*"
+    "@rspack/cli": "npm:1.7.11"
+    eslint: "npm:^8.55.0"
+    jest: "npm:^29.7.0"
+    lodash-es: "npm:^4.17.21"
+    openmrs: "workspace:*"
+    react-error-boundary: "npm:^4.0.13"
+    typescript: "npm:^5.8.3"
+  peerDependencies:
+    "@openmrs/esm-framework": 9.0.2
+    "@openmrs/esm-patient-common-lib": "*"
+    dayjs: 1.x
+    react: 18.x
+    react-i18next: 16.x
+    react-router-dom: 6.x
+    swr: 2.x
+  languageName: unknown
+  linkType: soft
+
 "@sihsalus/esm-fua-app@workspace:packages/apps/esm-fua-app":
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-fua-app@workspace:packages/apps/esm-fua-app"

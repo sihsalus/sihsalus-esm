@@ -125,7 +125,11 @@ function launchStartVisitForm() {
 
 const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
   const { t } = useTranslation();
-  const { currentVisit, currentVisitIsRetrospective, isLoading } = useVisit(patient?.id);
+  const { activeVisit, currentVisit, currentVisitIsRetrospective, isLoading } = useVisit(patient?.id);
+  // Use activeVisit as the effective visit. currentVisit requires the visit context store
+  // to be initialized (which only happens for retrospective visits in this framework version).
+  // activeVisit is always populated from the API when there's a visit with no stopDatetime.
+  const effectiveVisit = currentVisit ?? activeVisit;
   const [isSideMenuExpanded, setIsSideMenuExpanded] = useState(false);
   const navMenuItems = useAssignedExtensions('patient-chart-dashboard-slot').map((extension) => extension.id);
   const { logo } = useConfig();
@@ -178,12 +182,12 @@ const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
       </ConfigurableLink>
       <div className={styles.navDivider} />
       <div className={styles.patientDetails}>{patient && <PatientInfo patient={patient} />}</div>
-      {currentVisitIsRetrospective && <RetrospectiveVisitLabel currentVisit={currentVisit} />}
+      {currentVisitIsRetrospective && currentVisit && <RetrospectiveVisitLabel currentVisit={currentVisit} />}
       <HeaderGlobalBar>
         {systemVisitEnabled && (
           <>
             <ExtensionSlot name="visit-header-right-slot" />
-            {!isLoading && !currentVisit && !isDeceased && (
+            {!isLoading && !effectiveVisit && !isDeceased && (
               <Button
                 className={styles.startVisitButton}
                 onClick={launchStartVisitForm}
@@ -193,7 +197,7 @@ const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
                 {t('startAVisit', 'Start a visit')}
               </Button>
             )}
-            {!isLoading && !!currentVisit && (
+            {!isLoading && !!effectiveVisit && (
               <Button
                 onClick={() => openModal(patient?.id)}
                 className={styles.startVisitButton}

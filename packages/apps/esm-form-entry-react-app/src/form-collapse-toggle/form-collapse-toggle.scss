@@ -1,0 +1,16 @@
+@use '@carbon/layout';
+
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  height: var(--workspace-header-height);
+  margin-right: layout.$spacing-03;
+}
+
+:global(.omrs-breakpoint-lt-desktop) {
+  .toggle {
+    :global(.cds--toggle__text) {
+      color: white;
+    }
+  }
+}
