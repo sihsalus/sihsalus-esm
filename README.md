@@ -57,6 +57,9 @@ packages/tooling/
   assemble-importmap.js                 # Import map assembly for SPA build
   start-dev.js                          # Local dev server entrypoint
   i18next-parser.config.js               # i18n extraction config
+scripts/
+  check-es-translations.mjs             # Validate Spanish translations against English
+  translate-en-to-es.mjs                # Auto-translate missing/same-as-English Spanish strings
 e2e/                                    # Playwright E2E tests
 docs/                                   # Architecture docs and ADRs
 ```
@@ -97,6 +100,16 @@ yarn lint                                   # ESLint all packages
 yarn typecheck                              # TypeScript check all packages
 yarn verify                                 # lint + typecheck + test
 ```
+
+### i18n
+
+```bash
+yarn i18n:check:es                           # Validate Spanish translations with verbose logs
+yarn i18n:check:es:strict                    # Same check, but exits non-zero if issues exist
+node scripts/translate-en-to-es.mjs <dir>    # Auto-fill es.json from en.json for a translation dir
+```
+
+Supported locales in this repo are currently `en`, `es`, `fr`, and `pt`. Each module keeps translations in `packages/apps/*/translations/{locale}.json`.
 
 ### Concurrency
 
@@ -155,10 +168,6 @@ Crea un archivo `.env` en la raíz del repo (ver [.env.example](.env.example)):
 - **Session timeout**: 15-minute idle timeout with warning
 - **Break the glass**: Emergency access with mandatory clinical justification
 - **TLS 1.2+**: Enforced at the infrastructure layer
-
-## i18n
-
-Supported locales: `en`, `es`, plus Amazonian languages (Kichwa, Secoya). Each module keeps translations in `src/translations/{locale}.json`.
 
 ## License
 

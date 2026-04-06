@@ -63,7 +63,16 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 
 ### i18n
 
-Supported locales: `en`, `es`, `kn` (Kichwa), `sei` (Secoya). Each module maintains its own translation files in `src/translations/{locale}.json` using react-i18next.
+Supported locales in this repo are currently `en`, `es`, `fr`, and `pt`. Each module maintains its own translation files in `packages/apps/*/translations/{locale}.json` using react-i18next.
+
+Recommended checks:
+
+```bash
+yarn i18n:check:es        # Scan Spanish translations and print a verbose report
+yarn i18n:check:es:strict # Fail the command if missing/English-like strings remain
+```
+
+For targeted fixes, use `node scripts/translate-en-to-es.mjs <translations-dir>` to bootstrap `es.json` from `en.json`.
 
 ## Contributing
 
