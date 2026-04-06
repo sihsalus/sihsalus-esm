@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "fhir2": ">=1.2",
+    "webservices.rest": "^2.24.0"
+  },
+  "pages": [
+    {
+      "component": "root",
+      "route": "emergency",
+      "online": true,
+      "offline": false
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "emergency-workflow-workspace",
+      "title": "newEmergencyPatient",
+      "component": "emergencyWorkflowWorkspace",
+      "type": "form",
+      "preferredWindowSize": "wider"
+    },
+    {
+      "name": "triage-form-workspace",
+      "title": "triageForm",
+      "component": "triageFormWorkspace",
+      "type": "clinical-form",
+      "preferredWindowSize": "wider"
+    },
+    {
+      "name": "attention-form-workspace",
+      "title": "emergencyAttention",
+      "component": "attentionFormWorkspace",
+      "type": "clinical-form",
+      "preferredWindowSize": "wider"
+    }
+  ],
+  "modals": [
+    {
+      "name": "emergency-serve-patient-modal",
+      "component": "servePatientModal"
+    },
+    {
+      "name": "emergency-remove-queue-entry-modal",
+      "component": "removeQueueEntryModal"
+    },
+    {
+      "name": "emergency-transition-queue-entry-modal",
+      "component": "transitionQueueEntryModal"
+    },
+    {
+      "name": "emergency-move-queue-entry-modal",
+      "component": "moveQueueEntryModal"
+    },
+    {
+      "name": "emergency-clear-queue-entries-modal",
+      "component": "clearQueueEntriesModal"
+    }
+  ],
+  "extensions": [
+    {
+      "name": "Priority I Card",
+      "component": "priorityICard",
+      "slot": "emergency-priority-card-slot",
+      "order": 1
+    },
+    {
+      "name": "Priority II Card",
+      "component": "priorityIICard",
+      "slot": "emergency-priority-card-slot",
+      "order": 2
+    },
+    {
+      "name": "Priority III Card",
+      "component": "priorityIIICard",
+      "slot": "emergency-priority-card-slot",
+      "order": 3
+    },
+    {
+      "name": "Priority IV Card",
+      "component": "priorityIVCard",
+      "slot": "emergency-priority-card-slot",
+      "order": 4
+    },
+    {
+      "name": "Total Active Card",
+      "component": "totalActiveCard",
+      "slot": "emergency-compact-metrics-slot",
+      "order": 1
+    },
+    {
+      "name": "Waiting Triage Card",
+      "component": "waitingTriageCard",
+      "slot": "emergency-compact-metrics-slot",
+      "order": 2
+    },
+    {
+      "name": "Avg Wait Time Compact Card",
+      "component": "avgWaitTimeCompactCard",
+      "slot": "emergency-compact-metrics-slot",
+      "order": 3
+    },
+    {
+      "name": "emergency-header-extension",
+      "component": "emergencyHeaderExtension",
+      "slot": "service-queues-emergency-header-slot",
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "emergency-alerts-extension",
+      "component": "emergencyAlertsExtension",
+      "slot": "service-queues-emergency-alerts-slot",
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "emergency-priority-cards-container",
+      "component": "emergencyPriorityCardsContainer",
+      "slot": "service-queues-emergency-priority-cards-slot",
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "emergency-metrics-extension",
+      "component": "emergencyMetricsExtension",
+      "slot": "service-queues-emergency-metrics-slot",
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "emergency-queue-table-extension",
+      "component": "emergencyQueueTableExtension",
+      "slot": "service-queues-emergency-queue-table-slot",
+      "online": true,
+      "offline": false
+    }
+  ]
+}

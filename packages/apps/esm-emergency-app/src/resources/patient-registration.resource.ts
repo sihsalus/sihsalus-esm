@@ -1,0 +1,60 @@
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+
+/**
+ * Payload structure for creating a patient via the quick emergency registration form.
+ * Maps to the OpenMRS REST `/patient` endpoint. Includes person demographics,
+ * identifiers (OpenMRS ID + optional DNI), and person attributes (insurance, companion).
+ */
+export interface EmergencyPatientPayload {
+  person: {
+    names: Array<{
+      givenName: string;
+      familyName: string;
+      preferred: boolean;
+    }>;
+    gender: string;
+    birthdate?: string;
+    birthdateEstimated: boolean;
+    attributes: Array<{
+      attributeType: string;
+      value: string;
+    }>;
+    addresses: Array<Record<string, string>>;
+    dead: boolean;
+  } | Record<string, unknown>;
+  identifiers: Array<{
+    identifier: string;
+    identifierType: string;
+    location: string;
+    preferred: boolean;
+  }>;
+}
+
+/**
+ * Generates an OpenMRS ID automatically via the idgen module.
+ * Sends an empty POST body to the identifier source endpoint.
+ *
+ * @param sourceUuid - UUID of the idgen identifier source
+ * @returns Promise with `response.data.identifier` containing the generated ID
+ */
+export function generateIdentifier(sourceUuid: string) {
+  return openmrsFetch(`${restBaseUrl}/idgen/identifiersource/${sourceUuid}/identifier`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    body: {},
+  });
+}
+
+/**
+ * Creates a new patient in OpenMRS via POST /ws/rest/v1/patient.
+ *
+ * @param patient - Patient payload with person demographics and identifiers
+ * @returns Promise with the created patient data (uuid, display, identifiers)
+ */
+export function saveEmergencyPatient(patient: EmergencyPatientPayload) {
+  return openmrsFetch(`${restBaseUrl}/patient`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    body: patient,
+  });
+}

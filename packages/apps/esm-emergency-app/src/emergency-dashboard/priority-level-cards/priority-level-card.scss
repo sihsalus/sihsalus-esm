@@ -1,0 +1,94 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@carbon/colors';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.card {
+  border: 1px solid $ui-03;
+  padding: layout.$spacing-05;
+  height: 100%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &.red {
+    border-left: 4px solid colors.$red-60;
+  }
+
+  &.orange {
+    border-left: 4px solid colors.$orange-60;
+  }
+
+  &.yellow {
+    border-left: 4px solid #b28600;
+  }
+
+  &.green {
+    border-left: 4px solid colors.$green-60;
+  }
+
+  &.blue {
+    border-left: 4px solid colors.$blue-60;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: layout.$spacing-03;
+}
+
+.icon {
+  color: $text-02;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  @include type.type-style('heading-03');
+  color: $ui-05;
+  margin: 0 0 layout.$spacing-02 0;
+  font-weight: 600;
+}
+
+.description {
+  @include type.type-style('body-01');
+  color: $text-02;
+  margin: 0 0 layout.$spacing-04 0;
+  flex: 1;
+}
+
+.count {
+  @include type.type-style('heading-04');
+  color: $ui-05;
+  margin: 0;
+  font-weight: 600;
+}
+
+.countLabel {
+  @include type.type-style('label-01');
+  color: $text-02;
+  margin: layout.$spacing-01 0 0 0;
+}
+
+.infoIcon {
+  color: $text-02;
+  cursor: help;
+}
+
+.infoTooltip {
+  :global(.cds--definition-term) {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,37 @@
+@use '@carbon/colors';
+@use '@carbon/styles/scss/type';
+
+.cellContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+// Manchester Triage: Bold text for all priority tags
+.boldTag {
+  font-weight: 600;
+}
+
+// Manchester Triage: Priority II - Orange
+.orangeTag {
+  background-color: #fff2e8;
+  color: #8a3800;
+  font-weight: 600;
+}
+
+// Manchester Triage: Priority III - Yellow
+.yellowTag {
+  background-color: #fff8e1;
+  color: #735f00;
+  font-weight: 600;
+}
+
+.pendingTriageTag {
+  border-style: dashed;
+}
+
+.pendingTriageLabel {
+  @include type.type-style('helper-text-01');
+  color: colors.$gray-50;
+  white-space: nowrap;
+}

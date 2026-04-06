@@ -1,0 +1,148 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.tileContainer {
+  border: 1px solid $ui-03;
+  padding: layout.$spacing-05;
+  height: 100%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  // Left border color variants
+  &.blue {
+    border-left: 4px solid colors.$blue-60;
+  }
+
+  &.teal {
+    border-left: 4px solid colors.$teal-60;
+  }
+
+  &.purple {
+    border-left: 4px solid colors.$purple-60;
+  }
+
+  &.gray {
+    border-left: 4px solid colors.$gray-50;
+  }
+
+  &.orange {
+    border-left: 4px solid colors.$orange-60;
+  }
+
+  &.red {
+    border-left: 4px solid colors.$red-60;
+  }
+
+  &.green {
+    border-left: 4px solid colors.$green-60;
+  }
+}
+
+.tileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: layout.$spacing-03;
+}
+
+.headerLabelContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headerTitleRow {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-03;
+}
+
+.headerIcon {
+  color: $text-02;
+  display: flex;
+  align-items: center;
+}
+
+.headerLabel {
+  @include type.type-style('heading-03');
+  color: $ui-05;
+  font-weight: 600;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-02;
+  color: $interactive-01;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.metricsContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.priorityBreakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: layout.$spacing-03;
+  margin-top: layout.$spacing-03;
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-01;
+}
+
+.smallItem {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainItem {
+  // Main metric item styles
+}
+
+.metricLabel {
+  @include type.type-style('label-01');
+  color: $text-02;
+}
+
+.metricValue {
+  @include type.type-style('heading-04');
+  color: $ui-05;
+  margin: 0;
+  font-weight: 600;
+
+  &.smallValue {
+    @include type.type-style('body-01');
+  }
+
+  &.red {
+    color: colors.$red-60;
+  }
+
+  &.orange {
+    color: colors.$orange-60;
+  }
+
+  &.green {
+    color: colors.$green-60;
+  }
+}

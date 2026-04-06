@@ -1,0 +1,53 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+@use '@carbon/styles/scss/theme';
+
+.container {
+  padding: spacing.$spacing-05;
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$spacing-05;
+}
+
+.patientHeader {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-04;
+  padding-bottom: spacing.$spacing-04;
+  border-bottom: 1px solid theme.$border-subtle-01;
+
+  h5 {
+    @include type.type-style('heading-compact-02');
+    margin: 0;
+  }
+}
+
+.patientMeta {
+  @include type.type-style('body-compact-01');
+  color: theme.$text-secondary;
+}
+
+.formSection {
+  border: 1px solid theme.$border-subtle-01;
+  border-radius: 4px;
+  padding: spacing.$spacing-04 spacing.$spacing-05;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$spacing-04;
+}
+
+.sectionTitle {
+  @include type.type-style('label-02');
+  color: theme.$text-primary;
+  font-weight: 600;
+  padding: 0 spacing.$spacing-02;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: spacing.$spacing-03;
+  padding-top: spacing.$spacing-05;
+  border-top: 1px solid theme.$border-subtle-01;
+}

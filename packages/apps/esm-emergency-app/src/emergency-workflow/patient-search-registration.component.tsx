@@ -1,0 +1,868 @@
+/**
+ * Patient Search and Quick Registration Component
+ *
+ * Streamlined interface for emergency patient registration:
+ * - Smart search: name, OpenMRS ID, or DNI
+ * - Inline quick registration when patient not found
+ * - Inline initial priority selector (Emergencia/Urgencia)
+ * - Single "Enviar a cola de triaje" button
+ * - NO modals - everything inline for speed
+ */
+
+import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Button,
+  Search,
+  Form,
+  Stack,
+  TextInput,
+  Select,
+  SelectItem,
+  InlineNotification,
+  InlineLoading,
+  Tile,
+  Layer,
+  Tag,
+  Loading,
+  ContentSwitcher,
+  Switch,
+} from '@carbon/react';
+import { UserFollow, User, CheckmarkFilled, SendFilled } from '@carbon/react/icons';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import dayjs from 'dayjs';
+import { OpenmrsDatePicker, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import type { SearchedPatient } from './types';
+import type { Config } from '../config-schema';
+import { generateIdentifier, saveEmergencyPatient } from '../resources/patient-registration.resource';
+import { usePatientSearch } from './usePatientSearch';
+import InitialPrioritySelector, { type InitialPriority } from './components/initial-priority-selector.component';
+import styles from './patient-search-registration.component.scss';
+
+// ============================================================================
+// SCHEMAS
+// ============================================================================
+
+const quickRegistrationSchema = z.object({
+  // Identificación
+  givenName: z.string().min(1, 'Nombres es requerido'),
+  familyName: z.string().min(1, 'Apellidos es requerido'),
+  gender: z.enum(['M', 'F'], { required_error: 'Sexo es requerido' }),
+  yearsEstimated: z.number().min(0).optional(),
+  birthdate: z.string().optional(),
+  identifier: z.string().optional(),
+  isUnknown: z.boolean().optional(),
+  // Ubicación
+  district: z.string().optional(),
+  village: z.string().optional(),
+  address: z.string().optional(),
+  // Seguro
+  insuranceType: z.string().optional(),
+  insuranceCode: z.string().optional(),
+  // Acompañante
+  companionName: z.string().optional(),
+  companionAge: z.string().optional(),
+  companionRelationship: z.string().optional(),
+});
+
+type QuickRegistrationFormData = z.infer<typeof quickRegistrationSchema>;
+
+// ============================================================================
+// COMPONENT PROPS
+// ============================================================================
+
+interface PatientSearchRegistrationProps {
+  onPatientQueued: (
+    patientUuid: string,
+    patientData: SearchedPatient,
+    priorityLevel: InitialPriority,
+  ) => void;
+}
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
+
+const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ onPatientQueued }) => {
+  const { t } = useTranslation();
+  const config = useConfig<Config>();
+
+  // Search state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPatient, setSelectedPatient] = useState<SearchedPatient | null>(null);
+
+  // Patient search hook
+  const {
+    data: searchResults,
+    isLoading,
+    fetchError,
+    hasMore,
+    isValidating,
+    setPage,
+    totalResults,
+  } = usePatientSearch(searchQuery, false, !!searchQuery, 10);
+
+  // Registration state
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [isPatientUnknown, setIsPatientUnknown] = useState(false);
+  const [registeredPatient, setRegisteredPatient] = useState<SearchedPatient | null>(null);
+
+  // Priority state
+  const [initialPriority, setInitialPriority] = useState<InitialPriority | undefined>('emergency');
+
+  // Submitting state
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // The patient ready to be queued (either selected or registered)
+  const readyPatient = selectedPatient || registeredPatient;
+
+  // React Hook Form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+    control,
+  } = useForm<QuickRegistrationFormData>({
+    resolver: zodResolver(quickRegistrationSchema),
+    defaultValues: {
+      isUnknown: false,
+      district: 'NAPO',
+      village: 'SANTA CLOTILDE',
+      address: '',
+    },
+  });
+
+  // Infinite scroll observer
+  const observer = useRef<IntersectionObserver | null>(null);
+  const loadingIconRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isValidating) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            setPage((page) => page + 1);
+          }
+        },
+        { threshold: 0.75 },
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isValidating, hasMore, setPage],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, []);
+
+  // ============================================================================
+  // SEARCH LOGIC
+  // ============================================================================
+
+  const handleClearSearch = useCallback(() => {
+    setSearchTerm('');
+    setSearchQuery('');
+    setSelectedPatient(null);
+    setRegisteredPatient(null);
+    setShowRegistrationForm(false);
+    setInitialPriority(undefined);
+  }, []);
+
+  const handleSelectPatient = useCallback((patient: SearchedPatient) => {
+    setSelectedPatient(patient);
+    setRegisteredPatient(null);
+    setShowRegistrationForm(false);
+  }, []);
+
+  const handleDeselectPatient = useCallback(() => {
+    setSelectedPatient(null);
+    setRegisteredPatient(null);
+    setInitialPriority(undefined);
+  }, []);
+
+  // Debounced search
+  useEffect(() => {
+    if (searchTerm.length >= 2) {
+      const timer = setTimeout(() => {
+        setSearchQuery(searchTerm.trim());
+        setShowRegistrationForm(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    } else if (searchTerm.length === 0) {
+      setSearchQuery('');
+    }
+  }, [searchTerm]);
+
+  // Unknown patient toggle
+  const handleUnknownPatientToggle = useCallback(
+    (e: { name: string }) => {
+      if (e.name === 'known') {
+        setIsPatientUnknown(false);
+        setValue('isUnknown', false);
+        setValue('givenName', '');
+        setValue('familyName', '');
+      } else {
+        setIsPatientUnknown(true);
+        setValue('isUnknown', true);
+        setValue('givenName', 'DESCONOCIDO');
+        setValue('familyName', 'DESCONOCIDO');
+      }
+    },
+    [setValue],
+  );
+
+  // ============================================================================
+  // REGISTRATION LOGIC
+  // ============================================================================
+
+  const onSubmitRegistration = useCallback(
+    async (data: QuickRegistrationFormData) => {
+      setIsRegistering(true);
+      try {
+        // 1. Generar OpenMRS ID vía idgen (needed early for unknown patient name)
+        const idGenResponse = await generateIdentifier(config.patientRegistration.identifierSourceUuid);
+        const openmrsId = idGenResponse.data.identifier;
+
+        // 2. Determine patient name
+        // For unknown patients, append OpenMRS ID to differentiate: "DESCONOCIDO (10045)"
+        let givenName = data.givenName;
+        let familyName = data.familyName;
+        if (data.isUnknown) {
+          givenName = 'DESCONOCIDO';
+          familyName = `(${openmrsId})`;
+        }
+
+        // 3. Calcular birthdate
+        let calculatedBirthdate: string | undefined;
+        let birthdateEstimated = true;
+        if (data.birthdate) {
+          calculatedBirthdate = data.birthdate;
+          birthdateEstimated = false;
+        } else if (data.yearsEstimated && data.yearsEstimated > 0) {
+          const birthYear = new Date().getFullYear() - data.yearsEstimated;
+          calculatedBirthdate = `${birthYear}-07-01`;
+        }
+
+        // 4. Construir array de identifiers
+        const identifiers: Array<{
+          identifier: string;
+          identifierType: string;
+          location: string;
+          preferred: boolean;
+        }> = [
+          {
+            identifier: openmrsId,
+            identifierType: config.patientRegistration.openMrsIdIdentifierTypeUuid,
+            location: config.patientRegistration.defaultLocationUuid,
+            preferred: true,
+          },
+        ];
+
+        // Si el usuario ingresó DNI, agregarlo como segundo identifier
+        if (data.identifier) {
+          identifiers.push({
+            identifier: data.identifier,
+            identifierType: config.patientRegistration.defaultIdentifierTypeUuid,
+            location: config.patientRegistration.defaultLocationUuid,
+            preferred: false,
+          });
+        }
+
+        // 5. Build person attributes
+        const attributes: Array<{ attributeType: string; value: string }> = [];
+        if (data.isUnknown) {
+          attributes.push({
+            attributeType: config.patientRegistration.unknownPatientAttributeTypeUuid,
+            value: 'true',
+          });
+        }
+        if (data.insuranceType) {
+          attributes.push({
+            attributeType: config.patientRegistration.insuranceTypeAttributeTypeUuid,
+            value: data.insuranceType,
+          });
+        }
+        if (data.insuranceCode) {
+          attributes.push({
+            attributeType: config.patientRegistration.insuranceCodeAttributeTypeUuid,
+            value: data.insuranceCode,
+          });
+        }
+        if (data.companionName) {
+          attributes.push({
+            attributeType: config.patientRegistration.companionNameAttributeTypeUuid,
+            value: data.companionName,
+          });
+        }
+        if (data.companionAge) {
+          attributes.push({
+            attributeType: config.patientRegistration.companionAgeAttributeTypeUuid,
+            value: data.companionAge,
+          });
+        }
+        if (data.companionRelationship) {
+          attributes.push({
+            attributeType: config.patientRegistration.companionRelationshipAttributeTypeUuid,
+            value: data.companionRelationship,
+          });
+        }
+
+        // 6. Build address
+        const addressObj: Record<string, string> = {
+          country: 'PERU',
+          address1: 'LORETO',
+          stateProvince: 'MAYNAS',
+        };
+        if (data.district) addressObj.countyDistrict = data.district;
+        if (data.village) addressObj.cityVillage = data.village;
+        if (data.address) addressObj.address4 = data.address;
+
+        // 7. Construir payload del paciente
+        const personPayload: Record<string, unknown> = {
+          names: [{ givenName, familyName, preferred: true }],
+          gender: data.gender,
+          birthdateEstimated,
+          attributes,
+          addresses: [addressObj],
+          dead: false,
+        };
+        if (calculatedBirthdate) {
+          personPayload.birthdate = calculatedBirthdate;
+        }
+
+        const patientPayload = {
+          person: personPayload,
+          identifiers,
+        };
+
+        // 7. Crear paciente en el backend
+        const response = await saveEmergencyPatient(patientPayload);
+        const savedPatient = response.data;
+
+        // 8. Mapear respuesta al formato SearchedPatient
+        const displayName = `${givenName} ${familyName}`;
+        const newPatient = {
+          uuid: savedPatient.uuid,
+          display: savedPatient.display || displayName,
+          identifiers: savedPatient.identifiers?.map((id: { uuid: string; identifier?: string; display?: string; identifierType: { uuid: string; display?: string } }) => ({
+            uuid: id.uuid,
+            identifier: id.identifier ?? id.display,
+            identifierType: id.identifierType,
+          })) ?? identifiers.map((id: { identifier: string; identifierType: string }, i: number) => ({
+            uuid: `temp-${i}`,
+            identifier: id.identifier,
+            identifierType: { uuid: id.identifierType, display: i === 0 ? 'OpenMRS ID' : 'DNI' },
+          })),
+          person: {
+            age: data.yearsEstimated || undefined,
+            gender: data.gender,
+            birthdate: calculatedBirthdate,
+            birthdateEstimated,
+            display: displayName,
+            personName: {
+              givenName,
+              familyName,
+              display: displayName,
+            },
+          },
+        };
+
+        showSnackbar({
+          title: t('patientRegistered', 'Paciente registrado'),
+          subtitle: displayName,
+          kind: 'success',
+          timeoutInMs: 3000,
+        });
+
+        setRegisteredPatient(newPatient);
+        setShowRegistrationForm(false);
+      } catch (error: unknown) {
+        showSnackbar({
+          title: t('errorRegisteringPatient', 'Error al registrar paciente'),
+          subtitle: error instanceof Error ? error.message : t('unknownError', 'Error desconocido'),
+          kind: 'error',
+        });
+      } finally {
+        setIsRegistering(false);
+      }
+    },
+    [t, config],
+  );
+
+  // ============================================================================
+  // SUBMIT TO QUEUE
+  // ============================================================================
+
+  const handleSendToQueue = useCallback(async () => {
+    if (!readyPatient || !initialPriority) return;
+    setIsSubmitting(true);
+    try {
+      onPatientQueued(readyPatient.uuid, readyPatient, initialPriority);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [readyPatient, initialPriority, onPatientQueued]);
+
+  // ============================================================================
+  // RENDER
+  // ============================================================================
+
+  return (
+    <div className={styles.container}>
+      <Stack gap={6}>
+        {/* Header */}
+        <div className={styles.header}>
+          <h4>{t('quickEmergencyRegistration', 'Registro rápido de emergencias')}</h4>
+          <p className={styles.subtitle}>
+            {t(
+              'searchOrRegisterDescription',
+              'Busque un paciente existente o registre uno nuevo para enviarlo a la cola de triaje.',
+            )}
+          </p>
+        </div>
+
+        {/* Search Section - hidden when patient is ready */}
+        {!readyPatient && (
+          <>
+            <Layer className={styles.searchSection}>
+              <Search
+                id="patient-search"
+                labelText={t('searchPatient', 'Buscar paciente')}
+                placeholder={t('enterNameIdOrDni', 'Nombre, ID o DNI...')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                size="lg"
+                closeButtonLabelText={t('clearSearch', 'Limpiar')}
+                onClear={handleClearSearch}
+              />
+              {isLoading && <InlineLoading description={t('searchingPatients', 'Buscando...')} />}
+            </Layer>
+
+            {/* Search Results */}
+            {searchQuery && searchResults && searchResults.length > 0 && (
+              <div className={styles.resultsSection}>
+                <p className={styles.resultsCount}>
+                  {t('resultsFound', '{{count}} resultado(s)', { count: totalResults })}
+                </p>
+                <Stack gap={3}>
+                  {searchResults.map((patient) => (
+                    <Layer key={patient.uuid}>
+                      <Tile className={styles.patientResultTile} onClick={() => handleSelectPatient(patient)}>
+                        <div className={styles.patientResult}>
+                          <User size={24} className={styles.patientIcon} />
+                          <div className={styles.patientResultInfo}>
+                            <p className={styles.patientResultName}>
+                              {patient.person?.personName?.display || patient.display}
+                            </p>
+                            <div className={styles.patientResultMeta}>
+                              <span>
+                                {patient.person?.age || '?'} {t('years', 'años')}
+                              </span>
+                              <span className={styles.separator}>|</span>
+                              <span>{patient.person?.gender === 'M' ? t('male', 'M') : t('female', 'F')}</span>
+                              {patient.identifiers?.[0] && (
+                                <>
+                                  <span className={styles.separator}>|</span>
+                                  <span>{patient.identifiers[0].identifier}</span>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </Tile>
+                    </Layer>
+                  ))}
+                  {hasMore && (
+                    <div className={styles.loadingIcon} ref={loadingIconRef}>
+                      <Loading withOverlay={false} small />
+                    </div>
+                  )}
+                </Stack>
+              </div>
+            )}
+
+            {/* No Results */}
+            {searchQuery && !isLoading && searchResults && searchResults.length === 0 && !showRegistrationForm && (
+              <Stack gap={4}>
+                <InlineNotification
+                  kind="warning"
+                  lowContrast
+                  hideCloseButton
+                  title={t('patientNotFound', 'Paciente no encontrado')}
+                  subtitle={t('noResultsFor', 'Sin resultados para "{{term}}"', { term: searchQuery })}
+                />
+                <Button kind="tertiary" renderIcon={UserFollow} onClick={() => setShowRegistrationForm(true)} size="md">
+                  {t('registerNewPatient', 'Registrar nuevo paciente')}
+                </Button>
+              </Stack>
+            )}
+
+            {/* Error */}
+            {fetchError && (
+              <InlineNotification
+                kind="error"
+                lowContrast
+                hideCloseButton
+                title={t('errorSearching', 'Error en búsqueda')}
+                subtitle={fetchError.message}
+              />
+            )}
+
+            {/* Quick Registration Form */}
+            {showRegistrationForm && (
+              <Layer>
+                <Tile className={styles.registrationTile}>
+                  <Stack gap={5}>
+                    <div className={styles.registrationHeader}>
+                      <UserFollow size={20} />
+                      <h5>{t('quickRegistration', 'Registro rápido')}</h5>
+                    </div>
+
+                    <InlineNotification
+                      kind="info"
+                      lowContrast
+                      hideCloseButton
+                      subtitle={t('emergencyNote', 'Datos mínimos para emergencia. El perfil se completa después.')}
+                    />
+
+                    <Form onSubmit={handleSubmit(onSubmitRegistration)}>
+                      <Stack gap={4}>
+                        {/* Unknown patient toggle */}
+                        <div className={styles.unknownPatientSection}>
+                          <span className={styles.label01}>{t('nameKnown', 'Nombre conocido?')}</span>
+                          <ContentSwitcher
+                            size="sm"
+                            className={styles.contentSwitcher}
+                            selectedIndex={isPatientUnknown ? 1 : 0}
+                            onChange={handleUnknownPatientToggle}>
+                            <Switch name="known" text={t('yes', 'Sí')} />
+                            <Switch name="unknown" text={t('no', 'No')} />
+                          </ContentSwitcher>
+                        </div>
+
+                        {isPatientUnknown && (
+                          <InlineNotification
+                            kind="warning"
+                            lowContrast
+                            hideCloseButton
+                            subtitle={t(
+                              'unknownWarning',
+                              'Se registrará como DESCONOCIDO. Puede actualizarse después.',
+                            )}
+                          />
+                        )}
+
+                        {/* ── Identificación ── */}
+                        {!isPatientUnknown && (
+                          <fieldset className={styles.formSection}>
+                            <legend className={styles.sectionTitle}>{t('identification', 'Identificación')}</legend>
+                            <div className={styles.fieldRow}>
+                              <TextInput
+                                id="familyName"
+                                labelText={t('lastName', 'Apellidos') + ' *'}
+                                placeholder={t('enterLastName', 'Ingrese apellidos')}
+                                invalid={!!errors.familyName}
+                                invalidText={errors.familyName?.message}
+                                disabled={isRegistering}
+                                {...register('familyName')}
+                              />
+                              <TextInput
+                                id="givenName"
+                                labelText={t('firstName', 'Nombres') + ' *'}
+                                placeholder={t('enterFirstName', 'Ingrese nombres')}
+                                invalid={!!errors.givenName}
+                                invalidText={errors.givenName?.message}
+                                disabled={isRegistering}
+                                {...register('givenName')}
+                              />
+                            </div>
+                            <div className={styles.fieldRowDateGender}>
+                              <Controller
+                                name="birthdate"
+                                control={control}
+                                render={({ field }) => (
+                                  <OpenmrsDatePicker
+                                    id="birthdate"
+                                    labelText={t('birthdate', 'Fecha nac.')}
+                                    maxDate={new Date()}
+                                    value={field.value ? new Date(field.value) : undefined}
+                                    onChange={(date: Date) => {
+                                      field.onChange(dayjs(date).format('YYYY-MM-DD'));
+                                    }}
+                                    isInvalid={!!errors.birthdate}
+                                    invalidText={errors.birthdate?.message}
+                                    isDisabled={isRegistering}
+                                  />
+                                )}
+                              />
+                              <Controller
+                                name="gender"
+                                control={control}
+                                render={({ field }) => (
+                                  <Select
+                                    id="gender"
+                                    labelText={t('gender', 'Sexo') + ' *'}
+                                    invalid={!!errors.gender}
+                                    invalidText={errors.gender?.message}
+                                    disabled={isRegistering}
+                                    value={field.value || ''}
+                                    onChange={(e) => field.onChange(e.target.value)}>
+                                    <SelectItem value="" text="..." />
+                                    <SelectItem value="M" text="M" />
+                                    <SelectItem value="F" text="F" />
+                                  </Select>
+                                )}
+                              />
+                            </div>
+                            <TextInput
+                              id="identifier"
+                              labelText={t('dniOptional', 'DNI (opcional)')}
+                              placeholder={t('enterDni', 'Ingrese DNI')}
+                              invalid={!!errors.identifier}
+                              invalidText={errors.identifier?.message}
+                              disabled={isRegistering}
+                              {...register('identifier')}
+                            />
+                          </fieldset>
+                        )}
+
+                        {/* Solo Sexo y Edad para paciente desconocido */}
+                        {isPatientUnknown && (
+                          <div className={styles.fieldRow}>
+                            <Controller
+                              name="gender"
+                              control={control}
+                              render={({ field }) => (
+                                <Select
+                                  id="gender-unknown"
+                                  labelText={t('gender', 'Sexo') + ' *'}
+                                  invalid={!!errors.gender}
+                                  invalidText={errors.gender?.message}
+                                  disabled={isRegistering}
+                                  value={field.value || ''}
+                                  onChange={(e) => field.onChange(e.target.value)}>
+                                  <SelectItem value="" text="..." />
+                                  <SelectItem value="M" text="M" />
+                                  <SelectItem value="F" text="F" />
+                                </Select>
+                              )}
+                            />
+                            <TextInput
+                              id="yearsEstimated"
+                              type="number"
+                              labelText={t('estimatedAge', 'Edad est. (años)')}
+                              placeholder={t('enterAge', 'Años')}
+                              invalid={!!errors.yearsEstimated}
+                              invalidText={errors.yearsEstimated?.message}
+                              disabled={isRegistering}
+                              {...register('yearsEstimated', { valueAsNumber: true })}
+                            />
+                          </div>
+                        )}
+
+                        {/* ── Ubicación ── */}
+                        {!isPatientUnknown && (
+                          <fieldset className={styles.formSection}>
+                            <legend className={styles.sectionTitle}>{t('location', 'Ubicación')}</legend>
+                            <div className={styles.fieldRow3}>
+                              <TextInput
+                                id="district"
+                                labelText={t('district', 'Distrito')}
+                                disabled={isRegistering}
+                                {...register('district')}
+                              />
+                              <TextInput
+                                id="village"
+                                labelText={t('village', 'C. Poblado')}
+                                placeholder={t('enterVillage', 'Centro poblado')}
+                                disabled={isRegistering}
+                                {...register('village')}
+                              />
+                              <TextInput
+                                id="address"
+                                labelText={t('address', 'Dirección')}
+                                placeholder={t('enterAddress', 'Dirección')}
+                                disabled={isRegistering}
+                                {...register('address')}
+                              />
+                            </div>
+                          </fieldset>
+                        )}
+
+                        {/* ── Seguro ── */}
+                        {!isPatientUnknown && (
+                          <fieldset className={styles.formSection}>
+                            <legend className={styles.sectionTitle}>{t('insurance', 'Seguro')}</legend>
+                            <div className={styles.fieldRow}>
+                              <Controller
+                                name="insuranceType"
+                                control={control}
+                                render={({ field }) => (
+                                  <Select
+                                    id="insuranceType"
+                                    labelText={t('insuranceType', 'Tipo')}
+                                    disabled={isRegistering}
+                                    value={field.value || ''}
+                                    onChange={(e) => field.onChange(e.target.value)}>
+                                    <SelectItem value="" text={t('select', 'Seleccionar')} />
+                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.sisGratuitoUuid} text="SIS Gratuito" />
+                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.sisEmprendedorUuid} text="SIS Emprendedor" />
+                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.sisSemicontributivoUuid} text="SIS Semicontributivo" />
+                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.essaludUuid} text="EsSalud" />
+                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.privateUuid} text={t('privateInsurance', 'Seguro Privado')} />
+                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.noneUuid} text={t('noInsurance', 'Ninguno')} />
+                                  </Select>
+                                )}
+                              />
+                              <TextInput
+                                id="insuranceCode"
+                                labelText={t('insuranceCode', 'Código')}
+                                placeholder={t('enterInsuranceCode', 'Código de seguro')}
+                                disabled={isRegistering}
+                                {...register('insuranceCode')}
+                              />
+                            </div>
+                          </fieldset>
+                        )}
+
+                        {/* ── Acompañante / Responsable ── */}
+                        {!isPatientUnknown && (
+                          <fieldset className={styles.formSection}>
+                            <legend className={styles.sectionTitle}>{t('companion', 'Acompañante / Responsable')}</legend>
+                            <TextInput
+                              id="companionName"
+                              labelText={t('companionName', 'Nombre completo')}
+                              placeholder={t('enterCompanionName', 'Nombre del acompañante')}
+                              disabled={isRegistering}
+                              {...register('companionName')}
+                            />
+                            <div className={styles.fieldRow}>
+                              <TextInput
+                                id="companionAge"
+                                type="number"
+                                labelText={t('companionAge', 'Edad')}
+                                placeholder={t('enterCompanionAge', 'Años')}
+                                disabled={isRegistering}
+                                {...register('companionAge')}
+                              />
+                              <TextInput
+                                id="companionRelationship"
+                                labelText={t('companionRelationship', 'Parentesco')}
+                                placeholder={t('enterRelationship', 'Ej: Padre, Madre')}
+                                disabled={isRegistering}
+                                {...register('companionRelationship')}
+                              />
+                            </div>
+                          </fieldset>
+                        )}
+
+                        <div className={styles.formActions}>
+                          <Button
+                            kind="secondary"
+                            size="md"
+                            onClick={() => {
+                              setShowRegistrationForm(false);
+                              reset();
+                            }}
+                            disabled={isRegistering}>
+                            {t('cancel', 'Cancelar')}
+                          </Button>
+                          <Button type="submit" size="md" disabled={isRegistering}>
+                            {isRegistering ? (
+                              <InlineLoading description={t('registering', 'Registrando...')} />
+                            ) : (
+                              t('registerPatient', 'Registrar paciente')
+                            )}
+                          </Button>
+                        </div>
+                      </Stack>
+                    </Form>
+                  </Stack>
+                </Tile>
+              </Layer>
+            )}
+          </>
+        )}
+
+        {/* Selected/Registered Patient Card */}
+        {readyPatient && (
+          <Layer>
+            <Tile className={styles.patientFoundTile}>
+              <div className={styles.selectedPatientRow}>
+                <div className={styles.patientInfo}>
+                  <CheckmarkFilled size={20} className={styles.successIcon} />
+                  <User size={24} />
+                  <div>
+                    <p className={styles.patientResultName}>
+                      {readyPatient.person?.personName?.display ||
+                        readyPatient.person?.display ||
+                        readyPatient.display}
+                    </p>
+                    <div className={styles.patientResultMeta}>
+                      {readyPatient.person?.age != null && (
+                        <span>
+                          {readyPatient.person.age} {t('years', 'años')}
+                        </span>
+                      )}
+                      {readyPatient.person?.gender && (
+                        <>
+                          <span className={styles.separator}>|</span>
+                          <span>{readyPatient.person.gender === 'M' ? t('male', 'M') : t('female', 'F')}</span>
+                        </>
+                      )}
+                      {readyPatient.identifiers?.[0] && (
+                        <>
+                          <span className={styles.separator}>|</span>
+                          <Tag type="blue" size="sm">
+                            {readyPatient.identifiers[0].identifier}
+                          </Tag>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <Button kind="ghost" size="sm" onClick={handleDeselectPatient}>
+                  {t('change', 'Cambiar')}
+                </Button>
+              </div>
+            </Tile>
+          </Layer>
+        )}
+
+        {/* Initial Priority Selector - only when patient is ready */}
+        {readyPatient && (
+          <InitialPrioritySelector value={initialPriority} onChange={setInitialPriority} disabled={isSubmitting} />
+        )}
+
+        {/* Submit Button */}
+        {readyPatient && (
+          <div className={styles.submitActions}>
+            <Button
+              kind="primary"
+              size="lg"
+              renderIcon={SendFilled}
+              onClick={handleSendToQueue}
+              disabled={!initialPriority || isSubmitting}
+              className={styles.submitButton}>
+              {isSubmitting ? (
+                <InlineLoading description={t('sending', 'Enviando...')} />
+              ) : (
+                t('sendToTriageQueue', 'Enviar a cola de triaje')
+              )}
+            </Button>
+          </div>
+        )}
+      </Stack>
+    </div>
+  );
+};
+
+export default PatientSearchRegistration;

@@ -1,0 +1,144 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+@use '@carbon/styles/scss/theme';
+@use '@carbon/colors';
+
+.container {
+  padding: spacing.$spacing-05;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+// Summary Card
+.summaryCard {
+  background: theme.$layer-01;
+  border: 1px solid theme.$border-subtle-01;
+  padding: spacing.$spacing-06;
+}
+
+.cardHeader {
+  margin-bottom: spacing.$spacing-05;
+  padding-bottom: spacing.$spacing-04;
+  border-bottom: 1px solid theme.$border-subtle-01;
+}
+
+.patientHeader {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-03;
+}
+
+.successIcon {
+  color: colors.$green-60;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  @include type.type-style('heading-03');
+  margin: 0;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$spacing-06;
+}
+
+// Patient Section
+.patientSection {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-05;
+  padding: spacing.$spacing-05;
+  background: theme.$layer-02;
+  border-radius: 4px;
+}
+
+.patientAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: colors.$blue-10;
+  flex-shrink: 0;
+
+  svg {
+    fill: colors.$blue-60;
+  }
+}
+
+.patientInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.patientName {
+  @include type.type-style('heading-compact-02');
+  margin: 0 0 spacing.$spacing-02 0;
+  color: theme.$text-primary;
+}
+
+.patientMeta {
+  @include type.type-style('body-compact-01');
+  color: theme.$text-secondary;
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-03;
+  flex-wrap: wrap;
+}
+
+.separator {
+  color: theme.$text-placeholder;
+}
+
+// Details List
+.detailsList {
+  margin: 0;
+
+  :global(.cds--structured-list-th),
+  :global(.cds--structured-list-td) {
+    padding: spacing.$spacing-04 spacing.$spacing-05;
+  }
+
+  :global(.cds--structured-list-td:first-child) {
+    @include type.type-style('label-01');
+    color: theme.$text-secondary;
+    font-weight: 600;
+    width: 40%;
+  }
+}
+
+// Actions
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: spacing.$spacing-04;
+  padding-top: spacing.$spacing-05;
+  border-top: 1px solid theme.$border-subtle-01;
+}
+
+// Responsive
+@media (max-width: 672px) {
+  .container {
+    padding: spacing.$spacing-03;
+  }
+
+  .patientSection {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .patientMeta {
+    justify-content: center;
+  }
+
+  .actions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+}

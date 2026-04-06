@@ -1,0 +1,216 @@
+/**
+ * Confirmation Step Component
+ *
+ * Final step in the emergency quick registration workflow.
+ * Shows a summary of the registered patient, assigned priority,
+ * visit, and queue entry status.
+ */
+
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Button,
+  InlineNotification,
+  ProgressIndicator,
+  ProgressStep,
+  Stack,
+  StructuredListWrapper,
+  StructuredListHead,
+  StructuredListRow,
+  StructuredListCell,
+  StructuredListBody,
+  Tag,
+  Tile,
+} from '@carbon/react';
+import { CheckmarkFilled, User, Renew, Close } from '@carbon/react/icons';
+import { type WorkflowState } from '../types';
+import styles from './confirmation-step.component.scss';
+
+interface ConfirmationStepProps {
+  workflowState: WorkflowState;
+  onRegisterAnother: () => void;
+  onClose: () => void;
+}
+
+const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
+  workflowState,
+  onRegisterAnother,
+  onClose,
+}) => {
+  const { t } = useTranslation();
+
+  const patientName =
+    workflowState.patientData?.person?.personName?.display ||
+    workflowState.patientData?.person?.display ||
+    workflowState.patientData?.display ||
+    t('unknown', 'Desconocido');
+
+  const patientAge = workflowState.patientData?.person?.age;
+  const patientGender = workflowState.patientData?.person?.gender;
+  const patientIdentifier = workflowState.patientData?.identifiers?.[0];
+
+  const genderLabel =
+    patientGender === 'M'
+      ? t('male', 'Masculino')
+      : patientGender === 'F'
+        ? t('female', 'Femenino')
+        : t('notSpecified', 'No especificado');
+
+  return (
+    <div className={styles.container}>
+      <Stack gap={6}>
+        {/* Progress Indicator */}
+        <ProgressIndicator currentIndex={2} spaceEqually>
+          <ProgressStep
+            label={t('patient', 'Paciente')}
+            secondaryLabel={t('searchOrRegister', 'Buscar / Registrar')}
+            complete
+          />
+          <ProgressStep
+            label={t('classification', 'Clasificación')}
+            secondaryLabel={t('initialClassification', 'Clasificación inicial')}
+            complete
+          />
+          <ProgressStep
+            label={t('confirmed', 'Confirmado')}
+            secondaryLabel={t('inTriageQueue', 'En cola de triaje')}
+            current
+          />
+        </ProgressIndicator>
+
+        {/* Success Notification */}
+        <InlineNotification
+          kind="success"
+          lowContrast
+          hideCloseButton
+          title={t('patientAddedToQueue', 'Paciente agregado a la cola de triaje')}
+          subtitle={t(
+            'patientAddedToQueueSubtitle',
+            'El paciente ha sido registrado y enviado a la cola de triaje con estado "Pendiente de Triaje".',
+          )}
+        />
+
+        {/* Patient Summary Card */}
+        <Tile className={styles.summaryCard}>
+          <div className={styles.cardHeader}>
+            <div className={styles.patientHeader}>
+              <CheckmarkFilled size={24} className={styles.successIcon} />
+              <h4 className={styles.cardTitle}>{t('registrationSummary', 'Resumen del registro')}</h4>
+            </div>
+          </div>
+
+          <div className={styles.cardContent}>
+            {/* Patient Info */}
+            <div className={styles.patientSection}>
+              <div className={styles.patientAvatar}>
+                <User size={40} />
+              </div>
+              <div className={styles.patientInfo}>
+                <h5 className={styles.patientName}>{patientName}</h5>
+                <div className={styles.patientMeta}>
+                  {patientAge != null && (
+                    <span>
+                      {patientAge} {t('years', 'a\u00f1os')}
+                    </span>
+                  )}
+                  {patientAge != null && <span className={styles.separator}>|</span>}
+                  <span>{genderLabel}</span>
+                  {patientIdentifier && (
+                    <>
+                      <span className={styles.separator}>|</span>
+                      <span>
+                        {patientIdentifier.identifierType?.display || 'ID'}: {patientIdentifier.identifier}
+                      </span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Details List */}
+            <StructuredListWrapper className={styles.detailsList}>
+              <StructuredListHead>
+                <StructuredListRow head>
+                  <StructuredListCell head>{t('field', 'Campo')}</StructuredListCell>
+                  <StructuredListCell head>{t('value', 'Valor')}</StructuredListCell>
+                </StructuredListRow>
+              </StructuredListHead>
+              <StructuredListBody>
+                <StructuredListRow>
+                  <StructuredListCell>{t('initialClassificationLabel', 'Clasificación inicial')}</StructuredListCell>
+                  <StructuredListCell>
+                    {workflowState.initialClassification === 'emergency' ? (
+                      <Tag type="red" size="md">
+                        {t('emergency', 'Emergencia')}
+                      </Tag>
+                    ) : workflowState.initialClassification === 'urgency' ? (
+                      <Tag type="green" size="md">
+                        {t('urgency', 'Urgencia')}
+                      </Tag>
+                    ) : (
+                      <Tag type="gray" size="md">
+                        {t('notAssigned', 'No asignada')}
+                      </Tag>
+                    )}
+                  </StructuredListCell>
+                </StructuredListRow>
+                <StructuredListRow>
+                  <StructuredListCell>{t('queueStatus', 'Estado en cola')}</StructuredListCell>
+                  <StructuredListCell>
+                    <Tag type="blue" size="md">
+                      {t('pendingTriage', 'Pendiente de Triaje')}
+                    </Tag>
+                  </StructuredListCell>
+                </StructuredListRow>
+                <StructuredListRow>
+                  <StructuredListCell>{t('triagePriority', 'Prioridad de triaje')}</StructuredListCell>
+                  <StructuredListCell>
+                    <Tag type="outline" size="md">
+                      {t('pendingTriageAssignment', 'Se asignará en triaje')}
+                    </Tag>
+                  </StructuredListCell>
+                </StructuredListRow>
+                <StructuredListRow>
+                  <StructuredListCell>{t('emergencyVisit', 'Visita de emergencia')}</StructuredListCell>
+                  <StructuredListCell>
+                    {workflowState.visitUuid ? (
+                      <Tag type="green" size="md">
+                        {t('visitCreated', 'Visita creada')}
+                      </Tag>
+                    ) : (
+                      <Tag type="warm-gray" size="md">
+                        {t('pendingVisit', 'Pendiente')}
+                      </Tag>
+                    )}
+                  </StructuredListCell>
+                </StructuredListRow>
+                {workflowState.queueEntryUuid && (
+                  <StructuredListRow>
+                    <StructuredListCell>{t('queueEntry', 'Entrada en cola')}</StructuredListCell>
+                    <StructuredListCell>
+                      <Tag type="green" size="md">
+                        {t('registered', 'Registrado')}
+                      </Tag>
+                    </StructuredListCell>
+                  </StructuredListRow>
+                )}
+              </StructuredListBody>
+            </StructuredListWrapper>
+          </div>
+        </Tile>
+
+        {/* Actions */}
+        <div className={styles.actions}>
+          <Button kind="tertiary" renderIcon={Renew} onClick={onRegisterAnother}>
+            {t('registerAnotherPatient', 'Registrar otro paciente')}
+          </Button>
+          <Button kind="primary" renderIcon={Close} onClick={onClose}>
+            {t('closeAndReturn', 'Cerrar y volver a la cola')}
+          </Button>
+        </div>
+      </Stack>
+    </div>
+  );
+};
+
+export default ConfirmationStep;

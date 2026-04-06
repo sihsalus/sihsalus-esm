@@ -1,0 +1,48 @@
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.modalBody {
+  padding-bottom: layout.$spacing-05;
+}
+
+.sectionTitle {
+  @include type.type-style('label-01');
+  color: var(--cds-text-02);
+  margin-top: layout.$spacing-04;
+  margin-bottom: layout.$spacing-02;
+}
+
+.radioButtonGroup {
+  width: 100%;
+
+  :global(.cds--radio-button-wrapper) {
+    padding-bottom: layout.$spacing-02;
+
+    :global(.cds--radio-button__label) {
+      align-items: center;
+    }
+  }
+}
+
+.boldTag {
+  font-weight: 600;
+}
+
+// Manchester Triage: Priority II - Orange
+.orangeTag {
+  background-color: #fff2e8;
+  color: #8a3800;
+}
+
+// Manchester Triage: Priority III - Yellow
+.yellowTag {
+  background-color: #fff8e1;
+  color: #735f00;
+}
+
+.dateTimeFields {
+  display: flex;
+  gap: layout.$spacing-04;
+  margin-top: layout.$spacing-04;
+  align-items: flex-end;
+}

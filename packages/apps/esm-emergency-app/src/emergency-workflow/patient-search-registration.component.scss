@@ -1,0 +1,255 @@
+@use '@carbon/styles/scss/spacing';
+@use '@carbon/styles/scss/type';
+@use '@carbon/styles/scss/theme';
+@use '@carbon/styles/scss/colors';
+
+.container {
+  padding: spacing.$spacing-05;
+}
+
+.header {
+  h4 {
+    @include type.type-style('heading-04');
+    margin-bottom: spacing.$spacing-03;
+  }
+
+  .subtitle {
+    @include type.type-style('body-01');
+    color: theme.$text-secondary;
+  }
+}
+
+.searchSection {
+  background: theme.$layer-01;
+  padding: spacing.$spacing-05;
+  border-radius: 4px;
+}
+
+// Search Results
+.resultsSection {
+  margin-top: spacing.$spacing-05;
+}
+
+.resultsCount {
+  @include type.type-style('label-01');
+  color: theme.$text-secondary;
+  margin-bottom: spacing.$spacing-04;
+}
+
+.patientResultTile {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: theme.$layer-01;
+
+  &:hover {
+    background: theme.$layer-hover-01;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.patientResult {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-04;
+  padding: spacing.$spacing-03 0;
+}
+
+.patientIcon {
+  color: theme.$icon-primary;
+  flex-shrink: 0;
+}
+
+.patientResultInfo {
+  flex: 1;
+}
+
+.patientResultName {
+  @include type.type-style('heading-compact-01');
+  margin: 0 0 spacing.$spacing-02 0;
+}
+
+.patientResultMeta {
+  @include type.type-style('body-compact-01');
+  color: theme.$text-secondary;
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-03;
+  flex-wrap: wrap;
+}
+
+.separator {
+  color: theme.$text-secondary;
+}
+
+.loadingIcon {
+  display: flex;
+  justify-content: center;
+  padding: spacing.$spacing-05;
+}
+
+// Selected/Registered Patient Card
+.patientFoundTile {
+  background: theme.$layer-01;
+  border: 1px solid colors.$green-60;
+  border-radius: 4px;
+  padding: spacing.$spacing-05;
+}
+
+.selectedPatientRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing.$spacing-04;
+}
+
+.patientInfo {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-04;
+  flex: 1;
+  min-width: 0;
+}
+
+.successIcon {
+  color: colors.$green-60;
+  flex-shrink: 0;
+}
+
+// Registration Tile
+.registrationTile {
+  background: theme.$layer-01;
+  border: 1px solid theme.$border-subtle-01;
+  border-radius: 4px;
+  padding: spacing.$spacing-06;
+}
+
+.registrationHeader {
+  display: flex;
+  align-items: center;
+  gap: spacing.$spacing-03;
+  margin-bottom: spacing.$spacing-04;
+
+  h5 {
+    @include type.type-style('heading-03');
+    margin: 0;
+  }
+
+  svg {
+    color: theme.$icon-primary;
+  }
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: spacing.$spacing-03;
+  margin-top: spacing.$spacing-05;
+  padding-top: spacing.$spacing-05;
+  border-top: 1px solid theme.$border-subtle-01;
+}
+
+// Unknown Patient Section
+.unknownPatientSection {
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$spacing-03;
+}
+
+.label01 {
+  @include type.type-style('label-01');
+  color: theme.$text-secondary;
+}
+
+// Form sections with fieldset
+.formSection {
+  border: 1px solid theme.$border-subtle-01;
+  border-radius: 4px;
+  padding: spacing.$spacing-04 spacing.$spacing-05;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: spacing.$spacing-04;
+}
+
+.sectionTitle {
+  @include type.type-style('label-02');
+  color: theme.$text-primary;
+  font-weight: 600;
+  padding: 0 spacing.$spacing-02;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: spacing.$spacing-04;
+
+  // Ensure Select dropdowns have minimum width to show value
+  :global(.cds--select) {
+    min-width: 5rem;
+  }
+}
+
+.fieldRow3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: spacing.$spacing-04;
+}
+
+// Fecha nac (flexible) + Sexo (fixed width)
+.fieldRowDateGender {
+  display: grid;
+  grid-template-columns: 1fr 6rem;
+  gap: spacing.$spacing-04;
+}
+
+.contentSwitcher {
+  max-width: 200px;
+}
+
+// Submit to Queue
+.submitActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: spacing.$spacing-05;
+  border-top: 1px solid theme.$border-subtle-01;
+}
+
+.submitButton {
+  min-width: 240px;
+}
+
+// Responsive adjustments
+@media (max-width: 672px) {
+  .container {
+    padding: spacing.$spacing-03;
+  }
+
+  .selectedPatientRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .patientInfo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .formActions {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .submitActions {
+    justify-content: stretch;
+  }
+
+  .submitButton {
+    width: 100%;
+    min-width: unset;
+  }
+}

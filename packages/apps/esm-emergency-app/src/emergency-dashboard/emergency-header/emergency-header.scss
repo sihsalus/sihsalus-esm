@@ -1,0 +1,30 @@
+@use '@carbon/layout';
+@use '@carbon/colors';
+@use '@openmrs/esm-styleguide/src/vars' as *;
+
+.pageHeader {
+  background-color: colors.$white-0;
+  padding: 0 layout.$spacing-05;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: layout.$spacing-04;
+}
+
+.newPatientButton {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  
+  // Ensure button content is properly aligned
+  :global(.cds--btn__icon) {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+

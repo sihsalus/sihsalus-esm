@@ -1,0 +1,20 @@
+@use '@carbon/layout';
+
+.alertsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
+  margin-bottom: layout.$spacing-05;
+  padding: 0 layout.$spacing-05;
+}
+
+.criticalAlert,
+.triageAlert {
+  width: 100%;
+}
+
+
+
+
+
+

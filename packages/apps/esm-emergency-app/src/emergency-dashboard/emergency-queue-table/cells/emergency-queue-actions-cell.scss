@@ -1,0 +1,13 @@
+@use '@carbon/layout';
+@use '@carbon/colors';
+
+.actionsCell {
+  display: flex;
+  justify-content: flex-end;
+  height: layout.$spacing-09;
+  align-items: center;
+}
+
+.triagePendingButton {
+  color: colors.$orange-40;
+}

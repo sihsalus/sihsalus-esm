@@ -1,0 +1,53 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@carbon/react';
+import { Add } from '@carbon/react/icons';
+import { PageHeader, PageHeaderContent, launchWorkspace, useLayoutType, isDesktop } from '@openmrs/esm-framework';
+import { ServiceQueuesPictogram } from '@openmrs/esm-framework';
+import { emergencyWorkflowWorkspace } from '../../emergency-workflow/constants';
+import styles from './emergency-header.scss';
+
+/**
+ * Emergency Header Component
+ * 
+ * Displays the header with title, pictogram, and action button
+ * to launch the emergency workflow workspace.
+ */
+interface EmergencyHeaderProps {
+  queueFilter?: React.ReactNode;
+}
+
+const EmergencyHeader: React.FC<EmergencyHeaderProps> = ({ queueFilter }) => {
+  const { t } = useTranslation();
+  const layout = useLayoutType();
+  const responsiveSize = isDesktop(layout) ? 'sm' : 'md';
+
+  const handleNewPatientClick = () => {
+    launchWorkspace(emergencyWorkflowWorkspace, {
+      workspaceTitle: t('newEmergencyPatient', 'New Emergency Patient'),
+    });
+  };
+
+  return (
+    <PageHeader className={styles.pageHeader}>
+      <PageHeaderContent
+        title={t('emergencyDepartment', 'Emergency Services')}
+        illustration={<ServiceQueuesPictogram />}
+      />
+      <div className={styles.headerActions}>
+        {queueFilter}
+        <Button
+          kind="primary"
+          renderIcon={(props) => <Add size={16} {...props} />}
+          onClick={handleNewPatientClick}
+          size={responsiveSize}
+          className={styles.newPatientButton}>
+          {t('newEmergencyPatient', 'New Emergency Patient')}
+        </Button>
+      </div>
+    </PageHeader>
+  );
+};
+
+export default EmergencyHeader;
+
