@@ -10,7 +10,8 @@
   "scripts": {
     "build": "turbo run build",
     "build:apps": "turbo run build --filter='./packages/apps/*'",
-    "assemble": "node packages/tooling/assemble-importmap.js",
+    "generate-config": "node packages/tooling/generate-assemble-config.js",
+    "assemble": "node packages/tooling/generate-assemble-config.js && node packages/tooling/assemble-importmap.js",
     "dev": "turbo run dev",
     "start": "node packages/tooling/start-dev.js",
     "serve": "turbo run build --filter=openmrs --filter='./packages/apps/*' && openmrs start",

@@ -1,0 +1,16 @@
+{
+  "name": "@sihsalus/esm-patient-immunizations-app",
+  "version": "12.1.0",
+  "description": "Patient immunizations microfrontend for SIH Salus",
+  "license": "MPL-2.0",
+  "browser": "dist/openmrs-esm-patient-immunizations-app.js",
+  "main": "dist/openmrs-esm-patient-immunizations-app.js",
+  "keywords": [
+    "openmrs",
+    "microfrontends",
+    "immunizations"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
