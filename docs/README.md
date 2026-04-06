@@ -61,19 +61,6 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 - 15-minute session timeout with warning dialog
 - Break-the-glass emergency access with clinical justification
 
-### i18n
-
-Supported locales in this repo are currently `en`, `es`, `fr`, and `pt`. Each module maintains its own translation files in `packages/apps/*/translations/{locale}.json` using react-i18next.
-
-Recommended checks:
-
-```bash
-yarn i18n:check:es        # Scan Spanish translations and print a verbose report
-yarn i18n:check:es:strict # Fail the command if missing/English-like strings remain
-```
-
-For targeted fixes, use `node scripts/translate-en-to-es.mjs <translations-dir>` to bootstrap `es.json` from `en.json`.
-
 ## Contributing
 
 See the root [README.md](../README.md) for setup instructions and development commands.
