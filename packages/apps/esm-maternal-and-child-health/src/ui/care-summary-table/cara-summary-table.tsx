@@ -12,16 +12,12 @@ import {
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace2 } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './care-summary-table.scss';
-
 
 interface Encounter {
   encounterDatetime: string;

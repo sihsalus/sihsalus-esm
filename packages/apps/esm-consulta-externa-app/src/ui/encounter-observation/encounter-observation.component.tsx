@@ -41,7 +41,12 @@ const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observati
                       {mapConceptToFormLabel(member?.concept?.uuid, formConceptMap, member.concept.display)}
                     </span>
                     <span>
-                      {mapObsValueToFormLabel(member?.concept?.uuid, typeof member.value === 'object' && member.value !== null ? member.value.uuid : undefined, formConceptMap, member.display)}
+                      {mapObsValueToFormLabel(
+                        member?.concept?.uuid,
+                        typeof member.value === 'object' && member.value !== null ? member.value.uuid : undefined,
+                        formConceptMap,
+                        member.display,
+                      )}
                     </span>
                   </React.Fragment>
                 ))}
@@ -53,7 +58,14 @@ const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observati
                 <span className={styles.questionText}>
                   {mapConceptToFormLabel(obs?.concept?.uuid, formConceptMap, obs?.concept?.name.name)}
                 </span>
-                <span>{mapObsValueToFormLabel(obs?.concept?.uuid, typeof obs?.value === 'object' && obs?.value !== null ? obs.value.uuid : undefined, formConceptMap, obs?.display ?? String(obs?.value ?? ''))}</span>
+                <span>
+                  {mapObsValueToFormLabel(
+                    obs?.concept?.uuid,
+                    typeof obs?.value === 'object' && obs?.value !== null ? obs.value.uuid : undefined,
+                    formConceptMap,
+                    obs?.display ?? String(obs?.value ?? ''),
+                  )}
+                </span>
               </React.Fragment>
             );
           }

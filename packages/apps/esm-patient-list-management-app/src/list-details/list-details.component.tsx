@@ -134,7 +134,8 @@ const ListDetails = () => {
                 <span className={styles.actionsButtonText}>{t('actions', 'Actions')}</span>{' '}
                 <OverflowMenuVertical size={16} style={{ marginLeft: '0.5rem' }} />
               </>
-            }>
+            }
+          >
             <OverflowMenuItem
               className={styles.menuItem}
               itemText={t('editNameDescription', 'Edit name or description')}
@@ -190,7 +191,8 @@ const ListDetails = () => {
             secondaryButtonText="Cancel"
             onRequestClose={() => setShowDeleteConfirmationModal(false)}
             onRequestSubmit={confirmDeletePatientList}
-            primaryButtonDisabled={false}>
+            primaryButtonDisabled={false}
+          >
             {listDetails?.size > 0 ? (
               <p>
                 {t('patientListMemberCount', 'This list has {{count}} patients', {

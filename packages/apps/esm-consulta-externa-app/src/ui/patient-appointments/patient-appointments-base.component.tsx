@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import PatientAppointmentContext, { PatientAppointmentContextTypes } from '../../hooks/patientAppointmentContext';
 
 import styles from './patient-appointments-base.scss';
@@ -69,7 +68,8 @@ const PatientAppointmentsBase: React.FC<PatientAppointmentsBaseProps> = ({ patie
               onChange={({ index }) => {
                 setContentSwitcherValue(index);
                 setSwitchedView(true);
-              }}>
+              }}
+            >
               <Switch name={'upcoming'} text={t('upcoming', 'Upcoming')} />
               <Switch name={'today'} text={t('today', 'Today')} />
               <Switch name={'past'} text={t('past', 'Past')} />
@@ -79,7 +79,8 @@ const PatientAppointmentsBase: React.FC<PatientAppointmentsBaseProps> = ({ patie
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
               iconDescription="Add Appointments"
-              onClick={launchAppointmentsForm}>
+              onClick={launchAppointmentsForm}
+            >
               {t('add', 'Add')}
             </Button>
           </div>

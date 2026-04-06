@@ -31,10 +31,7 @@ interface EvaluationResult {
 
 /** GET /ws/module/indicators/api/indicators */
 export function useIndicators() {
-  const { data, isLoading, error, mutate } = useSWR<{ data: IndicatorListResponse }>(
-    BASE_URL,
-    openmrsFetch,
-  );
+  const { data, isLoading, error, mutate } = useSWR<{ data: IndicatorListResponse }>(BASE_URL, openmrsFetch);
   return {
     indicators: data?.data?.results ?? [],
     totalCount: data?.data?.totalCount ?? 0,

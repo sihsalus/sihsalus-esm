@@ -138,7 +138,8 @@ const Payments: React.FC<PaymentProps> = ({ bill, mutate }) => {
             </Button>
             <Button
               onClick={handleProcessPayment}
-              disabled={!formValues?.method || formValues.amount == null || !methods.formState.isValid}>
+              disabled={!formValues?.method || formValues.amount == null || !methods.formState.isValid}
+            >
               {t('processPayment', 'Process Payment')}
             </Button>
           </div>

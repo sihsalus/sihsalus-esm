@@ -69,11 +69,11 @@ export const FormatRequisitionDocument = async (data: StockOperationPrintData): 
                         : `${p.balanceOnHand?.toLocaleString()}  ${p.balanceOnHandUoM ?? ''}`
                     }</td>
                     <td valign="middle" class="center">${p.quantityRequired?.toLocaleString() ?? ''} ${
-                        p.quantityRequiredUoM ?? ''
-                      }</td>
+                      p.quantityRequiredUoM ?? ''
+                    }</td>
                     <td valign="middle" class="center">${p.quantityIssued?.toLocaleString() ?? ''} ${
-                        p.quantityIssuedUoM ?? ''
-                      }</td>
+                      p.quantityIssuedUoM ?? ''
+                    }</td>
                     <td valign="middle" class="center">${
                       STOCK_OPERATION_PRINT_DISABLE_COSTS
                         ? ''

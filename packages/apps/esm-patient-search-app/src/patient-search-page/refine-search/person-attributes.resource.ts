@@ -39,7 +39,7 @@ export function useAttributeConceptAnswers(conceptUuid: string | undefined): {
     if (!data?.data) {
       return [];
     }
-    return data.data.answers?.length > 0 ? data.data.answers : data.data.setMembers ?? [];
+    return data.data.answers?.length > 0 ? data.data.answers : (data.data.setMembers ?? []);
   }, [data]);
 
   return {

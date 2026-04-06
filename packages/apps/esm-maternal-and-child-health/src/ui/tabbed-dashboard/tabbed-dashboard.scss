@@ -80,7 +80,9 @@
   color: $text-02;
   cursor: pointer;
   white-space: nowrap;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
 
   &:hover {
     color: colors.$gray-100;

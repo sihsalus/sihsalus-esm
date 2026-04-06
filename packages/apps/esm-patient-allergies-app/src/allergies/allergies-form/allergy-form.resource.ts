@@ -6,7 +6,6 @@ import useSWRImmutable from 'swr/immutable';
 import type { OpenMRSResource } from '../../types';
 import { AllergenType } from '../../types';
 
-
 interface ConceptFetchResponse {
   setMembers: Array<OpenMRSResource>;
 }

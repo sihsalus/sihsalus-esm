@@ -21,8 +21,6 @@ import VisitHeader from '../visit-header/visit-header.component';
 import { type LayoutMode } from './chart-review/dashboard-view.component';
 import styles from './patient-chart.scss';
 
-
-
 const PatientChart: React.FC = () => {
   const { patientUuid, view: encodedView } = useParams();
   const view = encodedView ? decodeURIComponent(encodedView) : undefined;

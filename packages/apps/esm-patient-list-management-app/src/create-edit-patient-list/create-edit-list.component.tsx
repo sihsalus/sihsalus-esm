@@ -136,7 +136,8 @@ const CreateEditPatientList: React.FC<CreateEditPatientListProps> = ({
       close={close}
       header={
         isEditing ? t('editPatientListHeader', 'Edit patient list') : t('newPatientListHeader', 'New patient list')
-      }>
+      }
+    >
       <h4 className={styles.header}>{t('configureList', 'Configure your patient list using the fields below')}</h4>
       <div>
         <Layer level={responsiveLevel}>

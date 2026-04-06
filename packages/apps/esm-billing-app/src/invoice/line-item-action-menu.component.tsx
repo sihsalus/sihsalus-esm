@@ -38,7 +38,8 @@ const LineItemActionMenu: React.FC<LineItemActionMenuProps> = ({ bill, item, onM
         align="left"
         flipped
         size={isDesktop(layout) ? 'sm' : 'lg'}
-        data-testid={`action-menu-${item.uuid}`}>
+        data-testid={`action-menu-${item.uuid}`}
+      >
         <OverflowMenuItem
           className={styles.menuitem}
           data-testid={`edit-button-${item.uuid}`}

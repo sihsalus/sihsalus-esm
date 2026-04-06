@@ -56,8 +56,7 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ q
   const [transitionTimeFormat, setTransitionTimeFormat] = useState<AmPm>(now.getHours() < 12 ? 'AM' : 'PM');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isUnchanged =
-    selectedStatus === queueEntry.status?.uuid && selectedPriority === queueEntry.priority?.uuid;
+  const isUnchanged = selectedStatus === queueEntry.status?.uuid && selectedPriority === queueEntry.priority?.uuid;
 
   const getPriorityTagProps = (color?: string) => {
     if (color === 'red') return { type: 'red' as const, className: styles.boldTag };
@@ -109,7 +108,10 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ q
       showSnackbar({
         title: t('transitionError', 'Error en la transición'),
         kind: 'error',
-        subtitle: error instanceof Error ? error.message : t('transitionErrorGeneric', 'Ocurrió un error al transicionar la entrada'),
+        subtitle:
+          error instanceof Error
+            ? error.message
+            : t('transitionErrorGeneric', 'Ocurrió un error al transicionar la entrada'),
       });
     } finally {
       setIsSubmitting(false);
@@ -133,7 +135,8 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ q
                 name="status"
                 valueSelected={selectedStatus}
                 orientation="horizontal"
-                onChange={(uuid: string) => setSelectedStatus(uuid)}>
+                onChange={(uuid: string) => setSelectedStatus(uuid)}
+              >
                 {statusOptions.map(({ uuid, label }) => (
                   <RadioButton
                     key={uuid}
@@ -156,7 +159,8 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ q
                 name="priority"
                 valueSelected={selectedPriority}
                 orientation="horizontal"
-                onChange={(uuid: string) => setSelectedPriority(uuid)}>
+                onChange={(uuid: string) => setSelectedPriority(uuid)}
+              >
                 {priorityConfigs.map((priority) => {
                   const tagProps = getPriorityTagProps(priority.color);
                   return (
@@ -208,12 +212,14 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ q
                     labelText={t('time', 'Hora')}
                     value={transitionTime}
                     onChange={(e) => setTransitionTime(e.target.value)}
-                    pattern="(1[012]|[1-9]):[0-5][0-9]">
+                    pattern="(1[012]|[1-9]):[0-5][0-9]"
+                  >
                     <TimePickerSelect
                       id="transitionTimeFormat"
                       aria-label={t('time', 'Hora')}
                       value={transitionTimeFormat}
-                      onChange={(e) => setTransitionTimeFormat(e.target.value as AmPm)}>
+                      onChange={(e) => setTransitionTimeFormat(e.target.value as AmPm)}
+                    >
                       <SelectItem value="AM" text="AM" />
                       <SelectItem value="PM" text="PM" />
                     </TimePickerSelect>
@@ -229,9 +235,7 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ q
           {t('cancel', 'Cancelar')}
         </Button>
         <Button kind="primary" onClick={handleSubmit} disabled={isSubmitting || isUnchanged}>
-          {isSubmitting
-            ? t('transitioning', 'Transicionando...')
-            : t('transition', 'Transición')}
+          {isSubmitting ? t('transitioning', 'Transicionando...') : t('transition', 'Transición')}
         </Button>
       </ModalFooter>
     </>

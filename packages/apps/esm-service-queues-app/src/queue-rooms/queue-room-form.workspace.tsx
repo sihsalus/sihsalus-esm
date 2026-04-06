@@ -31,7 +31,6 @@ import { useQueues } from '../hooks/useQueues';
 import styles from './queue-room-form.scss';
 import { saveQueueRoom } from './queue-room.resource';
 
-
 const createQueueRoomSchema = (t: TFunction) =>
   z.object({
     queueRoomName: z
@@ -134,7 +133,8 @@ const QueueRoomForm: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) => {
                   invalidText={errors.queueLocation?.message}
                   labelText={t('queueLocation', 'Queue location')}
                   onChange={(e) => onChange(e.target.value)}
-                  value={value || ''}>
+                  value={value || ''}
+                >
                   <SelectItem text={t('selectQueueRoomLocation', 'Select a queue room location')} value="" />
                   {queueLocations?.map((location) => (
                     <SelectItem key={location.id} text={location.name} value={location.id}>
@@ -160,7 +160,8 @@ const QueueRoomForm: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) => {
                   invalidText={errors.queueRoomService?.message}
                   labelText={t('queueRoomService', 'Queue room service')}
                   onChange={(e) => onChange(e.target.value)}
-                  value={value || ''}>
+                  value={value || ''}
+                >
                   <SelectItem text={t('selectQueueRoomService', 'Select a queue room service')} value="" />
                   {queues?.map((service) => (
                     <SelectItem key={service.uuid} text={service.display} value={service.uuid}>

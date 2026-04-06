@@ -18,7 +18,8 @@ const Overlay: React.FC<OverlayProps> = ({ buttonsGroup, children, close, header
   return (
     <div
       className={isDesktop(layout) ? styles.desktopOverlay : styles.tabletOverlay}
-      data-openmrs-role="Patient List Form">
+      data-openmrs-role="Patient List Form"
+    >
       {isDesktop(layout) ? (
         <div className={styles.desktopHeader}>
           <span className={styles.headerContent}>{header}</span>

@@ -39,7 +39,6 @@ import { updateSelectedAppointmentStatus, useSelectedAppointmentStatus } from '.
 import styles from './queue-linelist-base-table.scss';
 import { useAppointments } from './queue-linelist.resource';
 
-
 /**
  * FIXME Temporarily moved here
  */
@@ -206,7 +205,8 @@ const AppointmentsTable: React.FC = () => {
               renderIcon={(props) => <Filter size={16} {...props} />}
               iconDescription={t('filter', 'Filter')}
               onClick={() => launchWorkspace('service-queues-linelist-filter')}
-              size="sm">
+              size="sm"
+            >
               {t('filter', 'Filter')}
             </Button>
           </div>
@@ -220,7 +220,8 @@ const AppointmentsTable: React.FC = () => {
         overflowMenuOnHover={false}
         rows={tableRows}
         size="md"
-        useZebraStyles>
+        useZebraStyles
+      >
         {({ rows, headers, getHeaderProps, getTableProps, getRowProps, onInputChange }) => (
           <TableContainer className={styles.tableContainer}>
             <TableToolbar
@@ -229,7 +230,8 @@ const AppointmentsTable: React.FC = () => {
                 height: '3rem',
                 overflow: 'visible',
                 backgroundColor: 'color',
-              }}>
+              }}
+            >
               <TableToolbarContent className={styles.toolbarContent}>
                 <div className={styles.filterContainer}>
                   <Dropdown

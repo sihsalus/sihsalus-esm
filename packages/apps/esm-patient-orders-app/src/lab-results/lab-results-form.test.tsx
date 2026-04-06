@@ -16,7 +16,6 @@ import {
   useCompletedLabResults,
 } from './lab-results.resource';
 
-
 const mockUseOrderConceptByUuid = jest.mocked(useOrderConceptByUuid);
 const mockUseLabEncounter = jest.mocked(useLabEncounter);
 const mockUseObservation = jest.mocked(useObservation);

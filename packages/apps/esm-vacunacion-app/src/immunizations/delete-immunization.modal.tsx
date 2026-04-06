@@ -52,7 +52,9 @@ const DeleteImmunization: React.FC<DeleteConfirmModelProps> = ({
     } catch (error) {
       showSnackbar({
         title: t('error', 'Error'),
-        subtitle: t('immunizationDeleteError', 'Failed to delete immunization: ') + (error instanceof Error ? error.message : String(error)),
+        subtitle:
+          t('immunizationDeleteError', 'Failed to delete immunization: ') +
+          (error instanceof Error ? error.message : String(error)),
         kind: 'error',
       });
     }

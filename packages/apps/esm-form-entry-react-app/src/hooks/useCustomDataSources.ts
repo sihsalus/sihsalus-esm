@@ -42,9 +42,7 @@ export function useCustomDataSources(config: FormEntryReactConfig) {
           const dataSource = module[moduleExport] ?? module.default;
 
           if (!dataSource) {
-            console.warn(
-              `Custom data source "${name}": export "${moduleExport}" not found in module "${moduleName}".`,
-            );
+            console.warn(`Custom data source "${name}": export "${moduleExport}" not found in module "${moduleName}".`);
             continue;
           }
 

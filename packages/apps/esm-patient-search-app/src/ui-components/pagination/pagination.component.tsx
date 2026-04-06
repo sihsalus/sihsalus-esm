@@ -34,7 +34,8 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, setCur
         key={index}
         kind="ghost"
         onClick={() => setCurrentPage(index + left)}
-        type="button">
+        type="button"
+      >
         {index + left}
       </Button>
     ));

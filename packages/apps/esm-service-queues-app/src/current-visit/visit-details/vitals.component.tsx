@@ -151,7 +151,8 @@ const Vitals: React.FC<VitalsComponentProps> = ({ vitals, patientUuid, visitType
                 kind="ghost"
                 renderIcon={(props) => <ArrowRight size={16} {...props} />}
                 onClick={() => navigate({ to: `\${openmrsSpaBase}/patient/${patientUuid}/chart` })}
-                iconDescription={t('vitalsForm', 'Vitals form')}>
+                iconDescription={t('vitalsForm', 'Vitals form')}
+              >
                 {t('vitalsForm', 'Vitals form')}
               </Button>
             </div>

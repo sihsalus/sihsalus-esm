@@ -3,7 +3,6 @@ import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmr
 import patientListsActionButtonComponent from './action-button/patient-lists-action-button.extension';
 import { configSchema } from './config-schema';
 
-
 const moduleName = '@sihsalus/esm-patient-lists-app';
 const options = {
   featureName: 'patient-lists',

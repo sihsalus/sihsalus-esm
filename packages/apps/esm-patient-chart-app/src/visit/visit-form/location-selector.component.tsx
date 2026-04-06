@@ -20,7 +20,6 @@ import { useDefaultVisitLocation } from '../hooks/useDefaultVisitLocation';
 import { type VisitFormData } from './visit-form.resource';
 import styles from './visit-form.scss';
 
-
 interface LocationSelectorProps {
   control: Control<VisitFormData>;
 }

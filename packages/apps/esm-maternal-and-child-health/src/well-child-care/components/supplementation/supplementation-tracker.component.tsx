@@ -62,9 +62,7 @@ const SupplementationTracker: React.FC<SupplementationTrackerProps> = ({ patient
           </div>
           <span className={styles.percentageLabel}>{Math.round(percentage)}%</span>
         </div>
-        <p className={styles.helperText}>
-          {t('mmnDescription', 'Directiva 068: 1 sobre diario desde los 6 meses')}
-        </p>
+        <p className={styles.helperText}>{t('mmnDescription', 'Directiva 068: 1 sobre diario desde los 6 meses')}</p>
       </div>
     </div>
   );

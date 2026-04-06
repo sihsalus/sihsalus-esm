@@ -62,7 +62,8 @@ export const CauseOfDeathField: React.FC = () => {
                     invalidText={errors.deathCause?.message}
                     labelText={t('causeOfDeathInputLabel', 'Cause of Death')}
                     name="deathCause"
-                    required={required}>
+                    required={required}
+                  >
                     <SelectItem id="empty-default-option" value={null} text={t('selectAnOption', 'Select an option')} />
                     {answers.map((answer) => (
                       <SelectItem id={answer.uuid} key={answer.uuid} text={answer.label} value={answer.uuid} />

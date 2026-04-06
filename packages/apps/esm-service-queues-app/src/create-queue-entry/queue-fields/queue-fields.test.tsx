@@ -14,7 +14,6 @@ import React from 'react';
 
 import { configSchema, type ConfigObject } from '../../config-schema';
 
-
 import QueueFields from './queue-fields.component';
 import { postQueueEntry } from './queue-fields.resource';
 

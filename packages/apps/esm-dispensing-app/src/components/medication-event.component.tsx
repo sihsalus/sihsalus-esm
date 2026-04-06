@@ -36,7 +36,8 @@ const MedicationEvent: React.FC<{
         [styles.medicationEventTile]: true,
         [styles.dispenseEvent]: isDispenseEvent,
         [styles.isTablet]: isTablet,
-      })}>
+      })}
+    >
       <div>
         <p className={styles.medicationName}>
           {status}

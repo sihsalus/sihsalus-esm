@@ -113,7 +113,8 @@ export function useCREDSchedule(patientUuid: string): UseCREDScheduleResult {
 
   // Only block on patient loading; encounters/appointments errors are non-fatal
   // (the schedule can render from birthDate alone)
-  const isLoading = isPatientLoading || (isEncountersLoading && !encounters) || (isAppointmentsLoading && !appointments);
+  const isLoading =
+    isPatientLoading || (isEncountersLoading && !encounters) || (isAppointmentsLoading && !appointments);
   const error: Error | null = null;
 
   const controls = useMemo<CREDControlWithStatus[]>(() => {

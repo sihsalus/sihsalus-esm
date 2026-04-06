@@ -217,7 +217,7 @@ function CodedObsField({ concept, answerConceptSetUuid, label, required, customC
   const fieldName = `obs.${concept.uuid}`;
 
   const { data: conceptAnswers, isLoading: isLoadingConceptAnswers } = useConceptAnswers(
-    customConceptAnswers.length ? '' : answerConceptSetUuid ?? concept.uuid,
+    customConceptAnswers.length ? '' : (answerConceptSetUuid ?? concept.uuid),
   );
 
   const answers = useMemo(
@@ -243,7 +243,8 @@ function CodedObsField({ concept, answerConceptSetUuid, label, required, customC
                   labelText={label ?? concept?.display}
                   required={required}
                   invalid={errors[fieldName] && touched[fieldName]}
-                  {...field}>
+                  {...field}
+                >
                   <SelectItem
                     key={`no-answer-select-item-${fieldName}`}
                     value={''}

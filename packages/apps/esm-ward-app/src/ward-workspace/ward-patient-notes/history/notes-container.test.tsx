@@ -7,8 +7,6 @@ import { usePatientNotes } from '../notes.resource';
 
 import PatientNotesHistory from './notes-container.component';
 
-
-
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
 
 jest.mock('../../../hooks/useEmrConfiguration', () => jest.fn());

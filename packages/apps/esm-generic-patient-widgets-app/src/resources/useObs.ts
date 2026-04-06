@@ -63,19 +63,19 @@ function filterAndMapObservations(
           ...resource,
           conceptUuid: resource.code.coding.find((c) => isUuid(c.code))?.code,
         };
-        if (Object.prototype.hasOwnProperty.call(resource,'valueDateTime')) {
+        if (Object.prototype.hasOwnProperty.call(resource, 'valueDateTime')) {
           observation.dataType = 'DateTime';
         }
 
-        if (Object.prototype.hasOwnProperty.call(entry.resource,'valueString')) {
+        if (Object.prototype.hasOwnProperty.call(entry.resource, 'valueString')) {
           observation.dataType = 'Text';
         }
 
-        if (Object.prototype.hasOwnProperty.call(entry.resource,'valueQuantity')) {
+        if (Object.prototype.hasOwnProperty.call(entry.resource, 'valueQuantity')) {
           observation.dataType = 'Number';
         }
 
-        if (Object.prototype.hasOwnProperty.call(entry.resource,'valueCodeableConcept')) {
+        if (Object.prototype.hasOwnProperty.call(entry.resource, 'valueCodeableConcept')) {
           observation.dataType = 'Coded';
         }
 

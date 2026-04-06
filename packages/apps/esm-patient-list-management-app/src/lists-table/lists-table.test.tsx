@@ -7,7 +7,6 @@ import React from 'react';
 import type { PatientList } from '../api/types';
 import { type ConfigSchema, configSchema } from '../config-schema';
 
-
 import ListsTable from './lists-table.component';
 
 const mockUseSession = jest.mocked(useSession);

@@ -4,7 +4,6 @@ import { ConfigurableLink, ErrorState } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import EmptyState from '../empty-state/empty-state.component';
 import WardCard from '../ward-card/ward-card.component';
 
@@ -33,7 +32,8 @@ const Summary: React.FC = () => {
             <WardCard
               headerLabel={admissionLocation.ward.display}
               label={t('beds', 'Beds')}
-              value={admissionLocation?.totalBeds}>
+              value={admissionLocation?.totalBeds}
+            >
               {admissionLocation?.totalBeds && (
                 <div className={styles.link}>
                   <ConfigurableLink className={styles.link} to={routeSegment}>

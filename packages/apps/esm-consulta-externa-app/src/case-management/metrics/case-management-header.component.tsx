@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './case-management-header.scss';
 
-
 interface MetricsHeaderProps {
   activeTabIndex: number;
 }
@@ -31,7 +30,8 @@ const MetricsHeader: React.FC<MetricsHeaderProps> = ({ activeTabIndex }) => {
           renderIcon={(props) => <WatsonHealthStressBreathEditor size={16} {...props} />}
           iconDescription={t('addCase', 'Add case')}
           onClick={handleAddCase}
-          disabled={isDiscontinuationTab}>
+          disabled={isDiscontinuationTab}
+        >
           {t('addCase', 'Add case')}
         </Button>
       </div>

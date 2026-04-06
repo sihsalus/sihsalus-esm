@@ -124,7 +124,8 @@ export default function CancelAdmissionRequestWorkspace({
       <WardPatientWorkspaceBanner wardPatient={wardPatient} />
       <Form
         onSubmit={handleSubmit(onSubmit, onError)}
-        className={classNames(styles.formContainer, styles.workspaceContent)}>
+        className={classNames(styles.formContainer, styles.workspaceContent)}
+      >
         <div>
           {errorFetchingEmrConfiguration && (
             <div className={styles.formError}>
@@ -167,7 +168,8 @@ export default function CancelAdmissionRequestWorkspace({
           <Button
             type="submit"
             size="xl"
-            disabled={isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration || !patient}>
+            disabled={isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration || !patient}
+          >
             {t('save', 'Save')}
           </Button>
         </ButtonSet>

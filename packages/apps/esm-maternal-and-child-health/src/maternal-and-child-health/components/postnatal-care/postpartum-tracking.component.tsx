@@ -49,9 +49,13 @@ const PostpartumTracking: React.FC<PostpartumTrackingProps> = ({ patientUuid }) 
       <div className={styles.header}>
         <h5>{t('postpartumTracking', 'Seguimiento Puerperio (NTS 105)')}</h5>
         {trackingStatus.isControlled ? (
-          <Tag type="green" size="sm">{t('controlledPuerpera', 'Puérpera Controlada')}</Tag>
+          <Tag type="green" size="sm">
+            {t('controlledPuerpera', 'Puérpera Controlada')}
+          </Tag>
         ) : (
-          <Tag type="gray" size="sm">{t('pendingControls', 'Controles Pendientes')}</Tag>
+          <Tag type="gray" size="sm">
+            {t('pendingControls', 'Controles Pendientes')}
+          </Tag>
         )}
       </div>
       <div className={styles.indicators}>

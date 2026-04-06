@@ -89,7 +89,8 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({ isPrinting, pageSize,
         size={isTablet ? 'lg' : 'sm'}
         useZebraStyles
         sortRow={handleSorting}
-        isSortable>
+        isSortable
+      >
         {({ rows, headers, getTableProps, getHeaderProps }) => (
           <TableContainer className={styles.tableContainer}>
             <Table className={styles.table} aria-label="vitals" {...getTableProps()}>

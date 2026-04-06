@@ -7,7 +7,6 @@ import { getEncounterTileColumns } from '../utils';
 
 import { EncounterTile } from './encounter-tile.component';
 
-
 interface OverviewListProps {
   patientUuid: string;
 }

@@ -7,7 +7,6 @@ import { useOrderStockInfo } from '../hooks/useOrderStockInfo';
 
 import styles from './order-stock-details.scss';
 
-
 interface OrderStockDetailsComponentProps {
   orderItemUuid: string;
 }

@@ -127,7 +127,9 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ c
               {t('patientAge', 'Age')} : &nbsp; {queueEntry?.patientAge}
             </p>
             <div>
-              {queueEntry.identifiers?.map((identifier) => <Tag key={identifier.uuid}>{identifier.display}</Tag>)}
+              {queueEntry.identifiers?.map((identifier) => (
+                <Tag key={identifier.uuid}>{identifier.display}</Tag>
+              ))}
             </div>
           </section>
         </div>

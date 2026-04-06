@@ -8,7 +8,6 @@ import { mockPatient } from 'tools';
 import { saveVitalsAndBiometrics } from '../common';
 import { type ConfigObject, configSchema } from '../config-schema';
 
-
 import VitalsAndBiometricsForm from './vitals-biometrics-form.workspace';
 
 const heightValue = 180;

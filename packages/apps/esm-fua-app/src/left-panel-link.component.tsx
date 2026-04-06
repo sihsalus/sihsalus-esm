@@ -27,7 +27,8 @@ export function LinkExtension({ config }: { config: LinkConfig }): JSX.Element {
   return (
     <ConfigurableLink
       to={spaBasePath + '/' + name}
-      className={`cds--side-nav__link ${name === urlSegment && 'active-left-nav-link'}`}>
+      className={`cds--side-nav__link ${name === urlSegment && 'active-left-nav-link'}`}
+    >
       {title}
     </ConfigurableLink>
   );

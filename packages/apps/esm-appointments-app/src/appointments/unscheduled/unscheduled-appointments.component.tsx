@@ -60,7 +60,8 @@ const UnscheduledAppointments: React.FC = () => {
       <ConfigurableLink
         style={{ textDecoration: 'none' }}
         to={customPatientChartUrl}
-        templateParams={{ patientUuid: visit.uuid }}>
+        templateParams={{ patientUuid: visit.uuid }}
+      >
         {visit.name}
       </ConfigurableLink>
     ),
@@ -88,7 +89,8 @@ const UnscheduledAppointments: React.FC = () => {
         {({ rows, headers, getHeaderProps, getTableProps }) => (
           <TableContainer
             title={`${t('unscheduledAppointments', 'Unscheduled appointments')} ${unscheduledAppointments.length}`}
-            description={`${t(`Total ${unscheduledAppointments.length ?? 0}`)}`}>
+            description={`${t(`Total ${unscheduledAppointments.length ?? 0}`)}`}
+          >
             <TableToolbar>
               <TableToolbarContent>
                 <TableToolbarSearch
@@ -100,7 +102,8 @@ const UnscheduledAppointments: React.FC = () => {
                   size="lg"
                   kind="tertiary"
                   renderIcon={Download}
-                  onClick={() => exportUnscheduledAppointmentsToSpreadsheet(unscheduledAppointments)}>
+                  onClick={() => exportUnscheduledAppointmentsToSpreadsheet(unscheduledAppointments)}
+                >
                   {t('download', 'Download')}
                 </Button>
               </TableToolbarContent>

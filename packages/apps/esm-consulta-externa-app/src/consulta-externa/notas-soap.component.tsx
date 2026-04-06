@@ -1,10 +1,4 @@
-import {
-  Button,
-  Accordion,
-  AccordionItem,
-  InlineLoading,
-  Tag,
-} from '@carbon/react';
+import { Button, Accordion, AccordionItem, InlineLoading, Tag } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
 import { launchWorkspace } from '@openmrs/esm-framework';
@@ -44,15 +38,8 @@ const NotasSoap: React.FC<NotasSoapProps> = ({ patientUuid }) => {
   return (
     <div className={styles.widgetContainer}>
       <div className={styles.tableHeader}>
-        <span className={styles.tableHeaderTitle}>
-          {t('soapNotesHistory', 'Historial de Notas SOAP')}
-        </span>
-        <Button
-          kind="ghost"
-          size="sm"
-          renderIcon={Add}
-          onClick={handleLaunchForm}
-        >
+        <span className={styles.tableHeaderTitle}>{t('soapNotesHistory', 'Historial de Notas SOAP')}</span>
+        <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('addSoapNote', 'Registrar Nota SOAP')}
         </Button>
       </div>

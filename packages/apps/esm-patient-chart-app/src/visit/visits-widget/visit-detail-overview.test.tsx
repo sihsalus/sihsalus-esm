@@ -7,7 +7,6 @@ import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
 
 import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
 
-
 import VisitDetailOverview from './visit-detail-overview.component';
 
 const mockGetConfig = getConfig as jest.Mock;

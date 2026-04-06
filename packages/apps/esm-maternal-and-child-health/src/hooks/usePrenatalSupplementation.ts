@@ -54,13 +54,10 @@ export function usePrenatalSupplementation(patientUuid: string): PrenatalSupplem
     );
   }, [patientUuid, supplementDefs]);
 
-  const { data, isLoading, error, mutate } = useSWR(
-    urls,
-    async (fetchUrls: string[]) => {
-      const responses = await Promise.all(fetchUrls.map((u) => openmrsFetch(u)));
-      return responses.map((r) => r?.data);
-    },
-  );
+  const { data, isLoading, error, mutate } = useSWR(urls, async (fetchUrls: string[]) => {
+    const responses = await Promise.all(fetchUrls.map((u) => openmrsFetch(u)));
+    return responses.map((r) => r?.data);
+  });
 
   const result = useMemo(() => {
     if (!data || data.length === 0) {
@@ -90,9 +87,7 @@ export function usePrenatalSupplementation(patientUuid: string): PrenatalSupplem
     });
 
     const overallPercentage =
-      supplements.length > 0
-        ? supplements.reduce((sum, s) => sum + s.percentage, 0) / supplements.length
-        : 0;
+      supplements.length > 0 ? supplements.reduce((sum, s) => sum + s.percentage, 0) / supplements.length : 0;
 
     return { supplements, overallPercentage };
   }, [data, supplementDefs]);

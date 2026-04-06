@@ -9,7 +9,7 @@ import styles from './emergency-header.scss';
 
 /**
  * Emergency Header Component
- * 
+ *
  * Displays the header with title, pictogram, and action button
  * to launch the emergency workflow workspace.
  */
@@ -41,7 +41,8 @@ const EmergencyHeader: React.FC<EmergencyHeaderProps> = ({ queueFilter }) => {
           renderIcon={(props) => <Add size={16} {...props} />}
           onClick={handleNewPatientClick}
           size={responsiveSize}
-          className={styles.newPatientButton}>
+          className={styles.newPatientButton}
+        >
           {t('newEmergencyPatient', 'New Emergency Patient')}
         </Button>
       </div>
@@ -50,4 +51,3 @@ const EmergencyHeader: React.FC<EmergencyHeaderProps> = ({ queueFilter }) => {
 };
 
 export default EmergencyHeader;
-

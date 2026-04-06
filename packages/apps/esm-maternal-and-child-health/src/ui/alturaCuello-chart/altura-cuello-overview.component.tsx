@@ -2,11 +2,7 @@
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { getPatientName, launchWorkspace2, useConfig } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -88,7 +84,8 @@ const AlturaCuelloOverview: React.FC<AlturaCuelloOverviewProps> = ({ patient, pa
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
               onClick={launchForm}
-              aria-label={t('addMeasurement', 'Agregar medición')}>
+              aria-label={t('addMeasurement', 'Agregar medición')}
+            >
               {t('add', 'Add')}
             </Button>
           )}

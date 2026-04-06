@@ -125,7 +125,8 @@ const NewbornVitalsInput: React.FC<NewbornVitalsInputProps> = ({
           <div
             className={classNames({
               [styles.centered]: !isTablet || unitSymbol === 'mmHg',
-            })}>
+            })}
+          >
             {fieldProperties.map((fieldProperty) => (
               <Fragment key={fieldProperty.id}>
                 <ResponsiveWrapper>

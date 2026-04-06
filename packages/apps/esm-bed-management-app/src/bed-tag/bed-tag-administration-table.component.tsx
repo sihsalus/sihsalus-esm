@@ -27,9 +27,6 @@ import type { BedTagData } from '../types';
 import EditBedTagForm from './edit-tag-form.component';
 import BedTagForm from './new-tag-form.component';
 
-
-
-
 const BedTagAdministrationTable: React.FC = () => {
   const { t } = useTranslation();
   const headerTitle = t('bedTags', 'Bed tags');
@@ -133,7 +130,8 @@ const BedTagAdministrationTable: React.FC = () => {
             <Button
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
-              onClick={() => setAddBedTagsModal(true)}>
+              onClick={() => setAddBedTagsModal(true)}
+            >
               {t('addBedTag', 'Add bed tag')}
             </Button>
           ) : null}
@@ -171,7 +169,8 @@ const BedTagAdministrationTable: React.FC = () => {
                       kind="ghost"
                       size="sm"
                       renderIcon={(props) => <Add size={16} {...props} />}
-                      onClick={() => setAddBedTagsModal(true)}>
+                      onClick={() => setAddBedTagsModal(true)}
+                    >
                       {t('addBedTag', 'Add bed tag')}
                     </Button>
                   </Tile>

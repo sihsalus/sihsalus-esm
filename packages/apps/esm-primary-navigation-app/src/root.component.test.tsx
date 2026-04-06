@@ -18,7 +18,6 @@ import { mockUser } from '../__mocks__/mock-user';
 import Root from './root.component';
 import { isDesktop } from './utils';
 
-
 const mockUserObservable = of(mockUser);
 const mockSessionObservable = of({ data: mockSession });
 

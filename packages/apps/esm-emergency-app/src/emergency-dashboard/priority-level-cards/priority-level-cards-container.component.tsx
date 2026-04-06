@@ -7,13 +7,13 @@ import styles from './priority-level-cards-container.scss';
 
 /**
  * Priority Level Cards Container
- * 
+ *
  * Displays 4 horizontal cards, one for each priority level using OpenMRS Extension System.
  * Uses Flexbox for responsive layout (same pattern as service-queues-app metrics).
- * 
+ *
  * Extension Slot: emergency-priority-card-slot
  * Extensions: priority-i-card, priority-ii-card, priority-iii-card, priority-iv-card
- * 
+ *
  * Pattern: Follows esm-service-queues-app/metrics-container.component.tsx
  * - ExtensionSlot receives className directly
  * - CSS flexbox with .container > * selector controls all extension children
@@ -50,9 +50,3 @@ const PriorityLevelCardsContainer: React.FC<PriorityLevelCardsContainerProps> = 
 };
 
 export default PriorityLevelCardsContainer;
-
-
-
-
-
-

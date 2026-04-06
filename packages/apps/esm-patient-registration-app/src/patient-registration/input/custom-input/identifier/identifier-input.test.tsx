@@ -20,7 +20,6 @@ import type {
 
 import IdentifierInput from './identifier-input.component';
 
-
 const mockIdentifierTypes = [
   {
     fieldName: 'openMrsId',

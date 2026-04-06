@@ -18,7 +18,6 @@ import { wfa_g_0_5_y_z, wfa_g_0_13_w_z } from './ZScores/wfa-girls';
 import { wfh_g_2_5_y_z, wfl_g_0_2_y_z } from './ZScores/wfhl-girls';
 import { wfh_b_2_5_y_z, wfl_b_0_2_y_z } from './ZScores/wfhl-boys';
 
-
 export const chartData: ChartData = {
   [CategoryCodes.hcfa_b]: {
     categoryMetadata: {

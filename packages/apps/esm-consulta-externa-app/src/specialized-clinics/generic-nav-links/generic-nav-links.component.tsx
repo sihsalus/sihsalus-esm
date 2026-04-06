@@ -20,16 +20,13 @@ const GenericNavLinks: React.FC = () => {
 
 export default GenericNavLinks;
 
-const GenericLink: React.FC<{ title: string; path: string; patientUuid: string }> = ({
-  title,
-  path,
-  patientUuid,
-}) => {
+const GenericLink: React.FC<{ title: string; path: string; patientUuid: string }> = ({ title, path, patientUuid }) => {
   return (
     <ConfigurableLink
       style={{ paddingLeft: '2rem' }}
       className={`cds--side-nav__link`}
-      to={`${basePath}${patientUuid}/chart/${encodeURIComponent('special-clinics-dashboard')}?clinic=${path}`}>
+      to={`${basePath}${patientUuid}/chart/${encodeURIComponent('special-clinics-dashboard')}?clinic=${path}`}
+    >
       {title}
     </ConfigurableLink>
   );

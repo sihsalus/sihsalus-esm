@@ -875,10 +875,7 @@ const VisitFormExtensionSlot: React.FC<VisitFormExtensionSlotProps> = React.memo
  * boundary, the error propagates through React's commit phase and crashes the
  * entire visit form, preventing the workspace from closing after visit creation.
  */
-class ExtraVisitSlotErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  { hasError: boolean }
-> {
+class ExtraVisitSlotErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean }> {
   state = { hasError: false };
   static getDerivedStateFromError() {
     return { hasError: true };

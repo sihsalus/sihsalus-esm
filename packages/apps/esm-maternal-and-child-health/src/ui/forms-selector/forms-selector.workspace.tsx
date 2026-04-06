@@ -9,7 +9,10 @@ import FormsList from './forms-list.component';
 import styles from './forms-selector.scss';
 
 // Generic type for form launch function
-export type FormLaunchHandler = (form: { uuid: string; name?: string; display?: string }, encounterUuid: string) => void;
+export type FormLaunchHandler = (
+  form: { uuid: string; name?: string; display?: string },
+  encounterUuid: string,
+) => void;
 
 export interface FormsSelectorWorkspaceAdditionalProps {
   availableForms: Array<CompletedFormInfo>;
@@ -73,7 +76,8 @@ export default function FormsSelectorWorkspace({
               kind="ghost"
               onClick={backToPreviousWorkspace}
               renderIcon={(props: ComponentProps<typeof ArrowLeftIcon>) => <ArrowLeftIcon size={24} {...props} />}
-              size="sm">
+              size="sm"
+            >
               <span>{t('backToPrevious', 'Volver')}</span>
             </Button>
           </div>

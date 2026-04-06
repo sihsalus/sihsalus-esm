@@ -77,7 +77,8 @@ const FillPrescriptionButton: React.FC<{}> = () => {
         kind="primary"
         renderIcon={(props) => <AddIcon size={16} {...props} />}
         size={responsiveSize}
-        onClick={launchSearchWorkspace}>
+        onClick={launchSearchWorkspace}
+      >
         {t('fillPrescription', 'Fill prescription')}
       </Button>
     </div>

@@ -7,8 +7,6 @@ import type { PartograpyComponents } from '../../config-schema';
 
 import styles from './partograph-chart.scss';
 
-
-
 enum ScaleTypes {
   TIME = 'time',
   LINEAR = 'linear',
@@ -152,7 +150,8 @@ const PartographChart: React.FC<PartographChartProps> = ({ partograpyComponents 
                       title: title,
                       value: value,
                     })
-                  }>
+                  }
+                >
                   {title}-
                 </Tab>
               );

@@ -1,14 +1,14 @@
 /**
  * Emergency Metrics Extension
- * 
+ *
  * Extension component that renders emergency-specific metrics in service-queues-app
  * when emergency location is selected. When not in emergency location, this extension
  * ensures the standard ClinicMetrics component is hidden via CSS.
- * 
+ *
  * Uses CompactMetricsContainer which contains the emergency compact metrics.
- * 
+ *
  * Registered in: service-queues-emergency-metrics-slot
- * 
+ *
  * This extension always renders to ensure proper control over metrics display.
  * When emergency location is selected, shows emergency metrics and hides standard metrics.
  * When not emergency, returns null to allow standard metrics to show.
@@ -46,7 +46,3 @@ export default function EmergencyMetricsExtension() {
 
   return <CompactMetricsContainer />;
 }
-
-
-
-

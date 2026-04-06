@@ -5,7 +5,6 @@ import useSWRImmutable, { mutate } from 'swr';
 
 import type { OpenmrsEncounter } from '../types';
 
-
 export const encounterRepresentation =
   'custom:(uuid,encounterDatetime,encounterType,location:(uuid,name),' +
   'patient:(uuid,display),encounterProviders:(uuid,provider:(uuid,name)),' +
@@ -17,7 +16,11 @@ export interface OpenmrsResource {
   [anythingElse: string]: any;
 }
 
-export function useEncounterRows(patientUuid: string, encounterType: string, encounterFilter: (encounter: OpenmrsEncounter) => boolean) {
+export function useEncounterRows(
+  patientUuid: string,
+  encounterType: string,
+  encounterFilter: (encounter: OpenmrsEncounter) => boolean,
+) {
   const url = `/ws/rest/v1/encounter?encounterType=${encounterType}&patient=${patientUuid}&v=${encounterRepresentation}`;
 
   const { data, error, isLoading } = useSWRImmutable<{ data: { results: Array<OpenmrsEncounter> } }, Error>(

@@ -71,7 +71,7 @@
   row-gap: layout.$spacing-03;
   & button {
     width: 100%;
-    text-decoration: "none";
+    text-decoration: 'none';
   }
 }
 
@@ -89,6 +89,6 @@
 }
 
 .formError {
-  @include type.type-style("helper-text-02");
+  @include type.type-style('helper-text-02');
   color: colors.$red-60;
 }

@@ -1,13 +1,13 @@
 /**
  * Emergency Dashboard Component
- * 
+ *
  * Main dashboard for the emergency department with improved UX:
  * - Alert banners for critical patients and pending triage
  * - Priority level cards (4 horizontal cards)
  * - Compact metrics (Total, Waiting, Avg Wait)
  * - Search and filters bar
  * - Patient queue table
- * 
+ *
  * Follows OpenMRS patterns:
  * - Uses ExtensionSlot for extensible components
  * - Uses SWR hooks for data fetching
@@ -39,18 +39,21 @@ const EmergencyDashboardContent: React.FC = () => {
   const { t } = useTranslation();
   const emergencyConfig = useEmergencyConfig();
 
-  const queueFilterItems: QueueFilterItem[] = useMemo(() => [
-    {
-      id: 'triage',
-      text: t('triageQueue', 'Cola de Triaje'),
-      queueUuid: emergencyConfig.emergencyTriageQueueUuid,
-    },
-    {
-      id: 'attention',
-      text: t('attentionQueue', 'Cola de Atención'),
-      queueUuid: emergencyConfig.emergencyAttentionQueueUuid,
-    },
-  ], [t, emergencyConfig]);
+  const queueFilterItems: QueueFilterItem[] = useMemo(
+    () => [
+      {
+        id: 'triage',
+        text: t('triageQueue', 'Cola de Triaje'),
+        queueUuid: emergencyConfig.emergencyTriageQueueUuid,
+      },
+      {
+        id: 'attention',
+        text: t('attentionQueue', 'Cola de Atención'),
+        queueUuid: emergencyConfig.emergencyAttentionQueueUuid,
+      },
+    ],
+    [t, emergencyConfig],
+  );
 
   const [selectedQueueFilter, setSelectedQueueFilter] = useState<QueueFilterItem>(queueFilterItems[0]);
   const activeQueueUuid = selectedQueueFilter?.queueUuid;
@@ -96,4 +99,3 @@ const EmergencyDashboard: React.FC = () => (
 );
 
 export default EmergencyDashboard;
-

@@ -65,8 +65,8 @@ export const FormatGoodsReceivedDocument = async (data: StockOperationPrintData)
                     <td valign="middle" class="center">${p.batchNumber ?? ''}</td>                    
                     <td valign="middle" class="center">${formatDisplayDate(p.expiryDate)}</td>                    
                     <td valign="middle" class="center">${p.quantityRequired?.toLocaleString() ?? ''} ${
-                        p.quantityRequiredUoM ?? ''
-                      }</td>
+                      p.quantityRequiredUoM ?? ''
+                    }</td>
                     <td valign="middle" class="center">${p.purchasePrice?.toLocaleString() ?? ''}</td>
                 </tr> 
                 `;

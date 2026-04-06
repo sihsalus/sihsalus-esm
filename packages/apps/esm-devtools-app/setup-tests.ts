@@ -11,7 +11,9 @@ if (typeof localStorage.clear !== 'function') {
       setItem: (k: string, v: string) => store.set(k, String(v)),
       removeItem: (k: string) => store.delete(k),
       clear: () => store.clear(),
-      get length() { return store.size; },
+      get length() {
+        return store.size;
+      },
       key: (i: number) => [...store.keys()][i] ?? null,
     },
     writable: true,

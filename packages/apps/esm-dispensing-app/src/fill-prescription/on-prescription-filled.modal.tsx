@@ -129,7 +129,8 @@ const OnPrescriptionFilledModal: React.FC<OnPrescriptionFilledModalProps> = ({ p
           disabled={isSubmitting}
           onClick={() => {
             onConfirm();
-          }}>
+          }}
+        >
           {t('dispenseAllPrescriptions', 'Dispense all prescriptions')}
         </Button>
       </ModalFooter>

@@ -12,7 +12,7 @@ export function usePersonAttributeType(personAttributeTypeUuid: string): {
     `${restBaseUrl}/personattributetype/${personAttributeTypeUuid}`,
     openmrsFetch,
   );
-  
+
   return {
     data: data?.data,
     isLoading,

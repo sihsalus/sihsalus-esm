@@ -9,7 +9,6 @@ import { initialFormValues } from '../../patient-registration.component';
 
 import { DemographicsSection } from './demographics-section.component';
 
-
 const mockUseConfig = jest.mocked(useConfig<RegistrationConfig>);
 
 jest.mock('../../field/name/name-field.component', () => {
@@ -71,7 +70,8 @@ describe('Demographics section', () => {
               isOffline: true,
               setCapturePhotoProps: (value) => {},
               setFieldTouched: () => {},
-            }}>
+            }}
+          >
             <DemographicsSection fields={['name', 'gender', 'dob']} />
           </PatientRegistrationContext.Provider>
         </Form>

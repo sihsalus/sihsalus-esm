@@ -34,7 +34,8 @@ const MetricsCard: React.FC<MetricsCardProps> = ({
     <Layer
       className={classNames(styles.container, {
         [styles.cardWithChildren]: children,
-      })}>
+      })}
+    >
       <Tile className={styles.tileContainer}>
         <div className={styles.tileHeader}>
           <div className={styles.headerLabelContainer}>

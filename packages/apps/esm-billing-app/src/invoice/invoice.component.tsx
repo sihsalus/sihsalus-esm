@@ -128,7 +128,8 @@ const Invoice: React.FC = () => {
             disabled={isPrinting || isLoadingPatient || isLoadingBill}
             onClick={handlePrint}
             renderIcon={(props) => <Printer size={24} {...props} />}
-            iconDescription={t('printBill', 'Print bill')}>
+            iconDescription={t('printBill', 'Print bill')}
+          >
             {t('printBill', 'Print bill')}
           </Button>
           {(bill?.status === 'PAID' || bill?.tenderedAmount > 0) && <PrintReceipt billUuid={bill?.uuid} />}

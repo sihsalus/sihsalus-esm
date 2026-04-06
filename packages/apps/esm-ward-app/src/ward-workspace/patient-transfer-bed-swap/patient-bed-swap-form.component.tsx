@@ -124,7 +124,8 @@ export default function PatientBedSwapForm({
   return (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className={classNames(styles.formContainer, styles.workspaceContent)}>
+      className={classNames(styles.formContainer, styles.workspaceContent)}
+    >
       <div>
         {errorFetchingEmrConfiguration && (
           <div className={styles.formError}>
@@ -171,7 +172,8 @@ export default function PatientBedSwapForm({
         <Button
           type="submit"
           size="xl"
-          disabled={isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration}>
+          disabled={isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration}
+        >
           {t('save', 'Save')}
         </Button>
       </ButtonSet>

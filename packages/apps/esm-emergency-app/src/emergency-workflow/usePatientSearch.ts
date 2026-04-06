@@ -159,7 +159,7 @@ const patientSearchCustomRepresentation = `custom:(${patientProperties.join(',')
 
 /**
  * Hook for searching patients with infinite scroll capability
- * 
+ *
  * @param searchQuery - The search term (name, ID, or DNI)
  * @param includeDead - Whether to include deceased patients
  * @param isSearching - Whether search is active
@@ -244,21 +244,19 @@ export function usePatientSearch(
     openmrsFetch,
   );
 
-  const mappedData = USE_HARDCODED_DATA ? hardcodedData : data?.flatMap((res) => res.data?.results ?? []) ?? null;
+  const mappedData = USE_HARDCODED_DATA ? hardcodedData : (data?.flatMap((res) => res.data?.results ?? []) ?? null);
 
   return useMemo(
     () => ({
       data: mappedData,
       isLoading: USE_HARDCODED_DATA ? hardcodedIsLoading : isLoading,
       fetchError: USE_HARDCODED_DATA ? undefined : error,
-      hasMore: USE_HARDCODED_DATA ? false : data?.at(-1)?.data?.links?.some((link) => link.rel === 'next') ?? false,
+      hasMore: USE_HARDCODED_DATA ? false : (data?.at(-1)?.data?.links?.some((link) => link.rel === 'next') ?? false),
       isValidating: USE_HARDCODED_DATA ? false : isValidating,
       setPage: setSize,
       currentPage: USE_HARDCODED_DATA ? 1 : size,
-      totalResults: USE_HARDCODED_DATA ? hardcodedData?.length ?? 0 : data?.[0]?.data?.totalCount ?? 0,
+      totalResults: USE_HARDCODED_DATA ? (hardcodedData?.length ?? 0) : (data?.[0]?.data?.totalCount ?? 0),
     }),
     [mappedData, isLoading, error, data, isValidating, setSize, size, hardcodedIsLoading, hardcodedData],
   );
 }
-
-

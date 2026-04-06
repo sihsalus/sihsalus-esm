@@ -27,13 +27,8 @@ export const EmergencyQueueNameCell: React.FC<EmergencyQueueTableCellProps> = ({
 
   return (
     <ConfigurableLink to={`\${openmrsSpaBase}/patient/${queueEntry.patient.uuid}/chart`}>
-      {patientName}{identifierDisplay ? ` - ${identifierDisplay}` : ''}
+      {patientName}
+      {identifierDisplay ? ` - ${identifierDisplay}` : ''}
     </ConfigurableLink>
   );
 };
-
-
-
-
-
-

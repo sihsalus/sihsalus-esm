@@ -96,7 +96,8 @@ const RelationshipView: React.FC<RelationshipViewProps> = ({
             kind="ghost"
             iconDescription={t('deleteRelationshipTooltipText', 'Delete')}
             hasIconOnly
-            onClick={deleteRelationship}>
+            onClick={deleteRelationship}
+          >
             <TrashCan size={16} className={styles.trashCan} />
           </Button>
         </div>
@@ -129,7 +130,8 @@ const RelationshipView: React.FC<RelationshipViewProps> = ({
             labelText={t('relationship', 'Relationship')}
             onChange={handleRelationshipTypeChange}
             name={`relationships[${index}].relationshipType`}
-            defaultValue={relationship?.relationshipType ?? 'placeholder-item'}>
+            defaultValue={relationship?.relationshipType ?? 'placeholder-item'}
+          >
             <SelectItem
               disabled
               hidden
@@ -229,7 +231,8 @@ export const RelationshipsSection = () => {
                     relatedPersonUuid: '',
                     action: 'ADD',
                   })
-                }>
+                }
+              >
                 {t('addRelationshipButtonText', 'Add Relationship')}
               </Button>
             </div>

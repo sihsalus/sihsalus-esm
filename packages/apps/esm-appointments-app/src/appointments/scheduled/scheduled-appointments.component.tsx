@@ -82,7 +82,8 @@ const ScheduledAppointments: React.FC<ScheduledAppointmentsProps> = ({ appointme
         size={responsiveSize}
         onChange={({ name }) => setCurrentTab(name)}
         selectedIndex={panelsToShow.findIndex((panel) => panel.name == currentTab) ?? 0}
-        selectionMode="manual">
+        selectionMode="manual"
+      >
         {panelsToShow.map((panel) => (
           <Switch key={`panel-${panel.name}`} name={panel.name} text={t(panel.config.title)} />
         ))}
@@ -173,7 +174,8 @@ function ExtensionWrapper({
     <div
       key={extension.name}
       className={styles.container}
-      style={{ display: currentTab === extension.name ? 'block' : 'none' }}>
+      style={{ display: currentTab === extension.name ? 'block' : 'none' }}
+    >
       <Extension
         state={{
           date,

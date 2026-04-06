@@ -49,9 +49,18 @@ export function useNutritionFollowup(patientUuid: string): NutritionFollowupResu
   const config = useConfig<ConfigObject>();
   const cn = config.childNutrition;
 
-  const mmnUrl = useMemo(() => buildObsUrl(patientUuid, cn?.mmnReceivingConceptUuid), [patientUuid, cn?.mmnReceivingConceptUuid]);
-  const ironUrl = useMemo(() => buildObsUrl(patientUuid, cn?.ironReceivingConceptUuid), [patientUuid, cn?.ironReceivingConceptUuid]);
-  const counselingUrl = useMemo(() => buildObsUrl(patientUuid, cn?.nutritionCounselingCountConceptUuid), [patientUuid, cn?.nutritionCounselingCountConceptUuid]);
+  const mmnUrl = useMemo(
+    () => buildObsUrl(patientUuid, cn?.mmnReceivingConceptUuid),
+    [patientUuid, cn?.mmnReceivingConceptUuid],
+  );
+  const ironUrl = useMemo(
+    () => buildObsUrl(patientUuid, cn?.ironReceivingConceptUuid),
+    [patientUuid, cn?.ironReceivingConceptUuid],
+  );
+  const counselingUrl = useMemo(
+    () => buildObsUrl(patientUuid, cn?.nutritionCounselingCountConceptUuid),
+    [patientUuid, cn?.nutritionCounselingCountConceptUuid],
+  );
 
   const { data: mmnData, isLoading: mmnLoading, error: mmnError } = useSWR(mmnUrl, fetcher);
   const { data: ironData, isLoading: ironLoading, error: ironError } = useSWR(ironUrl, fetcher);
@@ -62,9 +71,12 @@ export function useNutritionFollowup(patientUuid: string): NutritionFollowupResu
     const ironStatus = extractDisplayValue(ironData);
 
     const counselingObs = counselingData?.results?.[0];
-    const counselingCount = counselingObs?.value != null
-      ? (typeof counselingObs.value === 'number' ? counselingObs.value : parseFloat(counselingObs.value))
-      : null;
+    const counselingCount =
+      counselingObs?.value != null
+        ? typeof counselingObs.value === 'number'
+          ? counselingObs.value
+          : parseFloat(counselingObs.value)
+        : null;
 
     const dates = [
       mmnData?.results?.[0]?.obsDatetime,

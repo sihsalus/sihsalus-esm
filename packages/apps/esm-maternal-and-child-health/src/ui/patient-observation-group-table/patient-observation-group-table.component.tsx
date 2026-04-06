@@ -15,11 +15,7 @@ import {
   DataTableSkeleton,
 } from '@carbon/react';
 import { AddIcon, launchWorkspace2, useLayoutType, isDesktop, formatDate } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -32,7 +28,6 @@ import ObservationGroupDetails, {
 import styles from './patient-observation-group-table.scss';
 
 // Importar tipos desde el componente separado
-
 
 interface PatientObservationGroupTableProps {
   patientUuid: string;
@@ -173,7 +168,8 @@ const PatientObservationGroupTable: React.FC<PatientObservationGroupTableProps> 
             kind="ghost"
             renderIcon={(props) => <AddIcon size={16} {...props} />}
             onClick={launchForm}
-            aria-label={t('add', 'Add')}>
+            aria-label={t('add', 'Add')}
+          >
             {t('edit', 'Edit')}
           </Button>
         )}
@@ -192,7 +188,8 @@ const PatientObservationGroupTable: React.FC<PatientObservationGroupTableProps> 
                       {...getHeaderProps({
                         header,
                         className: header.key === 'actions' ? styles.actionsColumn : '',
-                      })}>
+                      })}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}

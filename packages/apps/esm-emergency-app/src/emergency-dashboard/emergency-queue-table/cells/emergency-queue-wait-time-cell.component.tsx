@@ -36,4 +36,3 @@ export const EmergencyQueueWaitTimeCell: React.FC<EmergencyQueueTableCellProps> 
 
   return <span>{t('minuteFormatted', '{{minutes}} minute(s)', { minutes })}</span>;
 };
-

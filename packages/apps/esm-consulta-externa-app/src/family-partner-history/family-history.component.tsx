@@ -26,7 +26,6 @@ import { EmptyDataIllustration, ErrorState, CardHeader, usePaginationInfo } from
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import type { ConfigObject } from '../config-schema';
 import { deleteRelationship } from '../relationships/relationship.resources';
 
@@ -103,7 +102,8 @@ const FamilyHistory: React.FC<FamilyHistoryProps> = ({ patientUuid }) => {
         name: (
           <ConfigurableLink
             style={{ textDecoration: 'none' }}
-            to={window.getOpenmrsSpaBase() + `patient/${relation.relativeUuid}/chart/Patient Summary`}>
+            to={window.getOpenmrsSpaBase() + `patient/${relation.relativeUuid}/chart/Patient Summary`}
+          >
             {relation.name}
           </ConfigurableLink>
         ),
@@ -197,7 +197,8 @@ const FamilyHistory: React.FC<FamilyHistoryProps> = ({ patientUuid }) => {
                       {...getHeaderProps({
                         header,
                         isSortable: header.isSortable,
-                      })}>
+                      })}
+                    >
                       {header.header?.content ?? header.header}
                     </TableHeader>
                   ))}

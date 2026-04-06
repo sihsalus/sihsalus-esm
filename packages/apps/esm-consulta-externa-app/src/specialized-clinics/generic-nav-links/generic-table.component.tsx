@@ -85,7 +85,8 @@ const GenericTable: React.FC<GenericTableProps> = ({ encounters, onEdit, onDelet
                   <TableExpandedRow
                     colSpan={headers.length + 1}
                     className="demo-expanded-td"
-                    {...getExpandedRowProps({ row })}>
+                    {...getExpandedRowProps({ row })}
+                  >
                     <>
                       <EncounterObservations observations={encounters[index]['obs'] ?? []} />
                       <Button onClick={() => onEdit(row.id)} kind="primary" size="sm">

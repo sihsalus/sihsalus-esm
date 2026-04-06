@@ -10,7 +10,6 @@ import { savePatientNote } from '../notes.resource';
 
 import PatientNotesForm from './notes-form.component';
 
-
 const testProps = {
   patientUuid: mockPatient.uuid,
   closeWorkspace: jest.fn(),

@@ -8,7 +8,6 @@ interface FuaViewerWorkspaceProps {
 }
 
 const FuaViewerWorkspace: React.FC<FuaViewerWorkspaceProps> = ({ fuaId, closeWorkspace: _closeWorkspace }) => {
-
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <FuaHtmlViewer fuaId={fuaId} />

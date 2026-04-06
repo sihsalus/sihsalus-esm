@@ -160,7 +160,8 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
       enableReinitialize
       initialValues={initialFormValues}
       validationSchema={validationSchema}
-      onSubmit={onFormSubmit}>
+      onSubmit={onFormSubmit}
+    >
       {(props) => (
         <Form className={styles.form}>
           <BeforeSavePrompt when={Object.keys(props.touched).length > 0} redirect={target} />
@@ -188,7 +189,8 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
                   // Current session and identifiers are required for patient registration.
                   // If currentSession or identifierTypes are not available, then the
                   // user should be blocked to register the patient.
-                  disabled={!currentSession || !identifierTypes || props.isSubmitting}>
+                  disabled={!currentSession || !identifierTypes || props.isSubmitting}
+                >
                   {props.isSubmitting ? (
                     <InlineLoading
                       className={styles.spinner}
@@ -220,7 +222,8 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
                   isOffline,
                   initialFormValues: props.initialValues,
                   setInitialFormValues,
-                }}>
+                }}
+              >
                 {sections.map((section, index) => (
                   <SectionWrapper
                     key={`registration-section-${section.id}`}

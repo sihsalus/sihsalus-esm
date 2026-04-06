@@ -38,7 +38,8 @@ const PrescriptionTabLists: React.FC = () => {
             <Tab
               title={t('activePrescriptions', 'Active Prescriptions')}
               id={'tab-active-prescription'}
-              className={styles.tab}>
+              className={styles.tab}
+            >
               {t('activePrescriptions', 'Active Prescriptions')}
             </Tab>
             <Tab title={t('allPrescriptions', 'All Prescriptions')} id={'tab-all-prescription'} className={styles.tab}>

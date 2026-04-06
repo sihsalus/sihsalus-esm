@@ -6,22 +6,24 @@ import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
  * identifiers (OpenMRS ID + optional DNI), and person attributes (insurance, companion).
  */
 export interface EmergencyPatientPayload {
-  person: {
-    names: Array<{
-      givenName: string;
-      familyName: string;
-      preferred: boolean;
-    }>;
-    gender: string;
-    birthdate?: string;
-    birthdateEstimated: boolean;
-    attributes: Array<{
-      attributeType: string;
-      value: string;
-    }>;
-    addresses: Array<Record<string, string>>;
-    dead: boolean;
-  } | Record<string, unknown>;
+  person:
+    | {
+        names: Array<{
+          givenName: string;
+          familyName: string;
+          preferred: boolean;
+        }>;
+        gender: string;
+        birthdate?: string;
+        birthdateEstimated: boolean;
+        attributes: Array<{
+          attributeType: string;
+          value: string;
+        }>;
+        addresses: Array<Record<string, string>>;
+        dead: boolean;
+      }
+    | Record<string, unknown>;
   identifiers: Array<{
     identifier: string;
     identifierType: string;

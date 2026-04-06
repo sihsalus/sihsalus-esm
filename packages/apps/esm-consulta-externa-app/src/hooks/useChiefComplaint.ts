@@ -9,14 +9,12 @@ interface ChiefComplaintObs {
 }
 
 export function useChiefComplaint(patientUuid: string, conceptUuid: string) {
-  const url = patientUuid && conceptUuid
-    ? `${restBaseUrl}/obs?patient=${patientUuid}&concept=${conceptUuid}&v=custom:(uuid,display,obsDatetime,value)&limit=20`
-    : null;
+  const url =
+    patientUuid && conceptUuid
+      ? `${restBaseUrl}/obs?patient=${patientUuid}&concept=${conceptUuid}&v=custom:(uuid,display,obsDatetime,value)&limit=20`
+      : null;
 
-  const { data, error, isLoading, mutate } = useSWR<{ data: { results: ChiefComplaintObs[] } }>(
-    url,
-    openmrsFetch,
-  );
+  const { data, error, isLoading, mutate } = useSWR<{ data: { results: ChiefComplaintObs[] } }>(url, openmrsFetch);
 
   return {
     complaints: data?.data?.results ?? [],

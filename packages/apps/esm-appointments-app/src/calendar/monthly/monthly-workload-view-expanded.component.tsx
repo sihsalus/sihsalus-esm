@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import styles from './monthly-view-workload.scss';
 import MonthlyWorkloadView, { type MonthlyWorkloadViewProps } from './monthly-workload-view.component';
 
-
 interface MonthlyWorkloadViewExpandedProps extends MonthlyWorkloadViewProps {
   count: number;
 }
@@ -36,7 +35,8 @@ const MonthlyWorkloadViewExpanded: React.FC<MonthlyWorkloadViewExpandedProps> = 
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen((prev) => !prev);
-        }}>
+        }}
+      >
         {t('countMore', '{{count}} more', { count })}
       </button>
       <PopoverContent>

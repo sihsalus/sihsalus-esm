@@ -29,7 +29,8 @@ function DashboardExtension({ dashboardLinkConfig }: { dashboardLinkConfig: Dash
       className={classNames('cds--side-nav__link', {
         'active-left-nav-link': navLink.match(name),
       })}
-      to={`${spaBasePath}/${name}`}>
+      to={`${spaBasePath}/${name}`}
+    >
       {t(title)}
     </ConfigurableLink>
   );

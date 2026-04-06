@@ -36,13 +36,10 @@ export function useBirthPlan(patientUuid: string): BirthPlanResult {
     return `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${encounterTypeUuid}&v=custom:(uuid,encounterDatetime,obs:(uuid,concept:(uuid),value:(uuid,display),display))&limit=1&order=desc`;
   }, [patientUuid, encounterTypeUuid]);
 
-  const { data, isLoading, error, mutate } = useSWR(
-    url,
-    async (fetchUrl: string) => {
-      const response = await openmrsFetch(fetchUrl);
-      return response?.data;
-    },
-  );
+  const { data, isLoading, error, mutate } = useSWR(url, async (fetchUrl: string) => {
+    const response = await openmrsFetch(fetchUrl);
+    return response?.data;
+  });
 
   const result = useMemo(() => {
     const encounter = data?.results?.[0];
@@ -60,13 +57,19 @@ export function useBirthPlan(patientUuid: string): BirthPlanResult {
 
     // Transport: Coded concept — check if obs exists (any answer means transport is arranged)
     const transportObs = transportConceptUuid
-      ? obs.find((o: { concept?: { uuid: string }; value?: { display?: string; uuid?: string }; display?: string }) => o.concept?.uuid === transportConceptUuid)
+      ? obs.find(
+          (o: { concept?: { uuid: string }; value?: { display?: string; uuid?: string }; display?: string }) =>
+            o.concept?.uuid === transportConceptUuid,
+        )
       : undefined;
     const transportArranged = !!transportObs;
 
     // Reference hospital: Text concept — extract display value
     const hospitalObs = referenceHospitalConceptUuid
-      ? obs.find((o: { concept?: { uuid: string }; value?: { display?: string; uuid?: string }; display?: string }) => o.concept?.uuid === referenceHospitalConceptUuid)
+      ? obs.find(
+          (o: { concept?: { uuid: string }; value?: { display?: string; uuid?: string }; display?: string }) =>
+            o.concept?.uuid === referenceHospitalConceptUuid,
+        )
       : undefined;
     const referenceHospital = hospitalObs?.value?.display ?? hospitalObs?.display?.split(': ')?.[1] ?? null;
 

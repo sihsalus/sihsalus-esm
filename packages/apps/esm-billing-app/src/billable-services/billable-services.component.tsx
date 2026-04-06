@@ -173,7 +173,8 @@ const BillableServices = () => {
         headers={headerData}
         overflowMenuOnHover={isDesktop(layout)}
         size={responsiveSize}
-        useZebraStyles={rowData?.length > 1}>
+        useZebraStyles={rowData?.length > 1}
+      >
         {({ rows, headers, getHeaderProps, getRowProps, getTableProps }) => (
           <TableContainer>
             <Table {...getTableProps()} aria-label={t('serviceList', 'Service list')}>
@@ -184,7 +185,8 @@ const BillableServices = () => {
                       {...getHeaderProps({
                         header,
                       })}
-                      key={header.key}>
+                      key={header.key}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}
@@ -197,7 +199,8 @@ const BillableServices = () => {
                     key={row.id}
                     {...getRowProps({
                       row,
-                    })}>
+                    })}
+                  >
                     {row.cells.map((cell) => (
                       <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}
@@ -261,7 +264,8 @@ function FilterableTableHeader({ layout, handleSearch, isValidating, responsiveS
           className={classNames({
             [styles.tabletHeading]: !isDesktop(layout),
             [styles.desktopHeading]: isDesktop(layout),
-          })}>
+          })}
+        >
           <h4>{t('servicesList', 'Services list')}</h4>
         </div>
         <div className={styles.backgroundDataFetchingIndicator}>
@@ -282,7 +286,8 @@ function FilterableTableHeader({ layout, handleSearch, isValidating, responsiveS
           onClick={() => {
             launchWorkspace2('billable-service-form', {});
           }}
-          iconDescription={t('addNewBillableService', 'Add new billable service')}>
+          iconDescription={t('addNewBillableService', 'Add new billable service')}
+        >
           {t('addNewService', 'Add new service')}
         </Button>
       </div>

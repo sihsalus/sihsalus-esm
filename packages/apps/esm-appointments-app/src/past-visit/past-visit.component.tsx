@@ -62,25 +62,29 @@ const PastVisit: React.FC<PastVisitProps> = ({ patientUuid }) => {
               className={tabClass[0]}
               id="vitals-tab"
               onClick={() => setSelectedTabIndex(0)}
-              label={t('vitals', 'Vitals')}></Tab>
+              label={t('vitals', 'Vitals')}
+            ></Tab>
 
             <Tab
               className={tabClass[1]}
               id="notes-tab"
               onClick={() => setSelectedTabIndex(1)}
-              label={t('notes', 'Notes')}></Tab>
+              label={t('notes', 'Notes')}
+            ></Tab>
 
             <Tab
               className={tabClass[2]}
               id="medications-tab"
               onClick={() => setSelectedTabIndex(2)}
-              label={t('medications', 'Medications')}></Tab>
+              label={t('medications', 'Medications')}
+            ></Tab>
 
             <Tab
               className={tabClass[3]}
               id="encounters-tab"
               onClick={() => setSelectedTabIndex(3)}
-              label={t('encounters', 'Encounters')}>
+              label={t('encounters', 'Encounters')}
+            >
               <EncounterList encounters={encounters} />
             </Tab>
           </Tabs>

@@ -19,9 +19,6 @@ import PublicServicesTab from './tabs/public-service-tab';
 import SummaryTab from './tabs/summary-tab';
 import SupplyTab from './tabs/supply-tab';
 
-
-
-
 export default function CostStructureForm() {
   const [selectedTab, setSelectedTab] = useState(0);
   const { t } = useTranslation();

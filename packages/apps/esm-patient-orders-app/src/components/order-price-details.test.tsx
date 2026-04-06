@@ -8,8 +8,6 @@ import { useOrderPrice } from '../hooks/useOrderPrice';
 
 import OrderPriceDetailsComponent from './order-price-details.component';
 
-
-
 const mockGetLocale = jest.mocked(getLocale);
 const mockUseOrderPrice = jest.mocked(useOrderPrice);
 

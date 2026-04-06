@@ -12,7 +12,6 @@ import {
 } from '../../config-schema';
 import { type AdvancedPatientSearchState, type SearchFieldConfig, type SearchFieldType } from '../../types';
 
-
 import { RefineSearchTablet } from './refine-search-tablet.component';
 import styles from './refine-search.scss';
 import { SearchField } from './search-field.component';
@@ -117,7 +116,8 @@ const RefineSearch: React.FC<RefineSearchProps> = ({ setFilters, inTabletOrOverl
       onSubmit={handleSubmit(onSubmit)}
       className={styles.refineSearchContainer}
       data-openmrs-role="Refine Search"
-      role="refine-search">
+      role="refine-search"
+    >
       <h2 className={styles.productiveHeading02}>{t('refineSearch', 'Refine search')}</h2>
       {renderSearchFields}
       <hr className={classNames(styles.field, styles.horizontalDivider)} />
@@ -131,7 +131,8 @@ const RefineSearch: React.FC<RefineSearchProps> = ({ setFilters, inTabletOrOverl
         kind="secondary"
         size="md"
         onClick={handleResetFields}
-        className={classNames(styles.field, styles.button)}>
+        className={classNames(styles.field, styles.button)}
+      >
         {t('resetFields', 'Reset fields')}
       </Button>
     </form>

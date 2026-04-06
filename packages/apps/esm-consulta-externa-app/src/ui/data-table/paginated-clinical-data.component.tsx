@@ -104,7 +104,8 @@ const PaginatedClinicalData: React.FC<PaginatedClinicalDataProps> = ({
         size={isTablet ? 'lg' : 'sm'}
         useZebraStyles
         sortRow={handleSorting}
-        isSortable>
+        isSortable
+      >
         {({ rows, headers, getTableProps, getHeaderProps }) => (
           <TableContainer className={styles.tableContainer}>
             <Table className={styles.table} aria-label="clinical-data" {...getTableProps()}>

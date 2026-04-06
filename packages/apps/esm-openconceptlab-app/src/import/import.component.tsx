@@ -24,7 +24,7 @@ const Import: React.FC = () => {
   const [file, setFile] = useState<File>();
   const [isFileUploading, setIsFileUploading] = useState(false);
 
-  const allowedMimeTypes = ['application/zip', 'application/x-zip-compressed']
+  const allowedMimeTypes = ['application/zip', 'application/x-zip-compressed'];
 
   const { data: subscription, isLoading, error } = useSubscription();
 

@@ -17,7 +17,8 @@ const WorkloadCard = ({ count, day, date, isActive }: WorkloadCardProps) => {
       role="button"
       className={classNames(styles.tileContainer, {
         [styles.activeWorkloadCard]: isActive,
-      })}>
+      })}
+    >
       <div>
         <label className={styles.dayLabel}>{day}</label>
       </div>

@@ -105,7 +105,9 @@ export default function EquipmentTab({ form }: Props) {
                               labelText=""
                             >
                               <SelectItem text={t('selectEquipment', 'Seleccione Equipamiento')} value="" />
-                              {equipments?.map((eq) => <SelectItem key={eq.id} text={eq.name} value={eq.id} />)}
+                              {equipments?.map((eq) => (
+                                <SelectItem key={eq.id} text={eq.name} value={eq.id} />
+                              ))}
                             </Select>
                           )}
                         />

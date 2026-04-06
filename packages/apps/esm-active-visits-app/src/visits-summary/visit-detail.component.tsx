@@ -53,7 +53,8 @@ const VisitDetailComponent: React.FC<VisitDetailComponentProps> = ({ visitUuid, 
             <ContentSwitcher
               className={styles.contentSwitcher}
               selectedIndex={contentSwitcherIndex}
-              onChange={({ index }) => setContentSwitcherIndex(index)}>
+              onChange={({ index }) => setContentSwitcherIndex(index)}
+            >
               <Switch name="allEncounters" text={t('allEncounters', 'All Encounters')} />
               <Switch name="visitSummary" text={t('visitSummary', 'Visit Summary')} />
             </ContentSwitcher>

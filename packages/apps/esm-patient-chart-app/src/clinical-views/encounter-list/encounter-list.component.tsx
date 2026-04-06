@@ -4,7 +4,6 @@ import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { useEncounterRows, useFormsJson } from '../hooks';
 import type { TableRow, Encounter, Mode, ColumnValue, FormattedColumn } from '../types';
 import { deleteEncounter } from '../utils/encounter-list.resource';
@@ -12,7 +11,6 @@ import { launchEncounterForm } from '../utils/helpers';
 
 import styles from './encounter-list.scss';
 import { EncounterListDataTable } from './table.component';
-
 
 export interface EncounterListColumn {
   key: string;

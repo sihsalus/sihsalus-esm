@@ -30,7 +30,6 @@ import {
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { getGender } from '../helpers/functions';
 import { type FilterTypes } from '../types';
 
@@ -161,7 +160,8 @@ const QueuePatientBaseTable: React.FC<QueuePatientTableProps> = ({
               renderIcon={(props) => <Filter size={16} {...props} />}
               iconDescription={t('filter', 'Filter')}
               onClick={() => launchWorkspace('service-queues-linelist-filter')}
-              size="sm">
+              size="sm"
+            >
               {t('filter', 'Filter')}
             </Button>
           </div>
@@ -175,7 +175,8 @@ const QueuePatientBaseTable: React.FC<QueuePatientTableProps> = ({
         overflowMenuOnHover={false}
         rows={tableRows}
         size="md"
-        useZebraStyles>
+        useZebraStyles
+      >
         {({ rows, headers, getHeaderProps, getTableProps, getRowProps, onInputChange }) => (
           <TableContainer className={styles.tableContainer}>
             <TableToolbar style={{ position: 'static', height: '3rem', overflow: 'visible', backgroundColor: 'color' }}>

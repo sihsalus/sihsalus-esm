@@ -10,7 +10,9 @@ const useFormSchema = (formUuid: string) => {
 
   const { data, error, isLoading } = useSWR<{ data: FormSchema }>(url, openmrsFetch);
 
-  const schema = data?.data ? { ...data.data, encounterType: data.data.encounterType?.['uuid'] ?? data.data.encounterType } : undefined;
+  const schema = data?.data
+    ? { ...data.data, encounterType: data.data.encounterType?.['uuid'] ?? data.data.encounterType }
+    : undefined;
 
   return { schema, error, isLoading };
 };

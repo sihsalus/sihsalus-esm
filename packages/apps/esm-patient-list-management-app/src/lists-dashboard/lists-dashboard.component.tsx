@@ -70,7 +70,8 @@ const ListsDashboard: React.FC = () => {
               setSelectedTab(selectedIndex);
             }}
             selectedIndex={selectedTab}
-            tabContentClassName={styles.hiddenTabsContent}>
+            tabContentClassName={styles.hiddenTabsContent}
+          >
             <TabList className={styles.tablist} aria-label="List tabs" contained>
               <Tab className={styles.tab}>{t('starredLists', 'Starred lists')}</Tab>
               <Tab className={styles.tab}>{t('systemLists', 'System lists')}</Tab>

@@ -3,18 +3,17 @@
 @use '@carbon/type';
 @use '@openmrs/esm-styleguide/src/vars' as *;
 
-
 .formContainer {
-    height: 100%;
+  height: 100%;
 }
 
 .header {
-    border-bottom: 0.0625rem solid $grey-2;
-    margin: 0;
+  border-bottom: 0.0625rem solid $grey-2;
+  margin: 0;
 }
 
 .formContent {
-    margin: layout.$spacing-05;
+  margin: layout.$spacing-05;
 }
 
 .form {
@@ -25,13 +24,13 @@
 }
 
 .tabletButtons {
-    margin-top: layout.$spacing-07;
-    padding: layout.$spacing-06 layout.$spacing-05;
-    background-color: $ui-02;
+  margin-top: layout.$spacing-07;
+  padding: layout.$spacing-06 layout.$spacing-05;
+  background-color: $ui-02;
 }
 
 .desktopButtons {
-    margin-top: layout.$spacing-07;
+  margin-top: layout.$spacing-07;
 }
 
 .container {
@@ -41,7 +40,6 @@
     margin: layout.$spacing-05 0;
   }
 }
-
 
 .button {
   height: layout.$spacing-10;

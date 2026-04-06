@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { parseTime, TIME_PATTERN, TIME_PATTERN_REG_EXP, to24HTime, type Time } from '../../utils/time-utils';
 
-
 interface CronTimePickerProps {
   value: Time;
   onChange: (time: Time) => void;

@@ -20,12 +20,7 @@ import {
   parseDate,
   isOmrsDateStrict,
 } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-  PatientChartPagination,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -165,7 +160,8 @@ const PatientSummaryTable = <T,>({
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
               onClick={launchForm}
-              aria-label={t('add', 'Add')}>
+              aria-label={t('add', 'Add')}
+            >
               {t('add', 'Add')}
             </Button>
           )}
@@ -177,7 +173,8 @@ const PatientSummaryTable = <T,>({
             { key: 'value', header: t('value', 'Value') },
           ]}
           size={isTablet ? 'lg' : 'sm'}
-          useZebraStyles>
+          useZebraStyles
+        >
           {({ rows, headers, getHeaderProps, getTableProps }) => (
             <TableContainer>
               <Table {...getTableProps()} aria-label={t('dataTable', 'Data table')}>

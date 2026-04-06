@@ -5,7 +5,6 @@ import useFormSchema from '../hooks/useFormSchema';
 
 import FormRenderer from './form-renderer.component';
 
-
 const mockUseFormSchema = jest.mocked(useFormSchema);
 
 jest.mock('@openmrs/esm-form-engine-lib', () => ({

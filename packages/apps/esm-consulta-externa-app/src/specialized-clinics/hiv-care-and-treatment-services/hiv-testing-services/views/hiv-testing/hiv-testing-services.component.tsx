@@ -9,7 +9,6 @@ import styles from '../../hiv-testing-component.scss';
 import HivScreeningEncounters from './tabs/hiv-screening.component';
 import HivTestingEncounters from './tabs/hiv-testing.component';
 
-
 interface OverviewListProps {
   patientUuid: string;
 }

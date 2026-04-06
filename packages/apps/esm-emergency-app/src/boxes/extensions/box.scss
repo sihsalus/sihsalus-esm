@@ -2,10 +2,10 @@
  * necessary. Here, the extensions set only their colors.
  * Their sizes and other general features of their display
  * is controlled by the slot. */
-@use "@carbon/layout";
+@use '@carbon/layout';
 @use '@openmrs/esm-styleguide/src/vars' as *;
 
- .blue {
+.blue {
   background-color: darkblue;
 }
 

@@ -37,7 +37,8 @@ function QueueTableByStatusLink({ queue }: { queue: Queue }) {
       className={classNames('cds--side-nav__link', {
         'active-left-nav-link': queue.uuid == uuid,
       })}
-      to={generatePath(path, { uuid: queue.uuid })}>
+      to={generatePath(path, { uuid: queue.uuid })}
+    >
       {queue.display}
     </ConfigurableLink>
   );

@@ -2,7 +2,6 @@
 @use '@carbon/layout';
 @use '@carbon/type';
 
-
 .itemsContainer {
   display: flex;
   flex-direction: column;
@@ -40,14 +39,14 @@
 }
 
 .summaryContainer {
- margin-top: layout.$spacing-05;
+  margin-top: layout.$spacing-05;
 }
 
-.paymentHistoryContainer{
-    margin-top: layout.$spacing-05;
+.paymentHistoryContainer {
+  margin-top: layout.$spacing-05;
 }
 
-.balanceContainer{
+.balanceContainer {
   padding: layout.$spacing-02;
   margin-top: layout.$spacing-05;
   border-top: solid 0.1pt colors.$cool-gray-30;

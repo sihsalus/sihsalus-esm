@@ -90,7 +90,8 @@ describe('RelationshipsSection', () => {
           initialValues={{
             relationships: [{ action: 'ADD', relatedPersonUuid: '11524ae7-3ef6-4ab6-aff6-804ffc58704a' }],
           }}
-          onSubmit={null}>
+          onSubmit={null}
+        >
           <Form>
             <PatientRegistrationContext.Provider value={initialContextValues}>
               <RelationshipsSection />

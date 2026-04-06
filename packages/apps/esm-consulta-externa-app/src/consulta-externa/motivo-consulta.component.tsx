@@ -28,10 +28,7 @@ interface MotivoConsultaProps {
 const MotivoConsulta: React.FC<MotivoConsultaProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { complaints, isLoading, error } = useChiefComplaint(
-    patientUuid,
-    config.concepts?.chiefComplaintUuid,
-  );
+  const { complaints, isLoading, error } = useChiefComplaint(patientUuid, config.concepts?.chiefComplaintUuid);
 
   const headers = [
     { key: 'date', header: t('date', 'Fecha') },
@@ -62,12 +59,7 @@ const MotivoConsulta: React.FC<MotivoConsultaProps> = ({ patientUuid }) => {
         <span className={styles.tableHeaderTitle}>
           {t('chiefComplaintHistory', 'Historial de Motivos de Consulta')}
         </span>
-        <Button
-          kind="ghost"
-          size="sm"
-          renderIcon={Add}
-          onClick={handleLaunchForm}
-        >
+        <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('addChiefComplaint', 'Registrar Motivo')}
         </Button>
       </div>

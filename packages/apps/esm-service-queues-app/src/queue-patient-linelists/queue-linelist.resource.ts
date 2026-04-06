@@ -6,7 +6,6 @@ import { startOfDay } from '../constants';
 import { type Provider } from '../types';
 import { type Appointment, type AppointmentsFetchResponse } from '../types/index';
 
-
 export function useAppointments() {
   const apiUrl = `${restBaseUrl}/appointment/all?forDate=${startOfDay}`;
   const { data, error, isLoading, isValidating } = useSWR<{ data: Array<Appointment> }, Error>(apiUrl, openmrsFetch);

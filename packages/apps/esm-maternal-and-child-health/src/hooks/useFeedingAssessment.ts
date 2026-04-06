@@ -49,9 +49,12 @@ export function useFeedingAssessment(patientUuid: string): FeedingAssessmentResu
 
     let feedingType: string | null = null;
     if (feedingObs) {
-      feedingType = typeof feedingObs.value === 'object' && feedingObs.value?.display
-        ? feedingObs.value.display
-        : feedingObs.value != null ? String(feedingObs.value) : null;
+      feedingType =
+        typeof feedingObs.value === 'object' && feedingObs.value?.display
+          ? feedingObs.value.display
+          : feedingObs.value != null
+            ? String(feedingObs.value)
+            : null;
     }
 
     const lastAssessmentDate = feedingObs?.obsDatetime
@@ -62,9 +65,8 @@ export function useFeedingAssessment(patientUuid: string): FeedingAssessmentResu
 
     let isBreastfeeding: boolean | null = null;
     if (bfObs) {
-      const val = typeof bfObs.value === 'object' && bfObs.value?.display
-        ? bfObs.value.display
-        : String(bfObs.value ?? '');
+      const val =
+        typeof bfObs.value === 'object' && bfObs.value?.display ? bfObs.value.display : String(bfObs.value ?? '');
       isBreastfeeding = val.toLowerCase() === 'sí' || val.toLowerCase() === 'si' || val.toLowerCase() === 'yes';
     }
 

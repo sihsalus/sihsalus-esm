@@ -35,13 +35,10 @@ export function usePsychoprophylaxis(patientUuid: string): PsychoprophylaxisResu
     return `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${encounterTypeUuid}&v=custom:(uuid,encounterDatetime)`;
   }, [patientUuid, encounterTypeUuid]);
 
-  const { data, isLoading, error, mutate } = useSWR(
-    url,
-    async (fetchUrl: string) => {
-      const response = await openmrsFetch(fetchUrl);
-      return response?.data;
-    },
-  );
+  const { data, isLoading, error, mutate } = useSWR(url, async (fetchUrl: string) => {
+    const response = await openmrsFetch(fetchUrl);
+    return response?.data;
+  });
 
   const result = useMemo(() => {
     const encounters = data?.results ?? [];
@@ -50,7 +47,8 @@ export function usePsychoprophylaxis(patientUuid: string): PsychoprophylaxisResu
     const isComplete = sessionsCompleted >= totalSessions;
 
     const sorted = [...encounters].sort(
-      (a: { encounterDatetime: string }, b: { encounterDatetime: string }) => new Date(b.encounterDatetime).getTime() - new Date(a.encounterDatetime).getTime(),
+      (a: { encounterDatetime: string }, b: { encounterDatetime: string }) =>
+        new Date(b.encounterDatetime).getTime() - new Date(a.encounterDatetime).getTime(),
     );
     const lastSessionDate = sorted[0]?.encounterDatetime
       ? dayjs(sorted[0].encounterDatetime).format('DD/MM/YYYY')

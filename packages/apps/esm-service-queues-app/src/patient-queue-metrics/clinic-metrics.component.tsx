@@ -74,7 +74,8 @@ function ClinicMetrics() {
           locationUuid={currentQueueLocation}
           service={currentService?.serviceDisplay}
           serviceUuid={currentService?.serviceUuid}
-          value={initialSelectedItem ? totalCount ?? '--' : serviceCount}>
+          value={initialSelectedItem ? (totalCount ?? '--') : serviceCount}
+        >
           <Dropdown
             id="inline"
             initialSelectedItem={defaultServiceItem}

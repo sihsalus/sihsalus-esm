@@ -19,7 +19,6 @@ import useSWRInfinite from 'swr/infinite';
 
 import { type ActiveVisit, type VisitResponse } from '../types';
 
-
 dayjs.extend(isToday);
 
 export function useActiveVisits() {

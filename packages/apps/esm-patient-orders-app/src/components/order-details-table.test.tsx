@@ -14,7 +14,6 @@ import { useReactToPrint } from 'react-to-print';
 
 import { configSchema } from '../config-schema';
 
-
 import OrderDetailsTable from './orders-details-table.component';
 
 const mockUsePatientOrders = usePatientOrders as jest.Mock;

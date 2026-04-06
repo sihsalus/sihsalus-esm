@@ -29,34 +29,37 @@ export function usePriorityConfig() {
   const config = useConfig<Config>();
   const priorityConfigs = config.priorityConfigs;
 
-  return useMemo(() => ({
-    // Configuraciones de prioridad
-    priorityConfigs,
+  return useMemo(
+    () => ({
+      // Configuraciones de prioridad
+      priorityConfigs,
 
-    // Funciones helper con configuración ya aplicada
-    getPriorityByUuid: (uuid: string) => getPriorityConfigByUuid(uuid, priorityConfigs),
-    getPriorityByCode: (code: string) => getPriorityConfigByCode(code, priorityConfigs),
-    getPriorityByLabel: (label: string) => getPriorityConfigByLabel(label, priorityConfigs),
-    
-    getColor: (uuid: string) => getPriorityColor(uuid, priorityConfigs),
-    getLabel: (uuid: string) => getPriorityLabel(uuid, priorityConfigs),
-    getSortWeight: (uuid: string) => getPrioritySortWeight(uuid, priorityConfigs),
-    getCssClass: (uuid: string) => getPriorityCssClass(uuid, priorityConfigs),
-    
-    sortByPriority: <T extends { priority: { uuid: string } }>(entries: T[]) =>
-      sortByPriority(entries, priorityConfigs),
-    
-    getAllPriorities: () => getAllPriorities(priorityConfigs),
-    
-    isWaitTimeExceeded: (priorityUuid: string, waitTimeMinutes: number) =>
-      isWaitTimeExceeded(priorityUuid, waitTimeMinutes, priorityConfigs),
+      // Funciones helper con configuración ya aplicada
+      getPriorityByUuid: (uuid: string) => getPriorityConfigByUuid(uuid, priorityConfigs),
+      getPriorityByCode: (code: string) => getPriorityConfigByCode(code, priorityConfigs),
+      getPriorityByLabel: (label: string) => getPriorityConfigByLabel(label, priorityConfigs),
 
-    // Obtener UUIDs específicos por código (helpers comunes)
-    getPriorityIUuid: () => config.concepts.priorityIConceptUuid,
-    getPriorityIIUuid: () => config.concepts.priorityIIConceptUuid,
-    getPriorityIIIUuid: () => config.concepts.priorityIIIConceptUuid,
-    getPriorityIVUuid: () => config.concepts.priorityIVConceptUuid,
-  }), [config, priorityConfigs]);
+      getColor: (uuid: string) => getPriorityColor(uuid, priorityConfigs),
+      getLabel: (uuid: string) => getPriorityLabel(uuid, priorityConfigs),
+      getSortWeight: (uuid: string) => getPrioritySortWeight(uuid, priorityConfigs),
+      getCssClass: (uuid: string) => getPriorityCssClass(uuid, priorityConfigs),
+
+      sortByPriority: <T extends { priority: { uuid: string } }>(entries: T[]) =>
+        sortByPriority(entries, priorityConfigs),
+
+      getAllPriorities: () => getAllPriorities(priorityConfigs),
+
+      isWaitTimeExceeded: (priorityUuid: string, waitTimeMinutes: number) =>
+        isWaitTimeExceeded(priorityUuid, waitTimeMinutes, priorityConfigs),
+
+      // Obtener UUIDs específicos por código (helpers comunes)
+      getPriorityIUuid: () => config.concepts.priorityIConceptUuid,
+      getPriorityIIUuid: () => config.concepts.priorityIIConceptUuid,
+      getPriorityIIIUuid: () => config.concepts.priorityIIIConceptUuid,
+      getPriorityIVUuid: () => config.concepts.priorityIVConceptUuid,
+    }),
+    [config, priorityConfigs],
+  );
 }
 
 /**
@@ -65,27 +68,29 @@ export function usePriorityConfig() {
 export function useEmergencyConfig() {
   const config = useConfig<Config>();
 
-  return useMemo(() => ({
-    emergencyTriageQueueUuid: config.emergencyTriageQueueUuid,
-    emergencyAttentionQueueUuid: config.emergencyAttentionQueueUuid,
-    emergencyServiceUuid: config.emergencyServiceUuid,
-    emergencyLocationUuid: config.emergencyLocationUuid,
-    upssEmergencyLocationUuid: config.upssEmergencyLocationUuid,
-    
-    queueStatuses: {
-      waiting: config.queueStatuses.waitingUuid,
-      inService: config.queueStatuses.inServiceUuid,
-      finishedService: config.queueStatuses.finishedServiceUuid,
-    },
+  return useMemo(
+    () => ({
+      emergencyTriageQueueUuid: config.emergencyTriageQueueUuid,
+      emergencyAttentionQueueUuid: config.emergencyAttentionQueueUuid,
+      emergencyServiceUuid: config.emergencyServiceUuid,
+      emergencyLocationUuid: config.emergencyLocationUuid,
+      upssEmergencyLocationUuid: config.upssEmergencyLocationUuid,
 
-    triageEncounter: config.triageEncounter,
+      queueStatuses: {
+        waiting: config.queueStatuses.waitingUuid,
+        inService: config.queueStatuses.inServiceUuid,
+        finishedService: config.queueStatuses.finishedServiceUuid,
+      },
 
-    autoRefreshInterval: config.autoRefreshInterval,
-    emergencyVisitTypeUuid: config.emergencyVisitTypeUuid,
-    autoCreateVisitOnPatientSelect: config.autoCreateVisitOnPatientSelect,
-    promptVisitCreationOnNewPatient: config.promptVisitCreationOnNewPatient,
+      triageEncounter: config.triageEncounter,
 
-    patientRegistration: config.patientRegistration,
-  }), [config]);
+      autoRefreshInterval: config.autoRefreshInterval,
+      emergencyVisitTypeUuid: config.emergencyVisitTypeUuid,
+      autoCreateVisitOnPatientSelect: config.autoCreateVisitOnPatientSelect,
+      promptVisitCreationOnNewPatient: config.promptVisitCreationOnNewPatient,
+
+      patientRegistration: config.patientRegistration,
+    }),
+    [config],
+  );
 }
-

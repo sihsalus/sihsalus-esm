@@ -123,7 +123,8 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
               name="queueLocation"
               invalidText="Required"
               value={selectedQueueLocation}
-              onChange={(event) => setSelectedQueueLocation(event.target.value)}>
+              onChange={(event) => setSelectedQueueLocation(event.target.value)}
+            >
               {!selectedQueueLocation ? (
                 <SelectItem text={t('selectQueueLocation', 'Select a queue location')} value="" />
               ) : null}
@@ -157,7 +158,8 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
             name="service"
             invalidText="Required"
             value={selectedService}
-            onChange={(event) => setSelectedService(event.target.value)}>
+            onChange={(event) => setSelectedService(event.target.value)}
+          >
             {!selectedService ? <SelectItem text={t('selectQueueService', 'Select a queue service')} value="" /> : null}
             {queues?.length > 0 &&
               queues.map((service) => (
@@ -186,7 +188,8 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
               className={styles.inlineNotification}
               kind={'error'}
               lowContrast
-              title={t('noPrioritiesForServiceTitle', 'No priorities available')}>
+              title={t('noPrioritiesForServiceTitle', 'No priorities available')}
+            >
               {t(
                 'noPrioritiesForService',
                 'The selected service does not have any allowed priorities. This is an error in configuration. Please contact your system administrator.',
@@ -198,7 +201,8 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
               name="priority"
               id="priority"
               defaultSelected={defaultPriorityConceptUuid}
-              onChange={(uuid) => setPriority(uuid)}>
+              onChange={(uuid) => setPriority(uuid)}
+            >
               {priorities.map(({ uuid, display }) => (
                 <RadioButton key={uuid} labelText={display} value={uuid} />
               ))}

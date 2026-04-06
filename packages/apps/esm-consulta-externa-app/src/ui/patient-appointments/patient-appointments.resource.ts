@@ -34,8 +34,7 @@ export function usePatientAppointments(patientUuid: string, startDate: string, a
 
   const appointments = data?.data?.length ? data.data : null;
 
-  const notCancelled = appointments
-    ?.filter(({ status }) => status !== 'Cancelled');
+  const notCancelled = appointments?.filter(({ status }) => status !== 'Cancelled');
 
   const startOfToday = dayjs().startOf('day');
 

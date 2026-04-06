@@ -103,7 +103,8 @@ const CompactPatientSearchComponent: React.FC<CompactPatientSearchProps> = ({
           value={{
             nonNavigationSelectPatientAction: selectPatientAction,
             patientClickSideEffect: handleClear,
-          }}>
+          }}
+        >
           <div className={styles.floatingSearchResultsContainer}>
             <PatientSearch query={searchTerm} ref={bannerContainerRef} {...patientSearchResponse} />
           </div>

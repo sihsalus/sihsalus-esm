@@ -129,7 +129,8 @@ const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentifier, fi
               onClick={handleEdit}
               iconDescription={t('editIdentifierTooltip', 'Edit')}
               disabled={disabled}
-              hasIconOnly>
+              hasIconOnly
+            >
               <Edit size={16} />
             </Button>
           </UserHasAccess>
@@ -142,7 +143,8 @@ const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentifier, fi
               onClick={handleReset}
               iconDescription={t('resetIdentifierTooltip', 'Reset')}
               disabled={disabled}
-              hasIconOnly>
+              hasIconOnly
+            >
               <Reset size={16} />
             </Button>
           </UserHasAccess>
@@ -155,7 +157,8 @@ const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentifier, fi
               onClick={handleDelete}
               iconDescription={t('deleteIdentifierTooltip', 'Delete')}
               disabled={disabled}
-              hasIconOnly>
+              hasIconOnly
+            >
               <TrashCan size={16} />
             </Button>
           </UserHasAccess>

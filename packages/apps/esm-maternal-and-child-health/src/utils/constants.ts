@@ -13,19 +13,19 @@ export const PartographEncounterFormUuid = 'd4c4dcfa-5c7b-4727-a7a6-f79a3b2c2735
 export const DeliveryForm_UUID = 'OBST-005-PARTO O ABORTO'; // Nombre del formulario Ampath (UUID generado al importar)
 
 // ── Delivery / Parto concepts (CIEL) ──
-export const ModeOfDelivery_UUID = '5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';    // CIEL 5630 — Modo de parto
-export const GestationalSize_UUID = '1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';   // CIEL 1789 — Edad gestacional
-export const BirthAbnormally_UUID = '164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';   // CIEL 164122 — Anomalía al nacer
-export const BloodLoss_UUID = '161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';         // CIEL 161928 — Pérdida de sangre
-export const GivenVitaminK_UUID = '984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';     // CIEL 984 — Vitamina K administrada
+export const ModeOfDelivery_UUID = '5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 5630 — Modo de parto
+export const GestationalSize_UUID = '1789AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 1789 — Edad gestacional
+export const BirthAbnormally_UUID = '164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 164122 — Anomalía al nacer
+export const BloodLoss_UUID = '161928AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 161928 — Pérdida de sangre
+export const GivenVitaminK_UUID = '984AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 984 — Vitamina K administrada
 
 // ── Partograph concepts ──
 export const Progress_UUID = '160116AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-export const OneTime_UUID = '162135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';       // CIEL 162135 — Descenso 1/5
-export const Tier_UUID = '166065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';          // CIEL 166065 — Descenso 2/5
-export const TierThree_UUID = '166066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';     // CIEL 166066 — Descenso 3/5
-export const TierFour_UUID = '166067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';      // CIEL 166067 — Descenso 4/5
-export const Hours72To120 = '163734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';       // CIEL 163734 — Descenso 5/5
+export const OneTime_UUID = '162135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 162135 — Descenso 1/5
+export const Tier_UUID = '166065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 166065 — Descenso 2/5
+export const TierThree_UUID = '166066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 166066 — Descenso 3/5
+export const TierFour_UUID = '166067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 166067 — Descenso 4/5
+export const Hours72To120 = '163734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'; // CIEL 163734 — Descenso 5/5
 export const DeviceRecorded = '163286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 export const FetalHeartRate = '1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
 export const CervicalDilation = '162261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';

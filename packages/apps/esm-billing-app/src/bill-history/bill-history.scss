@@ -59,9 +59,9 @@
   border-collapse: collapse;
 
   td:has(:global(.billingTable)) {
-    td{
+    td {
       padding: 0.375rem layout.$spacing-07 0.4375rem !important;
-      white-space:normal;
+      white-space: normal;
       text-overflow: unset;
     }
   }
@@ -74,4 +74,3 @@
 .tableCells {
   white-space: wrap !important;
 }
-

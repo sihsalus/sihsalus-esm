@@ -4,7 +4,6 @@ import { useLayoutType, useConfig, isDesktop, UserHasAccess } from '@openmrs/esm
 import React, { useCallback, useContext, useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { ResourcesContext } from '../../../offline.resources';
 import IdentifierInput from '../../input/custom-input/identifier/identifier-input.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
@@ -100,8 +99,8 @@ export const Identifiers: React.FC = () => {
       if (!initialDniAdded.current) {
         // Agregamos el identificador DNI por defecto
         if (!values.identifiers['dni']) {
-          const dniIdentifierType = identifierTypes.find(type =>
-            type.name === 'DNI' || type.uuid === '550e8400-e29b-41d4-a716-446655440001'
+          const dniIdentifierType = identifierTypes.find(
+            (type) => type.name === 'DNI' || type.uuid === '550e8400-e29b-41d4-a716-446655440001',
           );
 
           if (dniIdentifierType) {
@@ -115,7 +114,7 @@ export const Identifiers: React.FC = () => {
               required: true,
               identifierValue: '',
               autoGeneration: false,
-              selectedSource: null
+              selectedSource: null,
             };
           }
         }
@@ -131,7 +130,13 @@ export const Identifiers: React.FC = () => {
         });
       }
     }
-  }, [identifierTypes, setFieldValue, defaultPatientIdentifierTypes, values.identifiers, initialFormValues.identifiers]);
+  }, [
+    identifierTypes,
+    setFieldValue,
+    defaultPatientIdentifierTypes,
+    values.identifiers,
+    initialFormValues.identifiers,
+  ]);
 
   const closeIdentifierSelectionOverlay = useCallback(
     () => setShowIdentifierOverlay(false),
@@ -142,7 +147,7 @@ export const Identifiers: React.FC = () => {
     (identifierFieldName: string) => {
       setFieldValue('identifiers', deleteIdentifierType(values.identifiers, identifierFieldName));
     },
-    [setFieldValue, values.identifiers]
+    [setFieldValue, values.identifiers],
   );
 
   if (isLoading && !isOffline) {
@@ -165,7 +170,8 @@ export const Identifiers: React.FC = () => {
             kind="ghost"
             className={styles.configureIdentifiersButton}
             onClick={() => setShowIdentifierOverlay(true)}
-            size={isDesktop(layout) ? 'sm' : 'md'}>
+            size={isDesktop(layout) ? 'sm' : 'md'}
+          >
             {t('configure', 'Configure')} <ArrowRight className={styles.arrowRightIcon} size={16} />
           </Button>
         </div>
@@ -174,28 +180,26 @@ export const Identifiers: React.FC = () => {
         {Object.entries(values.identifiers).map(([fieldName, identifier]) => {
           const patientIdentifierWithRequired = {
             ...values.identifiers[fieldName],
-            required: true
+            required: true,
           };
 
-          const identifierType = identifierTypes?.find(type => type.fieldName === fieldName);
+          const identifierType = identifierTypes?.find((type) => type.fieldName === fieldName);
           const canRemove = !identifierType?.isPrimary && !identifierType?.required;
 
           return (
-            <div key={fieldName} style={{display: "flex", alignItems: "center", justifyContent: "initial"}}>
-              <IdentifierInput
-                fieldName={fieldName}
-                patientIdentifier={patientIdentifierWithRequired}
-              />
+            <div key={fieldName} style={{ display: 'flex', alignItems: 'center', justifyContent: 'initial' }}>
+              <IdentifierInput fieldName={fieldName} patientIdentifier={patientIdentifierWithRequired} />
               {canRemove && (
-                  <Button
-                    className={styles.deleteIdentifierButton}
-                    kind="ghost"
-                    hasIconOnly
-                    size="md"
-                    onClick={() => removeIdentifier(fieldName)}
-                    iconDescription={t('deleteIdentifierTooltip', 'Delete')}                  >
-                    <TrashCan size={16} />
-                  </Button>
+                <Button
+                  className={styles.deleteIdentifierButton}
+                  kind="ghost"
+                  hasIconOnly
+                  size="md"
+                  onClick={() => removeIdentifier(fieldName)}
+                  iconDescription={t('deleteIdentifierTooltip', 'Delete')}
+                >
+                  <TrashCan size={16} />
+                </Button>
               )}
             </div>
           );

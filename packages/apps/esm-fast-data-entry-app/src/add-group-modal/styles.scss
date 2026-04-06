@@ -14,7 +14,7 @@
 }
 
 .searchBar > div > div > div {
-  width: 100%
+  width: 100%;
 }
 
 .searchBar > div button {
@@ -26,10 +26,10 @@
 }
 
 .patientRow {
-   display: flex;
-   align-items: center;
-   width: "100%";
-   &:nth-child(odd) {
+  display: flex;
+  align-items: center;
+  width: '100%';
+  &:nth-child(odd) {
     background-color: colors.$gray-20;
   }
 }

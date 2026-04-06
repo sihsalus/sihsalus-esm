@@ -38,10 +38,7 @@ const CephaloCaudalNeurologicalEvaluationTable: React.FC<CephaloCaudalNeurologic
 }) => {
   const { t } = useTranslation();
   const config = useConfig() as ConfigObject;
-  const headerTitle = t(
-    'cephaloCaudalNeurologicalEvaluation',
-    'Cephalo-caudal and neurological evaluation',
-  );
+  const headerTitle = t('cephaloCaudalNeurologicalEvaluation', 'Cephalo-caudal and neurological evaluation');
   const { encounter, isLoading, error, mutate } = useLatestValidEncounter(
     patientUuid,
     config.encounterTypes.cefaloCaudal,

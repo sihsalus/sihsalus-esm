@@ -6,7 +6,6 @@ import { implementerToolsStore } from '../../store';
 
 import styles from './description.styles.scss';
 
-
 export function Description() {
   const { t } = useTranslation();
   const { activeItemDescription } = useStore(implementerToolsStore);

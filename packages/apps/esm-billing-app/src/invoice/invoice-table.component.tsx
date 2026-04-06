@@ -95,7 +95,8 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({ bill, isLoadingBill, onMuta
         rows={tableRows}
         size={responsiveSize}
         useZebraStyles
-        overflowMenuOnHover={isDesktop(layout)}>
+        overflowMenuOnHover={isDesktop(layout)}
+      >
         {({ rows, headers, getRowProps, getTableProps }) => (
           <TableContainer
             description={
@@ -103,7 +104,8 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({ bill, isLoadingBill, onMuta
                 <span>{t('itemsToBeBilled', 'Items to be billed')}</span>
               </span>
             }
-            title={t('lineItems', 'Line items')}>
+            title={t('lineItems', 'Line items')}
+          >
             <TableToolbarSearch
               className={styles.searchbox}
               expanded
@@ -114,7 +116,8 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({ bill, isLoadingBill, onMuta
             <Table
               {...getTableProps()}
               aria-label={t('invoiceLineItems', 'Invoice line items')}
-              className={classNames(styles.invoiceTable, 'billingTable')}>
+              className={classNames(styles.invoiceTable, 'billingTable')}
+            >
               <TableHead>
                 <TableRow>
                   {headers.map((header) => (

@@ -172,7 +172,8 @@ const PatientSummaryTable = <T,>({
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
               onClick={launchForm}
-              aria-label={t('add')}>
+              aria-label={t('add')}
+            >
               {t('add')}
             </Button>
           )}
@@ -184,7 +185,8 @@ const PatientSummaryTable = <T,>({
             { key: 'value', header: t('value') },
           ]}
           size={isTablet ? 'lg' : 'sm'}
-          useZebraStyles>
+          useZebraStyles
+        >
           {({ rows, headers, getHeaderProps, getTableProps }) => (
             <TableContainer>
               <Table {...getTableProps()} aria-label={t('dataTable', 'Data table')}>

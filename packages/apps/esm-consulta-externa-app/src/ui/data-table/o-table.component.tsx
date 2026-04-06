@@ -18,7 +18,6 @@ import EncounterObservations from '../encounter-observation/encounter-observatio
 
 import styles from './o-table.scss';
 
-
 interface TableProps {
   tableHeaders: Array<{ key: string; header: string }>;
   tableRows: Array<Record<string, unknown> & { obs?: Array<Observation> }>;
@@ -41,7 +40,8 @@ export const OTable: React.FC<TableProps> = ({ tableHeaders, tableRows, formConc
                     {...getHeaderProps({
                       header,
                       isSortable: header.isSortable,
-                    })}>
+                    })}
+                  >
                     {header.header?.content ?? header.header}
                   </TableHeader>
                 ))}

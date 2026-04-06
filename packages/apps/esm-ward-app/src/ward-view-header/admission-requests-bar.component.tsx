@@ -38,7 +38,8 @@ const AdmissionRequestsBar: React.FC<AdmissionRequestsBarProps> = ({ wardPending
       className={classNames(styles.admissionRequestsContainer, {
         [styles.blackBackground]: inpatientRequests?.length,
         [styles.lightBlueBackground]: !inpatientRequests?.length,
-      })}>
+      })}
+    >
       <Movement className={styles.movementIcon} size="24" />
       <span className={styles.content}>
         {t('admissionRequestsCount', '{{count}} admission request', {
@@ -56,7 +57,8 @@ const AdmissionRequestsBar: React.FC<AdmissionRequestsBarProps> = ({ wardPending
         }}
         renderIcon={ArrowRightIcon}
         kind="ghost"
-        size={isDesktop(layout) ? 'sm' : 'lg'}>
+        size={isDesktop(layout) ? 'sm' : 'lg'}
+      >
         {t('manage', 'Manage')}
       </Button>
     </div>

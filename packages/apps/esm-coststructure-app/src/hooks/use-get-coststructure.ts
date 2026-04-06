@@ -2,10 +2,7 @@ import { openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
 import { baseUrl } from '../constants';
-import {
-  type CostStructure,
-  type Procedure,
-} from '../types';
+import { type CostStructure, type Procedure } from '../types';
 
 const API_URL = `${baseUrl}/list`;
 

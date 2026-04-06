@@ -27,7 +27,8 @@ const CalendarHeader: React.FC = () => {
           kind="ghost"
           onClick={handleClick}
           renderIcon={ArrowLeft}
-          size="lg">
+          size="lg"
+        >
           <span>{t('back', 'Back')}</span>
         </Button>
       </div>

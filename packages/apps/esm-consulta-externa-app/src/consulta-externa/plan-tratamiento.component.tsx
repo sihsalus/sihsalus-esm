@@ -50,7 +50,11 @@ const PlanTratamiento: React.FC<PlanTratamientoProps> = ({ patientUuid }) => {
     { key: 'labOrders', label: t('labOrders', 'Exámenes Auxiliares'), tagType: 'blue' as const },
     { key: 'procedures', label: t('procedures', 'Procedimientos'), tagType: 'teal' as const },
     { key: 'prescriptions', label: t('prescriptions', 'Receta Médica'), tagType: 'green' as const },
-    { key: 'therapeuticIndications', label: t('therapeuticIndications', 'Indicaciones Terapéuticas'), tagType: 'purple' as const },
+    {
+      key: 'therapeuticIndications',
+      label: t('therapeuticIndications', 'Indicaciones Terapéuticas'),
+      tagType: 'purple' as const,
+    },
     { key: 'referral', label: t('referral', 'Interconsulta / Referencia'), tagType: 'magenta' as const },
     { key: 'nextAppointment', label: t('nextAppointment', 'Próxima Cita'), tagType: 'cyan' as const },
   ];
@@ -61,12 +65,7 @@ const PlanTratamiento: React.FC<PlanTratamientoProps> = ({ patientUuid }) => {
         <span className={styles.tableHeaderTitle}>
           {t('treatmentPlanHistory', 'Historial de Planes de Tratamiento')}
         </span>
-        <Button
-          kind="ghost"
-          size="sm"
-          renderIcon={Add}
-          onClick={handleLaunchForm}
-        >
+        <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('addTreatmentPlan', 'Registrar Plan')}
         </Button>
       </div>
@@ -104,7 +103,9 @@ const PlanTratamiento: React.FC<PlanTratamientoProps> = ({ patientUuid }) => {
                     return (
                       <StructuredListRow key={key}>
                         <StructuredListCell>
-                          <Tag type={tagType} size="sm">{label}</Tag>
+                          <Tag type={tagType} size="sm">
+                            {label}
+                          </Tag>
                         </StructuredListCell>
                         <StructuredListCell>{value}</StructuredListCell>
                       </StructuredListRow>

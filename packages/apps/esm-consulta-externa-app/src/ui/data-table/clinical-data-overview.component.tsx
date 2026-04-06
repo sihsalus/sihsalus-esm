@@ -112,7 +112,8 @@ const ClinicalDataOverview: React.FC<ClinicalDataOverviewProps> = ({
                   <ContentSwitcher
                     onChange={(evt) => setChartView(evt.name === 'chartView')}
                     size={isTablet ? 'md' : 'sm'}
-                    aria-label={t('viewSelector', 'Select view type')}>
+                    aria-label={t('viewSelector', 'Select view type')}
+                  >
                     <IconSwitch name="tableView" text={t('tableView', 'Table view')}>
                       <Table size={16} />
                     </IconSwitch>

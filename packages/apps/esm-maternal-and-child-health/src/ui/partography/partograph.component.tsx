@@ -180,7 +180,8 @@ const Partograph: React.FC<PartographyProps> = ({ patientUuid }) => {
                   <Button
                     kind="ghost"
                     renderIcon={(props) => <Add {...props} size={16} />}
-                    iconDescription="Add vitals">
+                    iconDescription="Add vitals"
+                  >
                     {t('add', 'Add')}
                   </Button>
                 </div>
@@ -204,7 +205,8 @@ const Partograph: React.FC<PartographyProps> = ({ patientUuid }) => {
                                   {...getHeaderProps({
                                     header,
                                     isSortable: header.isSortable,
-                                  })}>
+                                  })}
+                                >
                                   {header.header?.content ?? header.header}
                                 </TableHeader>
                               ))}

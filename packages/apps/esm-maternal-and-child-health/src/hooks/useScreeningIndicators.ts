@@ -60,13 +60,10 @@ export function useScreeningIndicators(patientUuid: string): ScreeningIndicators
     );
   }, [patientUuid, screeningConcepts]);
 
-  const { data, isLoading, error, mutate } = useSWR(
-    urls,
-    async (fetchUrls: string[]) => {
-      const responses = await Promise.all(fetchUrls.map((u) => openmrsFetch(u)));
-      return responses.map((r) => r?.data);
-    },
-  );
+  const { data, isLoading, error, mutate } = useSWR(urls, async (fetchUrls: string[]) => {
+    const responses = await Promise.all(fetchUrls.map((u) => openmrsFetch(u)));
+    return responses.map((r) => r?.data);
+  });
 
   const result = useMemo(() => {
     if (!data || data.length === 0) {

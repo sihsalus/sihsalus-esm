@@ -34,7 +34,8 @@ const ClearQueueEntries: React.FC<ClearQueueEntriesProps> = ({ queueEntries }) =
       kind="danger--tertiary"
       renderIcon={(props) => <TrashCan size={16} {...props} />}
       onClick={launchClearAllQueueEntriesModal}
-      iconDescription={t('clearQueue', 'Clear queue')}>
+      iconDescription={t('clearQueue', 'Clear queue')}
+    >
       {t('clearQueue', 'Clear queue')}
     </Button>
   );

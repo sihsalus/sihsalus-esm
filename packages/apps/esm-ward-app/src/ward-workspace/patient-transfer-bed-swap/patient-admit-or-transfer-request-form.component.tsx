@@ -162,7 +162,8 @@ export default function PatientAdmitOrTransferForm({
   return (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className={classNames(styles.formContainer, styles.workspaceContent)}>
+      className={classNames(styles.formContainer, styles.workspaceContent)}
+    >
       <Stack gap={4}>
         {errorFetchingEmrConfiguration && (
           <div className={styles.formError}>
@@ -224,7 +225,8 @@ export default function PatientAdmitOrTransferForm({
                     orientation="vertical"
                     {...field}
                     invalid={!!error?.message}
-                    invalidText={error?.message}>
+                    invalidText={error?.message}
+                  >
                     {dispositionsWithTypeTransfer.map((disposition) => (
                       <RadioButton id={disposition.uuid} labelText={disposition.name} value={disposition.uuid} />
                     ))}
@@ -261,7 +263,8 @@ export default function PatientAdmitOrTransferForm({
         <Button
           type="submit"
           size="xl"
-          disabled={isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration || !patient}>
+          disabled={isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration || !patient}
+        >
           {t('save', 'Save')}
         </Button>
       </ButtonSet>

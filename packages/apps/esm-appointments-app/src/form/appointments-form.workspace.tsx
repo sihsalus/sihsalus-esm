@@ -496,7 +496,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                   onChange={onChange}
                   onBlur={onBlur}
                   ref={ref}
-                  value={value}>
+                  value={value}
+                >
                   <SelectItem text={t('chooseLocation', 'Choose a location')} value="" />
                   {locations?.length > 0 &&
                     locations.map((location) => (
@@ -532,8 +533,9 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                       const previousServiceDuration = services?.find(
                         (service) => service.name === getValues('selectedService'),
                       )?.durationMins;
-                      const selectedServiceDuration = services?.find((service) => service.name === event.target.value)
-                        ?.durationMins;
+                      const selectedServiceDuration = services?.find(
+                        (service) => service.name === event.target.value,
+                      )?.durationMins;
                       if (selectedServiceDuration && previousServiceDuration === getValues('duration')) {
                         setValue('duration', selectedServiceDuration);
                       }
@@ -541,7 +543,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                     onChange(event);
                   }}
                   ref={ref}
-                  value={value}>
+                  value={value}
+                >
                   <SelectItem text={t('chooseService', 'Select service')} value="" />
                   {services?.length > 0 &&
                     services.map((service) => (
@@ -570,7 +573,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                   onBlur={onBlur}
                   onChange={onChange}
                   ref={ref}
-                  value={value}>
+                  value={value}
+                >
                   <SelectItem text={t('chooseAppointmentType', 'Choose appointment type')} value="" />
                   {appointmentTypes?.length > 0 &&
                     appointmentTypes.map((appointmentType, index) => (
@@ -627,7 +631,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                               recurringPatternEndDateText: dayjs(new Date(endDate)).format(dateFormat),
                               startDateText: dayjs(new Date(startDate)).format(dateFormat),
                             });
-                          }}>
+                          }}
+                        >
                           <DatePickerInput
                             id="startDatePickerInput"
                             labelText={t('startDate', 'Start date')}
@@ -683,7 +688,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                         legendText={t('period', 'Period')}
                         name="radio-button-group"
                         onChange={(type) => onChange(type)}
-                        valueSelected={value}>
+                        valueSelected={value}
+                      >
                         <RadioButton labelText={t('day', 'Day')} value="DAY" id="radioDay" />
                         <RadioButton labelText={t('week', 'Week')} value="WEEK" id="radioWeek" />
                       </RadioButtonGroup>
@@ -797,7 +803,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                     onChange={onChange}
                     value={value}
                     ref={ref}
-                    onBlur={onBlur}>
+                    onBlur={onBlur}
+                  >
                     <SelectItem text={t('selectAppointmentStatus', 'Select status')} value="" />
                     {appointmentStatuses?.length > 0 &&
                       appointmentStatuses.map((appointmentStatus, index) => (
@@ -826,7 +833,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
-                  ref={ref}>
+                  ref={ref}
+                >
                   <SelectItem text={t('chooseProvider', 'Choose a provider')} value="" />
                   {providers?.providers?.length > 0 &&
                     providers?.providers?.map((provider) => (
@@ -917,7 +925,8 @@ function TimeAndDuration({ t, watch, control, services, errors }) {
                 onChange(event.target.value);
               }}
               style={{ marginLeft: '0.125rem', flex: 'none' }}
-              value={value}>
+              value={value}
+            >
               <Controller
                 name="timeFormat"
                 control={control}
@@ -926,7 +935,8 @@ function TimeAndDuration({ t, watch, control, services, errors }) {
                     id="time-picker-select-1"
                     onChange={(event) => onChange(event.target.value as 'AM' | 'PM')}
                     value={value}
-                    aria-label={t('time', 'Time')}>
+                    aria-label={t('time', 'Time')}
+                  >
                     <SelectItem value="AM" text="AM" />
                     <SelectItem value="PM" text="PM" />
                   </TimePickerSelect>

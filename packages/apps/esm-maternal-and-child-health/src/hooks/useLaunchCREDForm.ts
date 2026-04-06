@@ -11,15 +11,12 @@ import { type Form } from '../types';
 export function useLaunchCREDForm(patientUuid: string) {
   const config = useConfig<ConfigObject>();
 
-  const launchCREDForm = useCallback(
-    (form: Form, encounterUuid: string = '') => {
-      launchWorkspace2('patient-form-entry-workspace', {
-        form,
-        encounterUuid,
-      });
-    },
-    [],
-  );
+  const launchCREDForm = useCallback((form: Form, encounterUuid: string = '') => {
+    launchWorkspace2('patient-form-entry-workspace', {
+      form,
+      encounterUuid,
+    });
+  }, []);
 
   /**
    * Launch a specific CRED form by its UUID from config

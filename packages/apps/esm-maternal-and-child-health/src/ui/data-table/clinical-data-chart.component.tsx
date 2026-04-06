@@ -118,7 +118,8 @@ const ClinicalDataChart: React.FC<ClinicalDataChartProps> = ({
               <Tab
                 className={classNames(styles.tab, { [styles.selectedTab]: selectedVitalSign.title === title })}
                 key={id}
-                onClick={() => setSelectedVitalSign({ id, title, value })}>
+                onClick={() => setSelectedVitalSign({ id, title, value })}
+              >
                 {title}
               </Tab>
             ))}

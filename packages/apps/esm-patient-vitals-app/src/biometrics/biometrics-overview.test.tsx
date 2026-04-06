@@ -9,8 +9,6 @@ import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinis
 import { useVitalsAndBiometrics } from '../common';
 import { configSchema, type ConfigObject } from '../config-schema';
 
-
-
 import BiometricsOverview from './biometrics-overview.component';
 
 const testProps = {

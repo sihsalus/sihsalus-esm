@@ -29,10 +29,7 @@ interface DiagnosticoClasificadoProps {
 const DiagnosticoClasificado: React.FC<DiagnosticoClasificadoProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { diagnoses, isLoading, error } = useDiagnosisHistory(
-    patientUuid,
-    config.encounterTypes?.externalConsultation,
-  );
+  const { diagnoses, isLoading, error } = useDiagnosisHistory(patientUuid, config.encounterTypes?.externalConsultation);
 
   const headers = [
     { key: 'date', header: t('date', 'Fecha') },
@@ -47,16 +44,26 @@ const DiagnosticoClasificado: React.FC<DiagnosticoClasificadoProps> = ({ patient
     date: formatDate(new Date(dx.encounterDatetime)),
     diagnosis: dx.display,
     cie10: dx.cie10Code || '—',
-    certainty: dx.certainty === 'CONFIRMED' ? (
-      <Tag type="green" size="sm">{t('definitive', 'Definitivo')}</Tag>
-    ) : (
-      <Tag type="red" size="sm">{t('presumptive', 'Presuntivo')}</Tag>
-    ),
-    occurrence: dx.occurrence === 'NEW' ? (
-      <Tag type="blue" size="sm">{t('new', 'Nuevo')}</Tag>
-    ) : (
-      <Tag type="purple" size="sm">{t('repeat', 'Repetido')}</Tag>
-    ),
+    certainty:
+      dx.certainty === 'CONFIRMED' ? (
+        <Tag type="green" size="sm">
+          {t('definitive', 'Definitivo')}
+        </Tag>
+      ) : (
+        <Tag type="red" size="sm">
+          {t('presumptive', 'Presuntivo')}
+        </Tag>
+      ),
+    occurrence:
+      dx.occurrence === 'NEW' ? (
+        <Tag type="blue" size="sm">
+          {t('new', 'Nuevo')}
+        </Tag>
+      ) : (
+        <Tag type="purple" size="sm">
+          {t('repeat', 'Repetido')}
+        </Tag>
+      ),
   }));
 
   const handleLaunchForm = () => {
@@ -74,15 +81,8 @@ const DiagnosticoClasificado: React.FC<DiagnosticoClasificadoProps> = ({ patient
   return (
     <div className={styles.widgetContainer}>
       <div className={styles.tableHeader}>
-        <span className={styles.tableHeaderTitle}>
-          {t('diagnosisHistory', 'Historial de Diagnósticos')}
-        </span>
-        <Button
-          kind="ghost"
-          size="sm"
-          renderIcon={Add}
-          onClick={handleLaunchForm}
-        >
+        <span className={styles.tableHeaderTitle}>{t('diagnosisHistory', 'Historial de Diagnósticos')}</span>
+        <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('addDiagnosis', 'Registrar Diagnóstico')}
         </Button>
       </div>

@@ -239,9 +239,12 @@ const AddProviderQueueRoomModal: React.FC<AddProviderQueueRoomModalProps> = ({ c
                     invalid={!!errors.queueRoomUuid}
                     invalidText={errors.queueRoomUuid?.message}
                     labelText={t('queueRoom', 'Queue room')}
-                    onChange={(event) => field.onChange(event.target.value)}>
+                    onChange={(event) => field.onChange(event.target.value)}
+                  >
                     <SelectItem text={t('selectQueueRoom', 'Select a queue room')} value="" />
-                    {rooms?.map((room) => <SelectItem key={room.uuid} text={room.display} value={room.uuid} />)}
+                    {rooms?.map((room) => (
+                      <SelectItem key={room.uuid} text={room.display} value={room.uuid} />
+                    ))}
                   </Select>
                 )}
               />

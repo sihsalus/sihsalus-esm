@@ -247,7 +247,7 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
               {t('print', 'Print')}
             </Button>
           )}
-          {showAddButton ?? true ? (
+          {(showAddButton ?? true) ? (
             <Button
               kind="ghost"
               renderIcon={(props: ComponentProps<typeof AddIcon>) => <AddIcon size={16} {...props} />}

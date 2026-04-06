@@ -24,7 +24,8 @@ const PatientAppointmentsHeader: React.FC<PatientAppointmentsHeaderProps> = ({ p
           onClick={() => navigate(-1)}
           renderIcon={ArrowLeft}
           iconDescription={t('back', 'Back')}
-          size="lg">
+          size="lg"
+        >
           <span>{t('back', 'Back')}</span>
         </Button>
       </div>

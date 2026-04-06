@@ -44,10 +44,11 @@ const ChartReview: React.FC<ChartReviewProps> = ({ patientUuid, patient, view, s
       )
     : [];
   const groupedDashboards = navGroups
-    .map((slotName) =>
-      extensionStore.slots[slotName]?.assignedExtensions.map((e) =>
-        getDashboardDefinition(e.meta, e.config, e.moduleName),
-      ) ?? [],
+    .map(
+      (slotName) =>
+        extensionStore.slots[slotName]?.assignedExtensions.map((e) =>
+          getDashboardDefinition(e.meta, e.config, e.moduleName),
+        ) ?? [],
     )
     .flat();
   const dashboards = ungroupedDashboards.concat(groupedDashboards) as Array<DashboardConfig>;

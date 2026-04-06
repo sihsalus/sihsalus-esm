@@ -41,7 +41,8 @@ function DefaultWardPendingPatients() {
               bed: null,
               inpatientRequest: request,
               inpatientAdmission: null,
-            }}>
+            }}
+          >
             <AdmissionRequestNoteRow id={'admission-request-note'} wardPatient={wardPatient} />
           </AdmissionRequestCard>
         );

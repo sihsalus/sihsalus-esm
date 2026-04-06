@@ -69,7 +69,8 @@ const MotherOrChild: React.FC<MotherOrChildProp> = ({
   return (
     <div
       key={otherPatient.uuid}
-      className={classNames(styles.motherOrBabyRow, wardPatientCardStyles.wardPatientCardRow)}>
+      className={classNames(styles.motherOrBabyRow, wardPatientCardStyles.wardPatientCardRow)}
+    >
       <div className={styles.motherOrBabyIconDiv}>
         <Icon className={styles.motherOrBabyIcon} size={24} />
       </div>

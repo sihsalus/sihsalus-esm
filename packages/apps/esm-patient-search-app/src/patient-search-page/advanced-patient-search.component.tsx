@@ -133,7 +133,8 @@ const AdvancedPatientSearchComponent: React.FC<AdvancedPatientSearchProps> = ({
       className={classNames({
         [styles.advancedPatientSearchTabletOrOverlay]: inTabletOrOverlay,
         [styles.advancedPatientSearchDesktop]: !inTabletOrOverlay,
-      })}>
+      })}
+    >
       {!inTabletOrOverlay && (
         <div className={styles.refineSearchDesktop}>
           <RefineSearch filtersApplied={filtersApplied} setFilters={setFilters} inTabletOrOverlay={inTabletOrOverlay} />
@@ -143,7 +144,8 @@ const AdvancedPatientSearchComponent: React.FC<AdvancedPatientSearchProps> = ({
         className={classNames({
           [styles.patientSearchResultsTabletOrOverlay]: inTabletOrOverlay,
           [styles.patientSearchResultsDesktop]: !inTabletOrOverlay,
-        })}>
+        })}
+      >
         <PatientSearchComponent
           query={query}
           stickyPagination={stickyPagination}

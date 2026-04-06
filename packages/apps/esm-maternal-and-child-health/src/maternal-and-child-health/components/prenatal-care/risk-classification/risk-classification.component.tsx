@@ -52,9 +52,7 @@ const RiskClassification: React.FC<RiskClassificationProps> = ({ patientUuid }) 
             </ul>
           </div>
         ) : (
-          <p className={styles.noData}>
-            {t('noRiskFactors', 'No se han evaluado factores de riesgo')}
-          </p>
+          <p className={styles.noData}>{t('noRiskFactors', 'No se han evaluado factores de riesgo')}</p>
         )}
         {lastEvaluationDate && (
           <div className={styles.row}>

@@ -16,7 +16,8 @@ const LeftPanel: React.FC = () => {
       <SideNav
         aria-label={t('bedManagementLeftPanel', 'Bed management left panel')}
         className={styles.leftPanel}
-        expanded>
+        expanded
+      >
         <ExtensionSlot name="bed-management-left-panel-slot" />
       </SideNav>
     )

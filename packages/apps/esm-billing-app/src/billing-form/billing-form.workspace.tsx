@@ -222,7 +222,8 @@ const BillingForm: React.FC<Workspace2DefinitionProps<BillingFormProps>> = ({
                       align="top-end"
                       kind="ghost"
                       label={t('remove', 'Remove')}
-                      onClick={() => removeSelectedBillableItem(item.uuid)}>
+                      onClick={() => removeSelectedBillableItem(item.uuid)}
+                    >
                       <TrashCanIcon size={16} />
                     </IconButton>
                   </div>
@@ -301,14 +302,16 @@ const BillingForm: React.FC<Workspace2DefinitionProps<BillingFormProps>> = ({
             className={styles.button}
             kind="secondary"
             disabled={isSubmitting}
-            onClick={() => closeWorkspace({ discardUnsavedChanges: false })}>
+            onClick={() => closeWorkspace({ discardUnsavedChanges: false })}
+          >
             {t('discard', 'Discard')}
           </Button>
           <Button
             className={styles.button}
             kind="primary"
             disabled={isSubmitting || selectedItems.length === 0}
-            type="submit">
+            type="submit"
+          >
             {isSubmitting ? (
               <InlineLoading description={t('saving', 'Saving') + '...'} />
             ) : (

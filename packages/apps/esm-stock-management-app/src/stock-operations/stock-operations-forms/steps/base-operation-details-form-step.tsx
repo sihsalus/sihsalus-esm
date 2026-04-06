@@ -155,8 +155,8 @@ const BaseOperationDetailsFormStep: FC<BaseOperationDetailsFormStepProps> = ({
                 isStockIssueOperation
                   ? t('source', 'Source')
                   : stockOperationType?.hasDestination || stockOperation?.destinationUuid
-                  ? t('from', 'From')
-                  : t('location', 'Location')
+                    ? t('from', 'From')
+                    : t('location', 'Location')
               }
               readOnly={field.disabled}
               name={'sourceUuid'}
@@ -193,8 +193,8 @@ const BaseOperationDetailsFormStep: FC<BaseOperationDetailsFormStepProps> = ({
                   isStockIssueOperation
                     ? t('destination', 'Destination')
                     : stockOperationType?.hasSource || stockOperation?.atLocationUuid
-                    ? t('to', 'To')
-                    : t('location', 'Location')
+                      ? t('to', 'To')
+                      : t('location', 'Location')
                 }
                 name={'destinationUuid'}
                 id={'destinationUuid'}

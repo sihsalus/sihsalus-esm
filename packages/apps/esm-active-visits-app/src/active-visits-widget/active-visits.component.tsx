@@ -180,7 +180,8 @@ const ActiveVisitsTable = () => {
         headers={headerData}
         sortRow={sortRow}
         size={isDesktop(layout) ? 'sm' : 'lg'}
-        useZebraStyles={activeVisits?.length > 1}>
+        useZebraStyles={activeVisits?.length > 1}
+      >
         {({ rows, headers, getHeaderProps, getTableProps, getRowProps, getExpandHeaderProps }) => (
           <TableContainer className={styles.tableContainer}>
             <Table className={styles.activeVisitsTable} {...getTableProps()}>
@@ -206,13 +207,15 @@ const ActiveVisitsTable = () => {
                     <React.Fragment key={`active-visit-row-${index}`}>
                       <TableExpandRow
                         {...getRowProps({ row })}
-                        data-testid={`activeVisitRow${currentVisit.patientUuid || 'unknown'}`}>
+                        data-testid={`activeVisitRow${currentVisit.patientUuid || 'unknown'}`}
+                      >
                         {row.cells.map((cell) => (
                           <TableCell key={`active-visit-row-${index}-cell-${cell.id}`} data-testid={cell.id}>
                             {cell.info.header === 'name' && currentVisit.patientUuid ? (
                               <ConfigurableLink
                                 to={patientChartUrl}
-                                templateParams={{ patientUuid: currentVisit.patientUuid }}>
+                                templateParams={{ patientUuid: currentVisit.patientUuid }}
+                              >
                                 {cell.value}
                               </ConfigurableLink>
                             ) : (

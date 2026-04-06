@@ -344,7 +344,6 @@ export const configSchema = {
     },
   },
 
-
   // 11. RELATIONSHIPS CONFIGURATION
   familyRelationshipsTypeList: {
     _type: Type.Array,
@@ -480,7 +479,6 @@ export const configSchema = {
       _default: '',
     },
   },
-
 };
 
 // ===============================

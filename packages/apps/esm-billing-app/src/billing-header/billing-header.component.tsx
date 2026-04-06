@@ -34,7 +34,8 @@ const BillingHeader: React.FC<BillingHeaderProps> = ({ title }) => {
             onChange={([date]) => setSelectedDate(dayjs(date).startOf('day').format(omrsDateFormat))}
             value={dayjs(selectedDate).format('DD MMM YYYY')}
             dateFormat="d-M-Y"
-            datePickerType="single">
+            datePickerType="single"
+          >
             <DatePickerInput
               style={{ cursor: 'pointer', backgroundColor: 'transparent', border: 'none', maxWidth: '10rem' }}
               id="appointment-date-picker"

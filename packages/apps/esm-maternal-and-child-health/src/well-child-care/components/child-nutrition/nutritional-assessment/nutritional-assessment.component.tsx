@@ -52,7 +52,7 @@ const NutritionalAssessment: React.FC<NutritionalAssessmentProps> = ({ patientUu
     <div className={styles.widgetCard}>
       <CardHeader title={headerTitle}>
         <Tag type={hasData ? 'green' : 'gray'} size="sm">
-          {hasData ? weightForAge ?? t('noData', 'Sin datos') : t('noData', 'Sin datos')}
+          {hasData ? (weightForAge ?? t('noData', 'Sin datos')) : t('noData', 'Sin datos')}
         </Tag>
         <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleAdd} iconDescription={t('add', 'Add')}>
           {t('add', 'Add')}
@@ -62,9 +62,7 @@ const NutritionalAssessment: React.FC<NutritionalAssessmentProps> = ({ patientUu
         <StructuredListWrapper isCondensed>
           <StructuredListBody>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('cnWeightForAge', 'Peso/Edad (P/E)')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('cnWeightForAge', 'Peso/Edad (P/E)')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {weightForAge ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>

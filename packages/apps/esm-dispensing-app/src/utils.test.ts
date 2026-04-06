@@ -696,7 +696,7 @@ describe('Util Tests', () => {
       whenPrepared: '2023-01-01T14:00:00-05:00',
     };
 
-    test('should return declined if deleting most recent medication dispense and next most recent status declined', () => {
+    (test('should return declined if deleting most recent medication dispense and next most recent status declined', () => {
       const medicationRequestBundle: MedicationRequestBundle = {
         request: medicationRequest,
         dispenses: [
@@ -740,7 +740,7 @@ describe('Util Tests', () => {
         expect(computeNewFulfillerStatusAfterDelete(medicationDispenseOnHold, medicationRequestBundle, false)).toBe(
           MedicationRequestFulfillerStatus.completed,
         );
-      });
+      }));
     test('should return null if deleting a dispense with status completed', () => {
       const medicationRequestBundle: MedicationRequestBundle = {
         request: medicationRequest,

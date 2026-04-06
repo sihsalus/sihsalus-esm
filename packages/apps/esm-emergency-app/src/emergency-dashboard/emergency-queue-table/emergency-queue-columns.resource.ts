@@ -56,9 +56,3 @@ export function useEmergencyQueueColumns(): EmergencyQueueTableColumn[] {
     },
   ];
 }
-
-
-
-
-
-

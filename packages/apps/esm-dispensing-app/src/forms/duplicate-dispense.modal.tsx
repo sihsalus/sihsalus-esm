@@ -175,7 +175,8 @@ const DuplicateDispenseModal: React.FC<DuplicateDispenseModalProps> = ({
           onClick={() => void handleConfirm()}
           disabled={isProcessing}
           aria-disabled={isProcessing}
-          aria-busy={isProcessing}>
+          aria-busy={isProcessing}
+        >
           {isProcessing ? (
             <InlineLoading description={t('dispensing', 'Dispensing')} />
           ) : (

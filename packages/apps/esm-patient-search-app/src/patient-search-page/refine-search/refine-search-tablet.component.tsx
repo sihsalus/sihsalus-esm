@@ -123,7 +123,8 @@ export const RefineSearchTablet: React.FC<RefineSearchTabletProps> = ({
           onClick={onToggleDialog}
           renderIcon={!showRefineSearchDialog ? ChevronUpIcon : ChevronDownIcon}
           className={styles.refineSearchDialogOpener}
-          size="sm">
+          size="sm"
+        >
           {t('refineSearch', 'Refine search')}
         </Button>
       </div>
@@ -137,7 +138,8 @@ export const RefineSearchTablet: React.FC<RefineSearchTabletProps> = ({
                 onClick={onToggleDialog}
                 renderIcon={ChevronDownIcon}
                 className={styles.refineSearchDialogOpener}
-                size="sm">
+                size="sm"
+              >
                 {t('refineSearch', 'Refine search')}
               </Button>
             </div>

@@ -1,8 +1,8 @@
 /**
  * useEmergencyVisit Hook
- * 
+ *
  * Manages emergency visit creation and retrieval for patients.
- * 
+ *
  * Features:
  * - Check for active emergency visits
  * - Create new emergency visits
@@ -17,7 +17,7 @@ import type { Config } from '../../config-schema';
 
 interface VisitResponse {
   uuid: string;
-  visitType: { 
+  visitType: {
     uuid: string;
     display: string;
   };
@@ -51,8 +51,7 @@ export function useEmergencyVisit() {
 
         // Buscar visita activa de tipo emergencia
         const activeEmergencyVisit = visits.find(
-          (visit: VisitResponse) =>
-            visit.visitType?.uuid === config.emergencyVisitTypeUuid && !visit.stopDatetime, // Visita aún activa
+          (visit: VisitResponse) => visit.visitType?.uuid === config.emergencyVisitTypeUuid && !visit.stopDatetime, // Visita aún activa
         );
 
         return activeEmergencyVisit || null;
@@ -95,8 +94,8 @@ export function useEmergencyVisit() {
 
         return visitUuid;
       } catch (error: unknown) {
-        const errorMessage =
-          (error as { responseBody?: { error?: { message?: string } } })?.responseBody?.error?.message;
+        const errorMessage = (error as { responseBody?: { error?: { message?: string } } })?.responseBody?.error
+          ?.message;
         showSnackbar({
           title: t('errorCreatingVisit', 'Error al crear visita'),
           subtitle: errorMessage || t('couldNotCreateVisit', 'No se pudo crear la visita de emergencia'),
@@ -142,4 +141,3 @@ export function useEmergencyVisit() {
     getOrCreateEmergencyVisit,
   };
 }
-

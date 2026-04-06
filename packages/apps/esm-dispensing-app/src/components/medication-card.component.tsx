@@ -26,7 +26,8 @@ const MedicationCard: React.FC<{
           kind="ghost"
           size="sm"
           label={t('editFormulation', 'Edit formulation')}
-          onClick={editAction}>
+          onClick={editAction}
+        >
           <Edit />
         </IconButton>
       )}

@@ -22,7 +22,16 @@ export function obsArrayDateComparator(left: { obsDatetime: string }, right: { o
 }
 
 interface FoundObs {
-  value: string | number | { uuid: string; display: string; names?: Array<{ uuid: string; conceptNameType: string; name: string }>; name?: { name: string } } | null;
+  value:
+    | string
+    | number
+    | {
+        uuid: string;
+        display: string;
+        names?: Array<{ uuid: string; conceptNameType: string; name: string }>;
+        name?: { name: string };
+      }
+    | null;
   obsDatetime?: string;
   [key: string]: unknown;
 }
@@ -68,9 +77,7 @@ export function getObsFromEncounter(encounter, obsConcept, isDate?: boolean, isT
     return formatDate(parseDate(String(obs.value)), { mode: 'wide' });
   }
   if (typeof obs.value === 'object' && obs.value !== null && obs.value?.names) {
-    return (
-      obs.value.names.find((conceptName) => conceptName.conceptNameType === 'SHORT')?.name || obs.value.name?.name
-    );
+    return obs.value.names.find((conceptName) => conceptName.conceptNameType === 'SHORT')?.name || obs.value.name?.name;
   }
   if (typeof obs.value === 'object' && obs.value !== null) {
     return obs.value.display ?? '--';

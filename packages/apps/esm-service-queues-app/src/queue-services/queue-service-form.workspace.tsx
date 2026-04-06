@@ -124,7 +124,8 @@ const QueueServiceForm: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) =
                   labelText={t('selectServiceType', 'Select a service type')}
                   id="queueServiceType"
                   invalid={!!errors?.queueServiceType}
-                  invalidText={errors?.queueServiceType?.message}>
+                  invalidText={errors?.queueServiceType?.message}
+                >
                   <SelectItem text={t('selectServiceType', 'Select a service type')} value="" />
                   {queueConcepts?.length > 0 &&
                     queueConcepts.map((concept) => (
@@ -148,7 +149,8 @@ const QueueServiceForm: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) =
                   id="location"
                   invalid={!!errors?.userLocation}
                   invalidText={errors?.userLocation?.message}
-                  labelText={t('selectALocation', 'Select a location')}>
+                  labelText={t('selectALocation', 'Select a location')}
+                >
                   <SelectItem text={t('selectALocation', 'Select a location')} value="" />
                   {queueLocations?.length > 0 &&
                     queueLocations.map((location) => (

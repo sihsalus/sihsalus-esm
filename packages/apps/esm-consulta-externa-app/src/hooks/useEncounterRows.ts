@@ -5,7 +5,6 @@ import useSWRImmutable from 'swr';
 
 import type { OpenmrsEncounter } from '../types';
 
-
 export const encounterRepresentation =
   'custom:(uuid,encounterDatetime,encounterType,location:(uuid,name),' +
   'patient:(uuid,display),encounterProviders:(uuid,provider:(uuid,name)),' +

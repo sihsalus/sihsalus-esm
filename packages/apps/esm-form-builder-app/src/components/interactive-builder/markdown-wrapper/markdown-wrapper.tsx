@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const MarkdownWrapper: React.FC<{ markdown: string | Array<string> }> = ({ markdown }) => {
@@ -11,20 +11,20 @@ const MarkdownWrapper: React.FC<{ markdown: string | Array<string> }> = ({ markd
     if (delimiterPattern.test(truncatedContent)) {
       truncatedContent = truncatedContent.replace(delimiterPattern, '').trimEnd();
     }
-    let mutableString = truncatedContent
+    let mutableString = truncatedContent;
     const unmatchedDelimiters = [];
-    
+
     for (const delimiter of delimiters) {
-        const firstIndex = mutableString.indexOf(delimiter);
-        const secondIndex = mutableString.indexOf(delimiter, firstIndex + delimiter.length);
-        if (firstIndex !== -1) {
-            if (secondIndex === -1) {
-                unmatchedDelimiters.push(delimiter);
-                mutableString = mutableString.replace(delimiter, '');
-            } else {
-                mutableString = mutableString.replace(delimiter, '').replace(delimiter, '');
-            }
+      const firstIndex = mutableString.indexOf(delimiter);
+      const secondIndex = mutableString.indexOf(delimiter, firstIndex + delimiter.length);
+      if (firstIndex !== -1) {
+        if (secondIndex === -1) {
+          unmatchedDelimiters.push(delimiter);
+          mutableString = mutableString.replace(delimiter, '');
+        } else {
+          mutableString = mutableString.replace(delimiter, '').replace(delimiter, '');
         }
+      }
     }
     return truncatedContent + unmatchedDelimiters.reverse().join('') + (inputString.length > limit ? ' ...' : '');
   }

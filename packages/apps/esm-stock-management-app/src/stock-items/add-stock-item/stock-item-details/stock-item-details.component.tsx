@@ -209,8 +209,8 @@ const StockItemDetails = forwardRef<never, StockItemDetailsProps>(
               selectedItemType === StockItemType.PHARMACEUTICALS
                 ? 'Drugs'
                 : selectedItemType === StockItemType.NONE_PHARMACEUTICALS
-                ? 'Non Drugs'
-                : undefined
+                  ? 'Non Drugs'
+                  : undefined
             }
             title={t('category', 'Category') + ':'}
             placeholder={t('chooseACategory', 'Choose a category')}

@@ -72,16 +72,18 @@ const FeedingCounseling: React.FC<FeedingCounselingProps> = ({ patientUuid }) =>
               </StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {isBreastfeeding != null ? (
-                  isBreastfeeding ? t('yes', 'Sí') : t('no', 'No')
+                  isBreastfeeding ? (
+                    t('yes', 'Sí')
+                  ) : (
+                    t('no', 'No')
+                  )
                 ) : (
                   <span className={styles.noData}>{t('noData', 'Sin datos')}</span>
                 )}
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('lastSession', 'Última sesión')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('lastSession', 'Última sesión')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {lastAssessmentDate ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>

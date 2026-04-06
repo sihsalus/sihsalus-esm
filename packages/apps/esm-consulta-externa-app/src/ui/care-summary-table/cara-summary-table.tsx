@@ -24,7 +24,6 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './care-summary-table.scss';
 
-
 interface Encounter {
   encounterDatetime: string;
   obs: {

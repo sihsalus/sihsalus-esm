@@ -5,9 +5,7 @@ import useSWR from 'swr';
 
 import { type AppointmentsFetchResponse } from '../types';
 
-
 import SelectedDateContext from './selectedDateContext';
-
 
 export function usePatientAppointmentHistory(patientUuid: string) {
   const abortController = new AbortController();

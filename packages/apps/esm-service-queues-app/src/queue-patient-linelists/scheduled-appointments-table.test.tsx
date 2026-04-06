@@ -6,7 +6,6 @@ import React from 'react';
 
 import { type ConfigObject, configSchema } from '../config-schema';
 
-
 import AppointmentsTable from './scheduled-appointments-table.component';
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);

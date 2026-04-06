@@ -48,9 +48,8 @@ export function useStimulationCounseling(patientUuid: string): StimulationCounse
 
     let lastCounselingResult: string | null = null;
     if (lastObs?.value) {
-      lastCounselingResult = typeof lastObs.value === 'object' && lastObs.value?.display
-        ? lastObs.value.display
-        : String(lastObs.value);
+      lastCounselingResult =
+        typeof lastObs.value === 'object' && lastObs.value?.display ? lastObs.value.display : String(lastObs.value);
     }
 
     return { totalSessions, lastCounselingDate, lastCounselingResult };

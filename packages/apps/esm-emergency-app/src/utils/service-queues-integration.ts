@@ -2,11 +2,11 @@ import { getGlobalStore, useStore } from '@openmrs/esm-framework';
 
 /**
  * Service Queues Integration Utilities
- * 
+ *
  * Utilities to integrate emergency-app with service-queues-app.
  * These functions help emergency components work within the service-queues context
  * by accessing the service-queues store when available.
- * 
+ *
  * The store is accessed using getGlobalStore('serviceQueues') which is registered
  * in @openmrs/esm-service-queues-app.
  */
@@ -22,7 +22,7 @@ interface ServiceQueuesStore {
 
 /**
  * Attempts to get the service-queues store
- * 
+ *
  * @returns The store instance, or null if not available
  */
 function getServiceQueuesStore() {
@@ -44,15 +44,15 @@ function getServiceQueuesStore() {
 
 /**
  * Hook to get the selected location UUID from service-queues store
- * 
+ *
  * This hook subscribes to the service-queues store and returns the current location UUID.
  * Returns undefined if the store is not available (e.g., when emergency-app is used standalone).
- * 
+ *
  * @returns The selected location UUID, or undefined
  */
 export function useServiceQueuesLocation(): string | undefined {
   const store = getServiceQueuesStore();
-  
+
   if (!store) {
     return undefined;
   }
@@ -63,10 +63,10 @@ export function useServiceQueuesLocation(): string | undefined {
 
 /**
  * Hook to get location and name from service-queues store
- * 
+ *
  * This hook subscribes to the service-queues store and returns both location UUID and name.
  * Returns undefined values if the store is not available.
- * 
+ *
  * @returns Object with locationUuid and locationName, or undefined values
  */
 export function useServiceQueuesLocationAndName(): {
@@ -74,7 +74,7 @@ export function useServiceQueuesLocationAndName(): {
   locationName?: string;
 } {
   const store = getServiceQueuesStore();
-  
+
   if (!store) {
     return { locationUuid: undefined, locationName: undefined };
   }

@@ -128,7 +128,8 @@ const PrescriptionDetails: React.FC<{
             <MedicationEvent
               key={bundle.request.id}
               medicationEvent={bundle.request}
-              status={generateStatusTag(bundle.request)}>
+              status={generateStatusTag(bundle.request)}
+            >
               <UserHasAccess privilege={PRIVILEGE_CREATE_DISPENSE}>
                 <ActionButtons
                   patientUuid={patientUuid}

@@ -1,11 +1,11 @@
 /**
  * Emergency Alerts Extension
- * 
+ *
  * Extension component that renders emergency alerts in service-queues-app
  * when emergency location is selected.
- * 
+ *
  * Registered in: service-queues-emergency-alerts-slot
- * 
+ *
  * This extension decides internally whether to render based on the current location.
  * If it's not an emergency location, it returns null.
  */
@@ -23,7 +23,3 @@ export default function EmergencyAlertsExtension() {
 
   return <EmergencyAlerts />;
 }
-
-
-
-

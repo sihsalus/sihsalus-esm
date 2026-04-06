@@ -1,14 +1,14 @@
 /**
  * Emergency Queue Table Extension
- * 
+ *
  * Extension component that renders the emergency-specific queue table in service-queues-app
  * when emergency location is selected. When not in emergency location, this extension
  * ensures the standard DefaultQueueTable component is hidden via CSS.
- * 
+ *
  * This table is optimized for emergency department workflows with priority-based sorting.
- * 
+ *
  * Registered in: service-queues-emergency-queue-table-slot
- * 
+ *
  * This extension always renders to ensure proper control over table display.
  * When emergency location is selected, shows emergency table and hides standard table.
  * When not emergency, returns null to allow standard table to show.
@@ -46,7 +46,3 @@ export default function EmergencyQueueTableExtension() {
 
   return <EmergencyQueueTable />;
 }
-
-
-
-

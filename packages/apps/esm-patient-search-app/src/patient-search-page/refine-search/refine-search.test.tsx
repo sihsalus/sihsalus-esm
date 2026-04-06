@@ -8,8 +8,6 @@ import { type PatientSearchConfig } from '../../config-schema';
 import { usePersonAttributeType } from './person-attributes.resource';
 import RefineSearch from './refine-search.component';
 
-
-
 const mockUseConfig = jest.mocked(useConfig);
 const mockUseLayoutType = jest.mocked(useLayoutType);
 const mockUsePersonAttributeType = jest.mocked(usePersonAttributeType);

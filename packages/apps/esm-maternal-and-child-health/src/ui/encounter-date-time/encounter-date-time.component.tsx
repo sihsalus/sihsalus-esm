@@ -143,7 +143,8 @@ const EncounterDateTimeField: React.FC<EncounterDateTimeFieldProps> = ({
                   onChange={(event) => onChange(event.target.value as amPm)}
                   pattern="^(0[1-9]|1[0-2]):([0-5][0-9])$"
                   value={value || currentTime12Hour}
-                  disabled={disabled}>
+                  disabled={disabled}
+                >
                   <Controller
                     name={timeFormatField.name}
                     control={control}
@@ -156,7 +157,8 @@ const EncounterDateTimeField: React.FC<EncounterDateTimeFieldProps> = ({
                         id={`${timeFormatField.name}Input`}
                         onChange={(event) => onChange(event.target.value as amPm)}
                         value={value || currentTimeFormat}
-                        disabled={disabled}>
+                        disabled={disabled}
+                      >
                         <SelectItem value="AM" text={t('AM', 'AM')} />
                         <SelectItem value="PM" text={t('PM', 'PM')} />
                       </TimePickerSelect>

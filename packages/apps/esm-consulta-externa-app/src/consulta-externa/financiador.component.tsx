@@ -73,15 +73,8 @@ const Financiador: React.FC<FinanciadorProps> = ({ patientUuid }) => {
   return (
     <div className={styles.widgetContainer}>
       <div className={styles.tableHeader}>
-        <span className={styles.tableHeaderTitle}>
-          {t('insuranceHistory', 'Historial de Financiador')}
-        </span>
-        <Button
-          kind="ghost"
-          size="sm"
-          renderIcon={Add}
-          onClick={handleLaunchForm}
-        >
+        <span className={styles.tableHeaderTitle}>{t('insuranceHistory', 'Historial de Financiador')}</span>
+        <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('addInsurance', 'Registrar Financiador')}
         </Button>
       </div>

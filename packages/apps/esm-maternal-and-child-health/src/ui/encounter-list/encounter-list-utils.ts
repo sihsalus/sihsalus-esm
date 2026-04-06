@@ -43,7 +43,12 @@ export function getMultipleObsFromEncounter(encounter: Record<string, any>, obsC
   return observations.length ? observations.join(', ') : '--';
 }
 
-export function getObsFromEncounter(encounter: Record<string, any>, obsConcept: string, isDate?: boolean, isTrueFalseConcept?: boolean) {
+export function getObsFromEncounter(
+  encounter: Record<string, any>,
+  obsConcept: string,
+  isDate?: boolean,
+  isTrueFalseConcept?: boolean,
+) {
   const obs = findObs(encounter, obsConcept);
 
   if (isTrueFalseConcept) {
@@ -132,7 +137,11 @@ function extractDefaultValueBasedOnType(defaultValue: string | number | Record<s
   }
   return '--';
 }
-export function mapConceptToFormLabel(conceptUuid: string, formConceptMap: Record<string, { display?: string; answers?: Record<string, string> }>, defaultValue: string): string {
+export function mapConceptToFormLabel(
+  conceptUuid: string,
+  formConceptMap: Record<string, { display?: string; answers?: Record<string, string> }>,
+  defaultValue: string,
+): string {
   if (formConceptMap === undefined) {
     return defaultValue;
   }

@@ -7,7 +7,6 @@ import { mockPatient } from 'tools';
 
 import { type ChartConfig, esmPatientChartSchema } from '../../../config-schema';
 
-
 import VisitSummary from './visit-summary.component';
 
 const mockExtensionSlot = ExtensionSlot as jest.Mock;
@@ -59,7 +58,7 @@ describe('VisitSummary', () => {
     expect(screen.getByText(/test-results-filtered-overview/)).toBeInTheDocument();
   });
 
-   it('renders diagnoses tags when there are diagnoses', () => {
+  it('renders diagnoses tags when there are diagnoses', () => {
     const mockVisit = visitOverviewDetailMockDataNotEmpty.data.results[0];
 
     render(<VisitSummary patientUuid={mockPatient.id} visit={mockVisit} />);

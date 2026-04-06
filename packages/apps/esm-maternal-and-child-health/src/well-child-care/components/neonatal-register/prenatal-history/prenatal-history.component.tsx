@@ -12,11 +12,7 @@ import {
   TableCell,
 } from '@carbon/react';
 import { AddIcon, launchWorkspace2, useConfig, useLayoutType } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -95,7 +91,8 @@ const PrenatalAntecedents: React.FC<NeonatalSummaryProps> = ({ patientUuid }) =>
             { key: 'value', header: t('value', 'Value') },
           ]}
           size="sm"
-          useZebraStyles>
+          useZebraStyles
+        >
           {({ rows, headers, getHeaderProps, getTableProps }) => (
             <TableContainer>
               <Table {...getTableProps()}>

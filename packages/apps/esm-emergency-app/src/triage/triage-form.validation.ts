@@ -1,7 +1,13 @@
 import { z } from 'zod';
 import type { ConceptReferenceRange } from '../hooks/useConceptReferenceRanges';
 
-export type VitalFieldName = 'temperature' | 'heartRate' | 'respiratoryRate' | 'systolicBp' | 'diastolicBp' | 'oxygenSaturation';
+export type VitalFieldName =
+  | 'temperature'
+  | 'heartRate'
+  | 'respiratoryRate'
+  | 'systolicBp'
+  | 'diastolicBp'
+  | 'oxygenSaturation';
 
 /** System-level absolute ranges for vital signs (from OpenMRS concept_numeric) */
 export const vitalSignRanges: Record<VitalFieldName, { min: number; max: number }> = {
@@ -21,12 +27,36 @@ export const triageFormSchema = z.object({
   anamnesis: z.string().optional(),
 
   // Signos vitales
-  temperature: z.number().min(vitalSignRanges.temperature.min, `Mínimo ${vitalSignRanges.temperature.min}°C`).max(vitalSignRanges.temperature.max, `Máximo ${vitalSignRanges.temperature.max}°C`).optional(),
-  heartRate: z.number().min(vitalSignRanges.heartRate.min, `Mínimo ${vitalSignRanges.heartRate.min} lpm`).max(vitalSignRanges.heartRate.max, `Máximo ${vitalSignRanges.heartRate.max} lpm`).optional(),
-  respiratoryRate: z.number().min(vitalSignRanges.respiratoryRate.min, `Mínimo ${vitalSignRanges.respiratoryRate.min} rpm`).max(vitalSignRanges.respiratoryRate.max, `Máximo ${vitalSignRanges.respiratoryRate.max} rpm`).optional(),
-  systolicBp: z.number().min(vitalSignRanges.systolicBp.min, `Mínimo ${vitalSignRanges.systolicBp.min} mmHg`).max(vitalSignRanges.systolicBp.max, `Máximo ${vitalSignRanges.systolicBp.max} mmHg`).optional(),
-  diastolicBp: z.number().min(vitalSignRanges.diastolicBp.min, `Mínimo ${vitalSignRanges.diastolicBp.min} mmHg`).max(vitalSignRanges.diastolicBp.max, `Máximo ${vitalSignRanges.diastolicBp.max} mmHg`).optional(),
-  oxygenSaturation: z.number().min(vitalSignRanges.oxygenSaturation.min, `Mínimo ${vitalSignRanges.oxygenSaturation.min}%`).max(vitalSignRanges.oxygenSaturation.max, `Máximo ${vitalSignRanges.oxygenSaturation.max}%`).optional(),
+  temperature: z
+    .number()
+    .min(vitalSignRanges.temperature.min, `Mínimo ${vitalSignRanges.temperature.min}°C`)
+    .max(vitalSignRanges.temperature.max, `Máximo ${vitalSignRanges.temperature.max}°C`)
+    .optional(),
+  heartRate: z
+    .number()
+    .min(vitalSignRanges.heartRate.min, `Mínimo ${vitalSignRanges.heartRate.min} lpm`)
+    .max(vitalSignRanges.heartRate.max, `Máximo ${vitalSignRanges.heartRate.max} lpm`)
+    .optional(),
+  respiratoryRate: z
+    .number()
+    .min(vitalSignRanges.respiratoryRate.min, `Mínimo ${vitalSignRanges.respiratoryRate.min} rpm`)
+    .max(vitalSignRanges.respiratoryRate.max, `Máximo ${vitalSignRanges.respiratoryRate.max} rpm`)
+    .optional(),
+  systolicBp: z
+    .number()
+    .min(vitalSignRanges.systolicBp.min, `Mínimo ${vitalSignRanges.systolicBp.min} mmHg`)
+    .max(vitalSignRanges.systolicBp.max, `Máximo ${vitalSignRanges.systolicBp.max} mmHg`)
+    .optional(),
+  diastolicBp: z
+    .number()
+    .min(vitalSignRanges.diastolicBp.min, `Mínimo ${vitalSignRanges.diastolicBp.min} mmHg`)
+    .max(vitalSignRanges.diastolicBp.max, `Máximo ${vitalSignRanges.diastolicBp.max} mmHg`)
+    .optional(),
+  oxygenSaturation: z
+    .number()
+    .min(vitalSignRanges.oxygenSaturation.min, `Mínimo ${vitalSignRanges.oxygenSaturation.min}%`)
+    .max(vitalSignRanges.oxygenSaturation.max, `Máximo ${vitalSignRanges.oxygenSaturation.max}%`)
+    .optional(),
   consciousnessLevel: z.enum(['alert', 'verbal', 'pain', 'unresponsive']).optional(),
 
   // Antropometría
@@ -94,14 +124,18 @@ export function validateVitalsAgainstRanges(
       errors.push({
         field,
         message: t('valueBelowAbsolute', 'Valor {{value}} fuera del rango permitido (mín: {{min}} {{units}})', {
-          value, min: range.lowAbsolute, units: range.units,
+          value,
+          min: range.lowAbsolute,
+          units: range.units,
         }),
       });
     } else if (range.hiAbsolute != null && value > range.hiAbsolute) {
       errors.push({
         field,
         message: t('valueAboveAbsolute', 'Valor {{value}} fuera del rango permitido (máx: {{max}} {{units}})', {
-          value, max: range.hiAbsolute, units: range.units,
+          value,
+          max: range.hiAbsolute,
+          units: range.units,
         }),
       });
     }

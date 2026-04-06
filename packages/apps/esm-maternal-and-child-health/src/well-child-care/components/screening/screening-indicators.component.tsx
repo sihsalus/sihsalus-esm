@@ -77,7 +77,9 @@ const ScreeningIndicators: React.FC<ScreeningIndicatorsProps> = ({ patientUuid }
   }
 
   if (screenings.length === 0) {
-    return <EmptyState displayText={t('noScreeningData', 'Sin datos de tamizaje registrados')} headerTitle={headerTitle} />;
+    return (
+      <EmptyState displayText={t('noScreeningData', 'Sin datos de tamizaje registrados')} headerTitle={headerTitle} />
+    );
   }
 
   return (

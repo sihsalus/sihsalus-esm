@@ -24,8 +24,7 @@ const VitalsHeaderItem: React.FC<VitalsHeaderItemProps> = ({ interpretation, val
   const valueId = `omrs-patient-chart-value-${unitName}-${generatedId}`;
   const unitId = `omrs-patient-chart-unit-${unitName}-${generatedId}`;
 
-  const displayValue =
-    value ? value : t('notAvailable', 'Not available');
+  const displayValue = value ? value : t('notAvailable', 'Not available');
 
   return (
     <section className={styles.container}>

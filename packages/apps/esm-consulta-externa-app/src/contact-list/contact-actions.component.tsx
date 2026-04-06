@@ -50,7 +50,8 @@ const ContactActions: React.FC<ContactActionsProps> = ({ relativeUuid, baseLineH
           renderIcon={Microscope}
           iconDescription="Test"
           // hasIconOnly
-          onClick={handleLauchHTSInitialForm}>
+          onClick={handleLauchHTSInitialForm}
+        >
           Test
         </Button>
       )}

@@ -28,7 +28,6 @@ import type { BedTypeData } from '../types';
 import EditBedTypeForm from './edit-bed-type.component';
 import BedTypeForm from './new-bed-type-form.component';
 
-
 const BedTypeAdministrationTable: React.FC = () => {
   const { t } = useTranslation();
   const headerTitle = t('bedTypes', 'Bed types');
@@ -83,7 +82,8 @@ const BedTypeAdministrationTable: React.FC = () => {
               setShowEditBedModal(true);
               setAddBedTypeModal(false);
             }}
-            size={responsiveSize}>
+            size={responsiveSize}
+          >
             <Edit />
           </IconButton>
         ),
@@ -137,7 +137,8 @@ const BedTypeAdministrationTable: React.FC = () => {
             <Button
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
-              onClick={() => setAddBedTypeModal(true)}>
+              onClick={() => setAddBedTypeModal(true)}
+            >
               {t('addBedType', 'Add bed type')}
             </Button>
           ) : null}
@@ -175,7 +176,8 @@ const BedTypeAdministrationTable: React.FC = () => {
                       kind="ghost"
                       size="sm"
                       renderIcon={(props) => <Add size={16} {...props} />}
-                      onClick={() => setAddBedTypeModal(true)}>
+                      onClick={() => setAddBedTypeModal(true)}
+                    >
                       {t('addBedType', 'Add bed type')}
                     </Button>
                   </Tile>

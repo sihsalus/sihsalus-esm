@@ -36,10 +36,7 @@ const ethnicTagType: Record<string, 'green' | 'blue' | 'purple' | 'magenta' | 't
 const PertenenciaEtnica: React.FC<PertenenciaEtnicaProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { currentValue, entries, isLoading } = useEthnicIdentity(
-    patientUuid,
-    config.concepts?.ethnicIdentityUuid,
-  );
+  const { currentValue, entries, isLoading } = useEthnicIdentity(patientUuid, config.concepts?.ethnicIdentityUuid);
 
   const handleLaunchForm = () => {
     launchWorkspace('patient-form-entry-workspace', {
@@ -56,9 +53,7 @@ const PertenenciaEtnica: React.FC<PertenenciaEtnicaProps> = ({ patientUuid }) =>
   return (
     <div className={styles.widgetContainer}>
       <div className={styles.tableHeader}>
-        <span className={styles.tableHeaderTitle}>
-          {t('ethnicIdentity', 'Pertenencia Étnica')}
-        </span>
+        <span className={styles.tableHeaderTitle}>{t('ethnicIdentity', 'Pertenencia Étnica')}</span>
         <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('recordEthnicIdentity', 'Registrar')}
         </Button>
@@ -80,9 +75,7 @@ const PertenenciaEtnica: React.FC<PertenenciaEtnicaProps> = ({ patientUuid }) =>
                     {entry.value}
                   </Tag>
                 </StructuredListCell>
-                <StructuredListCell>
-                  {formatDate(new Date(entry.encounterDatetime))}
-                </StructuredListCell>
+                <StructuredListCell>{formatDate(new Date(entry.encounterDatetime))}</StructuredListCell>
               </StructuredListRow>
             ))}
           </StructuredListBody>

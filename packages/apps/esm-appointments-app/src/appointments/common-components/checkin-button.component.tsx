@@ -37,7 +37,8 @@ const CheckInButton: React.FC<CheckInButtonProps> = ({ appointment, patientUuid 
                     showPatientHeader: true,
                     openedFrom: 'appointments-check-in',
                   })
-            }>
+            }
+          >
             {t('checkIn', 'Check in')}
           </Button>
         )}

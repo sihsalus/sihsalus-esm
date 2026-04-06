@@ -2,7 +2,6 @@ import { type FormSchema } from '@openmrs/esm-form-engine-lib';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
-
 /**
  * Custom hook to fetch form schema based on its form UUID.
  *

@@ -94,7 +94,8 @@ export const Autosuggest: React.FC<AutosuggestProps> = ({
               key={index}
               onClick={(e) => handleClick(index)}
               role="presentation"
-              className={typeof renderSuggestionItem !== 'function' ? styles.displayText : undefined}>
+              className={typeof renderSuggestionItem !== 'function' ? styles.displayText : undefined}
+            >
               {typeof renderSuggestionItem === 'function'
                 ? renderSuggestionItem(suggestion)
                 : getDisplayValue(suggestion)}

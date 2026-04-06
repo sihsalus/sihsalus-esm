@@ -30,8 +30,6 @@ import styles from './newborn-vitals-form.scss';
 import NewbornVitalsInput from './newborn-vitals-input.component';
 import { isValueWithinReferenceRange } from './vitals-biometrics-form.utils';
 
-
-
 const AnthropometricsSchema = z
   .object({
     weight: z.number(),
@@ -47,10 +45,7 @@ const AnthropometricsSchema = z
 
 export type AnthropometricsFormType = z.infer<typeof AnthropometricsSchema>;
 
-const NewbornAnthropometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
-  closeWorkspace,
-  workspaceProps,
-}) => {
+const NewbornAnthropometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, workspaceProps }) => {
   const patientUuid = workspaceProps?.patientUuid ?? '';
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -277,7 +272,8 @@ const NewbornAnthropometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
           kind="primary"
           onClick={handleSubmit(saveAnthropometrics, onError)}
           disabled={isSubmitting}
-          type="submit">
+          type="submit"
+        >
           {t('submit', 'Save and close')}
         </Button>
       </ButtonSet>

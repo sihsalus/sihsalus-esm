@@ -10,7 +10,6 @@ import { useConcept, useConceptAnswers } from '../field.resource';
 
 import { ObsField } from './obs-field.component';
 
-
 const mockUseConcept = jest.mocked(useConcept);
 const mockUseConceptAnswers = jest.mocked(useConceptAnswers);
 const mockUseConfig = jest.mocked(useConfig<RegistrationConfig>);

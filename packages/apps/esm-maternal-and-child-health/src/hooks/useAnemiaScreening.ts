@@ -34,13 +34,10 @@ export function useAnemiaScreening(patientUuid: string): AnemiaScreeningResult {
     return `${restBaseUrl}/obs?patient=${patientUuid}&concept=${conceptUuid}&v=custom:(uuid,value,obsDatetime)&limit=1&sort=desc`;
   }, [patientUuid, conceptUuid]);
 
-  const { data, isLoading, error, mutate } = useSWR(
-    url,
-    async (fetchUrl: string) => {
-      const response = await openmrsFetch(fetchUrl);
-      return response?.data;
-    },
-  );
+  const { data, isLoading, error, mutate } = useSWR(url, async (fetchUrl: string) => {
+    const response = await openmrsFetch(fetchUrl);
+    return response?.data;
+  });
 
   const result = useMemo(() => {
     const obs = data?.results?.[0];

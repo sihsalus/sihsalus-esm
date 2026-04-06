@@ -63,7 +63,8 @@ const CreateAdmissionEncounterWorkspace: React.FC<CreateAdmissionEncounterWorksp
           renderIcon={(props) => <ArrowLeftIcon size={24} {...props} />}
           iconDescription={t('backToSearchResults', 'Back to search results')}
           size="sm"
-          onClick={() => handleBackToSearchList?.()}>
+          onClick={() => handleBackToSearchList?.()}
+        >
           <span>{t('backToSearchResults', 'Back to search results')}</span>
         </Button>
       </div>
@@ -142,7 +143,8 @@ const CreateAdmissionEncounterWorkspace: React.FC<CreateAdmissionEncounterWorksp
           renderIcon={(props) => <ArrowLeftIcon size={24} {...props} />}
           iconDescription={t('backToSearchResults', 'Back to search results')}
           size="sm"
-          onClick={() => handleBackToSearchList?.()}>
+          onClick={() => handleBackToSearchList?.()}
+        >
           <span>{t('backToSearchResults', 'Back to search results')}</span>
         </Button>
       </div>

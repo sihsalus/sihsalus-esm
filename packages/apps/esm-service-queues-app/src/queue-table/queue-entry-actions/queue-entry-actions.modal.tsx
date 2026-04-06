@@ -223,7 +223,8 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                 id="queue"
                 invalidText="Required"
                 value={formState.selectedQueue}
-                onChange={(event) => setSelectedQueueUuid(event.target.value)}>
+                onChange={(event) => setSelectedQueueUuid(event.target.value)}
+              >
                 {queues?.map(({ uuid, display, location }) => (
                   <SelectItem
                     key={uuid}
@@ -256,7 +257,8 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                   valueSelected={formState.selectedStatus}
                   onChange={(uuid) => {
                     setSelectedStatusUuid(uuid);
-                  }}>
+                  }}
+                >
                   {statuses?.map(({ uuid, display }) => (
                     <RadioButton
                       key={uuid}
@@ -292,7 +294,8 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                   selectedIndex={selectedPriorityIndex}
                   onChange={(event) => {
                     setSelectedPriorityUuid(event.name as string);
-                  }}>
+                  }}
+                >
                   {priorities?.map(({ uuid, display }) => (
                     <Switch
                       role="radio"
@@ -351,13 +354,15 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                   value={formState.transitionTime}
                   invalid={timeInvalidMessage != null}
                   invalidText={timeInvalidMessage}
-                  disabled={!formState.modifyDefaultTransitionDateTime}>
+                  disabled={!formState.modifyDefaultTransitionDateTime}
+                >
                   <TimePickerSelect
                     id="visitStartTimeSelect"
                     onChange={(event) => setTransitionTimeFormat(event.target.value as amPm)}
                     value={formState.transitionTimeFormat}
                     labelText={t('time', 'Time')}
-                    aria-label={t('time', 'Time')}>
+                    aria-label={t('time', 'Time')}
+                  >
                     <SelectItem value="AM" text="AM" />
                     <SelectItem value="PM" text="PM" />
                   </TimePickerSelect>

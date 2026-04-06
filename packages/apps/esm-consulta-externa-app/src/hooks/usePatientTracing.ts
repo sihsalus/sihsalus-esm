@@ -6,7 +6,6 @@ import type { ConfigObject } from '../config-schema';
 import type { OpenmrsEncounter } from '../types';
 import { encounterRepresentation, MissedAppointmentDate_UUID } from '../utils/constants';
 
-
 export function usePatientTracing(patientUuid: string) {
   const config = useConfig() as ConfigObject;
   const url = `/ws/rest/v1/encounter?encounterType=${config.defaulterTracingEncounterUuid}&patient=${patientUuid}&v=${encounterRepresentation}`;

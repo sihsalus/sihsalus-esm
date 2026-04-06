@@ -75,7 +75,8 @@ export function LocationPersonAttributeField({
 
   return (
     <div
-      className={classNames(styles.customField, styles.halfWidthInDesktopView, styles.locationAttributeFieldContainer)}>
+      className={classNames(styles.customField, styles.halfWidthInDesktopView, styles.locationAttributeFieldContainer)}
+    >
       <Layer>
         <Field name={fieldName}>
           {({ field, form: { touched, errors } }) => {

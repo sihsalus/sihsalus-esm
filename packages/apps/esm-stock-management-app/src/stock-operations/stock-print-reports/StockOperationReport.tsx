@@ -53,8 +53,8 @@ export const BuildStockOperationData = async (
     data.authorizedBy = currentOperation?.dispatchedDate
       ? `${currentOperation.dispatchedByFamilyName ?? ''} ${currentOperation.dispatchedByGivenName ?? ''}`
       : currentOperation?.completedDate
-      ? `${currentOperation.completedByFamilyName ?? ''} ${currentOperation.completedByGivenName ?? ''}`
-      : '';
+        ? `${currentOperation.completedByFamilyName ?? ''} ${currentOperation.completedByGivenName ?? ''}`
+        : '';
   }
   data.remarks = currentOperation.remarks;
   data.operationNumber = currentOperation?.operationNumber;

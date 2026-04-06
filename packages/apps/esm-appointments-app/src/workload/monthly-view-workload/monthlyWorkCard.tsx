@@ -32,7 +32,8 @@ const MonthlyWorkloadCard: React.FC<MonthlyWorkloadComponentProps> = ({ date, co
           [styles.smallDesktop]: layout === 'small-desktop',
           [styles.largeDesktop]: layout !== 'small-desktop',
         },
-      )}>
+      )}
+    >
       <div>
         <b className={[styles.calendarDate, isToday ? styles.blue : ''].join(' ')}>{date.format('D')}</b>
         <div className={styles.currentData}>

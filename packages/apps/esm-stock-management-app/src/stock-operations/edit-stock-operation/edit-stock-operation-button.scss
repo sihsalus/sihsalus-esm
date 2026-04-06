@@ -6,7 +6,9 @@
   gap: 0.4rem;
   border-radius: 6px;
   background-color: transparent;
-  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition:
+    background-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
 }
 
 .editStockButton:hover {

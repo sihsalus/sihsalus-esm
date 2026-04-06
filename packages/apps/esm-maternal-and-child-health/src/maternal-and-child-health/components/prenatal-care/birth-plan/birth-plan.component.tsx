@@ -52,7 +52,8 @@ const BirthPlan: React.FC<BirthPlanProps> = ({ patientUuid }) => {
             size="sm"
             renderIcon={hasBirthPlan ? Edit : Add}
             onClick={handleLaunchBirthPlanForm}
-            iconDescription={hasBirthPlan ? t('editBirthPlan', 'Editar plan') : t('createBirthPlan', 'Crear plan')}>
+            iconDescription={hasBirthPlan ? t('editBirthPlan', 'Editar plan') : t('createBirthPlan', 'Crear plan')}
+          >
             {hasBirthPlan ? t('edit', 'Edit') : t('create', 'Crear')}
           </Button>
         </div>

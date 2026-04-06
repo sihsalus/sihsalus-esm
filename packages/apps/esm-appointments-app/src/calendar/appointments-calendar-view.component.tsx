@@ -11,7 +11,6 @@ import { useAppointmentsCalendar } from '../hooks/useAppointmentsCalendar';
 import CalendarHeader from './header/calendar-header.component';
 import MonthlyCalendarView from './monthly/monthly-calendar-view.component';
 
-
 const AppointmentsCalendarView: React.FC = () => {
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState(dayjs().startOf('day').format(omrsDateFormat));

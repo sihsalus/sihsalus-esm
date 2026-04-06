@@ -17,10 +17,7 @@ export interface NeonatalCareProps {
   patientUuid?: string | null;
 }
 
-export const NeonatalCare: React.FC<NeonatalCareProps> = ({
-  patient: patientProp,
-  patientUuid: patientUuidProp,
-}) => {
+export const NeonatalCare: React.FC<NeonatalCareProps> = ({ patient: patientProp, patientUuid: patientUuidProp }) => {
   const { patient: hookPatient, patientUuid: hookPatientUuid } = usePatient();
   const patient = patientProp ?? hookPatient;
   const patientUuid = patientUuidProp ?? hookPatientUuid;

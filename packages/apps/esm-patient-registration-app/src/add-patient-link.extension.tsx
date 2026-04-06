@@ -17,7 +17,8 @@ export default function Root() {
       enterDelayMs={500}
       name="AddPatientIcon"
       onClick={addPatient}
-      className={styles.slotStyles}>
+      className={styles.slotStyles}
+    >
       <UserFollow size={20} />
     </HeaderGlobalAction>
   );

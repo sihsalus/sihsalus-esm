@@ -17,7 +17,6 @@ import { cloneDeep, isEmpty } from 'lodash-es';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { implementerToolsStore, type ImplementerToolsStore } from '../store';
 
 import styles from './configuration.styles.scss';

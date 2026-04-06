@@ -52,7 +52,8 @@ export const DummyDataInput: React.FC<DummyDataInputProps> = ({ setValues }) => 
         className={classNames('omrs-btn omrs-filled-neutral', styles.dummyData)}
         onClick={() => setValues(dummyFormValues)}
         type="button"
-        aria-label="Dummy Data Input">
+        aria-label="Dummy Data Input"
+      >
         Input Dummy Data
       </button>
     </main>

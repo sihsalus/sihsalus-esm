@@ -62,11 +62,7 @@ const TabbedDashboard: React.FC<TabbedDashboardProps> = ({
           </div>
         </Tile>
       </Layer>
-      <div
-        className={styles.tabBar}
-        role="tablist"
-        aria-label={t(ariaLabelKey)}
-      >
+      <div className={styles.tabBar} role="tablist" aria-label={t(ariaLabelKey)}>
         {translatedTabs.map((tab, index) => {
           const Icon = tab.icon;
           const isActive = index === activeTab;
@@ -87,11 +83,7 @@ const TabbedDashboard: React.FC<TabbedDashboardProps> = ({
           );
         })}
       </div>
-      <div
-        role="tabpanel"
-        className={styles.dashboardContainer}
-        aria-labelledby={`tab-${activeTab}`}
-      >
+      <div role="tabpanel" className={styles.dashboardContainer} aria-labelledby={`tab-${activeTab}`}>
         <ExtensionSlot
           key={translatedTabs[activeTab]?.slotName}
           name={translatedTabs[activeTab]?.slotName}

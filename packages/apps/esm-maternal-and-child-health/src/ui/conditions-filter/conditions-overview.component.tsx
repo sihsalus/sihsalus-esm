@@ -177,7 +177,8 @@ const ConditionsOverview: React.FC<ConditionsOverviewProps> = ({ patientUuid }) 
               kind="ghost"
               renderIcon={(props: ComponentProps<typeof AddIcon>) => <AddIcon size={16} {...props} />}
               iconDescription="Add conditions"
-              onClick={launchConditionsForm}>
+              onClick={launchConditionsForm}
+            >
               {t('add', 'Add')}
             </Button>
           </div>
@@ -190,7 +191,8 @@ const ConditionsOverview: React.FC<ConditionsOverviewProps> = ({ patientUuid }) 
           size={isTablet ? 'lg' : 'sm'}
           useZebraStyles
           overflowMenuOnHover={isDesktop}
-          sortRow={sortRow}>
+          sortRow={sortRow}
+        >
           {({ rows, headers, getHeaderProps, getTableProps }) => (
             <>
               <TableContainer className={styles.tableContainer}>
@@ -203,7 +205,8 @@ const ConditionsOverview: React.FC<ConditionsOverviewProps> = ({ patientUuid }) 
                           {...getHeaderProps({
                             header,
                             isSortable: header.isSortable,
-                          })}>
+                          })}
+                        >
                           {header.header?.content ?? header.header}
                         </TableHeader>
                       ))}

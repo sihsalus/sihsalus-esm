@@ -107,7 +107,8 @@ export default function LocationSelector({ paginationSize = 15, ...props }: Loca
               disabled={currentPage === 1}
               kind="ghost"
               label={t('previousPage', 'Previous page')}
-              onClick={() => goToPrevious()}>
+              onClick={() => goToPrevious()}
+            >
               <ChevronLeftIcon />
             </IconButton>
             <IconButton
@@ -115,7 +116,8 @@ export default function LocationSelector({ paginationSize = 15, ...props }: Loca
               disabled={currentPage >= totalPages}
               kind="ghost"
               label={t('nextPage', 'Next page')}
-              onClick={() => goToNext()}>
+              onClick={() => goToNext()}
+            >
               <ChevronRightIcon />
             </IconButton>
           </div>

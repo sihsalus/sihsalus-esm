@@ -79,9 +79,7 @@ const StimulationCounseling: React.FC<StimulationCounselingProps> = ({ patientUu
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('lastSession', 'Última sesión')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('lastSession', 'Última sesión')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {lastCounselingDate ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>

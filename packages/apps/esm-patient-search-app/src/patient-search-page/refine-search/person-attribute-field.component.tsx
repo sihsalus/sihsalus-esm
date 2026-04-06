@@ -14,7 +14,6 @@ import {
 } from './person-attributes.resource';
 import styles from './search-field.scss';
 
-
 export interface PersonAttributeFieldProps {
   field: SearchFieldConfig;
   control: Control<AdvancedPatientSearchState>;

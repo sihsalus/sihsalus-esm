@@ -13,7 +13,13 @@ const PatientInfo: React.FC<{ patientUuid: string }> = ({ patientUuid }) => {
   const { t } = useTranslation();
 
   if (isLoading) {
-    return <InlineLoading status="active" iconDescription={t('loading', 'Loading...')} description={t('loadingData', 'Loading data')} />;
+    return (
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading...')}
+        description={t('loadingData', 'Loading data')}
+      />
+    );
   }
 
   if (error) {

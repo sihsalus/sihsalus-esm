@@ -116,7 +116,8 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
           [styles.deceasedPatientContainer]: isDeceased,
           [styles.activePatientContainer]: !isDeceased,
         })}
-        role="banner">
+        role="banner"
+      >
         <ClickablePatientContainer patientUuid={patientUuid}>
           <div className={styles.patientAvatar} role="img">
             <PatientPhoto patientUuid={patientUuid} patientName={patientName} />
@@ -158,7 +159,8 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
               className={classNames(styles.contactDetails, {
                 [styles.deceasedContactDetails]: isDeceased,
                 [styles.tabletContactDetails]: isTablet,
-              })}>
+              })}
+            >
               <PatientBannerContactDetails deceased={isDeceased} patientId={patientUuid} />
             </div>
           )}
@@ -188,7 +190,8 @@ const ClickablePatientContainer = ({ patientUuid, children }: ClickablePatientCo
           [styles.patientAvatarButton]: nonNavigationSelectPatientAction,
         })}
         key={patientUuid}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         {children}
       </button>
     );
@@ -198,7 +201,8 @@ const ClickablePatientContainer = ({ patientUuid, children }: ClickablePatientCo
         className={styles.patientBanner}
         onBeforeNavigate={handleBeforeNavigate}
         to={config.search.patientChartUrl}
-        templateParams={{ patientUuid: patientUuid }}>
+        templateParams={{ patientUuid: patientUuid }}
+      >
         {children}
       </ConfigurableLink>
     );

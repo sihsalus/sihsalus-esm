@@ -4,7 +4,6 @@ import useSWR from 'swr';
 
 import { type LocationEntry, type LocationResponse } from './esm-service-queues-app-types';
 
-
 interface UseLocationsResult {
   locations: Array<LocationEntry>;
   isLoading: boolean;

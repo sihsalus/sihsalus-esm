@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './dashboard-group.scss';
 
-
 export interface DashboardGroupExtensionProps {
   title: string;
   basePath: string;
@@ -37,7 +36,8 @@ export const DashboardGroupExtension: React.FC<DashboardGroupExtensionProps> = (
         className={isChild && styles.sideNavMenu}
         large={isTablet}
         defaultExpanded={isExpanded ?? true}
-        title={t(title, title)}>
+        title={t(title, title)}
+      >
         <ExtensionSlot style={{ width: '100%', minWidth: '15rem' }} name={slotName ?? title} state={{ basePath }} />
       </SideNavMenu>
     </SideNavItems>

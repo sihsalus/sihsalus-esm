@@ -31,13 +31,10 @@ export function useSupplementationTracker(patientUuid: string): SupplementationR
     return `${restBaseUrl}/obs?patient=${patientUuid}&concept=${conceptUuid}&v=custom:(uuid,value,obsDatetime)`;
   }, [patientUuid, conceptUuid]);
 
-  const { data, isLoading, error, mutate } = useSWR(
-    url,
-    async (fetchUrl: string) => {
-      const response = await openmrsFetch(fetchUrl);
-      return response?.data;
-    },
-  );
+  const { data, isLoading, error, mutate } = useSWR(url, async (fetchUrl: string) => {
+    const response = await openmrsFetch(fetchUrl);
+    return response?.data;
+  });
 
   const result = useMemo(() => {
     const observations = data?.results ?? [];

@@ -705,7 +705,8 @@ export const configSchema = {
     },
     transportConceptUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Concept UUID de transporte planificado al parto — OCL: Transporte planificado al parto #1053 (Coded)',
+      _description:
+        'Concept UUID de transporte planificado al parto — OCL: Transporte planificado al parto #1053 (Coded)',
       _default: '830ecf86-edd6-41dd-9211-7785a930e995',
     },
     referenceHospitalConceptUuid: {
@@ -800,7 +801,8 @@ export const configSchema = {
     },
     riskFactorsConceptUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Concept UUID de factores de riesgo obstétrico (23 answers) — OCL: Motivo derivación casa espera #378 (Coded)',
+      _description:
+        'Concept UUID de factores de riesgo obstétrico (23 answers) — OCL: Motivo derivación casa espera #378 (Coded)',
       _default: '601c996b-1edb-4406-948a-2ba4cc26789a',
     },
   },

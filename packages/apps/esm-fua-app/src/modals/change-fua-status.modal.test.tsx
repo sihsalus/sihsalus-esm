@@ -115,9 +115,7 @@ describe('ChangeFuaStatusModal — transitions', () => {
     fireEvent.change(screen.getByRole('combobox'), { target: { value: '2' } });
     fireEvent.click(screen.getByText('Guardar'));
 
-    await waitFor(() =>
-      expect(showSnackbar).toHaveBeenCalledWith(expect.objectContaining({ kind: 'error' })),
-    );
+    await waitFor(() => expect(showSnackbar).toHaveBeenCalledWith(expect.objectContaining({ kind: 'error' })));
     await waitFor(() => expect(closeModal).not.toHaveBeenCalled());
   });
 });

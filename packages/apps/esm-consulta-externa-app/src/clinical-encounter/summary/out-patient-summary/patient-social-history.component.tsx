@@ -134,7 +134,13 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
     })
     .filter((row) => row !== null);
   if (isLoading) {
-    return <InlineLoading status="active" iconDescription={t('loading', 'Loading...')} description={t('loadingData', 'Loading data')} />;
+    return (
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading...')}
+        description={t('loadingData', 'Loading data')}
+      />
+    );
   }
   if (error) {
     return <ErrorState error={error} headerTitle={t('socialHistory', 'Social History')} />;
@@ -156,7 +162,8 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
           kind="ghost"
           onClick={() => handleOpenOrEditClinicalEncounterForm()}
           renderIcon={(props) => <Add size={24} {...props} />}
-          iconDescription="Add">
+          iconDescription="Add"
+        >
           {t('add', 'Add')}
         </Button>
       </CardHeader>
@@ -174,7 +181,8 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
                       key={i}
                       {...getHeaderProps({
                         header,
-                      })}>
+                      })}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}
@@ -186,7 +194,8 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
                     key={row.id}
                     {...getRowProps({
                       row,
-                    })}>
+                    })}
+                  >
                     {row.cells.map((cell) => (
                       <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}

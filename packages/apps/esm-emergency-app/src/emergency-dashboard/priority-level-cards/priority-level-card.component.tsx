@@ -45,11 +45,7 @@ export const PriorityLevelCard: React.FC<PriorityLevelCardProps> = ({
         <div className={styles.header}>
           {getIcon()}
           {tooltipText && (
-            <DefinitionTooltip
-              align="bottom-right"
-              openOnHover
-              definition={tooltipText}
-              className={styles.infoTooltip}>
+            <DefinitionTooltip align="bottom-right" openOnHover definition={tooltipText} className={styles.infoTooltip}>
               <Information size={16} className={styles.infoIcon} />
             </DefinitionTooltip>
           )}

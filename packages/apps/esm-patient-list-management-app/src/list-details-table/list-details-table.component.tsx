@@ -197,7 +197,8 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
         name: columns.find((column) => column.key === 'name')?.link ? (
           <ConfigurableLink
             className={styles.link}
-            to={columns.find((column) => column.key === 'name')?.link?.getUrl(patient)}>
+            to={columns.find((column) => column.key === 'name')?.link?.getUrl(patient)}
+          >
             {patient.name}
           </ConfigurableLink>
         ) : (
@@ -244,7 +245,8 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
           renderIcon={(props) => <ArrowLeft size={24} {...props} />}
           iconDescription="Return to lists page"
           size="sm"
-          onClick={() => {}}>
+          onClick={() => {}}
+        >
           <span>{t('backToListsPage', 'Back to lists page')}</span>
         </Button>
       </ConfigurableLink>
@@ -297,7 +299,8 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
                             header,
                             isSortable: header.isSortable,
                           })}
-                          className={isDesktop(layout) ? styles.desktopHeader : styles.tabletHeader}>
+                          className={isDesktop(layout) ? styles.desktopHeader : styles.tabletHeader}
+                        >
                           {header.header?.content ?? header.header}
                         </TableHeader>
                       ))}
@@ -311,7 +314,8 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
                         <TableRow
                           {...getRowProps({ row })}
                           className={isDesktop(layout) ? styles.desktopRow : styles.tabletRow}
-                          key={row.id}>
+                          key={row.id}
+                        >
                           {row.cells.map((cell) => (
                             <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
                           ))}

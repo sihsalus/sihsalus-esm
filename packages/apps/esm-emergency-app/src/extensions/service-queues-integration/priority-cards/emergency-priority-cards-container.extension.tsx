@@ -38,7 +38,10 @@ export default function EmergencyPriorityCardsContainer() {
         description={priorityI.description}
         count={counts.priorityI}
         color={mapColor(priorityI.color)}
-        tooltipText={t('priorityITooltip', 'Pacientes con alteración súbita y crítica del estado de salud, en riesgo inminente de muerte y que requieren atención inmediata en la Sala de Reanimación - Shock Trauma.')}
+        tooltipText={t(
+          'priorityITooltip',
+          'Pacientes con alteración súbita y crítica del estado de salud, en riesgo inminente de muerte y que requieren atención inmediata en la Sala de Reanimación - Shock Trauma.',
+        )}
       />
       <PriorityLevelCard
         level="II"
@@ -46,7 +49,10 @@ export default function EmergencyPriorityCardsContainer() {
         description={priorityII.description}
         count={counts.priorityII}
         color={mapColor(priorityII.color)}
-        tooltipText={t('priorityIITooltip', 'Pacientes portadores de cuadro súbito, agudo con riesgo de muerte o complicaciones serias, cuya atención debe realizarse en un tiempo de espera no mayor o igual de 10 minutos desde su ingreso. Serán atendidos en Consultorios de Emergencia.')}
+        tooltipText={t(
+          'priorityIITooltip',
+          'Pacientes portadores de cuadro súbito, agudo con riesgo de muerte o complicaciones serias, cuya atención debe realizarse en un tiempo de espera no mayor o igual de 10 minutos desde su ingreso. Serán atendidos en Consultorios de Emergencia.',
+        )}
       />
       <PriorityLevelCard
         level="III"
@@ -54,7 +60,10 @@ export default function EmergencyPriorityCardsContainer() {
         description={priorityIII.description}
         count={counts.priorityIII}
         color={mapColor(priorityIII.color)}
-        tooltipText={t('priorityIIITooltip', 'Pacientes que no presentan riesgo de muerte ni secuelas invalidantes. Amerita atención en el Tópico de Emergencia, teniendo prioridad la atención de casos I y II.')}
+        tooltipText={t(
+          'priorityIIITooltip',
+          'Pacientes que no presentan riesgo de muerte ni secuelas invalidantes. Amerita atención en el Tópico de Emergencia, teniendo prioridad la atención de casos I y II.',
+        )}
       />
       <PriorityLevelCard
         level="IV"
@@ -62,7 +71,10 @@ export default function EmergencyPriorityCardsContainer() {
         description={priorityIV.description}
         count={counts.priorityIV}
         color={mapColor(priorityIV.color)}
-        tooltipText={t('priorityIVTooltip', 'Pacientes sin compromiso de funciones vitales ni riesgo de complicación inmediata, que pueden ser atendidos en Consulta Externa o Consultorios Descentralizados.')}
+        tooltipText={t(
+          'priorityIVTooltip',
+          'Pacientes sin compromiso de funciones vitales ni riesgo de complicación inmediata, que pueden ser atendidos en Consulta Externa o Consultorios Descentralizados.',
+        )}
       />
     </div>
   );

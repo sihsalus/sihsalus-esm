@@ -23,9 +23,7 @@ import { useAgeRanges } from '../../../hooks/useAgeRanges';
 import { useImmunizations } from '../../../hooks/useImmunizations';
 import { useVaccinationSchema } from '../../../hooks/useVaccinationSchema';
 
-
 import styles from './vaccination-schedule.scss';
-
 
 interface VaccinationData {
   status: 'pending' | 'completed' | 'overdue' | 'scheduled' | 'not-applicable';
@@ -155,7 +153,8 @@ const VaccinationSchedule: React.FC<VaccinationScheduleProps> = ({ patientUuid }
               type={getTagType(vaccineData.status)}
               size="sm"
               title={getStatusLabel(vaccineData.status, t)}
-              className={styles.vaccineStatusTag}>
+              className={styles.vaccineStatusTag}
+            >
               {vaccineData.date || '--'}
             </Tag>
           ) : (
@@ -192,11 +191,7 @@ const VaccinationSchedule: React.FC<VaccinationScheduleProps> = ({ patientUuid }
 
   if (isLoading) {
     return (
-      <DataTableSkeleton
-        role="progressbar"
-        aria-label={t('loadingData', 'Loading data...')}
-        headers={tableHeaders}
-      />
+      <DataTableSkeleton role="progressbar" aria-label={t('loadingData', 'Loading data...')} headers={tableHeaders} />
     );
   }
 
@@ -212,7 +207,8 @@ const VaccinationSchedule: React.FC<VaccinationScheduleProps> = ({ patientUuid }
           kind="ghost"
           renderIcon={(props) => <Add size={16} {...props} />}
           onClick={handleAddVaccination}
-          aria-label={t('updateVaccinations', 'Actualizar vacunas')}>
+          aria-label={t('updateVaccinations', 'Actualizar vacunas')}
+        >
           {t('update', 'Actualizar')}
         </Button>
       </CardHeader>

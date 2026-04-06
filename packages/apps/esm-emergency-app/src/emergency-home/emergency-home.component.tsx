@@ -4,7 +4,7 @@ import styles from './emergency-home.scss';
 
 /**
  * Emergency Home Component
- * 
+ *
  * Standalone home page for emergency department with complete control over layout.
  * Uses custom slots for maximum flexibility and maintainability.
  */
@@ -34,4 +34,3 @@ const EmergencyHome: React.FC = () => {
 };
 
 export default EmergencyHome;
-

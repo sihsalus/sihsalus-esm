@@ -11,7 +11,6 @@ import MedicationSummary from './medications-summary.component';
 import NotesSummary from './notes-summary.component';
 import TestsSummary from './tests-summary.component';
 
-
 interface DiagnosisItem {
   diagnosis: string;
   order: string;

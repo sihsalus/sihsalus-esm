@@ -102,7 +102,8 @@ function QueueTable({
       rows={rows}
       headers={columns}
       size={responsiveSize}
-      useZebraStyles={columns?.length > 1}>
+      useZebraStyles={columns?.length > 1}
+    >
       {({ rows, headers, getTableProps, getHeaderProps, getRowProps, getToolbarProps, getExpandHeaderProps }) => (
         <>
           <TableContainer className={styles.tableContainer}>
@@ -142,7 +143,8 @@ function QueueTable({
                             key={cell.id}
                             className={classNames({
                               'cds--table-column-menu': columns[i].key.includes('actions'),
-                            })}>
+                            })}
+                          >
                             {cell.value}
                           </TableCell>
                         ))}
@@ -151,7 +153,8 @@ function QueueTable({
                         <TableExpandedRow
                           className={styles.expandedActiveVisitRow}
                           colSpan={headers.length + 2}
-                          key={i}>
+                          key={i}
+                        >
                           <ExpandedRow queueEntry={paginatedQueueEntries[i]} />
                         </TableExpandedRow>
                       ) : (

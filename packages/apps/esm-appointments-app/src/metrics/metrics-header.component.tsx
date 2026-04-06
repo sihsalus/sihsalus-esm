@@ -39,7 +39,8 @@ const MetricsHeader: React.FC = () => {
           size={responsiveSize}
           onClick={() =>
             navigate({ to: `${spaHomePage}/appointments/calendar/${dayjs(selectedDate).format('YYYY-MM-DD')}` })
-          }>
+          }
+        >
           {t('appointmentsCalendar', 'Appointments calendar')}
         </Button>
         <ExtensionSlot

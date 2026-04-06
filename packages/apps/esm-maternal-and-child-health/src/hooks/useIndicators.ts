@@ -38,10 +38,7 @@ interface EvaluationResult {
  * GET /ws/module/indicators/api/indicators
  */
 export function useIndicators() {
-  const { data, isLoading, error, mutate } = useSWR<{ data: IndicatorListResponse }>(
-    BASE_URL,
-    openmrsFetch,
-  );
+  const { data, isLoading, error, mutate } = useSWR<{ data: IndicatorListResponse }>(BASE_URL, openmrsFetch);
 
   return {
     indicators: data?.data?.results ?? [],
@@ -95,9 +92,7 @@ export function useEvaluateIndicator(id: number | null) {
  * Crea un nuevo indicador.
  * POST /ws/module/indicators/api/indicators
  */
-export async function createIndicator(
-  indicator: Omit<IndicatorDefinition, 'id' | 'createdAt' | 'updatedAt'>,
-) {
+export async function createIndicator(indicator: Omit<IndicatorDefinition, 'id' | 'createdAt' | 'updatedAt'>) {
   const response = await openmrsFetch(BASE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -110,10 +105,7 @@ export async function createIndicator(
  * Actualiza un indicador existente.
  * PUT /ws/module/indicators/api/indicators/{id}
  */
-export async function updateIndicator(
-  id: number,
-  indicator: Partial<IndicatorDefinition>,
-) {
+export async function updateIndicator(id: number, indicator: Partial<IndicatorDefinition>) {
   const response = await openmrsFetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

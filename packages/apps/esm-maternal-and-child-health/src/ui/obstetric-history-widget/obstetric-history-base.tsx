@@ -1,11 +1,7 @@
 // obstetric-history-base.component.tsx
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, InlineLoading } from '@carbon/react';
 import { useConfig, useLayoutType, AddIcon, launchWorkspace2 } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -112,7 +108,8 @@ const ObstetricHistoryBase: React.FC<ObstetricHistoryBaseProps> = ({ patientUuid
                 kind="ghost"
                 renderIcon={(props) => <AddIcon size={16} {...props} />}
                 iconDescription={t('addObstetricData', 'Agregar datos obstétricos')}
-                onClick={launchObstetricForm}>
+                onClick={launchObstetricForm}
+              >
                 {t('update', 'Actualizar')}
               </Button>
             </>

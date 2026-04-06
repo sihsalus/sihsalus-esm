@@ -48,9 +48,8 @@ export function useStimulationSessions(patientUuid: string): StimulationSessions
 
     let developmentAreas: string | null = null;
     if (lastObs?.value) {
-      developmentAreas = typeof lastObs.value === 'object' && lastObs.value?.display
-        ? lastObs.value.display
-        : String(lastObs.value);
+      developmentAreas =
+        typeof lastObs.value === 'object' && lastObs.value?.display ? lastObs.value.display : String(lastObs.value);
     }
 
     return { totalSessions, lastSessionDate, developmentAreas };

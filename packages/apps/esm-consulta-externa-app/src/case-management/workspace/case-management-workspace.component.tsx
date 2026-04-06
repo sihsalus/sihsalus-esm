@@ -9,7 +9,6 @@ import { z } from 'zod';
 
 import { updateRelationship } from '../../relationships/relationship.resources';
 
-
 import styles from './case-management-workspace.scss';
 
 const EndRelationshipSchema = z.object({

@@ -43,11 +43,10 @@
   @include type.type-style('body-compact-02');
   color: colors.$gray-70;
   column-gap: 0.8rem;
-
 }
 .sessionNotesLabel {
   @include type.type-style('label-01');
-  margin-bottom: layout.$spacing-01
+  margin-bottom: layout.$spacing-01;
 }
 
 .groupEditBtn {

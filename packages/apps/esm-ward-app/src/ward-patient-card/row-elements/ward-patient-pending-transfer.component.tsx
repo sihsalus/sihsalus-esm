@@ -45,7 +45,8 @@ const WardPatientPendingTransfer: React.FC<WardPatientTransferProps> = ({ wardPa
         kind={'secondary'}
         className={styles.cancelTransferRequestButton}
         size={'sm'}
-        onClick={launchCancelAdmissionForm}>
+        onClick={launchCancelAdmissionForm}
+      >
         <CloseOutlineIcon />
       </IconButton>
     </div>

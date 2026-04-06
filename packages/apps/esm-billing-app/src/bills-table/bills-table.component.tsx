@@ -115,7 +115,8 @@ const BillsTable: React.FC = () => {
           <ConfigurableLink
             style={{ textDecoration: 'none' }}
             to={billingUrl}
-            templateParams={{ patientUuid: bill.patientUuid, uuid: bill.uuid }}>
+            templateParams={{ patientUuid: bill.patientUuid, uuid: bill.uuid }}
+          >
             {bill.receiptNumber}
           </ConfigurableLink>
         ),
@@ -199,7 +200,8 @@ const BillsTable: React.FC = () => {
             rows={searchResults}
             headers={headerData}
             size={responsiveSize}
-            useZebraStyles={searchResults?.length > 1 ? true : false}>
+            useZebraStyles={searchResults?.length > 1 ? true : false}
+          >
             {({ rows, headers, getRowProps, getTableProps }) => (
               <TableContainer>
                 <Table {...getTableProps()} aria-label={t('billList', 'Bill list')}>
@@ -216,7 +218,8 @@ const BillsTable: React.FC = () => {
                         key={row.id}
                         {...getRowProps({
                           row,
-                        })}>
+                        })}
+                      >
                         {row.cells.map((cell) => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
@@ -298,7 +301,8 @@ function FilterableTableHeader({
           className={classNames({
             [styles.tabletHeading]: !isDesktop(layout),
             [styles.desktopHeading]: isDesktop(layout),
-          })}>
+          })}
+        >
           <h4>{t('billList', 'Bill list')}</h4>
         </div>
         {isValidating && (

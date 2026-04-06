@@ -22,10 +22,7 @@ const TotalPatientsCard: React.FC = () => {
     <MetricsCard>
       <MetricsCardHeader title={t('emergencyPatients', 'Emergency Patients')} />
       <MetricsCardBody>
-        <MetricsCardItem
-          label={t('totalPatients', 'Total patients')}
-          value={metrics.totalPatients}
-        />
+        <MetricsCardItem label={t('totalPatients', 'Total patients')} value={metrics.totalPatients} />
         <MetricsCardItem
           label={t('patientsWithoutTriage', 'Patients without triage')}
           value={metrics.patientsWithoutTriage}
@@ -38,4 +35,3 @@ const TotalPatientsCard: React.FC = () => {
 };
 
 export default TotalPatientsCard;
-

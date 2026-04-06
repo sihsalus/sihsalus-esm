@@ -42,7 +42,7 @@ const AdmitPatientFormWorkspace: React.FC<WardPatientWorkspaceProps> = ({
   const { data: bedsAssignedToPatient, isLoading: isLoadingBedsAssignedToPatient } = useAssignedBedByPatient(
     patient.uuid,
   );
-  const beds = isLoading ? [] : wardPatientGroupDetails?.bedLayouts ?? [];
+  const beds = isLoading ? [] : (wardPatientGroupDetails?.bedLayouts ?? []);
 
   const zodSchema = useMemo(
     () =>
@@ -200,7 +200,8 @@ const AdmitPatientFormWorkspace: React.FC<WardPatientWorkspaceProps> = ({
               errorFetchingEmrConfiguration ||
               isLoading ||
               isLoadingBedsAssignedToPatient
-            }>
+            }
+          >
             {!isSubmitting ? t('admit', 'Admit') : t('admitting', 'Admitting...')}
           </Button>
         </ButtonSet>

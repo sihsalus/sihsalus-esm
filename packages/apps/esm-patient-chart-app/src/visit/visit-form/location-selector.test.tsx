@@ -7,7 +7,6 @@ import { useForm, FormProvider } from 'react-hook-form';
 
 import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
 
-
 import LocationSelector from './location-selector.component';
 import { type VisitFormData } from './visit-form.resource';
 

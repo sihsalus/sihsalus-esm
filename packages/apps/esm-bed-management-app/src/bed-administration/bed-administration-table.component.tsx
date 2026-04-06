@@ -192,7 +192,8 @@ const BedAdministrationTable: React.FC = () => {
             <Button
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
-              onClick={() => setShowAddBedModal(true)}>
+              onClick={() => setShowAddBedModal(true)}
+            >
               {t('addBed', 'Add bed')}
             </Button>
           ) : null}
@@ -230,7 +231,8 @@ const BedAdministrationTable: React.FC = () => {
                       kind="ghost"
                       size="sm"
                       renderIcon={(props) => <Add size={16} {...props} />}
-                      onClick={() => setShowAddBedModal(true)}>
+                      onClick={() => setShowAddBedModal(true)}
+                    >
                       {t('addBed', 'Add bed')}
                     </Button>
                   </Tile>

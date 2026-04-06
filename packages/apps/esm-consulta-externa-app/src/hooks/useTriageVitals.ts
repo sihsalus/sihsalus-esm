@@ -47,20 +47,13 @@ function getNumericObs(obs: Obs[], conceptUuid: string | undefined): number | nu
   return isNaN(val) ? null : val;
 }
 
-export function useTriageVitals(
-  patientUuid: string,
-  triageEncounterTypeUuid: string,
-  concepts: VitalsConcepts,
-) {
+export function useTriageVitals(patientUuid: string, triageEncounterTypeUuid: string, concepts: VitalsConcepts) {
   const url =
     patientUuid && triageEncounterTypeUuid
       ? `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${triageEncounterTypeUuid}&v=custom:(uuid,encounterDatetime,encounterProviders:(display),obs:(concept:(uuid),value))&limit=10`
       : null;
 
-  const { data, error, isLoading, mutate } = useSWR<{ data: { results: Encounter[] } }>(
-    url,
-    openmrsFetch,
-  );
+  const { data, error, isLoading, mutate } = useSWR<{ data: { results: Encounter[] } }>(url, openmrsFetch);
 
   const triageEntries: TriageVitals[] = (data?.data?.results ?? []).map((enc) => {
     const weight = getNumericObs(enc.obs, concepts?.weightUuid);

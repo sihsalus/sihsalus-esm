@@ -1,11 +1,4 @@
-import {
-  Button,
-  InlineLoading,
-  Tile,
-  Tag,
-  Accordion,
-  AccordionItem,
-} from '@carbon/react';
+import { Button, InlineLoading, Tile, Tag, Accordion, AccordionItem } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
 import { launchWorkspace } from '@openmrs/esm-framework';
@@ -33,9 +26,7 @@ function VitalRow({ label, value, unit }: { label: string; value: number | null;
   return (
     <div className={styles.vitalRow}>
       <span className={styles.vitalLabel}>{label}</span>
-      <span className={styles.vitalValue}>
-        {value !== null ? `${value} ${unit}` : '--'}
-      </span>
+      <span className={styles.vitalValue}>{value !== null ? `${value} ${unit}` : '--'}</span>
     </div>
   );
 }
@@ -63,7 +54,9 @@ function TriageCard({ triage, t }: { triage: TriageVitals; t: (key: string, fall
             {triage.bmi !== null ? (
               <>
                 {triage.bmi} kg/m²{' '}
-                <Tag type={bmiCategory.tagType} size="sm">{bmiCategory.label}</Tag>
+                <Tag type={bmiCategory.tagType} size="sm">
+                  {bmiCategory.label}
+                </Tag>
               </>
             ) : (
               '--'
@@ -108,9 +101,7 @@ const TriageSummary: React.FC<TriageSummaryProps> = ({ patientUuid }) => {
   return (
     <div className={styles.widgetContainer}>
       <div className={styles.tableHeader}>
-        <span className={styles.tableHeaderTitle}>
-          {t('triageSummary', 'Resumen de Triaje')}
-        </span>
+        <span className={styles.tableHeaderTitle}>{t('triageSummary', 'Resumen de Triaje')}</span>
         <Button kind="ghost" size="sm" renderIcon={Add} onClick={handleLaunchForm}>
           {t('recordTriage', 'Registrar Triaje')}
         </Button>
@@ -129,7 +120,9 @@ const TriageSummary: React.FC<TriageSummaryProps> = ({ patientUuid }) => {
                 {formatDate(new Date(latestTriage.encounterDatetime))}
               </Tag>
               {latestTriage.provider && (
-                <Tag type="outline" size="sm">{latestTriage.provider}</Tag>
+                <Tag type="outline" size="sm">
+                  {latestTriage.provider}
+                </Tag>
               )}
             </div>
             <TriageCard triage={latestTriage} t={t} />

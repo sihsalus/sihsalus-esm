@@ -128,7 +128,8 @@ const ClickablePatientContainer = ({ patient, children }: ClickablePatientContai
         onClick={() => {
           nonNavigationSelectPatientAction(patient.uuid);
           patientClickSideEffect?.(patient.uuid);
-        }}>
+        }}
+      >
         {children}
       </button>
     );
@@ -143,7 +144,8 @@ const ClickablePatientContainer = ({ patient, children }: ClickablePatientContai
       onBeforeNavigate={() => patientClickSideEffect?.(patient.uuid)}
       to={interpolateString(config.search.patientChartUrl, {
         patientUuid: patient.uuid,
-      })}>
+      })}
+    >
       {children}
     </ConfigurableLink>
   );

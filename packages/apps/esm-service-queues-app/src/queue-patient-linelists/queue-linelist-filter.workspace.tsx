@@ -142,7 +142,8 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
                 kind="ghost"
                 onClick={() => {
                   handleTodaysDate();
-                }}>
+                }}
+              >
                 {t('useTodaysDate', "Use today's date")}
               </Button>
             </Column>

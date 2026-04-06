@@ -179,7 +179,8 @@ const PauseDispenseForm: React.FC<Workspace2DefinitionProps<PauseDispenseFormPro
             onClick={() => {
               closeWorkspace();
             }}
-            kind="secondary">
+            kind="secondary"
+          >
             {getCoreTranslation('cancel', 'Cancel')}
           </Button>
           <Button disabled={!isValid || isSubmitting} onClick={handleSubmit}>

@@ -2,12 +2,10 @@ import { DefinitionTooltip, Tag } from '@carbon/react';
 import classNames from 'classnames';
 import React from 'react';
 
-
 import { type PriorityConfig } from '../config-schema';
 import { type Concept } from '../types';
 
 import styles from './queue-priority.scss';
-
 
 interface QueuePriorityProps {
   priority: Concept;
@@ -26,7 +24,8 @@ const QueuePriority: React.FC<QueuePriorityProps> = ({ priority, priorityComment
         priorityConfig?.style === 'bold' && styles.bold,
         priorityConfig?.color === 'orange' && styles.orange,
       )}
-      type={priorityConfig?.color !== 'orange' ? priorityConfig?.color : null}>
+      type={priorityConfig?.color !== 'orange' ? priorityConfig?.color : null}
+    >
       {priority.display}
     </Tag>
   );

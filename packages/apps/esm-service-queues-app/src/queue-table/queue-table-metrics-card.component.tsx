@@ -33,7 +33,8 @@ const QueueTableMetricsCard: React.FC<QueueTableMetricsCardProps> = ({
     <Layer
       className={classNames(styles.container, {
         [styles.cardWithChildren]: children,
-      })}>
+      })}
+    >
       <Tile className={styles.tileContainerWithoutBorder}>
         <div className={styles.tileHeader}>
           <div className={styles.headerLabelContainer}>

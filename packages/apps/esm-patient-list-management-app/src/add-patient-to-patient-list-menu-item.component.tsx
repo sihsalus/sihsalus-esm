@@ -38,7 +38,8 @@ const AddPatientToPatientListMenuItem: React.FC<AddPastVisitOverflowMenuItemProp
           onClick={openModal}
           style={{
             maxWidth: '100vw',
-          }}>
+          }}
+        >
           <span className="cds--overflow-menu-options__option-content">{t('openPatientList', 'Add to list')}</span>
         </button>
       </li>

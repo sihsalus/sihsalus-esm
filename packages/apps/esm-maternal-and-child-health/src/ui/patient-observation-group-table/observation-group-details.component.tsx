@@ -53,7 +53,8 @@ const ObservationGroupDetails: React.FC<ObservationGroupDetailsProps> = ({ group
         overflowMenuOnHover={desktopLayout}
         rows={group.rows}
         size={responsiveSize}
-        useZebraStyles>
+        useZebraStyles
+      >
         {({ rows, headers, getTableProps, getHeaderProps, getRowProps, getExpandHeaderProps, getToolbarProps }) => (
           <TableContainer>
             <Table {...getTableProps()} className={styles.detailsTable}>
@@ -63,7 +64,8 @@ const ObservationGroupDetails: React.FC<ObservationGroupDetailsProps> = ({ group
                     <TableHeader
                       key={header.key}
                       {...getHeaderProps({ header })}
-                      className={header.key === 'category' ? styles.observationColumn : styles.valueColumn}>
+                      className={header.key === 'category' ? styles.observationColumn : styles.valueColumn}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}

@@ -6,7 +6,6 @@ import React from 'react';
 import { assessValue, getReferenceRangesForConcept } from '../common';
 import { configSchema, type ConfigObject } from '../config-schema';
 
-
 import VitalsAndBiometricsInput from './vitals-biometrics-input.component';
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);

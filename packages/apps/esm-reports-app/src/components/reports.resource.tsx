@@ -32,10 +32,7 @@ interface ScheduledReportModel {
 export function useLocations() {
   const apiUrl = `/ws/rest/v1/location?tag=Login+Location`;
 
-  const { data } = useSWR<{ data: { results: Array<{ uuid: string; display: string }> } }, Error>(
-    apiUrl,
-    openmrsFetch,
-  );
+  const { data } = useSWR<{ data: { results: Array<{ uuid: string; display: string }> } }, Error>(apiUrl, openmrsFetch);
 
   return {
     locations: data ? data?.data?.results : [],
@@ -84,10 +81,10 @@ export function useScheduledReports(sortBy?: string) {
   const scheduledReportsUrl =
     `/ws/rest/v1/reportingrest/reportDefinitionsWithScheduledRequests` + (sortBy ? `?sortBy=${sortBy}` : '');
 
-  const { data, error, isValidating, mutate } = useSWR<
-    { data: { results: Array<Record<string, unknown>> } },
-    Error
-  >(scheduledReportsUrl, openmrsFetch);
+  const { data, error, isValidating, mutate } = useSWR<{ data: { results: Array<Record<string, unknown>> } }, Error>(
+    scheduledReportsUrl,
+    openmrsFetch,
+  );
 
   const scheduledReports = data?.data?.results;
   const scheduledReportsArray: Array<ScheduledReportModel> = scheduledReports

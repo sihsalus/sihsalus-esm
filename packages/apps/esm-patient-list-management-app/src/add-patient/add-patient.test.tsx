@@ -6,7 +6,6 @@ import React from 'react';
 
 import { useAddablePatientLists } from '../api/api-remote';
 
-
 import AddPatient from './add-patient.modal';
 
 const mockNavigate = jest.mocked(navigate);

@@ -12,7 +12,6 @@ import AddressHierarchyLevels from './address-hierarchy-levels.component';
 import { useOrderedAddressHierarchyLevels } from './address-hierarchy.resource';
 import AddressSearchComponent from './address-search.component';
 
-
 function parseString(xmlDockAsString: string) {
   const parser = new DOMParser();
   return parser.parseFromString(xmlDockAsString, 'text/xml');
@@ -148,7 +147,8 @@ const AddressComponentContainer = ({ children }) => {
       <div
         style={{
           paddingBottom: '5%',
-        }}>
+        }}
+      >
         {children}
       </div>
     </div>

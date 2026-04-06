@@ -116,7 +116,8 @@ const AddPatient: React.FC<AddPatientProps> = ({ closeModal, patientUuid }) => {
       <ModalHeader
         className={styles.modalHeader}
         closeModal={closeModal}
-        title={t('addPatientToList', 'Add patient to list')}>
+        title={t('addPatientToList', 'Add patient to list')}
+      >
         <h3 className={styles.subheader}>
           {t('searchForAListToAddThisPatientTo', 'Search for a list to add this patient to.')}
         </h3>

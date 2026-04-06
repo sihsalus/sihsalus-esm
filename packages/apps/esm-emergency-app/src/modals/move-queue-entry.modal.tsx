@@ -14,11 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { showSnackbar } from '@openmrs/esm-framework';
 import { useSWRConfig } from 'swr';
 import { usePriorityConfig } from '../hooks/usePriorityConfig';
-import {
-  transitionEmergencyQueueEntry,
-  useQueues,
-  type EmergencyQueueEntry,
-} from '../resources/emergency.resource';
+import { transitionEmergencyQueueEntry, useQueues, type EmergencyQueueEntry } from '../resources/emergency.resource';
 import styles from './move-queue-entry.modal.scss';
 
 interface MoveQueueEntryModalProps {
@@ -76,7 +72,10 @@ const MoveQueueEntryModal: React.FC<MoveQueueEntryModalProps> = ({ queueEntry, c
       showSnackbar({
         title: t('moveError', 'Error al mover paciente'),
         kind: 'error',
-        subtitle: error instanceof Error ? error.message : t('moveErrorGeneric', 'Ocurrió un error al mover la entrada de cola'),
+        subtitle:
+          error instanceof Error
+            ? error.message
+            : t('moveErrorGeneric', 'Ocurrió un error al mover la entrada de cola'),
       });
     } finally {
       setIsSubmitting(false);
@@ -85,10 +84,7 @@ const MoveQueueEntryModal: React.FC<MoveQueueEntryModalProps> = ({ queueEntry, c
 
   return (
     <>
-      <ModalHeader
-        closeModal={closeModal}
-        title={t('movePatient', 'Mover {{patient}}', { patient: patientName })}
-      />
+      <ModalHeader closeModal={closeModal} title={t('movePatient', 'Mover {{patient}}', { patient: patientName })} />
       <ModalBody>
         <div className={styles.modalBody}>
           <Stack gap={4}>
@@ -103,7 +99,8 @@ const MoveQueueEntryModal: React.FC<MoveQueueEntryModalProps> = ({ queueEntry, c
                   name="queue"
                   valueSelected={selectedQueue}
                   orientation="vertical"
-                  onChange={(uuid: string) => setSelectedQueue(uuid)}>
+                  onChange={(uuid: string) => setSelectedQueue(uuid)}
+                >
                   {queues.map((queue) => (
                     <RadioButton
                       key={queue.uuid}
@@ -127,7 +124,8 @@ const MoveQueueEntryModal: React.FC<MoveQueueEntryModalProps> = ({ queueEntry, c
                 name="priority"
                 valueSelected={selectedPriority}
                 orientation="horizontal"
-                onChange={(uuid: string) => setSelectedPriority(uuid)}>
+                onChange={(uuid: string) => setSelectedPriority(uuid)}
+              >
                 {priorityConfigs.map((priority) => {
                   const tagProps = getPriorityTagProps(priority.color);
                   return (

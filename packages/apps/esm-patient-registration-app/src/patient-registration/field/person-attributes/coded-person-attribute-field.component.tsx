@@ -105,7 +105,8 @@ export function CodedPersonAttributeField({
                     labelText={label ?? personAttributeType?.display}
                     invalid={errors[fieldName] && touched[fieldName]}
                     required={required}
-                    {...field}>
+                    {...field}
+                  >
                     <SelectItem value={''} text={t('selectAnOption', 'Select an option')} />
                     {answers.map((answer) => (
                       <SelectItem key={answer.uuid} value={answer.uuid} text={answer.label} />

@@ -6,7 +6,6 @@ import wardPatientCardStyles from '../ward-patient-card/ward-patient-card.scss';
 
 import styles from './ward-bed.scss';
 
-
 interface EmptyBedProps {
   bed: Bed;
 }

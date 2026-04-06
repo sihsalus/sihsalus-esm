@@ -65,8 +65,8 @@ const UsersSelector = () => {
                     ? otherUser
                     : data
                   : observableresponsiblePersonOther && !observableresponsiblePersonUuid
-                  ? otherUser
-                  : ''
+                    ? otherUser
+                    : ''
               }
               itemToString={(item) => (typeof item === 'string' ? item : item?.person?.display || '')}
               onInputChange={debouncedSearch}

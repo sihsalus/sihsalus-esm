@@ -62,7 +62,7 @@ export function getPrioritySortWeight(uuid: string, priorityConfigs: PriorityCon
  */
 export function sortByPriority<T extends { priority: { uuid: string } }>(
   entries: T[],
-  priorityConfigs: PriorityConfig[]
+  priorityConfigs: PriorityConfig[],
 ): T[] {
   return [...entries].sort((a, b) => {
     const weightA = getPrioritySortWeight(a.priority.uuid, priorityConfigs);
@@ -92,14 +92,14 @@ export function getAllPriorities(priorityConfigs: PriorityConfig[]) {
 export function isWaitTimeExceeded(
   priorityUuid: string,
   waitTimeMinutes: number,
-  priorityConfigs: PriorityConfig[]
+  priorityConfigs: PriorityConfig[],
 ): boolean {
   const priority = getPriorityConfigByUuid(priorityUuid, priorityConfigs);
   if (!priority) return false;
-  
+
   // Priority I should be attended immediately (0 minutes)
   if (priority.code === 'PRIORITY_I' && waitTimeMinutes > 0) return true;
-  
+
   return waitTimeMinutes > priority.maxWaitTimeMinutes;
 }
 
@@ -109,7 +109,6 @@ export function isWaitTimeExceeded(
 export function getPriorityCssClass(uuid: string, priorityConfigs: PriorityConfig[]): string {
   const priority = getPriorityConfigByUuid(uuid, priorityConfigs);
   if (!priority) return 'priority-unknown';
-  
+
   return `priority-${priority.code.toLowerCase().replace('_', '-')}`;
 }
-

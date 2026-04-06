@@ -30,9 +30,6 @@ import {
 } from '../../../utils/constants';
 //TODO CHANGE THIS
 
-
-
-
 import styles from './defaulter-tracing.scss';
 interface PatientTracingProps {
   patientUuid: string;
@@ -123,7 +120,8 @@ const DefaulterTracing: React.FC<PatientTracingProps> = ({ patientUuid }) => {
           kind="ghost"
           onClick={() => handleOpenOrEditDefaulterTracingForm()}
           renderIcon={(props) => <Add size={24} {...props} />}
-          iconDescription="Add">
+          iconDescription="Add"
+        >
           {t('add', 'Add')}
         </Button>
       </CardHeader>
@@ -142,7 +140,8 @@ const DefaulterTracing: React.FC<PatientTracingProps> = ({ patientUuid }) => {
                       key={i}
                       {...getHeaderProps({
                         header,
-                      })}>
+                      })}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}
@@ -155,7 +154,8 @@ const DefaulterTracing: React.FC<PatientTracingProps> = ({ patientUuid }) => {
                     key={row.id}
                     {...getRowProps({
                       row,
-                    })}>
+                    })}
+                  >
                     {row.cells.map((cell) => (
                       <TableCell key={cell.id}>{cell.value}</TableCell>
                     ))}

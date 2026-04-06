@@ -32,14 +32,7 @@ const interpretationStyleMap = {
   normal: { container: undefined, indicator: undefined },
 };
 
-const VitalInput: React.FC<VitalInputProps> = ({
-  fieldName,
-  label,
-  control,
-  errors,
-  referenceRange,
-  step,
-}) => {
+const VitalInput: React.FC<VitalInputProps> = ({ fieldName, label, control, errors, referenceRange, step }) => {
   const systemRange = vitalSignRanges[fieldName];
   const formError = errors[fieldName];
   const [invalid, setInvalid] = useState(false);

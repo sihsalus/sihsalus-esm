@@ -8,7 +8,6 @@ import { type HomeConfig } from '../config-schema';
 
 import styles from './dashboard-not-found.scss';
 
-
 export const DashboardNotFound = () => {
   const layout = useLayoutType();
   const { leftNavMode } = useConfig<HomeConfig>();
@@ -21,7 +20,8 @@ export const DashboardNotFound = () => {
         className={classNames([
           isDesktop(layout) ? styles.dashboardContainer : styles.dashboardContainerTablet,
           leftNavMode == 'normal' ? styles.hasLeftNav : '',
-        ])}>
+        ])}
+      >
         <Layer>
           <Tile className={styles.notFoundTile}>
             <div className={isTablet ? styles.tabletHeading : styles.desktopHeading}>

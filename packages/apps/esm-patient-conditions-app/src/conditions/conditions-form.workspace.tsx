@@ -62,7 +62,7 @@ const ConditionsForm: React.FC<ConditionFormProps> = ({
     abatementDateTime:
       isEditing && matchingCondition?.abatementDateTime ? new Date(matchingCondition?.abatementDateTime) : null,
     conditionName: '',
-    clinicalStatus: isEditing ? matchingCondition?.clinicalStatus?.toLowerCase() ?? '' : '',
+    clinicalStatus: isEditing ? (matchingCondition?.clinicalStatus?.toLowerCase() ?? '') : '',
     onsetDateTime: isEditing && matchingCondition?.onsetDateTime ? new Date(matchingCondition?.onsetDateTime) : null,
   };
 

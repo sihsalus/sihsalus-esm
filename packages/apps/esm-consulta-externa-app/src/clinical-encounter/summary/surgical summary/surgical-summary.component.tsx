@@ -12,7 +12,6 @@ import { AdmissionDate_UUID, PriorityOfAdmission_UUID, AdmissionWard_UUID } from
 import styles from '../../dashboard/in-patient.scss';
 import SummaryCard from '../summary-card.component';
 
-
 interface SurgicalSummaryProps {
   patientUuid: string;
   formEntrySub?: { unsubscribe: () => void } | null;
@@ -71,7 +70,13 @@ const ClinicalEncounter: React.FC<SurgicalSummaryProps> = ({
     };
   });
   if (isLoading) {
-    return <InlineLoading status="active" iconDescription={t('loading', 'Loading...')} description={t('loadingData', 'Loading data')} />;
+    return (
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading...')}
+        description={t('loadingData', 'Loading data')}
+      />
+    );
   }
   if (error) {
     return <ErrorState error={error} headerTitle={t('clinicalEncounter', 'Clinical Encounter')} />;

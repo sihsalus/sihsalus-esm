@@ -29,7 +29,8 @@ const Overlay: React.FC<OverlayProps> = ({ close, children, header, buttonsGroup
             hasIconOnly
             iconDescription={t('close', 'Close')}
             kind="primary"
-            onClick={close}>
+            onClick={close}
+          >
             <Close size={16} />
           </Button>
         </div>
@@ -40,7 +41,8 @@ const Overlay: React.FC<OverlayProps> = ({ close, children, header, buttonsGroup
             hasIconOnly
             iconDescription={t('close', 'Close')}
             kind="ghost"
-            onClick={close}>
+            onClick={close}
+          >
             <ArrowLeft size={16} />
           </Button>
           <div className={styles.headerContent}>{header}</div>

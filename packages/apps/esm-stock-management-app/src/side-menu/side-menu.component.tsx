@@ -8,7 +8,9 @@ const SideMenu: React.FC = () => {
     <>
       <LeftNavMenu />
       <div style={{ padding: '1rem', background: 'lightyellow', border: '2px dashed red' }}>
-        <p><strong>Debug:</strong> SideMenu loaded</p>
+        <p>
+          <strong>Debug:</strong> SideMenu loaded
+        </p>
       </div>
     </>
   );

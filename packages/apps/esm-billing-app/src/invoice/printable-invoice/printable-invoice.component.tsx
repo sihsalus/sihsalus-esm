@@ -125,7 +125,8 @@ const PrintableInvoice: React.FC<PrintableInvoiceProps> = ({ bill, patient, comp
                         key={row.id}
                         {...getRowProps({
                           row,
-                        })}>
+                        })}
+                      >
                         {row.cells.map((cell) => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}

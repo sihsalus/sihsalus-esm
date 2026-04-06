@@ -243,7 +243,8 @@ export const Finding6Design1 = ({ strokeColor = 'blue' }) => {
         position: 'absolute',
         top: 0,
         left: 0,
-      }}>
+      }}
+    >
       {/* Paréntesis que se cierra ) - más curvo */}
       <path d="M2 10 Q10 30 2 50" fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
 
@@ -517,7 +518,8 @@ export const Finding26Design1 = ({ strokeColor }) => (
       fontWeight="bold"
       textAnchor="middle"
       fill={strokeColor}
-      fontFamily="Arial, sans-serif">
+      fontFamily="Arial, sans-serif"
+    >
       S
     </text>
   </svg>

@@ -211,7 +211,11 @@ const ConditionsWidget: React.FC<ConditionsWidgetProps> = ({
         Object.entries(errors).map((key, err) => console.error(`${key}: ${err} `));
         return;
       }
-      if (isEditing) { handleUpdate(); } else { handleCreate(); }
+      if (isEditing) {
+        handleUpdate();
+      } else {
+        handleCreate();
+      }
     }
   }, [handleUpdate, isEditing, handleCreate, isSubmittingForm, errors, setIsSubmittingForm]);
 

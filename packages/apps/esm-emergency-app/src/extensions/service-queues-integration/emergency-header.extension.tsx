@@ -1,11 +1,11 @@
 /**
  * Emergency Header Extension
- * 
+ *
  * Extension component that renders the emergency header in service-queues-app
  * when emergency location is selected.
- * 
+ *
  * Registered in: service-queues-emergency-header-slot
- * 
+ *
  * This extension decides internally whether to render based on the current location.
  * If it's not an emergency location, it returns null.
  */
@@ -23,7 +23,3 @@ export default function EmergencyHeaderExtension() {
 
   return <EmergencyHeader />;
 }
-
-
-
-

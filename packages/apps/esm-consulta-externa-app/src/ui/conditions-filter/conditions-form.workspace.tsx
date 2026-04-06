@@ -1,4 +1,14 @@
-import { Button, ButtonSet, Form, FormGroup, InlineLoading, InlineNotification, RadioButton, RadioButtonGroup, TextArea } from '@carbon/react';
+import {
+  Button,
+  ButtonSet,
+  Form,
+  FormGroup,
+  InlineLoading,
+  InlineNotification,
+  RadioButton,
+  RadioButtonGroup,
+  TextArea,
+} from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { launchWorkspace, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
@@ -123,13 +133,14 @@ const ConditionsForm: React.FC<ConditionFormProps> = ({
   })();
 
   const defaultValues: Partial<ConditionsFormSchema> = {
-    abatementDateTime: isEditing && matchingCondition?.abatementDateTime ? new Date(matchingCondition?.abatementDateTime) : null,
+    abatementDateTime:
+      isEditing && matchingCondition?.abatementDateTime ? new Date(matchingCondition?.abatementDateTime) : null,
     conditionName: '',
     clinicalStatus: isEditing ? (matchingCondition?.clinicalStatus?.toLowerCase() ?? '') : '',
     onsetDateTime: isEditing && matchingCondition?.onsetDateTime ? new Date(matchingCondition?.onsetDateTime) : null,
     antecedentScope: 'personal',
     personalCategory: isEditing ? editedCategory : undefined,
-    freeText: isEditing && editedCategory === 'otros' ? matchingCondition?.noteText ?? '' : '',
+    freeText: isEditing && editedCategory === 'otros' ? (matchingCondition?.noteText ?? '') : '',
   };
 
   const methods = useForm<ConditionsFormSchema>({
@@ -194,7 +205,13 @@ const ConditionsForm: React.FC<ConditionFormProps> = ({
             name="antecedentScope"
             control={methods.control}
             render={({ field: { onChange, value } }) => (
-              <RadioButtonGroup className={`${styles.radioGroup} ${styles.scopeRow}`} name="antecedentScope" orientation="horizontal" onChange={onChange} valueSelected={value}>
+              <RadioButtonGroup
+                className={`${styles.radioGroup} ${styles.scopeRow}`}
+                name="antecedentScope"
+                orientation="horizontal"
+                onChange={onChange}
+                valueSelected={value}
+              >
                 <RadioButton id="scope-personal" labelText={t('personal', 'Personal')} value="personal" />
                 <RadioButton id="scope-family" labelText={t('family', 'Familia')} value="family" />
                 <RadioButton id="scope-social" labelText={t('social', 'Social')} value="social" />
@@ -214,11 +231,20 @@ const ConditionsForm: React.FC<ConditionFormProps> = ({
                   name="personalCategory"
                   orientation={isTablet ? 'vertical' : 'horizontal'}
                   onChange={onChange}
-                  valueSelected={value}>
+                  valueSelected={value}
+                >
                   <RadioButton id="cat-patologicos" labelText={t('pathological', 'Patológicos')} value="patologicos" />
-                  <RadioButton id="cat-diagnosticos" labelText={t('definitiveDiagnoses', 'Diagnósticos definitivos')} value="diagnosticos" />
+                  <RadioButton
+                    id="cat-diagnosticos"
+                    labelText={t('definitiveDiagnoses', 'Diagnósticos definitivos')}
+                    value="diagnosticos"
+                  />
                   <RadioButton id="cat-quirurgicos" labelText={t('surgical', 'Quirúrgicos')} value="quirurgicos" />
-                  <RadioButton id="cat-hospitalizaciones" labelText={t('previousHospitalizations', 'Hospitalizaciones previas')} value="hospitalizaciones" />
+                  <RadioButton
+                    id="cat-hospitalizaciones"
+                    labelText={t('previousHospitalizations', 'Hospitalizaciones previas')}
+                    value="hospitalizaciones"
+                  />
                   <RadioButton id="cat-otros" labelText={t('othersSpecify', 'Otros (especificar)')} value="otros" />
                 </RadioButtonGroup>
               )}
@@ -232,7 +258,12 @@ const ConditionsForm: React.FC<ConditionFormProps> = ({
               name="freeText"
               control={methods.control}
               render={({ field, fieldState }) => (
-                <TextArea id="freeText" {...field} invalid={Boolean(fieldState?.error?.message)} invalidText={fieldState?.error?.message} />
+                <TextArea
+                  id="freeText"
+                  {...field}
+                  invalid={Boolean(fieldState?.error?.message)}
+                  invalidText={fieldState?.error?.message}
+                />
               )}
             />
           </FormGroup>

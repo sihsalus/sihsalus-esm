@@ -52,11 +52,7 @@ const AnemiaScreening: React.FC<AnemiaScreeningProps> = ({ patientUuid }) => {
     <div className={styles.widgetCard}>
       <CardHeader title={headerTitle}>
         {lastHb !== null && (
-          <Tag
-            type={isAnemic ? 'red' : 'green'}
-            size="sm"
-            renderIcon={isAnemic ? WarningFilled : CheckmarkFilled}
-          >
+          <Tag type={isAnemic ? 'red' : 'green'} size="sm" renderIcon={isAnemic ? WarningFilled : CheckmarkFilled}>
             {isAnemic ? t('anemic', 'Anemia') : t('normal', 'Normal')}
           </Tag>
         )}
@@ -68,9 +64,7 @@ const AnemiaScreening: React.FC<AnemiaScreeningProps> = ({ patientUuid }) => {
         <StructuredListWrapper isCondensed>
           <StructuredListBody>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('lastHb', 'Última Hb')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('lastHb', 'Última Hb')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {lastHb !== null ? (
                   <span className={isAnemic ? styles.anemic : styles.normalValue}>{lastHb} g/dL</span>
@@ -80,17 +74,13 @@ const AnemiaScreening: React.FC<AnemiaScreeningProps> = ({ patientUuid }) => {
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('lastDate', 'Fecha')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('lastDate', 'Fecha')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {lastDate ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('nextScreening', 'Próximo tamizaje')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('nextScreening', 'Próximo tamizaje')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {nextDueDate ?? <span className={styles.noData}>{t('pending', 'Pending')}</span>}
               </StructuredListCell>

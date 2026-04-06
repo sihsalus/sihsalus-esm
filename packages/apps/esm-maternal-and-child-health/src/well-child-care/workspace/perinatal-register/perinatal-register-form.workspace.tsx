@@ -98,10 +98,7 @@ const PerinatalRegisterSchema = z
 
 export type PerinatalRegisterFormType = z.infer<typeof PerinatalRegisterSchema>;
 
-const PerinatalRegisterForm: React.FC<DefaultPatientWorkspaceProps> = ({
-  closeWorkspace,
-  workspaceProps,
-}) => {
+const PerinatalRegisterForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, workspaceProps }) => {
   const patientUuid = workspaceProps?.patientUuid ?? '';
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -345,7 +342,8 @@ const PerinatalRegisterForm: React.FC<DefaultPatientWorkspaceProps> = ({
           kind="primary"
           onClick={handleSubmit(savePerinatalData, onError)}
           disabled={isSubmitting}
-          type="submit">
+          type="submit"
+        >
           {t('submit', 'Save and close')}
         </Button>
       </ButtonSet>

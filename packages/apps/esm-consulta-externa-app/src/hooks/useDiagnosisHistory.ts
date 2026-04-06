@@ -32,14 +32,12 @@ interface Encounter {
 }
 
 export function useDiagnosisHistory(patientUuid: string, encounterTypeUuid: string) {
-  const url = patientUuid && encounterTypeUuid
-    ? `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${encounterTypeUuid}&v=custom:(uuid,encounterDatetime,diagnoses:(uuid,display,diagnosis:(coded:(display,mappings:(display))),certainty,rank))&limit=20`
-    : null;
+  const url =
+    patientUuid && encounterTypeUuid
+      ? `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${encounterTypeUuid}&v=custom:(uuid,encounterDatetime,diagnoses:(uuid,display,diagnosis:(coded:(display,mappings:(display))),certainty,rank))&limit=20`
+      : null;
 
-  const { data, error, isLoading, mutate } = useSWR<{ data: { results: Encounter[] } }>(
-    url,
-    openmrsFetch,
-  );
+  const { data, error, isLoading, mutate } = useSWR<{ data: { results: Encounter[] } }>(url, openmrsFetch);
 
   const diagnoses: DiagnosisEntry[] = (data?.data?.results ?? []).flatMap((encounter) =>
     (encounter.diagnoses ?? []).map((dx) => {

@@ -23,7 +23,6 @@ import styles from './general-order-panel.scss';
 import OrderBasketItemTile from './order-basket-item-tile.component';
 import { prepOrderPostData } from './resources';
 
-
 interface GeneralOrderTypeProps extends OrderTypeDefinition {
   closeWorkspace: DefaultWorkspaceProps['closeWorkspace'];
 }

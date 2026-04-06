@@ -118,9 +118,7 @@ export async function runStart(args: StartArgs) {
 
   // Build a set of "base names" from local modules to detect duplicates under different scopes
   // e.g. local "@sihsalus/esm-fua-app" should exclude backend "@pucp-gidis-hiisc/esm-fua-app"
-  const localBaseNames = new Set(
-    Object.keys(localImportmap.imports).map((name) => name.replace(/^@[^/]+\//, '')),
-  );
+  const localBaseNames = new Set(Object.keys(localImportmap.imports).map((name) => name.replace(/^@[^/]+\//, '')));
 
   // Backend modules that map to local modules with different names.
   // e.g. backend "esm-patient-immunizations-app" is replaced by local "esm-vacunacion-app"
@@ -161,7 +159,9 @@ export async function runStart(args: StartArgs) {
         logWarn(`  Skip ${name}: not available locally`);
       }
     }
-    logInfo(`Backend importmap: ${Object.keys(backendImportmap.imports).length} modules (${addedCount} available, ${skippedCount} skipped)`);
+    logInfo(
+      `Backend importmap: ${Object.keys(backendImportmap.imports).length} modules (${addedCount} available, ${skippedCount} skipped)`,
+    );
   } else {
     logWarn(`Could not fetch backend importmap — using local modules only`);
   }
@@ -223,29 +223,26 @@ export async function runStart(args: StartArgs) {
 
   // Proxy all /openmrs/* API requests to the backend (except /openmrs/spa/**)
   expressApp.use(
-    createProxyMiddleware(
-      (path) => path.startsWith('/openmrs') && !path.startsWith(spaPath),
-      {
-        target: backend,
-        changeOrigin: true,
-        onProxyReq(proxyReq) {
-          if (addCookie) {
-            const origCookie = proxyReq.getHeader('cookie');
-            const newCookie = `${origCookie};${addCookie}`;
-            proxyReq.setHeader('cookie', newCookie);
-          }
-        },
-        onProxyRes(proxyRes) {
-          // Remove CSP headers from backend — they block browser requests
-          // when serving from localhost (the backend's CSP allowlist doesn't
-          // include all the origins the local dev server needs).
-          if (proxyRes.headers) {
-            delete proxyRes.headers['content-security-policy'];
-            delete proxyRes.headers['content-security-policy-report-only'];
-          }
-        },
+    createProxyMiddleware((path) => path.startsWith('/openmrs') && !path.startsWith(spaPath), {
+      target: backend,
+      changeOrigin: true,
+      onProxyReq(proxyReq) {
+        if (addCookie) {
+          const origCookie = proxyReq.getHeader('cookie');
+          const newCookie = `${origCookie};${addCookie}`;
+          proxyReq.setHeader('cookie', newCookie);
+        }
       },
-    ),
+      onProxyRes(proxyRes) {
+        // Remove CSP headers from backend — they block browser requests
+        // when serving from localhost (the backend's CSP allowlist doesn't
+        // include all the origins the local dev server needs).
+        if (proxyRes.headers) {
+          delete proxyRes.headers['content-security-policy'];
+          delete proxyRes.headers['content-security-policy-report-only'];
+        }
+      },
+    }),
   );
 
   // Fallback: serve index.html for any unmatched route (SPA client-side routing)

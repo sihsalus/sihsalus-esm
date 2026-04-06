@@ -236,7 +236,8 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                     labelText={t('occupancyStatus', 'Occupancy status')}
                     onChange={(event) => setOccupancyStatus(event.target.value)}
                     value={occupancyStatus}
-                    {...field}>
+                    {...field}
+                  >
                     <SelectItem text={t('chooseOccupiedStatus', 'Choose occupied status')} value="" />
                     {occupancyStatuses.map((occupancyStatus, index) => (
                       <SelectItem
@@ -260,7 +261,8 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                     id="bedType"
                     invalidText={t('required', 'Required')}
                     labelText={t('bedTypes', 'Bed types')}
-                    {...field}>
+                    {...field}
+                  >
                     <SelectItem text={t('chooseBedtype', 'Choose a bed type')} />
                     {availableBedTypes.map((bedType, index) => (
                       <SelectItem text={bedType.name} value={bedType.name} key={`bedType-${index}`}>

@@ -11,12 +11,8 @@ import type { OpenmrsEncounter } from '../types';
 import { getObsFromEncounter } from '../ui/encounter-list/encounter-list-utils';
 import { AdmissionDate_UUID, PriorityOfAdmission_UUID, AdmissionWard_UUID } from '../utils/constants';
 
-
-
 import styles from './dashboard/in-patient.scss';
 import SummaryCard from './summary/summary-card.component';
-
-
 
 interface ClinicalEncounterProps {
   patientUuid: string;
@@ -77,7 +73,13 @@ const ClinicalEncounter: React.FC<ClinicalEncounterProps> = ({
     };
   });
   if (isLoading) {
-    return <InlineLoading status="active" iconDescription={t('loading', 'Loading...')} description={t('loadingData', 'Loading data')} />;
+    return (
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading...')}
+        description={t('loadingData', 'Loading data')}
+      />
+    );
   }
   if (error) {
     return <ErrorState error={error} headerTitle={t('clinicalEncounter', 'Clinical Encounter')} />;

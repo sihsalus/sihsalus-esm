@@ -60,15 +60,18 @@ const PatientSearchComponent: React.FC<PatientSearchComponentProps> = ({
       className={classNames({
         [styles.searchResultsDesktop]: !inTabletOrOverlay,
         [styles.searchResultsTabletOrOverlay]: inTabletOrOverlay,
-      })}>
+      })}
+    >
       <div
         className={classNames({
           [styles.broadBottomMargin]: stickyPagination,
-        })}>
+        })}
+      >
         <h2
           className={classNames(styles.resultsHeader, styles.productiveHeading02, {
             [styles.leftPaddedResultHeader]: inTabletOrOverlay,
-          })}>
+          })}
+        >
           {isLoading
             ? t('searchingText', 'Searching...')
             : t('searchResultsCount', '{{count}} search result', {
@@ -81,7 +84,8 @@ const PatientSearchComponent: React.FC<PatientSearchComponentProps> = ({
         <div
           className={classNames(styles.pagination, {
             [styles.stickyPagination]: stickyPagination,
-          })}>
+          })}
+        >
           <Pagination
             setCurrentPage={goTo}
             currentPage={currentPage}

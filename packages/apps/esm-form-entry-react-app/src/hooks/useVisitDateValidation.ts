@@ -10,11 +10,7 @@ import { updateVisitDates } from '../api/visit.resource';
  *
  * Called after FormEngine successfully submits the encounter.
  */
-export function useVisitDateValidation(
-  visitUuid: string,
-  visitStartDatetime: string,
-  visitStopDatetime?: string,
-) {
+export function useVisitDateValidation(visitUuid: string, visitStartDatetime: string, visitStopDatetime?: string) {
   const { t } = useTranslation();
 
   const adjustVisitDatesIfNeeded = useCallback(

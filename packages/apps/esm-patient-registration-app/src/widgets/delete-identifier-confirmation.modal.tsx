@@ -24,7 +24,8 @@ const DeleteIdentifierConfirmationModal: React.FC<DeleteIdentifierConfirmationMo
       <ModalHeader
         className={styles.modalHeader}
         closeModal={closeModal}
-        title={t('deleteIdentifierModalHeading', 'Delete identifier?')}></ModalHeader>
+        title={t('deleteIdentifierModalHeading', 'Delete identifier?')}
+      ></ModalHeader>
       <ModalBody>
         <p>
           {identifierName && identifierValue && (

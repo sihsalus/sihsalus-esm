@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './attachment-preview.scss';
 
-
 interface AttachmentPreviewProps {
   attachmentToPreview: Attachment;
   onClosePreview: () => void;

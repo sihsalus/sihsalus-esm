@@ -26,25 +26,19 @@ interface Encounter {
   obs: Obs[];
 }
 
-export function useTreatmentPlan(
-  patientUuid: string,
-  encounterTypeUuid: string,
-  concepts: Record<string, string>,
-) {
-  const url = patientUuid && encounterTypeUuid
-    ? `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${encounterTypeUuid}&v=custom:(uuid,encounterDatetime,encounterProviders:(display),obs:(uuid,concept:(uuid,display),value))&limit=20`
-    : null;
+export function useTreatmentPlan(patientUuid: string, encounterTypeUuid: string, concepts: Record<string, string>) {
+  const url =
+    patientUuid && encounterTypeUuid
+      ? `${restBaseUrl}/encounter?patient=${patientUuid}&encounterType=${encounterTypeUuid}&v=custom:(uuid,encounterDatetime,encounterProviders:(display),obs:(uuid,concept:(uuid,display),value))&limit=20`
+      : null;
 
-  const { data, error, isLoading, mutate } = useSWR<{ data: { results: Encounter[] } }>(
-    url,
-    openmrsFetch,
-  );
+  const { data, error, isLoading, mutate } = useSWR<{ data: { results: Encounter[] } }>(url, openmrsFetch);
 
   const getObsValue = (obs: Obs[] | undefined, conceptUuid: string | undefined): string | null => {
     if (!obs || !conceptUuid) return null;
     const match = obs.find((o) => o.concept?.uuid === conceptUuid);
     if (!match) return null;
-    return typeof match.value === 'string' ? match.value : match.value?.display ?? null;
+    return typeof match.value === 'string' ? match.value : (match.value?.display ?? null);
   };
 
   const treatmentPlans: TreatmentPlanEntry[] = (data?.data?.results ?? [])

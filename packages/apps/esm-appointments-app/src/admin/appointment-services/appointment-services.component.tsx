@@ -12,7 +12,6 @@ import { useAppointmentServices } from './appointment-services-hook';
 import { validationSchema } from './appointment-services-validation';
 import styles from './appointment-services.scss';
 
-
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AppointmentServicesProps {}
 
@@ -56,7 +55,8 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
       onSubmit={handleSubmit}
       isInitialValid={false}
       validationSchema={validationSchema}
-      initialValues={appointmentServiceInitialValue}>
+      initialValues={appointmentServiceInitialValue}
+    >
       {(props) => {
         return (
           <Form onSubmit={props.handleSubmit} className={styles.appointmentServiceContainer}>
@@ -83,7 +83,8 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 value={props.values.startTime}
                 onChange={props.handleChange}
                 labelText={t('startTime', 'Start Time')}
-                id="start-time-picker">
+                id="start-time-picker"
+              >
                 <TimePickerSelect
                   name="startTimeTimeFormat"
                   onChange={props.handleChange}
@@ -91,7 +92,8 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                   invalid={!!(props.touched && props.errors.startTimeTimeFormat)}
                   id="start-time-picker"
                   labelText={t('time', 'Time')}
-                  aria-label={t('time', 'Time')}>
+                  aria-label={t('time', 'Time')}
+                >
                   <SelectItem value="AM" text="AM" />
                   <SelectItem value="PM" text="PM" />
                 </TimePickerSelect>
@@ -107,14 +109,16 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 name="endTime"
                 onChange={props.handleChange}
                 labelText={t('endTime', 'End Time')}
-                id="end-time-picker">
+                id="end-time-picker"
+              >
                 <TimePickerSelect
                   name="endTimeTimeFormat"
                   onChange={props.handleChange}
                   id="end-time-picker"
                   value={props.values.endTimeTimeFormat}
                   labelText={t('time', 'Time')}
-                  aria-label={t('time', 'Time')}>
+                  aria-label={t('time', 'Time')}
+                >
                   <SelectItem value="AM" text="AM" />
                   <SelectItem value="PM" text="PM" />
                 </TimePickerSelect>
@@ -164,7 +168,8 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 onClick={closeOverlay}
                 style={{ maxWidth: 'none', width: '50%' }}
                 className={styles.button}
-                kind="secondary">
+                kind="secondary"
+              >
                 {t('discard', 'Discard')}
               </Button>
               <Button
@@ -172,7 +177,8 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 style={{ maxWidth: 'none', width: '50%' }}
                 className={styles.button}
                 kind="primary"
-                type="submit">
+                type="submit"
+              >
                 {t('save', 'Save')}
               </Button>
             </ButtonSet>

@@ -91,7 +91,8 @@ const PatientAppointmentsTable: React.FC<AppointmentTableProps> = ({
                       {...getHeaderProps({
                         header,
                         isSortable: header.isSortable,
-                      })}>
+                      })}
+                    >
                       {header.header?.content ?? header.header}
                     </TableHeader>
                   ))}

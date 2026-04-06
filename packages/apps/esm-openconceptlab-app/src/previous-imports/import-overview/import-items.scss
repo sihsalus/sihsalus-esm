@@ -1,5 +1,5 @@
-@use "@carbon/colors";
-@use "@carbon/type";
+@use '@carbon/colors';
+@use '@carbon/type';
 
 .pagination {
   @include type.type-style('body-short-01');

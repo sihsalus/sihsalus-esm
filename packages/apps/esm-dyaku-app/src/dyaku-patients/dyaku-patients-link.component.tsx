@@ -8,7 +8,11 @@ const DyakuPatientsLink: React.FC = () => {
 
   return (
     <Layer>
-      <ClickableTile href={`${window.spaBase ?? '/openmrs/spa'}/dyaku-patients`} target="_blank" rel="noopener noreferrer">
+      <ClickableTile
+        href={`${window.spaBase ?? '/openmrs/spa'}/dyaku-patients`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div>
           <div className="heading">{t('dyakuPatients', 'Pacientes Dyaku MINSA')}</div>
           <div className="content">

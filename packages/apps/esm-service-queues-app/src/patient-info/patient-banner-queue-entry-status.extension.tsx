@@ -1,4 +1,4 @@
-import { Tag , Button } from '@carbon/react';
+import { Tag, Button } from '@carbon/react';
 import { isDesktop, showModal, useLayoutType } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,7 +35,8 @@ const PatientBannerQueueEntryStatus: React.FC<PatientBannerQueueEntryStatusProps
       <span>{queueEntry.queue.name}</span>
       <Tag
         className={mappedPriority === 'Priority' ? styles.priorityTag : styles.tag}
-        type={getTagType(mappedPriority?.toLocaleLowerCase('en'))}>
+        type={getTagType(mappedPriority?.toLocaleLowerCase('en'))}
+      >
         {mappedPriority}
       </Tag>
       <Button
@@ -46,7 +47,8 @@ const PatientBannerQueueEntryStatus: React.FC<PatientBannerQueueEntryStatusProps
             closeModal: () => dispose(),
             queueEntry,
           });
-        }}>
+        }}
+      >
         {t('change', 'Change')}
       </Button>
     </div>

@@ -115,7 +115,8 @@ const BillHistory: React.FC<BillHistoryProps> = ({ patientUuid }) => {
                 onMutate: mutate,
               })
             }
-            kind="ghost">
+            kind="ghost"
+          >
             {t('addBillItems', 'Add bill items')}
           </Button>
         </Tile>
@@ -139,7 +140,8 @@ const BillHistory: React.FC<BillHistoryProps> = ({ patientUuid }) => {
               onMutate: mutate,
             })
           }
-          renderIcon={Add}>
+          renderIcon={Add}
+        >
           {t('addBillItems', 'Add bill items')}
         </Button>
       </CardHeader>
@@ -164,7 +166,8 @@ const BillHistory: React.FC<BillHistoryProps> = ({ patientUuid }) => {
                         key={i}
                         {...getHeaderProps({
                           header,
-                        })}>
+                        })}
+                      >
                         {header.header}
                       </TableHeader>
                     ))}

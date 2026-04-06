@@ -9,8 +9,6 @@ import { usePatientNotes } from '../notes.resource';
 import InPatientNote, { InPatientNoteSkeleton } from './note.component';
 import styles from './styles.scss';
 
-
-
 interface PatientNotesHistoryProps {
   patientUuid: PatientUuid;
   visitUuid: string;

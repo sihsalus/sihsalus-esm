@@ -125,7 +125,8 @@ function ConditionsDetailedSummary({ patient }) {
               kind="ghost"
               renderIcon={(props: ComponentProps<typeof AddIcon>) => <AddIcon size={16} {...props} />}
               iconDescription="Add conditions"
-              onClick={launchConditionsForm}>
+              onClick={launchConditionsForm}
+            >
               {t('add', 'Add')}
             </Button>
           </div>
@@ -137,7 +138,8 @@ function ConditionsDetailedSummary({ patient }) {
           isSortable
           size={isTablet ? 'lg' : 'sm'}
           useZebraStyles
-          overflowMenuOnHover={isDesktop}>
+          overflowMenuOnHover={isDesktop}
+        >
           {({ rows, headers, getHeaderProps, getTableProps, getRowProps }) => (
             <>
               <TableContainer>
@@ -150,7 +152,8 @@ function ConditionsDetailedSummary({ patient }) {
                           {...getHeaderProps({
                             header,
                             isSortable: header.isSortable,
-                          })}>
+                          })}
+                        >
                           {header.header?.content ?? header.header}
                         </TableHeader>
                       ))}

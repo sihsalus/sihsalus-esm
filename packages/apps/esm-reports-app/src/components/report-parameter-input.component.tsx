@@ -10,7 +10,6 @@ import ConceptSearchResults from './concept-search/concept-search-results';
 import { useLocations } from './reports.resource';
 import styles from './run-report/run-report-form.scss';
 
-
 interface ReportParameterInputProps {
   parameter: ReportParameter;
   value: unknown;

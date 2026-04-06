@@ -177,7 +177,8 @@ const PatientNotesForm: React.FC<PatientNotesFormProps> = ({
         className={styles.saveButton}
         disabled={isSubmitting || isLoadingEmrConfiguration || errorFetchingEmrConfiguration}
         kind="primary"
-        type="submit">
+        type="submit"
+      >
         {isSubmitting ? <InlineLoading description={t('saving', 'Saving...')} /> : <span>{t('save', 'Save')}</span>}
       </Button>
     </Form>

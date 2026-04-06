@@ -22,7 +22,8 @@ const Header: React.FC<HeaderProps> = ({ handleShowNewListOverlay }) => {
         iconDescription="Add"
         renderIcon={(props) => <Add {...props} size={16} />}
         onClick={handleShowNewListOverlay}
-        size="sm">
+        size="sm"
+      >
         {t('newList', 'New list')}
       </Button>
     </PageHeader>

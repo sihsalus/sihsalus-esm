@@ -4,8 +4,10 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // FIXME Temporarily imported here
-export interface TextInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'defaultValue' | 'id' | 'size' | 'value'> {
+export interface TextInputProps extends Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  'defaultValue' | 'id' | 'size' | 'value'
+> {
   /**
    * Specify an optional className to be applied to the `<input>` node
    */

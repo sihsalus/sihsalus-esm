@@ -14,7 +14,6 @@ import { saveRelationship, useActivecases, useCaseManagers } from './case-manage
 import styles from './case-management.scss';
 import PatientInfo from './patient-info.component';
 
-
 const schema = z.object({
   caseManager: z.string().nonempty({ message: 'Case Manager is required' }),
   relationship: z.string().nonempty({ message: 'Relationship is required' }),
@@ -172,7 +171,8 @@ const CaseManagementForm: React.FC<CaseManagementProp> = ({ closeWorkspace }) =>
               <DatePicker
                 datePickerType="single"
                 onChange={(e) => field.onChange(e[0])}
-                className={styles.formDatePicker}>
+                className={styles.formDatePicker}
+              >
                 <DatePickerInput
                   placeholder="dd/mm//aaaa"
                   labelText={t('startDate', 'Start Date')}

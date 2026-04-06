@@ -10,8 +10,8 @@ import { omrsDateFormat } from '../constants';
  * Hook to get location and status UUIDs from service-queues store if available
  * Returns undefined values if store is not available (e.g., when used standalone)
  */
-function useServiceQueuesFilters(): { 
-  locationUuid?: string; 
+function useServiceQueuesFilters(): {
+  locationUuid?: string;
   locationName?: string;
   statusUuid?: string;
 } {
@@ -121,13 +121,18 @@ export interface EmergencyMetrics {
 /**
  * Hook to fetch emergency queue entries from the database
  * Uses the same endpoint as Service Queues with full custom representation
- * 
+ *
  * @param serviceUuid - Optional service UUID to filter by
  * @param statusUuid - Optional status UUID to filter by
  * @param locationUuid - Optional location UUID to filter by (useful when integrated with service-queues-app)
  * @param queueUuid - Optional queue UUID to filter by (e.g., triage queue vs attention queue)
  */
-export function useEmergencyQueueEntries(serviceUuid?: string, statusUuid?: string, locationUuid?: string, queueUuid?: string) {
+export function useEmergencyQueueEntries(
+  serviceUuid?: string,
+  statusUuid?: string,
+  locationUuid?: string,
+  queueUuid?: string,
+) {
   // If no locationUuid or statusUuid provided, try to get them from service-queues store
   // This allows automatic integration when used within service-queues-app
   const { locationUuid: serviceQueuesLocation } = useServiceQueuesFilters();
@@ -138,7 +143,7 @@ export function useEmergencyQueueEntries(serviceUuid?: string, statusUuid?: stri
     () => locationUuid ?? serviceQueuesLocation ?? config?.upssEmergencyLocationUuid ?? config?.emergencyLocationUuid,
     [locationUuid, serviceQueuesLocation, config?.upssEmergencyLocationUuid, config?.emergencyLocationUuid],
   );
-  
+
   // Only use status from store if explicitly provided and not undefined/null/empty/'all'
   // Validate that statusUuid is a valid UUID format before using it
   const isValidUuid = (uuid?: string): boolean => {
@@ -147,7 +152,7 @@ export function useEmergencyQueueEntries(serviceUuid?: string, statusUuid?: stri
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return uuidRegex.test(uuid);
   };
-  
+
   const actualStatusUuid = useMemo(() => {
     // If statusUuid is explicitly provided, use it (but validate)
     if (statusUuid && isValidUuid(statusUuid)) {
@@ -177,7 +182,7 @@ export function useEmergencyQueueEntries(serviceUuid?: string, statusUuid?: stri
   // Add custom representation for full data
   params.append('v', customRepresentation);
   params.append('totalCount', 'true');
-  
+
   // Add search criteria
   if (searchCriteria.service) params.append('service', searchCriteria.service);
   if (searchCriteria.status) params.append('status', searchCriteria.status);
@@ -213,7 +218,7 @@ export function useEmergencyQueueEntries(serviceUuid?: string, statusUuid?: stri
 /**
  * Hook to fetch emergency metrics
  * Aggregates data from queue entries
- * 
+ *
  * @param serviceUuid - Optional service UUID to filter by
  * @param locationUuid - Optional location UUID to filter by
  * @param queueUuid - Optional queue UUID to filter by
@@ -269,9 +274,7 @@ export function useEmergencyMetrics(serviceUuid?: string, locationUuid?: string,
       const startedAt = dayjs(entry.startedAt);
       return now.diff(startedAt, 'minute');
     });
-    metrics.averageWaitTime.overall = Math.round(
-      waitTimes.reduce((sum, time) => sum + time, 0) / waitTimes.length,
-    );
+    metrics.averageWaitTime.overall = Math.round(waitTimes.reduce((sum, time) => sum + time, 0) / waitTimes.length);
   }
 
   return {
@@ -283,7 +286,7 @@ export function useEmergencyMetrics(serviceUuid?: string, locationUuid?: string,
 
 /**
  * Hook to get patients count by priority
- * 
+ *
  * @param serviceUuid - Optional service UUID to filter by
  * @param locationUuid - Optional location UUID to filter by
  * @param queueUuid - Optional queue UUID to filter by
@@ -322,7 +325,7 @@ export function usePatientsByPriority(serviceUuid?: string, locationUuid?: strin
 
 /**
  * Hook to get average wait time by priority
- * 
+ *
  * @param serviceUuid - Optional service UUID to filter by
  * @param locationUuid - Optional location UUID to filter by
  * @param queueUuid - Optional queue UUID to filter by
@@ -343,7 +346,7 @@ export function useAverageWaitTimeByPriority(serviceUuid?: string, locationUuid?
     const startedAt = dayjs(entry.startedAt);
     const waitTime = now.diff(startedAt, 'minute');
     const priorityUuid = entry.priority?.uuid || '';
-    
+
     if (priorityUuid === config.concepts.priorityIConceptUuid) {
       waitTimesByPriority.priorityI.push(waitTime);
     } else if (priorityUuid === config.concepts.priorityIIConceptUuid) {

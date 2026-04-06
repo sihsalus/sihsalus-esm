@@ -17,8 +17,6 @@ import type { ConfigValueDescriptor } from '../editable-value.component';
 import styles from './array-editor.styles.scss';
 import { ValueEditorField } from './value-editor-field';
 
-
-
 interface ArrayEditorProps {
   element: ConfigValueDescriptor;
   valueArray: Array<any>;

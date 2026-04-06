@@ -15,7 +15,6 @@ import {
   type Reference,
 } from './fhir-immunization-domain';
 
-
 const mapToImmunizationDose = (immunizationBundleEntry: FHIRImmunizationBundleEntry): ExistingDoses => {
   const immunizationResource = immunizationBundleEntry?.resource;
   const immunizationObsUuid = immunizationResource?.id;

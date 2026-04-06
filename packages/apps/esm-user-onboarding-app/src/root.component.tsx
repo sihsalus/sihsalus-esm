@@ -102,7 +102,11 @@ const RootComponent: React.FC = () => {
   };
 
   return (
-    <div onMouseDown={(e)=>{e.stopPropagation()}}>
+    <div
+      onMouseDown={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <ReactJoyride
         callback={handleJoyrideCallback}
         continuous

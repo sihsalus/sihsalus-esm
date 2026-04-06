@@ -196,7 +196,8 @@ const GrowthChart: React.FC<GrowthChartProps> = ({
                 })}
                 id={`${id}-tab`}
                 key={id}
-                onClick={() => setSelectedCategory({ id, title, value })}>
+                onClick={() => setSelectedCategory({ id, title, value })}
+              >
                 {title}
               </Tab>
             ))}

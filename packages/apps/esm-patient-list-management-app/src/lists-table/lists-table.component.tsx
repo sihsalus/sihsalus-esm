@@ -161,7 +161,8 @@ const ListsTable: React.FC<PatientListTableProps> = ({
               className={styles.table}
               data-testid="patientListsTable"
               isSortable
-              useZebraStyles>
+              useZebraStyles
+            >
               <TableHead>
                 <TableRow>
                   {headers.map((header) => (
@@ -169,7 +170,8 @@ const ListsTable: React.FC<PatientListTableProps> = ({
                       className={isDesktop(layout) ? styles.desktopHeader : styles.tabletHeader}
                       key={header.key}
                       {...getHeaderProps({ header })}
-                      isSortable>
+                      isSortable
+                    >
                       {header.header}
                     </TableHeader>
                   ))}
@@ -184,12 +186,14 @@ const ListsTable: React.FC<PatientListTableProps> = ({
                     <TableRow
                       {...getRowProps({ row })}
                       className={isDesktop(layout) ? styles.desktopRow : styles.tabletRow}
-                      key={row.id}>
+                      key={row.id}
+                    >
                       <TableCell>
                         <ConfigurableLink
                           className={styles.link}
                           to={listDetailsPageUrl}
-                          templateParams={{ listUuid: row.id }}>
+                          templateParams={{ listUuid: row.id }}
+                        >
                           {currentList?.display ?? ''}
                         </ConfigurableLink>
                       </TableCell>

@@ -5,12 +5,12 @@ import { type Config } from '../config-schema';
 
 /**
  * Utility function to check if a location is the emergency department
- * 
+ *
  * Checks by:
  * 1. UUID match with primary emergency location from config
  * 2. UUID match with UPSS emergency location from config
  * 3. Name match (case-insensitive, searches for "emergency", "emergencia", "emergencias")
- * 
+ *
  * @param locationUuid - The UUID of the location to check
  * @param locationName - The name of the location to check
  * @param emergencyLocationUuid - Primary emergency location UUID from config
@@ -57,18 +57,19 @@ export function isEmergencyLocation(
 
 /**
  * Hook to check if the currently selected location is the emergency department
- * 
+ *
  * This hook is used by emergency-app extensions to decide whether to render or not.
  * It accesses the service-queues store if available (when integrated with service-queues-app)
  * or can be used standalone with explicit location parameters.
- * 
+ *
  * @param locationUuid - Optional explicit location UUID (for standalone use)
  * @param locationName - Optional explicit location name (for standalone use)
  * @returns true if emergency location is selected
  */
 export function useIsEmergencyLocation(locationUuid?: string, locationName?: string): boolean {
   const config = useConfig<Config>();
-  const { locationUuid: serviceQueuesLocationUuid, locationName: serviceQueuesLocationName } = useServiceQueuesLocationAndName();
+  const { locationUuid: serviceQueuesLocationUuid, locationName: serviceQueuesLocationName } =
+    useServiceQueuesLocationAndName();
 
   return useMemo(() => {
     const actualLocationUuid = locationUuid ?? serviceQueuesLocationUuid;
@@ -80,7 +81,12 @@ export function useIsEmergencyLocation(locationUuid?: string, locationName?: str
       config?.emergencyLocationUuid,
       config?.upssEmergencyLocationUuid,
     );
-  }, [locationUuid, locationName, serviceQueuesLocationUuid, serviceQueuesLocationName, config?.emergencyLocationUuid, config?.upssEmergencyLocationUuid]);
+  }, [
+    locationUuid,
+    locationName,
+    serviceQueuesLocationUuid,
+    serviceQueuesLocationName,
+    config?.emergencyLocationUuid,
+    config?.upssEmergencyLocationUuid,
+  ]);
 }
-
-

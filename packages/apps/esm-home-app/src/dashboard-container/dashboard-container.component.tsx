@@ -15,8 +15,6 @@ import type { DashboardConfig } from '../types/index';
 
 import styles from './dashboard-container.scss';
 
-
-
 export default function DashboardContainer() {
   const params = useParams();
   const layout = useLayoutType();
@@ -33,7 +31,8 @@ export default function DashboardContainer() {
         className={classNames([
           isDesktop(layout) ? styles.dashboardContainer : styles.dashboardContainerTablet,
           leftNavMode == 'normal' ? styles.hasLeftNav : '',
-        ])}>
+        ])}
+      >
         {isDesktop(layout) && <ExtensionSlot name="home-sidebar-slot" key={layout} />}
         <ExtensionSlot
           className={styles.dashboardView}

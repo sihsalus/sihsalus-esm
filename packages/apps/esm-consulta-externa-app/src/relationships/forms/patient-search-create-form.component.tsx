@@ -69,7 +69,8 @@ const PatientSearchCreate: React.FC<PatientSearchCreateProps> = () => {
               onChange={(value) => {
                 const { index, name, text } = value;
                 field.onChange(name);
-              }}>
+              }}
+            >
               <Switch name="search" text={t('searchPatient', 'Search patient')} />
               <Switch name="create" text={t('createPatient', 'Create patient')} />
             </ContentSwitcher>
@@ -184,7 +185,8 @@ const PatientSearchCreate: React.FC<PatientSearchCreateProps> = () => {
                     legendText={t('sex', 'Sex')}
                     {...field}
                     invalid={error?.message}
-                    invalidText={error?.message}>
+                    invalidText={error?.message}
+                  >
                     <RadioButton labelText={t('male', 'Male')} value="M" id="M" />
                     <RadioButton labelText={t('female', 'Female')} value="F" id="F" />
                   </RadioButtonGroup>
@@ -202,7 +204,8 @@ const PatientSearchCreate: React.FC<PatientSearchCreateProps> = () => {
                   {...field}
                   invalid={error?.message}
                   invalidText={error?.message}
-                  className={styles.datePickerInput}>
+                  className={styles.datePickerInput}
+                >
                   <DatePickerInput
                     invalid={error?.message}
                     invalidText={error?.message}

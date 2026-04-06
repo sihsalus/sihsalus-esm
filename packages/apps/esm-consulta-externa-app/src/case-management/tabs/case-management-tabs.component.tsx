@@ -2,7 +2,6 @@ import { Tab, TabList, Tabs, TabPanel, TabPanels } from '@carbon/react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import CaseManagementListActive from '../table/case-management-list-active-component';
 import CaseManagementListInActive from '../table/case-management-list-inactive-component';
 

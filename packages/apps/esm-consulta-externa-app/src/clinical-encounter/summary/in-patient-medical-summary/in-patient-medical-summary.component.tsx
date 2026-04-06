@@ -10,7 +10,6 @@ import type { OpenmrsEncounter } from '../../../types';
 import styles from '../../dashboard/in-patient.scss';
 import SummaryCard from '../summary-card.component';
 
-
 interface InPatientSummaryProps {
   patientUuid: string;
   encounters: OpenmrsEncounter[];
@@ -53,7 +52,13 @@ const InPatientSummary: React.FC<InPatientSummaryProps> = ({ patientUuid, encoun
     };
   });
   if (isLoading) {
-    return <InlineLoading status="active" iconDescription={t('loading', 'Loading...')} description={t('loadingData', 'Loading data')} />;
+    return (
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading...')}
+        description={t('loadingData', 'Loading data')}
+      />
+    );
   }
   if (error) {
     return <ErrorState error={error} headerTitle={t('inPatientSummary', 'In Patient Summary')} />;

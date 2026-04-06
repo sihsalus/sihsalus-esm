@@ -84,7 +84,8 @@ export default function PatientDischargeWorkspace(props: WardPatientWorkspacePro
             disabled={
               isLoadingEmrConfiguration || isSubmitting || errorFetchingEmrConfiguration || !wardPatient?.patient
             }
-            onClick={submitDischarge}>
+            onClick={submitDischarge}
+          >
             {t('proceedWithPatientDischarge', 'Proceed with patient discharge')}
           </Button>
         </ButtonSet>

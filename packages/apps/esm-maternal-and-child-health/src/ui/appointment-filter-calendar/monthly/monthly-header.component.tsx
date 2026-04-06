@@ -31,7 +31,8 @@ const MonthlyHeader: React.FC = () => {
           aria-label={t('previousMonth', 'Previous month')}
           kind="tertiary"
           onClick={handleSelectPrevMonth}
-          size="sm">
+          size="sm"
+        >
           {t('prev', 'Prev')}
         </Button>
         <span>{formatDate(new Date(selectedDate), { day: false, time: false, noToday: true })}</span>

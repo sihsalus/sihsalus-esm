@@ -129,8 +129,8 @@ const reducer = (state, action) => {
                 state.forms[state.activeFormUuid].workflowState === 'SUBMIT_FOR_NEXT'
                   ? 'NEW_PATIENT'
                   : state.forms[state.activeFormUuid].workflowState === 'SUBMIT_FOR_REVIEW'
-                  ? 'REVIEW'
-                  : state.forms[state.activeFormUuid].workflowState,
+                    ? 'REVIEW'
+                    : state.forms[state.activeFormUuid].workflowState,
             },
           },
         };

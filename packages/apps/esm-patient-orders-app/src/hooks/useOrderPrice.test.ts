@@ -6,7 +6,6 @@ import { type OrderPriceData } from '../types/order';
 
 import { useOrderPrice } from './useOrderPrice';
 
-
 const mockedOpenmrsFetch = jest.mocked(openmrsFetch);
 
 describe('useOrderPrice', () => {

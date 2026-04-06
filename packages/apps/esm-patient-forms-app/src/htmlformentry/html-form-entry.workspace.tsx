@@ -8,7 +8,6 @@ import React from 'react';
 
 import HtmlFormEntryWrapper from './html-form-entry-wrapper.component';
 
-
 interface HtmlFormEntryComponentProps extends DefaultPatientWorkspaceProps {
   formInfo: FormEntryProps;
 }

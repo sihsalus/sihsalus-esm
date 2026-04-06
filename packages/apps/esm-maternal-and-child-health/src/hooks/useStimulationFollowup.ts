@@ -25,7 +25,9 @@ function buildObsUrl(patientUuid: string, conceptUuid: string | undefined): stri
   return `${restBaseUrl}/obs?patient=${patientUuid}&concept=${conceptUuid}&v=custom:(uuid,value,obsDatetime,display)&limit=1&sort=desc`;
 }
 
-function extractDisplayValue(data: { results?: Array<{ value?: { display?: string } | string | number }> }): string | null {
+function extractDisplayValue(data: {
+  results?: Array<{ value?: { display?: string } | string | number }>;
+}): string | null {
   const obs = data?.results?.[0];
   if (!obs) return null;
   if (typeof obs.value === 'object' && obs.value?.display) {
@@ -45,9 +47,18 @@ export function useStimulationFollowup(patientUuid: string): StimulationFollowup
   const config = useConfig<ConfigObject>();
   const es = config.earlyStimulation;
 
-  const coordUrl = useMemo(() => buildObsUrl(patientUuid, es?.tepsiCoordinationConceptUuid), [patientUuid, es?.tepsiCoordinationConceptUuid]);
-  const motorUrl = useMemo(() => buildObsUrl(patientUuid, es?.tepsiMotorConceptUuid), [patientUuid, es?.tepsiMotorConceptUuid]);
-  const lackUrl = useMemo(() => buildObsUrl(patientUuid, es?.stimulationLackConceptUuid), [patientUuid, es?.stimulationLackConceptUuid]);
+  const coordUrl = useMemo(
+    () => buildObsUrl(patientUuid, es?.tepsiCoordinationConceptUuid),
+    [patientUuid, es?.tepsiCoordinationConceptUuid],
+  );
+  const motorUrl = useMemo(
+    () => buildObsUrl(patientUuid, es?.tepsiMotorConceptUuid),
+    [patientUuid, es?.tepsiMotorConceptUuid],
+  );
+  const lackUrl = useMemo(
+    () => buildObsUrl(patientUuid, es?.stimulationLackConceptUuid),
+    [patientUuid, es?.stimulationLackConceptUuid],
+  );
 
   const { data: coordData, isLoading: coordLoading, error: coordError } = useSWR(coordUrl, fetcher);
   const { data: motorData, isLoading: motorLoading, error: motorError } = useSWR(motorUrl, fetcher);
@@ -59,12 +70,12 @@ export function useStimulationFollowup(patientUuid: string): StimulationFollowup
 
     const lackObs = lackData?.results?.[0];
     const lackVal = lackObs?.value;
-    const hasStimulationLack = lackVal != null && (
-      (typeof lackVal === 'object' && lackVal?.display?.toLowerCase() === 'sí') ||
-      String(lackVal).toLowerCase() === 'sí' ||
-      String(lackVal).toLowerCase() === 'si' ||
-      String(lackVal).toLowerCase() === 'yes'
-    );
+    const hasStimulationLack =
+      lackVal != null &&
+      ((typeof lackVal === 'object' && lackVal?.display?.toLowerCase() === 'sí') ||
+        String(lackVal).toLowerCase() === 'sí' ||
+        String(lackVal).toLowerCase() === 'si' ||
+        String(lackVal).toLowerCase() === 'yes');
 
     let lastEvaluationResult: string | null = null;
     if (coordinationResult || motorResult) {
@@ -75,10 +86,7 @@ export function useStimulationFollowup(patientUuid: string): StimulationFollowup
       lastEvaluationResult = parts.join(' | ');
     }
 
-    const dates = [
-      coordData?.results?.[0]?.obsDatetime,
-      motorData?.results?.[0]?.obsDatetime,
-    ].filter(Boolean);
+    const dates = [coordData?.results?.[0]?.obsDatetime, motorData?.results?.[0]?.obsDatetime].filter(Boolean);
     const lastEvaluationDate = dates.length > 0 ? dayjs(dates[0]).format('DD/MM/YYYY') : null;
 
     return { lastEvaluationResult, lastEvaluationDate, coordinationResult, motorResult, hasStimulationLack };

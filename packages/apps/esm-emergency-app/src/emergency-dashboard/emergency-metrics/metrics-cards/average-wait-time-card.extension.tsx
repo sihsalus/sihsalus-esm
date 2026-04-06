@@ -10,7 +10,7 @@ const AverageWaitTimeCard: React.FC = () => {
   const { t } = useTranslation();
   const { averages, isLoading, error } = useAverageWaitTimeByPriority();
   const { getPriorityByCode } = usePriorityConfig();
-  
+
   const priorityI = getPriorityByCode('PRIORITY_I');
   const priorityII = getPriorityByCode('PRIORITY_II');
   const priorityIII = getPriorityByCode('PRIORITY_III');
@@ -58,11 +58,7 @@ const AverageWaitTimeCard: React.FC = () => {
           />
         )}
         {priorityIV && (
-          <MetricsCardItem
-            label={priorityIV.label}
-            value={formatWaitTime(averages.priorityIV)}
-            color="default"
-          />
+          <MetricsCardItem label={priorityIV.label} value={formatWaitTime(averages.priorityIV)} color="default" />
         )}
       </MetricsCardBody>
     </MetricsCard>
@@ -70,9 +66,3 @@ const AverageWaitTimeCard: React.FC = () => {
 };
 
 export default AverageWaitTimeCard;
-
-
-
-
-
-

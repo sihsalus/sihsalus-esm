@@ -316,7 +316,8 @@ const BillableServiceFormWorkspace: React.FC<Workspace2DefinitionProps<BillableS
         aria-label={t('billableServiceForm', 'Billable service form')}
         className={styles.form}
         id="billable-service-form"
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Stack className={styles.stack} gap={5}>
           <div className={styles.formGroup}>
             {serviceToEdit ? (
@@ -403,7 +404,8 @@ const BillableServiceFormWorkspace: React.FC<Workspace2DefinitionProps<BillableS
                           });
                           setSearchTerm('');
                         }}
-                        role="menuitem">
+                        role="menuitem"
+                      >
                         {searchResult.display}
                       </li>
                     ))}
@@ -505,7 +507,8 @@ const BillableServiceFormWorkspace: React.FC<Workspace2DefinitionProps<BillableS
                 kind="tertiary"
                 onClick={handleAppendPaymentMode}
                 renderIcon={(props) => <Add size={24} {...props} />}
-                type="button">
+                type="button"
+              >
                 {t('addPaymentOption', 'Add payment option')}
               </Button>
               {getPaymentErrorMessage() && <div className={styles.errorMessage}>{getPaymentErrorMessage()}</div>}

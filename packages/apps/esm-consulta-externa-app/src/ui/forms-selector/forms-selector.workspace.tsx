@@ -80,7 +80,8 @@ export default function FormsSelectorWorkspace({
               kind="ghost"
               onClick={backToPreviousWorkspace}
               renderIcon={(props: ComponentProps<typeof ArrowLeftIcon>) => <ArrowLeftIcon size={24} {...props} />}
-              size="sm">
+              size="sm"
+            >
               <span>{t('backToPrevious', 'Volver')}</span>
             </Button>
           </div>

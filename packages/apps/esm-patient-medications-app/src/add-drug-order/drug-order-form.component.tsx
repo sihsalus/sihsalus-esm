@@ -55,7 +55,6 @@ import type {
 
 import styles from './drug-order-form.scss';
 
-
 export interface DrugOrderFormProps {
   initialOrderBasketItem: DrugOrderBasketItem;
   onSave: (finalizedOrder: DrugOrderBasketItem) => void;

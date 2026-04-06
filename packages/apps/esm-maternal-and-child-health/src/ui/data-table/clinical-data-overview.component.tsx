@@ -1,11 +1,7 @@
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, InlineLoading } from '@carbon/react';
 import { Add, Analytics, Table } from '@carbon/react/icons';
 import { launchWorkspace2, useLayoutType } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -101,7 +97,8 @@ const ClinicalDataOverview: React.FC<ClinicalDataOverviewProps> = ({
                   <ContentSwitcher
                     onChange={(evt) => setChartView(evt.name === 'chartView')}
                     size={isTablet ? 'md' : 'sm'}
-                    aria-label={t('viewSelector', 'Select view type')}>
+                    aria-label={t('viewSelector', 'Select view type')}
+                  >
                     <IconSwitch name="tableView" text={t('tableView', 'Table view')}>
                       <Table size={16} />
                     </IconSwitch>

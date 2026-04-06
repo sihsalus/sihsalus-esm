@@ -60,9 +60,7 @@ const NutritionFollowup: React.FC<NutritionFollowupProps> = ({ patientUuid }) =>
         <StructuredListWrapper isCondensed>
           <StructuredListBody>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('cnMmnStatus', 'Suplementación MMN')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('cnMmnStatus', 'Suplementación MMN')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {mmnStatus ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>
@@ -80,7 +78,11 @@ const NutritionFollowup: React.FC<NutritionFollowupProps> = ({ patientUuid }) =>
                 {t('cnCounselingCount', 'Sesiones de Consejería')}
               </StructuredListCell>
               <StructuredListCell className={styles.value}>
-                {counselingCount != null ? counselingCount : <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
+                {counselingCount != null ? (
+                  counselingCount
+                ) : (
+                  <span className={styles.noData}>{t('noData', 'Sin datos')}</span>
+                )}
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>

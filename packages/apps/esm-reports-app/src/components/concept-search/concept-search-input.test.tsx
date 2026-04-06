@@ -16,7 +16,13 @@ jest.mock('@openmrs/esm-framework', () => ({
 }));
 
 jest.mock('./concept-search-results', () => {
-  return function MockConceptSearchResults({ searchTerm, onConceptSelect }: { searchTerm: string; onConceptSelect: (concept: unknown) => void }) {
+  return function MockConceptSearchResults({
+    searchTerm,
+    onConceptSelect,
+  }: {
+    searchTerm: string;
+    onConceptSelect: (concept: unknown) => void;
+  }) {
     if (!searchTerm) return null;
 
     return (

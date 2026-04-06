@@ -4,7 +4,6 @@ import React from 'react';
 
 import AttachmentsOverview from './attachments-overview.component';
 
-
 const mockUseAttachments = jest.mocked(useAttachments);
 
 it('renders a loading skeleton when attachments are loading', () => {

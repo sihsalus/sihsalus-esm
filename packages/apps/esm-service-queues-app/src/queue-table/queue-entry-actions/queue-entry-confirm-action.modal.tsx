@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useMutateQueueEntries } from '../../hooks/useQueueEntries';
 import { type QueueEntry } from '../../types';
 
-
 import styles from './queue-entry-confirm-action.scss';
 
 interface QueueEntryUndoActionsModalProps {

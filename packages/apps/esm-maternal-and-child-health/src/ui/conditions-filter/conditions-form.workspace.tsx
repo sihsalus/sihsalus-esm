@@ -45,12 +45,7 @@ const createSchema = (formContext: 'creating' | 'editing', t: TFunction) => {
 
 export type ConditionsFormSchema = z.infer<ReturnType<typeof createSchema>>;
 
-const ConditionsForm: React.FC<ConditionFormProps> = ({
-  closeWorkspace,
-  condition,
-  formContext,
-  workspaceProps,
-}) => {
+const ConditionsForm: React.FC<ConditionFormProps> = ({ closeWorkspace, condition, formContext, workspaceProps }) => {
   const patientUuid = workspaceProps?.patientUuid ?? '';
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';

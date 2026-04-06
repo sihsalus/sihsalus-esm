@@ -8,8 +8,6 @@ import { useOrderStockInfo } from '../hooks/useOrderStockInfo';
 
 import OrderStockDetailsComponent from './order-stock-details.component';
 
-
-
 const mockUseOrderStockInfo = jest.mocked(useOrderStockInfo);
 
 jest.mock('../hooks/useOrderStockInfo', () => ({

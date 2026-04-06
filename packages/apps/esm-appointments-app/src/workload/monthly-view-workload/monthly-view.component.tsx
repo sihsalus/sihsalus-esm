@@ -39,7 +39,9 @@ const MonthlyCalendarView: React.FC<MonthlyCalendarViewProps> = ({
         <div className={styles.container}></div>
         <span className={styles.headerContainer}>{dayjs(monthViewDate).format(monthFormat)}</span>
         <div className={styles.workLoadCard}>
-          {daysInWeeks?.map((day, i) => <DaysOfWeekCard key={`${day}-${i}`} dayOfWeek={day} />)}
+          {daysInWeeks?.map((day, i) => (
+            <DaysOfWeekCard key={`${day}-${i}`} dayOfWeek={day} />
+          ))}
         </div>
         <div className={styles.wrapper}>
           <div className={styles.monthlyCalendar}>
@@ -51,7 +53,8 @@ const MonthlyCalendarView: React.FC<MonthlyCalendarViewProps> = ({
                   dayjs(dateTime).format('YYYY-MM-DD') === dayjs(monthViewDate).format('YYYY-MM-DD')
                     ? styles.selectedDate
                     : ''
-                }`}>
+                }`}
+              >
                 <MonthlyWorkloadCard
                   key={i}
                   date={dateTime}

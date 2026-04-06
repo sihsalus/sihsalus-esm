@@ -30,7 +30,8 @@ export const ClinicalViewSection: React.FC<ClinicalViewSectionProps> = ({ basePa
           label={t(
             'customViews',
             "In this section, you'll find custom clinical views tailored to patients' conditions and enrolled care programs.",
-          )}>
+          )}
+        >
           <button className={styles.tooltipButton} type="button">
             <InformationIcon className={styles.icon} size={20} />
           </button>

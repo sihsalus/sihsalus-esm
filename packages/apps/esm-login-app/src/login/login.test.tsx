@@ -22,7 +22,6 @@ const mockUseConfig = vi.mocked(useConfig);
 const mockUseConnectivity = vi.mocked(useConnectivity);
 const mockUseSession = vi.mocked(useSession);
 
-
 describe('Login', () => {
   beforeEach(() => {
     mockUseConnectivity.mockReturnValue(true);

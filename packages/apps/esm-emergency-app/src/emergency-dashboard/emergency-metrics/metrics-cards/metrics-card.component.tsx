@@ -13,9 +13,7 @@ interface MetricsCardProps {
 export const MetricsCard: React.FC<MetricsCardProps> = ({ children, borderColor }) => {
   return (
     <Layer>
-      <Tile className={classNames(styles.tileContainer, borderColor && styles[borderColor])}>
-        {children}
-      </Tile>
+      <Tile className={classNames(styles.tileContainer, borderColor && styles[borderColor])}>{children}</Tile>
     </Layer>
   );
 };
@@ -76,7 +74,8 @@ export const MetricsCardItem: React.FC<MetricsCardItemProps> = ({ label, value, 
       className={classNames(styles.metricItem, {
         [styles.smallItem]: small,
         [styles.mainItem]: !small,
-      })}>
+      })}
+    >
       <span className={styles.metricLabel}>{label}</span>
       <p
         className={classNames(styles.metricValue, {
@@ -84,7 +83,8 @@ export const MetricsCardItem: React.FC<MetricsCardItemProps> = ({ label, value, 
           [styles.orange]: color === 'orange',
           [styles.green]: color === 'green',
           [styles.smallValue]: small,
-        })}>
+        })}
+      >
         {value}
       </p>
     </div>

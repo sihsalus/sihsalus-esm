@@ -11,8 +11,6 @@ import EditableValue from './editable-value.component';
 import { ExtensionConfigureTree } from './extension-configure-tree';
 import { Subtree } from './layout/subtree.component';
 
-
-
 interface ExtensionSlotsConfigTreeProps {
   extensionsConfig: { [key: string]: any };
   moduleName: string;

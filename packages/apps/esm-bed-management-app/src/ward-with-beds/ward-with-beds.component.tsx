@@ -111,14 +111,16 @@ const WardWithBeds: React.FC = () => {
                 navigate({
                   to: `${window.getOpenmrsSpaBase()}bed-management`,
                 })
-              }>
+              }
+            >
               <span>{t('returnToSummary', 'Return to summary')}</span>
             </Button>
             <span>{isValidating ? <InlineLoading /> : null}</span>
             <Button
               kind="ghost"
               renderIcon={(props) => <Add size={16} {...props} />}
-              onClick={() => setShowAddBedModal(true)}>
+              onClick={() => setShowAddBedModal(true)}
+            >
               <span>{t('addBed', 'Add bed')}</span>
             </Button>
           </div>

@@ -1,11 +1,5 @@
 import { Layer, Tab, TabList, TabPanel, TabPanels, Tabs, Tile } from '@carbon/react';
-import {
-  Activity,
-  CloudMonitoring,
-  Dashboard,
-  Friendship,
-  ReminderMedical,
-} from '@carbon/react/icons';
+import { Activity, CloudMonitoring, Dashboard, Friendship, ReminderMedical } from '@carbon/react/icons';
 import { useConfig, useVisit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -32,9 +26,6 @@ import OutPatientSocialHistory from '../summary/out-patient-summary/patient-soci
 import SurgicalSummary from '../summary/surgical summary/surgical-summary.component';
 
 import styles from './in-patient.scss';
-
-
-
 
 interface ClinicalEncounterDashboardProps {
   patientUuid: string;

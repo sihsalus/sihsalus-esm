@@ -109,11 +109,13 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
                   role="option"
                   tabIndex={-1}
                   aria-selected="true"
-                  onClick={() => handleOptionClick(entry)}>
+                  onClick={() => handleOptionClick(entry)}
+                >
                   <div
                     className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption, {
                       'cds--list-box__menu-item--active': entry === value,
-                    })}>
+                    })}
+                  >
                     {entry}
                     {entry === value && <SelectionTick />}
                   </div>

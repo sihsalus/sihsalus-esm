@@ -34,7 +34,6 @@ import { orderBy } from 'lodash-es';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { useImmunizations } from '../hooks/useImmunizations';
 
 import SequenceTable from './components/immunizations-sequence-table.component';

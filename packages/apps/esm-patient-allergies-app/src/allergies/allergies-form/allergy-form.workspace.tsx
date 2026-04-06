@@ -23,7 +23,6 @@ import { type Control, Controller, useForm, type UseFormSetValue } from 'react-h
 import { type TFunction, useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-
 import { AllergenType } from '../../types';
 import { type Allergy, useAllergies } from '../allergy-intolerance.resource';
 

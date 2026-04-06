@@ -5,7 +5,6 @@ import { type ObsMetaInfo } from '../types/index';
 
 import { type ConceptMetadata } from './hooks/useVitalsConceptMetadata';
 
-
 export function useVisit(visitUuid: string) {
   const customRepresentation =
     'custom:(uuid,encounters:(uuid,encounterDatetime,' +

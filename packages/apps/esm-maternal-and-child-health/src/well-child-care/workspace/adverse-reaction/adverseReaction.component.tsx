@@ -1,12 +1,4 @@
-import {
-  Button,
-  ButtonSet,
-  Form,
-  TextArea,
-  Select,
-  SelectItem,
-  InlineNotification,
-} from '@carbon/react';
+import { Button, ButtonSet, Form, TextArea, Select, SelectItem, InlineNotification } from '@carbon/react';
 import { OpenmrsDatePicker, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -105,7 +97,8 @@ const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ 
           labelText={t('vaccine', 'Vacuna')}
           value={formData.vaccineName}
           onChange={(e) => handleInputChange('vaccineName', e.target.value)}
-          className={styles.formField}>
+          className={styles.formField}
+        >
           <SelectItem text={t('selectVaccine', 'Seleccione una vacuna')} value="" />
           {VACCINE_OPTIONS.map((vaccine) => (
             <SelectItem key={vaccine} text={vaccine} value={vaccine} />
@@ -127,7 +120,8 @@ const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ 
           labelText={t('severity', 'Severidad')}
           value={formData.severity}
           onChange={(e) => handleInputChange('severity', e.target.value)}
-          className={styles.formField}>
+          className={styles.formField}
+        >
           <SelectItem text={t('selectSeverity', 'Seleccione severidad')} value="" />
           <SelectItem text={t('mild', 'Leve')} value="mild" />
           <SelectItem text={t('moderate', 'Moderada')} value="moderate" />

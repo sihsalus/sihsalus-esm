@@ -97,7 +97,8 @@ const HistoryAndComments: React.FC<{
               <MedicationEvent
                 medicationEvent={dispense}
                 status={<DispenseTag medicationDispense={dispense} />}
-                isDispenseEvent>
+                isDispenseEvent
+              >
                 <MedicationDispenseActionMenu
                   medicationDispense={dispense}
                   medicationRequestBundle={getMedicationRequestBundleContainingMedicationDispense(
@@ -299,7 +300,8 @@ const MedicationDispenseActionMenu: React.FC<MedicationDispenseActionMenuProps> 
       <OverflowMenu
         aria-label={t('medicationDispenseActionMenu', 'Medication Dispense Action Menu')}
         className={styles.medicationEventActionMenu}
-        flipped>
+        flipped
+      >
         {editable && (
           <OverflowMenuItem
             className={styles.menuitem}

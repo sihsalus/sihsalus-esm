@@ -12,7 +12,6 @@ import type { ConfigObject } from '../../config-schema';
 import { assessValue, calculateBodyMassIndex, getReferenceRangesForConcept, interpretBloodPressure } from './helpers';
 import type { FHIRSearchBundleResponse, MappedVitals, PatientVitalsAndBiometrics, VitalsResponse } from './types';
 
-
 const NewbornVitalsSchema = z
   .object({
     temperature: z.number(),

@@ -49,11 +49,7 @@ const StimulationFollowup: React.FC<StimulationFollowupProps> = ({ patientUuid }
     return <ErrorState error={error} headerTitle={headerTitle} />;
   }
 
-  const riskLabel = hasStimulationLack
-    ? t('esRisk', 'Riesgo')
-    : lastEvaluationResult
-      ? t('esNormal', 'Normal')
-      : null;
+  const riskLabel = hasStimulationLack ? t('esRisk', 'Riesgo') : lastEvaluationResult ? t('esNormal', 'Normal') : null;
   const riskTagType = hasStimulationLack ? 'red' : lastEvaluationResult ? 'green' : 'gray';
 
   return (
@@ -78,9 +74,7 @@ const StimulationFollowup: React.FC<StimulationFollowupProps> = ({ patientUuid }
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('lastDate', 'Fecha')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('lastDate', 'Fecha')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {lastEvaluationDate ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>
@@ -91,9 +85,13 @@ const StimulationFollowup: React.FC<StimulationFollowupProps> = ({ patientUuid }
               </StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {hasStimulationLack ? (
-                  <Tag type="red" size="sm">{t('esRisk', 'Riesgo')}</Tag>
+                  <Tag type="red" size="sm">
+                    {t('esRisk', 'Riesgo')}
+                  </Tag>
                 ) : lastEvaluationResult ? (
-                  <Tag type="green" size="sm">{t('esNormal', 'Normal')}</Tag>
+                  <Tag type="green" size="sm">
+                    {t('esNormal', 'Normal')}
+                  </Tag>
                 ) : (
                   <span className={styles.noData}>{t('noData', 'Sin datos')}</span>
                 )}

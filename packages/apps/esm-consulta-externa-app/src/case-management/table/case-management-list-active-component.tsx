@@ -81,7 +81,8 @@ const CaseManagementListActive: React.FC<CaseManagementListActiveProps> = ({ set
       <ConfigurableLink
         className={styles.configurableLink}
         to={patientChartUrl}
-        templateParams={{ patientUuid: caseData.personB.uuid }}>
+        templateParams={{ patientUuid: caseData.personB.uuid }}
+      >
         {uppercaseText(extractNameString(caseData.personB.display))}
       </ConfigurableLink>
     ),

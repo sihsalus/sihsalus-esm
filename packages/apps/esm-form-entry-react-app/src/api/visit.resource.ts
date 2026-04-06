@@ -12,11 +12,7 @@ export async function getVisitStartStopTime(visitUuid: string) {
 /**
  * Updates the visit start and/or stop datetime to accommodate encounter datetime.
  */
-export async function updateVisitDates(
-  visitUuid: string,
-  startDatetime?: string,
-  stopDatetime?: string,
-) {
+export async function updateVisitDates(visitUuid: string, startDatetime?: string, stopDatetime?: string) {
   const body: Record<string, string> = {};
   if (startDatetime) {
     body.startDatetime = startDatetime;

@@ -106,7 +106,9 @@ export default function OrderBasketSearchResults({
         </Button>
       </div>
       <div className={styles.resultsContainer}>
-        {drugs?.map((drug) => <DrugSearchResultItem key={drug.uuid} drug={drug} openOrderForm={openOrderForm} />)}
+        {drugs?.map((drug) => (
+          <DrugSearchResultItem key={drug.uuid} drug={drug} openOrderForm={openOrderForm} />
+        ))}
       </div>
     </div>
   );
@@ -126,10 +128,7 @@ const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openO
     [activeOrders, drug],
   );
 
-  const {
-    templates,
-    error: fetchingDrugOrderTemplatesError,
-  } = useDrugTemplate(drug?.uuid);
+  const { templates, error: fetchingDrugOrderTemplatesError } = useDrugTemplate(drug?.uuid);
   const { t } = useTranslation();
   const config = useConfig() as ConfigObject;
   const drugItemTemplateOptions: Array<DrugOrderBasketItem> = useMemo(

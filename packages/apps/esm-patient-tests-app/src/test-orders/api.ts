@@ -15,7 +15,6 @@ import useSWRImmutable from 'swr/immutable';
 import { type ConfigObject } from '../config-schema';
 import type { TestOrderBasketItem } from '../types';
 
-
 export const careSettingUuid = '6f0c9a92-6f24-11e3-af88-005056821db0';
 
 /**

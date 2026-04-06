@@ -11,7 +11,7 @@ const PriorityBreakdownCard: React.FC = () => {
   const { t } = useTranslation();
   const { counts, isLoading, error } = usePatientsByPriority();
   const { getPriorityByCode } = usePriorityConfig();
-  
+
   const priorityI = getPriorityByCode('PRIORITY_I');
   const priorityII = getPriorityByCode('PRIORITY_II');
   const priorityIII = getPriorityByCode('PRIORITY_III');
@@ -37,32 +37,16 @@ const PriorityBreakdownCard: React.FC = () => {
       <MetricsCardHeader title={t('patientsByPriority', 'Patients by Priority')} />
       <MetricsCardBody>
         {priorityI && (
-          <MetricsCardItem
-            label={priorityI.label}
-            value={counts.priorityI}
-            color={mapColor(priorityI.color)}
-          />
+          <MetricsCardItem label={priorityI.label} value={counts.priorityI} color={mapColor(priorityI.color)} />
         )}
         {priorityII && (
-          <MetricsCardItem
-            label={priorityII.label}
-            value={counts.priorityII}
-            color={mapColor(priorityII.color)}
-          />
+          <MetricsCardItem label={priorityII.label} value={counts.priorityII} color={mapColor(priorityII.color)} />
         )}
         {priorityIII && (
-          <MetricsCardItem
-            label={priorityIII.label}
-            value={counts.priorityIII}
-            color={mapColor(priorityIII.color)}
-          />
+          <MetricsCardItem label={priorityIII.label} value={counts.priorityIII} color={mapColor(priorityIII.color)} />
         )}
         {priorityIV && (
-          <MetricsCardItem
-            label={priorityIV.label}
-            value={counts.priorityIV}
-            color={mapColor(priorityIV.color)}
-          />
+          <MetricsCardItem label={priorityIV.label} value={counts.priorityIV} color={mapColor(priorityIV.color)} />
         )}
       </MetricsCardBody>
     </MetricsCard>
@@ -70,9 +54,3 @@ const PriorityBreakdownCard: React.FC = () => {
 };
 
 export default PriorityBreakdownCard;
-
-
-
-
-
-

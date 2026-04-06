@@ -7,11 +7,11 @@ import styles from './emergency-alerts.scss';
 
 /**
  * Emergency Alerts Component
- * 
+ *
  * Displays critical alerts for:
  * - Critical patients requiring immediate attention (Priority I)
  * - Patients waiting for triage
- * 
+ *
  * Uses Carbon's InlineNotification component following OpenMRS patterns
  */
 const EmergencyAlerts: React.FC = () => {
@@ -56,9 +56,3 @@ const EmergencyAlerts: React.FC = () => {
 };
 
 export default EmergencyAlerts;
-
-
-
-
-
-

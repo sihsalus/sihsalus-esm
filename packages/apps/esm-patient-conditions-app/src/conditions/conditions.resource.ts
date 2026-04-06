@@ -4,7 +4,6 @@ import useSWR from 'swr';
 
 import { type FHIRCondition, type FHIRConditionResponse } from '../types';
 
-
 export type Condition = {
   clinicalStatus: string;
   conceptId: string;

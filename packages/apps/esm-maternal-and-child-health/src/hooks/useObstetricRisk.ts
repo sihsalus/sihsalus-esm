@@ -46,21 +46,25 @@ export function useObstetricRisk(patientUuid: string): ObstetricRiskResult {
     return `${restBaseUrl}/obs?patient=${patientUuid}&concept=${riskFactorsConceptUuid}&v=custom:(uuid,value:(uuid,display),obsDatetime)&sort=desc`;
   }, [patientUuid, riskFactorsConceptUuid]);
 
-  const { data: classificationData, isLoading: classLoading, error: classError, mutate: classificationMutate } = useSWR(
-    classificationUrl,
-    async (fetchUrl: string) => {
-      const response = await openmrsFetch(fetchUrl);
-      return response?.data;
-    },
-  );
+  const {
+    data: classificationData,
+    isLoading: classLoading,
+    error: classError,
+    mutate: classificationMutate,
+  } = useSWR(classificationUrl, async (fetchUrl: string) => {
+    const response = await openmrsFetch(fetchUrl);
+    return response?.data;
+  });
 
-  const { data: factorsData, isLoading: factorsLoading, error: factorsError, mutate: factorsMutate } = useSWR(
-    riskFactorsUrl,
-    async (fetchUrl: string) => {
-      const response = await openmrsFetch(fetchUrl);
-      return response?.data;
-    },
-  );
+  const {
+    data: factorsData,
+    isLoading: factorsLoading,
+    error: factorsError,
+    mutate: factorsMutate,
+  } = useSWR(riskFactorsUrl, async (fetchUrl: string) => {
+    const response = await openmrsFetch(fetchUrl);
+    return response?.data;
+  });
 
   const result = useMemo(() => {
     const obs = classificationData?.results?.[0];
@@ -93,7 +97,10 @@ export function useObstetricRisk(patientUuid: string): ObstetricRiskResult {
     ...result,
     isLoading: classLoading || factorsLoading,
     error: classError || factorsError,
-    mutate: () => { classificationMutate(); factorsMutate(); },
+    mutate: () => {
+      classificationMutate();
+      factorsMutate();
+    },
   };
 }
 

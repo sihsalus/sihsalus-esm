@@ -7,7 +7,6 @@ import { renderWithSwr } from 'tools';
 
 import { type ConfigObject, configSchema } from '../config-schema';
 
-
 import QueueTable from './queue-table.component';
 
 const mockUseSession = jest.mocked(useSession);

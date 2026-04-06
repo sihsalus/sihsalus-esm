@@ -175,7 +175,8 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
                       value={value}
                       onChange={(event) => {
                         onChange(event.target.value);
-                      }}>
+                      }}
+                    >
                       {!getValues()?.location && (
                         <SelectItem text={t('selectQueueLocation', 'Select a queue location')} value="" />
                       )}
@@ -201,7 +202,8 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
                       invalid={!!errors.service}
                       invalidText={errors.service?.message}
                       value={value}
-                      onChange={(event) => onChange(event.target.value)}>
+                      onChange={(event) => onChange(event.target.value)}
+                    >
                       {!getValues()?.service && <SelectItem text={t('selectService', 'Select a service')} value="" />}
                       {queues?.length > 0 &&
                         queues.map((service) => (
@@ -237,7 +239,8 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
                         defaultSelected={value}
                         onChange={(uuid) => {
                           onChange(uuid);
-                        }}>
+                        }}
+                      >
                         {allowedStatuses?.length > 0 &&
                           allowedStatuses.map(({ uuid, display }) => (
                             <RadioButton key={uuid} labelText={display} value={uuid} />
@@ -259,7 +262,8 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
                         selectedIndex={allowedPriorities?.findIndex((priority) => priority.uuid === currentPriority)}
                         onChange={(event) => {
                           onChange(event.name as any);
-                        }}>
+                        }}
+                      >
                         {allowedPriorities?.length > 0 ? (
                           allowedPriorities.map(({ uuid, display }) => {
                             return <Switch name={uuid} text={display} key={uuid} value={uuid} />;

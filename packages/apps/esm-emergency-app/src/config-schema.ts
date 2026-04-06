@@ -2,7 +2,7 @@ import { Type, validators } from '@openmrs/esm-framework';
 
 /**
  * Configuration schema for the Emergency module.
- * 
+ *
  * In OpenMRS Microfrontends, all config parameters are optional. Thus,
  * all elements must have a reasonable default. A good default is one
  * that works well with the reference application.
@@ -16,7 +16,22 @@ import { Type, validators } from '@openmrs/esm-framework';
  *   https://openmrs.github.io/openmrs-esm-core/#/main/config?id=schema-reference
  */
 
-const priorityTagColors = ['red', 'orange', 'yellow', 'magenta', 'purple', 'blue', 'cyan', 'teal', 'green', 'gray', 'cool-gray', 'warm-gray', 'high-contrast', 'outline'] as const;
+const priorityTagColors = [
+  'red',
+  'orange',
+  'yellow',
+  'magenta',
+  'purple',
+  'blue',
+  'cyan',
+  'teal',
+  'green',
+  'gray',
+  'cool-gray',
+  'warm-gray',
+  'high-contrast',
+  'outline',
+] as const;
 type PriorityTagColor = (typeof priorityTagColors)[number];
 
 const tagStyles = ['bold'] as const;
@@ -97,7 +112,7 @@ export const configSchema = {
   /**
    * Configuración de prioridades según Norma Técnica Peruana
    * Cada prioridad debe mapearse a un concepto UUID existente en OpenMRS.
-   * 
+   *
    * IMPORTANTE: Los UUIDs deben ser configurados en los archivos de configuración
    * del backend (config-pucp.json o config-openmrs.json) después de crear los
    * conceptos correspondientes en OpenMRS.
@@ -188,7 +203,7 @@ export const configSchema = {
       },
     },
   },
-  
+
   /**
    * Concepto UUID por defecto para cada nivel de prioridad
    * Estos UUIDs deben ser configurados después de crear los conceptos en OpenMRS

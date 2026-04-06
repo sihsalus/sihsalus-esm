@@ -23,7 +23,8 @@ export default function Dispensing() {
       className={classNames([
         isDesktop(layout) ? styles.desktopContainer : '',
         leftNavMode === 'normal' ? styles.hasLeftNav : '',
-      ])}>
+      ])}
+    >
       <ExtensionSlot name="dispensing-dashboard-slot" />
       <WorkspaceContainer key="dispensing" contextKey="dispensing" />
     </div>

@@ -79,8 +79,8 @@ const StockOperationPrintButton: React.FC<StockOperationCancelButtonProps> = ({ 
         inventoryFilter.date = parentOperation?.dateCreated
           ? new Date(parentOperation.dateCreated).toISOString()
           : operation?.dateCreated
-          ? new Date(operation.dateCreated).toISOString()
-          : null;
+            ? new Date(operation.dateCreated).toISOString()
+            : null;
         // get stock item inventory
         const res = await getStockItemInventory(inventoryFilter);
         itemInventory = res.data?.results;

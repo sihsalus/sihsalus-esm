@@ -131,10 +131,7 @@ describe('sortByPriority', () => {
   });
 
   it('does not mutate the original array', () => {
-    const entries = [
-      { priority: { uuid: 'uuid-3' } },
-      { priority: { uuid: 'uuid-1' } },
-    ];
+    const entries = [{ priority: { uuid: 'uuid-3' } }, { priority: { uuid: 'uuid-1' } }];
     const original = [...entries];
     sortByPriority(entries, mockConfigs);
     expect(entries).toEqual(original);

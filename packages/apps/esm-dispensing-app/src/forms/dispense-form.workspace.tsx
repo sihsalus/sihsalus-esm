@@ -385,7 +385,8 @@ const DispenseForm: React.FC<Workspace2DefinitionProps<DispenseFormProps, {}, {}
               closeWorkspace();
               onWorkspaceClosed?.();
             }}
-            kind="secondary">
+            kind="secondary"
+          >
             {getCoreTranslation('cancel', 'Cancel')}
           </Button>
           <Button disabled={isButtonDisabled} onClick={handleSubmitOrDuplicateCheck}>

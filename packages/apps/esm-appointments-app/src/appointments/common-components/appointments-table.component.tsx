@@ -102,13 +102,14 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
       <ConfigurableLink
         className={styles.link}
         to={customPatientChartUrl}
-        templateParams={{ patientUuid: appointment.patient.uuid }}>
+        templateParams={{ patientUuid: appointment.patient.uuid }}
+      >
         {appointment.patient.name}
       </ConfigurableLink>
     ),
     nextAppointmentDate: '--',
     identifier: patientIdentifierType
-      ? appointment.patient[patientIdentifierType.replaceAll(' ', '')] ?? appointment.patient.identifier
+      ? (appointment.patient[patientIdentifierType.replaceAll(' ', '')] ?? appointment.patient.identifier)
       : appointment.patient.identifier,
     dateTime: formatDatetime(new Date(appointment.startDateTime)),
     serviceType: appointment.service.name,
@@ -177,7 +178,8 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                 })
               : null;
             exportAppointmentsToSpreadsheet(appointments, rowData, `${tableHeading}_appointments_${date}`);
-          }}>
+          }}
+        >
           {t('download', 'Download')}
         </Button>
       </div>
@@ -188,7 +190,8 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
         headers={headerData}
         isSortable
         size={responsiveSize}
-        useZebraStyles>
+        useZebraStyles
+      >
         {({
           rows,
           headers,
@@ -233,7 +236,8 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                                 align="left"
                                 aria-label={t('actions', 'Actions')}
                                 flipped
-                                size={responsiveSize}>
+                                size={responsiveSize}
+                              >
                                 <OverflowMenuItem
                                   className={styles.menuItem}
                                   itemText={t('editAppointment', 'Edit appointment')}

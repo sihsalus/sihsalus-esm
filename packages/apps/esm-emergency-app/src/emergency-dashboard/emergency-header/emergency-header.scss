@@ -20,11 +20,10 @@
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
-  
+
   // Ensure button content is properly aligned
   :global(.cds--btn__icon) {
     display: inline-flex;
     align-items: center;
   }
 }
-

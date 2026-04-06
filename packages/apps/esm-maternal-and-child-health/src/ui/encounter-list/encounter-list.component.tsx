@@ -128,7 +128,11 @@ export const EncounterList: React.FC<EncounterListProps> = ({
   const constructTableRows = useCallback(
     (results: OpenmrsEncounter[]) => {
       const rows = results?.map((encounter) => {
-        const tableRow: Record<string, any> & { id: string; actions: React.ReactNode | null; obs: Array<Record<string, any>> } = {
+        const tableRow: Record<string, any> & {
+          id: string;
+          actions: React.ReactNode | null;
+          obs: Array<Record<string, any>>;
+        } = {
           id: encounter.uuid,
           actions: null,
           obs: encounter.obs,
@@ -155,7 +159,8 @@ export const EncounterList: React.FC<EncounterListProps> = ({
                   } else {
                     column.link?.getUrl && navigate({ to: column.link.getUrl() });
                   }
-                }}>
+                }}
+              >
                 {val}
               </Link>
             );
@@ -163,7 +168,8 @@ export const EncounterList: React.FC<EncounterListProps> = ({
           tableRow[column.key] = val;
         });
         // If custom config is available, generate actions accordingly; otherwise, fallback to the default actions.
-        const actions = (Array.isArray(tableRow.actions) && tableRow.actions.length > 0) ? tableRow.actions : defaultActions;
+        const actions =
+          Array.isArray(tableRow.actions) && tableRow.actions.length > 0 ? tableRow.actions : defaultActions;
         tableRow['actions'] = (
           <OverflowMenu flipped className={styles.flippedOverflowMenu}>
             {actions.map((actionItem, index) => (

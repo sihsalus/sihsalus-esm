@@ -39,7 +39,7 @@ const orderBasketStoreActions = {
 function getOrderItems(items: OrderBasketStore['items'], grouping?: string | null): Array<OrderBasketItem> {
   const patientUuid = getPatientUuidFromStore();
   const patientItems = items?.[patientUuid] ?? {};
-  return grouping ? patientItems[grouping] ?? [] : Object.values(patientItems).flat();
+  return grouping ? (patientItems[grouping] ?? []) : Object.values(patientItems).flat();
 }
 
 export interface ClearOrdersOptions {

@@ -8,7 +8,14 @@ import {
   Layer,
   Tile,
 } from '@carbon/react';
-import { ErrorState, isDesktop, navigate, useLayoutType, usePagination, type OpenmrsResource } from '@openmrs/esm-framework';
+import {
+  ErrorState,
+  isDesktop,
+  navigate,
+  useLayoutType,
+  usePagination,
+  type OpenmrsResource,
+} from '@openmrs/esm-framework';
 import { EmptyDataIllustration, EmptyState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -128,11 +135,12 @@ export const EncounterList: React.FC<EncounterListProps> = ({
   const constructTableRows = useCallback(
     (results: OpenmrsEncounter[]) => {
       const rows = results?.map((encounter) => {
-        const tableRow: { id: string; actions: React.ReactNode; obs: Array<OpenmrsResource>; [key: string]: unknown } = {
-          id: encounter.uuid,
-          actions: null,
-          obs: encounter.obs,
-        };
+        const tableRow: { id: string; actions: React.ReactNode; obs: Array<OpenmrsResource>; [key: string]: unknown } =
+          {
+            id: encounter.uuid,
+            actions: null,
+            obs: encounter.obs,
+          };
         // inject launch actions
         encounter['launchFormActions'] = {
           editEncounter: () => {
@@ -155,7 +163,8 @@ export const EncounterList: React.FC<EncounterListProps> = ({
                   } else {
                     column.link?.getUrl && navigate({ to: column.link.getUrl() });
                   }
-                }}>
+                }}
+              >
                 {val}
               </Link>
             );

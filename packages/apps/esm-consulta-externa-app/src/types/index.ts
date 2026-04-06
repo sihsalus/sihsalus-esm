@@ -118,7 +118,11 @@ export interface Observation {
     value: string | number | { uuid: string; display: string };
     display: string;
   }>;
-  value: string | number | { uuid: string; display: string; names?: Array<{ uuid: string; conceptNameType: string; name: string }> } | null;
+  value:
+    | string
+    | number
+    | { uuid: string; display: string; names?: Array<{ uuid: string; conceptNameType: string; name: string }> }
+    | null;
   obsDatetime?: string;
 }
 

@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import { readFileAsString } from '../utils';
 
-
 import CameraMediaUploaderContext from './camera-media-uploader-context.resources';
 import styles from './media-uploader.scss';
 

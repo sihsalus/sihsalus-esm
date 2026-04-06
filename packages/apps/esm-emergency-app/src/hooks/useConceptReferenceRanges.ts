@@ -20,9 +20,10 @@ export interface ConceptReferenceRange {
 export function useConceptReferenceRanges(patientUuid: string, conceptUuids: string[]) {
   const conceptParam = useMemo(() => conceptUuids.sort().join(','), [conceptUuids]);
 
-  const apiUrl = patientUuid && conceptParam
-    ? `${restBaseUrl}/conceptreferencerange?patient=${patientUuid}&concept=${conceptParam}&v=custom:(concept,lowAbsolute,hiAbsolute,lowNormal,hiNormal,lowCritical,hiCritical,units)`
-    : null;
+  const apiUrl =
+    patientUuid && conceptParam
+      ? `${restBaseUrl}/conceptreferencerange?patient=${patientUuid}&concept=${conceptParam}&v=custom:(concept,lowAbsolute,hiAbsolute,lowNormal,hiNormal,lowCritical,hiCritical,units)`
+      : null;
 
   interface ConceptReferenceRangeResponse {
     concept: string;
@@ -35,7 +36,10 @@ export function useConceptReferenceRanges(patientUuid: string, conceptUuids: str
     units: string | null;
   }
 
-  const { data, error, isLoading } = useSWRImmutable<{ data: { results: ConceptReferenceRangeResponse[] } }, Error>(apiUrl, openmrsFetch);
+  const { data, error, isLoading } = useSWRImmutable<{ data: { results: ConceptReferenceRangeResponse[] } }, Error>(
+    apiUrl,
+    openmrsFetch,
+  );
 
   const referenceRanges = useMemo(() => {
     const ranges: Record<string, ConceptReferenceRange> = {};

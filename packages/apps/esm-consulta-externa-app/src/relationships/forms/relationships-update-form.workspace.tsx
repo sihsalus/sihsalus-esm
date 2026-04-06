@@ -63,7 +63,11 @@ const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({ closeWo
     try {
       await updateRelationship(relationShipUuid, values);
       closeWorkspace();
-      showSnackbar({ title: t('success', 'Success'), subtitle: t('relationshipUpdatedSuccessfully', 'Relationship updated successfully'), kind: 'success' });
+      showSnackbar({
+        title: t('success', 'Success'),
+        subtitle: t('relationshipUpdatedSuccessfully', 'Relationship updated successfully'),
+        kind: 'success',
+      });
       mutate((key) => {
         return typeof key === 'string' && key.startsWith('/ws/rest/v1/relationship');
       });
@@ -118,7 +122,8 @@ const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({ closeWo
                 id="startDate"
                 datePickerType="single"
                 invalid={form.formState.errors[field.name]?.message}
-                invalidText={form.formState.errors[field.name]?.message}>
+                invalidText={form.formState.errors[field.name]?.message}
+              >
                 <DatePickerInput
                   invalid={form.formState.errors[field.name]?.message}
                   invalidText={form.formState.errors[field.name]?.message}
@@ -142,7 +147,8 @@ const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({ closeWo
                 id="endDate"
                 datePickerType="single"
                 invalid={form.formState.errors[field.name]?.message}
-                invalidText={form.formState.errors[field.name]?.message}>
+                invalidText={form.formState.errors[field.name]?.message}
+              >
                 <DatePickerInput
                   invalid={form.formState.errors[field.name]?.message}
                   invalidText={form.formState.errors[field.name]?.message}

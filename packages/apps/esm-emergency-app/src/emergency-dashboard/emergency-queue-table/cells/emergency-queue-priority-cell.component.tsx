@@ -32,7 +32,14 @@ export const EmergencyQueuePriorityCell: React.FC<EmergencyQueueTableCellProps> 
     }
     // Fallback: unknown priority — display name from backend with warning indicator
     return { label: priorityDisplay || t('unknownPriority', 'Sin prioridad'), color: 'gray' };
-  }, [priorityConfig, priorityUuid, config.concepts.emergencyConceptUuid, config.concepts.urgencyConceptUuid, priorityDisplay, t]);
+  }, [
+    priorityConfig,
+    priorityUuid,
+    config.concepts.emergencyConceptUuid,
+    config.concepts.urgencyConceptUuid,
+    priorityDisplay,
+    t,
+  ]);
 
   const getPriorityProps = (color: string) => {
     if (color === 'red') {
@@ -57,4 +64,3 @@ export const EmergencyQueuePriorityCell: React.FC<EmergencyQueueTableCellProps> 
     </div>
   );
 };
-

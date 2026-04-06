@@ -18,9 +18,7 @@ export function useLabOrderNotification() {
           `${restBaseUrl}/encounter/${encounterUuid}?v=custom:(uuid,orders:(uuid,display,orderNumber,auditInfo:(dateVoided)))`,
         );
 
-        const orders = response.data?.orders?.filter(
-          (order: any) => !order.auditInfo?.dateVoided,
-        );
+        const orders = response.data?.orders?.filter((order: any) => !order.auditInfo?.dateVoided);
 
         if (orders?.length) {
           const orderList = orders

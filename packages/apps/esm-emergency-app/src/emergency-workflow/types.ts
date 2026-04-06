@@ -49,4 +49,3 @@ export interface WorkflowState {
   queueEntryUuid?: string;
   initialClassification?: InitialClassification;
 }
-

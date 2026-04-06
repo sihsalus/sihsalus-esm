@@ -102,7 +102,8 @@ const BedSelector: React.FC<BedSelectorProps> = ({
         className={styles.radioButtonGroup}
         onChange={onChange}
         invalid={!!error}
-        invalidText={error?.message}>
+        invalidText={error?.message}
+      >
         {bedDropdownItems.map(({ bedId, label, disabled }) => (
           <RadioButton
             key={bedId}

@@ -4,7 +4,7 @@ import styles from './compact-metrics-container.scss';
 
 /**
  * Compact Metrics Container
- * 
+ *
  * Container for compact metric cards (Total, Waiting, Avg Wait).
  * Uses ExtensionSlot following OpenMRS Extension System pattern.
  */
@@ -24,9 +24,3 @@ const CompactMetricsContainer: React.FC<CompactMetricsContainerProps> = ({ queue
 };
 
 export default CompactMetricsContainer;
-
-
-
-
-
-

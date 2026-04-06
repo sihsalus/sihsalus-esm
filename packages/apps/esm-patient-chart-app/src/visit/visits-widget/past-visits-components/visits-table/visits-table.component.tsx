@@ -44,7 +44,6 @@ import {
 import React, { type ComponentProps, useMemo, useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import EncounterObservations from '../../encounter-observations';
 import { type MappedEncounter } from '../../visit.resource';
 

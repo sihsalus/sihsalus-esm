@@ -18,8 +18,8 @@
 }
 
 .tableHeader {
-    @include type.type-style('heading-compact-01');
-    color: $text-02;
+  @include type.type-style('heading-compact-01');
+  color: $text-02;
 }
 
 .widgetCard {
@@ -47,7 +47,6 @@
   width: 31%;
 }
 
-
 .removeButton {
   svg {
     fill: $danger !important;
@@ -61,13 +60,13 @@
 }
 
 .wrapText {
-  word-break: break-all;  /* Break long words */
-  white-space: normal;  /* Allow wrapping */
+  word-break: break-all; /* Break long words */
+  white-space: normal; /* Allow wrapping */
   width: 170px;
 }
 
 .subTableWrapText {
-  word-break: break-all;  /* Break long words */
+  word-break: break-all; /* Break long words */
   white-space: normal;
 }
 
@@ -80,7 +79,8 @@
   padding: 6px;
 }
 
-.seriesTableDiv, .procedureStepTableDiv {
+.seriesTableDiv,
+.procedureStepTableDiv {
   border: 2px solid blue;
   margin-bottom: 5px;
 }

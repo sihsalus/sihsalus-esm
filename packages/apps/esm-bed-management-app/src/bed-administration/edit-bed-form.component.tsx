@@ -9,8 +9,6 @@ import BedAdministrationForm from './bed-administration-form.component';
 import { type BedAdministrationData } from './bed-administration-types';
 import { editBed, useBedType } from './bed-administration.resource';
 
-
-
 interface EditBedFormProps {
   editData: BedWithLocation;
   mutate: () => void;

@@ -1,11 +1,7 @@
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch } from '@carbon/react';
 import { Add, Analytics, Table } from '@carbon/react/icons';
 import { getPatientName, isDesktop as isDesktopLayout, launchWorkspace2, useLayoutType } from '@openmrs/esm-framework';
-import {
-  CardHeader,
-  EmptyState,
-  ErrorState,
-} from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -66,7 +62,8 @@ const GrowthChartOverview: React.FC<GrowthChartProps> = ({ patient, patientUuid 
               onChange={handleViewChange}
               size={isTablet ? 'md' : 'sm'}
               aria-label={t('chartTypeSelector', 'Select chart type')}
-              selectedIndex={isPercentiles ? 0 : 1}>
+              selectedIndex={isPercentiles ? 0 : 1}
+            >
               <IconSwitch name="percentileView" text={t('percentileView', 'Percentiles')}>
                 <Analytics size={16} />
               </IconSwitch>

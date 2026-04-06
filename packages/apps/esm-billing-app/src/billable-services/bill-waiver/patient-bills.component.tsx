@@ -83,7 +83,8 @@ const PatientBills: React.FC<PatientBillsProps> = ({ patientUuid, bills, setPati
           <TableContainer
             title={t('patientBills', 'Patient bills')}
             description={t('patientBillsDescription', 'List of patient bills')}
-            {...getTableContainerProps()}>
+            {...getTableContainerProps()}
+          >
             <Table {...getTableProps()} aria-label={t('billsTable', 'Bills table')}>
               <TableHead>
                 <TableRow>
@@ -93,7 +94,8 @@ const PatientBills: React.FC<PatientBillsProps> = ({ patientUuid, bills, setPati
                       key={i}
                       {...getHeaderProps({
                         header,
-                      })}>
+                      })}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}
@@ -105,7 +107,8 @@ const PatientBills: React.FC<PatientBillsProps> = ({ patientUuid, bills, setPati
                     <TableExpandRow
                       {...getRowProps({
                         row,
-                      })}>
+                      })}
+                    >
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
@@ -115,7 +118,8 @@ const PatientBills: React.FC<PatientBillsProps> = ({ patientUuid, bills, setPati
                       className="demo-expanded-td"
                       {...getExpandedRowProps({
                         row,
-                      })}>
+                      })}
+                    >
                       <div>
                         <PatientBillsSelections bills={bills[index]} setPatientUuid={setPatientUuid} />
                       </div>

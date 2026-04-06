@@ -20,15 +20,15 @@ export function useFormEncounters(cachedOfflineFormsOnly = false, patientUuid: s
   const url = hasCustomFormsUrl
     ? customFormsUrl.concat(`?patientUuid=${patientUuid}`)
     : showHtmlFormEntryForms
-    ? formEncounterUrl
-    : formEncounterUrlPoc;
+      ? formEncounterUrl
+      : formEncounterUrlPoc;
 
   return useSWR([url, cachedOfflineFormsOnly], async () => {
     const res = await openmrsFetch<ListResponse<Form>>(url);
     // show published forms and hide component forms
     const forms = hasCustomFormsUrl
       ? res?.data.results
-      : res.data?.results?.filter((form) => form.published && !/component/i.test(form.name)) ?? [];
+      : (res.data?.results?.filter((form) => form.published && !/component/i.test(form.name)) ?? []);
 
     if (!cachedOfflineFormsOnly) {
       return forms;

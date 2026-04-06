@@ -40,7 +40,8 @@ const WardPatientCard: React.FC<Props> = ({ children, wardPatient }) => {
               });
             },
           });
-        }}>
+        }}
+      >
         {/* Name will not be displayed; just there for a11y */}
         {getPatientName(patient.person)}
       </button>

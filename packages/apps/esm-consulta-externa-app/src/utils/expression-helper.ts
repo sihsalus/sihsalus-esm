@@ -18,12 +18,8 @@ export const evaluateExpression = (
     return false;
   }
 
-  const enrollment = enrollments
-    ? enrollments.flatMap((e) => e?.program?.['name']).filter(Boolean)
-    : [];
-  const programUuids = enrollments
-    ? enrollments.flatMap((e) => e?.program?.['uuid']).filter(Boolean)
-    : [];
+  const enrollment = enrollments ? enrollments.flatMap((e) => e?.program?.['name']).filter(Boolean) : [];
+  const programUuids = enrollments ? enrollments.flatMap((e) => e?.program?.['uuid']).filter(Boolean) : [];
 
   return safeEvaluateExpression(expression, {
     patient: patient ?? {},

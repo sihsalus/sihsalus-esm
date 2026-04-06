@@ -34,4 +34,3 @@ export const WORKSPACES = {
   TRIAGE_FORM: 'triage-form-workspace',
   ATTENTION_FORM: 'attention-form-workspace',
 } as const;
-

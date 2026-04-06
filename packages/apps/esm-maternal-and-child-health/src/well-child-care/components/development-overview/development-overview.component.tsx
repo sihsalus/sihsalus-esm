@@ -39,12 +39,7 @@ const DevelopmentOverview: React.FC<DevelopmentOverviewProps> = ({ patientUuid }
               {t('tepsiDescription', 'Evaluación del desarrollo psicomotor (2-5 años)')}
             </p>
           </div>
-          <Button
-            kind="tertiary"
-            size="sm"
-            renderIcon={Education}
-            onClick={handleLaunchTepsi}
-          >
+          <Button kind="tertiary" size="sm" renderIcon={Education} onClick={handleLaunchTepsi}>
             {t('startTepsi', 'Realizar TEPSI')}
           </Button>
         </div>
@@ -56,12 +51,7 @@ const DevelopmentOverview: React.FC<DevelopmentOverviewProps> = ({ patientUuid }
               {t('testPeruanoDescription', 'Evaluación del desarrollo infantil adaptada al contexto peruano')}
             </p>
           </div>
-          <Button
-            kind="tertiary"
-            size="sm"
-            renderIcon={Growth}
-            onClick={handleLaunchTestPeruano}
-          >
+          <Button kind="tertiary" size="sm" renderIcon={Growth} onClick={handleLaunchTestPeruano}>
             {t('startTestPeruano', 'Realizar Test Peruano')}
           </Button>
         </div>

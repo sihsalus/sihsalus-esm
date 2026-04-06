@@ -25,8 +25,7 @@ interface StimulationSessionsProps {
 const StimulationSessions: React.FC<StimulationSessionsProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { totalSessions, lastSessionDate, developmentAreas, isLoading, error } =
-    useStimulationSessions(patientUuid);
+  const { totalSessions, lastSessionDate, developmentAreas, isLoading, error } = useStimulationSessions(patientUuid);
   const headerTitle = t('esSessionsTitle', 'Sesiones de Estimulación');
 
   const handleAdd = useCallback(() => {
@@ -79,9 +78,7 @@ const StimulationSessions: React.FC<StimulationSessionsProps> = ({ patientUuid }
               </StructuredListCell>
             </StructuredListRow>
             <StructuredListRow>
-              <StructuredListCell className={styles.label}>
-                {t('lastSession', 'Última sesión')}
-              </StructuredListCell>
+              <StructuredListCell className={styles.label}>{t('lastSession', 'Última sesión')}</StructuredListCell>
               <StructuredListCell className={styles.value}>
                 {lastSessionDate ?? <span className={styles.noData}>{t('noData', 'Sin datos')}</span>}
               </StructuredListCell>

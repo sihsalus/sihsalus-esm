@@ -3,7 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { DataTableSkeleton } from '@carbon/react';
 import { Timer } from '@carbon/react/icons';
 import { ErrorState } from '@openmrs/esm-framework';
-import { MetricsCard, MetricsCardHeader, MetricsCardBody, MetricsCardItem } from '../../emergency-metrics/metrics-cards/metrics-card.component';
+import {
+  MetricsCard,
+  MetricsCardHeader,
+  MetricsCardBody,
+  MetricsCardItem,
+} from '../../emergency-metrics/metrics-cards/metrics-card.component';
 import { useAverageWaitTimeByPriority } from '../../../resources/emergency.resource';
 
 const AvgWaitTimeCard: React.FC<{ queueUuid?: string }> = ({ queueUuid }) => {
@@ -27,28 +32,20 @@ const AvgWaitTimeCard: React.FC<{ queueUuid?: string }> = ({ queueUuid }) => {
   };
 
   // Calculate overall average
-  const allWaitTimes = [
-    averages.priorityI,
-    averages.priorityII,
-    averages.priorityIII,
-    averages.priorityIV,
-  ].filter((time): time is number => time !== null);
+  const allWaitTimes = [averages.priorityI, averages.priorityII, averages.priorityIII, averages.priorityIV].filter(
+    (time): time is number => time !== null,
+  );
 
-  const overallAverage = allWaitTimes.length > 0
-    ? Math.round(allWaitTimes.reduce((sum, time) => sum + time, 0) / allWaitTimes.length)
-    : null;
+  const overallAverage =
+    allWaitTimes.length > 0
+      ? Math.round(allWaitTimes.reduce((sum, time) => sum + time, 0) / allWaitTimes.length)
+      : null;
 
   return (
     <MetricsCard>
-      <MetricsCardHeader
-        title={t('avgWaitTime', 'Tiempo prom. espera')}
-        icon={<Timer size={24} />}
-      />
+      <MetricsCardHeader title={t('avgWaitTime', 'Tiempo prom. espera')} icon={<Timer size={24} />} />
       <MetricsCardBody>
-        <MetricsCardItem
-          label={t('time', 'Tiempo')}
-          value={formatWaitTime(overallAverage)}
-        />
+        <MetricsCardItem label={t('time', 'Tiempo')} value={formatWaitTime(overallAverage)} />
       </MetricsCardBody>
     </MetricsCard>
   );

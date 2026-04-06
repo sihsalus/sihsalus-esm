@@ -15,9 +15,9 @@ export const EmergencyQueueStatusCell: React.FC<EmergencyQueueTableCellProps> = 
 
   const isInTriageQueue = queueEntry.queue?.uuid === emergencyTriageQueueUuid;
   const triageEncounterTypeUuid = config.triageEncounter.encounterTypeUuid;
-  const hasTriageEncounter = queueEntry.visit?.encounters?.some(
-    (enc) => enc.encounterType?.uuid === triageEncounterTypeUuid && !enc.voided,
-  ) ?? false;
+  const hasTriageEncounter =
+    queueEntry.visit?.encounters?.some((enc) => enc.encounterType?.uuid === triageEncounterTypeUuid && !enc.voided) ??
+    false;
   const isTriagePending = !isInTriageQueue && !hasTriageEncounter;
 
   return (

@@ -1,6 +1,6 @@
 /**
  * Emergency Workflow Module
- * 
+ *
  * This module provides the integrated workflow for emergency patient management:
  * Step 1: Patient Search/Registration
  * Step 2: Create Emergency Visit
@@ -9,9 +9,3 @@
  */
 
 export { default } from './emergency-workflow-workspace';
-
-
-
-
-
-

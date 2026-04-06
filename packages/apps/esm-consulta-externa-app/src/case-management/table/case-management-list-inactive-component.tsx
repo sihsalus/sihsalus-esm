@@ -18,7 +18,6 @@ import { CardHeader, EmptyDataIllustration } from '@openmrs/esm-patient-common-l
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { extractNameString, uppercaseText } from '../../utils/expression-helper';
 import { useActivecases } from '../workspace/case-management.resource';
 
@@ -71,7 +70,8 @@ const CaseManagementListInActive: React.FC<CaseManagementListInActiveProps> = ({
       <ConfigurableLink
         className={styles.configurableLink}
         to={patientChartUrl}
-        templateParams={{ patientUuid: caseData.personB.uuid }}>
+        templateParams={{ patientUuid: caseData.personB.uuid }}
+      >
         {uppercaseText(extractNameString(caseData.personB.display))}
       </ConfigurableLink>
     ),

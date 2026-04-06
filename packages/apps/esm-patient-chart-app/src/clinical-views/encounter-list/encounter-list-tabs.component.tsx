@@ -10,7 +10,6 @@ import { filter } from '../utils/helpers';
 import styles from './encounter-list-tabs.scss';
 import { EncounterList } from './encounter-list.component';
 
-
 interface EncounterListTabsComponentProps {
   patientUuid: string;
 }

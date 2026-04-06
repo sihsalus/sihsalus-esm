@@ -37,7 +37,8 @@ const InitialPrioritySelector: React.FC<InitialPrioritySelectorProps> = ({ value
         valueSelected={value || ''}
         onChange={(val: string) => onChange(val as InitialPriority)}
         orientation="vertical"
-        className={styles.radioGroup}>
+        className={styles.radioGroup}
+      >
         <RadioButton
           value="emergency"
           disabled={disabled}
@@ -51,7 +52,10 @@ const InitialPrioritySelector: React.FC<InitialPrioritySelectorProps> = ({ value
                 </Tag>
               </div>
               <p className={styles.optionDescription}>
-                {t('emergencyDescription', 'Paciente con riesgo vital o descompensación. Requiere evaluación prioritaria.')}
+                {t(
+                  'emergencyDescription',
+                  'Paciente con riesgo vital o descompensación. Requiere evaluación prioritaria.',
+                )}
               </p>
             </div>
           }

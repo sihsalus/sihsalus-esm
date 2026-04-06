@@ -32,11 +32,7 @@ interface ConfirmationStepProps {
   onClose: () => void;
 }
 
-const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
-  workflowState,
-  onRegisterAnother,
-  onClose,
-}) => {
+const ConfirmationStep: React.FC<ConfirmationStepProps> = ({ workflowState, onRegisterAnother, onClose }) => {
   const { t } = useTranslation();
 
   const patientName =

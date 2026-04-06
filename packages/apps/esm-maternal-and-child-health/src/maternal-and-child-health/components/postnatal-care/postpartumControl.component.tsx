@@ -285,7 +285,8 @@ const PostpartumControlTable: React.FC<ProgramsDetailedSummaryProps> = ({ patien
                           <TableHeader
                             key={header.key}
                             className={classNames(styles.productiveHeading01, styles.text02)}
-                            {...getHeaderProps({ header, isSortable: header.isSortable })}>
+                            {...getHeaderProps({ header, isSortable: header.isSortable })}
+                          >
                             {header.header?.content ?? header.header}
                           </TableHeader>
                         ))}

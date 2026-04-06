@@ -1,6 +1,6 @@
 /**
  * Emergency Module - Main component
- * 
+ *
  * This is the root component for the Emergency module.
  * It renders the emergency dashboard which displays metrics, patient queues,
  * and provides access to the emergency workflow.

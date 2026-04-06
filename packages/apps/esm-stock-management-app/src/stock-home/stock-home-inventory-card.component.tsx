@@ -59,13 +59,11 @@ const StockHomeInventoryCard = () => {
               {t('quantityLabel', 'Quantity:')} {item?.quantity} {item?.dispensingUnitName}
             </p>
           </div>
-
         </div>
       ))}
       <Button kind="ghost" onClick={launchExpiredStockModal} size="sm">
         {t('viewAll', 'View All')}
       </Button>
-
     </>
   );
 };

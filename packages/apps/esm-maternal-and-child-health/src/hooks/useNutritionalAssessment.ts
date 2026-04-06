@@ -52,9 +52,18 @@ export function useNutritionalAssessment(patientUuid: string): NutritionalAssess
   const config = useConfig<ConfigObject>();
   const cn = config.childNutrition;
 
-  const peUrl = useMemo(() => buildObsUrl(patientUuid, cn?.weightForAgeConceptUuid), [patientUuid, cn?.weightForAgeConceptUuid]);
-  const teUrl = useMemo(() => buildObsUrl(patientUuid, cn?.heightForAgeConceptUuid), [patientUuid, cn?.heightForAgeConceptUuid]);
-  const ptUrl = useMemo(() => buildObsUrl(patientUuid, cn?.weightForHeightConceptUuid), [patientUuid, cn?.weightForHeightConceptUuid]);
+  const peUrl = useMemo(
+    () => buildObsUrl(patientUuid, cn?.weightForAgeConceptUuid),
+    [patientUuid, cn?.weightForAgeConceptUuid],
+  );
+  const teUrl = useMemo(
+    () => buildObsUrl(patientUuid, cn?.heightForAgeConceptUuid),
+    [patientUuid, cn?.heightForAgeConceptUuid],
+  );
+  const ptUrl = useMemo(
+    () => buildObsUrl(patientUuid, cn?.weightForHeightConceptUuid),
+    [patientUuid, cn?.weightForHeightConceptUuid],
+  );
 
   const { data: peData, isLoading: peLoading, error: peError } = useSWR(peUrl, fetcher);
   const { data: teData, isLoading: teLoading, error: teError } = useSWR(teUrl, fetcher);

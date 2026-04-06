@@ -107,7 +107,8 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
               data-testid="closeSearchIcon"
               enterDelayMs={500}
               name="CloseSearchIcon"
-              onClick={closePatientSearch}>
+              onClick={closePatientSearch}
+            >
               <Close size={20} />
             </HeaderGlobalAction>
           </div>
@@ -129,7 +130,8 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
               if (userUuid) {
                 void preload(`${restBaseUrl}/user/${userUuid}`, openmrsFetch);
               }
-            }}>
+            }}
+          >
             <Search size={20} />
           </HeaderGlobalAction>
         </div>

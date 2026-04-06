@@ -105,7 +105,7 @@ export const avgWaitTimeCompactCard = getAsyncLifecycle(
 
 /**
  * Service Queues Integration Extensions
- * 
+ *
  * These extensions inject emergency-specific components into service-queues-app
  * when emergency location is selected. They are registered in service-queues slots.
  */

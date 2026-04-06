@@ -149,7 +149,11 @@ const EmergencyWorkflowWorkspace: React.FC<EmergencyWorkflowWorkspaceProps> = ({
         return <PatientSearchRegistration onPatientQueued={handlePatientQueued} />;
       case WorkflowStep.CONFIRMACION:
         return (
-          <ConfirmationStep workflowState={workflowState} onRegisterAnother={handleRegisterAnother} onClose={closeWorkspace} />
+          <ConfirmationStep
+            workflowState={workflowState}
+            onRegisterAnother={handleRegisterAnother}
+            onClose={closeWorkspace}
+          />
         );
       default:
         return null;

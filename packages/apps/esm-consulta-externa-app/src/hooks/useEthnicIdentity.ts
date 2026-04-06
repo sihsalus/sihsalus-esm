@@ -27,7 +27,7 @@ export function useEthnicIdentity(patientUuid: string, conceptUuid: string) {
     obsUuid: obs.uuid,
     encounterUuid: obs.encounter?.uuid ?? '',
     encounterDatetime: obs.obsDatetime,
-    value: typeof obs.value === 'string' ? obs.value : obs.value?.display ?? '',
+    value: typeof obs.value === 'string' ? obs.value : (obs.value?.display ?? ''),
   }));
 
   const currentValue = entries.length > 0 ? entries[0].value : null;

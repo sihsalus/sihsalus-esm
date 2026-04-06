@@ -74,11 +74,7 @@ type QuickRegistrationFormData = z.infer<typeof quickRegistrationSchema>;
 // ============================================================================
 
 interface PatientSearchRegistrationProps {
-  onPatientQueued: (
-    patientUuid: string,
-    patientData: SearchedPatient,
-    priorityLevel: InitialPriority,
-  ) => void;
+  onPatientQueued: (patientUuid: string, patientData: SearchedPatient, priorityLevel: InitialPriority) => void;
 }
 
 // ============================================================================
@@ -352,15 +348,24 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
         const newPatient = {
           uuid: savedPatient.uuid,
           display: savedPatient.display || displayName,
-          identifiers: savedPatient.identifiers?.map((id: { uuid: string; identifier?: string; display?: string; identifierType: { uuid: string; display?: string } }) => ({
-            uuid: id.uuid,
-            identifier: id.identifier ?? id.display,
-            identifierType: id.identifierType,
-          })) ?? identifiers.map((id: { identifier: string; identifierType: string }, i: number) => ({
-            uuid: `temp-${i}`,
-            identifier: id.identifier,
-            identifierType: { uuid: id.identifierType, display: i === 0 ? 'OpenMRS ID' : 'DNI' },
-          })),
+          identifiers:
+            savedPatient.identifiers?.map(
+              (id: {
+                uuid: string;
+                identifier?: string;
+                display?: string;
+                identifierType: { uuid: string; display?: string };
+              }) => ({
+                uuid: id.uuid,
+                identifier: id.identifier ?? id.display,
+                identifierType: id.identifierType,
+              }),
+            ) ??
+            identifiers.map((id: { identifier: string; identifierType: string }, i: number) => ({
+              uuid: `temp-${i}`,
+              identifier: id.identifier,
+              identifierType: { uuid: id.identifierType, display: i === 0 ? 'OpenMRS ID' : 'DNI' },
+            })),
           person: {
             age: data.yearsEstimated || undefined,
             gender: data.gender,
@@ -542,7 +547,8 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                             size="sm"
                             className={styles.contentSwitcher}
                             selectedIndex={isPatientUnknown ? 1 : 0}
-                            onChange={handleUnknownPatientToggle}>
+                            onChange={handleUnknownPatientToggle}
+                          >
                             <Switch name="known" text={t('yes', 'Sí')} />
                             <Switch name="unknown" text={t('no', 'No')} />
                           </ContentSwitcher>
@@ -614,7 +620,8 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                                     invalidText={errors.gender?.message}
                                     disabled={isRegistering}
                                     value={field.value || ''}
-                                    onChange={(e) => field.onChange(e.target.value)}>
+                                    onChange={(e) => field.onChange(e.target.value)}
+                                  >
                                     <SelectItem value="" text="..." />
                                     <SelectItem value="M" text="M" />
                                     <SelectItem value="F" text="F" />
@@ -648,7 +655,8 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                                   invalidText={errors.gender?.message}
                                   disabled={isRegistering}
                                   value={field.value || ''}
-                                  onChange={(e) => field.onChange(e.target.value)}>
+                                  onChange={(e) => field.onChange(e.target.value)}
+                                >
                                   <SelectItem value="" text="..." />
                                   <SelectItem value="M" text="M" />
                                   <SelectItem value="F" text="F" />
@@ -711,14 +719,33 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                                     labelText={t('insuranceType', 'Tipo')}
                                     disabled={isRegistering}
                                     value={field.value || ''}
-                                    onChange={(e) => field.onChange(e.target.value)}>
+                                    onChange={(e) => field.onChange(e.target.value)}
+                                  >
                                     <SelectItem value="" text={t('select', 'Seleccionar')} />
-                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.sisGratuitoUuid} text="SIS Gratuito" />
-                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.sisEmprendedorUuid} text="SIS Emprendedor" />
-                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.sisSemicontributivoUuid} text="SIS Semicontributivo" />
-                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.essaludUuid} text="EsSalud" />
-                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.privateUuid} text={t('privateInsurance', 'Seguro Privado')} />
-                                    <SelectItem value={config.patientRegistration.insuranceTypeConcepts.noneUuid} text={t('noInsurance', 'Ninguno')} />
+                                    <SelectItem
+                                      value={config.patientRegistration.insuranceTypeConcepts.sisGratuitoUuid}
+                                      text="SIS Gratuito"
+                                    />
+                                    <SelectItem
+                                      value={config.patientRegistration.insuranceTypeConcepts.sisEmprendedorUuid}
+                                      text="SIS Emprendedor"
+                                    />
+                                    <SelectItem
+                                      value={config.patientRegistration.insuranceTypeConcepts.sisSemicontributivoUuid}
+                                      text="SIS Semicontributivo"
+                                    />
+                                    <SelectItem
+                                      value={config.patientRegistration.insuranceTypeConcepts.essaludUuid}
+                                      text="EsSalud"
+                                    />
+                                    <SelectItem
+                                      value={config.patientRegistration.insuranceTypeConcepts.privateUuid}
+                                      text={t('privateInsurance', 'Seguro Privado')}
+                                    />
+                                    <SelectItem
+                                      value={config.patientRegistration.insuranceTypeConcepts.noneUuid}
+                                      text={t('noInsurance', 'Ninguno')}
+                                    />
                                   </Select>
                                 )}
                               />
@@ -736,7 +763,9 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                         {/* ── Acompañante / Responsable ── */}
                         {!isPatientUnknown && (
                           <fieldset className={styles.formSection}>
-                            <legend className={styles.sectionTitle}>{t('companion', 'Acompañante / Responsable')}</legend>
+                            <legend className={styles.sectionTitle}>
+                              {t('companion', 'Acompañante / Responsable')}
+                            </legend>
                             <TextInput
                               id="companionName"
                               labelText={t('companionName', 'Nombre completo')}
@@ -772,7 +801,8 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                               setShowRegistrationForm(false);
                               reset();
                             }}
-                            disabled={isRegistering}>
+                            disabled={isRegistering}
+                          >
                             {t('cancel', 'Cancelar')}
                           </Button>
                           <Button type="submit" size="md" disabled={isRegistering}>
@@ -802,9 +832,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                   <User size={24} />
                   <div>
                     <p className={styles.patientResultName}>
-                      {readyPatient.person?.personName?.display ||
-                        readyPatient.person?.display ||
-                        readyPatient.display}
+                      {readyPatient.person?.personName?.display || readyPatient.person?.display || readyPatient.display}
                     </p>
                     <div className={styles.patientResultMeta}>
                       {readyPatient.person?.age != null && (
@@ -851,7 +879,8 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
               renderIcon={SendFilled}
               onClick={handleSendToQueue}
               disabled={!initialPriority || isSubmitting}
-              className={styles.submitButton}>
+              className={styles.submitButton}
+            >
               {isSubmitting ? (
                 <InlineLoading description={t('sending', 'Enviando...')} />
               ) : (

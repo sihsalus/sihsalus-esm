@@ -12,7 +12,6 @@ import React, { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, type Location, useSearchParams } from 'react-router-dom';
 
-
 import type { ConfigSchema } from '../config-schema';
 import type { LoginReferrer } from '../login/login.component';
 

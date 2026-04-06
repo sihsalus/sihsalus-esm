@@ -24,8 +24,6 @@ import styles from './newborn-vitals-form.scss';
 import NewbornVitalsInput from './newborn-vitals-input.component';
 import { isValueWithinReferenceRange } from './vitals-biometrics-form.utils';
 
-
-
 const FluidBalanceSchema = z
   .object({
     stoolCount: z.number(),
@@ -43,10 +41,7 @@ const FluidBalanceSchema = z
 
 export type FluidBalanceFormType = z.infer<typeof FluidBalanceSchema>;
 
-const NewbornFluidBalanceForm: React.FC<DefaultPatientWorkspaceProps> = ({
-  closeWorkspace,
-  workspaceProps,
-}) => {
+const NewbornFluidBalanceForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, workspaceProps }) => {
   const patientUuid = workspaceProps?.patientUuid ?? '';
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -252,7 +247,8 @@ const NewbornFluidBalanceForm: React.FC<DefaultPatientWorkspaceProps> = ({
           kind="primary"
           onClick={handleSubmit(saveFluidBalance, onError)}
           disabled={isSubmitting}
-          type="submit">
+          type="submit"
+        >
           {t('submit', 'Save and close')}
         </Button>
       </ButtonSet>

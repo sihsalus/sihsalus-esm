@@ -35,7 +35,6 @@ import styles from './patient-observation-group-table.scss';
 
 // Importar tipos desde el componente separado
 
-
 interface PatientObservationGroupTableProps {
   patientUuid: string;
   headerTitle: string;
@@ -181,7 +180,8 @@ const PatientObservationGroupTable: React.FC<PatientObservationGroupTableProps> 
             kind="ghost"
             renderIcon={(props) => <AddIcon size={16} {...props} />}
             onClick={launchForm}
-            aria-label={t('add')}>
+            aria-label={t('add')}
+          >
             {t('edit', 'Edit')}
           </Button>
         )}
@@ -200,7 +200,8 @@ const PatientObservationGroupTable: React.FC<PatientObservationGroupTableProps> 
                       {...getHeaderProps({
                         header,
                         className: header.key === 'actions' ? styles.actionsColumn : '',
-                      })}>
+                      })}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}

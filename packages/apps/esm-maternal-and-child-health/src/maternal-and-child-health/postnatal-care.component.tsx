@@ -10,10 +10,7 @@ export interface PostnatalCareProps {
   patientUuid?: string | null;
 }
 
-export const PostnatalCare: React.FC<PostnatalCareProps> = ({
-  patient: patientProp,
-  patientUuid: patientUuidProp,
-}) => {
+export const PostnatalCare: React.FC<PostnatalCareProps> = ({ patient: patientProp, patientUuid: patientUuidProp }) => {
   const { patient: hookPatient, patientUuid: hookPatientUuid } = usePatient();
   const patient = patientProp ?? hookPatient;
   const patientUuid = patientUuidProp ?? hookPatientUuid;

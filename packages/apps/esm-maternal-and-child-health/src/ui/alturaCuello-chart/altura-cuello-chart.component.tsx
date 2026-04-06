@@ -222,7 +222,8 @@ const AlturaCuelloChart: React.FC<AlturaCuelloChartProps> = ({ measurementData, 
             size="sm"
             kind="ghost"
             onClick={() => setIsPercentiles(!isPercentiles)}
-            className={styles.toggleButton}>
+            className={styles.toggleButton}
+          >
             {isPercentiles ? t('percentiles', 'Percentiles') : t('zScores', 'Z-Scores')}
           </Button>
 
@@ -246,7 +247,8 @@ const AlturaCuelloChart: React.FC<AlturaCuelloChartProps> = ({ measurementData, 
                 })}
                 id={`${id}-tab`}
                 key={id}
-                onClick={() => setSelectedCategory({ id, title, value })}>
+                onClick={() => setSelectedCategory({ id, title, value })}
+              >
                 {title}
               </Tab>
             ))}

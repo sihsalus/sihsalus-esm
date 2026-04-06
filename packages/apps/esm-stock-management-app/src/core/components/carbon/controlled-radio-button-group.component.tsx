@@ -4,8 +4,10 @@ import { type Control, Controller, type FieldValues } from 'react-hook-form';
 import { RadioButtonGroup, RadioButton } from '@carbon/react';
 import { type RadioOption } from '../../../stock-items/add-stock-item/stock-item-details/stock-item-details.resource';
 
-interface ControlledRadioButtonGroupProps<T>
-  extends Omit<RadioButtonGroupProps, 'onChange' | 'id' | 'ref' | 'value' | 'defaultSelected'> {
+interface ControlledRadioButtonGroupProps<T> extends Omit<
+  RadioButtonGroupProps,
+  'onChange' | 'id' | 'ref' | 'value' | 'defaultSelected'
+> {
   controllerName: string;
   name: string;
   control: Control<FieldValues, T>;

@@ -1,7 +1,15 @@
 import { Button, ButtonSet, Column, Form, InlineNotification, TextInput, Tooltip } from '@carbon/react';
 import { Information as InformationIcon } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { age, ResponsiveWrapper, useConfig, useLayoutType, usePatient, useVisit, launchWorkspace2 } from '@openmrs/esm-framework';
+import {
+  age,
+  ResponsiveWrapper,
+  useConfig,
+  useLayoutType,
+  usePatient,
+  useVisit,
+  launchWorkspace2,
+} from '@openmrs/esm-framework';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -104,10 +112,7 @@ const CREDControlsWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
       patientAge: formattedAge,
       controlNumber: credControlNumber,
       title: t('credFormsSelection', 'Selección de Formularios CRED'),
-      subtitle: t(
-        'credFormsInstructions',
-        'Seleccione los formularios que desea completar para este control CRED.',
-      ),
+      subtitle: t('credFormsInstructions', 'Seleccione los formularios que desea completar para este control CRED.'),
       backWorkspace: 'wellchild-control-form',
     });
   }, [watch, patientUuid, visit, allAvailableForms, formattedAge, credControlNumber, t]);
@@ -199,7 +204,8 @@ const CREDControlsWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
                   <li>{t('escolar', 'Escolar: 5-11 años')}</li>
                 </ul>
               </div>
-            }>
+            }
+          >
             <button className={styles.tooltipButton} type="button">
               <InformationIcon className={styles.icon} size={20} />
             </button>
@@ -229,7 +235,8 @@ const CREDControlsWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
           kind="primary"
           onClick={handleStartControl}
           disabled={!visit || isSubmitting}
-          type="button">
+          type="button"
+        >
           {t('startControl', 'Empezar Control')}
         </Button>
       </ButtonSet>

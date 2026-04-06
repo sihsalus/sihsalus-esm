@@ -414,7 +414,7 @@ const OverviewComponent: React.FC = () => {
                         ) : cell.info.header === 'reportName' ? (
                           <div>{cell.value?.content ?? cell.value}</div>
                         ) : (
-                          cell.value?.content ?? cell.value
+                          (cell.value?.content ?? cell.value)
                         )}
                       </TableCell>
                     ))}

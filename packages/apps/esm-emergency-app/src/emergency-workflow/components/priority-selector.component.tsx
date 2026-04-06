@@ -1,6 +1,6 @@
 /**
  * Priority Selector Component
- * 
+ *
  * Allows users to select an emergency priority level for a patient.
  * Displays the 4 priority levels according to Peruvian technical standards.
  */
@@ -18,11 +18,7 @@ interface PrioritySelectorProps {
   disabled?: boolean;
 }
 
-const PrioritySelector: React.FC<PrioritySelectorProps> = ({
-  selectedPriorityUuid,
-  onChange,
-  disabled = false,
-}) => {
+const PrioritySelector: React.FC<PrioritySelectorProps> = ({ selectedPriorityUuid, onChange, disabled = false }) => {
   const { t } = useTranslation();
   const { getAllPriorities, getPriorityByUuid } = usePriorityConfig();
   const priorities = getAllPriorities();
@@ -91,12 +87,13 @@ const PrioritySelector: React.FC<PrioritySelectorProps> = ({
           name="emergency-priority"
           valueSelected={selectedPriorityUuid || ''}
           onChange={onChange}
-          orientation="vertical">
+          orientation="vertical"
+        >
           {priorities.map((priority) => {
             const priorityConfig = getPriorityByUuid(priority.uuid);
             const priorityCode = priorityConfig?.code || '';
             const maxWaitTime = priorityConfig?.maxWaitTimeMinutes || 0;
-            
+
             const labelContent = (
               <div className={styles.priorityContent}>
                 <div className={styles.priorityHeader}>
@@ -110,7 +107,7 @@ const PrioritySelector: React.FC<PrioritySelectorProps> = ({
                 <p className={styles.priorityDescription}>{getPriorityDescription(priorityCode)}</p>
               </div>
             );
-            
+
             return (
               <RadioButton
                 key={priority.uuid}
@@ -137,4 +134,3 @@ const PrioritySelector: React.FC<PrioritySelectorProps> = ({
 };
 
 export default PrioritySelector;
-

@@ -18,7 +18,8 @@ const PatientSearchTabPanel: React.FC = () => {
           onSubmit={(e) => {
             e.preventDefault();
             setSubmittedSearchTerm(searchTerm);
-          }}>
+          }}
+        >
           <Search
             closeButtonLabelText={t('clearSearchInput', 'Clear search input')}
             defaultValue={searchTerm}

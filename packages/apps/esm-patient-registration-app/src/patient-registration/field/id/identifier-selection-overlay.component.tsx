@@ -126,7 +126,8 @@ const PatientIdentifierOverlay: React.FC<PatientIdentifierOverlayProps> = ({ clo
                     name={`${identifierType?.fieldName}-identifier-sources`}
                     defaultSelected={patientIdentifier?.selectedSource?.uuid}
                     onChange={(sourceUuid: string) => handleSelectingIdentifierSource(identifierType, sourceUuid)}
-                    orientation="vertical">
+                    orientation="vertical"
+                  >
                     {identifierType?.identifierSources.map((source) => (
                       <RadioButton
                         key={source.uuid}
@@ -176,7 +177,8 @@ const PatientIdentifierOverlay: React.FC<PatientIdentifierOverlayProps> = ({ clo
             {t('configureIdentifiers', 'Configure identifiers')}
           </Button>
         </ButtonSet>
-      }>
+      }
+    >
       <div>
         <p className={styles.bodyLong02}>
           {t('IDInstructions', "Select the identifiers you'd like to add for this patient:")}

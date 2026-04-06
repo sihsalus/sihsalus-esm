@@ -65,7 +65,8 @@ const PatientSearchButton: React.FC<PatientSearchButtonProps> = ({
       aria-label="Search Patient Button"
       aria-labelledby="Search Patient Button"
       renderIcon={(props) => <Search size={20} {...props} />}
-      {...buttonProps}>
+      {...buttonProps}
+    >
       {buttonText ? buttonText : t('searchPatient', 'Search patient')}
     </Button>
   );

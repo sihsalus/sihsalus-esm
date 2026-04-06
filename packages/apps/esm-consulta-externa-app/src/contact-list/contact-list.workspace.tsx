@@ -152,7 +152,8 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
                   {...field}
                   ref={undefined}
                   invalid={error?.message}
-                  invalidText={error?.message}>
+                  invalidText={error?.message}
+                >
                   <DatePickerInput
                     id={`startdate-input`}
                     name="startdate-input"
@@ -178,7 +179,8 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
                   datePickerType="single"
                   {...field}
                   invalid={error?.message}
-                  invalidText={error?.message}>
+                  invalidText={error?.message}
+                >
                   <DatePickerInput
                     invalid={error?.message}
                     invalidText={error?.message}
@@ -253,7 +255,8 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
                           {...field}
                           invalid={error?.message}
                           invalidText={error?.message}
-                          className={styles.billingItem}>
+                          className={styles.billingItem}
+                        >
                           <RadioButton labelText={t('yes', 'Yes')} value={BOOLEAN_YES} id="physicalAssault_yes" />
                           <RadioButton labelText={t('no', 'No')} value={BOOLEAN_NO} id="physicalAssault_no" />
                         </RadioButtonGroup>
@@ -271,7 +274,8 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
                           {...field}
                           invalid={error?.message}
                           invalidText={error?.message}
-                          className={styles.billingItem}>
+                          className={styles.billingItem}
+                        >
                           <RadioButton labelText={t('yes', 'Yes')} value={BOOLEAN_YES} id="threatened_yes" />
                           <RadioButton labelText={t('no', 'No')} value={BOOLEAN_NO} id="threatened_no" />
                         </RadioButtonGroup>
@@ -292,7 +296,8 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
                           {...field}
                           invalid={error?.message}
                           invalidText={error?.message}
-                          className={styles.billingItem}>
+                          className={styles.billingItem}
+                        >
                           <RadioButton labelText={t('yes', 'Yes')} value={BOOLEAN_YES} id="sexualAssault_yes" />
                           <RadioButton labelText={t('no', 'No')} value={BOOLEAN_NO} id="sexualAssault_no" />
                         </RadioButtonGroup>

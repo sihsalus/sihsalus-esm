@@ -4,12 +4,12 @@
   flex: 1 1 0;
   min-width: 16rem;
   max-width: 25%;
-  
+
   @media (max-width: 1200px) {
     min-width: 45%;
     max-width: 48%;
   }
-  
+
   @media (max-width: 768px) {
     min-width: 100%;
     max-width: 100%;
@@ -27,7 +27,7 @@
 }
 
 // Global styles for the priority cards slot
-:global([data-extension-slot-name="service-queues-emergency-priority-cards-slot"]) {
+:global([data-extension-slot-name='service-queues-emergency-priority-cards-slot']) {
   display: flex;
   flex-flow: row wrap;
   gap: layout.$spacing-05;
@@ -37,11 +37,10 @@
 }
 
 // Internal slot for priority cards
-:global([data-extension-slot-name="emergency-priority-cards-internal-slot"]) {
+:global([data-extension-slot-name='emergency-priority-cards-internal-slot']) {
   display: flex;
   flex-flow: row wrap;
   gap: layout.$spacing-05;
   width: 100%;
   align-items: stretch;
 }
-

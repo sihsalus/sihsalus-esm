@@ -2,21 +2,16 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  ButtonSet,
-  Dropdown,
-  Form,
-  InlineNotification,
-  NumberInput,
-  TextArea,
-  TextInput,
-} from '@carbon/react';
+import { Button, ButtonSet, Dropdown, Form, InlineNotification, NumberInput, TextArea, TextInput } from '@carbon/react';
 import { showSnackbar, useConfig, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
 import { useSWRConfig } from 'swr';
 import { useEmergencyConfig, usePriorityConfig } from '../hooks/usePriorityConfig';
 import { useConceptReferenceRanges } from '../hooks/useConceptReferenceRanges';
-import { createTriageEncounter, transitionToAttentionQueue, type EmergencyQueueEntry } from '../resources/emergency.resource';
+import {
+  createTriageEncounter,
+  transitionToAttentionQueue,
+  type EmergencyQueueEntry,
+} from '../resources/emergency.resource';
 import PrioritySelector from '../emergency-workflow/components/priority-selector.component';
 import type { Config } from '../config-schema';
 import {
@@ -45,10 +40,7 @@ const VITAL_FIELDS: Array<{ field: VitalFieldName; conceptKey: string }> = [
   { field: 'diastolicBp', conceptKey: 'diastolicBpUuid' },
 ];
 
-const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
-  closeWorkspace,
-  queueEntry,
-}) => {
+const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({ closeWorkspace, queueEntry }) => {
   const { t } = useTranslation();
   const { mutate } = useSWRConfig();
   const config = useConfig<Config>();
@@ -56,12 +48,15 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
   const { getSortWeight } = usePriorityConfig();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const consciousnessLevelItems = useMemo(() => [
-    { id: 'alert', text: t('avpuAlert', 'Alerta') },
-    { id: 'verbal', text: t('avpuVerbal', 'Respuesta verbal') },
-    { id: 'pain', text: t('avpuPain', 'Respuesta al dolor') },
-    { id: 'unresponsive', text: t('avpuUnresponsive', 'No responde') },
-  ], [t]);
+  const consciousnessLevelItems = useMemo(
+    () => [
+      { id: 'alert', text: t('avpuAlert', 'Alerta') },
+      { id: 'verbal', text: t('avpuVerbal', 'Respuesta verbal') },
+      { id: 'pain', text: t('avpuPain', 'Respuesta al dolor') },
+      { id: 'unresponsive', text: t('avpuUnresponsive', 'No responde') },
+    ],
+    [t],
+  );
 
   const patientName = queueEntry.patient.person?.display || queueEntry.patient.display;
   const gender = queueEntry.patient.person?.gender || '';
@@ -72,9 +67,10 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
   const conceptMap = triageEncounter.vitalSignsConcepts;
 
   const fieldToConceptUuid = useMemo<Record<VitalFieldName, string>>(
-    () => Object.fromEntries(
-      VITAL_FIELDS.map(({ field, conceptKey }) => [field, conceptMap[conceptKey as keyof typeof conceptMap]]),
-    ) as Record<VitalFieldName, string>,
+    () =>
+      Object.fromEntries(
+        VITAL_FIELDS.map(({ field, conceptKey }) => [field, conceptMap[conceptKey as keyof typeof conceptMap]]),
+      ) as Record<VitalFieldName, string>,
     [conceptMap],
   );
 
@@ -137,7 +133,10 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
             showSnackbar({
               title: t('rangeValidationWarning', 'Valores fuera de rango'),
               kind: 'warning',
-              subtitle: t('rangeValidationWarningDetail', 'Algunos valores están fuera del rango permitido para este paciente. Revise los campos marcados.'),
+              subtitle: t(
+                'rangeValidationWarningDetail',
+                'Algunos valores están fuera del rango permitido para este paciente. Revise los campos marcados.',
+              ),
             });
             setIsSubmitting(false);
             return;
@@ -156,7 +155,9 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
         }
 
         if (data.consciousnessLevel) {
-          const consciousnessText = consciousnessLevelItems.find((item) => item.id === data.consciousnessLevel)?.text || data.consciousnessLevel;
+          const consciousnessText =
+            consciousnessLevelItems.find((item) => item.id === data.consciousnessLevel)?.text ||
+            data.consciousnessLevel;
           observations.push({ concept: conceptMap.consciousnessLevelUuid, value: consciousnessText });
         }
 
@@ -220,7 +221,8 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
         showSnackbar({
           title: t('triageError', 'Error en el triaje'),
           kind: 'error',
-          subtitle: error instanceof Error ? error.message : t('triageErrorGeneric', 'Ocurrió un error al completar el triaje'),
+          subtitle:
+            error instanceof Error ? error.message : t('triageErrorGeneric', 'Ocurrió un error al completar el triaje'),
         });
       } finally {
         setIsSubmitting(false);
@@ -443,10 +445,7 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
             name="priorityUuid"
             control={control}
             render={({ field }) => (
-              <PrioritySelector
-                selectedPriorityUuid={field.value}
-                onChange={(uuid) => field.onChange(uuid)}
-              />
+              <PrioritySelector selectedPriorityUuid={field.value} onChange={(uuid) => field.onChange(uuid)} />
             )}
           />
           {errors.priorityUuid && (
@@ -466,9 +465,7 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({
           {t('cancel', 'Cancelar')}
         </Button>
         <Button kind="primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting
-            ? t('submittingTriage', 'Completando triaje...')
-            : t('completeTriage', 'Completar triaje')}
+          {isSubmitting ? t('submittingTriage', 'Completando triaje...') : t('completeTriage', 'Completar triaje')}
         </Button>
       </ButtonSet>
     </Form>

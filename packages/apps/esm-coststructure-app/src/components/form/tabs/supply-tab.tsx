@@ -4,7 +4,6 @@ import React from 'react';
 import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-
 import useGetSupply from '../../../hooks/use-get-supply';
 import { calculateStandarCostSupply, calculateUnitCostSupply } from '../../../utils/supply';
 import NoContent from '../../ui/NoContent/NoContent';
