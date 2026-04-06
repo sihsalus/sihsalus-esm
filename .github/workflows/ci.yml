@@ -55,6 +55,18 @@ jobs:
       - name: Test
         run: yarn test
 
+      - name: Generate Coverage Report
+        run: yarn test:coverage || true
+        continue-on-error: true
+
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          fail_ci_if_error: false
+          verbose: true
+
       - name: Build
         run: yarn build
 
