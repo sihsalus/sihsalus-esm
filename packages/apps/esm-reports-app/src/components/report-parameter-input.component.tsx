@@ -42,13 +42,8 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
 
   const handleOnChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      let eventValue = null;
       const target = event.target as HTMLInputElement | HTMLSelectElement;
-      if ((target as HTMLInputElement).type === 'checkbox') {
-        eventValue = (target as HTMLInputElement).checked;
-      } else {
-        eventValue = target.value;
-      }
+      const eventValue = (target as HTMLInputElement).type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
 
       setValueInternal(eventValue);
 

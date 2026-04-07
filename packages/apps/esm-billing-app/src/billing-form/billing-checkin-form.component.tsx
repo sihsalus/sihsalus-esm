@@ -19,7 +19,9 @@ const BillingCheckInForm: React.FC<BillingCheckInFormProps> = ({ patientUuid, se
   const { lineItems, isLoading: isLoadingLineItems, error: lineError } = useBillableItems();
   const [attributes, setAttributes] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState<any>();
-  let lineList = [];
+  const lineList = paymentMethod
+    ? lineItems.filter((e) => e.servicePrices.some((p) => p.paymentMode && p.paymentMode.uuid === paymentMethod))
+    : [];
 
   const handleCreateExtraVisitInfo = useCallback(
     async (createBillPayload) => {
@@ -81,13 +83,6 @@ const BillingCheckInForm: React.FC<BillingCheckInFormProps> = ({ patientUuid, se
         iconDescription={getCoreTranslation('loading')}
         description={`${t('loadingBillingServices', 'Loading billing services')}...`}
       />
-    );
-  }
-
-  if (paymentMethod) {
-    lineList = [];
-    lineList = lineItems.filter((e) =>
-      e.servicePrices.some((p) => p.paymentMode && p.paymentMode.uuid === paymentMethod),
     );
   }
 

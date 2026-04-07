@@ -27,7 +27,7 @@ try {
     windowsHide: true,
   });
   process.exit(0);
-} catch (error) {
+} catch {
   // git diff-index --quite HEAD --
   // exits with status 1 if there are changes; we only need to run yarn verify if there are changes
 }

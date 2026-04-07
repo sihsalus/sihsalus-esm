@@ -4,7 +4,6 @@ import { DataTableSkeleton } from '@carbon/react';
 import { ErrorState } from '@openmrs/esm-framework';
 import { MetricsCard, MetricsCardHeader, MetricsCardBody, MetricsCardItem } from './metrics-card.component';
 import { useEmergencyMetrics } from '../../../resources/emergency.resource';
-import styles from './metrics-card.scss';
 
 const TotalPatientsCard: React.FC = () => {
   const { t } = useTranslation();

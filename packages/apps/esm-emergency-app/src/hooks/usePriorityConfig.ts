@@ -11,7 +11,7 @@
 
 import { useMemo } from 'react';
 import { useConfig } from '@openmrs/esm-framework';
-import { type Config, type PriorityConfig } from '../config-schema';
+import { type Config } from '../config-schema';
 import {
   getPriorityConfigByUuid,
   getPriorityConfigByCode,

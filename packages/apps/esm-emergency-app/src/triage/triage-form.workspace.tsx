@@ -27,9 +27,6 @@ interface TriageFormWorkspaceProps extends DefaultWorkspaceProps {
   queueEntry: EmergencyQueueEntry;
 }
 
-/** AVPU consciousness level IDs — text is resolved via i18n inside the component */
-const AVPU_IDS = ['alert', 'verbal', 'pain', 'unresponsive'] as const;
-
 /** Maps vital form fields to their concept UUID keys in config */
 const VITAL_FIELDS: Array<{ field: VitalFieldName; conceptKey: string }> = [
   { field: 'temperature', conceptKey: 'temperatureUuid' },

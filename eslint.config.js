@@ -367,7 +367,7 @@ module.exports = [
   },
 
   {
-    files: ["**/*.js"],
+    files: ["**/*.{js,mjs}"],
 
     languageOptions: {
       ecmaVersion: 2020,
@@ -378,6 +378,7 @@ module.exports = [
         __dirname: "readonly",
         __filename: "readonly",
         exports: "readonly",
+        console: "readonly",
         process: "readonly"
       }
     },

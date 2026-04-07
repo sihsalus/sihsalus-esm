@@ -55,7 +55,7 @@ export function useEmergencyVisit() {
         );
 
         return activeEmergencyVisit || null;
-      } catch (_error) {
+      } catch {
         return null;
       }
     },

@@ -5851,7 +5851,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openmrs/esm-framework@npm:9.0.2":
+"@openmrs/esm-framework@npm:9.0.2, @openmrs/esm-framework@npm:>=9.0.2":
   version: 9.0.2
   resolution: "@openmrs/esm-framework@npm:9.0.2"
   dependencies:
@@ -9183,12 +9183,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sihsalus/audit-logger@workspace:packages/libs/audit-logger"
   dependencies:
-    "@openmrs/esm-framework": "npm:9.0.2"
+    "@openmrs/esm-framework": "npm:>=9.0.2"
     react: "npm:^18.3.1"
     typescript: "npm:^5.8.3"
     vitest: "npm:^4.0.18"
   peerDependencies:
-    "@openmrs/esm-framework": 9.0.2
+    "@openmrs/esm-framework": ">=9.0.2"
     react: ">=18.0.0"
   languageName: unknown
   linkType: soft
@@ -10973,6 +10973,7 @@ __metadata:
     "@types/react-dom": "npm:^18.3.0"
     "@typescript-eslint/eslint-plugin": "npm:^8.58.0"
     "@typescript-eslint/parser": "npm:^8.58.0"
+    "@vitest/coverage-v8": "npm:^4.0.18"
     chalk: "npm:^4.1.2"
     cross-env: "npm:^10.1.0"
     dotenv: "npm:^17.3.1"
@@ -11014,14 +11015,14 @@ __metadata:
   resolution: "@sihsalus/rbac@workspace:packages/libs/rbac"
   dependencies:
     "@carbon/react": "npm:^1.102.0"
-    "@openmrs/esm-framework": "npm:9.0.2"
+    "@openmrs/esm-framework": "npm:>=9.0.2"
     "@sihsalus/audit-logger": "workspace:*"
     react: "npm:^18.3.1"
     typescript: "npm:^5.8.3"
     vitest: "npm:^4.0.18"
   peerDependencies:
     "@carbon/react": ">=1.0.0"
-    "@openmrs/esm-framework": 9.0.2
+    "@openmrs/esm-framework": ">=9.0.2"
     "@sihsalus/audit-logger": "*"
     react: ">=18.0.0"
   languageName: unknown

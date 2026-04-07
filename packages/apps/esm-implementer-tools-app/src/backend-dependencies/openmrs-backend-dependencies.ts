@@ -123,7 +123,9 @@ async function fetchInstalledBackendModules(): Promise<Array<BackendModule>> {
       safetyCounter += 1;
     } catch (e) {
       console.error(`Failed to fetch backend modules on request ${safetyCounter + 1} (URL: ${nextUrl})`, e);
-      throw new Error(`Failed to fetch backend modules: ${e instanceof Error ? e.message : 'Unknown error'}`);
+      throw new Error(`Failed to fetch backend modules: ${e instanceof Error ? e.message : 'Unknown error'}`, {
+        cause: e,
+      });
     }
   }
 

@@ -5,7 +5,6 @@ import { ErrorState } from '@openmrs/esm-framework';
 import { MetricsCard, MetricsCardHeader, MetricsCardBody, MetricsCardItem } from './metrics-card.component';
 import { usePatientsByPriority } from '../../../resources/emergency.resource';
 import { usePriorityConfig } from '../../../hooks/usePriorityConfig';
-import styles from './metrics-card.scss';
 
 const PriorityBreakdownCard: React.FC = () => {
   const { t } = useTranslation();

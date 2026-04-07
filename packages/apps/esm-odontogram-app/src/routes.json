@@ -8,5 +8,30 @@
             "component": "root",
             "route": "odontogram"
         }
+    ],
+    "extensions": [
+        {
+            "name": "odontogram-dashboard-link",
+            "component": "odontogramDashboardLink",
+            "slot": "patient-chart-dashboard-slot",
+            "meta": {
+                "slot": "patient-chart-odontogram-slot",
+                "columns": 1,
+                "title": "Odontogram"
+            }
+        },
+        {
+            "name": "odontogram-widget",
+            "component": "odontogramWidget",
+            "slot": "patient-chart-odontogram-slot"
+        }
+    ],
+    "workspaces": [
+        {
+            "name": "odontogram-form-workspace",
+            "component": "odontogramWorkspace",
+            "type": "form",
+            "title": "Odontogram"
+        }
     ]
 }

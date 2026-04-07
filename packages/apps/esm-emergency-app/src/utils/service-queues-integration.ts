@@ -35,7 +35,7 @@ function getServiceQueuesStore() {
       selectedQueueStatusUuid: undefined,
       selectedQueueStatusDisplay: '',
     });
-  } catch (error) {
+  } catch {
     // Store not available, return null
     // This is expected when emergency-app is used standalone
     return null;

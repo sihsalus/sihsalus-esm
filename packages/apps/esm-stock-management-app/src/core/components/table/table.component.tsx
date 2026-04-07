@@ -54,7 +54,7 @@ const DataList: React.FC<ListProps> = ({ columns, data, children, totalItems, go
     const rows: Array<Record<string, string>> = [];
 
     paginatedList.map((item: any, index) => {
-      return rows.push({ ...item, id: index++ });
+      return rows.push({ ...item, id: index });
     });
     setAllRows(rows);
   }, [paginatedList, allRows]);

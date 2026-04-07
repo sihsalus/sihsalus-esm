@@ -1,4 +1,3 @@
-import { OpenmrsResource } from '@openmrs/esm-framework';
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object({

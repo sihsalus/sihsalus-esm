@@ -108,13 +108,9 @@ export const addColumnsToDisplay = () => {
 
 export const addToHistory = (description: string, patients: Patient[], parameters: {}) => {
   const oldHistory = JSON.parse(window.sessionStorage.getItem('openmrsHistory'));
-  let newHistory = [];
-
-  if (oldHistory) {
-    newHistory = [...oldHistory, { description, patients, parameters }];
-  } else {
-    newHistory = [{ description, patients, parameters }];
-  }
+  const newHistory = oldHistory
+    ? [...oldHistory, { description, patients, parameters }]
+    : [{ description, patients, parameters }];
   window.sessionStorage.setItem('openmrsHistory', JSON.stringify(newHistory));
 };
 
