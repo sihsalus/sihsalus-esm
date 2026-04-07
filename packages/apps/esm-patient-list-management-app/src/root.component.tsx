@@ -10,12 +10,12 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-patient-list-management-app">
-      <BrowserRouter basename={patientListsBasename}>
-      <Routes>
-        <Route path="/" element={<ListsDashboard />} />
-        <Route path="/:patientListUuid" element={<ListDetails />} />
-      </Routes>
-    </BrowserRouter>
+        <BrowserRouter basename={patientListsBasename}>
+        <Routes>
+          <Route path="/" element={<ListsDashboard />} />
+          <Route path="/:patientListUuid" element={<ListDetails />} />
+        </Routes>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };

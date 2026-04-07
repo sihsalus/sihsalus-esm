@@ -12,7 +12,6 @@ import { useAppointmentServices } from './appointment-services-hook';
 import { validationSchema } from './appointment-services-validation';
 import styles from './appointment-services.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AppointmentServicesProps {}
 
 const AppointmentServices: React.FC<AppointmentServicesProps> = () => {

@@ -15,7 +15,7 @@ COPY packages/ ./packages/
 ENV CI=true
 RUN yarn install --immutable
 
-RUN yarn turbo run build --filter='./packages/apps/*' --filter='!@sihsalus/esm-form-entry-app'
+RUN yarn turbo run build --filter='./packages/apps/*' --filter='!@sihsalus/esm-form-entry-react-app'
 
 # Stage 2: Init container image
 # Runs at deployment time: assembles built modules into SPA_OUTPUT_DIR.

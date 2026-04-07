@@ -7,11 +7,11 @@ import PatientSearchPageComponent from './patient-search-page/patient-search-pag
 const PatientSearchRootComponent: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-patient-search-app">
-      <BrowserRouter basename={window.getOpenmrsSpaBase()}>
-      <Routes>
-        <Route path="search" element={<PatientSearchPageComponent />} />
-      </Routes>
-    </BrowserRouter>
+        <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+        <Routes>
+          <Route path="search" element={<PatientSearchPageComponent />} />
+        </Routes>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };

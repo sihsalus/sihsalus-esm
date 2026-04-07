@@ -6,11 +6,11 @@ import LaboratoryDashboard from './laboratory-dashboard.component';
 const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-laboratory-app">
-      <BrowserRouter basename={`${window.spaBase}/home/laboratory`}>
-      <Routes>
-        <Route path="/" element={<LaboratoryDashboard />} />
-      </Routes>
-    </BrowserRouter>
+        <BrowserRouter basename={`${window.spaBase}/home/laboratory`}>
+        <Routes>
+          <Route path="/" element={<LaboratoryDashboard />} />
+        </Routes>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };

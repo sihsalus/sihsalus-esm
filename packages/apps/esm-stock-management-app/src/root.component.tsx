@@ -14,14 +14,14 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-stock-management-app">
-      <main className="omrs-main-content">
-      <BrowserRouter basename={window.spaBase}>
-        <Routes>
-          <Route path="/stock-management" element={<Dashboard />} />
-          <Route path="/stock-management/:dashboard/*" element={<Dashboard />} />
-        </Routes>
-      </BrowserRouter>
-    </main>
+        <main className="omrs-main-content">
+        <BrowserRouter basename={window.spaBase}>
+          <Routes>
+            <Route path="/stock-management" element={<Dashboard />} />
+            <Route path="/stock-management/:dashboard/*" element={<Dashboard />} />
+          </Routes>
+        </BrowserRouter>
+      </main>
     </AppErrorBoundary>
   );
 };

@@ -35,34 +35,34 @@ export default function Root() {
 
   return (
     <AppErrorBoundary appName="esm-patient-registration-app">
-      <main className={classNames('omrs-main-content', styles.root)}>
-      <Grid className={styles.grid}>
-        <Row>
-          <ExtensionSlot name="breadcrumbs-slot" />
-        </Row>
-        <ResourcesContext.Provider
-          value={{
-            addressTemplate,
-            relationshipTypes,
-            identifierTypes,
-            currentSession,
-          }}
-        >
-          <BrowserRouter basename={window.getOpenmrsSpaBase()}>
-            <Routes>
-              <Route
-                path="patient-registration"
-                element={<PatientRegistration savePatientForm={savePatientForm} isOffline={!isOnline} />}
-              />
-              <Route
-                path="patient/:patientUuid/edit"
-                element={<PatientRegistration savePatientForm={savePatientForm} isOffline={!isOnline} />}
-              />
-            </Routes>
-          </BrowserRouter>
-        </ResourcesContext.Provider>
-      </Grid>
-    </main>
+        <main className={classNames('omrs-main-content', styles.root)}>
+        <Grid className={styles.grid}>
+          <Row>
+            <ExtensionSlot name="breadcrumbs-slot" />
+          </Row>
+          <ResourcesContext.Provider
+            value={{
+              addressTemplate,
+              relationshipTypes,
+              identifierTypes,
+              currentSession,
+            }}
+          >
+            <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+              <Routes>
+                <Route
+                  path="patient-registration"
+                  element={<PatientRegistration savePatientForm={savePatientForm} isOffline={!isOnline} />}
+                />
+                <Route
+                  path="patient/:patientUuid/edit"
+                  element={<PatientRegistration savePatientForm={savePatientForm} isOffline={!isOnline} />}
+                />
+              </Routes>
+            </BrowserRouter>
+          </ResourcesContext.Provider>
+        </Grid>
+      </main>
       </AppErrorBoundary>
   );
 }

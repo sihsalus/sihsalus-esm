@@ -104,31 +104,31 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-user-onboarding-app">
-      <div
-      onMouseDown={(e) => {
-        e.stopPropagation();
-      }}
-    >
-      <ReactJoyride
-        callback={handleJoyrideCallback}
-        continuous
-        debug={false}
-        disableOverlayClose={true}
-        disableScrolling
-        run={showTutorial}
-        showProgress
-        showSkipButton
-        stepIndex={stepIndex}
-        steps={steps}
-        styles={{
-          options: {
-            zIndex: 10000,
-          },
-          overlay: overlayStyles,
+        <div
+        onMouseDown={(e) => {
+          e.stopPropagation();
         }}
-        tooltipComponent={(props) => <CustomTooltip {...props} step={steps[props.index]} totalSteps={steps.length} />}
-      />
-    </div>
+      >
+        <ReactJoyride
+          callback={handleJoyrideCallback}
+          continuous
+          debug={false}
+          disableOverlayClose={true}
+          disableScrolling
+          run={showTutorial}
+          showProgress
+          showSkipButton
+          stepIndex={stepIndex}
+          steps={steps}
+          styles={{
+            options: {
+              zIndex: 10000,
+            },
+            overlay: overlayStyles,
+          }}
+          tooltipComponent={(props) => <CustomTooltip {...props} step={steps[props.index]} totalSteps={steps.length} />}
+        />
+      </div>
     </AppErrorBoundary>
   );
 };

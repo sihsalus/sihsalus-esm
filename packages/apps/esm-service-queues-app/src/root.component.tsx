@@ -13,18 +13,18 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-service-queues-app">
-      <main>
-      <BrowserRouter basename={serviceQueuesBasename}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/queue-table-by-status/:queueUuid" element={<QueueTableByStatusView />} />
-          <Route path="/queue-table-by-status/:queueUuid/:statusUuid" element={<QueueTableByStatusView />} />
-          <Route path="/screen" element={<QueueScreen />} />
-          <Route path="/appointments-list/:value/" element={<AppointmentsTable />} />
-          <Route path="/queue-list/:service/:serviceUuid/:locationUuid" element={<ServicesTable />} />
-        </Routes>
-      </BrowserRouter>
-    </main>
+        <main>
+        <BrowserRouter basename={serviceQueuesBasename}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/queue-table-by-status/:queueUuid" element={<QueueTableByStatusView />} />
+            <Route path="/queue-table-by-status/:queueUuid/:statusUuid" element={<QueueTableByStatusView />} />
+            <Route path="/screen" element={<QueueScreen />} />
+            <Route path="/appointments-list/:value/" element={<AppointmentsTable />} />
+            <Route path="/queue-list/:service/:serviceUuid/:locationUuid" element={<ServicesTable />} />
+          </Routes>
+        </BrowserRouter>
+      </main>
     </AppErrorBoundary>
   );
 };

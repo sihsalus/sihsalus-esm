@@ -11,14 +11,14 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-ward-app">
-      <main>
-      <BrowserRouter basename={wardViewBasename}>
-        <Routes>
-          <Route path="/" element={<WardView />} />
-          <Route path="/:locationUuid" element={<WardView />} />
-        </Routes>
-      </BrowserRouter>
-    </main>
+        <main>
+        <BrowserRouter basename={wardViewBasename}>
+          <Routes>
+            <Route path="/" element={<WardView />} />
+            <Route path="/:locationUuid" element={<WardView />} />
+          </Routes>
+        </BrowserRouter>
+      </main>
     </AppErrorBoundary>
   );
 };

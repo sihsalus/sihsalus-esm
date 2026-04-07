@@ -302,6 +302,17 @@ module.exports = [
   },
 
   {
+    // form-entry wraps an external form engine that requires dynamic typing
+    files: ["packages/apps/esm-form-entry-react-app/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "react-hooks/exhaustive-deps": "warn",
+      "no-console": ["error", { allow: ["warn", "error"] }]
+    }
+  },
+
+  {
     files: ["packages/apps/esm-billing-app/**/*.{ts,tsx}"],
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
@@ -338,6 +349,9 @@ module.exports = [
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "no-case-declarations": "off",
+      "no-empty": "off",
       "import/order": "off",
       "react-hooks/exhaustive-deps": "off",
       "no-console": "off"

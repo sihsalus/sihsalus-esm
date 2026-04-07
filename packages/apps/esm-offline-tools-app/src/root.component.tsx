@@ -11,17 +11,17 @@ import styles from './root.styles.scss';
 const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-offline-tools-app">
-      <BrowserRouter basename={window.getOpenmrsSpaBase()}>
-      <DesktopSideNav />
-      <div className={classNames('omrs-main-content', styles.mainContentContainer)}>
-        <Routes>
-          <Route path="offline-tools" element={<Home />} />
-          <Route path="offline-tools/:page" element={<OfflineToolsPage />}>
-            <Route path=":patientUuid" element={<OfflineToolsPage />} />
-          </Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
+        <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+        <DesktopSideNav />
+        <div className={classNames('omrs-main-content', styles.mainContentContainer)}>
+          <Routes>
+            <Route path="offline-tools" element={<Home />} />
+            <Route path="offline-tools/:page" element={<OfflineToolsPage />}>
+              <Route path=":patientUuid" element={<OfflineToolsPage />} />
+            </Route>
+          </Routes>
+        </div>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };

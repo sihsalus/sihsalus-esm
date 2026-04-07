@@ -11,18 +11,18 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-appointments-app">
-      <main>
-      <BrowserRouter basename={appointmentsBasename}>
-        <Routes>
-          <Route path="/" element={<Appointments />} />
-          <Route path="/:date" element={<Appointments />} />
-          <Route path="/:date/:serviceType" element={<Appointments />} />
-          <Route path="/calendar" element={<AppointmentsCalendarView />} />
-          <Route path="/calendar/:date" element={<AppointmentsCalendarView />} />
-          <Route path="/patient/:patientUuid" element={<PatientAppointmentsOverview />} />
-        </Routes>
-      </BrowserRouter>
-    </main>
+        <main>
+        <BrowserRouter basename={appointmentsBasename}>
+          <Routes>
+            <Route path="/" element={<Appointments />} />
+            <Route path="/:date" element={<Appointments />} />
+            <Route path="/:date/:serviceType" element={<Appointments />} />
+            <Route path="/calendar" element={<AppointmentsCalendarView />} />
+            <Route path="/calendar/:date" element={<AppointmentsCalendarView />} />
+            <Route path="/patient/:patientUuid" element={<PatientAppointmentsOverview />} />
+          </Routes>
+        </BrowserRouter>
+      </main>
     </AppErrorBoundary>
   );
 };

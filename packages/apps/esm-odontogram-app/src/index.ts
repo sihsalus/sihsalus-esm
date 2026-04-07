@@ -13,6 +13,7 @@ const dashboardMeta = {
   columns: 1,
   title: 'Odontograma',
   path: 'odontogram',
+  icon: 'omrs-icon-clinical',
   isLink: true,
 };
 

@@ -25,18 +25,18 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-bed-management-app">
-      <BrowserRouter basename={bedManagementBasename}>
-      <LeftPanel />
-      <main className={styles.container}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/location/:location" element={<WardWithBeds />} />
-          <Route path="/bed-administration" element={<BedAdministrationTable />} />
-          <Route path="/bed-tags" element={<BedTagAdministrationTable />} />
-          <Route path="/bed-types" element={<BedTypeAdministrationTable />} />
-        </Routes>
-      </main>
-    </BrowserRouter>
+        <BrowserRouter basename={bedManagementBasename}>
+        <LeftPanel />
+        <main className={styles.container}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/location/:location" element={<WardWithBeds />} />
+            <Route path="/bed-administration" element={<BedAdministrationTable />} />
+            <Route path="/bed-tags" element={<BedTagAdministrationTable />} />
+            <Route path="/bed-types" element={<BedTypeAdministrationTable />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };

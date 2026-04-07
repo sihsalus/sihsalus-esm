@@ -8,20 +8,20 @@ import styles from './root.scss';
 const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-primary-navigation-app">
-      <BrowserRouter basename={window.getOpenmrsSpaBase()}>
-      <Routes>
-        <Route path="login/*" element={null} />
-        <Route path="logout/*" element={null} />
-        <Route
-          path="*"
-          element={
-            <div className={styles.primaryNavContainer}>
-              <Navbar />
-            </div>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+        <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+        <Routes>
+          <Route path="login/*" element={null} />
+          <Route path="logout/*" element={null} />
+          <Route
+            path="*"
+            element={
+              <div className={styles.primaryNavContainer}>
+                <Navbar />
+              </div>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };

@@ -8,13 +8,13 @@ import FormEditor from './components/form-editor/form-editor.component';
 const RootComponent: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-form-builder-app">
-      <BrowserRouter basename={`${window.spaBase}/form-builder`}>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/new" element={<FormEditor />} />
-        <Route path="/edit/:formUuid" element={<FormEditor />} />
-      </Routes>
-    </BrowserRouter>
+        <BrowserRouter basename={`${window.spaBase}/form-builder`}>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/new" element={<FormEditor />} />
+          <Route path="/edit/:formUuid" element={<FormEditor />} />
+        </Routes>
+      </BrowserRouter>
     </AppErrorBoundary>
   );
 };
