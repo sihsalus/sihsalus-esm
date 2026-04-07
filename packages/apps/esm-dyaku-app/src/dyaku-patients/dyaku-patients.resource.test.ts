@@ -88,7 +88,7 @@ describe('syncDyakuPatientsToOpenMRS', () => {
       }),
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     const { openmrsFetch } = require('@openmrs/esm-framework');
     // findPatientByIdentifier → not found
     openmrsFetch.mockResolvedValue({ data: { results: [] } });
@@ -122,7 +122,7 @@ describe('syncDyakuPatientsToOpenMRS', () => {
       }),
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     const { openmrsFetch } = require('@openmrs/esm-framework');
     // All openmrsFetch calls throw
     openmrsFetch.mockRejectedValue(new Error('Network error'));

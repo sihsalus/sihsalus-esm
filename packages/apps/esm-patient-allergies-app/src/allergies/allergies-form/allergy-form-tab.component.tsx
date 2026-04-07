@@ -8,7 +8,7 @@ import styles from './allergy-form-tab.scss';
 interface AllergyFormTabProps {
   allergens: Array<OpenMRSResource>;
   selectedAllergen: string;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+   
   handleChange: Function;
   name: string;
 }
