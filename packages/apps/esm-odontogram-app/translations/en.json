@@ -1,4 +1,14 @@
 {
+    "permanentUpperTeethSection": "Permanent teeth — upper arch (11–28)",
+    "permanentLowerTeethSection": "Permanent teeth — lower arch (31–48)",
+    "deciduousTeethSection": "Deciduous teeth — upper (51–65) and lower (71–85)",
+    "adultLowerTeethTitle": "Quadrants 3 and 4",
+    "adultLowerTeethDescription": "The detailed 31–48 rendering is still pending connection to lower-quadrant data.",
+    "kidUpperTeethTitle": "Deciduous upper arch (51–65)",
+    "kidUpperTeethDescription": "The detailed deciduous upper arch view is still pending implementation.",
+    "kidLowerTeethTitle": "Deciduous lower arch (71–85)",
+    "kidLowerTeethDescription": "The detailed deciduous lower arch view is still pending implementation."
+}{
     "cancel": "Cancel",
     "odontogram": "Odontogram",
     "odontogramSaved": "Odontogram saved",

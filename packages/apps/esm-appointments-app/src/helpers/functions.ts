@@ -2,7 +2,17 @@ import dayjs, { type Dayjs } from 'dayjs';
 
 import { type AppointmentSummary } from '../types';
 
-export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<any> = []) => {
+type AppointmentServiceLoadSummary = {
+  serviceName: string;
+  countMap: Array<{ allAppointmentsCount: number }>;
+};
+
+type AppointmentSummarySource = {
+  appointmentService: { name: string };
+  appointmentCountMap: Record<string, Array<number>>;
+};
+
+export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<AppointmentServiceLoadSummary> = []) => {
   const groupedAppointments = appointmentSummary?.map(({ countMap, serviceName }) => ({
     serviceName: serviceName,
     count: countMap.reduce((cummulator, currentValue) => cummulator + currentValue.allAppointmentsCount, 0),
@@ -10,8 +20,8 @@ export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<any> 
   return groupedAppointments.find((summary) => summary.count === Math.max(...groupedAppointments.map((x) => x.count)));
 };
 
-export const flattenAppointmentSummary = (appointmentToTransfrom: Array<any>) =>
-  appointmentToTransfrom.flatMap((el: any) => ({
+export const flattenAppointmentSummary = (appointmentToTransfrom: Array<AppointmentSummarySource>) =>
+  appointmentToTransfrom.flatMap((el: AppointmentSummarySource) => ({
     serviceName: el.appointmentService.name,
     countMap: Object.entries(el.appointmentCountMap).flatMap((el) => el[1]),
   }));
@@ -26,7 +36,7 @@ export const getServiceCountByAppointmentType = (
     .reduce((count, val) => count + val, 0);
 };
 
-export const formatAMPM = (date) => {
+export const formatAMPM = (date: Date) => {
   let hours = date.getHours();
   let minutes = date.getMinutes();
   const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -65,7 +75,7 @@ export const monthDays = (currentDate: Dayjs) => {
   return days;
 };
 
-export const getGender = (gender, t) => {
+export const getGender = (gender: string, t: (key: string, defaultValue: string) => string) => {
   switch (gender) {
     case 'M':
       return t('male', 'Male');

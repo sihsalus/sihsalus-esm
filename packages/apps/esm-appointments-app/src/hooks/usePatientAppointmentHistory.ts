@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { useContext } from 'react';
 import useSWR from 'swr';
 
-import { type AppointmentsFetchResponse } from '../types';
+import { type Appointment, type AppointmentsFetchResponse } from '../types';
 
 import SelectedDateContext from './selectedDateContext';
 
@@ -39,7 +39,7 @@ export function usePatientAppointmentHistory(patientUuid: string) {
     ? data.data.filter((appointment) => appointment.status === 'Cancelled').length
     : 0;
   const upcomingAppointments = data?.data?.length
-    ? data.data?.filter((appointment: any) => dayjs((appointment.startDateTime / 1000) * 1000).isAfter(dayjs())).length
+    ? data.data?.filter((appointment: Appointment) => dayjs(new Date(appointment.startDateTime)).isAfter(dayjs())).length
     : 0;
 
   return {

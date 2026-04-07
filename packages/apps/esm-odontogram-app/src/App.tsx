@@ -1,11 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import AdultUpperTeeth from './components/AdultUpperTeeth';
+import AdultLowerTeeth from './components/AdultLowerTeeth';
 import FormDentalClinicalFindings from './components/FormDentalClinicalFindings';
-
-// TODO: implement lower and deciduous quadrants
-// import AdultLowerTeeth from './components/AdultLowerTeeth';
-// import KidUpperTeeth from './components/KidUpperTeeth';
-// import KidLowerTeeth from './components/KidLowerTeeth';
+import KidLowerTeeth from './components/KidLowerTeeth';
+import KidUpperTeeth from './components/KidUpperTeeth';
 
 const sectionLabel: React.CSSProperties = {
   fontSize: '0.75rem',
@@ -23,28 +22,25 @@ const divider: React.CSSProperties = {
 };
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <div style={{ padding: '1rem 0' }}>
       <FormDentalClinicalFindings />
 
-      <div style={sectionLabel}>Dientes permanentes — arcada superior (11–28)</div>
+      <div style={sectionLabel}>{t('permanentUpperTeethSection', 'Dientes permanentes — arcada superior (11–28)')}</div>
       <AdultUpperTeeth />
 
       <div style={divider} />
 
-      <div style={sectionLabel}>Dientes permanentes — arcada inferior (31–48)</div>
-      {/* AdultLowerTeeth pendiente de implementación */}
-      <div style={{ color: '#a8a8a8', fontSize: '0.875rem', padding: '0.5rem 0' }}>
-        Cuadrantes 3 y 4 — próximamente
-      </div>
+      <div style={sectionLabel}>{t('permanentLowerTeethSection', 'Dientes permanentes — arcada inferior (31–48)')}</div>
+      <AdultLowerTeeth />
 
       <div style={divider} />
 
-      <div style={sectionLabel}>Dientes deciduos — superior (51–65) e inferior (71–85)</div>
-      {/* KidUpperTeeth / KidLowerTeeth pendiente de implementación */}
-      <div style={{ color: '#a8a8a8', fontSize: '0.875rem', padding: '0.5rem 0' }}>
-        Dentición decidua — próximamente
-      </div>
+      <div style={sectionLabel}>{t('deciduousTeethSection', 'Dientes deciduos — superior (51–65) e inferior (71–85)')}</div>
+      <KidUpperTeeth />
+      <KidLowerTeeth />
     </div>
   );
 }
