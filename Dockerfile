@@ -5,20 +5,16 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 RUN corepack enable && corepack prepare yarn@4.13.0 --activate
 
-# Copy manifest files first — install cache survives source-only changes
+# Copy root manifests first
 COPY package.json yarn.lock .yarnrc.yml turbo.json ./
 COPY .yarn/ ./.yarn/
 
-# Copy only package.json files to preserve install cache across source changes
-COPY packages/apps/*/package.json ./packages/apps/
-COPY packages/libs/*/package.json ./packages/libs/
-COPY packages/tooling/*/package.json ./packages/tooling/
+# Copy workspaces (required so Yarn can resolve workspace:* deps)
+COPY packages/ ./packages/
 
 ENV CI=true
 RUN yarn install --immutable
 
-# Now copy full source and build
-COPY packages/ ./packages/
 RUN yarn turbo run build --filter='./packages/apps/*' --filter='!@sihsalus/esm-form-entry-app'
 
 # Stage 2: Init container image

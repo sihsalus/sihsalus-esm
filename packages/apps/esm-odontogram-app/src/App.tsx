@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import AdultUpperTeeth from './components/AdultUpperTeeth';
-import AdultLowerTeeth from './components/AdultLowerTeeth';
-import FormDentalClinicalFindings from './components/FormDentalClinicalFindings';
 import KidLowerTeeth from './components/KidLowerTeeth';
 import KidUpperTeeth from './components/KidUpperTeeth';
+import OdontogramNuevoBridge from './components/OdontogramNuevoBridge';
 
 const sectionLabel: React.CSSProperties = {
   fontSize: '0.75rem',
@@ -26,15 +24,7 @@ export default function App() {
 
   return (
     <div style={{ padding: '1rem 0' }}>
-      <FormDentalClinicalFindings />
-
-      <div style={sectionLabel}>{t('permanentUpperTeethSection', 'Dientes permanentes — arcada superior (11–28)')}</div>
-      <AdultUpperTeeth />
-
-      <div style={divider} />
-
-      <div style={sectionLabel}>{t('permanentLowerTeethSection', 'Dientes permanentes — arcada inferior (31–48)')}</div>
-      <AdultLowerTeeth />
+      <OdontogramNuevoBridge />
 
       <div style={divider} />
 

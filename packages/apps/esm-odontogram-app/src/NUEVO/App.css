@@ -1,0 +1,234 @@
+/* =========================================================
+   App wrapper — estilos generales de la demo
+   NO tocar estilos internos del odontograma desde aquí
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1a1a2e;
+}
+
+.app-root {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.app-header {
+  margin-bottom: 32px;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.app-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+/* ── Card ─────────────────────────────────────────────── */
+
+.odontogram-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
+  border-left: 4px solid transparent;
+  overflow-x: auto;
+}
+
+.odontogram-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.odontogram-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.odontogram-card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.odontogram-card-desc {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ── Sections ──────────────────────────────────────────────────────────── */
+
+.app-section {
+  margin-bottom: 48px;
+}
+
+.app-section-title {
+  margin: 0 0 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #999;
+  border-bottom: 1px solid #e8eaed;
+  padding-bottom: 8px;
+}
+
+.app-section-desc {
+  margin: -12px 0 20px;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.app-section-desc code {
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 12px;
+  color: #e91e63;
+  font-family: "JetBrains Mono", Menlo, monospace;
+}
+
+/* ── Export panel ─────────────────────────────────────── */
+
+.export-panel {
+  margin-top: 20px;
+  border-top: 1px solid #eef0f3;
+  padding-top: 14px;
+}
+
+.export-panel-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.export-stats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 13px;
+  color: #555;
+}
+
+.export-stat strong {
+  color: #1a1a2e;
+}
+
+.export-stat-sep {
+  color: #bbb;
+  padding: 0 2px;
+}
+
+.export-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.export-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.export-btn:hover {
+  opacity: 0.85;
+}
+
+.export-btn-ghost {
+  background: transparent;
+  color: #555;
+  border: 1px solid #d0d5dd;
+}
+
+.export-btn-ghost:hover {
+  background: #f5f5f5;
+  opacity: 1;
+}
+
+/* ── JSON viewer ──────────────────────────────────────── */
+
+.export-json-panel {
+  margin-top: 12px;
+  border: 1px solid #e4e7ec;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.export-json-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f8f9fb;
+  border-bottom: 1px solid #e4e7ec;
+}
+
+.export-json-meta {
+  font-size: 12px;
+  color: #888;
+  font-family: monospace;
+}
+
+.export-btn-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.export-btn-close:hover {
+  color: #333;
+}
+
+.export-json-body {
+  margin: 0;
+  padding: 14px 16px;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  font-family: "JetBrains Mono", "Fira Code", Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-x: auto;
+  max-height: 420px;
+  overflow-y: auto;
+  white-space: pre;
+}

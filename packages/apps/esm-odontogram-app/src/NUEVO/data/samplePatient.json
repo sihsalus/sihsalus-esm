@@ -1,0 +1,123 @@
+{
+  "teeth": [
+    {
+      "toothId": 15,
+      "findings": [
+        {
+          "id": "1771561504427-1rl0mmri7",
+          "findingId": 1,
+          "color": { "id": 101, "name": "blue" },
+          "designNumber": 1
+        }
+      ]
+    },
+    {
+      "toothId": 14,
+      "findings": [
+        {
+          "id": "1771561505122-xcebmpa4y",
+          "findingId": 1,
+          "color": { "id": 101, "name": "blue" },
+          "designNumber": 3
+        }
+      ]
+    },
+    {
+      "toothId": 13,
+      "findings": [
+        {
+          "id": "1771561507107-4e9eyvcxo",
+          "findingId": 1,
+          "color": { "id": 101, "name": "blue" },
+          "designNumber": 2
+        }
+      ]
+    },
+    {
+      "toothId": 45,
+      "findings": [
+        {
+          "id": "1771561509282-5i8cx37xb",
+          "findingId": 1,
+          "color": { "id": 101, "name": "blue" },
+          "designNumber": 1
+        }
+      ]
+    },
+    {
+      "toothId": 44,
+      "findings": [
+        {
+          "id": "1771561509567-0vurcxaw4",
+          "findingId": 1,
+          "color": { "id": 101, "name": "blue" },
+          "designNumber": 3
+        }
+      ]
+    },
+    {
+      "toothId": 43,
+      "findings": [
+        {
+          "id": "1771561511105-vd3xmr6ux",
+          "findingId": 1,
+          "color": { "id": 101, "name": "blue" },
+          "designNumber": 2
+        }
+      ]
+    }
+  ],
+  "spacingFindings": {
+    "1": [
+      {
+        "leftToothId": 15,
+        "rightToothId": 14,
+        "findings": [
+          {
+            "id": "1771561504866-4zcwvw3qr",
+            "findingId": 1,
+            "color": { "id": 101, "name": "blue" },
+            "designNumber": 3
+          }
+        ]
+      },
+      {
+        "leftToothId": 14,
+        "rightToothId": 13,
+        "findings": [
+          {
+            "id": "1771561506795-epyi2bdj3",
+            "findingId": 1,
+            "color": { "id": 101, "name": "blue" },
+            "designNumber": 3
+          }
+        ]
+      },
+      {
+        "leftToothId": 45,
+        "rightToothId": 44,
+        "findings": [
+          {
+            "id": "1771561510125-jc8ydg61q",
+            "findingId": 1,
+            "color": { "id": 101, "name": "blue" },
+            "designNumber": 3
+          }
+        ]
+      },
+      {
+        "leftToothId": 44,
+        "rightToothId": 43,
+        "findings": [
+          {
+            "id": "1771561510774-h2xno0a3z",
+            "findingId": 1,
+            "color": { "id": 101, "name": "blue" },
+            "designNumber": 3
+          }
+        ]
+      }
+    ]
+  },
+  "legendSpaces": []
+}

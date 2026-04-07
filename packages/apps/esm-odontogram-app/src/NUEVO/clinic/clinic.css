@@ -1,0 +1,799 @@
+/* =========================================================
+   Clinic Management System — Styles
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #0f172a;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Container ────────────────────────────────────────── */
+.cl-container {
+  width: 100%;
+  padding: 28px 48px;
+}
+
+@media (max-width: 768px) {
+  .cl-container {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cl-container {
+    padding: 12px 8px;
+  }
+}
+
+/* ── Page Header ──────────────────────────────────────── */
+.cl-page-header {
+  margin-bottom: 28px;
+}
+.cl-page-title {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.cl-page-subtitle {
+  margin: 0;
+  font-size: 15px;
+  color: #64748b;
+}
+
+/* ── Back Button ──────────────────────────────────────── */
+.cl-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  transition: all 0.15s;
+}
+.cl-back:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+.cl-btn {
+  padding: 9px 20px;
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, opacity 0.15s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.cl-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.cl-btn--primary { background: #6366f1; color: #fff; }
+.cl-btn--primary:hover:not(:disabled) { background: #4f46e5; }
+.cl-btn--primary:focus-visible { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25); outline: none; }
+.cl-btn--accent { background: #10b981; color: #fff; }
+.cl-btn--accent:hover:not(:disabled) { background: #059669; }
+.cl-btn--danger { background: #fff; color: #dc2626; border: 1.5px solid #fca5a5; }
+.cl-btn--danger:hover:not(:disabled) { background: #fef2f2; border-color: #f87171; }
+.cl-btn--danger:focus-visible { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); outline: none; }
+.cl-btn--ghost { background: #fff; color: #475569; border: 1.5px solid #e2e8f0; }
+.cl-btn--ghost:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; }
+.cl-btn--ghost:focus-visible { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15); outline: none; }
+.cl-btn--sm { padding: 7px 14px; font-size: 13px; }
+.cl-btn--flash { background: #16a34a !important; color: #fff !important; }
+
+/* ── Badge / Status ───────────────────────────────────── */
+.cl-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.cl-badge--ok { background: #ecfdf5; color: #059669; }
+.cl-badge--warn { background: #fffbeb; color: #d97706; }
+
+.cl-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.cl-status--done { background: #ecfdf5; color: #059669; }
+.cl-status--active { background: #eff6ff; color: #2563eb; }
+
+.cl-unsaved-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #fef3c7;
+  color: #92400e;
+  animation: cl-pulse 2s ease-in-out infinite;
+}
+@keyframes cl-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ── Patient Grid ─────────────────────────────────────── */
+.cl-patient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.cl-patient-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.cl-patient-card:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.13);
+  transform: translateY(-3px);
+}
+.cl-patient-card--empty {
+  opacity: 0.75;
+}
+.cl-patient-card--empty .cl-patient-avatar {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+.cl-patient-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px 14px;
+}
+.cl-patient-card-body {
+  padding: 0 20px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cl-patient-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #f1f5f9;
+  gap: 8px;
+}
+.cl-patient-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+.cl-patient-avatar--lg {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+}
+.cl-patient-info {
+  flex: 1;
+  min-width: 0;
+}
+.cl-patient-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cl-patient-meta {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 2px;
+}
+.cl-patient-last {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cl-patient-last::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  flex-shrink: 0;
+}
+.cl-patient-no-records {
+  font-size: 12px;
+  color: #94a3b8;
+  font-style: italic;
+}
+.cl-patient-stats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cl-patient-stat-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+}
+.cl-patient-stat-pill--blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.cl-patient-stat-pill--green {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+.cl-patient-visits {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* ── Patient Header ───────────────────────────────────── */
+.cl-patient-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 36px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.cl-patient-header-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.cl-patient-header-meta {
+  font-size: 15px;
+  color: #64748b;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .cl-patient-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .cl-patient-header-name {
+    font-size: 20px;
+  }
+
+  .cl-patient-header-meta {
+    font-size: 13px;
+  }
+}
+
+/* ── Sections ─────────────────────────────────────────── */
+.cl-section {
+  margin-bottom: 36px;
+}
+.cl-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.cl-section-title {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+}
+.cl-section-header .cl-section-title {
+  margin-bottom: 0;
+}
+.cl-empty-text {
+  font-size: 15px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ── Initial Empty ────────────────────────────────────── */
+.cl-initial-empty {
+  background: #fffbeb;
+  border: 2px dashed #fcd34d;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+}
+.cl-initial-empty p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  color: #92400e;
+}
+
+/* ── Initial Group (patient detail) ───────────────────── */
+.cl-init-group {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.cl-init-group-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .cl-init-group-header {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .cl-init-group-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .cl-init-group-actions .cl-btn {
+    flex: 1;
+    text-align: center;
+  }
+}
+.cl-init-group-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.cl-init-group-info {
+  flex: 1;
+}
+.cl-init-group-title {
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cl-init-group-meta {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+.cl-init-group-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.cl-init-group-visits {
+  border-top: 1px solid #f1f5f9;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Visit List ───────────────────────────────────────── */
+.cl-visit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cl-visit-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  transition: border-color 0.15s;
+}
+.cl-visit-item--active {
+  border-color: #6ee7b7;
+  background: #f0fdf4;
+}
+.cl-visit-code {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+  font-family: monospace;
+  white-space: nowrap;
+  align-self: center;
+}
+.cl-visit-item--active .cl-visit-code {
+  background: #d1fae5;
+  color: #065f46;
+}
+.cl-visits-section-header {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  padding: 12px 20px 8px;
+}
+.cl-visit-info {
+  flex: 1;
+}
+.cl-visit-date {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cl-visit-notes {
+  font-size: 14px;
+  color: #475569;
+  margin-top: 3px;
+}
+.cl-visit-stats {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 3px;
+}
+
+/* ── Editor Top Bar ───────────────────────────────────── */
+.cl-editor-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cl-editor-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Editor Header ────────────────────────────────────── */
+.cl-editor-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.cl-editor-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cl-editor-meta {
+  font-size: 15px;
+  color: #64748b;
+  margin-top: 5px;
+}
+.cl-editor-body {
+  /* no overflow constraints — let the page scroll so the odontogram SVG is never clipped */
+}
+
+@media (max-width: 600px) {
+  .cl-editor-topbar {
+    margin-bottom: 10px;
+  }
+
+  .cl-editor-header {
+    margin-bottom: 8px;
+  }
+
+  .cl-editor-title {
+    font-size: 18px;
+  }
+
+  .cl-editor-meta {
+    font-size: 13px;
+  }
+}
+
+/* ── Editor Layout (sidebar + main) ───────────────────── */
+.cl-editor-layout {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+}
+.cl-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 0;
+  align-self: flex-start;
+  position: sticky;
+  top: 24px;
+  transition: width 0.2s ease;
+}
+
+.cl-sidebar--collapsed {
+  width: 42px;
+  padding: 10px 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.cl-sidebar-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 18px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+}
+
+/* Collapse / expand toggle buttons */
+.cl-sidebar-collapse-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 2px;
+  border-radius: 4px;
+  transition: color 0.12s, background 0.12s;
+  flex-shrink: 0;
+}
+.cl-sidebar-collapse-btn:hover {
+  color: #4f46e5;
+  background: #eef2ff;
+}
+
+.cl-sidebar-expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 22px;
+  line-height: 1;
+  padding: 4px 0;
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.12s, background 0.12s;
+}
+.cl-sidebar-expand-btn:hover {
+  color: #4f46e5;
+  background: #eef2ff;
+}
+
+.cl-sidebar-expand-icon {
+  display: block;
+  line-height: 1;
+}
+
+.cl-sidebar-subtitle {
+  padding: 10px 18px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+}
+.cl-sidebar-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 6px 18px;
+}
+.cl-sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: #475569;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.cl-sidebar-item:hover {
+  background: #f8fafc;
+}
+.cl-sidebar-item--active {
+  background: #eff6ff;
+  border-left-color: #3b82f6;
+  color: #1e40af;
+  font-weight: 600;
+}
+.cl-sidebar-item--current {
+  font-weight: 600;
+}
+.cl-sidebar-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.4;
+}
+.cl-sidebar-date {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* ── Editor Main ──────────────────────────────────────── */
+.cl-editor-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 20px;
+}
+.cl-editor-layout .cl-editor-main {
+  margin-left: 20px;
+}
+
+/* Mobile: stack sidebar + main vertically */
+@media (max-width: 900px) {
+  .cl-editor-layout {
+    flex-direction: column;
+  }
+
+  .cl-sidebar {
+    width: 100%;
+    position: static;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+
+  .cl-sidebar--collapsed {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 6px 12px;
+  }
+
+  .cl-editor-main,
+  .cl-editor-layout .cl-editor-main {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .cl-action-bar {
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+}
+
+/* ── Reference Banner ─────────────────────────────────── */
+.cl-ref-banner {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 20px;
+}
+
+/* ── Action Bar ───────────────────────────────────────── */
+.cl-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 18px 24px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+/* ── Tabs (legacy, kept for compat) ───────────────────── */
+.cl-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 16px;
+}
+.cl-tab {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  transition: all 0.15s;
+}
+.cl-tab:hover {
+  color: #475569;
+}
+.cl-tab--active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+.cl-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+.cl-footer-text {
+  font-size: 13px;
+  color: #cbd5e1;
+  margin-right: auto;
+  align-self: center;
+}

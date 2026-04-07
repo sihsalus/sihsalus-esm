@@ -1,0 +1,420 @@
+{
+  "teeth": [
+    {
+      "id": 18,
+      "uuid": "vwx456yza",
+      "position": "upper",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": null,
+        "spaceBetweenLegendsRightId": 1000
+      }
+    },
+    {
+      "id": 17,
+      "uuid": "pqr123stu",
+      "position": "upper",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 1000,
+        "spaceBetweenLegendsRightId": 1001
+      }
+    },
+    {
+      "id": 16,
+      "uuid": "jkl789mno",
+      "position": "upper",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 1001,
+        "spaceBetweenLegendsRightId": 1002
+      }
+    },
+    {
+      "id": 15,
+      "uuid": "def456ghi",
+      "position": "upper",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1002,
+        "spaceBetweenLegendsRightId": 1003
+      }
+    },
+    {
+      "id": 14,
+      "uuid": "mno456pqr",
+      "position": "upper",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design3",
+        "spaceBetweenLegendsLeftId": 1003,
+        "spaceBetweenLegendsRightId": 1004
+      }
+    },
+    {
+      "id": 13,
+      "uuid": "xyz789uvw",
+      "position": "upper",
+      "type": "canino",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1004,
+        "spaceBetweenLegendsRightId": 1005
+      }
+    },
+    {
+      "id": 12,
+      "uuid": "abc123def456ghi",
+      "position": "upper",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1005,
+        "spaceBetweenLegendsRightId": 1006
+      }
+    },
+    {
+      "id": 11,
+      "uuid": "54asg1a5s1das56d4asd",
+      "position": "upper",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1006,
+        "spaceBetweenLegendsRightId": 1007
+      }
+    },
+    {
+      "id": 21,
+      "uuid": "bcd789efg",
+      "position": "upper",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1007,
+        "spaceBetweenLegendsRightId": 1008
+      }
+    },
+    {
+      "id": 22,
+      "uuid": "hij123klm",
+      "position": "upper",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1008,
+        "spaceBetweenLegendsRightId": 1009
+      }
+    },
+    {
+      "id": 23,
+      "uuid": "nop456qrs",
+      "position": "upper",
+      "type": "canino",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1009,
+        "spaceBetweenLegendsRightId": 1010
+      }
+    },
+    {
+      "id": 24,
+      "uuid": "tuv789wxy",
+      "position": "upper",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design4",
+        "spaceBetweenLegendsLeftId": 1010,
+        "spaceBetweenLegendsRightId": 1011
+      }
+    },
+    {
+      "id": 25,
+      "uuid": "zab123cde",
+      "position": "upper",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 1011,
+        "spaceBetweenLegendsRightId": 1012
+      }
+    },
+    {
+      "id": 26,
+      "uuid": "fgh456ijk",
+      "position": "upper",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 1012,
+        "spaceBetweenLegendsRightId": 1013
+      }
+    },
+    {
+      "id": 27,
+      "uuid": "lmn789opq",
+      "position": "upper",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 1013,
+        "spaceBetweenLegendsRightId": 1014
+      }
+    },
+    {
+      "id": 28,
+      "uuid": "rst123uvw",
+      "position": "upper",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 1014,
+        "spaceBetweenLegendsRightId": null
+      }
+    },
+    {
+      "id": 48,
+      "uuid": "jkl456mno",
+      "position": "lower",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": null,
+        "spaceBetweenLegendsRightId": 2000
+      }
+    },
+    {
+      "id": 47,
+      "uuid": "def123ghi",
+      "position": "lower",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 2000,
+        "spaceBetweenLegendsRightId": 2001
+      }
+    },
+    {
+      "id": 46,
+      "uuid": "xyz789abc",
+      "position": "lower",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 2001,
+        "spaceBetweenLegendsRightId": 2002
+      }
+    },
+    {
+      "id": 45,
+      "uuid": "rst456uvw",
+      "position": "lower",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2002,
+        "spaceBetweenLegendsRightId": 2003
+      }
+    },
+    {
+      "id": 44,
+      "uuid": "lmn123opq",
+      "position": "lower",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design3",
+        "spaceBetweenLegendsLeftId": 2003,
+        "spaceBetweenLegendsRightId": 2004
+      }
+    },
+    {
+      "id": 43,
+      "uuid": "fgh789ijk",
+      "position": "lower",
+      "type": "canino",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2004,
+        "spaceBetweenLegendsRightId": 2005
+      }
+    },
+    {
+      "id": 42,
+      "uuid": "zab456cde",
+      "position": "lower",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2005,
+        "spaceBetweenLegendsRightId": 2006
+      }
+    },
+    {
+      "id": 41,
+      "uuid": "tuv123wxy",
+      "position": "lower",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2006,
+        "spaceBetweenLegendsRightId": 2007
+      }
+    },
+    {
+      "id": 31,
+      "uuid": "xyz456abc",
+      "position": "lower",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2007,
+        "spaceBetweenLegendsRightId": 2008
+      }
+    },
+    {
+      "id": 32,
+      "uuid": "def789ghi",
+      "position": "lower",
+      "type": "incisivo",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2008,
+        "spaceBetweenLegendsRightId": 2009
+      }
+    },
+    {
+      "id": 33,
+      "uuid": "jkl123mno",
+      "position": "lower",
+      "type": "canino",
+      "zones": 4,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2009,
+        "spaceBetweenLegendsRightId": 2010
+      }
+    },
+    {
+      "id": 34,
+      "uuid": "pqr456stu",
+      "position": "lower",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design4",
+        "spaceBetweenLegendsLeftId": 2010,
+        "spaceBetweenLegendsRightId": 2011
+      }
+    },
+    {
+      "id": 35,
+      "uuid": "vwx789yza",
+      "position": "lower",
+      "type": "premolar",
+      "zones": 6,
+      "findings": [],
+      "displayProperties": {
+        "design": "design2",
+        "spaceBetweenLegendsLeftId": 2011,
+        "spaceBetweenLegendsRightId": 2012
+      }
+    },
+    {
+      "id": 36,
+      "uuid": "bcd123efg",
+      "position": "lower",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 2012,
+        "spaceBetweenLegendsRightId": 2013
+      }
+    },
+    {
+      "id": 37,
+      "uuid": "hij456klm",
+      "position": "lower",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 2013,
+        "spaceBetweenLegendsRightId": 2014
+      }
+    },
+    {
+      "id": 38,
+      "uuid": "nop789qrs",
+      "position": "lower",
+      "type": "molar",
+      "zones": 8,
+      "findings": [],
+      "displayProperties": {
+        "design": "default",
+        "spaceBetweenLegendsLeftId": 2014,
+        "spaceBetweenLegendsRightId": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+/* Tooth.css */
+svg.tooth {
+  cursor: pointer;
+  fill: white;
+}
+
+svg.tooth .to-do {
+  fill: red;
+}
+
+svg.tooth .done {
+  fill: blue;
+}
+
+/* polygon:hover {
+  fill: lightgray;
+} */
+
+.tooth {
+  font-size: 6pt;
+  font-weight: normal;
+}
+
