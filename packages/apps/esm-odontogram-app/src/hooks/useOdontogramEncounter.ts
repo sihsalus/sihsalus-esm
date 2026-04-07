@@ -1,7 +1,7 @@
 import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import { useState } from 'react';
 
-import useDentalDataStore from '../store/dentalData';
+import useOdontogramDataStore from '../store/odontogramDataStore';
 import type { OdontogramConfig } from '../config-schema';
 
 interface SaveOdontogramParams {
@@ -19,27 +19,19 @@ export function useOdontogramEncounter() {
     setError(null);
 
     try {
-      const teeth = useDentalDataStore.getState().teeth as Array<{
-        id: string | number;
-        findings: Array<{
-          optionId: number;
-          subOptionId?: number;
-          color?: string;
-          dynamicDesign?: number | null;
-        }>;
-      }>;
+      const data = useOdontogramDataStore.getState().data;
 
-      const obs = teeth
-        .filter((tooth) => tooth.findings?.length > 0)
+      const obs = data.teeth
+        .filter((tooth) => tooth.findings.length > 0)
         .flatMap((tooth) =>
           tooth.findings.map((finding) => ({
             concept: config.findingConceptUuid,
-            value: String(tooth.id),
+            value: String(tooth.toothId),
             comment: JSON.stringify({
-              optionId: finding.optionId,
+              optionId: finding.findingId,
               subOptionId: finding.subOptionId,
               color: finding.color,
-              dynamicDesign: finding.dynamicDesign,
+              dynamicDesign: finding.designNumber ?? null,
             }),
           })),
         );

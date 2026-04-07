@@ -1,7 +1,0 @@
-.interactive-svg rect {
-  transition: fill 0.2s ease;
-}
-
-.interactive-svg:hover rect {
-  fill: #aaa9a9;
-}

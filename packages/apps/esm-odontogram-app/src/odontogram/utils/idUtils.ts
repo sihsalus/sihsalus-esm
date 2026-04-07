@@ -73,7 +73,9 @@ export class IdUtils {
   }
 
   /**
-   * Convierte un UUID a objeto DualIdEntityType, position?: ToothPosition): DualId | null {
+   * Convierte un UUID a objeto DualId
+   */
+  static fromDualId(uuid: string, type: EntityType, position?: ToothPosition): DualId | null {
     if (type === 'tooth') {
       const numericId = this.getToothNumericId(uuid);
       return numericId ? { numericId, uuid } : null;
@@ -87,9 +89,7 @@ export class IdUtils {
   /**
    * Valida si un UUID existe en el mapeo
    */
-  static isValidUuid(uuid: string, type: EntityType, position?: ToothPosition
-   */
-  static isValidUuid(uuid: string, type: 'tooth' | 'space', position?: 'upper' | 'lower'): boolean {
+  static isValidUuid(uuid: string, type: EntityType, position?: ToothPosition): boolean {
     if (type === 'tooth') {
       const teeth = idMapping.teeth as Record<string, string>;
       return Object.values(teeth).includes(uuid);
