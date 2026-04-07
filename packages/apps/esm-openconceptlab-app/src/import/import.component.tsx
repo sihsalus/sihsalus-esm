@@ -40,6 +40,7 @@ const Import: React.FC = () => {
       const fileToUpload: File = addedFiles[0];
       if (!allowedMimeTypes.includes(fileToUpload.type)) {
         showSnackbar({
+          title: t('invalidFile', 'Invalid file'),
           kind: 'error',
           subtitle: t('fileFormatError', 'Only .zip files are allowed'),
         });
@@ -62,6 +63,7 @@ const Import: React.FC = () => {
 
       if (!isSubscriptionAvailable) {
         showSnackbar({
+          title: t('noSubscription', 'No subscription'),
           kind: 'error',
           subtitle: t('noSubscriptionError', 'No saved subscription'),
         });
@@ -74,6 +76,7 @@ const Import: React.FC = () => {
 
         if (response.status === 201) {
           showSnackbar({
+            title: t('importStarted', 'Import started'),
             kind: 'success',
             subtitle: t('importSuccess', 'Import started successfully'),
           });
@@ -108,6 +111,7 @@ const Import: React.FC = () => {
       if (!file) {
         setIsFileUploading(false);
         showSnackbar({
+          title: t('noFile', 'No file'),
           kind: 'error',
           subtitle: t('noFileSelected', 'No file selected'),
         });
@@ -121,6 +125,7 @@ const Import: React.FC = () => {
         if (response.status === 201) {
           setFile(null);
           showSnackbar({
+            title: t('importStarted', 'Import started'),
             kind: 'success',
             subtitle: t('importSuccess', 'Import started successfully'),
           });

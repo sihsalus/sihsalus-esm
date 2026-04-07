@@ -73,6 +73,7 @@ const Subscription: React.FC = () => {
 
       if (isSnapshotOptionDisabled && isSubscribedToSnapshot) {
         showSnackbar({
+          title: t('validationError', 'Validation error'),
           kind: 'error',
           subtitle: t(
             'snapshotDisabledError',
@@ -99,6 +100,7 @@ const Subscription: React.FC = () => {
 
         if (response.ok) {
           showSnackbar({
+            title: t('subscriptionSaved', 'Subscription saved'),
             kind: 'success',
             subtitle: t(
               response.status === 201 ? 'subscriptionCreated' : 'subscriptionUpdated',
@@ -135,6 +137,7 @@ const Subscription: React.FC = () => {
     setIsSnapshotOptionDisabled(subscription ? isVersionDefinedInUrl(subscription.url) : false);
 
     showSnackbar({
+      title: t('changesCancelled', 'Changes cancelled'),
       kind: 'info',
       subtitle: t('cancelledChanges', 'Cancelled changes successfully'),
     });
@@ -157,6 +160,7 @@ const Subscription: React.FC = () => {
           setValidationType('FULL');
           setIsSnapshotOptionDisabled(false);
           showSnackbar({
+            title: t('unsubscribed', 'Unsubscribed'),
             kind: 'success',
             subtitle: t('subscriptionDeleted', 'Successfully unsubscribed'),
           });

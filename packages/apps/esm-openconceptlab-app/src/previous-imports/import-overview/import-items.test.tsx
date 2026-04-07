@@ -5,27 +5,22 @@ import { renderWithSwr } from '@tools/test-helpers';
 import React from 'react';
 
 import ImportItems from './import-items.component';
-import { getImportDetails } from './import-items.resource';
+import { useImportItems } from './import-items.resource';
 
 const defaultProps = {
   importUuid: mockPreviousImports[1].uuid,
 };
 
-const mockGetImportDetails = getImportDetails as jest.Mock;
+const mockUseImportItems = useImportItems as jest.Mock;
 const mockUsePagination = usePagination as jest.Mock;
 
-jest.mock('./import-items.resource', () => {
-  const originalModule = jest.requireActual('./import-items.resource');
-
-  return {
-    ...originalModule,
-    getImportDetails: jest.fn(),
-  };
-});
+jest.mock('./import-items.resource', () => ({
+  useImportItems: jest.fn(),
+}));
 
 describe('Import items', () => {
   it('renders a tabular overview', async () => {
-    mockGetImportDetails.mockReturnValue({ status: 200, ok: true, data: mockImportItems });
+    mockUseImportItems.mockReturnValue({ data: mockImportItems, isLoading: false, error: null });
     mockUsePagination.mockReturnValue({
       currentPage: 1,
       goTo: () => {},
@@ -39,7 +34,7 @@ describe('Import items', () => {
   });
 
   it('renders the import items correctly', async () => {
-    mockGetImportDetails.mockReturnValue({ status: 200, ok: true, data: mockImportItems });
+    mockUseImportItems.mockReturnValue({ data: mockImportItems, isLoading: false, error: null });
     mockUsePagination.mockReturnValue({
       currentPage: 1,
       goTo: () => {},
