@@ -4,7 +4,7 @@ import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import App from '../App';
+import OdontogramNuevoBridge from '../components/OdontogramNuevoBridge';
 
 interface OdontogramDashboardProps {
   patientUuid: string;
@@ -25,7 +25,7 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
         </Button>
       </CardHeader>
       <div style={{ overflowX: 'auto', padding: '0 1rem 1rem' }}>
-        <App />
+        <OdontogramNuevoBridge />
       </div>
     </div>
   );

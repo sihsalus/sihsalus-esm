@@ -3,7 +3,7 @@ import { showSnackbar, type DefaultWorkspaceProps } from '@openmrs/esm-framework
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import App from '../App';
+import OdontogramNuevoBridge from '../components/OdontogramNuevoBridge';
 import { useOdontogramEncounter } from '../hooks/useOdontogramEncounter';
 
 interface OdontogramWorkspaceProps extends DefaultWorkspaceProps {
@@ -39,7 +39,7 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
 
   return (
     <div>
-      <App />
+      <OdontogramNuevoBridge />
       <div style={{ display: 'flex', gap: '0.5rem', padding: '1rem', justifyContent: 'flex-end' }}>
         <Button kind="secondary" onClick={() => closeWorkspace()}>
           {t('cancel', 'Cancel')}
