@@ -1,5 +1,5 @@
 import { Button, Link, OverflowMenu, OverflowMenuItem, DataTableSkeleton, Pagination } from '@carbon/react';
-import { AddIcon, navigate, showModal, showSnackbar, type Visit } from '@openmrs/esm-framework';
+import { AddIcon, launchWorkspace, navigate, showModal, showSnackbar, type Visit } from '@openmrs/esm-framework';
 import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -210,6 +210,17 @@ export const EncounterList: React.FC<EncounterListProps> = ({
               )
             );
           })}
+          <OverflowMenuItem
+            itemText={t('createFua', 'Crear FUA')}
+            onClick={(e) => {
+              e.preventDefault();
+              launchWorkspace('fua-encounter-workspace', {
+                patientUuid,
+                encounterUuid: encounter.uuid,
+                workspaceTitle: t('createFuaWorkspaceTitle', 'Crear FUA'),
+              });
+            }}
+          />
         </OverflowMenu>
       );
 
