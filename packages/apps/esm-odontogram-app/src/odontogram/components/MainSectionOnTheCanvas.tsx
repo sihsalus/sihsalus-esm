@@ -47,16 +47,6 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({
   const isSpacingOnly = spacingOnlyFindings.includes(optionId);
 
   const handleClick = () => {
-    console.log('[MainSectionOnTheCanvas.handleClick]', {
-      idTooth,
-      optionId,
-      readOnly,
-      isComplete,
-      isSelected,
-      selectedColor,
-      currentFinding,
-      isSpacingOnly,
-    });
     if (readOnly) return;
     if (!isComplete || !isSelected) {
       if (selectedFindingId && !isComplete) {
@@ -115,12 +105,6 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({
   };
 
   const renderDesign = () => {
-    console.log('[MainSectionOnTheCanvas.renderDesign]', {
-      optionId,
-      idTooth,
-      hasColor: !!currentFinding?.color,
-      designNumber: currentFinding?.designNumber,
-    });
     // Spacing-only findings should not render in the 60px tooth cell
     if (isSpacingOnly) return null;
     if (!currentFinding?.color || !currentFinding?.designNumber) {
@@ -132,7 +116,6 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({
       currentFinding.designNumber,
       isLowerTeeth ?? false
     );
-    console.log('[MainSectionOnTheCanvas.renderDesign] DesignComponent found:', !!DesignComponent, 'for', optionId, currentFinding.designNumber);
     if (!DesignComponent) return null;
 
     return <DesignComponent strokeColor={currentFinding.color.name} />;

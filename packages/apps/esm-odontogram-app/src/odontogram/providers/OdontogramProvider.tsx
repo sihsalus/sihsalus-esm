@@ -188,7 +188,6 @@ export function OdontogramProvider({
   // ---------------------------------------------------------------------------
   const emit = useCallback(
     (newData: OdontogramData) => {
-      console.log('[emit] onChange exists:', !!onChange, 'teeth with findings:', newData.teeth.filter(t => t.findings.length > 0).map(t => ({ id: t.toothId, n: t.findings.length })));
       if (onChange) onChange(newData);
     },
     [onChange]
@@ -217,7 +216,6 @@ export function OdontogramProvider({
         }
       }
 
-      console.log('[selectFinding]', { findingId, hasColors, hasSuboptions, autoColor, autoIsComplete });
 
       setFormSelection({
         selectedFindingId: findingId,
@@ -241,7 +239,6 @@ export function OdontogramProvider({
         (!hasColors || color !== null) &&
         (!hasSuboptions || prev.selectedSuboption !== null);
 
-      console.log('[selectColor]', { color, isCompleteNow, hasSuboptions, selectedSuboption: prev.selectedSuboption });
 
       return {
         ...prev,
@@ -268,7 +265,6 @@ export function OdontogramProvider({
         (!hasColors || autoColor !== null) &&
         (!hasSuboptions || suboption !== null);
 
-      console.log('[selectSuboption]', { suboption, autoColor, isCompleteNow });
 
       return {
         ...prev,
@@ -304,11 +300,10 @@ export function OdontogramProvider({
       subOptionId?: number;
       designNumber?: number | null;
     }) => {
-      console.log('[registerToothFinding] called', params);
-      if (readOnly) { console.log('[registerToothFinding] blocked: readOnly'); return; }
+      if (readOnly) return;
 
       const position = getToothPosition(params.toothId, config);
-      if (!position) { console.log('[registerToothFinding] blocked: no position for tooth', params.toothId); return; }
+      if (!position) return;
 
       // Determinar designNumber inicial (se recalculará después si aplica adyacencia)
       let designNumber = params.designNumber ?? null;
@@ -322,7 +317,6 @@ export function OdontogramProvider({
           designNumber = 1;
         }
       }
-      console.log('[registerToothFinding] designNumber initial:', designNumber, 'for finding:', params.findingId);
 
       const newFinding: ToothFinding = {
         id: generateId(),
@@ -451,7 +445,6 @@ export function OdontogramProvider({
           newSpacingFindings[params.findingId]
         );
 
-        console.log('[registerToothFinding] adjacency cascade done for finding:', params.findingId);
       }
 
       // =====================================================================
@@ -463,7 +456,6 @@ export function OdontogramProvider({
         newLegendSpaces = recalculateLegendDesigns(newLegendSpaces, params.findingId, newTeeth);
         // 2) Recalcular tooth designs basándose en LEGEND SPACES actualizados
         newTeeth = recalculateToothDesignsFromLegendSpaces(newTeeth, params.findingId, newLegendSpaces);
-        console.log('[registerToothFinding] tooth↔legendSpace cascade done for finding:', params.findingId);
       }
 
       const newData: OdontogramData = { ...data, teeth: newTeeth, spacingFindings: newSpacingFindings, legendSpaces: newLegendSpaces };
@@ -472,7 +464,6 @@ export function OdontogramProvider({
         ...tooth,
         annotations: computeToothAnnotations(tooth.findings, config.findingOptions),
       }));
-      console.log('[registerToothFinding] emitting new data');
       emit(newData);
     },
     [data, config, readOnly, emit]
@@ -548,11 +539,10 @@ export function OdontogramProvider({
       color: FindingColor;
       designNumber?: number | null;
     }) => {
-      console.log('[toggleSpacingFinding] called', params);
-      if (readOnly) { console.log('[toggleSpacingFinding] blocked: readOnly'); return; }
+      if (readOnly) return;
 
       // Row findings tienen spacing deshabilitado para clicks directos
-      if (isRowFinding(params.findingId)) { console.log('[toggleSpacingFinding] blocked: isRowFinding'); return; }
+      if (isRowFinding(params.findingId)) return;
 
       const findingId = params.findingId;
       const spaces = data.spacingFindings[findingId] || [];
@@ -564,8 +554,7 @@ export function OdontogramProvider({
           s.rightToothId === params.rightToothId
       );
 
-      console.log('[toggleSpacingFinding] spaceIndex:', spaceIndex, 'total spaces:', spaces.length);
-      if (spaceIndex < 0) { console.log('[toggleSpacingFinding] blocked: space not found'); return; }
+      if (spaceIndex < 0) return;
 
       const space = spaces[spaceIndex];
       const existingFindingIdx = space.findings.findIndex(
@@ -641,7 +630,6 @@ export function OdontogramProvider({
         },
       };
 
-      console.log('[toggleSpacingFinding] emitting newData, updated space:', updatedSpaces[spaceIndex]);
       emit(newData);
     },
     [data, config, readOnly, emit]

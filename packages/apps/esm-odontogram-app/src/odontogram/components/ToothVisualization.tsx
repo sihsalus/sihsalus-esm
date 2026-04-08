@@ -215,7 +215,6 @@ const ToothVisualization = ({ idTooth, zones = 8, design = "default", position =
 
   // Función para gestionar los hallazgos
   const handleFindingToggle = () => {
-    console.log('[ToothVisualization.handleFindingToggle]', {
       idTooth,
       readOnly,
       isComplete,
@@ -287,24 +286,20 @@ const ToothVisualization = ({ idTooth, zones = 8, design = "default", position =
       return null;
     }
 
-    console.log('[ToothVisualization.renderAllFindings] tooth', idTooth, 'findings:', tooth.findings.map(f => ({ findingId: f.findingId, designNumber: f.designNumber, color: f.color?.name })));
 
     return tooth.findings.map((finding, index: number) => {
       const findingKey = String(finding.findingId);
       const designKey = String(finding.designNumber);
       const designComponents = (designComponentMap as Record<string, Record<string, any>>)[findingKey];
       if (!designComponents) {
-        console.log('[ToothVisualization.renderAllFindings] no designComponents for findingKey:', findingKey);
         return null;
       }
 
       const DesignComponent = designComponents[designKey];
       if (!DesignComponent) {
-        console.log('[ToothVisualization.renderAllFindings] no DesignComponent for designKey:', designKey, 'in finding:', findingKey);
         return null;
       }
 
-      console.log('[ToothVisualization.renderAllFindings] RENDERING finding:', findingKey, 'design:', designKey);
       return (
         <g key={`finding-${finding.id || index}`}>
           <DesignComponent strokeColor={finding.color?.name || 'black'} />

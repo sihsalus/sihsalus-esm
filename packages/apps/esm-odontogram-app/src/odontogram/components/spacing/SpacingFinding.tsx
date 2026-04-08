@@ -58,7 +58,6 @@ const SpacingFinding: React.FC<SpacingFindingProps> = ({
   const isSelected = selectedFindingId === findingId;
 
   const handleClick = () => {
-    console.log('[SpacingFinding.handleClick]', {
       findingId,
       leftToothId,
       rightToothId,
@@ -105,7 +104,6 @@ const SpacingFinding: React.FC<SpacingFindingProps> = ({
 
   // Renderizar el diseño visual del hallazgo
   const renderDesign = () => {
-    console.log('[SpacingFinding.renderDesign]', {
       findingId,
       leftToothId,
       rightToothId,
@@ -120,7 +118,6 @@ const SpacingFinding: React.FC<SpacingFindingProps> = ({
       dynamicDesign,
       isLower
     );
-    console.log('[SpacingFinding.renderDesign] DesignComponent found:', !!DesignComponent);
     if (!DesignComponent) return null;
 
     return <DesignComponent strokeColor={storedColor.name} />;
