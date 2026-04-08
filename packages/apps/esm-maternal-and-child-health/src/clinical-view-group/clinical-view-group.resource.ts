@@ -20,7 +20,7 @@ export const usePatientEnrollment = (patientUuid: string | null | undefined) => 
 
   const sortedResults = useMemo(() => {
     const results = data?.data.results ?? [];
-    return results.sort((a, b) => {
+    return results.toSorted((a, b) => {
       if (!a.dateEnrolled || !b.dateEnrolled) return 0;
       return new Date(b.dateEnrolled).getTime() - new Date(a.dateEnrolled).getTime();
     });

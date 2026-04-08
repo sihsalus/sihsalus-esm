@@ -7,8 +7,8 @@ import styles from './error-state.scss';
 
 export interface ErrorStateProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error: any;
-  headerTitle: string;
+  readonly error: any;
+  readonly headerTitle: string;
 }
 
 export const ErrorState: React.FC<ErrorStateProps> = ({ error, headerTitle }) => {

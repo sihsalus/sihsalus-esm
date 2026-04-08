@@ -11,7 +11,7 @@ import PatientLocationMismatchModal from './PatienMismatchedLocationModal';
 
 const PatientSearchHeader = () => {
   const [patientLocationMismatchModalOpen, setPatientLocationMismatchModalOpen] = useState(false);
-  const [selectedPatientUuid, setSelectedPatientUuid] = useState();
+  const [selectedPatientUuid, setSelectedPatientUuid] = useState<string | undefined>(undefined);
   const { hsuIdentifier } = useHsuIdIdentifier(selectedPatientUuid);
   const { sessionLocation } = useSession();
   const config = useConfig();

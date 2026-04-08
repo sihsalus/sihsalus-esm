@@ -5,9 +5,9 @@ import React, { Component, type ErrorInfo, type ReactNode } from 'react';
 import { auditLogger } from '@sihsalus/audit-logger';
 
 interface AppErrorBoundaryProps {
-  appName: string;
-  children: ReactNode;
-  onError?: (error: Error, info: ErrorInfo) => void;
+  readonly appName: string;
+  readonly children: ReactNode;
+  readonly onError?: (error: Error, info: ErrorInfo) => void;
 }
 
 interface AppErrorBoundaryState {

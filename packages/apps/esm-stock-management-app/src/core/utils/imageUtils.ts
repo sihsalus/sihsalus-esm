@@ -44,7 +44,7 @@ export const GetPrintLogo = async (): Promise<PrintLogoData | null> => {
         })
         .catch((error) => {
           console.error('Error fetching print logo: ', error);
-          reject('Error fetching print logo');
+          reject(new Error('Error fetching print logo'));
         });
     } else {
       const img = new Image();
@@ -63,7 +63,7 @@ export const GetPrintLogo = async (): Promise<PrintLogoData | null> => {
             }
             resolve({ image: dataURL, isSvg: false });
           } else {
-            reject('Failed to allocate canvas context for print logo');
+            reject(new Error('Failed to allocate canvas context for print logo'));
           }
         } catch (e) {
           reject(e);

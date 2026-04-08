@@ -34,7 +34,7 @@ const GroupSearchHeader = () => {
       }
 
       if (group.cohortMembers) {
-        group.cohortMembers.sort((a, b) => {
+        group.cohortMembers = group.cohortMembers.toSorted((a, b) => {
           const aName = a?.patient?.person?.names?.[0]?.display;
           const bName = b?.patient?.person?.names?.[0]?.display;
           return aName.localeCompare(bName, undefined, { sensitivity: 'base' });

@@ -16,8 +16,10 @@ export enum ReportParameter {
   Fullfillment = 'Fullfillment',
 }
 
-export const getParamDefaultLimit = (reportSystemName: string | undefined | null) => {
-  return isForecastReport(reportSystemName) ? 4 : reportSystemName ? 20 : null;
+export const getParamDefaultLimit = (reportSystemName: string | undefined | null): number | null => {
+  if (isForecastReport(reportSystemName)) return 4;
+  if (reportSystemName) return 20;
+  return null;
 };
 
 export const isForecastReport = (reportSystemName: string | undefined | null) => {

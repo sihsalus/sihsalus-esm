@@ -8,11 +8,11 @@ import { useLocation } from 'react-router-dom';
 import styles from './dashboard-extension.scss';
 
 export interface DashboardExtensionProps {
-  path: string;
-  title: string;
-  basePath: string;
-  icon: string;
-  moduleName?: string;
+  readonly path: string;
+  readonly title: string;
+  readonly basePath: string;
+  readonly icon: string;
+  readonly moduleName?: string;
 }
 
 export const DashboardExtension = ({

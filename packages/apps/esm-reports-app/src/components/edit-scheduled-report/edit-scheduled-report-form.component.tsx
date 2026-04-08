@@ -31,7 +31,7 @@ const EditScheduledReportForm: React.FC<EditScheduledReportForm> = ({
 
   const [reportParameters, setReportParameters] = useState(reportRequest?.parameterMappings || {});
   const [renderModeUuid, setRenderModeUuid] = useState<string>();
-  const [initialCron, setInitialCron] = useState();
+  const [initialCron, setInitialCron] = useState<string | undefined>(undefined);
   const [schedule, setSchedule] = useState('');
 
   const [isSubmitting, setIsSubmitting] = useState(false);

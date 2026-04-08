@@ -15,7 +15,7 @@ function useQueueServices() {
       queues.flatMap((queue) => queue.service),
       (service) => service?.uuid,
     );
-    const sortedServices = uniqueServices.sort((a, b) => a.display.localeCompare(b.display, getLocale()));
+    const sortedServices = uniqueServices.toSorted((a, b) => a.display.localeCompare(b.display, getLocale()));
 
     return {
       services: sortedServices,

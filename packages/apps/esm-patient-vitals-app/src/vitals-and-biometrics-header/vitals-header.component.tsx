@@ -68,27 +68,33 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
     const now = dayjs();
     const vitalsOverdueDayCount = Math.round(dayjs.duration(now.diff(latestVitals?.date)).asDays());
 
-    const overdueVitalsTagContent: React.ReactNode =
-      vitalsOverdueDayCount >= 1 && vitalsOverdueDayCount < 7 ? (
+    let overdueVitalsTagContent: React.ReactNode;
+    if (vitalsOverdueDayCount >= 1 && vitalsOverdueDayCount < 7) {
+      overdueVitalsTagContent = (
         <Trans i18nKey="daysOldVitals" count={vitalsOverdueDayCount}>
           <span>
             {/* @ts-expect-error Workaround for i18next types issue (see https://github.com/i18next/react-i18next/issues/1543 and https://github.com/i18next/react-i18next/issues/465). Additionally, I can't find a way to get the proper plural suffix to be used in the translation file without amending the translation file by hand. */}
             These vitals are <strong>{{ count: vitalsOverdueDayCount }} day old</strong>
           </span>
         </Trans>
-      ) : vitalsOverdueDayCount >= 8 && vitalsOverdueDayCount <= 14 ? (
+      );
+    } else if (vitalsOverdueDayCount >= 8 && vitalsOverdueDayCount <= 14) {
+      overdueVitalsTagContent = (
         <Trans i18nKey="overOneWeekOldVitals">
           <span>
             These vitals are <strong>over one week old</strong>
           </span>
         </Trans>
-      ) : (
+      );
+    } else {
+      overdueVitalsTagContent = (
         <Trans i18nKey="outOfDateVitals">
           <span>
             These vitals are <strong>out of date</strong>
           </span>
         </Trans>
       );
+    }
 
     return (
       <div className={styles.container}>

@@ -7,9 +7,9 @@ import { EmptyDataIllustration } from './empty-data-illustration.component';
 import styles from './empty-state.scss';
 
 export interface EmptyStateProps {
-  displayText: string;
-  headerTitle: string;
-  launchForm?(): void;
+  readonly displayText: string;
+  readonly headerTitle: string;
+  readonly launchForm?: () => void;
 }
 
 export const EmptyState: React.FC<EmptyStateProps> = (props) => {

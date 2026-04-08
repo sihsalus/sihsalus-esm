@@ -32,10 +32,10 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
   const allVisitTypes = useVisitTypes();
   const isTablet = useLayoutType() === 'tablet';
 
-  const [endAge, setEndAge] = useState();
+  const [endAge, setEndAge] = useState<number | undefined>(undefined);
   const [gender, setGender] = useState('');
   const [returnDate, setReturnDate] = useState(new Date());
-  const [startAge, setStartAge] = useState();
+  const [startAge, setStartAge] = useState<number | undefined>(undefined);
   const [visitType, setVisitType] = useState('');
 
   const handleFilter = useCallback(

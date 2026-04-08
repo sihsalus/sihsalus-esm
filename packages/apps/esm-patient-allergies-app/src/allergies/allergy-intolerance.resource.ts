@@ -41,7 +41,7 @@ export function useAllergies(patientUuid: string): UseAllergies {
       ? data?.data.entry
           .map((entry) => entry.resource ?? [])
           .map(mapAllergyProperties)
-          .sort((a, b) => (b.lastUpdated > a.lastUpdated ? 1 : -1))
+          .toSorted((a, b) => (b.lastUpdated > a.lastUpdated ? 1 : -1))
       : null;
 
   return {

@@ -24,7 +24,7 @@ module.exports = {
     '^dexie$': require.resolve('dexie'),
     '^lodash-es/(.*)$': 'lodash/$1',
     '^lodash-es$': 'lodash',
-    '^react-i18next$': path.resolve(__dirname, '__mocks__', 'react-i18next.js'),
+    '^react-i18next$': path.resolve(__dirname, '../../__mocks__/react-i18next.js'),
     '^uuid$': path.resolve(__dirname, 'node_modules', 'uuid', 'dist', 'index.js'),
     '^mocks/(.*)$': path.resolve(__dirname, '__mocks__', '$1'),
     '^tools/(.*)$': path.resolve(__dirname, 'tools', '$1'),

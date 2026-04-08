@@ -120,7 +120,7 @@ export function useInitialFormValues(patientUuid: string): [FormValues, Dispatch
       const deathDatetime = deathInfo.deathDate || null;
       const deathDate = deathDatetime ? new Date(deathDatetime) : undefined;
       const time = deathDate ? dayjs(deathDate).format('hh:mm') : undefined;
-      const timeFormat = deathDate ? (dayjs(deathDate).hour() >= 12 ? 'PM' : 'AM') : 'AM';
+      const timeFormat = deathDate && dayjs(deathDate).hour() >= 12 ? 'PM' : 'AM';
       setInitialFormValues((initialFormValues) => ({
         ...initialFormValues,
         isDead: deathInfo.dead || false,

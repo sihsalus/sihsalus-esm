@@ -14,6 +14,12 @@ interface ErrorNotification {
   subtitle: string;
 }
 
+function getFileType(mimeType: string): 'image' | 'pdf' | 'other' {
+  if (mimeType.split('/')[0] === 'image') return 'image';
+  if (mimeType.split('/')[1] === 'pdf') return 'pdf';
+  return 'other';
+}
+
 const MediaUploaderComponent = () => {
   const { t } = useTranslation();
   const { maxFileSize } = useConfig();
@@ -56,8 +62,7 @@ const MediaUploaderComponent = () => {
                 base64Content,
                 file,
                 fileName: file.name,
-                fileType:
-                  file.type.split('/')[0] === 'image' ? 'image' : file.type.split('/')[1] === 'pdf' ? 'pdf' : 'other',
+                fileType: getFileType(file.type),
                 fileDescription: '',
                 status: 'uploading',
               },

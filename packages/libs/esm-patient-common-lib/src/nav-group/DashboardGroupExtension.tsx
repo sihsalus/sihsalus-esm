@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { registerNavGroup } from '..';
 
 export interface DashboardGroupExtensionProps {
-  title: string;
-  slotName?: string;
-  basePath: string;
-  isExpanded?: boolean;
+  readonly title: string;
+  readonly slotName?: string;
+  readonly basePath: string;
+  readonly isExpanded?: boolean;
 }
 
 export const DashboardGroupExtension = ({ title, slotName, basePath, isExpanded }: DashboardGroupExtensionProps) => {

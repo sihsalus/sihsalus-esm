@@ -7,14 +7,14 @@ import styles from './pagination.scss';
 import { usePaginationInfo } from './usePaginationInfo';
 
 interface PatientChartPaginationProps {
-  currentItems: number;
-  totalItems: number;
-  pageNumber: number;
-  pageSize: number;
+  readonly currentItems: number;
+  readonly totalItems: number;
+  readonly pageNumber: number;
+  readonly pageSize: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onPageNumberChange?: any;
-  dashboardLinkUrl?: string;
-  dashboardLinkLabel?: string;
+  readonly onPageNumberChange?: any;
+  readonly dashboardLinkUrl?: string;
+  readonly dashboardLinkLabel?: string;
 }
 
 export const PatientChartPagination: React.FC<PatientChartPaginationProps> = ({
