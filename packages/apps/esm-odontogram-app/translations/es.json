@@ -15,6 +15,7 @@
     "odontogramSaveError": "Error al guardar odontograma",
     "odontogramSaveErrorSubtitle": "No se pudieron guardar los hallazgos. Intente nuevamente.",
     "registerFindings": "Registrar hallazgos",
+    "odontogramWorkspaceTitle": "Odontograma",
     "saveOdontogram": "Guardar odontograma",
     "saving": "Guardando..."
 }

@@ -1,10 +1,11 @@
 import { Button, InlineLoading } from '@carbon/react';
 import { showSnackbar, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import OdontogramNuevoBridge from '../components/OdontogramNuevoBridge';
 import { useOdontogramEncounter } from '../hooks/useOdontogramEncounter';
+import useOdontogramDataStore from '../store/odontogramDataStore';
 
 interface OdontogramWorkspaceProps extends DefaultWorkspaceProps {
   patientUuid: string;
@@ -18,6 +19,11 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
 }) => {
   const { t } = useTranslation();
   const { save, isSaving } = useOdontogramEncounter();
+  const setPatient = useOdontogramDataStore((s) => s.setPatient);
+
+  useEffect(() => {
+    setPatient(patientUuid);
+  }, [patientUuid, setPatient]);
 
   const handleSave = async () => {
     try {

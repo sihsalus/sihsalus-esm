@@ -49,10 +49,6 @@ export function useOdontogramEncounter() {
         body: payload,
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to save odontogram: ${response.status}`);
-      }
-
       return response.data;
     } catch (err) {
       setError(err instanceof Error ? err : new Error(String(err)));

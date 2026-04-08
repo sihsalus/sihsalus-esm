@@ -36,7 +36,8 @@
             "name": "odontogram-form-workspace",
             "component": "odontogramWorkspace",
             "type": "form",
-            "title": "Odontogram"
+            "title": "odontogramWorkspaceTitle",
+            "canHide": true
         }
     ]
 }

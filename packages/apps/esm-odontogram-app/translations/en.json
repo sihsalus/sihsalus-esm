@@ -15,6 +15,7 @@
     "odontogramSaveError": "Error saving odontogram",
     "odontogramSaveErrorSubtitle": "Could not save odontogram findings. Please try again.",
     "registerFindings": "Register findings",
+    "odontogramWorkspaceTitle": "Odontogram",
     "saveOdontogram": "Save odontogram",
     "saving": "Saving..."
 }
