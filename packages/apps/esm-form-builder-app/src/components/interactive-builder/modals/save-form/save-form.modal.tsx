@@ -147,7 +147,7 @@ const SaveFormModal: React.FC<SaveFormModalProps> = ({ form, schema }) => {
         await mutate();
 
         navigate({
-          to: `${window.spaBase}/form-builder/edit/${newForm.uuid}`,
+          to: `${globalThis.spaBase}/form-builder/edit/${newForm.uuid}`,
         });
 
         setIsSavingForm(false);

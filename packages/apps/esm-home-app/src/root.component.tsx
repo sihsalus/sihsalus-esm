@@ -8,7 +8,7 @@ import DashboardContainer from './dashboard-container/dashboard-container.compon
 import { DefaultDashboardRedirect } from './default-dashboard-redirect.component';
 
 const Root: React.FC = () => {
-  const spaBasePath = window.spaBase;
+  const spaBasePath = globalThis.spaBase;
   const { leftNavMode } = useConfig<HomeConfig>();
   useLeftNav({
     name: 'homepage-dashboard-slot',
@@ -19,7 +19,7 @@ const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-home-app">
       <main className="omrs-main-content">
-        <BrowserRouter basename={window.spaBase}>
+        <BrowserRouter basename={globalThis.spaBase}>
           <Routes>
             <Route path="/home" element={<DefaultDashboardRedirect />} />
             <Route path="/home/:dashboard/*" element={<DashboardContainer />} />

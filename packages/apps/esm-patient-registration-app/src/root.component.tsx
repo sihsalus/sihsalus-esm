@@ -48,7 +48,7 @@ export default function Root() {
               currentSession,
             }}
           >
-            <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+            <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
               <Routes>
                 <Route
                   path="patient-registration"

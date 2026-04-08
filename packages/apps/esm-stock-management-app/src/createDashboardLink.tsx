@@ -10,7 +10,7 @@ export interface DashboardLinkConfig {
 function DashboardExtension({ dashboardLinkConfig }: { dashboardLinkConfig: DashboardLinkConfig }) {
   const { name, title } = dashboardLinkConfig;
   const location = useLocation();
-  const spaBasePath = `${window.spaBase}/stock-management`;
+  const spaBasePath = `${globalThis.spaBase}/stock-management`;
 
   const navLink = useMemo(() => {
     const pathArray = location.pathname.split('/');

@@ -51,7 +51,7 @@ const LastUpdatedTableCell: React.FC<LastUpdatedTableCellProps> = ({ patientUuid
           <Link
             onClick={() =>
               navigate({
-                to: `${window.getOpenmrsSpaBase()}offline-tools/patients/${patientUuid}/offline-data`,
+                to: `${globalThis.getOpenmrsSpaBase()}offline-tools/patients/${patientUuid}/offline-data`,
               })
             }
           >

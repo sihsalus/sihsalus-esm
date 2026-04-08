@@ -41,12 +41,12 @@ function getNextUrlFromResponse(data: QueueEntryResponse) {
   if (next) {
     const nextUrl = new URL(next.uri);
     // default for production
-    if (nextUrl.origin === window.location.origin) {
+    if (nextUrl.origin === globalThis.location.origin) {
       return nextUrl.toString();
     }
 
     // in development, the request should be routed through the local proxy
-    return new URL(`${nextUrl.pathname}${nextUrl.search ? nextUrl.search : ''}`, window.location.origin).toString();
+    return new URL(`${nextUrl.pathname}${nextUrl.search ? nextUrl.search : ''}`, globalThis.location.origin).toString();
   }
   // There's no next URL
   return null;
@@ -63,7 +63,7 @@ export function useMutateQueueEntries() {
           (key.includes(`${restBaseUrl}/queue-entry`) || key.includes(`${restBaseUrl}/visit-queue-entry`))
         );
       }).then(() => {
-        window.dispatchEvent(new CustomEvent('queue-entry-updated'));
+        globalThis.dispatchEvent(new CustomEvent('queue-entry-updated'));
       });
     },
   };
@@ -170,9 +170,9 @@ export function useQueueEntries(searchCriteria?: QueueEntrySearchCriteria, rep: 
   }, [refetchAllData]);
 
   useEffect(() => {
-    window.addEventListener('queue-entry-updated', queueUpdateListener);
+    globalThis.addEventListener('queue-entry-updated', queueUpdateListener);
     return () => {
-      window.removeEventListener('queue-entry-updated', queueUpdateListener);
+      globalThis.removeEventListener('queue-entry-updated', queueUpdateListener);
     };
   }, [queueUpdateListener]);
 

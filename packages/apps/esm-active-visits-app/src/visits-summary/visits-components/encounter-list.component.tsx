@@ -64,8 +64,8 @@ const EncounterListDataTable: React.FC<EncounterListProps> = ({ encounters, visi
   useEffect(() => {
     setHeaderWidth(headerRef?.current?.clientWidth);
     const handler = () => setHeaderWidth(headerRef?.current?.clientWidth);
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
+    globalThis.addEventListener('resize', handler);
+    return () => globalThis.removeEventListener('resize', handler);
   }, []);
 
   return encounters.length > 0 ? (

@@ -35,9 +35,9 @@ const useArrowNavigation = (
   );
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyPress);
+    globalThis.addEventListener('keydown', handleKeyPress);
     return () => {
-      window.removeEventListener('keydown', handleKeyPress);
+      globalThis.removeEventListener('keydown', handleKeyPress);
     };
   }, [handleKeyPress]);
 

@@ -13,7 +13,7 @@ import styles from './billable-services.scss';
 const BillableServiceHome: React.FC = () => {
   const { t } = useTranslation();
   const layout = useLayoutType();
-  const basePath = `${window.spaBase}/billable-services`;
+  const basePath = `${globalThis.spaBase}/billable-services`;
 
   useLeftNav({ name: 'billable-services-left-panel-slot', basePath });
 

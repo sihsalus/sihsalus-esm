@@ -10,10 +10,10 @@ const useFormState = (formUuid) => {
       }
     };
 
-    window.addEventListener('ampath-form-state', handler);
+    globalThis.addEventListener('ampath-form-state', handler);
 
     return () => {
-      window.removeEventListener('ampath-form-state', handler);
+      globalThis.removeEventListener('ampath-form-state', handler);
     };
   }, [formUuid]);
 

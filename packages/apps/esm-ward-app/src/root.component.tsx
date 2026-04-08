@@ -7,7 +7,7 @@ import WardView from './ward-view/ward-view.component';
 
 const Root: React.FC = () => {
   // t('wards', 'Wards')
-  const wardViewBasename = window.getOpenmrsSpaBase() + 'home/ward';
+  const wardViewBasename = globalThis.getOpenmrsSpaBase() + 'home/ward';
 
   return (
     <AppErrorBoundary appName="esm-ward-app">

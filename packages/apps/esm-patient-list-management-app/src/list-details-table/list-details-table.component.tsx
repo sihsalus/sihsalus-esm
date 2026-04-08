@@ -164,7 +164,7 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
   const id = useId();
   const layout = useLayoutType();
   const responsiveSize = isDesktop(layout) ? 'sm' : 'lg';
-  const patientListsPath = window.getOpenmrsSpaBase() + 'home/patient-lists';
+  const patientListsPath = globalThis.getOpenmrsSpaBase() + 'home/patient-lists';
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [membershipUuid, setMembershipUuid] = useState('');

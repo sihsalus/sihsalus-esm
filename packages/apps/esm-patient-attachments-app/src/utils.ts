@@ -31,7 +31,7 @@ export interface AttachmentTableData extends Attachment {
 export function createGalleryEntry(data: AttachmentResponse): AttachmentTableData {
   return {
     id: data.uuid,
-    src: `${window.openmrsBase}${attachmentUrl}/${data.uuid}/bytes`,
+    src: `${globalThis.openmrsBase}${attachmentUrl}/${data.uuid}/bytes`,
     filename: data.filename.replace(/\.[^\\/.]+$/, ''),
     description: data.comment,
     dateTimeValue: data.dateTime,

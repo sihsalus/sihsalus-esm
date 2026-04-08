@@ -107,11 +107,11 @@ export const addColumnsToDisplay = () => {
 };
 
 export const addToHistory = (description: string, patients: Patient[], parameters: {}) => {
-  const oldHistory = JSON.parse(window.sessionStorage.getItem('openmrsHistory'));
+  const oldHistory = JSON.parse(globalThis.sessionStorage.getItem('openmrsHistory'));
   const newHistory = oldHistory
     ? [...oldHistory, { description, patients, parameters }]
     : [{ description, patients, parameters }];
-  window.sessionStorage.setItem('openmrsHistory', JSON.stringify(newHistory));
+  globalThis.sessionStorage.setItem('openmrsHistory', JSON.stringify(newHistory));
 };
 
 export const formatDate = (dateString: string) => {

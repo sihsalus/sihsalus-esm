@@ -8,7 +8,7 @@ const FormBuilderCardLink: React.FC = () => {
   const header = t('manageForms', 'Manage Forms');
   return (
     <Layer>
-      <ClickableTile href={`${window.spaBase}/form-builder`}>
+      <ClickableTile href={`${globalThis.spaBase}/form-builder`}>
         <div>
           <div className="heading">{header}</div>
           <div className="content">{t('formBuilder', 'Form builder')}</div>

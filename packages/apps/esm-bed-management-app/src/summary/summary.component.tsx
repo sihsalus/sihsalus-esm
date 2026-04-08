@@ -26,7 +26,7 @@ const Summary: React.FC = () => {
     return (
       <div className={styles.cardContainer}>
         {admissionLocations.map((admissionLocation) => {
-          const routeSegment = `${window.getOpenmrsSpaBase()}bed-management/location/${admissionLocation.ward.uuid}`;
+          const routeSegment = `${globalThis.getOpenmrsSpaBase()}bed-management/location/${admissionLocation.ward.uuid}`;
 
           return (
             <WardCard

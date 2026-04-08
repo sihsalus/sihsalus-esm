@@ -29,11 +29,11 @@ export default function HelpMenu() {
       }
     };
 
-    window.addEventListener(`mousedown`, handleClickOutside);
-    window.addEventListener(`touchstart`, handleClickOutside);
+    globalThis.addEventListener(`mousedown`, handleClickOutside);
+    globalThis.addEventListener(`touchstart`, handleClickOutside);
     return () => {
-      window.removeEventListener(`mousedown`, handleClickOutside);
-      window.removeEventListener(`touchstart`, handleClickOutside);
+      globalThis.removeEventListener(`mousedown`, handleClickOutside);
+      globalThis.removeEventListener(`touchstart`, handleClickOutside);
     };
   }, []);
 

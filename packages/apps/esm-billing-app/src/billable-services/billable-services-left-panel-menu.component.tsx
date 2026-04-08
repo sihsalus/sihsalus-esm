@@ -18,7 +18,7 @@ export interface BillableServicesMenuConfig {
 function BillableServicesMenuExtension({ config }: { config: BillableServicesMenuConfig }) {
   const { title, icon: Icon, items, privilege } = config;
   const { t } = useTranslation();
-  const spaBasePath = `${window.spaBase}/billable-services`;
+  const spaBasePath = `${globalThis.spaBase}/billable-services`;
 
   const handleNavigation = (path: string) => {
     navigate({ to: `${spaBasePath}/${path}` });

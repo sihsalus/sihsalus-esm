@@ -195,7 +195,7 @@ function getResolvedModuleType(requiredVersion: string, installedVersion: string
 
 export async function checkModules(): Promise<Array<ResolvedDependenciesModule>> {
   if (!cachedFrontendModules) {
-    const modules = (window.installedModules ?? [])
+    const modules = (globalThis.installedModules ?? [])
       .filter((module) => Boolean(module[1]?.backendDependencies || module[1]?.optionalBackendDependencies))
       .map((module) => ({
         backendDependencies: module[1].backendDependencies,

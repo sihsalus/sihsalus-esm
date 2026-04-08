@@ -17,9 +17,9 @@ const TutorialModal: React.FC<TutorialModalProps> = ({ onClose }) => {
   const tutorialContext = useAppContext<TutorialContext>('tutorial-context');
 
   const handleWalkthroughClick = (index: number) => {
-    const basePath = window.getOpenmrsSpaBase();
+    const basePath = globalThis.getOpenmrsSpaBase();
     const homePath = `${basePath}home`;
-    const currentPath = window.location.pathname;
+    const currentPath = globalThis.location.pathname;
     const tutorial = tutorials[index];
 
     const setTutorialSteps = () => {
@@ -33,7 +33,7 @@ const TutorialModal: React.FC<TutorialModalProps> = ({ onClose }) => {
       navigate({ to: homePath });
 
       const intervalId = setInterval(() => {
-        if (window.location.pathname.startsWith(homePath)) {
+        if (globalThis.location.pathname.startsWith(homePath)) {
           setTutorialSteps();
           clearInterval(intervalId);
         }

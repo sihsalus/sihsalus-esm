@@ -77,7 +77,7 @@ const initialImportMapState: ImportMapListState = {
 
 function updateToNext(dispatch: Dispatch<ImportMapDispatchAction>) {
   return () =>
-    window.importMapOverrides.getNextPageMap().then((nextPageMap) => dispatch({ type: 'set_next_map', nextPageMap }));
+    globalThis.importMapOverrides.getNextPageMap().then((nextPageMap) => dispatch({ type: 'set_next_map', nextPageMap }));
 }
 
 function reducer(state: ImportMapListState, action: ImportMapDispatchAction) {
@@ -104,7 +104,7 @@ function reducer(state: ImportMapListState, action: ImportMapDispatchAction) {
         dialogModule: null,
       };
     case 'reset_all_overrides':
-      window.importMapOverrides.resetOverrides();
+      globalThis.importMapOverrides.resetOverrides();
       resetAllRoutesOverrides();
       return state;
   }
@@ -120,10 +120,10 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
 
   useEffect(() => {
     // load initial values from importMapOverrides
-    window.importMapOverrides
+    globalThis.importMapOverrides
       .getDefaultMap()
       .then((notOverriddenMap) => dispatch({ type: 'set_default_map', notOverriddenMap }));
-    window.importMapOverrides
+    globalThis.importMapOverrides
       .getCurrentPageMap()
       .then((currentPageMap) => dispatch({ type: 'set_current_map', currentPageMap }));
 
@@ -132,9 +132,9 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
 
     // add our event listener
     const dispatcher = updateToNext(dispatch);
-    window.addEventListener('import-map-overrides:change', dispatcher);
+    globalThis.addEventListener('import-map-overrides:change', dispatcher);
     // clean-up event listener
-    return () => window.removeEventListener('import-map-overrides:change', dispatcher);
+    return () => globalThis.removeEventListener('import-map-overrides:change', dispatcher);
   }, []);
 
   useEffect(() => {
@@ -158,9 +158,9 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
     externalOverrideModules: Array<Module> = [],
     pendingRefreshDefaultModules: Array<Module> = [];
 
-  const overrideMap = window.importMapOverrides.getOverrideMap(true).imports;
+  const overrideMap = globalThis.importMapOverrides.getOverrideMap(true).imports;
   const notOverriddenKeys = Object.keys(state.notOverriddenMap.imports);
-  const disabledModules = window.importMapOverrides.getDisabledOverrides();
+  const disabledModules = globalThis.importMapOverrides.getDisabledOverrides();
 
   const searchableKeys = [...new Set([...notOverriddenKeys, ...Object.keys(overrideMap)])];
   searchableKeys.sort();
@@ -252,7 +252,7 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
                     tabIndex={0}
                     onClick={(evt) => {
                       evt.preventDefault();
-                      window.location.reload();
+                      globalThis.location.reload();
                     }}
                   />
                   <div className={styles.imoNextOverrideText}>{t('inlineOverride', 'Inline Override')}</div>
@@ -277,7 +277,7 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
                     tabIndex={0}
                     onClick={(evt) => {
                       evt.preventDefault();
-                      window.location.reload();
+                      globalThis.location.reload();
                     }}
                   />
                   <div className={styles.imoNextDefaultText}>{t('default', 'Default')}</div>

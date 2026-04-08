@@ -9,7 +9,7 @@ const BillableServicesCardLink: React.FC = () => {
 
   return (
     <Layer>
-      <ClickableTile href={`${window.spaBase}/billable-services`}>
+      <ClickableTile href={`${globalThis.spaBase}/billable-services`}>
         <div>
           <div className="heading">{header}</div>
           <div className="content">{t('billableServices', 'Billable services')}</div>

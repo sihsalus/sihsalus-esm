@@ -16,7 +16,7 @@ export default DispensingDashboardLink;
 
 function DashboardExtension() {
   const { t } = useTranslation();
-  const spaBasePath = `${window.spaBase}/home`;
+  const spaBasePath = `${globalThis.spaBase}/home`;
 
   const navLink = useMemo(() => {
     const pathArray = location.pathname.split('/home');

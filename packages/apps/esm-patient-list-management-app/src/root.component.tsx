@@ -6,7 +6,7 @@ import ListDetails from './list-details/list-details.component';
 import ListsDashboard from './lists-dashboard/lists-dashboard.component';
 
 const RootComponent: React.FC = () => {
-  const patientListsBasename = window.getOpenmrsSpaBase() + 'home/patient-lists';
+  const patientListsBasename = globalThis.getOpenmrsSpaBase() + 'home/patient-lists';
 
   return (
     <AppErrorBoundary appName="esm-patient-list-management-app">

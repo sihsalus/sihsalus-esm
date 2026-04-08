@@ -121,8 +121,8 @@ export const EmergencyQueueActionsCell: React.FC<EmergencyQueueTableCellProps> =
       });
       return;
     }
-    const url = `${window.openmrsBase}${restBaseUrl}/patientdocuments/patientIdSticker?patientUuid=${patientUuid}&inline=true`;
-    window.open(url, '_blank');
+    const url = `${globalThis.openmrsBase}${restBaseUrl}/patientdocuments/patientIdSticker?patientUuid=${patientUuid}&inline=true`;
+    globalThis.open(url, '_blank');
   }, [queueEntry.patient?.uuid, t]);
 
   return (

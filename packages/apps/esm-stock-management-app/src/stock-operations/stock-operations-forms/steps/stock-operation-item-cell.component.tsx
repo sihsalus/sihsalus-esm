@@ -40,7 +40,7 @@ const StockOperationItemCell: React.FC<StockOperationItemCellProps> = ({ stockIt
   if (error) return <>--</>;
 
   return (
-    <ConfigurableLink target={'_blank'} to={window.spaBase + URL_STOCK_ITEM(stockItemUuid)}>
+    <ConfigurableLink target={'_blank'} to={globalThis.spaBase + URL_STOCK_ITEM(stockItemUuid)}>
       {useItemCommonNameAsDisplay ? commonName : drugName}
     </ConfigurableLink>
   );

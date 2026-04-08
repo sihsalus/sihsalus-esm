@@ -25,7 +25,7 @@ function LinkExtension({ config }: { config: LinkConfig }) {
 
   return (
     <ConfigurableLink
-      to={`${window.getOpenmrsSpaBase()}bed-management${name && name !== 'bed-management' ? `/${name}` : ''}`}
+      to={`${globalThis.getOpenmrsSpaBase()}bed-management${name && name !== 'bed-management' ? `/${name}` : ''}`}
       className={`cds--side-nav__link ${name === urlSegment && 'active-left-nav-link'}`}
     >
       {title}

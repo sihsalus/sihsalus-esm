@@ -105,7 +105,7 @@ const InstancesDetailsTable: React.FC<InstancesDetailsTableProps> = ({
                 label={t('instanceViewInOrthanc', 'Instance view in Orthanc')}
                 onClick={
                   () =>
-                    (window.location.href = buildURL(
+                    (globalThis.location.href = buildURL(
                       getBrowserUrl(orthancConfig),
                       `instances/${instance.orthancInstanceUID}/preview`,
                       [],
@@ -123,7 +123,7 @@ const InstancesDetailsTable: React.FC<InstancesDetailsTableProps> = ({
             size={isTablet ? 'lg' : 'sm'}
             label={t('orthancExplorer2', 'Show data in orthanc explorere')}
             onClick={() =>
-              (window.location.href = `${getBrowserUrl(orthancConfig)}/ui/app/#/filtered-studies?StudyInstanceUID=${encodeURIComponent(studyInstanceUID)}&expand=series`)
+              (globalThis.location.href = `${getBrowserUrl(orthancConfig)}/ui/app/#/filtered-studies?StudyInstanceUID=${encodeURIComponent(studyInstanceUID)}&expand=series`)
             }
           >
             <img className="orthanc-img" src={orthancExplorer} style={{ width: 26, height: 26, marginTop: 0 }}></img>

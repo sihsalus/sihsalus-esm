@@ -16,12 +16,12 @@ const useKeyPress = (targetKey) => {
       }
     };
 
-    window.addEventListener('keydown', downHandler);
-    window.addEventListener('keyup', upHandler);
+    globalThis.addEventListener('keydown', downHandler);
+    globalThis.addEventListener('keyup', upHandler);
 
     return () => {
-      window.removeEventListener('keydown', downHandler);
-      window.removeEventListener('keyup', upHandler);
+      globalThis.removeEventListener('keydown', downHandler);
+      globalThis.removeEventListener('keyup', upHandler);
     };
   }, [targetKey]);
 

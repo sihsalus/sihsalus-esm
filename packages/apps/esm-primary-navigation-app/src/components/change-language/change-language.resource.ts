@@ -19,7 +19,7 @@ export async function updateUserProperties(
   });
 
   // Force the reload of the page to ensure all data coming from the backend is fetched in the newly set locale.
-  window.location.reload();
+  globalThis.location.reload();
 }
 
 export async function updateSessionLocale(locale: string, abortController?: AbortController): Promise<void> {
@@ -31,5 +31,5 @@ export async function updateSessionLocale(locale: string, abortController?: Abor
   });
 
   // Force the reload of the page to ensure all data coming from the backend is fetched in the newly set locale.
-  window.location.reload();
+  globalThis.location.reload();
 }

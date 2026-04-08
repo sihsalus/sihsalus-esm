@@ -9,7 +9,7 @@ const DyakuPatientsLink: React.FC = () => {
   return (
     <Layer>
       <ClickableTile
-        href={`${window.spaBase ?? '/openmrs/spa'}/dyaku-patients`}
+        href={`${globalThis.spaBase ?? '/openmrs/spa'}/dyaku-patients`}
         target="_blank"
         rel="noopener noreferrer"
       >

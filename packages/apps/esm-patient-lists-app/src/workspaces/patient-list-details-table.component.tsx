@@ -140,7 +140,7 @@ const PatientListDetailsTable: React.FC<PatientListDetailsTableProps> = ({ listM
                             <ConfigurableLink
                               className={styles.link}
                               key={row.id}
-                              to={window.getOpenmrsSpaBase() + `patient/${currentPatient.patientUuid}/chart`}
+                              to={globalThis.getOpenmrsSpaBase() + `patient/${currentPatient.patientUuid}/chart`}
                             >
                               {currentPatient.name}
                             </ConfigurableLink>

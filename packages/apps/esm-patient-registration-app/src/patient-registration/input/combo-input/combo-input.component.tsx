@@ -75,9 +75,9 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
         setHighlightedEntry(-1);
       }
     };
-    window.addEventListener('click', listener);
+    globalThis.addEventListener('click', listener);
     return () => {
-      window.removeEventListener('click', listener);
+      globalThis.removeEventListener('click', listener);
     };
   });
 

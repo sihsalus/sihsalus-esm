@@ -104,7 +104,7 @@ export function scrollIntoView(viewId: string) {
 }
 
 export function cancelRegistration() {
-  window.history.back();
+  globalThis.history.back();
 }
 
 export function getFormValuesFromFhirPatient(patient: fhir.Patient) {

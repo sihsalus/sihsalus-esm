@@ -5,7 +5,7 @@ import { useLeftNav } from '@openmrs/esm-framework';
 import Dashboard from './dashboard/home-dashboard.component';
 
 const Root: React.FC = () => {
-  const spaBasePath = `${window.spaBase}/stock-management`;
+  const spaBasePath = `${globalThis.spaBase}/stock-management`;
 
   useLeftNav({
     name: 'stock-page-dashboard-slot',
@@ -15,7 +15,7 @@ const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-stock-management-app">
         <main className="omrs-main-content">
-        <BrowserRouter basename={window.spaBase}>
+        <BrowserRouter basename={globalThis.spaBase}>
           <Routes>
             <Route path="/stock-management" element={<Dashboard />} />
             <Route path="/stock-management/:dashboard/*" element={<Dashboard />} />

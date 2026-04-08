@@ -176,7 +176,7 @@ export const Configuration: React.FC = () => {
                     id="downloadConfigBtn"
                     className={styles.downloadLink}
                     download="temporary_config.json"
-                    href={window.URL.createObjectURL(tempConfigObjUrl)}
+                    href={globalThis.URL.createObjectURL(tempConfigObjUrl)}
                   >
                     {t('downloadConfig', 'Download config')}
                   </a>

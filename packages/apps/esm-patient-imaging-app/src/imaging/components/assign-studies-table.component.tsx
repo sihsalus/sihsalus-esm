@@ -118,7 +118,7 @@ const AssignStudiesTable: React.FC<AssignStudiesTableProps> = ({
             size={isTablet ? 'lg' : 'sm'}
             label={t('stoneviewer', 'Stone viewer of Orthanc')}
             onClick={() =>
-              (window.location.href = buildURL(
+              (globalThis.location.href = buildURL(
                 getBrowserUrl(study.orthancConfiguration),
                 '/stone-webviewer/index.html',
                 [{ code: 'study', value: study.studyInstanceUID }],
@@ -133,7 +133,7 @@ const AssignStudiesTable: React.FC<AssignStudiesTableProps> = ({
             size={isTablet ? 'lg' : 'sm'}
             label={t('ohifviewer', 'Ohif viewer')}
             onClick={() =>
-              (window.location.href = buildURL(getBrowserUrl(study.orthancConfiguration), '/ohif/viewer', [
+              (globalThis.location.href = buildURL(getBrowserUrl(study.orthancConfiguration), '/ohif/viewer', [
                 { code: 'StudyInstanceUIDs', value: study.studyInstanceUID },
               ]))
             }

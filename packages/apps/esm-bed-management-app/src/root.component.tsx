@@ -12,8 +12,8 @@ import styles from './root.scss';
 import WardWithBeds from './ward-with-beds/ward-with-beds.component';
 
 const Root: React.FC = () => {
-  const spaBasePath = window.spaBase;
-  const bedManagementBasename = window.getOpenmrsSpaBase() + 'bed-management';
+  const spaBasePath = globalThis.spaBase;
+  const bedManagementBasename = globalThis.getOpenmrsSpaBase() + 'bed-management';
 
   useEffect(() => {
     setLeftNav({

@@ -22,7 +22,7 @@ function EmptyState() {
           <Link
             onClick={() =>
               navigate({
-                to: `${window.spaBase}/form-builder/new`,
+                to: `${globalThis.spaBase}/form-builder/new`,
               })
             }
           >

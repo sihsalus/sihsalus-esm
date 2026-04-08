@@ -66,7 +66,7 @@ const ListDetails = () => {
         header: t('name', 'Name'),
         link: {
           getUrl: (patient) =>
-            patient?.uuid ? `${window.spaBase}/patient/${patient?.uuid}/chart/` : window?.location?.href,
+            patient?.uuid ? `${globalThis.spaBase}/patient/${patient?.uuid}/chart/` : window?.location?.href,
         },
       },
       {
@@ -103,7 +103,7 @@ const ListDetails = () => {
           isLowContrast: true,
         });
 
-        navigate({ to: window.getOpenmrsSpaBase() + 'home/patient-lists' });
+        navigate({ to: globalThis.getOpenmrsSpaBase() + 'home/patient-lists' });
       })
       .catch((e) =>
         showSnackbar({

@@ -17,8 +17,8 @@ const VisitHeaderSideMenu: React.FC<VisitHeaderSideMenuProps> = ({ isExpanded, t
 
   useEffect(() => {
     const popstateHandler = () => toggleSideMenu(false);
-    window.addEventListener('popstate', popstateHandler);
-    return () => window.removeEventListener('popstate', popstateHandler);
+    globalThis.addEventListener('popstate', popstateHandler);
+    return () => globalThis.removeEventListener('popstate', popstateHandler);
   }, [toggleSideMenu]);
 
   // On small-desktop, the primary navigation already renders a LeftNavMenu into

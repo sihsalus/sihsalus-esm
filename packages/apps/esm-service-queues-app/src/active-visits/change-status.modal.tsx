@@ -118,7 +118,7 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
         });
         closeModal();
         mutateQueueEntries();
-        navigate({ to: `${window.spaBase}/home/service-queues` });
+        navigate({ to: `${globalThis.spaBase}/home/service-queues` });
       },
       (error) => {
         showSnackbar({

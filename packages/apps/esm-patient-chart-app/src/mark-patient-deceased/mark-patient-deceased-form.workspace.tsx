@@ -97,7 +97,7 @@ const MarkPatientDeceasedForm: React.FC<DefaultPatientWorkspaceProps> = ({ close
       markPatientDeceased(deathDate, patientUuid, causeOfDeath, nonCodedCauseOfDeath)
         .then(() => {
           closeWorkspace();
-          window.location.reload();
+          globalThis.location.reload();
         })
         .catch((error) => {
           showSnackbar({

@@ -375,7 +375,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
                     kind="ghost"
                     onClick={handleCopySchema}
                   />
-                  <a download={`${form?.name}.json`} href={window.URL.createObjectURL(downloadableSchema)}>
+                  <a download={`${form?.name}.json`} href={globalThis.URL.createObjectURL(downloadableSchema)}>
                     <IconButton
                       enterDelayMs={defaultEnterDelayInMs}
                       kind="ghost"
@@ -459,7 +459,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
 function BackButton({ t }: TranslationFnProps) {
   return (
     <div className={styles.backButton}>
-      <ConfigurableLink to={window.getOpenmrsSpaBase() + 'form-builder'}>
+      <ConfigurableLink to={globalThis.getOpenmrsSpaBase() + 'form-builder'}>
         <Button
           kind="ghost"
           renderIcon={(props) => <ArrowLeft size={24} {...props} />}

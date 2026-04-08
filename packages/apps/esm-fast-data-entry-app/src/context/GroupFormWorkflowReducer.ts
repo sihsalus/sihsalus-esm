@@ -235,7 +235,7 @@ const reducer = (state, action) => {
     }
     case 'VALIDATE_FOR_NEXT':
       // this state should not be persisted
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -274,7 +274,7 @@ const reducer = (state, action) => {
 
     case 'SUBMIT_FOR_NEXT':
       // this state should not be persisted
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -296,7 +296,7 @@ const reducer = (state, action) => {
       };
     case 'SUBMIT_FOR_REVIEW':
       // this state should not be persisted
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -318,7 +318,7 @@ const reducer = (state, action) => {
 
     case 'VALIDATE_FOR_COMPLETE':
       // this state should not be persisted
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -339,7 +339,7 @@ const reducer = (state, action) => {
       };
     case 'SUBMIT_FOR_COMPLETE':
       // this state should not be persisted
-      window.dispatchEvent(
+      globalThis.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,

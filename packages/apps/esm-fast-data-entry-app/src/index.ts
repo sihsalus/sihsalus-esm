@@ -19,9 +19,9 @@ export function startupApp() {
 
   registerBreadcrumbs([
     {
-      path: `${window.spaBase}/forms`,
+      path: `${globalThis.spaBase}/forms`,
       title: 'Forms',
-      parent: `${window.spaBase}/home`,
+      parent: `${globalThis.spaBase}/home`,
     },
   ]);
 }

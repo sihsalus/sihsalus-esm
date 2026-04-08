@@ -102,8 +102,8 @@ const Navbar: React.FC = () => {
       <Navigate
         to={`/login/location`}
         state={{
-          referrer: window.location.pathname.slice(
-            window.location.pathname.indexOf(openmrsSpaBase) + openmrsSpaBase.length - 1,
+          referrer: globalThis.location.pathname.slice(
+            globalThis.location.pathname.indexOf(openmrsSpaBase) + openmrsSpaBase.length - 1,
           ),
         }}
       />
@@ -114,8 +114,8 @@ const Navbar: React.FC = () => {
     <Navigate
       to={`/login`}
       state={{
-        referrer: window.location.pathname.slice(
-          window.location.pathname.indexOf(openmrsSpaBase) + openmrsSpaBase.length - 1,
+        referrer: globalThis.location.pathname.slice(
+          globalThis.location.pathname.indexOf(openmrsSpaBase) + openmrsSpaBase.length - 1,
         ),
       }}
     />

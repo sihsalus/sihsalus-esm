@@ -30,10 +30,10 @@ const AttachmentPreview: React.FC<AttachmentPreviewProps> = ({
       }
     };
 
-    window.addEventListener('keydown', closePreviewOnEscape);
+    globalThis.addEventListener('keydown', closePreviewOnEscape);
 
     return () => {
-      window.removeEventListener('keydown', closePreviewOnEscape);
+      globalThis.removeEventListener('keydown', closePreviewOnEscape);
     };
   }, [onClosePreview]);
 

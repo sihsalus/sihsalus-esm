@@ -7,7 +7,7 @@ import AppointmentsCalendarView from './calendar/appointments-calendar-view.comp
 import PatientAppointmentsOverview from './patient-appointments/patient-appointments-overview.component';
 
 const RootComponent: React.FC = () => {
-  const appointmentsBasename = window.getOpenmrsSpaBase() + 'home/appointments';
+  const appointmentsBasename = globalThis.getOpenmrsSpaBase() + 'home/appointments';
 
   return (
     <AppErrorBoundary appName="esm-appointments-app">

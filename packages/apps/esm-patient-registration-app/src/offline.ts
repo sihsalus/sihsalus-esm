@@ -61,7 +61,7 @@ function getPatientUrlsToBeCached(patientUuid: string) {
     `${restBaseUrl}/relationship?v=${personRelationshipRepresentation}&person=${patientUuid}`,
     `${restBaseUrl}/person/${patientUuid}/attribute`,
     `${restBaseUrl}/patient/${patientUuid}/identifier?v=custom:(uuid,identifier,identifierType:(uuid,required,name),preferred)`,
-  ].map((url) => window.origin + makeUrl(url));
+  ].map((url) => globalThis.location.origin + makeUrl(url));
 }
 
 async function precacheStaticAssets() {

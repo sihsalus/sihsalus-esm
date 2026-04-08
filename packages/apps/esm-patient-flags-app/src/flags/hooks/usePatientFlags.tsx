@@ -42,7 +42,7 @@ export function usePatientFlags(patientUuid: string) {
 }
 
 export function useCurrentPath(): string {
-  const [path, setPath] = useState(window.location.pathname);
+  const [path, setPath] = useState(globalThis.location.pathname);
 
   const listenToRoutingEvent = useCallback(
     (e) => {
@@ -53,9 +53,9 @@ export function useCurrentPath(): string {
   );
 
   useEffect(() => {
-    window.addEventListener('single-spa:routing-event', listenToRoutingEvent);
+    globalThis.addEventListener('single-spa:routing-event', listenToRoutingEvent);
     return () => {
-      window.removeEventListener('single-spa:routing-event', listenToRoutingEvent);
+      globalThis.removeEventListener('single-spa:routing-event', listenToRoutingEvent);
     };
   }, [listenToRoutingEvent]);
 

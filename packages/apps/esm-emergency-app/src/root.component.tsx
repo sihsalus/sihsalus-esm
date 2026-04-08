@@ -12,7 +12,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmergencyDashboard from './emergency-dashboard/emergency-dashboard.component';
 
 const Root: React.FC = () => {
-  const basename = window.getOpenmrsSpaBase() + 'emergency';
+  const basename = globalThis.getOpenmrsSpaBase() + 'emergency';
 
   return (
     <AppErrorBoundary appName="esm-emergency-app">

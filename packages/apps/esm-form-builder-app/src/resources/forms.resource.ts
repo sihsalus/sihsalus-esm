@@ -43,7 +43,7 @@ export async function uploadSchema(schema: Schema): Promise<string> {
   const body = new FormData();
   body.append('file', schemaBlob);
 
-  const response = await window.fetch(`${window.openmrsBase}${restBaseUrl}/clobdata`, {
+  const response = await globalThis.fetch(`${globalThis.openmrsBase}${restBaseUrl}/clobdata`, {
     body,
     method: 'POST',
   });

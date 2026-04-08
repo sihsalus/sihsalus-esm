@@ -102,7 +102,7 @@ const FamilyHistory: React.FC<FamilyHistoryProps> = ({ patientUuid }) => {
         name: (
           <ConfigurableLink
             style={{ textDecoration: 'none' }}
-            to={window.getOpenmrsSpaBase() + `patient/${relation.relativeUuid}/chart/Patient Summary`}
+            to={globalThis.getOpenmrsSpaBase() + `patient/${relation.relativeUuid}/chart/Patient Summary`}
           >
             {relation.name}
           </ConfigurableLink>

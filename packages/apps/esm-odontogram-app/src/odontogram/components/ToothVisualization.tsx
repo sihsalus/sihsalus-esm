@@ -188,14 +188,13 @@ const designComponentMap = {
 };
 
 interface ToothVisualizationProps {
-  idTooth: string | number;
+  idTooth: number;
   zones?: number;
   design?: string;
   position?: "upper" | "lower";
-  isChild?: boolean;
 }
 
-const ToothVisualization = ({ idTooth, zones = 8, design = "default", position = "upper", isChild = false }: ToothVisualizationProps) => {
+const ToothVisualization = ({ idTooth, zones = 8, design = "default", position = "upper" }: ToothVisualizationProps) => {
   const [showDesignSelector, setShowDesignSelector] = useState(false);
   
   const { data, config, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
@@ -215,14 +214,6 @@ const ToothVisualization = ({ idTooth, zones = 8, design = "default", position =
 
   // Función para gestionar los hallazgos
   const handleFindingToggle = () => {
-      idTooth,
-      readOnly,
-      isComplete,
-      selectedFindingId,
-      selectedColor,
-      inPredefined: selectedFindingId ? predefinedMarkedOptions.includes(selectedFindingId) : false,
-      toothFindings: tooth?.findings,
-    });
     if (readOnly) return;
     if (!isComplete || !selectedFindingId || !predefinedMarkedOptions.includes(selectedFindingId)) {
       if (selectedFindingId && !isComplete) {
@@ -256,7 +247,7 @@ const ToothVisualization = ({ idTooth, zones = 8, design = "default", position =
     // For all non-design findings (including row findings like 7),
     // always use registerToothFinding which handles row/toggle logic properly.
     toothActions.registerToothFinding({
-      toothId: Number(idTooth),
+      toothId: idTooth,
       findingId: selectedFindingId,
       subOptionId: selectedSuboption?.id,
       color: selectedColor!,
@@ -272,7 +263,7 @@ const ToothVisualization = ({ idTooth, zones = 8, design = "default", position =
     if (readOnly || !selectedFindingId) return;
 
     toothActions.registerToothFinding({
-      toothId: Number(idTooth),
+      toothId: idTooth,
       findingId: selectedFindingId,
       subOptionId: selectedSuboption?.id,
       color: selectedColor!,

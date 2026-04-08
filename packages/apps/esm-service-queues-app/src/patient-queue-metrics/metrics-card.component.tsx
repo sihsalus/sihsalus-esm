@@ -28,7 +28,7 @@ const MetricsCard: React.FC<MetricsCardProps> = ({
 }) => {
   const { t } = useTranslation();
   const queueListPath =
-    window.getOpenmrsSpaBase() + `home/service-queues/queue-list/${service}/${serviceUuid}/${locationUuid}`;
+    globalThis.getOpenmrsSpaBase() + `home/service-queues/queue-list/${service}/${serviceUuid}/${locationUuid}`;
 
   return (
     <Layer

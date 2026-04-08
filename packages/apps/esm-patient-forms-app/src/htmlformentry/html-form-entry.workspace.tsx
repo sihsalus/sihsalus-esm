@@ -27,12 +27,12 @@ const HtmlFormEntry: React.FC<HtmlFormEntryComponentProps> = ({
 
   // urls for entering a new form and editing an existing form; note that we specify the returnUrl as post-message:close-workspace,
   // which tells HFE-UI to send a message to the parent window to close the workspace when the form is saved or cancelled
-  const url = `${window.openmrsBase}/htmlformentryui/htmlform/${
+  const url = `${globalThis.openmrsBase}/htmlformentryui/htmlform/${
     htmlForm.formUiPage
   }.page?patientId=${patientUuid}&visitId=${visitUuid ?? currentVisit?.uuid ?? null}&definitionUiResource=${
     htmlForm.formUiResource
   }&returnUrl=post-message:close-workspace`;
-  const urlWithEncounter = `${window.openmrsBase}/htmlformentryui/htmlform/${
+  const urlWithEncounter = `${globalThis.openmrsBase}/htmlformentryui/htmlform/${
     htmlForm.formEditUiPage
   }.page?patientId=${patientUuid}&visitId=${
     visitUuid ?? currentVisit?.uuid ?? null

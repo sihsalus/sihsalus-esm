@@ -13,7 +13,7 @@ interface PrintReceiptProps {
 const PrintReceipt: React.FC<PrintReceiptProps> = ({ billUuid }) => {
   const { t } = useTranslation();
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const baseUrl = new URL(window.location.href);
+  const baseUrl = new URL(globalThis.location.href);
 
   const handlePrintReceiptClick = () => {
     setIsRedirecting(true);

@@ -17,22 +17,22 @@ export function startupApp() {
 
   registerBreadcrumbs([
     {
-      path: `${window.spaBase}/${patientRegistration}`,
+      path: `${globalThis.spaBase}/${patientRegistration}`,
       // t('patientRegistrationBreadcrumb', 'Patient Registration')
       title: () =>
         Promise.resolve(
-          window.i18next.t('patientRegistrationBreadcrumb', { defaultValue: 'Patient Registration', ns: moduleName }),
+          globalThis.i18next.t('patientRegistrationBreadcrumb', { defaultValue: 'Patient Registration', ns: moduleName }),
         ),
-      parent: `${window.spaBase}/home`,
+      parent: `${globalThis.spaBase}/home`,
     },
     {
-      path: `${window.spaBase}/patient/:patientUuid/edit`,
+      path: `${globalThis.spaBase}/patient/:patientUuid/edit`,
       // t('editPatientDetailsBreadcrumb', 'Edit patient details')
       title: () =>
         Promise.resolve(
-          window.i18next.t('editPatientDetailsBreadcrumb', { defaultValue: 'Edit patient details', ns: moduleName }),
+          globalThis.i18next.t('editPatientDetailsBreadcrumb', { defaultValue: 'Edit patient details', ns: moduleName }),
         ),
-      parent: `${window.spaBase}/patient/:patientUuid/chart`,
+      parent: `${globalThis.spaBase}/patient/:patientUuid/chart`,
     },
   ]);
 

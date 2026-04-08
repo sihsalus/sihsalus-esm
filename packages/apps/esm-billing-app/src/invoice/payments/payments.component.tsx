@@ -62,7 +62,7 @@ const Payments: React.FC<PaymentProps> = ({ bill, mutate }) => {
 
   const handleNavigateToBillingDashboard = () =>
     navigate({
-      to: window.getOpenmrsSpaBase() + 'home/billing',
+      to: globalThis.getOpenmrsSpaBase() + 'home/billing',
     });
 
   if (!bill) {

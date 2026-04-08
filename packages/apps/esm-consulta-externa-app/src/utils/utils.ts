@@ -8,7 +8,7 @@ import type { Dayjs } from 'dayjs';
  * @returns The full URL as a URL object.
  */
 export function makeUrlUrl(path: string): URL {
-  return new URL(makeUrl(path), window.location.toString());
+  return new URL(makeUrl(path), globalThis.location.toString());
 }
 
 /**

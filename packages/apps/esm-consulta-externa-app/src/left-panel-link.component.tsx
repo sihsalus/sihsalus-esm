@@ -11,7 +11,7 @@ export interface LinkConfig {
 export function LinkExtension({ config }: { config: LinkConfig }): JSX.Element {
   const { name, title } = config;
   const location = useLocation();
-  const spaBasePath = window.getOpenmrsSpaBase() + 'home';
+  const spaBasePath = globalThis.getOpenmrsSpaBase() + 'home';
 
   let urlSegment = useMemo(() => decodeURIComponent(last(location.pathname.split('/'))), [location.pathname]);
 

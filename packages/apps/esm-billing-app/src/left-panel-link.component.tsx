@@ -12,7 +12,7 @@ export function LinkExtension({ config }: { config: LinkConfig }) {
   const { t } = useTranslation();
   const { name, title } = config;
   const location = useLocation();
-  const spaBasePath = window.getOpenmrsSpaBase() + 'home';
+  const spaBasePath = globalThis.getOpenmrsSpaBase() + 'home';
 
   const isActive = useMemo(() => {
     const pathSegments = location.pathname.split('/').map((s) => decodeURIComponent(s));

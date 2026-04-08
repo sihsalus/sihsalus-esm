@@ -28,7 +28,7 @@ export default function QueueTableByStatusMenu() {
 }
 
 function QueueTableByStatusLink({ queue }: { queue: Queue }) {
-  const path = `${window.spaBase}/home/service-queues/queue-table-by-status/:uuid`;
+  const path = `${globalThis.spaBase}/home/service-queues/queue-table-by-status/:uuid`;
   const matcher = useMatch({ path, end: false });
   const uuid = matcher?.params?.uuid;
 

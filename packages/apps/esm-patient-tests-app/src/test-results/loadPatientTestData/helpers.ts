@@ -74,7 +74,7 @@ export function getUserDataFromCache(patientUuid: string): [PatientData | undefi
  * @param queries
  */
 function* fhirObservationRequests(queries: Record<string, string>) {
-  const fhirPathname = `${window.openmrsBase}/ws/fhir2/R4/Observation`;
+  const fhirPathname = `${globalThis.openmrsBase}/ws/fhir2/R4/Observation`;
   const path =
     fhirPathname +
     '?' +
@@ -128,7 +128,7 @@ export function loadPresentConcepts(entries: Array<ObsRecord>): Promise<Array<Co
     [...new Set(entries.map(getEntryConceptClassUuid))].map(
       (conceptUuid) =>
         conceptCache[conceptUuid] ||
-        (conceptCache[conceptUuid] = fetch(`${window.openmrsBase}${restBaseUrl}/concept/${conceptUuid}?v=full`).then(
+        (conceptCache[conceptUuid] = fetch(`${globalThis.openmrsBase}${restBaseUrl}/concept/${conceptUuid}?v=full`).then(
           (res) => res.json(),
         )),
     ),

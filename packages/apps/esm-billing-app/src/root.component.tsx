@@ -5,7 +5,7 @@ import { BillingDashboard } from './billing-dashboard/billing-dashboard.componen
 import Invoice from './invoice/invoice.component';
 
 const RootComponent: React.FC = () => {
-  const baseName = window.getOpenmrsSpaBase() + 'home/billing';
+  const baseName = globalThis.getOpenmrsSpaBase() + 'home/billing';
 
   return (
     <AppErrorBoundary appName="esm-billing-app">

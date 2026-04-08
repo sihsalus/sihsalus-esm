@@ -26,7 +26,7 @@ const GenericDashboard: React.FC<GenericDashboardProps> = ({ patientUuid }) => {
 
   useEffect(() => {
     const handleURLChange = () => {
-      const urlParams = new URLSearchParams(window.location.search);
+      const urlParams = new URLSearchParams(globalThis.location.search);
       const clinicParam = urlParams.get('clinic');
       if (clinicParam) {
         setClinic(clinicParam);
@@ -35,9 +35,9 @@ const GenericDashboard: React.FC<GenericDashboardProps> = ({ patientUuid }) => {
 
     // Call once on initial load
     handleURLChange();
-    window.onpopstate = handleURLChange;
+    globalThis.onpopstate = handleURLChange;
     return () => {
-      window.onpopstate = null;
+      globalThis.onpopstate = null;
     };
   }, []);
 

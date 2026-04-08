@@ -58,7 +58,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ isHistoryUpdated, setIsHi
   ];
 
   const clearHistory = () => {
-    window.sessionStorage.removeItem('openmrsHistory');
+    globalThis.sessionStorage.removeItem('openmrsHistory');
     setSearchResults([]);
   };
 
@@ -67,7 +67,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ isHistoryUpdated, setIsHi
       (searchResult, index) => index != searchResults.indexOf(selectedSearchItem),
     );
     setSearchResults(updatedSearchResults);
-    window.sessionStorage.setItem('openmrsHistory', JSON.stringify(updatedSearchResults));
+    globalThis.sessionStorage.setItem('openmrsHistory', JSON.stringify(updatedSearchResults));
   };
 
   const launchClearSearchHistoryModal = () => {

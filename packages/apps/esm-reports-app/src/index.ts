@@ -17,27 +17,27 @@ export function startupApp() {
   registerBreadcrumbs([
     {
       title: 'Home',
-      path: `${window.getOpenmrsSpaBase().slice(0, -1)}${basePath}`,
+      path: `${globalThis.getOpenmrsSpaBase().slice(0, -1)}${basePath}`,
     },
     {
-      path: `${window.getOpenmrsSpaBase()}system-administration`,
+      path: `${globalThis.getOpenmrsSpaBase()}system-administration`,
       title: () => Promise.resolve(t('systemAdmin', 'System Administration')),
-      parent: `${window.getOpenmrsSpaBase()}home`,
+      parent: `${globalThis.getOpenmrsSpaBase()}home`,
     },
     {
       title: () => Promise.resolve(t('reports', 'Reports')),
-      path: `${window.getOpenmrsSpaBase()}reports`,
-      parent: `${window.getOpenmrsSpaBase()}system-administration`,
+      path: `${globalThis.getOpenmrsSpaBase()}reports`,
+      parent: `${globalThis.getOpenmrsSpaBase()}system-administration`,
     },
     {
       title: () => Promise.resolve(t('scheduledReports', 'Scheduled Reports')),
-      path: `${window.getOpenmrsSpaBase()}reports/scheduled-overview`,
-      parent: `${window.getOpenmrsSpaBase()}reports`,
+      path: `${globalThis.getOpenmrsSpaBase()}reports/scheduled-overview`,
+      parent: `${globalThis.getOpenmrsSpaBase()}reports`,
     },
     {
       title: () => Promise.resolve(t('reportsDataOverview', 'Reports Data Overview')),
-      path: `${window.getOpenmrsSpaBase()}reports/reports-data-overview`,
-      parent: `${window.getOpenmrsSpaBase()}reports`,
+      path: `${globalThis.getOpenmrsSpaBase()}reports/reports-data-overview`,
+      parent: `${globalThis.getOpenmrsSpaBase()}reports`,
     },
   ]);
   defineConfigSchema(moduleName, configSchema);

@@ -17,8 +17,8 @@ const AppMenuPanel: React.FC<AppMenuProps> = ({ expanded, hidePanel }) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    window.addEventListener('popstate', hidePanel);
-    return () => window.removeEventListener('popstate', hidePanel);
+    globalThis.addEventListener('popstate', hidePanel);
+    return () => globalThis.removeEventListener('popstate', hidePanel);
   }, [hidePanel]);
 
   return (

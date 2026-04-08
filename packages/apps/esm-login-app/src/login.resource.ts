@@ -44,14 +44,14 @@ export function useLoginLocations(
 
       const nextUrl = new URL(nextLink.url);
       // default for production
-      if (nextUrl.origin === window.location.origin) {
+      if (nextUrl.origin === globalThis.location.origin) {
         return nextLink.url;
       }
 
       // in development, the request should be funnelled through the local proxy
       return new URL(
         `${nextUrl.pathname}${nextUrl.search ? `?${nextUrl.search}` : ''}`,
-        window.location.origin,
+        globalThis.location.origin,
       ).toString();
     }
 
@@ -107,7 +107,7 @@ export function useLoginLocations(
 
 export async function performLogin(username: string, password: string): Promise<{ data: Session }> {
   const abortController = new AbortController();
-  const token = window.btoa(`${username}:${password}`);
+  const token = globalThis.btoa(`${username}:${password}`);
   const url = `${restBaseUrl}/session`;
 
   return openmrsFetch(url, {

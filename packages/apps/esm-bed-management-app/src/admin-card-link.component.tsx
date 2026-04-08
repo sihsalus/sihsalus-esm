@@ -9,7 +9,7 @@ const BedManagementAdminCardLink: React.FC = () => {
 
   return (
     <Layer>
-      <ClickableTile href={window.getOpenmrsSpaBase() + 'bed-management'} rel="noopener noreferrer">
+      <ClickableTile href={globalThis.getOpenmrsSpaBase() + 'bed-management'} rel="noopener noreferrer">
         <div>
           <div className="heading">{header}</div>
           <div className="content">{t('bedManagement', 'Bed management')}</div>

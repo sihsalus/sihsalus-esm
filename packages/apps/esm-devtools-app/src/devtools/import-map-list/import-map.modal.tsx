@@ -10,19 +10,19 @@ type ImportMapModalProps = ({ module: Module; isNew: false } | { module: never; 
 const isPortRegex = /^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/;
 
 async function getUrlFromPort(moduleName: string, port: string) {
-  const latestImportMap = await window.importMapOverrides.getNextPageMap();
+  const latestImportMap = await globalThis.importMapOverrides.getNextPageMap();
   const moduleUrl = latestImportMap.imports[moduleName];
 
   if (!moduleUrl) {
     const fileName = moduleName.replace(/@/g, '').replace(/\//g, '-');
-    return `${window.location.protocol}//localhost:${port}/${fileName}.js`;
+    return `${globalThis.location.protocol}//localhost:${port}/${fileName}.js`;
   }
 
   if (moduleUrl.endsWith('/')) {
-    return `${window.location.protocol}//localhost:${port}${moduleUrl}`;
+    return `${globalThis.location.protocol}//localhost:${port}${moduleUrl}`;
   }
 
-  return `${window.location.protocol}//localhost:${port}/${moduleUrl.substring(moduleUrl.lastIndexOf('/') + 1)}`;
+  return `${globalThis.location.protocol}//localhost:${port}/${moduleUrl.substring(moduleUrl.lastIndexOf('/') + 1)}`;
 }
 
 const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close }) => {
@@ -39,8 +39,8 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
         return;
       }
 
-      if (window.importMapOverrides.isDisabled(moduleName)) {
-        window.importMapOverrides.enableOverride(moduleName);
+      if (globalThis.importMapOverrides.isDisabled(moduleName)) {
+        globalThis.importMapOverrides.enableOverride(moduleName);
       }
 
       if (isNew) {
@@ -50,21 +50,21 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
             newUrl = await getUrlFromPort(moduleName, newUrl);
           }
 
-          window.importMapOverrides.addOverride(moduleName, newUrl);
+          globalThis.importMapOverrides.addOverride(moduleName, newUrl);
           const baseUrl = newUrl.substring(0, newUrl.lastIndexOf('/'));
           addRoutesOverride(moduleName, new URL('routes.json', baseUrl));
         }
       } else {
         let newUrl = inputRef.current.value || null;
         if (newUrl === null) {
-          window.importMapOverrides.removeOverride(moduleName);
+          globalThis.importMapOverrides.removeOverride(moduleName);
           removeRoutesOverride(moduleName);
         } else {
           if (isPortRegex.test(newUrl)) {
             newUrl = await getUrlFromPort(moduleName, newUrl);
           }
 
-          window.importMapOverrides.addOverride(moduleName, newUrl);
+          globalThis.importMapOverrides.addOverride(moduleName, newUrl);
           const baseUrl = newUrl.substring(0, newUrl.lastIndexOf('/'));
           addRoutesOverride(moduleName, new URL('routes.json', baseUrl));
         }

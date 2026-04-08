@@ -5,7 +5,7 @@ import PatientSearchLaunch from './patient-search-icon.component';
 
 const PatientSearchIconWrapper = () => {
   return (
-    <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+    <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
       <Routes>
         <Route path=":page/*" element={<PatientSearchLaunch />} />
       </Routes>

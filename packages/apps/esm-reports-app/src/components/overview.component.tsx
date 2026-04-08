@@ -224,7 +224,7 @@ const OverviewComponent: React.FC = () => {
       }
 
       const viewUrl = webPreviewViewReportUrl.replace('{reportRequestUuid}', reportRequestUuid);
-      window.open(viewUrl, '_blank', 'noopener,noreferrer');
+      globalThis.open(viewUrl, '_blank', 'noopener,noreferrer');
     },
     [webPreviewViewReportUrl, t],
   );
@@ -274,12 +274,12 @@ const OverviewComponent: React.FC = () => {
   );
 
   const processAndDownloadFile = (file) => {
-    const decodedData = window.atob(file.fileContent);
+    const decodedData = globalThis.atob(file.fileContent);
     const byteArray = new Uint8Array(decodedData.length);
     for (let i = 0; i < decodedData.length; i++) {
       byteArray[i] = decodedData.charCodeAt(i);
     }
-    const url = window.URL.createObjectURL(new Blob([byteArray]));
+    const url = globalThis.URL.createObjectURL(new Blob([byteArray]));
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', file.filename);

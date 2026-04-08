@@ -16,13 +16,13 @@ const SideMenuPanel: React.FC<SideMenuPanelProps> = ({ expanded, hidePanel }) =>
   const menuRef = useOnClickOutside(hidePanel, expanded);
 
   useEffect(() => {
-    window.addEventListener('popstate', hidePanel);
-    return () => window.removeEventListener('popstate', hidePanel);
+    globalThis.addEventListener('popstate', hidePanel);
+    return () => globalThis.removeEventListener('popstate', hidePanel);
   }, [hidePanel]);
   const layout = useLayoutType();
   const { mode } = useLeftNavStore();
 
-  const leftNavContainer = window.document.getElementById('omrs-left-nav-container');
+  const leftNavContainer = globalThis.document.getElementById('omrs-left-nav-container');
   return (
     <>
       {(!isDesktop(layout) || mode === 'collapsed') && expanded && <LeftNavMenu ref={menuRef} isChildOfHeader />}

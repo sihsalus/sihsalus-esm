@@ -130,7 +130,7 @@ const StudiesDetailTable: React.FC<StudyDetailsTableProps> = ({
             size={isTablet ? 'lg' : 'sm'}
             label={t('stoneviewer', 'Stone viewer of Orthanc')}
             onClick={() =>
-              (window.location.href = buildURL(
+              (globalThis.location.href = buildURL(
                 getBrowserUrl(study.orthancConfiguration),
                 '/stone-webviewer/index.html',
                 [{ code: 'study', value: study.studyInstanceUID }],
@@ -145,7 +145,7 @@ const StudiesDetailTable: React.FC<StudyDetailsTableProps> = ({
             size={isTablet ? 'lg' : 'sm'}
             label={t('ohifviewer', 'Ohif viewer')}
             onClick={() =>
-              (window.location.href = buildURL(getBrowserUrl(study.orthancConfiguration), '/ohif/viewer', [
+              (globalThis.location.href = buildURL(getBrowserUrl(study.orthancConfiguration), '/ohif/viewer', [
                 { code: 'StudyInstanceUIDs', value: study.studyInstanceUID },
               ]))
             }
@@ -159,7 +159,7 @@ const StudiesDetailTable: React.FC<StudyDetailsTableProps> = ({
             label={t('orthancExplorer2', 'Show data in orthanc explorer')}
             onClick={
               () =>
-                (window.location.href = buildURL(
+                (globalThis.location.href = buildURL(
                   getBrowserUrl(study.orthancConfiguration),
                   '/ui/app/#/filtered-studies',
                   [

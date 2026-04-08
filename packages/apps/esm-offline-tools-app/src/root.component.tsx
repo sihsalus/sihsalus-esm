@@ -11,7 +11,7 @@ import styles from './root.styles.scss';
 const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-offline-tools-app">
-        <BrowserRouter basename={window.getOpenmrsSpaBase()}>
+        <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
         <DesktopSideNav />
         <div className={classNames('omrs-main-content', styles.mainContentContainer)}>
           <Routes>

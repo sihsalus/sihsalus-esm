@@ -101,7 +101,7 @@ export const OtherRelationships: React.FC<OtherRelationshipsProps> = ({ patientU
         name: (
           <ConfigurableLink
             style={{ textDecoration: 'none' }}
-            to={window.getOpenmrsSpaBase() + `patient/${relation.relativeUuid}/chart/Patient Summary`}
+            to={globalThis.getOpenmrsSpaBase() + `patient/${relation.relativeUuid}/chart/Patient Summary`}
           >
             {relation.name}
           </ConfigurableLink>

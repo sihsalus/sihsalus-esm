@@ -19,7 +19,7 @@ const PatientNameTableCell: React.FC<PatientNameTableCellProps> = ({ patient, is
       <Link
         onClick={() =>
           navigate({
-            to: `${window.getOpenmrsSpaBase()}patient/${patient.id}/chart`,
+            to: `${globalThis.getOpenmrsSpaBase()}patient/${patient.id}/chart`,
           })
         }
       >

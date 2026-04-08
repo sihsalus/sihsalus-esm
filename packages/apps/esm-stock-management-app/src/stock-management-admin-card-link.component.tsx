@@ -8,7 +8,7 @@ const StockManagementCardLink: React.FC = () => {
   const header = t('manageStock', 'Manage Stock');
   return (
     <Layer>
-      <ClickableTile href={window.getOpenmrsSpaBase() + 'stock-management'} rel="noopener noreferrer">
+      <ClickableTile href={globalThis.getOpenmrsSpaBase() + 'stock-management'} rel="noopener noreferrer">
         <div>
           <div className="heading">{header}</div>
           <div className="content">{t('stockManagement', 'Stock management')}</div>

@@ -33,7 +33,7 @@ export function calculateTotalAmount(lineItems: Array<LineItem>) {
 }
 
 export const convertToCurrency = (amountToConvert: number, currencyType?: string) => {
-  const locale = window.i18next?.language?.substring(0, 2) ?? '';
+  const locale = globalThis.i18next?.language?.substring(0, 2) ?? '';
   const formatter = new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currencyType,

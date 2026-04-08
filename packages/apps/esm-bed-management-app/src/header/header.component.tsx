@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
     <PageHeader className={styles.header}>
       <PageHeaderContent
         illustration={
-          <ConfigurableLink to={`${window.getOpenmrsSpaBase()}bed-management`}>
+          <ConfigurableLink to={`${globalThis.getOpenmrsSpaBase()}bed-management`}>
             <InPatientPictogram className={styles.inPatientPictogram} />
           </ConfigurableLink>
         }

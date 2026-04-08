@@ -208,7 +208,7 @@ function RefreshDataButton({ isTablet, t }: RefreshDataButtonProps) {
     <Button
       className={styles.button}
       kind="ghost"
-      onClick={() => window.location.reload()}
+      onClick={() => globalThis.location.reload()}
       renderIcon={RenewIcon}
       size={isTablet ? 'md' : 'sm'}
     >

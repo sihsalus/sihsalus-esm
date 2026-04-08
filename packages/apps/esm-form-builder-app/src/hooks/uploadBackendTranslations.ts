@@ -32,7 +32,7 @@ export async function uploadBackendTranslations(
     const formData = new FormData();
     formData.append('file', translationBlob);
 
-    const clobResponse = await window.fetch(`${window.openmrsBase}${restBaseUrl}/clobdata`, {
+    const clobResponse = await globalThis.fetch(`${globalThis.openmrsBase}${restBaseUrl}/clobdata`, {
       method: 'POST',
       body: formData,
     });

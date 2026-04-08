@@ -12,7 +12,7 @@ function DashboardExtension({ dashboardLinkConfig }: { dashboardLinkConfig: Dash
   const { t } = useTranslation();
   const { name, title } = dashboardLinkConfig;
   const location = useLocation();
-  const spaBasePath = `${window.spaBase}/home`;
+  const spaBasePath = `${globalThis.spaBase}/home`;
 
   const isActive = useMemo(() => {
     const pathSegments = location.pathname.split('/').map((segment) => decodeURIComponent(segment));

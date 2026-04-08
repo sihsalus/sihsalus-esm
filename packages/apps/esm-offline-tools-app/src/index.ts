@@ -73,7 +73,7 @@ export const offlineToolsPatientChartActionsDashboardLink = getSyncLifecycle(
     // t('offline_actions_link', 'Offline Actions')
     title: () =>
       Promise.resolve(
-        window.i18next?.t('offline_actions_link', {
+        globalThis.i18next?.t('offline_actions_link', {
           defaultValue: 'Offline Actions',
           ns: moduleName,
         }) ?? 'Offline Actions',
@@ -91,24 +91,24 @@ export function startupApp() {
 
   registerBreadcrumbs([
     {
-      path: `${window.spaBase}/${routes.offlineTools}`,
+      path: `${globalThis.spaBase}/${routes.offlineTools}`,
       title: 'Offline Tools',
-      parent: `${window.spaBase}/${routes.home}`,
+      parent: `${globalThis.spaBase}/${routes.home}`,
     },
     {
-      path: `${window.spaBase}/${routes.offlineToolsPatients}`,
+      path: `${globalThis.spaBase}/${routes.offlineToolsPatients}`,
       title: 'Patients',
-      parent: `${window.spaBase}/${routes.offlineTools}`,
+      parent: `${globalThis.spaBase}/${routes.offlineTools}`,
     },
     {
-      path: `${window.spaBase}/${routes.offlineToolsPatientOfflineData}`,
+      path: `${globalThis.spaBase}/${routes.offlineToolsPatientOfflineData}`,
       title: 'Data',
-      parent: `${window.spaBase}/${routes.offlineToolsPatients}`,
+      parent: `${globalThis.spaBase}/${routes.offlineToolsPatients}`,
     },
     {
-      path: `${window.spaBase}/${routes.offlineToolsActions}`,
+      path: `${globalThis.spaBase}/${routes.offlineToolsActions}`,
       title: 'Actions',
-      parent: `${window.spaBase}/${routes.offlineTools}`,
+      parent: `${globalThis.spaBase}/${routes.offlineTools}`,
     },
   ]);
 }

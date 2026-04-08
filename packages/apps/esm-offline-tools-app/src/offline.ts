@@ -14,7 +14,7 @@ export function setupOffline() {
     type: 'patient',
     async isSynced(identifier) {
       const expectedUrls = [`/ws/fhir2/R4/Patient/${identifier}`];
-      const absoluteExpectedUrls = expectedUrls.map((url) => window.origin + makeUrl(url));
+      const absoluteExpectedUrls = expectedUrls.map((url) => globalThis.location.origin + makeUrl(url));
       const cache = await caches.open('omrs-spa-cache-v1');
       const keys = (await cache.keys()).map((key) => key.url);
       return absoluteExpectedUrls.every((url) => keys.includes(url));

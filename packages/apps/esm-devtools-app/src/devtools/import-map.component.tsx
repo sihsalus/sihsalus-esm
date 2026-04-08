@@ -17,17 +17,17 @@ export default function ImportMap({ toggleOverridden }: ImportMapProps) {
       toggleOverridden(importMapOverridden());
     };
 
-    window.addEventListener(IMPORT_MAP_CHANGE_EVENT, handleImportMapChange);
-    return () => window.removeEventListener(IMPORT_MAP_CHANGE_EVENT, handleImportMapChange);
+    globalThis.addEventListener(IMPORT_MAP_CHANGE_EVENT, handleImportMapChange);
+    return () => globalThis.removeEventListener(IMPORT_MAP_CHANGE_EVENT, handleImportMapChange);
   }, [toggleOverridden]);
 
   return <div className={styles.importMap}>{<ImportMapList ref={importMapListRef} />}</div>;
 }
 
 export function importMapOverridden(): boolean {
-  return Object.keys(window.importMapOverrides.getOverrideMap().imports).length > 0;
+  return Object.keys(globalThis.importMapOverrides.getOverrideMap().imports).length > 0;
 }
 
 export function isOverriddenInImportMap(esmName: string): boolean {
-  return Object.prototype.hasOwnProperty.call(window.importMapOverrides.getOverrideMap().imports, esmName);
+  return Object.prototype.hasOwnProperty.call(globalThis.importMapOverrides.getOverrideMap().imports, esmName);
 }

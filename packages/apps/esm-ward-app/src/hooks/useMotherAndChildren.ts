@@ -43,5 +43,5 @@ export function useMotherAndChildren(
 }
 
 function makeUrlUrl(path: string) {
-  return new URL(makeUrl(path), window.location.toString());
+  return new URL(makeUrl(path), globalThis.location.toString());
 }

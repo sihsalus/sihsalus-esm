@@ -13,16 +13,16 @@ const FormCollapseToggle = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener('openmrs:form-view-embedded', handleFormEmbedded);
+    globalThis.addEventListener('openmrs:form-view-embedded', handleFormEmbedded);
 
     return () => {
-      window.removeEventListener('openmrs:form-view-embedded', handleFormEmbedded);
+      globalThis.removeEventListener('openmrs:form-view-embedded', handleFormEmbedded);
     };
   }, [handleFormEmbedded]);
 
   const handleOnToggle = (value: boolean) => {
     const FormCollapseToggleEvent = new CustomEvent('openmrs:form-collapse-toggle', { detail: { value } });
-    window.dispatchEvent(FormCollapseToggleEvent);
+    globalThis.dispatchEvent(FormCollapseToggleEvent);
   };
 
   if (!isFormEmbedded) {

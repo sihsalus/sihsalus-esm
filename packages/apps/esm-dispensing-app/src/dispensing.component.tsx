@@ -15,7 +15,7 @@ export default function Dispensing() {
   const { leftNavMode } = useConfig<PharmacyConfig>();
   const layout = useLayoutType();
 
-  const basePath = window.spaBase + '/dispensing';
+  const basePath = globalThis.spaBase + '/dispensing';
   useLeftNav({ name: 'homepage-dashboard-slot', basePath, mode: leftNavMode });
 
   return (

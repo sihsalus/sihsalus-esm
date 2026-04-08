@@ -38,12 +38,12 @@ async function downloadFuaDocument(
   }
   const html = await response.text();
   const blob = new Blob([html], { type: 'text/html' });
-  const objectUrl = window.URL.createObjectURL(blob);
+  const objectUrl = globalThis.URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = objectUrl;
   link.download = `FUA_${visitUuid}.html`;
   link.click();
-  window.URL.revokeObjectURL(objectUrl);
+  globalThis.URL.revokeObjectURL(objectUrl);
 }
 
 interface EndVisitDialogProps {

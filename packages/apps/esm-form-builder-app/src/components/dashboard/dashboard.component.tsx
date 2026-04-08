@@ -142,7 +142,7 @@ function ActionButtons({ form, mutate, responsiveSize, t }: ActionButtonsProps) 
         enterDelayMs={defaultEnterDelayInMs}
         label={t('import', 'Import')}
         kind="ghost"
-        onClick={() => navigate({ to: `${window.spaBase}/form-builder/edit/${form.uuid}` })}
+        onClick={() => navigate({ to: `${globalThis.spaBase}/form-builder/edit/${form.uuid}` })}
         size={responsiveSize}
       >
         <DocumentImport />
@@ -158,7 +158,7 @@ function ActionButtons({ form, mutate, responsiveSize, t }: ActionButtonsProps) 
         label={t('editSchema', 'Edit schema')}
         onClick={() =>
           navigate({
-            to: `${window.spaBase}/form-builder/edit/${form.uuid}`,
+            to: `${globalThis.spaBase}/form-builder/edit/${form.uuid}`,
           })
         }
         size={responsiveSize}
@@ -170,7 +170,7 @@ function ActionButtons({ form, mutate, responsiveSize, t }: ActionButtonsProps) 
 
   const DownloadSchemaButton = () => {
     return (
-      <a download={`${form?.name}.json`} href={window.URL.createObjectURL(downloadableSchema)}>
+      <a download={`${form?.name}.json`} href={globalThis.URL.createObjectURL(downloadableSchema)}>
         <IconButton
           enterDelayMs={defaultEnterDelayInMs}
           kind="ghost"
@@ -342,7 +342,7 @@ function FormsList({ forms, isValidating, mutate, t }: FormsListProps) {
                       size={responsiveSize}
                       onClick={() =>
                         navigate({
-                          to: `${window.spaBase}/form-builder/new`,
+                          to: `${globalThis.spaBase}/form-builder/new`,
                         })
                       }
                     >

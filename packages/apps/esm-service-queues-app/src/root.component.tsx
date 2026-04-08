@@ -9,7 +9,7 @@ import QueueScreen from './queue-screen/queue-screen.component';
 import QueueTableByStatusView from './views/queue-table-by-status-view.component';
 
 const Root: React.FC = () => {
-  const serviceQueuesBasename = window.getOpenmrsSpaBase() + 'home/service-queues';
+  const serviceQueuesBasename = globalThis.getOpenmrsSpaBase() + 'home/service-queues';
 
   return (
     <AppErrorBoundary appName="esm-service-queues-app">

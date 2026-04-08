@@ -16,7 +16,7 @@ function BillableServicesLinkExtension({ config }: { config: BillableServicesLin
   const { title, path, icon: Icon, privilege } = config;
   const { t } = useTranslation();
   const location = useLocation();
-  const spaBasePath = `${window.spaBase}/billable-services`;
+  const spaBasePath = `${globalThis.spaBase}/billable-services`;
 
   const isActive = useMemo(() => {
     const currentPath = location.pathname.replace(spaBasePath, '');

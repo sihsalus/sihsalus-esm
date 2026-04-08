@@ -142,7 +142,7 @@ const CompactPatientSearchComponent: React.FC<CompactPatientSearchProps> = ({
     (debouncedSearchTerm) => {
       if (shouldNavigateToPatientSearchPage && hasSearchTerm) {
         if (!isSearchPage) {
-          window.sessionStorage.setItem('searchReturnUrl', window.location.pathname);
+          globalThis.sessionStorage.setItem('searchReturnUrl', globalThis.location.pathname);
         }
         navigate({
           to: `\${openmrsSpaBase}/search?query=${encodeURIComponent(debouncedSearchTerm)}`,

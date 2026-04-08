@@ -57,7 +57,7 @@ export const uppercaseText = (text): string => {
 };
 
 export function makeUrlUrl(path: string) {
-  return new URL(makeUrl(path), window.location.toString());
+  return new URL(makeUrl(path), globalThis.location.toString());
 }
 
 /**

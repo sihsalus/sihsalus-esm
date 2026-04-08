@@ -10,7 +10,7 @@ import styles from './root.scss';
 const RootComponent: React.FC = () => {
   return (
     <div className={styles.container}>
-      <BrowserRouter basename={`${window.getOpenmrsSpaBase().slice(0, -1)}${basePath}`}>
+      <BrowserRouter basename={`${globalThis.getOpenmrsSpaBase().slice(0, -1)}${basePath}`}>
         <Routes>
           <Route path="/" element={<OverviewComponent />} />
           <Route path="/scheduled-overview" element={<ScheduledOverviewComponent />} />

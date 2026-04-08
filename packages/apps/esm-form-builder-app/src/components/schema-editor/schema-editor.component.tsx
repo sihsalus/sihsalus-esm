@@ -188,7 +188,7 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
       lowContrast
       actionButtonLabel={t('referenceSchema', 'Reference schema')}
       onActionButtonClick={() =>
-        window.open('https://json.openmrs.org/form.schema.json', '_blank', 'noopener,noreferrer')
+        globalThis.open('https://json.openmrs.org/form.schema.json', '_blank', 'noopener,noreferrer')
       }
     />
   );

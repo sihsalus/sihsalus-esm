@@ -28,7 +28,7 @@ const options = {
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export function startupApp() {
-  const appointmentsBasePath = `${window.spaBase}/home/appointments`;
+  const appointmentsBasePath = `${globalThis.spaBase}/home/appointments`;
 
   defineConfigSchema(moduleName, configSchema);
 
@@ -43,12 +43,12 @@ export function startupApp() {
     {
       title: 'Appointments',
       path: appointmentsBasePath,
-      parent: `${window.spaBase}/home`,
+      parent: `${globalThis.spaBase}/home`,
     },
     {
-      path: `${window.spaBase}/patient-list/:forDate/:serviceName`,
+      path: `${globalThis.spaBase}/patient-list/:forDate/:serviceName`,
       title: ([_, serviceName]) => `Patient Lists / ${decodeURI(serviceName)}`,
-      parent: `${window.spaBase}`,
+      parent: `${globalThis.spaBase}`,
     },
   ]);
 }

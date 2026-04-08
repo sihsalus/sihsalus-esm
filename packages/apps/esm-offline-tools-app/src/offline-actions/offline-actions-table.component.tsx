@@ -224,7 +224,7 @@ function PatientLink({ patientUuid, patientName }) {
     <Link
       onClick={() =>
         navigate({
-          to: `${window.getOpenmrsSpaBase()}patient/${patientUuid}/chart`,
+          to: `${globalThis.getOpenmrsSpaBase()}patient/${patientUuid}/chart`,
         })
       }
     >

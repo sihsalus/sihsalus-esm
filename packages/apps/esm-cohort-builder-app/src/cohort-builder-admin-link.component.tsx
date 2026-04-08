@@ -7,8 +7,8 @@ const CohortBuilderAdminLink: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Layer>
-      <a href={`${window.spaBase}/cohort-builder`} target="_blank" rel="noopener noreferrer">
-        <ClickableTile href={`${window.spaBase}/cohort-builder`}>
+      <a href={`${globalThis.spaBase}/cohort-builder`} target="_blank" rel="noopener noreferrer">
+        <ClickableTile href={`${globalThis.spaBase}/cohort-builder`}>
           <div>
             <div className="heading">{t('manageCohorts', 'Manage Cohorts')}</div>
             <div className="content">{t('cohortBuilder', 'Cohort Builder')}</div>

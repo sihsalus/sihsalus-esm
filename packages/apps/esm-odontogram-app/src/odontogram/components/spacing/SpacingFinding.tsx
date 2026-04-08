@@ -58,15 +58,6 @@ const SpacingFinding: React.FC<SpacingFindingProps> = ({
   const isSelected = selectedFindingId === findingId;
 
   const handleClick = () => {
-      findingId,
-      leftToothId,
-      rightToothId,
-      readOnly,
-      isComplete,
-      isSelected,
-      selectedColor,
-      activeFinding,
-    });
     if (readOnly) return;
     if (!isComplete || !isSelected || !selectedColor) {
       if (selectedFindingId && !isComplete) {
@@ -104,13 +95,6 @@ const SpacingFinding: React.FC<SpacingFindingProps> = ({
 
   // Renderizar el diseño visual del hallazgo
   const renderDesign = () => {
-      findingId,
-      leftToothId,
-      rightToothId,
-      storedColor: storedColor?.name,
-      dynamicDesign,
-      isLower,
-    });
     if (!storedColor || !dynamicDesign) return null;
 
     const DesignComponent = getSpacingDesignComponentByPosition(

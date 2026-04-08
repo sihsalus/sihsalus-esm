@@ -9,7 +9,7 @@ export default function ReportsLink() {
   const { t } = useTranslation();
   return (
     <Layer>
-      <ClickableTile href={`${window.getOpenmrsSpaBase().slice(0, -1)}${basePath}`}>
+      <ClickableTile href={`${globalThis.getOpenmrsSpaBase().slice(0, -1)}${basePath}`}>
         <div>
           <div className="heading">{t('manageReports', 'Manage reports')}</div>
           <div className="content">{t('reports', 'Reports')}</div>
