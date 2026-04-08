@@ -1,6 +1,7 @@
 import React from "react";
 import "./ToothDetails.css";
 import "./spacing/SpaceBetweenStyles.css";
+import { COLOR_CSS } from "./constants";
 import {
   EllipseDesignLeft,
   EllipseDesignRight,
@@ -33,15 +34,6 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({
   const annotations = tooth?.annotations ?? [];
 
   // Color mapping for annotation text
-  const COLOR_MAP: Record<string, string> = {
-    red: "#dc2626",
-    blue: "#2563eb",
-    black: "#0f172a",
-    yellow: "#ca8a04",
-    green: "#16a34a",
-    gray: "#64748b",
-    grey: "#64748b",
-  };
 
   // Group annotations by findingId for "/" display
   const groupedAnnotations = React.useMemo(() => {
@@ -126,7 +118,7 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({
                   {i > 0 && <span className="tooth-annotation-sep">/</span>}
                   <span
                     className="tooth-annotation"
-                    style={{ color: COLOR_MAP[ann.color] ?? ann.color }}
+                    style={{ color: COLOR_CSS[ann.color] ?? ann.color }}
                   >
                     {ann.text}
                   </span>

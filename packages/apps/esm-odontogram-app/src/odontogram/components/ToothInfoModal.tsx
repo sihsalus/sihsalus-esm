@@ -1,66 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Tooth from "./Tooth";
 import ToothDesigns from "./ToothDesigns";
-import {
-  Finding3Design1,
-  Finding4Design1,
-  Finding8Design1, Finding8Design2, Finding8Design3,
-  Finding20Design1, Finding23Design1, Finding38Design1,
-  Finding7Design1, Finding28Design1,
-  Finding37Design1, Finding37Design2, Finding37Design3, Finding37Design4, Finding37Design5,
-  Finding36Design1, Finding36Design2,
-  Finding10Design1, Finding10Design2, Finding10Design3, Finding10Design4,
-  Finding10Design5, Finding10Design6, Finding10Design7, Finding10Design8,
-  Finding5Design1, Finding5Design2, Finding5Design3, Finding5Design4,
-  Finding5Design5, Finding5Design6, Finding5Design7, Finding5Design8,
-  Finding5Design9, Finding5Design10, Finding5Design11, Finding5Design12,
-  Finding5Design13, Finding5Design14,
-  Finding27Design9,
-  Finding35Design1, Finding35Design2, Finding35Design3, Finding35Design4,
-  Finding35Design5, Finding35Design6, Finding35Design7, Finding35Design8,
-  Finding35Design9, Finding35Design10, Finding35Design11, Finding35Design12,
-  Finding35Design13, Finding35Design14,
-  EllipseDesignLeft, EllipseDesignRight, EllipseDesignLeftAndRight,
-  Finding12Design1, Finding21Design1,
-  Finding13Design1, Finding13Design2,
-} from "../designs/figuras";
 import type { ToothFinding, FindingOptionConfig, ToothAnnotation } from "../types/odontogram";
+import { COLOR_CSS, COLOR_LABEL, TOOTH_DESIGN_COMPONENT_MAP } from "./constants";
 import "./ToothInfoModal.css";
-
-// Design component map (same as ToothVisualization)
-const designComponentMap: Record<string, Record<string, React.ComponentType<{ strokeColor: string }>>> = {
-  '3':  { '1': Finding3Design1 },
-  '4':  { '1': Finding4Design1 },
-  '8':  { '1': Finding8Design1, '2': Finding8Design2, '3': Finding8Design3 },
-  '20': { '1': Finding20Design1 },
-  '23': { '1': Finding23Design1 },
-  '38': { '1': Finding38Design1 },
-  '7':  { '1': Finding7Design1 },
-  '28': { '1': Finding28Design1 },
-  '37': { '1': Finding37Design1, '2': Finding37Design2, '3': Finding37Design3, '4': Finding37Design4, '5': Finding37Design5 },
-  '36': { '1': Finding36Design1, '2': Finding36Design2 },
-  '10': { '1': Finding10Design1, '2': Finding10Design2, '3': Finding10Design3, '4': Finding10Design4, '5': Finding10Design5, '6': Finding10Design6, '7': Finding10Design7, '8': Finding10Design8 },
-  '5':  { '1': Finding5Design1, '2': Finding5Design2, '3': Finding5Design3, '4': Finding5Design4, '5': Finding5Design5, '6': Finding5Design6, '7': Finding5Design7, '8': Finding5Design8, '9': Finding5Design9, '10': Finding5Design10, '11': Finding5Design11, '12': Finding5Design12, '13': Finding5Design13, '14': Finding5Design14 },
-  '16': { '1': Finding5Design1, '2': Finding5Design2, '3': Finding5Design3, '4': Finding5Design4, '5': Finding5Design5, '6': Finding5Design6, '7': Finding5Design7, '8': Finding5Design8, '9': Finding5Design9, '10': Finding5Design10, '11': Finding5Design11, '12': Finding5Design12, '13': Finding5Design13, '14': Finding5Design14 },
-  '27': { '1': Finding5Design1, '2': Finding5Design2, '3': Finding5Design3, '4': Finding5Design4, '5': Finding5Design5, '6': Finding5Design6, '7': Finding5Design7, '8': Finding5Design8, '9': Finding27Design9 },
-  '34': { '1': Finding5Design1, '2': Finding5Design2, '3': Finding5Design3, '4': Finding5Design4, '5': Finding5Design5, '6': Finding5Design6, '7': Finding5Design7, '8': Finding5Design8, '9': Finding5Design9, '10': Finding5Design10, '11': Finding5Design11, '12': Finding5Design12, '13': Finding5Design13, '14': Finding5Design14 },
-  '35': { '1': Finding35Design1, '2': Finding35Design2, '3': Finding35Design3, '4': Finding35Design4, '5': Finding35Design5, '6': Finding35Design6, '7': Finding35Design7, '8': Finding35Design8, '9': Finding35Design9, '10': Finding35Design10, '11': Finding35Design11, '12': Finding35Design12, '13': Finding35Design13, '14': Finding35Design14 },
-  '11': { '1': EllipseDesignLeft as any, '2': EllipseDesignRight as any, '3': EllipseDesignLeftAndRight as any },
-  '12': { '1': Finding12Design1 },
-  '21': { '1': Finding21Design1 },
-  '13': { '1': Finding13Design1, '2': Finding13Design2 },
-};
-
-const COLOR_CSS: Record<string, string> = {
-  red: "#dc2626", blue: "#2563eb", black: "#0f172a",
-  yellow: "#ca8a04", green: "#16a34a", white: "#e2e8f0",
-  gray: "#64748b", grey: "#64748b",
-};
-const COLOR_LABEL: Record<string, string> = {
-  red: "Rojo", blue: "Azul", black: "Negro",
-  yellow: "Amarillo", green: "Verde", white: "Blanco",
-  gray: "Gris", grey: "Gris",
-};
 
 interface ToothInfoModalProps {
   toothId: number;
@@ -147,7 +90,7 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
   const renderDesignPreview = (finding: ToothFinding) => {
     const fKey = String(finding.findingId);
     const dKey = String(finding.designNumber);
-    const comps = designComponentMap[fKey];
+    const comps = TOOTH_DESIGN_COMPONENT_MAP[fKey];
     const Comp = comps?.[dKey];
     if (!Comp) return null;
     return (
@@ -195,7 +138,7 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
                 <ToothDesigns design={rootDesign as any} />
                 <Tooth zones={zones} />
                 {findings.map((f, i) => {
-                  const comps = designComponentMap[String(f.findingId)];
+                  const comps = TOOTH_DESIGN_COMPONENT_MAP[String(f.findingId)];
                   const Comp = comps?.[String(f.designNumber)];
                   if (!Comp) return null;
                   return (

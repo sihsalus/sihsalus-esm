@@ -1,17 +1,7 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useOdontogramContext } from "../providers/OdontogramProvider";
 import type { FindingColor, FindingSuboption } from "../types/odontogram";
-
-const COLOR_CSS: Record<string, string> = {
-  red: "#dc2626", blue: "#2563eb", black: "#0f172a",
-  yellow: "#ca8a04", green: "#16a34a", white: "#e2e8f0",
-  gray: "#64748b", grey: "#64748b",
-};
-const COLOR_LABEL: Record<string, string> = {
-  red: "Rojo", blue: "Azul", black: "Negro",
-  yellow: "Amarillo", green: "Verde", white: "Blanco",
-  gray: "Gris", grey: "Gris",
-};
+import { COLOR_CSS, COLOR_LABEL } from "./constants";
 
 // ─── Datos de referencia de siglas clínicas por hallazgo ─────────────────────
 interface SiglaEntry {
