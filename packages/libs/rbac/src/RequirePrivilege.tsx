@@ -3,10 +3,10 @@ import React, { Suspense, type ReactNode } from 'react';
 import { useRequirePrivilege } from './useRequirePrivilege';
 
 interface RequirePrivilegeProps {
-  privilege: string | string[];
-  requireAll?: boolean;
-  fallback?: ReactNode;
-  children: ReactNode;
+  readonly privilege: string | string[];
+  readonly requireAll?: boolean;
+  readonly fallback?: ReactNode;
+  readonly children: ReactNode;
 }
 
 function RequirePrivilegeInner({ privilege, requireAll = true, fallback = null, children }: RequirePrivilegeProps) {

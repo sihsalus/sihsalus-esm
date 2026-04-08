@@ -3,8 +3,8 @@ import { Locked } from '@carbon/react/icons';
 import React from 'react';
 
 interface UnauthorizedStateProps {
-  privilege: string | string[];
-  description?: string;
+  readonly privilege: string | string[];
+  readonly description?: string;
 }
 
 export function UnauthorizedState({ privilege, description }: UnauthorizedStateProps) {

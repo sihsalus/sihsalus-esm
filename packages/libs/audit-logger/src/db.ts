@@ -9,7 +9,7 @@ function openDb(dbName: string): Promise<IDBDatabase> {
       req.result.createObjectStore(STORE_NAME, { keyPath: 'id' });
     };
     req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
+    req.onerror = () => reject(req.error ?? new Error('Failed to open IndexedDB'));
   });
 }
 
@@ -19,7 +19,7 @@ export async function putEntry(dbName: string, entry: StoredAuditEntry): Promise
     const tx = db.transaction(STORE_NAME, 'readwrite');
     tx.objectStore(STORE_NAME).put(entry);
     tx.oncomplete = () => resolve();
-    tx.onerror = () => reject(tx.error);
+    tx.onerror = () => reject(tx.error ?? new Error('Failed to put entry in IndexedDB'));
   });
 }
 
@@ -29,7 +29,7 @@ export async function getAllEntries(dbName: string): Promise<StoredAuditEntry[]>
     const tx = db.transaction(STORE_NAME, 'readonly');
     const req = tx.objectStore(STORE_NAME).getAll();
     req.onsuccess = () => resolve(req.result as StoredAuditEntry[]);
-    req.onerror = () => reject(req.error);
+    req.onerror = () => reject(req.error ?? new Error('Failed to get all entries from IndexedDB'));
   });
 }
 
@@ -40,7 +40,7 @@ export async function clearEntries(dbName: string, ids: string[]): Promise<void>
     const store = tx.objectStore(STORE_NAME);
     ids.forEach((id) => store.delete(id));
     tx.oncomplete = () => resolve();
-    tx.onerror = () => reject(tx.error);
+    tx.onerror = () => reject(tx.error ?? new Error('Failed to clear entries from IndexedDB'));
   });
 }
 
@@ -50,7 +50,7 @@ export async function countEntries(dbName: string): Promise<number> {
     const tx = db.transaction(STORE_NAME, 'readonly');
     const req = tx.objectStore(STORE_NAME).count();
     req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
+    req.onerror = () => reject(req.error ?? new Error('Failed to count entries in IndexedDB'));
   });
 }
 
@@ -58,7 +58,7 @@ export async function deleteOldestEntries(dbName: string, keepCount: number): Pr
   const all = await getAllEntries(dbName);
   if (all.length <= keepCount) return;
   const toDelete = all
-    .sort((a, b) => a.timestamp.localeCompare(b.timestamp))
+    .toSorted((a, b) => a.timestamp.localeCompare(b.timestamp))
     .slice(0, all.length - keepCount)
     .map((e) => e.id);
   await clearEntries(dbName, toDelete);

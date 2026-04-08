@@ -28,7 +28,7 @@ class AuditLogger {
     this.onlineHandler = () => {
       this.flush().catch(() => {});
     };
-    window.addEventListener('online', this.onlineHandler);
+    globalThis.addEventListener('online', this.onlineHandler);
     if (navigator.onLine) {
       this.flush().catch(() => {});
     }
@@ -36,7 +36,7 @@ class AuditLogger {
 
   destroy(): void {
     if (this.onlineHandler) {
-      window.removeEventListener('online', this.onlineHandler);
+      globalThis.removeEventListener('online', this.onlineHandler);
       this.onlineHandler = null;
     }
   }

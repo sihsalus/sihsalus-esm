@@ -26,13 +26,13 @@ const FormsList: React.FC<FormsListProps> = ({ completedForms, error, sectionNam
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const isTablet = useLayoutType() === 'tablet';
-  const [, setLocale] = useState(window.i18next.language ?? navigator.language);
+  const [_locale, setLocale] = useState(globalThis.i18next?.language ?? navigator.language);
 
   useEffect(() => {
-    if (window.i18next?.on) {
+    if (globalThis.i18next?.on) {
       const languageChanged = (lng: string) => setLocale(lng);
-      window.i18next.on('languageChanged', languageChanged);
-      return () => window.i18next.off('languageChanged', languageChanged);
+      globalThis.i18next.on('languageChanged', languageChanged);
+      return () => globalThis.i18next.off('languageChanged', languageChanged);
     }
   }, []);
 

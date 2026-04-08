@@ -42,7 +42,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
             <strong>An unexpected error occurred in {this.props.appName}.</strong>
           </p>
           <p style={{ color: '#6f6f6f', marginTop: '0.5rem' }}>{this.state.error.message}</p>
-          <Button kind="ghost" size="sm" style={{ marginTop: '1rem' }} onClick={() => window.location.reload()}>
+          <Button kind="ghost" size="sm" style={{ marginTop: '1rem' }} onClick={() => globalThis.location?.reload()}>
             Reload page
           </Button>
         </Tile>

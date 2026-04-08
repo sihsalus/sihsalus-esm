@@ -20,6 +20,7 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
   const { t } = useTranslation();
   const { save, isSaving } = useOdontogramEncounter();
   const setPatient = useOdontogramDataStore((s) => s.setPatient);
+  const resetData = useOdontogramDataStore((s) => s.resetData);
 
   useEffect(() => {
     setPatient(patientUuid);
@@ -33,6 +34,7 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
         kind: 'success',
         subtitle: t('odontogramSavedSubtitle', 'The odontogram findings have been saved successfully.'),
       });
+      resetData();
       closeWorkspace();
     } catch {
       showSnackbar({
