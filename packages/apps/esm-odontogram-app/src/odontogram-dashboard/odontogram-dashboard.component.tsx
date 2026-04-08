@@ -31,7 +31,7 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
         </Button>
       </CardHeader>
       <div style={{ overflowX: 'auto', padding: '0 1rem 1rem' }}>
-        <OdontogramNuevoBridge />
+        <OdontogramNuevoBridge readOnly />
       </div>
     </div>
   );

@@ -62,8 +62,13 @@ export const esmPatientChartSchema = {
   },
   FUATemplateUuid: {
     _type: Type.UUID,
-    _description: 'The UUID of the FUA template.',
+    _description: 'The UUID of the FUA template form in OpenMRS.',
     _default: 'a22733fa-3501-4020-a520-da024eeff088',
+  },
+  fuaGeneratorEndpoint: {
+    _type: Type.String,
+    _default: '',
+    _description: 'URL of the FUA HTML generator endpoint. Receives ?visitUuid=<uuid> and returns the FUA as HTML.',
   },
   restrictByVisitLocationTag: {
     _type: Type.Boolean,
@@ -163,6 +168,7 @@ export interface ChartConfig {
   numberOfVisitsToLoad: number;
   offlineVisitTypeUuid: string;
   FUATemplateUuid: string;
+  fuaGeneratorEndpoint: string;
   restrictByVisitLocationTag: boolean;
   showAllEncountersTab: boolean;
   showExtraVisitAttributesSlot: boolean;

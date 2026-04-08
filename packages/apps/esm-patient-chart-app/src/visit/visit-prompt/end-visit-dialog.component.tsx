@@ -1,28 +1,50 @@
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showSnackbar, updateVisit, useVisit, useConfig } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, showSnackbar, updateVisit, useConfig, useVisit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import useSWR from 'swr';
 
 import { type ChartConfig } from '../../config-schema';
 import { useInfiniteVisits2 } from '../visits-widget/visit.resource';
 
 import styles from './end-visit-dialog.scss';
 
-// Placeholder for useFUATemplate hook
-const useFUATemplate = (templateUuid: string) => {
-  // Simulated template data (replace with actual API call)
-  const FUATemplate = {
-    uuid: templateUuid,
-    name: 'FUA Template',
-    content: '<!-- Placeholder FUA template content -->',
+interface FUAFormTemplate {
+  uuid: string;
+  name: string;
+  description?: string;
+  encounterType?: { uuid: string; display: string };
+}
+
+function useFUATemplate(templateUuid: string) {
+  const url = templateUuid ? `${restBaseUrl}/form/${templateUuid}?v=custom:(uuid,name,description,encounterType)` : null;
+  const { data, error, isLoading } = useSWR<{ data: FUAFormTemplate }, Error>(url, openmrsFetch);
+  return {
+    data: data?.data ?? null,
+    isLoading,
+    error,
   };
+}
 
-  // Placeholder for fetching logic
-  // Example: const response = await fetch(`baseUrl/o3/forms/${templateUuid}`);
-  // const FUATemplate = await response.json();
-
-  return { data: FUATemplate, isLoading: false, error: null };
-};
+async function downloadFuaDocument(
+  generatorEndpoint: string,
+  visitUuid: string,
+  t: (key: string, defaultValue: string) => string,
+) {
+  const url = `${generatorEndpoint}?visitUuid=${visitUuid}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(t('errorFetchingFuaDocument', 'Could not fetch FUA document from generator'));
+  }
+  const html = await response.text();
+  const blob = new Blob([html], { type: 'text/html' });
+  const objectUrl = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = objectUrl;
+  link.download = `FUA_${visitUuid}.html`;
+  link.click();
+  window.URL.revokeObjectURL(objectUrl);
+}
 
 interface EndVisitDialogProps {
   patientUuid: string;
@@ -42,7 +64,7 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
   const { t } = useTranslation();
   const { activeVisit, mutate } = useVisit(patientUuid);
   const { mutate: mutateInfiniteVisits } = useInfiniteVisits2(patientUuid);
-  const { FUATemplateUuid } = useConfig<ChartConfig>();
+  const { FUATemplateUuid, fuaGeneratorEndpoint } = useConfig<ChartConfig>();
   const { data: FUATemplate, isLoading, error: templateError } = useFUATemplate(FUATemplateUuid);
 
   const handleEndVisit = () => {
@@ -78,65 +100,39 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
   };
 
   const handleEndVisitAndGenerateFUA = async () => {
-    if (activeVisit && FUATemplate && !isLoading && !templateError) {
-      const endVisitPayload = {
-        stopDatetime: new Date(),
-        // fuaGenerated: true, // Uncomment if needed in payload
-      };
-
-      const abortController = new AbortController();
-
-      try {
-        // Placeholder: Fetch FUA PDF template
-        // In reality, this might involve fetching a Jasper template or similar
-        // Example: const templateResponse = await fetch(`baseUrl/o3/forms/${FUATemplateUuid}`);
-
-        // Placeholder: Fill template with data (Jasper-like processing)
-        const visitData = {
-          patientUuid,
-          visitUuid: activeVisit.uuid,
-          visitType: activeVisit.visitType?.display,
-          // Add more data as needed
-        };
-        // Example: const filledTemplate = processJasperTemplate(FUATemplate, visitData);
-
-        // Placeholder: Download the filled template as PDF
-        // This could use a library like jsPDF or a backend service
-        const blob = new Blob(['Placeholder FUA PDF content'], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `FUA_${activeVisit.uuid}.pdf`;
-        link.click();
-        window.URL.revokeObjectURL(url);
-
-        // Update visit
-        await updateVisit(activeVisit.uuid, endVisitPayload, abortController);
-
-        mutate();
-        mutateInfiniteVisits();
-        closeModal();
-
-        showSnackbar({
-          isLowContrast: true,
-          kind: 'success',
-          subtitle: t('visitEndSuccessfully', `${activeVisit.visitType?.display} ended successfully`),
-          title: t('visitEndedAndFUAGenerated', 'Visit ended and FUA Generated'),
-        });
-      } catch (error) {
-        showSnackbar({
-          title: t('errorEndingVisitOrGeneratingFUA', 'Error ending visit or generating FUA'),
-          kind: 'error',
-          isLowContrast: false,
-          subtitle: error?.message || 'Unknown error',
-        });
-      }
-    } else {
+    if (!activeVisit || !FUATemplate || isLoading || templateError) {
       showSnackbar({
         title: t('errorGeneratingFUA', 'Error generating FUA'),
         kind: 'error',
         isLowContrast: false,
         subtitle: t('templateNotAvailable', 'FUA template is not available'),
+      });
+      return;
+    }
+
+    const abortController = new AbortController();
+    try {
+      await updateVisit(activeVisit.uuid, { stopDatetime: new Date() }, abortController);
+      mutate();
+      mutateInfiniteVisits();
+      closeModal();
+
+      showSnackbar({
+        isLowContrast: true,
+        kind: 'success',
+        subtitle: t('visitEndSuccessfully', `${activeVisit.visitType?.display} ended successfully`),
+        title: t('visitEndedAndFUAGenerated', 'Visit ended and FUA Generated'),
+      });
+
+      if (fuaGeneratorEndpoint) {
+        await downloadFuaDocument(fuaGeneratorEndpoint, activeVisit.uuid, t);
+      }
+    } catch (error) {
+      showSnackbar({
+        title: t('errorEndingVisitOrGeneratingFUA', 'Error ending visit or generating FUA'),
+        kind: 'error',
+        isLowContrast: false,
+        subtitle: error?.message ?? t('unknownError', 'Unknown error'),
       });
     }
   };
