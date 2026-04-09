@@ -24,9 +24,9 @@ if (!process.env.SIHSALUS_BACKEND_URL) {
 // Unset → serve pre-assembled importmap (no recompilation, just shell + proxy)
 const devAppsEnv = process.env.SIHSALUS_DEV_APPS;
 
-const assembledImportmap = resolve(__dirname, '..', '..', 'dist', 'spa', 'importmap.json');
-const assembledRoutes = resolve(__dirname, '..', '..', 'dist', 'spa', 'routes.registry.json');
-const distSpa = resolve(__dirname, '..', '..', 'dist', 'spa');
+const assembledImportmap = resolve(__dirname, '..', '..', '..', 'dist', 'spa', 'importmap.json');
+const assembledRoutes = resolve(__dirname, '..', '..', '..', 'dist', 'spa', 'routes.registry.json');
+const distSpa = resolve(__dirname, '..', '..', '..', 'dist', 'spa');
 const spaPath = '/openmrs/spa';
 
 function findFreePort() {
@@ -40,7 +40,7 @@ function findFreePort() {
 }
 
 function startCli(args) {
-  const openmrsBin = resolve(__dirname, '..', '..', 'node_modules', 'openmrs', 'dist', 'cli.js');
+  const openmrsBin = resolve(__dirname, '..', '..', '..', 'node_modules', 'openmrs', 'dist', 'cli.js');
   const fullArgs = [openmrsBin, 'develop', '--backend', backend, ...args];
 
   const child = spawn('node', ['--disable-warning=DEP0060', ...fullArgs], { stdio: 'inherit' });
@@ -104,7 +104,7 @@ async function startWithProxy(cliArgs) {
 if (devAppsEnv) {
   const apps = devAppsEnv.split(',').map((a) => a.trim()).filter(Boolean);
   const sourcesArgs = apps.flatMap((app) => {
-    const dir = resolve(__dirname, '..', '..', 'packages', 'apps', app);
+    const dir = resolve(__dirname, '..', '..', 'apps', app);
     if (!existsSync(dir)) {
       logFail(`App not found: ${dir}`);
       process.exit(1);
@@ -136,6 +136,6 @@ if (devAppsEnv) {
   }
   logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
 
-  const shimSource = resolve(__dirname, '..', '..', 'packages', 'apps', 'esm-login-app');
+  const shimSource = resolve(__dirname, '..', '..', 'apps', 'esm-login-app');
   startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, '--sources', shimSource]);
 }
