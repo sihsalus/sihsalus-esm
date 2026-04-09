@@ -49,28 +49,18 @@ module.exports = [
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
 
-      // 📦 Imports ordenados
-      "import/order": [
-        "warn",
-        {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index"
-          ],
-          "newlines-between": "always",
-          alphabetize: { order: "asc", caseInsensitive: true }
-        }
-      ],
+      // 📦 Temporalmente desactivado por incompatibilidad del plugin con ESLint 10
+      "import/order": "off",
 
       // 🧹 Buenas prácticas
       "no-console": ["warn", { allow: ["warn", "error"] }],
       "prefer-const": "warn"
     }
   },
+    {
+      files: ["**/*.{js,cjs,mjs}"],
+      ...tseslint.configs.disableTypeChecked
+    },
 
   // 🔹 Apps (más flexibles que libs)
   {
