@@ -51,7 +51,7 @@ module.exports = {
     },
   },
   setupFilesAfterEnv: [path.resolve(__dirname, 'tooling', 'setup-tests.ts')],
-  testPathIgnorePatterns: [path.resolve(__dirname, 'e2e')],
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
     url: 'http://localhost/',
