@@ -201,8 +201,9 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
         merge(
           {
             test: /\.m?(js|ts|tsx)$/,
-            exclude: /node_modules(?![/\\]@openmrs)/,
-            loader: 'swc-loader',
+            exclude: (path: string) =>
+              path.includes('node_modules') && !path.includes('@openmrs') && !path.includes('@sihsalus'),
+            loader: 'builtin:swc-loader',
             options: {
               jsc: {
                 parser: {
