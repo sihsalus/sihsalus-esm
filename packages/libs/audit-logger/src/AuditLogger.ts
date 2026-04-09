@@ -30,6 +30,10 @@ class AuditLogger {
       return;
     }
     this.config = { ...DEFAULTS, ...config };
+    // Reset rate-limit window on every reconfigure so that a fresh test setup
+    // or app re-initialisation starts with a clean slate.
+    this.rateLimitCount = 0;
+    this.rateLimitResetAt = 0;
   }
 
   setSession(userUuid: string, sessionId: string): void {
@@ -60,15 +64,13 @@ class AuditLogger {
       this.onlineHandler = null;
     }
     this.initialized = false;
+    // Reset rate-limit state so tests using fake clocks don't bleed into each other.
+    this.rateLimitCount = 0;
+    this.rateLimitResetAt = 0;
   }
 
   async log(event: Omit<AuditEvent, 'timestamp' | 'userUuid' | 'sessionId'>): Promise<void> {
     if (!this.sessionRef) return;
-
-    if (this.isRateLimited()) {
-      console.warn('[AuditLogger] Rate limit exceeded, event dropped:', event.eventType);
-      return;
-    }
 
     const entry: StoredAuditEntry = {
       ...event,
@@ -82,6 +84,12 @@ class AuditLogger {
     };
 
     if (navigator.onLine) {
+      // Rate limiting only applies to the online path — its purpose is preventing
+      // server flood attacks. The offline queue is bounded by maxOfflineEntries.
+      if (this.isRateLimited()) {
+        console.warn('[AuditLogger] Rate limit exceeded, event dropped:', event.eventType);
+        return;
+      }
       try {
         await this.sendEntries([entry]);
       } catch (err) {

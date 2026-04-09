@@ -5850,7 +5850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openmrs/esm-styleguide@npm:9.0.3-pre.4437, @openmrs/esm-styleguide@npm:next":
+"@openmrs/esm-styleguide@npm:9.0.3-pre.4437":
   version: 9.0.3-pre.4437
   resolution: "@openmrs/esm-styleguide@npm:9.0.3-pre.4437"
   dependencies:
@@ -9122,7 +9122,7 @@ __metadata:
     "@carbon/react": "npm:^1.83.0"
     "@hookform/resolvers": "npm:^3.3.0"
     "@openmrs/esm-framework": "npm:*"
-    "@openmrs/esm-styleguide": "npm:next"
+    "@openmrs/esm-styleguide": "patch:@openmrs/esm-styleguide@npm%3A9.0.2#~/.yarn/patches/@openmrs-esm-styleguide-npm-9.0.2-fc8ffda76a.patch"
     "@sihsalus/rbac": "workspace:*"
     cross-env: "npm:^7.0.3"
     lodash-es: "npm:^4.17.21"
