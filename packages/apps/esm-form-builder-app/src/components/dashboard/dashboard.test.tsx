@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type FetchResponse, navigate, openmrsFetch, showModal } from '@openmrs/esm-framework';
 import Dashboard from './dashboard.component';
-import { renderWithSwr, waitForLoadingToFinish } from '@tools/test-helpers';
+import { renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import { deleteForm } from '@resources/forms.resource';
 
 type OpenmrsFetchResponse = Promise<

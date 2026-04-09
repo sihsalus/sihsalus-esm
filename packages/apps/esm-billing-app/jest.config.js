@@ -6,6 +6,5 @@ module.exports = {
   moduleNameMapper: {
     ...rootConfig.moduleNameMapper,
     '^mocks/(.*)$': path.resolve(__dirname, '__mocks__', '$1'),
-    '^tools/(.*)$': path.resolve(__dirname, 'tools', '$1'),
   },
 };

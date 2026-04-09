@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import AddFormReferenceModal from './add-form-reference.modal';
 import { Form, type Schema } from '@types';
-import { renderWithSwr, waitForLoadingToFinish } from '@tools/test-helpers';
+import { renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import userEvent from '@testing-library/user-event';
 

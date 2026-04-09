@@ -7,7 +7,7 @@ import { configSchema, type BillingConfig } from '../config-schema';
 import { mockBill, mockPatient } from 'mocks/bills.mock';
 import { useBill } from '../billing.resource';
 import { usePaymentModes } from './payments/payment.resource';
-import { waitForLoadingToFinish } from 'tools/test-helpers';
+import { waitForLoadingToFinish } from 'test-utils';
 import Invoice from './invoice.component';
 
 const mockUseConfig = jest.mocked(useConfig<BillingConfig>);
