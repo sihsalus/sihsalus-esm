@@ -31,5 +31,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/apps ./packages/apps
 COPY --from=builder /app/packages/tooling/assemble-importmap.js ./packages/tooling/assemble-importmap.js
 COPY config/spa-assemble-config.json ./config/spa-assemble-config.json
+COPY config/frontend.json ./config/frontend.json
 
 CMD ["node", "packages/tooling/assemble-importmap.js"]

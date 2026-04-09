@@ -1,0 +1,8 @@
+{
+  "@openmrs/esm-styleguide": {
+    "Brand color #1": "#27348b",
+    "Brand color #2": "#2C2F79",
+    "Brand color #3": "#52ae32",
+    "implementationName": "SIHSALUS"
+  }
+}

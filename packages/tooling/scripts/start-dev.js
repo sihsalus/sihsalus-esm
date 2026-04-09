@@ -27,6 +27,7 @@ const devAppsEnv = process.env.SIHSALUS_DEV_APPS;
 const assembledImportmap = resolve(__dirname, '..', '..', '..', 'dist', 'spa', 'importmap.json');
 const assembledRoutes = resolve(__dirname, '..', '..', '..', 'dist', 'spa', 'routes.registry.json');
 const distSpa = resolve(__dirname, '..', '..', '..', 'dist', 'spa');
+const frontendConfig = resolve(__dirname, '..', '..', '..', 'config', 'frontend.json');
 const spaPath = '/openmrs/spa';
 
 function findFreePort() {
@@ -120,11 +121,11 @@ if (devAppsEnv) {
     }
 
     // Use reverse proxy: dist/spa bundles + chunks served from same origin
-    startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, ...sourcesArgs]);
+    startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, '--config-file', frontendConfig, ...sourcesArgs]);
   } else {
     logWarn('No assembled importmap found. Only apps in SIHSALUS_DEV_APPS will be available.');
     logWarn('For all apps: yarn assemble');
-    startCli(['--importmap', '{"imports":{}}', '--routes', '{}', ...sourcesArgs]);
+    startCli(['--importmap', '{"imports":{}}', '--routes', '{}', '--config-file', frontendConfig, ...sourcesArgs]);
   }
 } else {
   // No apps to hot-reload: serve the pre-assembled SPA purely via proxy + static files
@@ -137,5 +138,5 @@ if (devAppsEnv) {
   logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
 
   const shimSource = resolve(__dirname, '..', '..', 'apps', 'esm-login-app');
-  startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, '--sources', shimSource]);
+  startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, '--config-file', frontendConfig, '--sources', shimSource]);
 }
