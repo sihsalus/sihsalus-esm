@@ -9,8 +9,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SIHSALUS_BACKEND_URL=http://backend:8080
+      - SIHSALUS_BACKEND_URL=${SIHSALUS_BACKEND_URL:-http://hii1sc-dev.inf.pucp.edu.pe}
       - SIHSALUS_AUTH_MODE=openmrs
       - SIHSALUS_DEV_APPS=esm-login-app,esm-home-app
-    depends_on:
-      - backend
