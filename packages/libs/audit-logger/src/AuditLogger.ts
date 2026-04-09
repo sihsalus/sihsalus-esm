@@ -25,7 +25,8 @@ class AuditLogger {
   configure(config: Partial<AuditLoggerConfig>): void {
     if (config.endpoint !== undefined && !AuditLogger.isSafeEndpoint(config.endpoint)) {
       console.error('[AuditLogger] Rejected unsafe endpoint:', config.endpoint);
-      const { endpoint: _ignored, ...rest } = config;
+      const { endpoint, ...rest } = config;
+      void endpoint;
       this.config = { ...this.config, ...rest };
       return;
     }

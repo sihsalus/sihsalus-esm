@@ -1,4 +1,4 @@
-import { afterEach, vi } from 'vitest';
+import { afterEach } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 
@@ -12,8 +12,10 @@ afterEach(cleanup);
  * of the global object — which Vitest 4 requires for vi.spyOn to succeed.
  * We bind to globalThis first to avoid infinite recursion when the spy fires.
  */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const _win = globalThis as any;
+const _win = globalThis as unknown as {
+	addEventListener: typeof globalThis.addEventListener;
+	removeEventListener: typeof globalThis.removeEventListener;
+};
 const _boundAdd: typeof globalThis.addEventListener = _win.addEventListener.bind(_win);
 const _boundRemove: typeof globalThis.removeEventListener = _win.removeEventListener.bind(_win);
 

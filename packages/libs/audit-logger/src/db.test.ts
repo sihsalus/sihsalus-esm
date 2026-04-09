@@ -49,9 +49,9 @@ describe('queueEntry / getEntriesForUser', () => {
         const tx = req.result.transaction('entries', 'readonly');
         const getReq = tx.objectStore('entries').getAll();
         getReq.onsuccess = () => resolve(getReq.result[0] as Record<string, unknown>);
-        getReq.onerror = () => reject(getReq.error);
+        getReq.onerror = () => reject(new Error(getReq.error?.message ?? 'IndexedDB read error'));
       };
-      req.onerror = () => reject(req.error);
+      req.onerror = () => reject(new Error(req.error?.message ?? 'IndexedDB open error'));
     });
 
     expect(rawRow['userUuid']).toBe('user-1'); // plaintext index field

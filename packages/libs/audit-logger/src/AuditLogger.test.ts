@@ -63,10 +63,13 @@ describe('log() — online path', () => {
     await auditLogger.log({ eventType: 'PATIENT_VIEW' });
 
     expect(mockFetch).toHaveBeenCalledOnce();
-    const [url, opts] = mockFetch.mock.calls[0];
+    const [url, opts] = mockFetch.mock.calls[0] as [
+      string,
+      { method: string; body: Array<{ eventType: string; userUuid: string; sessionId: string }> },
+    ];
     expect(url).toBe('/ws/rest/v1/sihsalus/audit');
     expect(opts.method).toBe('POST');
-    const body = opts.body as Array<{ eventType: string; userUuid: string; sessionId: string }>;
+    const body = opts.body;
     expect(body[0].eventType).toBe('PATIENT_VIEW');
     expect(body[0].userUuid).toBe(USER);
     expect(body[0].sessionId).toBe(SESSION);
@@ -98,7 +101,8 @@ describe('log() — offline path', () => {
     await auditLogger.flush();
 
     expect(mockFetch).toHaveBeenCalledOnce();
-    const body = mockFetch.mock.calls[0][1].body as Array<{ eventType: string }>;
+    const [, opts] = mockFetch.mock.calls[0] as [string, { body: Array<{ eventType: string }> }];
+    const body = opts.body;
     expect(body[0].eventType).toBe('ENCOUNTER_VIEW');
   });
 });
@@ -195,7 +199,8 @@ describe('clearSession()', () => {
     await auditLogger.log({ eventType: 'AFTER_LOGOUT' });
 
     expect(mockFetch).toHaveBeenCalledTimes(1);
-    const body = mockFetch.mock.calls[0][1].body as Array<{ eventType: string }>;
+    const [, opts] = mockFetch.mock.calls[0] as [string, { body: Array<{ eventType: string }> }];
+    const body = opts.body;
     expect(body[0].eventType).toBe('BEFORE_LOGOUT');
   });
 });

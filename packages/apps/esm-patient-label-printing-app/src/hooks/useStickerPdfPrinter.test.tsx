@@ -2,6 +2,8 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 
 import { useStickerPdfPrinter } from './useStickerPdfPrinter';
 
+type IframeWithSrc = HTMLIFrameElement & { _src?: string };
+
 describe('useStickerPdfPrinter', () => {
   let mockContentWindow: { print: jest.Mock; focus: jest.Mock; addEventListener: jest.Mock };
   let afterPrintHandler: (() => void) | null = null;
@@ -28,18 +30,18 @@ describe('useStickerPdfPrinter', () => {
 
     Object.defineProperty(HTMLIFrameElement.prototype, 'src', {
       configurable: true,
-      set: function (value) {
+      set: function (this: IframeWithSrc, value: string) {
         this._src = value;
         // Trigger onload asynchronously to simulate real behavior
         if (this.onload) {
-          Promise.resolve().then(() => {
+          void Promise.resolve().then(() => {
             if (this.onload) {
               this.onload({} as Event);
             }
           });
         }
       },
-      get: function () {
+      get: function (this: IframeWithSrc) {
         return this._src;
       },
     });
@@ -77,7 +79,7 @@ describe('useStickerPdfPrinter', () => {
     const { result } = renderHook(() => useStickerPdfPrinter());
 
     act(() => {
-      result.current.printPdf('http://example.com/test.pdf');
+      void result.current.printPdf('http://example.com/test.pdf');
     });
 
     expect(result.current.isPrinting).toBe(true);
@@ -87,7 +89,7 @@ describe('useStickerPdfPrinter', () => {
     const { result } = renderHook(() => useStickerPdfPrinter());
 
     act(() => {
-      result.current.printPdf('http://example.com/test.pdf');
+      void result.current.printPdf('http://example.com/test.pdf');
     });
 
     await expect(result.current.printPdf('http://example.com/test2.pdf')).rejects.toThrow('Print already in progress');
@@ -97,7 +99,7 @@ describe('useStickerPdfPrinter', () => {
     const { result } = renderHook(() => useStickerPdfPrinter());
 
     act(() => {
-      result.current.printPdf('http://example.com/test.pdf');
+      void result.current.printPdf('http://example.com/test.pdf');
     });
 
     expect(result.current.isPrinting).toBe(true);
@@ -121,7 +123,7 @@ describe('useStickerPdfPrinter', () => {
     const { result } = renderHook(() => useStickerPdfPrinter());
 
     let resolved = false;
-    let printPromise: Promise<void>;
+    let printPromise: Promise<void> = Promise.resolve();
 
     act(() => {
       printPromise = result.current.printPdf('http://example.com/test.pdf').then(() => {
@@ -145,7 +147,7 @@ describe('useStickerPdfPrinter', () => {
       expect(resolved).toBe(true);
     });
 
-    await printPromise!;
+    await printPromise;
   });
 
   it('should allow printing again after previous print completes', async () => {
@@ -153,7 +155,7 @@ describe('useStickerPdfPrinter', () => {
 
     // First print
     act(() => {
-      result.current.printPdf('http://example.com/test1.pdf');
+      void result.current.printPdf('http://example.com/test1.pdf');
     });
 
     await act(async () => {
@@ -170,7 +172,7 @@ describe('useStickerPdfPrinter', () => {
 
     // Second print should succeed
     act(() => {
-      result.current.printPdf('http://example.com/test2.pdf');
+      void result.current.printPdf('http://example.com/test2.pdf');
     });
 
     expect(result.current.isPrinting).toBe(true);
@@ -193,7 +195,7 @@ describe('useStickerPdfPrinter', () => {
     const { result } = renderHook(() => useStickerPdfPrinter());
 
     act(() => {
-      result.current.printPdf('http://example.com/test.pdf');
+      void result.current.printPdf('http://example.com/test.pdf');
     });
 
     expect(result.current.isPrinting).toBe(true);
@@ -219,7 +221,7 @@ describe('useStickerPdfPrinter', () => {
 
     let resolved = false;
     act(() => {
-      result.current.printPdf('http://example.com/test.pdf').then(() => {
+      void result.current.printPdf('http://example.com/test.pdf').then(() => {
         resolved = true;
       });
     });

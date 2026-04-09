@@ -1,70 +1,84 @@
-import { getDefaultsFromConfigSchema, showSnackbar, useConfig, UserHasAccess } from '@openmrs/esm-framework';
-import { screen } from '@testing-library/react';
+import { getDefaultsFromConfigSchema } from '@openmrs/esm-framework';
+import * as esmFramework from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockFhirPatient } from '__mocks__';
 import React from 'react';
-import { renderWithSwr } from 'test-utils';
 
 import { configSchema, type ConfigObject } from '../config-schema';
-import { useStickerPdfPrinter } from '../hooks/useStickerPdfPrinter';
 
 import PrintIdentifierStickerOverflowMenuItem from './print-identifier-sticker-action-button.component';
 
-jest.mock('../hooks/useStickerPdfPrinter');
+let configState: ConfigObject = {
+  ...getDefaultsFromConfigSchema(configSchema),
+  showPrintIdentifierStickerButton: true,
+};
 
-const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
-const mockShowSnackbar = jest.mocked(showSnackbar);
-const mockUseStickerPdfPrinter = jest.mocked(useStickerPdfPrinter);
-const mockUserHasAccess = jest.mocked(UserHasAccess);
-const mockPrintPdf = jest.fn();
+const mockUseConfig = jest.fn(() => configState);
+const mockPrintPdf = jest.fn<Promise<void>, [string]>();
+let isPrintingState = false;
+
+const showSnackbarSpy = jest.spyOn(esmFramework, 'showSnackbar').mockImplementation(() => undefined);
+const userHasAccessSpy = jest
+  .spyOn(esmFramework, 'UserHasAccess')
+  .mockImplementation(({ children }: React.ComponentProps<typeof esmFramework.UserHasAccess>) => <>{children}</>);
+const useConfigSpy = jest.spyOn(esmFramework, 'useConfig').mockImplementation(() => mockUseConfig());
+
+jest.mock('../hooks/useStickerPdfPrinter', () => ({
+  useStickerPdfPrinter: () => ({
+    printPdf: mockPrintPdf,
+    isPrinting: isPrintingState,
+  }),
+}));
+
+const testPatient = { id: 'test-patient-uuid' } as fhir.Patient;
 
 describe('PrintIdentifierStickerOverflowMenuItem', () => {
   beforeEach(() => {
-    mockUseConfig.mockReturnValue({
+    configState = {
       ...getDefaultsFromConfigSchema(configSchema),
       showPrintIdentifierStickerButton: true,
-    } as ConfigObject);
+    } as ConfigObject;
+    isPrintingState = false;
     mockPrintPdf.mockResolvedValue(undefined);
-    mockUseStickerPdfPrinter.mockReturnValue({
-      printPdf: mockPrintPdf,
-      isPrinting: false,
-    });
+    showSnackbarSpy.mockClear();
+    userHasAccessSpy.mockClear();
+    useConfigSpy.mockImplementation(() => mockUseConfig());
   });
 
   it('renders the print button when enabled in config', () => {
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
     expect(screen.getByRole('menuitem', { name: /print identifier sticker/i })).toBeInTheDocument();
   });
 
   it('does not render the button when disabled in config', () => {
-    mockUseConfig.mockReturnValue({
+    configState = {
       ...getDefaultsFromConfigSchema(configSchema),
       showPrintIdentifierStickerButton: false,
-    } as ConfigObject);
+    } as ConfigObject;
 
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
     expect(screen.queryByRole('menuitem', { name: /print identifier sticker/i })).not.toBeInTheDocument();
   });
 
   it('does not render the button when patient ID is missing', () => {
-    const patientWithoutId = { ...mockFhirPatient, id: undefined } as fhir.Patient;
+    const patientWithoutId = { ...testPatient, id: undefined } as fhir.Patient;
 
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={patientWithoutId} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={patientWithoutId} />);
 
     expect(screen.queryByRole('menuitem', { name: /print identifier sticker/i })).not.toBeInTheDocument();
   });
 
   it('triggers print when button is clicked', async () => {
     const user = userEvent.setup();
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
     const printButton = screen.getByRole('menuitem', { name: /print identifier sticker/i });
     await user.click(printButton);
 
     expect(mockPrintPdf).toHaveBeenCalledTimes(1);
-    expect(mockPrintPdf).toHaveBeenCalledWith(expect.stringContaining(mockFhirPatient.id));
+    expect(mockPrintPdf).toHaveBeenCalledWith(expect.stringContaining(testPatient.id ?? ''));
   });
 
   it('shows error notification when print fails', async () => {
@@ -72,25 +86,26 @@ describe('PrintIdentifierStickerOverflowMenuItem', () => {
     const errorMessage = 'Network error';
     mockPrintPdf.mockRejectedValueOnce(new Error(errorMessage));
 
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
     const printButton = screen.getByRole('menuitem', { name: /print identifier sticker/i });
     await user.click(printButton);
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({
-      kind: 'error',
-      title: 'Print error',
-      subtitle: expect.stringContaining(errorMessage),
-    });
+    expect(showSnackbarSpy).toHaveBeenCalledTimes(1);
+    const payload = showSnackbarSpy.mock.calls[0]?.[0] as {
+      kind?: string;
+      title?: string;
+      subtitle?: string;
+    };
+    expect(payload.kind).toBe('error');
+    expect(payload.title).toBe('Print error');
+    expect(payload.subtitle).toContain(errorMessage);
   });
 
   it('shows loading state when printing', () => {
-    mockUseStickerPdfPrinter.mockReturnValue({
-      printPdf: mockPrintPdf,
-      isPrinting: true,
-    });
+    isPrintingState = true;
 
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
     const printButton = screen.getByRole('menuitem', { name: /printing/i });
     expect(printButton).toBeInTheDocument();
@@ -99,12 +114,9 @@ describe('PrintIdentifierStickerOverflowMenuItem', () => {
 
   it('prevents multiple print calls when already printing', async () => {
     const user = userEvent.setup();
-    mockUseStickerPdfPrinter.mockReturnValue({
-      printPdf: mockPrintPdf,
-      isPrinting: true,
-    });
+    isPrintingState = true;
 
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
     const printButton = screen.getByRole('menuitem', { name: /printing/i });
     await user.click(printButton);
@@ -113,9 +125,9 @@ describe('PrintIdentifierStickerOverflowMenuItem', () => {
   });
 
   it('checks for the correct privilege when rendering', () => {
-    renderWithSwr(<PrintIdentifierStickerOverflowMenuItem patient={mockFhirPatient} />);
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
 
-    expect(mockUserHasAccess).toHaveBeenCalledWith(
+    expect(userHasAccessSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         privilege: 'App: Can generate a Patient Identity Sticker',
       }),

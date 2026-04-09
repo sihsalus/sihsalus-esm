@@ -63,7 +63,9 @@ const PrintIdentifierStickerOverflowMenuItem: React.FC<PrintIdentifierStickerOve
       <OverflowMenuItem
         className={styles.menuitem}
         itemText={buttonText}
-        onClick={handlePrint}
+        onClick={() => {
+          void handlePrint();
+        }}
         closeMenu={closeMenu}
         disabled={isPrinting}
       />

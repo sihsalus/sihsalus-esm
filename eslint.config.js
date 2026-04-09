@@ -13,6 +13,7 @@ module.exports = [
       "**/node_modules/**",
       "**/dist/**",
       "**/build/**",
+      "**/*.d.ts",
       "**/.rspack/**",
       "**/.cache/**",
       "**/.turbo/**",
