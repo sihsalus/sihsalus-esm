@@ -49,10 +49,10 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
     <div>
       <OdontogramNuevoBridge />
       <div style={{ display: 'flex', gap: '0.5rem', padding: '1rem', justifyContent: 'flex-end' }}>
-        <Button kind="secondary" onClick={() => closeWorkspace()}>
+        <Button kind="secondary" onClick={() => closeWorkspace()} data-testid="odontogram-cancel-btn">
           {t('cancel', 'Cancel')}
         </Button>
-        <Button kind="primary" onClick={handleSave} disabled={isSaving}>
+        <Button kind="primary" onClick={handleSave} disabled={isSaving} data-testid="odontogram-save-btn">
           {isSaving ? <InlineLoading description={t('saving', 'Saving...')} /> : t('saveOdontogram', 'Save odontogram')}
         </Button>
       </div>

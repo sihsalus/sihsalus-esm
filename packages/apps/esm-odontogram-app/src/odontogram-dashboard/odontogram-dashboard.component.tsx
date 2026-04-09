@@ -26,7 +26,12 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
   return (
     <div>
       <CardHeader title={t('odontogram', 'Odontograma')}>
-        <Button kind="ghost" size="sm" onClick={handleLaunchWorkspace}>
+        <Button
+          kind="ghost"
+          size="sm"
+          onClick={handleLaunchWorkspace}
+          data-testid="odontogram-register-findings-btn"
+        >
           {t('registerFindings', 'Registrar hallazgos')}
         </Button>
       </CardHeader>

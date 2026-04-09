@@ -40,22 +40,26 @@ export function useOdontogramEncounter() {
         throw new Error('Missing required config: encounterTypeUuid');
       }
 
-      const data = useOdontogramDataStore.getState().data;
+      const { getAllFindings } = useOdontogramDataStore.getState();
+      const allFindings = getAllFindings();
 
-      const obs = data.teeth
-        .filter((tooth) => tooth.findings.length > 0)
-        .flatMap((tooth) =>
-          tooth.findings.map((finding) => ({
-            concept: getConceptUuidForFinding(finding.findingId),
-            value: String(tooth.toothId),
-            comment: JSON.stringify({
-              optionId: finding.findingId,
-              subOptionId: finding.subOptionId,
-              color: finding.color,
-              dynamicDesign: finding.designNumber ?? null,
-            }),
-          })),
-        );
+      const obs = allFindings.map((finding) => ({
+        concept: getConceptUuidForFinding(finding.findingId),
+        value:
+          finding.source === 'tooth'
+            ? String(finding.toothId)
+            : `${finding.leftToothId ?? ''}-${finding.rightToothId ?? ''}`,
+        comment: JSON.stringify({
+          source: finding.source,
+          findingId: finding.findingId,
+          toothId: finding.toothId ?? null,
+          leftToothId: finding.leftToothId ?? null,
+          rightToothId: finding.rightToothId ?? null,
+          subOptionId: finding.subOptionId ?? null,
+          color: finding.colorName ? { id: finding.colorId, name: finding.colorName } : null,
+          dynamicDesign: finding.designNumber ?? null,
+        }),
+      }));
 
       const url = encounterUuid ? `/ws/rest/v1/encounter/${encounterUuid}` : '/ws/rest/v1/encounter';
       const payload = {
