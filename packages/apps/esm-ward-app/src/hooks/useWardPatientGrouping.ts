@@ -32,11 +32,15 @@ export function useWardPatientGrouping() {
         }
       }
       for (const inpatientRequest of inpatientRequests) {
-        _patientsNotInCurrentWard.add(inpatientRequest.patient.uuid);
+        if (inpatientRequest?.patient) {
+          _patientsNotInCurrentWard.add(inpatientRequest.patient.uuid);
+        }
       }
 
       for (const admission of inpatientAdmissions) {
-        _patientsNotInCurrentWard.delete(admission.patient.uuid);
+        if (admission?.patient) {
+          _patientsNotInCurrentWard.delete(admission.patient.uuid);
+        }
       }
 
       return _patientsNotInCurrentWard;

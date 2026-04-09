@@ -69,8 +69,7 @@ export function getWardMetrics(bedLayouts: BedLayout[], wardPatientGroup: WardPa
 export function getInpatientAdmissionsUuidMap(inpatientAdmissions: InpatientAdmission[]) {
   const map = new Map<string, InpatientAdmission>();
   for (const inpatientAdmission of inpatientAdmissions ?? []) {
-    // TODO: inpatientAdmission is undefined sometimes, why?
-    if (inpatientAdmission) {
+    if (inpatientAdmission?.patient) {
       map.set(inpatientAdmission.patient.uuid, inpatientAdmission);
     }
   }
@@ -112,6 +111,7 @@ export function createAndGetWardPatientGrouping(
 
   const wardUnassignedPatientsList =
     inpatientAdmissionsAtCurrentLocation?.filter((inpatientAdmission) => {
+      if (!inpatientAdmission?.patient) return false;
       allWardPatientUuids.add(inpatientAdmission.patient.uuid);
       return (
         !wardAdmittedPatientsWithBed.has(inpatientAdmission.patient.uuid) &&
@@ -123,8 +123,7 @@ export function createAndGetWardPatientGrouping(
   const totalPatientsCount = allWardPatientUuids.size;
 
   for (const inpatientRequest of inpatientRequests ?? []) {
-    // TODO: inpatientRequest is undefined sometimes, why?
-    if (inpatientRequest) {
+    if (inpatientRequest?.patient) {
       allWardPatientUuids.add(inpatientRequest.patient.uuid);
     }
   }
