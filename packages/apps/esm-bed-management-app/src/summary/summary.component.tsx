@@ -10,6 +10,11 @@ import WardCard from '../ward-card/ward-card.component';
 import { useAdmissionLocations } from './summary.resource';
 import styles from './summary.scss';
 
+function getOpenmrsSpaBase(): string {
+  const value = (globalThis as { getOpenmrsSpaBase?: () => unknown }).getOpenmrsSpaBase?.();
+  return typeof value === 'string' ? value : '';
+}
+
 const Summary: React.FC = () => {
   const { t } = useTranslation();
   const { data: admissionLocations, isLoading, error } = useAdmissionLocations();
@@ -26,7 +31,7 @@ const Summary: React.FC = () => {
     return (
       <div className={styles.cardContainer}>
         {admissionLocations.map((admissionLocation) => {
-          const routeSegment = `${globalThis.getOpenmrsSpaBase()}bed-management/location/${admissionLocation.ward.uuid}`;
+          const routeSegment = `${getOpenmrsSpaBase()}bed-management/location/${admissionLocation.ward.uuid}`;
 
           return (
             <WardCard

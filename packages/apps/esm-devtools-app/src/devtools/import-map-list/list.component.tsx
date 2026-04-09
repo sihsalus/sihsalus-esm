@@ -76,8 +76,11 @@ const initialImportMapState: ImportMapListState = {
 };
 
 function updateToNext(dispatch: Dispatch<ImportMapDispatchAction>) {
-  return () =>
-    globalThis.importMapOverrides.getNextPageMap().then((nextPageMap) => dispatch({ type: 'set_next_map', nextPageMap }));
+  return () => {
+    void globalThis.importMapOverrides
+      .getNextPageMap()
+      .then((nextPageMap) => dispatch({ type: 'set_next_map', nextPageMap }));
+  };
 }
 
 function reducer(state: ImportMapListState, action: ImportMapDispatchAction) {
@@ -114,16 +117,16 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
   const { t } = useTranslation();
   const [state, dispatch] = useReducer(reducer, initialImportMapState);
 
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const searchVal = useDebounce(searchQuery);
 
   useEffect(() => {
     // load initial values from importMapOverrides
-    globalThis.importMapOverrides
+    void globalThis.importMapOverrides
       .getDefaultMap()
       .then((notOverriddenMap) => dispatch({ type: 'set_default_map', notOverriddenMap }));
-    globalThis.importMapOverrides
+    void globalThis.importMapOverrides
       .getCurrentPageMap()
       .then((currentPageMap) => dispatch({ type: 'set_current_map', currentPageMap }));
 
@@ -165,7 +168,8 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
   const searchableKeys = [...new Set([...notOverriddenKeys, ...Object.keys(overrideMap)])];
   searchableKeys.sort();
 
-  fuzzy.filter(searchVal, searchableKeys).map((searchResult) => {
+  const searchResults = fuzzy.filter(searchVal, searchableKeys) as Array<{ original: string; score: number }>;
+  searchResults.forEach((searchResult) => {
     const moduleName = searchResult.original;
     const mod: Module = {
       moduleName,

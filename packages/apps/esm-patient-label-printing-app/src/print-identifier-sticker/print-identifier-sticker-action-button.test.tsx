@@ -34,6 +34,11 @@ const testPatient = { id: 'test-patient-uuid' } as fhir.Patient;
 
 describe('PrintIdentifierStickerOverflowMenuItem', () => {
   beforeEach(() => {
+    Object.defineProperty(globalThis, 'openmrsBase', {
+      configurable: true,
+      value: '/openmrs',
+    });
+
     configState = {
       ...getDefaultsFromConfigSchema(configSchema),
       showPrintIdentifierStickerButton: true,
@@ -133,5 +138,18 @@ describe('PrintIdentifierStickerOverflowMenuItem', () => {
       }),
       expect.anything(),
     );
+  });
+
+  it('builds a PDF URL with openmrsBase and patientUuid', async () => {
+    const user = userEvent.setup();
+    render(<PrintIdentifierStickerOverflowMenuItem patient={testPatient} />);
+
+    const printButton = screen.getByRole('menuitem', { name: /print identifier sticker/i });
+    await user.click(printButton);
+
+    expect(mockPrintPdf).toHaveBeenCalledTimes(1);
+    const calledUrl = mockPrintPdf.mock.calls[0]?.[0] ?? '';
+    expect(calledUrl.startsWith('/openmrs')).toBe(true);
+    expect(calledUrl).toContain('/patientdocuments/patientIdSticker?patientUuid=test-patient-uuid');
   });
 });

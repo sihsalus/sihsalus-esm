@@ -11,6 +11,11 @@ import React from 'react';
 
 import styles from './header.scss';
 
+function getOpenmrsSpaBase(): string {
+  const value = (globalThis as { getOpenmrsSpaBase?: () => unknown }).getOpenmrsSpaBase?.();
+  return typeof value === 'string' ? value : '';
+}
+
 type HeaderProps = {
   title: string;
 };
@@ -23,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
     <PageHeader className={styles.header}>
       <PageHeaderContent
         illustration={
-          <ConfigurableLink to={`${globalThis.getOpenmrsSpaBase()}bed-management`}>
+          <ConfigurableLink to={`${getOpenmrsSpaBase()}bed-management`}>
             <InPatientPictogram className={styles.inPatientPictogram} />
           </ConfigurableLink>
         }

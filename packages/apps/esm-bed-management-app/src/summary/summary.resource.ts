@@ -6,6 +6,7 @@ import { type BedManagementConfig } from '../config-schema';
 import type {
   AdmissionLocation,
   Bed,
+  BedWithLocation,
   BedFetchResponse,
   BedTagData,
   BedTagPayload,
@@ -83,7 +84,10 @@ export const useLocationName = (locationUuid: string) => {
   return results;
 };
 
-function mapBedWithLocation(bed, location) {
+function mapBedWithLocation(
+  bed: Bed,
+  location: { display: string; uuid: string },
+): BedWithLocation {
   return { ...bed, location };
 }
 
@@ -93,32 +97,35 @@ export function useBedsGroupedByLocation() {
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isValidating, setIsValidating] = useState(true);
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState<Array<Array<BedWithLocation>>>([]);
 
   useEffect(() => {
     let isSubscribed = true;
     if (!isLoadingAdmissionLocations && admissionLocations && isValidating) {
       const fetchData = async () => {
-        const promises = admissionLocations.map(async (location) => {
+        const promises = admissionLocations.map(async (location): Promise<Array<BedWithLocation> | null> => {
           const bedsUrl = `${restBaseUrl}/bed?locationUuid=${location.uuid}`;
-          const bedsFetchResult = await openmrsFetch<BedFetchResponse>(bedsUrl, {
+          const bedsFetchResult = await openmrsFetch<{ data: BedFetchResponse }>(bedsUrl, {
             method: 'GET',
           });
-          if (bedsFetchResult.data.results.length) {
-            return bedsFetchResult.data.results.map((bed) => mapBedWithLocation(bed, location));
+          const beds = bedsFetchResult.data.results;
+          if (beds.length) {
+            return beds.map((bed) => mapBedWithLocation(bed, { display: location.display, uuid: location.uuid }));
           }
           return null;
         });
 
-        const updatedWards = (await Promise.all(promises)).filter(Boolean);
+        const updatedWards = (await Promise.all(promises)).filter(
+          (value): value is Array<BedWithLocation> => value !== null,
+        );
         if (isSubscribed) {
           setResult(updatedWards);
         }
       };
-      fetchData()
-        .catch((error) => {
+      void fetchData()
+        .catch((error: unknown) => {
           if (isSubscribed) {
-            setError(error);
+            setError(error instanceof Error ? error : new Error('Unknown error loading grouped beds'));
           }
         })
         .finally(() => {
@@ -240,7 +247,7 @@ export async function saveBedType({
 }: {
   bedTypePayload: BedTypePayload;
 }): Promise<FetchResponse<BedType>> {
-  const response: FetchResponse = await openmrsFetch(`${restBaseUrl}/bedtype`, {
+  const response = await openmrsFetch<FetchResponse<BedType>>(`${restBaseUrl}/bedtype`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: bedTypePayload,

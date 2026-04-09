@@ -6,8 +6,8 @@ import styles from './devtools-popup.styles.scss';
 import ImportMap from './import-map.component';
 
 type DevToolsPopupProps = {
-  close(): void;
-  toggleOverridden(isOverridden: boolean): void;
+  close: () => void;
+  toggleOverridden: (isOverridden: boolean) => void;
 };
 
 function DevToolsPopup(props: DevToolsPopupProps) {

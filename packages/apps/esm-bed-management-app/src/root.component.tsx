@@ -11,9 +11,19 @@ import LeftPanel from './left-panel/left-panel.component';
 import styles from './root.scss';
 import WardWithBeds from './ward-with-beds/ward-with-beds.component';
 
+function getSpaBasePath(): string {
+  const value = (globalThis as { spaBase?: unknown }).spaBase;
+  return typeof value === 'string' ? value : '';
+}
+
+function getOpenmrsSpaBase(): string {
+  const value = (globalThis as { getOpenmrsSpaBase?: () => unknown }).getOpenmrsSpaBase?.();
+  return typeof value === 'string' ? value : '';
+}
+
 const Root: React.FC = () => {
-  const spaBasePath = globalThis.spaBase;
-  const bedManagementBasename = globalThis.getOpenmrsSpaBase() + 'bed-management';
+  const spaBasePath = getSpaBasePath();
+  const bedManagementBasename = `${getOpenmrsSpaBase()}bed-management`;
 
   useEffect(() => {
     setLeftNav({

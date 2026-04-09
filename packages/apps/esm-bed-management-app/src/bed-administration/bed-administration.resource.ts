@@ -2,7 +2,7 @@ import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-fram
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
-import { type BedPostPayload } from '../types';
+import { type BedPostPayload, type BedType } from '../types';
 
 interface BedForm {
   bedNumber: string;
@@ -23,11 +23,11 @@ export async function saveBed({ bedPayload }: { bedPayload: BedPostPayload }): P
 
 export function useBedType() {
   const locationsUrl = `${restBaseUrl}/bedtype`;
-  const { data, error, isLoading } = useSWR<{ data }>(locationsUrl, openmrsFetch);
+  const { data, error, isLoading } = useSWR<{ data: { results: Array<BedType> } }, Error>(locationsUrl, openmrsFetch);
 
-  const bedTypes = useMemo(() => {
+  const bedTypes = useMemo<Array<BedType>>(() => {
     const rawData = data?.data?.results ?? [];
-    const uniqueBedTypes = [];
+    const uniqueBedTypes: Array<BedType> = [];
 
     rawData.forEach((response) => {
       if (!uniqueBedTypes.some((bedType) => bedType.name === response.name)) {

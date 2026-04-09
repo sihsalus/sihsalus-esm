@@ -3,14 +3,16 @@ import { addRoutesOverride, removeRoutesOverride } from '@openmrs/esm-framework/
 import React, { type FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { ImportMapOverridesApi } from '../import-map-overrides.types';
 import type { Module } from './types';
 
 type ImportMapModalProps = ({ module: Module; isNew: false } | { module: never; isNew: true }) & { close: () => void };
 
 const isPortRegex = /^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/;
+const importMapOverrides = globalThis.importMapOverrides as unknown as ImportMapOverridesApi;
 
 async function getUrlFromPort(moduleName: string, port: string) {
-  const latestImportMap = await globalThis.importMapOverrides.getNextPageMap();
+  const latestImportMap = await importMapOverrides.getNextPageMap();
   const moduleUrl = latestImportMap.imports[moduleName];
 
   if (!moduleUrl) {
@@ -28,8 +30,8 @@ async function getUrlFromPort(moduleName: string, port: string) {
 const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close }) => {
   const { t } = useTranslation();
   const [moduleName, setModuleName] = useState<string | undefined>(module?.moduleName);
-  const moduleNameRef = useRef<HTMLInputElement>();
-  const inputRef = useRef<HTMLInputElement>();
+  const moduleNameRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = useCallback(
     async (evt: FormEvent<HTMLElement>) => {
@@ -39,32 +41,32 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
         return;
       }
 
-      if (globalThis.importMapOverrides.isDisabled(moduleName)) {
-        globalThis.importMapOverrides.enableOverride(moduleName);
+      if (importMapOverrides.isDisabled(moduleName)) {
+        importMapOverrides.enableOverride(moduleName);
       }
 
       if (isNew) {
-        let newUrl = inputRef.current.value || null;
+        let newUrl = inputRef.current?.value || null;
         if (newUrl) {
           if (isPortRegex.test(newUrl)) {
             newUrl = await getUrlFromPort(moduleName, newUrl);
           }
 
-          globalThis.importMapOverrides.addOverride(moduleName, newUrl);
+          importMapOverrides.addOverride(moduleName, newUrl);
           const baseUrl = newUrl.substring(0, newUrl.lastIndexOf('/'));
           addRoutesOverride(moduleName, new URL('routes.json', baseUrl));
         }
       } else {
-        let newUrl = inputRef.current.value || null;
+        let newUrl = inputRef.current?.value || null;
         if (newUrl === null) {
-          globalThis.importMapOverrides.removeOverride(moduleName);
+          importMapOverrides.removeOverride(moduleName);
           removeRoutesOverride(moduleName);
         } else {
           if (isPortRegex.test(newUrl)) {
             newUrl = await getUrlFromPort(moduleName, newUrl);
           }
 
-          globalThis.importMapOverrides.addOverride(moduleName, newUrl);
+          importMapOverrides.addOverride(moduleName, newUrl);
           const baseUrl = newUrl.substring(0, newUrl.lastIndexOf('/'));
           addRoutesOverride(moduleName, new URL('routes.json', baseUrl));
         }
@@ -82,6 +84,10 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
     [],
   );
 
+  const onSubmit = (evt: FormEvent<HTMLElement>) => {
+    void handleSubmit(evt);
+  };
+
   return (
     <>
       <ModalHeader
@@ -94,7 +100,7 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
               })
         }
       />
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={onSubmit}>
         <ModalBody>
           <Stack gap={5}>
             {isNew && (
