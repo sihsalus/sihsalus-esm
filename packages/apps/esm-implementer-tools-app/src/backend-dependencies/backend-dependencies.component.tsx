@@ -48,15 +48,15 @@ export const BackendDependencies: React.FC<BackendDependencies> = ({ backendDepe
           kind="error"
           title={t('backendConnectionProblem', 'Backend Connection Problem')}
           subtitle={error}
-          style={{ marginBottom: '1rem' }}
+          className={styles.errorNotification}
         />
-        <p style={{ marginTop: '1rem', color: '#666' }}>
+        <p className={styles.errorHint}>
           {t(
             'backendConnectionHint',
             'The frontend was unable to connect to the backend to fetch installed modules. This could mean:',
           )}
         </p>
-        <ul style={{ color: '#666', marginLeft: '2rem' }}>
+        <ul className={styles.errorHintList}>
           <li>{t('hint1', 'The backend server is not running or not reachable')}</li>
           <li>{t('hint2', 'Authentication failed or session expired')}</li>
           <li>{t('hint3', 'Network connectivity issues between frontend and backend')}</li>
@@ -93,9 +93,9 @@ export const BackendDependencies: React.FC<BackendDependencies> = ({ backendDepe
                         <TableCell>{dep.name}</TableCell>
                         <TableCell>
                           {dep.type === 'missing' ? (
-                            <span style={{ color: 'red' }}>{t('missing', 'Missing')}</span>
+                            <span className={styles.versionError}>{t('missing', 'Missing')}</span>
                           ) : dep.type === 'version-mismatch' ? (
-                            <span style={{ color: 'red' }}>{dep.installedVersion}</span>
+                            <span className={styles.versionError}>{dep.installedVersion}</span>
                           ) : (
                             <span>{dep.installedVersion}</span>
                           )}
