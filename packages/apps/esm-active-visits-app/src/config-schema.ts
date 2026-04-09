@@ -42,7 +42,16 @@ export const configSchema = {
           _description: 'Name of the desired identifier to filter data returned from the visit resource.',
         },
       },
-      _default: null,
+      _default: [
+        {
+          header: { key: 'dni', default: 'DNI' },
+          identifierName: 'DNI',
+        },
+        {
+          header: { key: 'historyNumber', default: 'N° Historia Clínica' },
+          identifierName: 'N° Historia Clínica',
+        },
+      ],
     },
     pageSize: {
       _type: Type.Number,

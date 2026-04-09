@@ -10,11 +10,30 @@ export const configSchema = {
     _type: Type.Boolean,
     _description:
       'Determines whether or not to display a Print button in the Orders details table. If set to true, a Print button gets shown in both the orders table headers. When clicked, this button enables the user to print out the contents of the table',
-    _default: false,
+    _default: true,
   },
   orderTypes: {
     _type: Type.Array,
-    _default: [],
+    _default: [
+      {
+        orderTypeUuid: 'f9c5d0b8-8b5a-11e5-8e9b-12345678a01a',
+        label: 'Orden de Radiología',
+        icon: 'omrs-icon-report',
+        orderableConceptSets: [],
+      },
+      {
+        orderTypeUuid: 'e1f95924-697a-11e3-bd76-0800271c1b75',
+        label: 'Orden de Inmunización',
+        icon: 'Syringe',
+        orderableConceptSets: [],
+      },
+      {
+        orderTypeUuid: 'f3c2e4b6-8b5a-11e5-8e9b-12345678901b',
+        label: 'Orden de Interconsulta',
+        icon: 'User--follow',
+        orderableConceptSets: [],
+      },
+    ],
     _description: 'List of various order types, each associated with the Java class name `org.openmrs.Order`.',
     _elements: {
       orderTypeUuid: {
@@ -43,7 +62,7 @@ export const configSchema = {
   },
   showReferenceNumberField: {
     _type: Type.Boolean,
-    _default: true,
+    _default: false,
     _description:
       'Whether to display the Reference number field in the Order form. This field maps to the accesion_number property in the Order data model',
   },

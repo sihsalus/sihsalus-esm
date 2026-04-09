@@ -23,7 +23,7 @@ export const esmPatientChartSchema = {
   logo: {
     alt: {
       _type: Type.String,
-      _default: 'Logo',
+      _default: 'SIHSALUS',
       _description: 'Alt text, shown on hover',
     },
     name: {
@@ -33,7 +33,7 @@ export const esmPatientChartSchema = {
     },
     src: {
       _type: Type.String,
-      _default: null,
+      _default: '${openmrsSpaBase}/alternative-logo.png',
       _description: 'A path or URL to an image. Defaults to the OpenMRS SVG sprite.',
     },
   },
@@ -74,7 +74,7 @@ export const esmPatientChartSchema = {
     _type: Type.Boolean,
     _description:
       'On the start visit form, whether to restrict the visit location to locations with the Visit Location tag',
-    _default: false,
+    _default: true,
   },
   showAllEncountersTab: {
     _type: Type.Boolean,
@@ -100,7 +100,7 @@ export const esmPatientChartSchema = {
   showUpcomingAppointments: {
     _type: Type.Boolean,
     _description: 'Whether start visit form should display upcoming appointments',
-    _default: false,
+    _default: true,
   },
   visitAttributeTypes: {
     _type: Type.Array,
@@ -122,6 +122,11 @@ export const esmPatientChartSchema = {
       },
     },
     _default: [
+      {
+        uuid: '3a988e33-a6c0-4b76-b924-01abb998944b',
+        required: false,
+        displayInThePatientBanner: true,
+      },
       {
         uuid: 'aac48226-d143-4274-80e0-264db4e368ee',
         required: false,

@@ -11,7 +11,7 @@ export const configSchema = {
     display: {
       _type: Type.String,
       _description: 'The text to display in the medication duration units menu for the "days" unit.',
-      _default: 'Days',
+      _default: 'Días',
     },
   },
   drugOrderTypeUUID: {

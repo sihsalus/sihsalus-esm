@@ -4,7 +4,7 @@ export const configSchema = {
   allowAllDayAppointments: {
     _type: Type.Boolean,
     _description: 'Whether to allow scheduling of all-day appointments (vs appointments with start time and end time)',
-    _default: false,
+    _default: true,
   },
   appointmentStatuses: {
     _type: Type.Array,
@@ -25,7 +25,7 @@ export const configSchema = {
     showIfActiveVisit: {
       _type: Type.Boolean,
       _description: 'Whether to show the check-in button if the patient currently has an active visit',
-      _default: false,
+      _default: true,
     },
     customUrl: {
       _type: Type.String,
@@ -56,12 +56,12 @@ export const configSchema = {
   includePhoneNumberInExcelSpreadsheet: {
     _type: Type.Boolean,
     _description: 'Whether to include phone numbers in the exported Excel spreadsheet',
-    _default: false,
+    _default: true,
   },
   patientIdentifierType: {
     _type: Type.String,
     _description: 'The name of the patient identifier type to be used for the patient identifier field',
-    _default: '',
+    _default: 'DNI',
   },
   showUnscheduledAppointmentsTab: {
     _type: Type.Boolean,

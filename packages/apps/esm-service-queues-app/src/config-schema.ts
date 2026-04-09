@@ -48,30 +48,53 @@ type TagStyle = (typeof tagStyles)[number];
 // equal to columnTypes but without extension
 export const builtInColumns = columnTypes.filter((columnType) => columnType !== 'extension');
 const defaultIdentifierTypeUuid = '05a29f94-c0ed-11e2-94be-8c13b969e334'; // OpenMRS ID
-const defaultPriorityUuid = 'f4620bfa-3625-4883-bd3f-84c2cce14470';
-const defaultEmergencyPriorityUuid = '04f6f7e0-e3cb-4e13-a133-4479f759574e';
-const defaultUrgentPriorityUuid = 'dc3492ef-24a5-4fd9-b58d-4fd2acf7071f';
+const defaultPriorityUuid = 'bf3a08c6-cbe6-4f00-8e06-5f5437790b85';
+const defaultEmergencyPriorityUuid = '933e6d55-d64a-498d-b1b2-b3d5242e4199';
+const defaultUrgentPriorityUuid = '1606e719-d480-40c9-b586-835458ad0a96';
 
 export const defaultColumnConfig: ColumnConfig = {
   identifierTypeUuid: defaultIdentifierTypeUuid,
   priorityConfigs: [
     {
+      conceptUuid: '8f320b10-7e06-45c7-b9c4-5a0c61a93f3e',
+      style: 'bold',
+      color: 'blue',
+    },
+    {
       conceptUuid: defaultEmergencyPriorityUuid,
-      style: null,
+      style: 'bold',
       color: 'red',
     },
     {
+      conceptUuid: defaultUrgentPriorityUuid,
+      style: 'bold',
+      color: 'orange',
+    },
+    {
       conceptUuid: defaultPriorityUuid,
-      style: null,
+      style: 'bold',
       color: 'green',
     },
     {
-      conceptUuid: defaultUrgentPriorityUuid,
-      style: null,
-      color: 'orange',
+      conceptUuid: 'ef342bd8-6dd2-4abe-ac29-9eff842dcb8d',
+      style: 'bold',
+      color: 'warm-gray',
     },
   ],
-  statusConfigs: [],
+  statusConfigs: [
+    {
+      conceptUuid: '51ae5e4d-b72b-4912-bf31-a17efb690aeb',
+      iconComponent: 'InProgress',
+    },
+    {
+      conceptUuid: '9d7c8a4b-2c08-4f54-b2dd-5c5fd325029c',
+      iconComponent: 'Group',
+    },
+    {
+      conceptUuid: '707b1d1e-d7f7-4dad-a382-3734e35933c3',
+      iconComponent: 'Group',
+    },
+  ],
   visitQueueNumberAttributeUuid: null,
 };
 
@@ -101,7 +124,7 @@ export const configSchema = {
     defaultTransitionStatus: {
       _type: Type.ConceptUuid,
       _description: 'The UUID of the default status for attending a service in the queues eg In Service.',
-      _default: 'ca7494ae-437f-4fd0-8aae-b88b9a2ba47d',
+      _default: '9d7c8a4b-2c08-4f54-b2dd-5c5fd325029c',
     },
     systolicBloodPressureUuid: {
       _type: Type.ConceptUuid,
@@ -114,7 +137,7 @@ export const configSchema = {
     emergencyPriorityConceptUuid: {
       _type: Type.ConceptUuid,
       _description: 'The UUID of the priority with the highest sort weight for the queues eg Emergency.',
-      _default: defaultEmergencyPriorityUuid,
+      _default: defaultEmergencyPriorityUuid, // 933e6d55-d64a-498d-b1b2-b3d5242e4199
     },
     heightUuid: {
       _type: Type.ConceptUuid,
@@ -187,7 +210,7 @@ export const configSchema = {
       _type: Type.String,
     },
     _description: 'The identifier types to be display on all patient search result page',
-    _default: ['05ee9cf4-7242-4a17-b4d4-00f707265c8a', 'f85081e2-b4be-4e48-b3a4-7994b69bb101'],
+    _default: ['05a29f94-c0ed-11e2-94be-8c13b969e334'],
   },
   queueTables: {
     columnDefinitions: {
