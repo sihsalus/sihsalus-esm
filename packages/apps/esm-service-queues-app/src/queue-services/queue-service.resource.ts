@@ -7,7 +7,7 @@ export function useServiceConcepts() {
   const { systemSetting: serviceConceptSetting } = useSystemSetting('queue.serviceConceptSetName');
   const { concept: serviceConceptSet, error, isLoading } = useConcept(serviceConceptSetting?.value);
   return {
-    queueConcepts: serviceConceptSet?.setMembers?.toSorted((c1, c2) => c1.display.localeCompare(c2.display)) || [],
+    queueConcepts: serviceConceptSet?.setMembers?.slice().sort((c1, c2) => c1.display.localeCompare(c2.display)) || [],
     error,
     isLoading,
   };

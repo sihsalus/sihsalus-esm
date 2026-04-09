@@ -48,7 +48,7 @@ export const useAppointmentSummary = (fromDate: Date, serviceUuid: string): Arra
       date: key,
       count: value.allAppointmentsCount,
     }))
-    .toSorted((dateA, dateB) => new Date(dateA.date).getTime() - new Date(dateB.date).getTime());
+    .slice().sort((dateA, dateB) => new Date(dateA.date).getTime() - new Date(dateB.date).getTime());
 };
 
 export const useMonthlyCalendarDistribution = (
@@ -78,5 +78,5 @@ export const useMonthlyAppointmentSummary = (
       date: key,
       count: value.allAppointmentsCount,
     }))
-    .toSorted((dateA, dateB) => new Date(dateA.date).getTime() - new Date(dateB.date).getTime());
+    .slice().sort((dateA, dateB) => new Date(dateA.date).getTime() - new Date(dateB.date).getTime());
 };

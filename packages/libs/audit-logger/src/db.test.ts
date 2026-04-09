@@ -1,10 +1,14 @@
 import 'fake-indexeddb/auto';
 
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { clearKeyCache } from './crypto';
 import { clearEntries, getEntriesForUser, queueEntry } from './db';
 import type { StoredAuditEntry } from './types';
+
+// Use a fresh DB name per test so the module-level dbCache never returns
+// a stale connection from a previously deleted database.
+let DB: string;
 
 function makeEntry(overrides: Partial<StoredAuditEntry> = {}): StoredAuditEntry {
   return {
@@ -17,12 +21,12 @@ function makeEntry(overrides: Partial<StoredAuditEntry> = {}): StoredAuditEntry 
   };
 }
 
-const DB = 'test-audit-db';
+beforeEach(() => {
+  DB = `test-audit-db-${crypto.randomUUID()}`;
+});
 
 afterEach(() => {
   clearKeyCache();
-  // Reset fake-indexeddb between tests by deleting the database.
-  indexedDB.deleteDatabase(DB);
 });
 
 describe('queueEntry / getEntriesForUser', () => {

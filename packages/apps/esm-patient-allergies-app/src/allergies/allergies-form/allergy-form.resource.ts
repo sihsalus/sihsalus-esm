@@ -108,7 +108,7 @@ export function useAllergens() {
     });
 
     return {
-      allergens: allergens.toSorted((a, b) => a.display.localeCompare(b.display)),
+      allergens: allergens.slice().sort((a, b) => a.display.localeCompare(b.display)),
       isLoading: !drugAllergenData || !environmentalAllergenData || !foodAllergenData,
     };
   }, [drugAllergenData, environmentalAllergenData, foodAllergenData, otherConceptUuid]);

@@ -25,7 +25,7 @@ const customRepresentation =
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function sortOrdersByDateActivated(orders: any[]) {
-  return orders?.toSorted(
+  return orders?.slice().sort(
     (order1, order2) => new Date(order2.dateActivated).getTime() - new Date(order1.dateActivated).getTime(),
   );
 }

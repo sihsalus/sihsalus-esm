@@ -26,7 +26,7 @@ export function usePartograph(patientUuid: string) {
     openmrsFetch,
   );
   const results = data?.data ? data?.data?.results : [];
-  const sortedResults = results.toSorted((a, b) => {
+  const sortedResults = results.slice().sort((a, b) => {
     const dateA = new Date(a.encounterDatetime).getTime();
     const dateB = new Date(b.encounterDatetime).getTime();
     return dateB - dateA;

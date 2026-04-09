@@ -32,7 +32,7 @@ function useQueueStatuses() {
     });
 
     return {
-      statuses: statuses.toSorted((a, b) => a.display.localeCompare(b.display, getLocale())),
+      statuses: statuses.slice().sort((a, b) => a.display.localeCompare(b.display, getLocale())),
       isLoadingQueueStatuses: isLoading,
     };
   }, [isLoading, queues]);

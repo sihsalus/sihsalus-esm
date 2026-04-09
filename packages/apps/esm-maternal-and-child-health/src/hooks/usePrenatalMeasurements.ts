@@ -120,7 +120,7 @@ async function fetchPrenatalMeasurements(
   });
 
   // Ordenar por fecha (más reciente primero)
-  return measurements.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return measurements.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 // Función para invalidar caché

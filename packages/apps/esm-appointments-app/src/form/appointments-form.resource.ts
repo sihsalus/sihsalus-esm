@@ -60,19 +60,19 @@ export function useAppointments(patientUuid: string, startDate: string, abortCon
   const appointments = data?.data?.length ? data.data : null;
 
   const pastAppointments = appointments
-    ?.toSorted((a, b) => (b.startDateTime > a.startDateTime ? 1 : -1))
+    ?.slice().sort((a, b) => (b.startDateTime > a.startDateTime ? 1 : -1))
     ?.filter(({ status }) => status !== 'Cancelled')
     ?.filter(({ startDateTime }) =>
       dayjs(new Date(startDateTime).toISOString()).isBefore(new Date().setHours(0, 0, 0, 0)),
     );
 
   const upcomingAppointments = appointments
-    .toSorted((a, b) => (a.startDateTime > b.startDateTime ? 1 : -1))
+    .slice().sort((a, b) => (a.startDateTime > b.startDateTime ? 1 : -1))
     ?.filter(({ status }) => status !== 'Cancelled')
     ?.filter(({ startDateTime }) => dayjs(new Date(startDateTime).toISOString()).isAfter(new Date()));
 
   const todaysAppointments = appointments
-    .toSorted((a, b) => (a.startDateTime > b.startDateTime ? 1 : -1))
+    .slice().sort((a, b) => (a.startDateTime > b.startDateTime ? 1 : -1))
     ?.filter(({ status }) => status !== 'Cancelled')
     ?.filter(({ startDateTime }) => dayjs(new Date(startDateTime).toISOString()).isToday());
 

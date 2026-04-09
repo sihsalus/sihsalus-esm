@@ -64,7 +64,7 @@ export function useFilteredEncounter(
       );
 
       return (
-        validEncounters.toSorted(
+        validEncounters.slice().sort(
           (a, b) => new Date(b.encounterDatetime).getTime() - new Date(a.encounterDatetime).getTime(),
         )[0] || null
       );

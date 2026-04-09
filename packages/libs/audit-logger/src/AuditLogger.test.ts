@@ -25,12 +25,26 @@ function failResponse(status = 500) {
 }
 
 // ---------------------------------------------------------------------------
-// Helpers
+// Setup
 // ---------------------------------------------------------------------------
 
-const DB = 'test-audit-logger';
 const USER = 'user-uuid-1';
 const SESSION = 'session-id-1';
+let DB: string;
+
+// Use a fresh DB name every test so the module-level dbCache in db.ts never
+// returns a stale connection from a previously used database.
+beforeEach(() => {
+  DB = `test-audit-logger-${crypto.randomUUID()}`;
+  vi.clearAllMocks();
+  Object.defineProperty(navigator, 'onLine', { value: true, configurable: true });
+});
+
+afterEach(() => {
+  auditLogger.clearSession();
+  auditLogger.destroy();
+  clearKeyCache();
+});
 
 function setupSession() {
   auditLogger.configure({ dbName: DB });
@@ -41,22 +55,9 @@ function setupSession() {
 // Tests
 // ---------------------------------------------------------------------------
 
-beforeEach(() => {
-  vi.clearAllMocks();
-});
-
-afterEach(() => {
-  auditLogger.clearSession();
-  auditLogger.destroy();
-  clearKeyCache();
-  indexedDB.deleteDatabase(DB);
-  // Reset rate-limit state by accessing a fresh session next test.
-});
-
 describe('log() — online path', () => {
   it('sends the event directly when online', async () => {
     mockFetch.mockResolvedValue(okResponse() as never);
-    Object.defineProperty(navigator, 'onLine', { value: true, configurable: true });
     setupSession();
 
     await auditLogger.log({ eventType: 'PATIENT_VIEW' });
@@ -73,7 +74,6 @@ describe('log() — online path', () => {
 
   it('queues offline when the HTTP call fails', async () => {
     mockFetch.mockResolvedValue(failResponse() as never);
-    Object.defineProperty(navigator, 'onLine', { value: true, configurable: true });
     setupSession();
 
     await auditLogger.log({ eventType: 'PATIENT_VIEW' });
@@ -112,28 +112,35 @@ describe('log() — guards', () => {
   });
 
   it('drops events after rate limit is exceeded', async () => {
+    // Use fake timers so we control the rate-limit window precisely and avoid
+    // bleed-in of event counts from other tests that run in the same second.
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2030-01-01T00:00:00.000Z'));
+
     mockFetch.mockResolvedValue(okResponse() as never);
-    Object.defineProperty(navigator, 'onLine', { value: true, configurable: true });
     setupSession();
 
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    // Send 21 events — first 20 succeed, 21st is dropped.
+
+    // Send 21 events — first 20 succeed, 21st is rate-limited.
     for (let i = 0; i < 21; i++) {
       await auditLogger.log({ eventType: 'PING' });
     }
+
     expect(mockFetch).toHaveBeenCalledTimes(20);
     expect(warnSpy).toHaveBeenCalledWith(
       expect.stringContaining('Rate limit'),
       expect.any(String),
     );
+
     warnSpy.mockRestore();
+    vi.useRealTimers();
   });
 });
 
 describe('flush()', () => {
   it('is a no-op when session is not set', async () => {
     auditLogger.configure({ dbName: DB });
-    // No setSession — flush should not attempt to read/decrypt.
     await auditLogger.flush();
     expect(mockFetch).not.toHaveBeenCalled();
   });
@@ -171,7 +178,7 @@ describe('flush()', () => {
     mockFetch.mockResolvedValue(failResponse() as never);
     await auditLogger.flush();
 
-    // Entries must still be in the queue.
+    // Entries must still be in the queue; retry should send them.
     mockFetch.mockResolvedValue(okResponse() as never);
     await auditLogger.flush();
     expect(mockFetch).toHaveBeenCalledTimes(2);
@@ -181,7 +188,6 @@ describe('flush()', () => {
 describe('clearSession()', () => {
   it('prevents subsequent log() calls from sending events', async () => {
     mockFetch.mockResolvedValue(okResponse() as never);
-    Object.defineProperty(navigator, 'onLine', { value: true, configurable: true });
     setupSession();
 
     await auditLogger.log({ eventType: 'BEFORE_LOGOUT' });
@@ -215,7 +221,7 @@ describe('configure() — endpoint validation', () => {
 });
 
 describe('init() / destroy()', () => {
-  it('init() is idempotent — registers only one online listener', async () => {
+  it('init() is idempotent — registers only one online listener', () => {
     const addSpy = vi.spyOn(globalThis, 'addEventListener');
     setupSession();
     auditLogger.init();
