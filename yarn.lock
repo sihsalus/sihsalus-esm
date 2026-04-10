@@ -8330,15 +8330,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sihsalus/constants@workspace:packages/libs/constants":
-  version: 0.0.0-use.local
-  resolution: "@sihsalus/constants@workspace:packages/libs/constants"
-  dependencies:
-    typescript: "npm:^5.8.3"
-    vitest: "npm:^4.0.18"
-  languageName: unknown
-  linkType: soft
-
 "@sihsalus/esm-active-visits-app@workspace:packages/apps/esm-active-visits-app":
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-active-visits-app@workspace:packages/apps/esm-active-visits-app"
@@ -10102,17 +10093,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sihsalus/fhir-client@workspace:packages/libs/fhir-client":
-  version: 0.0.0-use.local
-  resolution: "@sihsalus/fhir-client@workspace:packages/libs/fhir-client"
-  dependencies:
-    typescript: "npm:^5.8.3"
-    vitest: "npm:^4.0.18"
-  peerDependencies:
-    "@openmrs/esm-framework": 9.0.2
-  languageName: unknown
-  linkType: soft
-
 "@sihsalus/frontend-web@workspace:.":
   version: 0.0.0-use.local
   resolution: "@sihsalus/frontend-web@workspace:."
@@ -10153,17 +10133,6 @@ __metadata:
     turbo: "npm:^2.9.1"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.58.0"
-  languageName: unknown
-  linkType: soft
-
-"@sihsalus/keycloak-auth@workspace:packages/libs/keycloak-auth":
-  version: 0.0.0-use.local
-  resolution: "@sihsalus/keycloak-auth@workspace:packages/libs/keycloak-auth"
-  dependencies:
-    typescript: "npm:^5.8.3"
-    vitest: "npm:^4.0.18"
-  peerDependencies:
-    "@openmrs/esm-framework": 9.0.2
   languageName: unknown
   linkType: soft
 
