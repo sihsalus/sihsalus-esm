@@ -13,8 +13,8 @@ export const mockConfig: ConfigSchema = {
     locationsPerRequest: 50,
   },
   logo: {
-    src: '${openmrsSpaBase}/login-logo.svg',
-    alt: 'SIHSALUS',
+    src: '',
+    alt: '',
   },
   links: {
     loginSuccess: '${openmrsSpaBase}/home',
@@ -22,5 +22,5 @@ export const mockConfig: ConfigSchema = {
   footer: {
     additionalLogos: [],
   },
-  showPasswordOnSeparateScreen: false,
+  showPasswordOnSeparateScreen: true,
 };
