@@ -88,8 +88,8 @@
     "swr": "2.4.1",
     "cross-env": "^10.1.0",
     "@carbon/styles": "^1.102.0",
-    "workbox-window@npm:^6.1.5": "patch:workbox-window@npm%3A6.6.0#~/.yarn/patches/workbox-window-npm-6.6.0-e9667fec2c.patch",
-    "workbox-window@npm:6.6.0": "patch:workbox-window@npm%3A6.6.0#~/.yarn/patches/workbox-window-npm-6.6.0-e9667fec2c.patch",
+    "workbox-window@npm:^6.1.5": "6.6.0",
+    "workbox-window@npm:6.6.0": "6.6.0",
     "@openmrs/esm-styleguide": "workspace:*"
   }
 }
