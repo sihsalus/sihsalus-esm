@@ -7,7 +7,7 @@
   "main": "src/index.ts",
   "source": true,
   "scripts": {
-    "build": "tsc --project tsconfig.build.json || true",
+    "build": "tsc --project tsconfig.build.json",
     "typescript": "tsc",
     "lint": "eslint .",
     "test": "vitest run --passWithNoTests"

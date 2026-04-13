@@ -70,9 +70,9 @@ describe('log() — online path', () => {
     expect(url).toBe('/ws/rest/v1/sihsalus/audit');
     expect(opts.method).toBe('POST');
     const body = opts.body;
-    expect(body[0].eventType).toBe('PATIENT_VIEW');
-    expect(body[0].userUuid).toBe(USER);
-    expect(body[0].sessionId).toBe(SESSION);
+    expect(body[0]!.eventType).toBe('PATIENT_VIEW');
+    expect(body[0]!.userUuid).toBe(USER);
+    expect(body[0]!.sessionId).toBe(SESSION);
   });
 
   it('queues offline when the HTTP call fails', async () => {
@@ -103,7 +103,7 @@ describe('log() — offline path', () => {
     expect(mockFetch).toHaveBeenCalledOnce();
     const [, opts] = mockFetch.mock.calls[0] as [string, { body: Array<{ eventType: string }> }];
     const body = opts.body;
-    expect(body[0].eventType).toBe('ENCOUNTER_VIEW');
+    expect(body[0]!.eventType).toBe('ENCOUNTER_VIEW');
   });
 });
 
@@ -201,7 +201,7 @@ describe('clearSession()', () => {
     expect(mockFetch).toHaveBeenCalledTimes(1);
     const [, opts] = mockFetch.mock.calls[0] as [string, { body: Array<{ eventType: string }> }];
     const body = opts.body;
-    expect(body[0].eventType).toBe('BEFORE_LOGOUT');
+    expect(body[0]!.eventType).toBe('BEFORE_LOGOUT');
   });
 });
 

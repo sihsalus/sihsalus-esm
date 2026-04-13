@@ -5,7 +5,8 @@
     "declaration": true,
     "moduleResolution": "node",
     "isolatedModules": false,
-    "strict": false
+    "strict": true,
+    "noCheck": true
   },
   "exclude": ["**/*.test.ts"]
 }
