@@ -1,5 +1,5 @@
 /** @category Icons */
-import React, { forwardRef, memo, useEffect, useImperativeHandle, useState } from 'react';
+import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import classNames, { type Argument } from 'classnames';
 import { RenderIfValueIsTruthy } from '@openmrs/esm-react-utils';
 import style from './icons.module.scss';
@@ -892,7 +892,7 @@ export const MaybeIcon = memo(
         observer.observe(container, { childList: true });
       }
 
-      return () => observer.disconnect();
+      return (): void => observer.disconnect();
     }, [icon]);
 
     return (
@@ -912,8 +912,9 @@ export type SvgIconProps = {
  * This is a utility type for custom icons that use the svg-sprite-loader to bundle custom icons
  */
 export const Icon = memo(
-  forwardRef<SVGSVGElement, SvgIconProps>(function Icon({ icon, iconProps }, ref) {
-    let { className, fill, size } = Object.assign({}, { fill: 'currentColor', size: 20 }, iconProps);
+  forwardRef<SVGSVGElement, SvgIconProps>(function Icon({ icon, iconProps }, ref): React.JSX.Element {
+    const { className, fill } = Object.assign({}, { fill: 'currentColor', size: 20 }, iconProps);
+    let { size } = Object.assign({}, { fill: 'currentColor', size: 20 }, iconProps);
     if (size <= 0 || size > 72) {
       console.error(`Invalid size '${size}' specified for ${icon}. Defaulting to 20.`);
       size = 20;
@@ -928,7 +929,7 @@ export const Icon = memo(
           iconRef.current.style.setProperty('--omrs-icon-fill', fill);
         }
       }
-    }, []);
+    }, [fill]);
 
     return (
       <svg
