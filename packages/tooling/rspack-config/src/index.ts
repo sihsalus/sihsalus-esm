@@ -44,11 +44,12 @@ import rspack, {
   CopyRspackPlugin,
   DefinePlugin,
   type ModuleOptions,
+  type Plugin,
   type RuleSetRule,
   type RspackOptionsNormalized as RspackConfiguration,
 } from '@rspack/core';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import { isArray, merge, mergeWith } from 'lodash';
+import { merge, mergeWith } from 'lodash';
 import { inc } from 'semver';
 import { TsCheckerRspackPlugin } from 'ts-checker-rspack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -58,13 +59,52 @@ type OpenmrsRspackConfig = Omit<Partial<RspackConfiguration>, 'module'> & {
   module: ModuleOptions;
 };
 
+type AppPackageJson = {
+  name: string;
+  version: string;
+  peerDependencies?: Record<string, string>;
+  browser?: string;
+  main?: string;
+  types?: string;
+};
+
+type NormalizedPackageJson = {
+  name: string;
+  version: string;
+  peerDependencies: Record<string, string>;
+  browser?: string;
+  main: string;
+  types: string;
+};
+
+type SharedDependencyConfig = {
+  requiredVersion: string | false;
+  strictVersion: boolean;
+  singleton: boolean;
+  import: string;
+  shareKey: string;
+  shareScope: 'default';
+  version?: string;
+};
+
+type VersionedPackageJson = {
+  version?: string;
+};
+
 const production = 'production';
 const { ModuleFederationPluginV1: ModuleFederationPlugin } = container;
 
 function getFrameworkVersion() {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { version } = require('@openmrs/esm-framework/package.json');
+    const frameworkPkgUnknown: unknown = require('@openmrs/esm-framework/package.json');
+    const frameworkPkg = frameworkPkgUnknown as VersionedPackageJson;
+    const version = typeof frameworkPkg.version === 'string' ? frameworkPkg.version : undefined;
+
+    if (!version) {
+      return '5.x';
+    }
+
     return `^${version}`;
   } catch {
     return '5.x';
@@ -82,9 +122,30 @@ function makeIdent(name: string): string {
 }
 
 function mergeFunction(objValue: unknown, srcValue: unknown) {
-  if (isArray(objValue)) {
-    return objValue.concat(srcValue);
+  if (Array.isArray(objValue)) {
+    const target = objValue as unknown[];
+    return target.concat(srcValue);
   }
+}
+
+function getPackageJson(root: string): NormalizedPackageJson {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const appPkgUnknown: unknown = require(resolve(root, 'package.json'));
+  const appPkg = (appPkgUnknown ?? {}) as AppPackageJson;
+
+  const name = typeof appPkg.name === 'string' ? appPkg.name : 'openmrs-app';
+  const version = typeof appPkg.version === 'string' ? appPkg.version : '0.0.0';
+  const main = typeof appPkg.main === 'string' ? appPkg.main : 'src/index.ts';
+  const types = typeof appPkg.types === 'string' ? appPkg.types : main;
+
+  return {
+    name,
+    version,
+    main,
+    types,
+    browser: appPkg.browser,
+    peerDependencies: appPkg.peerDependencies ?? {},
+  };
 }
 
 function slugify(name: string) {
@@ -153,8 +214,7 @@ export const optimizationConfig: Partial<OpenmrsRspackConfig['optimization']> = 
 
 export default (env: Record<string, string>, argv: Record<string, string> = {}) => {
   const root = process.cwd();
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { name, version, peerDependencies, browser, main, types } = require(resolve(root, 'package.json'));
+  const { name, version, peerDependencies, browser, main, types } = getPackageJson(root);
   // this typing is provably incorrect, but actually works
   const mode = (argv.mode || process.env.NODE_ENV || 'development') as OpenmrsRspackConfig['mode'];
   const filename = basename(browser || main);
@@ -301,7 +361,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
           },
         }),
       new CleanWebpackPlugin(),
-      new BundleAnalyzerPlugin({
+      new (BundleAnalyzerPlugin as unknown as new (options: { analyzerMode: 'server' | 'disabled' }) => Plugin)({
         analyzerMode: env && env.analyze ? 'server' : 'disabled',
       }),
       new DefinePlugin({
@@ -316,7 +376,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
         exposes: {
           './start': srcFile,
         },
-        shared: [...Object.keys(peerDependencies), '@openmrs/esm-framework/src/internal'].reduce((obj, depName) => {
+          shared: [...Object.keys(peerDependencies), '@openmrs/esm-framework/src/internal'].reduce<Record<string, SharedDependencyConfig>>((obj, depName) => {
           const versionSpec = peerDependencies[depName] ?? false;
 
           if (typeof versionSpec === 'string' && versionSpec.startsWith('workspace:')) {
@@ -341,7 +401,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               shareKey: 'swr/_internal',
               shareScope: 'default',
               // eslint-disable-next-line @typescript-eslint/no-require-imports
-              version: require('swr/package.json').version,
+                version: (require('swr/package.json') as VersionedPackageJson).version,
             };
           } else {
             obj[depName] = {
@@ -355,7 +415,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
           }
 
           return obj;
-        }, {}),
+          }, {}),
       }),
       hasRoutesDefined &&
         new CopyRspackPlugin({
@@ -365,22 +425,22 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               transform: {
                 transformer: (content) =>
                   JSON.stringify(
-                    Object.assign({}, JSON.parse(content.toString()), {
-                      version: mode === production ? version : inc(version, 'prerelease', 'local'),
+                      Object.assign({}, JSON.parse(content.toString()) as Record<string, unknown>, {
+                        version: mode === production ? version : (inc(version, 'prerelease', 'local') ?? version),
                     }),
                   ),
               },
             },
           ],
         }),
-      new StatsWriterPlugin({
+      new (StatsWriterPlugin as unknown as new (options: { filename: string; stats: { all: boolean; chunks: boolean } }) => Plugin)({
         filename: `${filename}.buildmanifest.json`,
         stats: {
           all: false,
           chunks: true,
         },
       }),
-    ].filter(Boolean),
+    ].filter((plugin): plugin is Exclude<typeof plugin, false> => Boolean(plugin)),
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.json'],
       extensionAlias: {
