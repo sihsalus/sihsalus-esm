@@ -7,7 +7,7 @@ interface UnauthorizedStateProps {
   readonly description?: string;
 }
 
-export function UnauthorizedState({ privilege, description }: UnauthorizedStateProps) {
+export function UnauthorizedState({ privilege, description }: UnauthorizedStateProps): React.ReactElement {
   const privilegeLabel = Array.isArray(privilege) ? privilege.join(', ') : privilege;
   const body = description ?? `You need the "${privilegeLabel}" privilege to access this section.`;
 

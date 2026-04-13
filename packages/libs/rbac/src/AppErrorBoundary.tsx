@@ -23,7 +23,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
     reportError(error);
-    auditLogger.log({
+    void auditLogger.log({
       eventType: 'UNHANDLED_ERROR',
       metadata: {
         appName: this.props.appName,
@@ -34,7 +34,7 @@ export class AppErrorBoundary extends Component<AppErrorBoundaryProps, AppErrorB
     this.props.onError?.(error, info);
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.error) {
       return (
         <Tile>

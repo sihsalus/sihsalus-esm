@@ -9,7 +9,12 @@ interface RequirePrivilegeProps {
   readonly children: ReactNode;
 }
 
-function RequirePrivilegeInner({ privilege, requireAll = true, fallback = null, children }: RequirePrivilegeProps) {
+function RequirePrivilegeInner({
+  privilege,
+  requireAll = true,
+  fallback = null,
+  children,
+}: RequirePrivilegeProps): React.ReactElement {
   const result = useRequirePrivilege(privilege, requireAll);
 
   if (result.status === 'authorized') {
@@ -19,7 +24,7 @@ function RequirePrivilegeInner({ privilege, requireAll = true, fallback = null, 
   return <>{fallback}</>;
 }
 
-export function RequirePrivilege(props: RequirePrivilegeProps) {
+export function RequirePrivilege(props: RequirePrivilegeProps): React.ReactElement {
   return (
     <Suspense fallback={null}>
       <RequirePrivilegeInner {...props} />
