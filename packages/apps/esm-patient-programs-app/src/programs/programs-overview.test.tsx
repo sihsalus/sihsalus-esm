@@ -46,6 +46,7 @@ describe('ProgramsOverview', () => {
       },
     };
     mockOpenmrsFetch.mockRejectedValueOnce(error);
+    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: [] } });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
 
@@ -59,6 +60,7 @@ describe('ProgramsOverview', () => {
     const user = userEvent.setup();
 
     mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockEnrolledProgramsResponse } });
+    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockCareProgramsResponse } });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
 
