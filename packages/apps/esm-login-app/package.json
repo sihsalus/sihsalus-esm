@@ -10,7 +10,7 @@
     "start": "openmrs develop",
     "serve": "rspack serve --mode=development",
     "debug": "npm run serve",
-    "test": "cross-env TZ=UTC vitest run --passWithNoTests",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "cross-env TZ=UTC vitest watch",
     "coverage": "cross-env TZ=UTC vitest run --coverage --passWithNoTests",
     "build": "rspack --mode=production",

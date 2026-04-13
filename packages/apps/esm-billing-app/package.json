@@ -18,7 +18,7 @@
     "prettier": "prettier --config prettier.config.js --write \"src/**/*.{ts,tsx,css,scss}\" \"e2e/**/*.ts\"",
     "serve": "rspack serve --mode=development",
     "test-e2e": "playwright test",
-    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests",
+    "test": "jest --config jest.config.js --verbose false --passWithNoTests",
     "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js",
     "typescript": "tsc",
     "verify": "turbo lint && turbo typescript && turbo test --color --concurrency=5"

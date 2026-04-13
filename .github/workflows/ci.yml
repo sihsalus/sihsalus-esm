@@ -14,6 +14,9 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      # HACK: E2E depende de un backend OpenMRS accesible desde el runner.
+      E2E_BASE_URL: http://localhost:8080/openmrs/spa
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,7 +24,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Enable Corepack
         run: corepack enable
@@ -69,6 +72,12 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Assemble
+        run: yarn assemble
+
+      - name: E2E
+        run: yarn test:e2e
 
       - name: Security Audit
         run: yarn npm audit --severity high

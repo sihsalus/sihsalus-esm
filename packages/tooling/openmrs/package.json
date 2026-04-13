@@ -9,7 +9,7 @@
   },
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "start": "node ./dist/cli.js",

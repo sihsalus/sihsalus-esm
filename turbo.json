@@ -64,7 +64,8 @@
         "mock-jest.tsx",
         "vitest.config.ts",
         "setup-tests.ts"
-      ]
+      ],
+      "env": ["TZ"]
     },
     "test:watch": {
       "cache": false,
