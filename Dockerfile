@@ -19,8 +19,10 @@ RUN yarn install --immutable --immutable-cache --check-cache
 RUN yarn turbo run build --filter='./packages/apps/*' --filter='!@sihsalus/esm-form-entry-react-app'
 
 # Stage 2: Init container image
-# Runs at deployment time: assembles built modules into SPA_OUTPUT_DIR.
-# The infra repo mounts a shared volume at SPA_OUTPUT_DIR; nginx serves from it.
+# Runs at deployment time: assembles built modules into SPA_OUTPUT_DIR,
+# patches index.html with env vars (SPA_PATH, API_URL, SPA_CONFIG_URLS, SPA_DEFAULT_LOCALE),
+# and copies config files. The infra repo mounts a shared volume at SPA_OUTPUT_DIR;
+# a stock nginx serves from it — no runtime substitution needed.
 FROM node:22-alpine AS init
 WORKDIR /app
 
@@ -29,8 +31,7 @@ ENV SPA_OUTPUT_DIR=/spa
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/apps ./packages/apps
-COPY --from=builder /app/packages/tooling/assemble-importmap.js ./packages/tooling/assemble-importmap.js
-COPY config/spa-assemble-config.json ./config/spa-assemble-config.json
-COPY config/frontend.json ./config/frontend.json
+COPY --from=builder /app/packages/tooling/scripts/assemble-importmap.js ./packages/tooling/scripts/assemble-importmap.js
+COPY config/ ./config/
 
-CMD ["node", "packages/tooling/assemble-importmap.js"]
+CMD ["node", "packages/tooling/scripts/assemble-importmap.js"]
