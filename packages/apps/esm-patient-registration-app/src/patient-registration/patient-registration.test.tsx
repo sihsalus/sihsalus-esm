@@ -288,7 +288,7 @@ describe('Registering a new patient', () => {
     await user.click(await screen.findByText(/Register Patient/i));
     expect(mockSavePatient).toHaveBeenCalledWith(
       expect.objectContaining({
-        identifiers: [], //TODO when the identifer story is finished: { identifier: '', identifierType: '05a29f94-c0ed-11e2-94be-8c13b969e334', location: '' },
+        identifiers: [], // TODO (P1.1): assert identifier payload once the Register Patient button rendering is fixed.
         person: {
           addresses: expect.arrayContaining([expect.any(Object)]),
           attributes: [],

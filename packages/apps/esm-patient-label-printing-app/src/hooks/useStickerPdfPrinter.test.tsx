@@ -270,7 +270,7 @@ describe('useStickerPdfPrinter', () => {
     expect(mockContentWindow.print).toHaveBeenCalled();
   });
 
-  it('should remove the print iframe on unmount', async () => {
+  it('should remove the print iframe on unmount', () => {
     const { result, unmount } = renderHook(() => useStickerPdfPrinter());
 
     act(() => {

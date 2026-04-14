@@ -1,7 +1,6 @@
 import { useConfig, useSession } from '@openmrs/esm-framework';
 import { screen, waitFor } from '@testing-library/react';
-import { renderWithSwr } from 'test-utils';
-import { mockSession } from 'test-utils';
+import { mockSession, renderWithSwr } from 'test-utils';
 import React from 'react';
 
 import OverviewComponent from './overview.component';
@@ -183,5 +182,7 @@ describe('OverviewComponent', () => {
     // - Completed reports should show Download button instead of View button
     expect(screen.getAllByRole('row')).toHaveLength(6);
     expect(screen.getAllByRole('button', { name: /^Delete$/i })).toHaveLength(5);
+    expect(screen.getAllByRole('button', { name: /^Download$/i })).toHaveLength(2);
+    expect(screen.queryAllByRole('button', { name: /^View$/i })).toHaveLength(0);
   });
 });

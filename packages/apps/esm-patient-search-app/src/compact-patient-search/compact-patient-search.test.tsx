@@ -20,7 +20,7 @@ describe('CompactPatientSearchComponent', () => {
   });
 
   it('renders a compact search bar', () => {
-    renderWithRouter(<CompactPatientSearchComponent isSearchPage={false} initialSearchTerm="" />);
+    renderWithRouter(CompactPatientSearchComponent, { isSearchPage: false, initialSearchTerm: '' });
 
     expect(screen.getByPlaceholderText(/Search for a patient by name or identifier number/i)).toBeInTheDocument();
   });
@@ -28,7 +28,7 @@ describe('CompactPatientSearchComponent', () => {
   it('renders search results when search term is not empty', async () => {
     const user = userEvent.setup();
 
-    renderWithRouter(<CompactPatientSearchComponent isSearchPage={false} initialSearchTerm="" />);
+    renderWithRouter(CompactPatientSearchComponent, { isSearchPage: false, initialSearchTerm: '' });
 
     const searchbox = screen.getByPlaceholderText(/Search for a patient by name or identifier number/i);
 
@@ -47,7 +47,7 @@ describe('CompactPatientSearchComponent', () => {
       } as PatientSearchConfig['search'],
     });
 
-    renderWithRouter(<CompactPatientSearchComponent isSearchPage={false} initialSearchTerm="" />);
+    renderWithRouter(CompactPatientSearchComponent, { isSearchPage: false, initialSearchTerm: '' });
 
     const searchResultsContainer = screen.getByTestId('floatingSearchResultsContainer');
     expect(searchResultsContainer).toBeInTheDocument();
@@ -56,9 +56,11 @@ describe('CompactPatientSearchComponent', () => {
   it('navigates to the advanced search page with the correct query string when the Search button is clicked', async () => {
     const user = userEvent.setup();
 
-    renderWithRouter(
-      <CompactPatientSearchComponent isSearchPage={false} initialSearchTerm="" shouldNavigateToPatientSearchPage />,
-    );
+    renderWithRouter(CompactPatientSearchComponent, {
+      isSearchPage: false,
+      initialSearchTerm: '',
+      shouldNavigateToPatientSearchPage: true,
+    });
 
     const searchbox = screen.getByRole('searchbox');
 

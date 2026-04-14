@@ -7,14 +7,16 @@ import styles from './styles.scss';
 
 const ContactUs = () => {
   const { t } = useTranslation();
+  const { helpButton } = styles as { helpButton: string };
   return (
     <Link
-      className={styles.helpButton}
-      href="https://talk.openmrs.org"
+      className={helpButton}
+      href="https://hii1sc.inf.pucp.edu.pe/"
       rel="noopener noreferrer"
       renderIcon={ArrowUpRight}
       target="_blank"
     >
+      {/* TODO: cambiar a un sitio oficial de soporte */}
       {t('communityforum', 'Community forum')}
     </Link>
   );

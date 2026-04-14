@@ -24,7 +24,7 @@ describe('Dob', () => {
     });
   });
 
-  it('renders the fields in the birth section of the registration form', async () => {
+  it('renders the fields in the birth section of the registration form', () => {
     render(
       <Formik initialValues={{ birthdate: '' }} onSubmit={() => {}}>
         <Form>
@@ -35,12 +35,11 @@ describe('Dob', () => {
               validationSchema: null,
               inEditMode: false,
               setFieldValue: () => {},
-              setCapturePhotoProps: (value) => {},
+              setCapturePhotoProps: (_value) => {},
               setFieldTouched: () => {},
               currentPhoto: '',
               isOffline: false,
               initialFormValues: initialFormValues,
-              setFieldTouched: () => {},
             }}
           >
             <DobField />
@@ -58,7 +57,7 @@ describe('Dob', () => {
     expect(screen.getByRole('textbox', { name: /date of birth/i })).toBeInTheDocument();
   });
 
-  it('typing in the date picker input sets the date of birth', async () => {
+  it('renders the date picker input for date of birth', () => {
     render(
       <Formik initialValues={{ birthdate: '' }} onSubmit={() => {}}>
         <Form>
@@ -69,11 +68,11 @@ describe('Dob', () => {
               validationSchema: null,
               inEditMode: false,
               setFieldValue: () => {},
-              setCapturePhotoProps: (value) => {},
+              setCapturePhotoProps: (_value) => {},
+              setFieldTouched: () => {},
               currentPhoto: '',
               isOffline: false,
               initialFormValues: initialFormValues,
-              setFieldTouched: () => {},
             }}
           >
             <DobField />

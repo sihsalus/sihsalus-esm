@@ -88,7 +88,8 @@ export function ValueEditorField({ element, path, valueType, value, onChange, er
       setValue={onChange}
     />
   ) : valueType === 'configure' && path ? (
-    <>Todo</>
+    // Not yet implemented: per-extension configure editor.
+    null
   ) : (
     <ObjectEditor element={element} valueObject={value} setValue={onChange} />
   );
