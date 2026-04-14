@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import Tooth from './Tooth';
 import ToothDesigns from './ToothDesigns';
 import DesignSelector from './DesignSelector';
@@ -19,7 +19,7 @@ const ToothVisualization = ({
   design = 'default',
   position = 'upper',
 }: ToothVisualizationProps) => {
-  const [showDesignSelector, setShowDesignSelector] = useState(false);
+  const [showDesignSelector, setShowDesignSelector] = React.useState(false);
 
   const { data, config, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
   const { selectedFindingId, selectedSuboption, selectedColor, isComplete } = formSelection;

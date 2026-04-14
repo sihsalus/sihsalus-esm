@@ -5,10 +5,7 @@ import { configSchema } from './config-schema';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const options = {
-  featureName: 'odontogram',
-  moduleName: '@sihsalus/esm-odontogram-app',
-};
+const moduleName = '@sihsalus/esm-odontogram-app';
 
 const dashboardMeta = {
   slot: 'patient-chart-odontogram-slot',
@@ -20,25 +17,34 @@ const dashboardMeta = {
 };
 
 export function startupApp() {
-  defineConfigSchema(options.moduleName, configSchema);
+  defineConfigSchema(moduleName, configSchema);
 }
 
 // Standalone dev page
-export const root = getAsyncLifecycle(() => import('./root.component'), options);
+export const root = getAsyncLifecycle(() => import('./root.component'), {
+  featureName: 'odontogram-root',
+  moduleName,
+});
 
 // Nav link (renders inside special-clinics-slot)
-export const odontogramDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...dashboardMeta, moduleName: options.moduleName }),
-  options,
-);
+export const odontogramDashboardLink = getSyncLifecycle(createDashboardLink({ ...dashboardMeta, moduleName }), {
+  featureName: 'odontogram-dashboard-link',
+  moduleName,
+});
 
 // Dashboard card shown when the nav link is clicked
 export const odontogramWidget = getAsyncLifecycle(
   () => import('./odontogram-dashboard/odontogram-dashboard.component'),
-  options,
+  {
+    featureName: 'odontogram-widget',
+    moduleName,
+  },
 );
 
 export const odontogramWorkspace = getAsyncLifecycle(
   () => import('./odontogram-workspace/odontogram-workspace.component'),
-  options,
+  {
+    featureName: 'odontogram-form-workspace',
+    moduleName,
+  },
 );
