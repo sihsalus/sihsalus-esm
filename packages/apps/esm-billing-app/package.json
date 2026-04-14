@@ -13,7 +13,7 @@
     "build": "rspack --mode=production",
     "coverage": "yarn test --coverage",
     "debug": "npm run serve",
-    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.workspace.tsx' 'src/**/*.modal.tsx' 'src/index.ts' --config ./tools/i18next-parser.config.js",
+    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.workspace.tsx' 'src/**/*.modal.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js",
     "lint": "eslint .",
     "prettier": "prettier --config prettier.config.js --write \"src/**/*.{ts,tsx,css,scss}\" \"e2e/**/*.ts\"",
     "serve": "rspack serve --mode=development",

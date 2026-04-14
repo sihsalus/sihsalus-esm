@@ -2,7 +2,7 @@
   "name": "@sihsalus/frontend-web",
   "version": "1.0.0",
   "private": true,
-  "license": "MIT",
+  "license": "MPL-2.0",
   "workspaces": [
     "packages/tooling/*",
     "packages/apps/*",
@@ -25,6 +25,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typescript",
     "verify": "cross-env TZ=UTC turbo run lint typescript test",
+    "extract-translations": "turbo run extract-translations",
     "clean": "turbo run clean && rm -rf dist/spa",
     "setup": "yarn install && turbo run build",
     "prepare": "husky"
