@@ -90,9 +90,9 @@
   "createFuaWorkspaceTitle": "Crear FUA",
   "creatingFua": "Creando FUA...",
   "fuaCreated": "FUA creado",
-  "fuaCreatedWithEncounter": "Se creó un encuentro y se inició el FUA correctamente",
+  "fuaCreatedWithEncounter": "Se creó una atención y se inició el FUA correctamente",
   "errorCreatingFua": "Ocurrió un error al crear el FUA",
-  "couldNotCreateEncounter": "No se pudo crear el encuentro para FUA",
+  "couldNotCreateEncounter": "No se pudo crear la atención para FUA",
   "retry": "Reintentar",
-  "noActiveVisitForFua": "No hay una visita activa para crear FUA"
+  "noActiveVisitForFua": "No hay una consulta activa para crear FUA"
 }

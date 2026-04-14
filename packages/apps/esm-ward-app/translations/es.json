@@ -70,7 +70,7 @@
   "patientAssignedNewBedDetail": "{{patientName}} asignado/a a la cama {{bedNumber}}",
   "patientCurrentlyAdmittedToWardLocation": "Paciente actualmente admitido en {{wardLocation}}",
   "patientCurrentlyNotAdmitted": "Paciente actualmente no admitido",
-  "patienthasNoActiveVisit": "Paciente no tiene visitas activas",
+  "patienthasNoActiveVisit": "Paciente no tiene una consulta activa",
   "patientHasPendingAdmissionRequest": "Paciente ya tiene un pedido de admisión pendiente en ubicación {{location}}",
   "patientNoteNowVisible": "Ahora debería ser visible en el historial de notas",
   "patientNoteSaveError": "Error al guardar la nota del paciente",
@@ -109,7 +109,7 @@
   "transferType": "Tipo de transferencia",
   "typeOfTransfer": "Tipo de transferencia",
   "unknown": "Desconocido",
-  "visitNoteSaved": "Nota del paciente guardada",
+  "visitNoteSaved": "Resumen de consulta guardado",
   "wardClinicalNotePlaceholder": "Escriba cualquier nota aquí",
   "wards": "Unidades"
 }
