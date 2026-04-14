@@ -8,21 +8,18 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './flags-list.scss';
-import { usePatientFlags, enablePatientFlag, disablePatientFlag } from './hooks/usePatientFlags';
+import { usePatientFlags, enablePatientFlag, disablePatientFlag, type PatientFlag } from './hooks/usePatientFlags';
 import { getFlagType } from './utils';
 
 type dropdownFilter = 'A - Z' | 'Active first' | 'Retired first';
 
-const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
-  patientUuid,
-  closeWorkspace,
-  closeWorkspaceWithSavedChanges,
-}) => {
+const FlagsList: React.FC<DefaultPatientWorkspaceProps> = (props) => {
+  const { patientUuid } = props;
   const { t } = useTranslation();
   const { flags, isLoading, error, mutate } = usePatientFlags(patientUuid);
   const isTablet = useLayoutType() === 'tablet';
 
-  const searchRef = useRef(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const [isEnabling, setIsEnabling] = useState(false);
   const [isDisabling, setIsDisabling] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,32 +30,32 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
       return flags;
     }
     if (sortBy === 'Active first') {
-      return orderBy(flags, [(item) => Number(item.voided)], 'asc');
+      return orderBy(flags, [(item: PatientFlag) => Number(item.voided)], 'asc');
     }
     if (sortBy === 'Retired first') {
-      return orderBy(flags, [(item) => Number(item.voided)], 'desc');
+      return orderBy(flags, [(item: PatientFlag) => Number(item.voided)], 'desc');
     }
-    return orderBy(flags, (f) => f.flag.display, 'asc');
+    return orderBy(flags, (f: PatientFlag) => f.flag.display, 'asc');
   }, [sortBy, flags]);
 
   const searchResults = useMemo(() => {
     if (!isEmpty(searchTerm)) {
-      return sortedRows.filter((f) => f.flag.display.toLowerCase().search(searchTerm.toLowerCase()) !== -1);
+      return sortedRows.filter((f: PatientFlag) => f.flag.display.toLowerCase().search(searchTerm.toLowerCase()) !== -1);
     } else {
       return sortedRows;
     }
   }, [searchTerm, sortedRows]);
 
-  const handleSearch = useMemo(() => debounce((searchTerm) => setSearchTerm(searchTerm), 300), [setSearchTerm]);
+  const handleSearch = useMemo(() => debounce((term: string) => setSearchTerm(term), 300), [setSearchTerm]);
 
-  const handleSortByChange = ({ selectedItem }) => setSortBy(selectedItem);
+  const handleSortByChange = ({ selectedItem }: { selectedItem: dropdownFilter }) => setSortBy(selectedItem);
 
-  const handleEnableFlag = async (flagUuid) => {
+  const handleEnableFlag = async (flagUuid: string) => {
     setIsEnabling(true);
     const res = await enablePatientFlag(flagUuid);
 
     if (res.status === 200) {
-      mutate();
+      void mutate();
       setIsEnabling(false);
       showSnackbar({
         isLowContrast: true,
@@ -76,12 +73,12 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
     }
   };
 
-  const handleDisableFlag = async (flagUuid) => {
+  const handleDisableFlag = async (flagUuid: string) => {
     setIsDisabling(true);
     const res = await disablePatientFlag(flagUuid);
 
     if (res.status === 204) {
-      mutate();
+      void mutate();
       setIsDisabling(false);
       showSnackbar({
         isLowContrast: true,
@@ -117,7 +114,7 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
             placeholder={t('searchForAFlag', 'Search for a flag')}
             ref={searchRef}
             size={isTablet ? 'lg' : 'md'}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
           />
         </ResponsiveWrapper>
         <Stack gap={4}>
@@ -161,7 +158,13 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
                         id={result.uuid}
                         labelA=""
                         labelB=""
-                        onToggle={(on) => (on ? handleEnableFlag(result.uuid) : handleDisableFlag(result.uuid))}
+                        onToggle={(on) => {
+                          if (on) {
+                            void handleEnableFlag(result.uuid);
+                          } else {
+                            void handleDisableFlag(result.uuid);
+                          }
+                        }}
                         size="sm"
                       />
                     </div>
@@ -189,8 +192,10 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
                       size="sm"
                       onClick={() => {
                         setSearchTerm('');
-                        searchRef.current.value = '';
-                        searchRef.current.focus();
+                        if (searchRef.current) {
+                          searchRef.current.value = '';
+                          searchRef.current.focus();
+                        }
                       }}
                     >
                       {t('clearSearch', 'Clear search')}
@@ -203,7 +208,7 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
         </Stack>
       </div>
       <ButtonSet className={isTablet ? styles.tabletButtonSet : styles.desktopButtonSet}>
-        <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" onClick={() => props.closeWorkspace()}>
           {t('discard', 'Discard')}
         </Button>
         <Button
@@ -211,7 +216,9 @@ const FlagsList: React.FC<DefaultPatientWorkspaceProps> = ({
           disabled={isEnabling || isDisabling}
           kind="primary"
           type="submit"
-          onClick={closeWorkspaceWithSavedChanges}
+          onClick={() => {
+            void props.closeWorkspaceWithSavedChanges();
+          }}
         >
           {(() => {
             if (isEnabling) return t('enablingFlag', 'Enabling flag...');

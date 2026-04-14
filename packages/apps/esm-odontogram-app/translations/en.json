@@ -17,5 +17,20 @@
     "registerFindings": "Register findings",
     "odontogramWorkspaceTitle": "Odontogram",
     "saveOdontogram": "Save odontogram",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "noOdontogramBase": "No base odontogram recorded",
+    "generateBase": "Generate base odontogram",
+    "addAttention": "New attention",
+    "odontogramInfo": "Odontogram info",
+    "baseOdontogramTooltip": "Base odontogram: records clinical findings. Kept as reference and not modified with each consultation.",
+    "attentionOdontogramTooltip": "Attention odontogram: records solutions or interventions performed during this consultation.",
+    "odontogramBaseSavedSubtitle": "Base odontogram findings have been saved.",
+    "odontogramAttentionSavedSubtitle": "Attention odontogram solutions have been saved.",
+    "saveBase": "Save base",
+    "saveAttention": "Save attention",
+    "baseOdontogramTag": "Base odontogram",
+    "attentionOdontogramTag": "Attention odontogram",
+    "baseLabel": "Base",
+    "attentionLabel": "Attention",
+    "odontogram": "Odontogram"
 }

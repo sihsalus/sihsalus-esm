@@ -5459,7 +5459,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openmrs/esm-patient-common-lib@npm:*, @openmrs/esm-patient-common-lib@workspace:packages/libs/esm-patient-common-lib":
+"@openmrs/esm-patient-common-lib@npm:*, @openmrs/esm-patient-common-lib@workspace:*, @openmrs/esm-patient-common-lib@workspace:packages/libs/esm-patient-common-lib":
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-patient-common-lib@workspace:packages/libs/esm-patient-common-lib"
   dependencies:
@@ -9177,6 +9177,7 @@ __metadata:
   dependencies:
     "@carbon/react": "npm:^1.92.1"
     "@carbon/styles": "npm:^1.102.0"
+    "@openmrs/esm-patient-common-lib": "workspace:*"
     "@sihsalus/rbac": "workspace:*"
     jest: "npm:^29.7.0"
     konva: "npm:^9.3.18"

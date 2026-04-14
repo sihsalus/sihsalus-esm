@@ -1,30 +1,46 @@
-import { Button, InlineLoading } from '@carbon/react';
+import { Button, InlineLoading, Tag } from '@carbon/react';
 import { showSnackbar, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import OdontogramNuevoBridge from '../components/OdontogramNuevoBridge';
 import { useOdontogramEncounter } from '../hooks/useOdontogramEncounter';
 import useOdontogramDataStore from '../store/odontogramDataStore';
+import type { OdontogramRecordType } from '../types/odontogram-record';
+import OdontogramCanvas from '../odontogram/components/Odontogram';
+import { adultConfig } from '../odontogram/config/adultConfig';
+import styles from './odontogram-workspace.scss';
 
 interface OdontogramWorkspaceProps extends DefaultWorkspaceProps {
   patientUuid: string;
   encounterUuid?: string;
+  /** Passed by the dashboard when launching the workspace */
+  workspaceMode?: OdontogramRecordType;
 }
+
+// Labels are provided via i18n — these are English fallbacks only
+const modeTagI18nKeys: Record<OdontogramRecordType, { type: 'blue' | 'teal'; key: string; fallback: string }> = {
+  base: { type: 'blue', key: 'baseOdontogramTag', fallback: 'Base odontogram' },
+  attention: { type: 'teal', key: 'attentionOdontogramTag', fallback: 'Attention odontogram' },
+};
 
 const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
   patientUuid,
   encounterUuid,
+  workspaceMode = 'base',
   closeWorkspace,
 }) => {
   const { t } = useTranslation();
   const { save, isSaving } = useOdontogramEncounter();
   const setPatient = useOdontogramDataStore((s) => s.setPatient);
   const resetData = useOdontogramDataStore((s) => s.resetData);
+  const setWorkspaceMode = useOdontogramDataStore((s) => s.setWorkspaceMode);
+  const data = useOdontogramDataStore((s) => s.data);
+  const setData = useOdontogramDataStore((s) => s.setData);
 
   useEffect(() => {
     setPatient(patientUuid);
-  }, [patientUuid, setPatient]);
+    setWorkspaceMode(workspaceMode);
+  }, [patientUuid, workspaceMode, setPatient, setWorkspaceMode]);
 
   const handleSave = async () => {
     try {
@@ -32,28 +48,44 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
       showSnackbar({
         title: t('odontogramSaved', 'Odontogram saved'),
         kind: 'success',
-        subtitle: t('odontogramSavedSubtitle', 'The odontogram findings have been saved successfully.'),
+        subtitle:
+          workspaceMode === 'base'
+            ? t('odontogramBaseSavedSubtitle', 'Base odontogram findings have been saved.')
+            : t('odontogramAttentionSavedSubtitle', 'Attention odontogram solutions have been saved.'),
       });
       resetData();
       closeWorkspace();
-    } catch {
+    } catch (err) {
       showSnackbar({
         title: t('odontogramSaveError', 'Error saving odontogram'),
         kind: 'error',
-        subtitle: t('odontogramSaveErrorSubtitle', 'Could not save odontogram findings. Please try again.'),
+        subtitle: err instanceof Error ? err.message : t('odontogramSaveErrorSubtitle', 'Could not save odontogram. Please try again.'),
       });
     }
   };
 
+  const tagMeta = modeTagI18nKeys[workspaceMode];
+
   return (
     <div>
-      <OdontogramNuevoBridge />
-      <div style={{ display: 'flex', gap: '0.5rem', padding: '1rem', justifyContent: 'flex-end' }}>
+      <div className={styles.tagContainer}>
+        <Tag type={tagMeta.type} size="sm">
+          {t(tagMeta.key, tagMeta.fallback)}
+        </Tag>
+      </div>
+      <OdontogramCanvas config={adultConfig} data={data} onChange={setData} />
+      <div className={styles.actions}>
         <Button kind="secondary" onClick={() => closeWorkspace()} data-testid="odontogram-cancel-btn">
           {t('cancel', 'Cancel')}
         </Button>
         <Button kind="primary" onClick={handleSave} disabled={isSaving} data-testid="odontogram-save-btn">
-          {isSaving ? <InlineLoading description={t('saving', 'Saving...')} /> : t('saveOdontogram', 'Save odontogram')}
+          {isSaving ? (
+            <InlineLoading description={t('saving', 'Saving...')} />
+          ) : workspaceMode === 'base' ? (
+            t('saveBase', 'Save base')
+          ) : (
+            t('saveAttention', 'Save attention')
+          )}
         </Button>
       </div>
     </div>

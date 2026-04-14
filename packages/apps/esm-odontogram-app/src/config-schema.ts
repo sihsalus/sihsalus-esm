@@ -1,9 +1,14 @@
 import { Type } from '@openmrs/esm-framework';
 
 export const configSchema = {
-  encounterTypeUuid: {
+  baseEncounterTypeUuid: {
     _type: Type.UUID,
-    _description: 'UUID of the ODONTOGRAM encounter type',
+    _description: 'UUID of the encounter type for base odontograms (hallazgos)',
+    _default: '',
+  },
+  attentionEncounterTypeUuid: {
+    _type: Type.UUID,
+    _description: 'UUID of the encounter type for attention odontograms (soluciones)',
     _default: '',
   },
   findingConceptUuid: {
@@ -20,7 +25,8 @@ export const configSchema = {
 };
 
 export interface OdontogramConfig {
-  encounterTypeUuid: string;
+  baseEncounterTypeUuid: string;
+  attentionEncounterTypeUuid: string;
   findingConceptUuid?: string;
   findingConceptUuids?: Record<string, string>;
 }

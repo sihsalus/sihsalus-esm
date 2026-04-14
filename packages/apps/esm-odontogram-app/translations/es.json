@@ -17,5 +17,20 @@
     "registerFindings": "Registrar hallazgos",
     "odontogramWorkspaceTitle": "Odontograma",
     "saveOdontogram": "Guardar odontograma",
-    "saving": "Guardando..."
+    "saving": "Guardando...",
+    "noOdontogramBase": "No hay odontograma base registrado",
+    "generateBase": "Generar odontograma base",
+    "addAttention": "Nueva atención",
+    "odontogramInfo": "Información del odontograma",
+    "baseOdontogramTooltip": "Odontograma base: registra los hallazgos clínicos detectados. Se mantiene como referencia y no se modifica con cada atención.",
+    "attentionOdontogramTooltip": "Odontograma de atención: registra las soluciones o intervenciones realizadas durante esta consulta.",
+    "odontogramBaseSavedSubtitle": "El odontograma base se guardó exitosamente.",
+    "odontogramAttentionSavedSubtitle": "El odontograma de atención se guardó exitosamente.",
+    "saveBase": "Guardar base",
+    "saveAttention": "Guardar atención",
+    "baseOdontogramTag": "Odontograma base",
+    "attentionOdontogramTag": "Odontograma de atención",
+    "baseLabel": "Base",
+    "attentionLabel": "Atención",
+    "odontogram": "Odontograma"
 }

@@ -1,8 +1,9 @@
-import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
+import { useConfig } from '@openmrs/esm-framework';
 import { useState } from 'react';
 
-import useOdontogramDataStore from '../store/odontogramDataStore';
 import type { OdontogramConfig } from '../config-schema';
+import { saveEncounter, updateEncounter } from '../odontogram.resource';
+import useOdontogramDataStore from '../store/odontogramDataStore';
 
 interface SaveOdontogramParams {
   patientUuid: string;
@@ -35,9 +36,19 @@ export function useOdontogramEncounter() {
     setError(null);
 
     try {
-      const encounterTypeUuid = config.encounterTypeUuid?.trim();
+      const { workspaceMode } = useOdontogramDataStore.getState();
+
+      const encounterTypeUuid =
+        workspaceMode === 'base'
+          ? config.baseEncounterTypeUuid?.trim()
+          : config.attentionEncounterTypeUuid?.trim();
+
       if (!encounterTypeUuid) {
-        throw new Error('Missing required config: encounterTypeUuid');
+        throw new Error(
+          workspaceMode === 'base'
+            ? 'Missing required config: baseEncounterTypeUuid'
+            : 'Missing required config: attentionEncounterTypeUuid',
+        );
       }
 
       const { getAllFindings } = useOdontogramDataStore.getState();
@@ -61,18 +72,10 @@ export function useOdontogramEncounter() {
         }),
       }));
 
-      const url = encounterUuid ? `/ws/rest/v1/encounter/${encounterUuid}` : '/ws/rest/v1/encounter';
-      const payload = {
-        patient: patientUuid,
-        encounterType: encounterTypeUuid,
-        obs,
-      };
-
-      const response = await openmrsFetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: payload,
-      });
+      const payload = { patient: patientUuid, encounterType: encounterTypeUuid, obs };
+      const response = encounterUuid
+        ? await updateEncounter(encounterUuid, payload)
+        : await saveEncounter(payload);
 
       return response.data;
     } catch (err) {

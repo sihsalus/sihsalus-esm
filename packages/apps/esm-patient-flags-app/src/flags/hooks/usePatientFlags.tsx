@@ -12,6 +12,16 @@ interface FlagFetchResponse {
   auditInfo: { dateCreated: string };
 }
 
+export type PatientFlag = FlagFetchResponse;
+
+export interface PatientFlagsResult {
+  flags: Array<PatientFlag>;
+  error: Error | undefined;
+  isLoading: boolean;
+  isValidating: boolean;
+  mutate: () => Promise<FetchResponse<FlagsFetchResponse> | undefined>;
+}
+
 interface FlagsFetchResponse {
   results: Array<FlagFetchResponse>;
 }
@@ -22,7 +32,7 @@ interface FlagsFetchResponse {
  * @param patientUuid Unique patient idenfier
  * @returns An array of patient identifiers
  */
-export function usePatientFlags(patientUuid: string) {
+export function usePatientFlags(patientUuid: string): PatientFlagsResult {
   const url = `${restBaseUrl}/patientflags/patientflag?patient=${patientUuid}&v=full`;
 
   const { data, error, isLoading, isValidating, mutate } = useSWR<FetchResponse<FlagsFetchResponse>, Error>(
@@ -30,12 +40,12 @@ export function usePatientFlags(patientUuid: string) {
     openmrsFetch,
   );
 
-  const result = {
+  const result: PatientFlagsResult = {
     flags: data?.data?.results ?? [],
     error: error,
     isLoading: isLoading,
     isValidating: isValidating,
-    mutate: mutate,
+    mutate: () => mutate(),
   };
 
   return result;
@@ -45,8 +55,8 @@ export function useCurrentPath(): string {
   const [path, setPath] = useState(globalThis.location.pathname);
 
   const listenToRoutingEvent = useCallback(
-    (e) => {
-      const winPath = e.detail.newUrl;
+    (e: Event) => {
+      const winPath = (e as CustomEvent<{ newUrl: string }>).detail.newUrl;
       setPath(winPath);
     },
     [setPath],
