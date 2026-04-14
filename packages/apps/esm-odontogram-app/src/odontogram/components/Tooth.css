@@ -1,14 +1,18 @@
 /* Tooth.css */
 svg.tooth {
   cursor: pointer;
-  fill: white;
 }
 
-svg.tooth .to-do {
+svg.tooth polygon {
+  fill: white !important;
+  stroke: black;
+}
+
+svg.tooth polygon.to-do {
   fill: red;
 }
 
-svg.tooth .done {
+svg.tooth polygon.done {
   fill: blue;
 }
 
