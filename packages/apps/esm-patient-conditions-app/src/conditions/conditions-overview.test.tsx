@@ -47,7 +47,7 @@ describe('ConditionsOverview', () => {
       },
     };
 
-    mockOpenmrsFetch.mockRejectedValueOnce(error);
+    mockOpenmrsFetch.mockRejectedValue(error);
 
     renderWithSwr(<ConditionsOverview patientUuid={mockPatient.id} />);
 
@@ -69,7 +69,7 @@ describe('ConditionsOverview', () => {
     await waitForLoadingToFinish();
 
     expect(screen.getByRole('heading', { name: /conditions/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /record conditions/i })).toBeInTheDocument();
 
     const expectedColumnHeaders = [/condition/, /date of onset/, /status/];
     expectedColumnHeaders.forEach((header) => {

@@ -23,5 +23,5 @@
       "es2022"
     ]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "__mocks__/**/*", "setup-tests.ts", "vitest.config.ts"]
 }

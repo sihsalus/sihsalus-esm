@@ -104,7 +104,9 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
 
   const { results: paginatedData, goTo, currentPage } = usePagination(filteredRows, pageSize);
 
-  const handleSyncComplete = () => mutate();
+  const handleSyncComplete = () => {
+    void mutate();
+  };
 
   if (isSearchMode && (!patients || patients.length === 0) && !isLoading && !error) {
     return null;

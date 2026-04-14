@@ -24,3 +24,7 @@ if (typeof localStorage.clear !== 'function') {
 window.URL.createObjectURL = vi.fn();
 
 afterEach(cleanup);
+
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));

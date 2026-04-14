@@ -7,3 +7,7 @@ window.spaBase = '/spa';
 window.getOpenmrsSpaBase = vi.fn(() => '/openmrs/spa/');
 
 afterEach(cleanup);
+
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));

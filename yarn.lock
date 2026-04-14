@@ -8696,6 +8696,7 @@ __metadata:
     "@openmrs/esm-styleguide": "patch:@openmrs/esm-styleguide@npm%3A9.0.2#~/.yarn/patches/@openmrs-esm-styleguide-npm-9.0.2-fc8ffda76a.patch"
     "@sihsalus/rbac": "workspace:*"
     cross-env: "npm:^7.0.3"
+    jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "npm:*"
     react-hook-form: "npm:^7.51.0"
@@ -8974,6 +8975,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-home-app@workspace:packages/apps/esm-home-app"
   dependencies:
+    jest: "npm:^29.7.0"
     openmrs: "npm:*"
     typescript: "npm:^5.8.3"
   peerDependencies:
@@ -9176,6 +9178,7 @@ __metadata:
     "@carbon/react": "npm:^1.92.1"
     "@carbon/styles": "npm:^1.102.0"
     "@sihsalus/rbac": "workspace:*"
+    jest: "npm:^29.7.0"
     konva: "npm:^9.3.18"
     openmrs: "workspace:*"
     react-konva: "npm:^19.0.5"
@@ -9229,6 +9232,7 @@ __metadata:
   dependencies:
     "@carbon/react": "npm:^1.83.0"
     "@sihsalus/rbac": "workspace:*"
+    jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "npm:*"
     swr: "npm:^2.2.5"
@@ -9500,6 +9504,7 @@ __metadata:
   resolution: "@sihsalus/esm-patient-label-printing-app@workspace:packages/apps/esm-patient-label-printing-app"
   dependencies:
     "@carbon/react": "npm:^1.83.0"
+    jest: "npm:^29.7.0"
     openmrs: "npm:*"
     typescript: "npm:^5.8.3"
   peerDependencies:
@@ -9787,6 +9792,7 @@ __metadata:
     "@datasert/cronjs-parser": "npm:^1.2.0"
     cronstrue: "npm:^2.41.0"
     dayjs: "npm:^1.8.36"
+    jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "npm:*"
     react-image-annotate: "npm:^1.8.0"

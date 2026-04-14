@@ -9,3 +9,7 @@ vi.mock('@openmrs/esm-framework', () => import('@openmrs/esm-framework/mock'));
 };
 
 afterEach(cleanup);
+
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));

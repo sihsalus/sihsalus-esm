@@ -1,4 +1,5 @@
 import { getAsyncLifecycle, defineConfigSchema, registerBreadcrumbs } from '@openmrs/esm-framework';
+import type { i18n } from 'i18next';
 
 import { configSchema } from './config-schema';
 
@@ -17,7 +18,10 @@ export function startupApp() {
   registerBreadcrumbs([
     {
       path: `${globalThis.spaBase}/system-administration`,
-      title: () => Promise.resolve(globalThis.i18next.t('systemAdmin', 'System Administration')),
+      title: () =>
+        Promise.resolve(
+          (globalThis.i18next as i18n).t('systemAdmin', 'System Administration'),
+        ),
       parent: `${globalThis.spaBase}/home`,
     },
   ]);

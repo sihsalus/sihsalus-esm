@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { getByTextWithMarkup } from 'test-utils';
 
 import { deletePatientList } from '../api/api-remote';
 import { usePatientListDetails, usePatientListMembers } from '../api/hooks';
@@ -79,7 +78,8 @@ describe('ListDetails', () => {
     expect(screen.getByRole('button', { name: /actions/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /back to lists page/i })).toBeInTheDocument();
     expect(screen.getByText(/1 patient/)).toBeInTheDocument();
-    expect(getByTextWithMarkup('Created on: 14-Aug-2023')).toBeInTheDocument();
+    expect(screen.getByText(/Created on/i)).toBeInTheDocument();
+    expect(screen.getByText(/14-Aug-2023/)).toBeInTheDocument();
     expect(screen.getByText(/edit name or description/i)).toBeInTheDocument();
     expect(screen.getByText(/delete patient list/i)).toBeInTheDocument();
   });

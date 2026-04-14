@@ -5,8 +5,15 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './error-state.scss';
 
+interface ErrorResponse {
+  response?: {
+    status?: number | string;
+    statusText?: string;
+  };
+}
+
 export interface ErrorStateProps {
-  error: any;
+  error?: ErrorResponse;
   headerTitle: string;
 }
 

@@ -181,7 +181,7 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
                         <TextArea
                           className={styles.textarea}
                           id={`${fieldId}-${fieldProperty.id}`}
-                          labelText={''}
+                          labelText={fieldProperty.name}
                           maxCount={100}
                           name={fieldProperty.name}
                           onBlur={() => handleFocusChange(false)}

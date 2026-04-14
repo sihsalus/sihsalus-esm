@@ -13,6 +13,19 @@ jest.mock('@openmrs/esm-framework', () => ({
   ResponsiveWrapper: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
+jest.mock('@carbon/react', () => {
+  const original = jest.requireActual('@carbon/react');
+  return {
+    ...original,
+    TextArea: ({ labelText, ...props }: any) => (
+      <label>
+        {labelText}
+        <textarea {...props} />
+      </label>
+    ),
+  };
+});
+
 describe('AddNewProcedureStepWorkspace', () => {
   const patientUuid = 'patient-123';
   const mockClose = jest.fn();

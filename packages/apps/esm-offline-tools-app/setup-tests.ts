@@ -4,6 +4,10 @@ import { cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
 
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));
+
 declare global {
   interface Window {
     openmrsBase: string;

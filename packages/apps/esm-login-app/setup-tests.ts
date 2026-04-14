@@ -4,6 +4,10 @@ import { cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
 
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));
+
 declare global {
   interface Window {
     openmrsBase: string;
@@ -12,8 +16,8 @@ declare global {
   }
 }
 
-const { getComputedStyle } = window;
-window.getComputedStyle = (element) => getComputedStyle(element);
+const getComputedStyle = window.getComputedStyle.bind(window) as typeof window.getComputedStyle;
+window.getComputedStyle = (element, pseudoElt?) => getComputedStyle(element, pseudoElt);
 window.openmrsBase = '/openmrs';
 window.spaBase = '/spa';
 window.getOpenmrsSpaBase = () => '/openmrs/spa/';

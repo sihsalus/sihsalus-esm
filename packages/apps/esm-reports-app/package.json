@@ -55,6 +55,7 @@
     "rxjs": "6.x"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "openmrs": "*",
     "typescript": "^5.8.3"
   }

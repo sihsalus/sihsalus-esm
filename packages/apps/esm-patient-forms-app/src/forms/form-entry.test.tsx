@@ -3,7 +3,7 @@ import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { BehaviorSubject } from 'rxjs';
-import { mockPatient } from 'test-utils';
+import { mockPatientAlice as mockPatient } from '../../../../__mocks__/patient.mock';
 
 import FormEntry from './form-entry.workspace';
 
@@ -11,7 +11,7 @@ const testProps = {
   closeWorkspace: jest.fn(),
   closeWorkspaceWithSavedChanges: jest.fn(),
   promptBeforeClosing: jest.fn(),
-  patientUuid: mockPatient.id,
+  patientUuid: mockPatient.uuid,
   formInfo: { formUuid: 'some-form-uuid' },
   mutateForm: jest.fn(),
   setTitle: jest.fn(),
@@ -45,7 +45,7 @@ jest.mock('@openmrs/esm-patient-common-lib', () => ({
 }));
 
 jest.mock('@openmrs/esm-framework', () => ({
-  ExtensionSlot: jest.fn().mockImplementation((ext) => ext.name),
+  ExtensionSlot: jest.fn().mockImplementation((ext: { name?: string }) => ext.name ?? ''),
   usePatient: jest.fn(),
   useConnectivity: jest.fn(),
 }));
@@ -53,8 +53,8 @@ jest.mock('@openmrs/esm-framework', () => ({
 describe('FormEntry', () => {
   it('renders an extension where the form entry widget plugs in', async () => {
     mockUsePatient.mockReturnValue({
-      patient: mockPatient,
-      patientUuid: mockPatient.id,
+      patient: mockPatient as unknown as ReturnType<typeof usePatient>['patient'],
+      patientUuid: mockPatient.uuid,
       error: null,
       isLoading: false,
     });

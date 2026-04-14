@@ -59,6 +59,7 @@
     "@openmrs/esm-framework": "*",
     "@openmrs/esm-styleguide": "patch:@openmrs/esm-styleguide@npm%3A9.0.2#~/.yarn/patches/@openmrs-esm-styleguide-npm-9.0.2-fc8ffda76a.patch",
     "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
     "openmrs": "*"
   }
 }

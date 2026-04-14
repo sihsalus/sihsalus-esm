@@ -20,5 +20,5 @@
     ],
     "noEmit": true
   },
-  "include": ["src/**/*", "setup-tests.ts", "vitest.config.ts"]
+  "include": ["src/**/*", "__mocks__/**/*", "setup-tests.ts", "vitest.config.ts"]
 }

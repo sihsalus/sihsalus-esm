@@ -27,6 +27,12 @@ import { useConfig } from '@openmrs/esm-framework';
 import { Config } from './config-schema';
 import Root from './root.component';
 
+jest.mock('react-router-dom', () => ({
+  BrowserRouter: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  Routes: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  Route: ({ element, children }: { element?: React.ReactNode; children?: React.ReactNode }) => element ?? children,
+}));
+
 /**
  * This is an idiomatic way of dealing with mocked files. Note that
  * `useConfig` is already mocked; the Jest moduleNameMapper (see the
@@ -114,6 +120,5 @@ it('renders the emergency dashboard', () => {
 
   render(<Root />);
 
-  // Check that the emergency dashboard is rendered
-  expect(screen.getByText(/emergency/i)).toBeInTheDocument();
+  expect(screen.getByText(/emergency services/i)).toBeInTheDocument();
 });

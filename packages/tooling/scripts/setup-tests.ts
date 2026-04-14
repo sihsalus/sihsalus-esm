@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { TextDecoder, TextEncoder } from 'util';
 
 jest.mock('single-spa', () => ({
   navigateToUrl: jest.fn(),
@@ -18,6 +19,8 @@ window.getOpenmrsSpaBase = () => '/openmrs/spa/';
 // Ensure i18next locale is available for components that call getLocale()
 // (e.g. Carbon DatePicker via @openmrs/esm-styleguide) before the framework mock loads.
 globalThis.i18next = { ...globalThis.i18next, language: 'en' } as unknown;
+globalThis.TextEncoder = globalThis.TextEncoder ?? TextEncoder;
+globalThis.TextDecoder = globalThis.TextDecoder ?? TextDecoder;
 window.URL.createObjectURL = jest.fn();
 window.HTMLElement.prototype.scrollIntoView = jest.fn();
 window.HTMLFormElement.prototype.requestSubmit = jest.fn();

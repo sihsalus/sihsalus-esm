@@ -409,32 +409,34 @@ describe('Updating an existing patient record', () => {
         error: null,
         isLoading: false,
         patient: mockPatient,
-        patientUuid: mockPatient.id,
+        patientUuid: mockPatient.uuid,
       };
     });
     mockSavePatient.mockReturnValue({ data: { uuid: 'new-pt-uuid' }, ok: true });
-    mockUseParams.mockReturnValue({ patientUuid: mockPatient.id });
+    mockUseParams.mockReturnValue({ patientUuid: mockPatient.uuid });
   });
 
-  it.skip('edits patient demographics', async () => {
+  it('edits patient demographics', async () => {
     const user = userEvent.setup();
     const mockSavePatientForm = jest.fn();
 
     mockUseInitialFormValues.mockReturnValue([
       {
         additionalFamilyName: '',
+        additionalFamilyName2: '',
         additionalGivenName: '',
         additionalMiddleName: '',
         addNameInLocalLanguage: false,
         address: {},
-        birthdate: mockPatient.birthDate,
+        birthdate: new Date('1972-04-04'),
         birthdateEstimated: false,
         deathCause: '',
         deathDate: undefined,
         deathTime: undefined,
         deathTimeFormat: 'AM',
         familyName: mockPatient.name.split(' ')[1],
-        gender: mockPatient.gender,
+        familyName2: '',
+        gender: 'male',
         givenName: mockPatient.name.split(' ')[0],
         identifiers: {
           openMrsId: {
@@ -464,7 +466,7 @@ describe('Updating an existing patient record', () => {
         middleName: '',
         monthsEstimated: 0,
         nonCodedCauseOfDeath: '',
-        patientUuid: mockPatient.id,
+        patientUuid: mockPatient.uuid,
         relationships: [],
         telephoneNumber: '',
         yearsEstimated: 0,
@@ -502,6 +504,7 @@ describe('Updating an existing patient record', () => {
       {
         addNameInLocalLanguage: false,
         additionalFamilyName: '',
+        additionalFamilyName2: '',
         additionalGivenName: '',
         additionalMiddleName: '',
         address: {
@@ -515,6 +518,7 @@ describe('Updating an existing patient record', () => {
         deathTime: undefined,
         deathTimeFormat: 'AM',
         familyName: 'Wilson',
+        familyName2: '',
         gender: 'male',
         givenName: 'John',
         identifiers: {

@@ -1,5 +1,5 @@
 import { mockSubscription } from '@mocks/openconceptlab.mock';
-import { type FetchResponse, openmrsFetch, showNotification } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithSwr } from '@tools/test-helpers';
@@ -9,7 +9,7 @@ import Import from './import.component';
 import { startImportWithSubscription } from './import.resource';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
-const mockShowNotification = jest.mocked(showNotification);
+const mockShowSnackbar = jest.mocked(showSnackbar);
 const mockStartImportWithSubscription = jest.mocked(startImportWithSubscription);
 
 jest.mock('./import.resource', () => {
@@ -67,13 +67,14 @@ describe('Import component', () => {
     expect(mockStartImportWithSubscription).toHaveBeenCalledWith(new AbortController());
     expect(mockStartImportWithSubscription).toHaveBeenCalledTimes(1);
 
-    expect(mockShowNotification).toHaveBeenCalledWith(
+    expect(mockShowSnackbar).toHaveBeenCalledWith(
       expect.objectContaining({
-        description: 'Import started successfully',
+        subtitle: 'Import started successfully',
         kind: 'success',
+        title: 'Import started',
       }),
     );
-    expect(mockShowNotification).toHaveBeenCalledTimes(1);
+    expect(mockShowSnackbar).toHaveBeenCalledTimes(1);
   });
 });
 

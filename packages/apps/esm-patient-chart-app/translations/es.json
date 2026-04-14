@@ -36,7 +36,7 @@
   "dose": "Dosis",
   "editEncounter": "Editar",
   "editPastVisit": "Editar consulta pasada",
-  "editThisEncounter": "Editar este encuentro",
+  "editThisEncounter": "Editar esta atención",
   "editThisVisit": "Editar esta consulta",
   "editVisitDetails": "Editar detalles de la consulta",
   "emptyStateText": "No hay {{displayText}} para mostrar para este paciente",
