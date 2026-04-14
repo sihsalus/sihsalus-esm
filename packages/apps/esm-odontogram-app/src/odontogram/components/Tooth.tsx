@@ -14,6 +14,7 @@ const Tooth: React.FC<ToothProps> = ({ zones }) => {
         <polygon
           key={index}
           points={points}
+          fill="white"
           strokeWidth="0.15"
           stroke="black"
           style={{ transition: 'fill 0.3s ease' }}
