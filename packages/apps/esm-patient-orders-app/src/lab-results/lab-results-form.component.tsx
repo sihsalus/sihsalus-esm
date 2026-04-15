@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-floating-promises, @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-floating-promises, @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/unbound-method */
 import { Button, ButtonSet, Form, InlineLoading, InlineNotification, Stack } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { restBaseUrl, showSnackbar, useAbortController, useLayoutType } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps, type Order } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { type Control, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
@@ -47,6 +47,11 @@ const LabResultsForm: React.FC<LabResultsFormProps> = ({
   const [showEmptyFormErrorNotification, setShowEmptyFormErrorNotification] = useState(false);
   const schema = useLabResultsFormSchema(order.concept.uuid);
   const { completeLabResult, isLoading, mutate: mutateResults } = useCompletedLabResults(order);
+  const invalidateLabOrdersRef = useRef(invalidateLabOrders);
+
+  useEffect(() => {
+    invalidateLabOrdersRef.current = invalidateLabOrders;
+  }, [invalidateLabOrders]);
 
   const mutateOrderData = useCallback(() => {
     mutate(
@@ -154,7 +159,7 @@ const LabResultsForm: React.FC<LabResultsFormProps> = ({
           }),
         );
       }
-      mutateResults();
+      void mutateResults();
       return setShowEmptyFormErrorNotification(false);
     }
 
@@ -188,9 +193,9 @@ const LabResultsForm: React.FC<LabResultsFormProps> = ({
       );
 
       closeWorkspaceWithSavedChanges();
-      mutateOrderData();
-      mutateResults();
-      invalidateLabOrders?.();
+      void mutateOrderData();
+      void mutateResults();
+      invalidateLabOrdersRef.current?.();
 
       showNotification(
         'success',
@@ -199,7 +204,10 @@ const LabResultsForm: React.FC<LabResultsFormProps> = ({
         }),
       );
     } catch (err) {
-      showNotification('error', err?.message);
+      showNotification(
+        'error',
+        err instanceof Error ? err.message : t('errorSavingLabResults', 'Error saving lab results'),
+      );
     } finally {
       setShowEmptyFormErrorNotification(false);
     }
@@ -238,7 +246,7 @@ const LabResultsForm: React.FC<LabResultsFormProps> = ({
           [styles.desktop]: !isTablet,
         })}
       >
-        <Button className={styles.button} kind="secondary" disabled={isSubmitting} onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" disabled={isSubmitting} onClick={() => closeWorkspace()}>
           {t('discard', 'Discard')}
         </Button>
         <Button

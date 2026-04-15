@@ -82,7 +82,7 @@ const TestOrder: React.FC<TestOrderProps> = ({ testOrder }) => {
   return (
     <div className={styles.testOrder}>
       {isLoadingTestConcepts ? (
-        <DataTableSkeleton role="progressbar" compact={isTablet} zebra />
+        <DataTableSkeleton role="progressbar" zebra />
       ) : (
         <DataTable rows={testRows} headers={tableHeaders} size={isTablet ? 'lg' : 'sm'} useZebraStyles>
           {({ rows, headers, getHeaderProps, getRowProps, getTableProps, getTableContainerProps }) => (

@@ -122,12 +122,13 @@ const FilterNode = ({ root, level, open }: FilterNodeProps) => {
             disabled={!root.hasData}
           />
         }
-        style={{ paddingLeft: `${level > 0 ? 1 : 0}rem` }}
         open={open ?? false}
       >
-        {!root?.subSets?.[0]?.obs &&
-          root?.subSets?.map((node, index) => <FilterNode root={node} level={level + 1} key={index} />)}
-        {root?.subSets?.[0]?.obs && root.subSets?.map((obs, index) => <FilterLeaf leaf={obs} key={index} />)}
+        <div style={{ paddingLeft: `${level > 0 ? 1 : 0}rem` }}>
+          {!root?.subSets?.[0]?.obs &&
+            root?.subSets?.map((node, index) => <FilterNode root={node} level={level + 1} key={index} />)}
+          {root?.subSets?.[0]?.obs && root.subSets?.map((obs, index) => <FilterLeaf leaf={obs} key={index} />)}
+        </div>
       </AccordionItem>
     </Accordion>
   );

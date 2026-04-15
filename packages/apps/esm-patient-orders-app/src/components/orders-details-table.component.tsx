@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import {
   Button,
   DataTable,
   DataTableSkeleton,
+  type DataTableHeader,
+  type DataTableRow,
   DatePicker,
   DatePickerInput,
   Dropdown,
@@ -74,9 +76,9 @@ interface OrderDetailsProps {
 
 interface OrderBasketItemActionsProps {
   openOrderBasket: () => void;
-  openOrderForm: (additionalProps?: { order: MutableOrderBasketItem }) => void;
+  openOrderForm: () => void;
   orderItem: Order;
-  responsiveSize: string;
+  responsiveSize: 'sm' | 'md' | 'lg';
 }
 
 interface OrderHeaderProps {
@@ -86,17 +88,15 @@ interface OrderHeaderProps {
   isVisible?: boolean;
 }
 
-interface DataTableRow {
-  id: string;
-  cells: Array<{
-    id: number;
-    info: { header: string };
-    value: ReactNode | { props: { orderItem: Order }; content: string };
-  }>;
-  isExpanded: boolean;
-}
-
 type MutableOrderBasketItem = OrderBasketItem;
+
+function getCellContent(value: ReactNode) {
+  if (value && typeof value === 'object' && 'content' in value) {
+    return value.content as ReactNode;
+  }
+
+  return value;
+}
 
 const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddButton, showPrintButton, title }) => {
   const { t } = useTranslation();
@@ -108,14 +108,14 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
   const launchAddDrugOrder = useLaunchWorkspaceRequiringVisit('add-drug-order');
   const launchModifyLabOrder = useLaunchWorkspaceRequiringVisit('add-lab-order');
   const launchModifyGeneralOrder = useLaunchWorkspaceRequiringVisit('orderable-concept-workspace');
-  const contentToPrintRef = useRef(null);
+  const contentToPrintRef = useRef<HTMLDivElement>(null);
   const patient = usePatient(patientUuid);
   const { excludePatientIdentifierCodeTypes } = useConfig();
   const [isPrinting, setIsPrinting] = useState(false);
   const { data: orderTypes } = useOrderTypes();
-  const [selectedOrderTypeUuid, setSelectedOrderTypeUuid] = useState(null);
-  const [selectedFromDate, setSelectedFromDate] = useState(null);
-  const [selectedToDate, setSelectedToDate] = useState(null);
+  const [selectedOrderTypeUuid, setSelectedOrderTypeUuid] = useState<string | null>(null);
+  const [selectedFromDate, setSelectedFromDate] = useState<string | null>(null);
+  const [selectedToDate, setSelectedToDate] = useState<string | null>(null);
   const selectedOrderName = orderTypes?.find((x) => x.uuid === selectedOrderTypeUuid)?.name;
   const {
     data: allOrders,
@@ -277,7 +277,7 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
     };
   }, [patient, excludePatientIdentifierCodeTypes?.uuids]);
 
-  const onBeforeGetContentResolve = useRef(null);
+  const onBeforeGetContentResolve = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (isPrinting && onBeforeGetContentResolve.current) {
@@ -286,12 +286,12 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    content: () => contentToPrintRef.current,
+    contentRef: contentToPrintRef,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
-    onBeforeGetContent: () =>
+    onBeforePrint: () =>
       new Promise((resolve) => {
         if (patient && title) {
-          onBeforeGetContentResolve.current = resolve;
+          onBeforeGetContentResolve.current = () => resolve();
           setIsPrinting(true);
         }
       }),
@@ -315,18 +315,18 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
     [orderTypes, t],
   );
 
-  const handleDateFilterChange = ([startDate, endDate]) => {
+  const handleDateFilterChange = ([startDate, endDate]: Array<Date | undefined>) => {
     if (startDate) {
       const isoStartDate = startDate.toISOString();
       setSelectedFromDate(isoStartDate);
-      if (selectedToDate && selectedToDate < startDate) {
+      if (selectedToDate && new Date(selectedToDate) < startDate) {
         setSelectedToDate(isoStartDate);
       }
     }
     if (endDate) {
       const isoEndDate = endDate.toISOString();
       setSelectedToDate(isoEndDate);
-      if (selectedFromDate && selectedFromDate > endDate) {
+      if (selectedFromDate && new Date(selectedFromDate) > endDate) {
         setSelectedFromDate(isoEndDate);
       }
     }
@@ -344,16 +344,16 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
           <Dropdown
             id="orderTypeDropdown"
             items={orderTypesToDisplay}
-            itemToString={(orderType: OrderType) => (orderType ? capitalize(orderType.display) : '')}
+            itemToString={(orderType: OrderType | null) => (orderType ? capitalize(orderType.display) : '')}
             label={t('allOrders', 'All orders')}
-            onChange={(e: { selectedItem: OrderType }) => {
-              if (e.selectedItem.display === 'All') {
+            onChange={({ selectedItem }: { selectedItem: OrderType | null }) => {
+              if (!selectedItem || selectedItem.display === 'All') {
                 setSelectedOrderTypeUuid(null);
                 return;
               }
-              setSelectedOrderTypeUuid(e.selectedItem.uuid);
+              setSelectedOrderTypeUuid(selectedItem.uuid);
             }}
-            selectedItem={orderTypes?.find((x) => x.uuid === selectedOrderTypeUuid)}
+            selectedItem={orderTypesToDisplay.find((x) => x.uuid === selectedOrderTypeUuid) ?? orderTypesToDisplay[0]}
             titleText={t('selectOrderType', 'Select order type') + ':'}
             type="inline"
           />
@@ -363,8 +363,8 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
           datePickerType="range"
           dateFormat={'d/m/Y'}
           value={''}
-          onChange={([startDate, endDate]) => {
-            handleDateFilterChange([startDate, endDate]);
+          onChange={(dates) => {
+            handleDateFilterChange(dates);
           }}
         >
           <DatePickerInput
@@ -384,7 +384,7 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
 
       {(() => {
         if (isLoading) {
-          return <DataTableSkeleton role="progressbar" compact={!isTablet} zebra />;
+          return <DataTableSkeleton role="progressbar" zebra />;
         }
 
         if (error) {
@@ -466,13 +466,13 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                         rows,
                       }) => (
                         <>
-                          <TableContainer {...getTableContainerProps}>
+                          <TableContainer {...getTableContainerProps()}>
                             {!isPrinting && (
                               <div className={styles.toolBarContent}>
                                 <TableToolbarContent>
                                   <Layer>
                                     <Search
-                                      expanded
+                                      isExpanded
                                       labelText=""
                                       onChange={onInputChange}
                                       placeholder={t('searchTable', 'Search table')}
@@ -486,8 +486,8 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                               <TableHead>
                                 <TableRow>
                                   <TableExpandHeader enableToggle {...getExpandHeaderProps()} />
-                                  {headers.map((header: { header: string }) => (
-                                    <TableHeader key={header.header} {...getHeaderProps({ header })}>
+                                  {headers.map((header: DataTableHeader) => (
+                                    <TableHeader key={header.key} {...getHeaderProps({ header })}>
                                       {header.header}
                                     </TableHeader>
                                   ))}
@@ -495,7 +495,7 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                                 </TableRow>
                               </TableHead>
                               <TableBody>
-                                {rows.map((row: DataTableRow) => {
+                                {rows.map((row: DataTableRow<string[]>) => {
                                   const matchingOrder = allOrders?.find((order) => order.uuid === row.id);
 
                                   return (
@@ -503,19 +503,19 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                                       <TableExpandRow className={styles.row} {...getRowProps({ row })}>
                                         {row.cells.map((cell) => (
                                           <TableCell className={styles.tableCell} key={cell.id}>
-                                            {cell.value?.['content'] ?? cell.value}
+                                            {getCellContent(cell.value)}
                                           </TableCell>
                                         ))}
                                         {!isPrinting && (
                                           <TableCell className="cds--table-column-menu">
-                                            {isOmrsOrder(matchingOrder) ? (
+                                            {matchingOrder && isOmrsOrder(matchingOrder) ? (
                                               <OrderBasketItemActions
                                                 openOrderBasket={launchOrderBasket}
                                                 openOrderForm={() => openOrderForm(matchingOrder)}
                                                 orderItem={matchingOrder}
                                                 responsiveSize={responsiveSize}
                                               />
-                                            ) : (
+                                            ) : matchingOrder ? (
                                               <ExtensionSlot
                                                 name={`${matchingOrder.type}-action-menu-items-slot`}
                                                 state={{
@@ -524,7 +524,7 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                                                   responsiveSize,
                                                 }}
                                               />
-                                            )}
+                                            ) : null}
                                           </TableCell>
                                         )}
                                       </TableExpandRow>
@@ -542,14 +542,14 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                                               <TestOrder testOrder={matchingOrder} />
                                             ) : matchingOrder?.type === 'order' ? (
                                               <GeneralOrderTable order={matchingOrder} />
-                                            ) : (
+                                            ) : matchingOrder ? (
                                               <ExtensionSlot
                                                 name={`${matchingOrder.type}-detail-slot`}
                                                 state={{
                                                   orderItem: matchingOrder,
                                                 }}
                                               />
-                                            )}
+                                            ) : null}
                                           </>
                                         </TableExpandedRow>
                                       ) : (
@@ -610,12 +610,12 @@ function OrderBasketItemActions({
 
   const handleModifyClick = useCallback(() => {
     if (orderItem.type === 'drugorder') {
-      getDrugOrderByUuid(orderItem.uuid)
+      void getDrugOrderByUuid(orderItem.uuid)
         .then((res) => {
           const medicationOrder = res.data;
           const medicationItem = buildMedicationOrder(medicationOrder, 'REVISE');
           setOrders([...orders, medicationItem]);
-          openOrderForm({ order: medicationItem });
+          openOrderForm();
         })
         .catch((e) => {
           console.error('Error modifying drug order: ', e);
@@ -623,11 +623,11 @@ function OrderBasketItemActions({
     } else if (orderItem.type === 'testorder') {
       const labItem = buildLabOrder(orderItem, 'REVISE');
       setOrders([...orders, labItem]);
-      openOrderForm({ order: labItem });
+      openOrderForm();
     } else if (orderItem.type === 'order') {
       const order = buildGeneralOrder(orderItem, 'REVISE');
       setOrders([...orders, order]);
-      openOrderForm({ order });
+      openOrderForm();
     }
   }, [orderItem, openOrderForm, orders, setOrders]);
 
@@ -637,11 +637,15 @@ function OrderBasketItemActions({
 
   const handleCancelClick = useCallback(() => {
     if (orderItem.type === 'drugorder') {
-      void getDrugOrderByUuid(orderItem.uuid).then((res) => {
-        const medicationOrder = res.data;
-        setOrders([...orders, buildMedicationOrder(medicationOrder, 'DISCONTINUE')]);
-        openOrderBasket();
-      });
+      void getDrugOrderByUuid(orderItem.uuid)
+        .then((res) => {
+          const medicationOrder = res.data;
+          setOrders([...orders, buildMedicationOrder(medicationOrder, 'DISCONTINUE')]);
+          openOrderBasket();
+        })
+        .catch((error) => {
+          console.error('Error discontinuing drug order: ', error);
+        });
     } else if (orderItem.type === 'testorder') {
       const labItem = buildLabOrder(orderItem, 'DISCONTINUE');
       setOrders([...orders, labItem]);
@@ -660,7 +664,7 @@ function OrderBasketItemActions({
         aria-label={t('actionsMenu', 'Actions menu')}
         flipped
         selectorPrimaryFocus={'#modify'}
-        size={responsiveSize}
+        size={responsiveSize === 'md' ? 'sm' : responsiveSize}
       >
         <OverflowMenuItem
           className={styles.menuItem}

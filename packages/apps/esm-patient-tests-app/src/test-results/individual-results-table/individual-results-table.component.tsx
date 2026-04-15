@@ -120,7 +120,7 @@ const IndividualResultsTable: React.FC<IndividualResultsTableProps> = ({ isLoadi
     [index, subRows, launchResultsDialog],
   );
 
-  if (isLoading) return <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />;
+  if (isLoading) return <DataTableSkeleton role="progressbar" zebra />;
 
   if (subRows.entries?.length) {
     return (

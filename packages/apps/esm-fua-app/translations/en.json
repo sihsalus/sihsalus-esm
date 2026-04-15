@@ -79,6 +79,8 @@
   "couldNotCreateEncounter": "Could not create encounter for FUA",
   "retry": "Retry",
   "noActiveVisitForFua": "There is no active visit to create a FUA",
+  "noFuaForCurrentVisit": "There is no FUA registered for the current visit. Open FUA management to review or generate the document in the backend.",
+  "openFuaManagement": "Open FUA management",
   "creationDate": "Creation Date",
   "updateDate": "Update Date",
   "noFuaRequestsFound": "No FUA requests found",

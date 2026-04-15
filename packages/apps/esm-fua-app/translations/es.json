@@ -94,5 +94,7 @@
   "errorCreatingFua": "Ocurrió un error al crear el FUA",
   "couldNotCreateEncounter": "No se pudo crear el encuentro para FUA",
   "retry": "Reintentar",
-  "noActiveVisitForFua": "No hay una visita activa para crear FUA"
+  "noActiveVisitForFua": "No hay una visita activa para crear FUA",
+  "noFuaForCurrentVisit": "No hay un FUA registrado para la visita actual. Abra la gestión FUA para revisar o generar el documento en el backend.",
+  "openFuaManagement": "Abrir gestión FUA"
 }

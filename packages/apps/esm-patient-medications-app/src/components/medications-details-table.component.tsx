@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import {
   DataTable,
   Button,
-  IconButton,
   InlineLoading,
   OverflowMenu,
   OverflowMenuItem,
@@ -77,7 +76,7 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
     showPrintButton?: boolean;
   }>();
   const showPrintButton = config.showPrintButton;
-  const contentToPrintRef = useRef(null);
+  const contentToPrintRef = useRef<HTMLDivElement>(null);
   const { excludePatientIdentifierCodeTypes } = config;
   const [isPrinting, setIsPrinting] = useState(false);
 
@@ -206,7 +205,7 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
     };
   }, [patient, t, excludePatientIdentifierCodeTypes?.uuids]);
 
-  const onBeforeGetContentResolve = useRef(null);
+  const onBeforeGetContentResolve = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (isPrinting && onBeforeGetContentResolve.current) {
@@ -215,12 +214,12 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    content: () => contentToPrintRef.current,
+    contentRef: contentToPrintRef,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
-    onBeforeGetContent: () =>
+    onBeforePrint: () =>
       new Promise((resolve) => {
         if (patient && title) {
-          onBeforeGetContentResolve.current = resolve;
+          onBeforeGetContentResolve.current = () => resolve();
           setIsPrinting(true);
         }
       }),
@@ -335,16 +334,11 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
 
 function InfoTooltip({ orderer }: { orderer: string }) {
   return (
-    <IconButton
-      className={styles.tooltip}
-      align="top-left"
-      direction="top"
-      label={orderer}
-      renderIcon={(props: ComponentProps<typeof UserIcon>) => <UserIcon size={16} {...props} />}
-      iconDescription={orderer}
-      kind="ghost"
-      size="sm"
-    />
+    <Tooltip align="top-left" label={orderer}>
+      <button className={styles.tooltip} type="button" aria-label={orderer}>
+        <UserIcon size={16} />
+      </button>
+    </Tooltip>
   );
 }
 

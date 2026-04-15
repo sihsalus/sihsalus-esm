@@ -1,5 +1,6 @@
 import { Button, InlineLoading } from '@carbon/react';
-import { openmrsFetch, restBaseUrl, showSnackbar, useConfig, useSession, useVisit } from '@openmrs/esm-framework';
+import { navigate, openmrsFetch, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,11 +13,15 @@ interface FuaEncounterWorkspaceProps {
   visitUuid?: string;
 }
 
+interface FuaPatientOrder {
+  uuid: string;
+  visitUuid?: string | null;
+}
+
 const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUuid, encounterUuid, visitUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<Config>();
-  const session = useSession();
-  const { currentVisit, isLoading: isLoadingVisit } = useVisit(patientUuid);
+  const { currentVisit, activeVisit, isLoading: isLoadingVisit } = useVisitOrOfflineVisit(patientUuid);
   const [isInitializing, setIsInitializing] = useState(true);
   const [fuaId, setFuaId] = useState<string | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -27,7 +32,7 @@ const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUu
       return;
     }
 
-    const effectiveVisitUuid = visitUuid ?? currentVisit?.uuid;
+    const effectiveVisitUuid = visitUuid ?? currentVisit?.uuid ?? activeVisit?.uuid;
 
     if (!effectiveVisitUuid) {
       const message = t('noActiveVisitForFua', 'No hay una visita activa para crear FUA');
@@ -36,70 +41,36 @@ const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUu
       return;
     }
 
-    const createEncounterAndFua = async () => {
+    const loadExistingFua = async () => {
       try {
         setIsInitializing(true);
         setErrorMessage(null);
 
-        let createdEncounterUuid = encounterUuid;
-
-        if (!createdEncounterUuid) {
-          const encounterPayload: Record<string, unknown> = {
-            patient: patientUuid,
-            visit: effectiveVisitUuid,
-            encounterType: config.encounterTypeUuid,
-            encounterDatetime: new Date().toISOString(),
-          };
-
-          if (session?.sessionLocation?.uuid) {
-            encounterPayload.location = session.sessionLocation.uuid;
-          }
-
-          const encounterResponse = await openmrsFetch<{ uuid: string }>(`${restBaseUrl}/encounter`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: encounterPayload,
-          });
-
-          createdEncounterUuid = encounterResponse?.data?.uuid;
-        }
-
-        if (!createdEncounterUuid) {
-          throw new Error(t('couldNotCreateEncounter', 'No se pudo crear el encuentro para FUA'));
-        }
-
-        const fuaResponse = await openmrsFetch<{ uuid?: string; fuaUuid?: string; id?: string | number }>(
-          `${config.fuaApiBasePath}/create`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: {
-              patientUuid,
-              visitUuid: effectiveVisitUuid,
-              encounterUuid: createdEncounterUuid,
-            },
-          },
+        const fuaResponse = await openmrsFetch<Array<FuaPatientOrder>>(
+          `${config.fuaApiBasePath}/patient/${patientUuid}`,
         );
+        const fuaOrders = fuaResponse?.data ?? [];
+        const matchingFua =
+          fuaOrders.find((fua) => fua.visitUuid === effectiveVisitUuid) ??
+          fuaOrders.find((fua) => fua.uuid === encounterUuid);
 
-        const createdFuaId =
-          fuaResponse?.data?.uuid ?? fuaResponse?.data?.fuaUuid ?? (fuaResponse?.data?.id ? String(fuaResponse.data.id) : undefined);
-        setFuaId(createdFuaId);
+        if (!matchingFua?.uuid) {
+          setErrorMessage(
+            t(
+              'noFuaForCurrentVisit',
+              'No hay un FUA registrado para la visita actual. Abra la gestión FUA para revisar o generar el documento en el backend.',
+            ),
+          );
+          setFuaId(undefined);
+          return;
+        }
 
-        showSnackbar({
-          title: t('fuaCreated', 'FUA creado'),
-          subtitle: t('fuaCreatedWithEncounter', 'Se creó un encuentro y se inició el FUA correctamente'),
-          kind: 'success',
-        });
+        setFuaId(matchingFua.uuid);
       } catch (error) {
-        const message =
-          error instanceof Error ? error.message : t('errorCreatingFua', 'Ocurrió un error al crear el FUA');
+        const message = error instanceof Error ? error.message : t('errorLoadingFua', 'Error al cargar FUA');
         setErrorMessage(message);
         showSnackbar({
-          title: t('errorCreatingFua', 'Ocurrió un error al crear el FUA'),
+          title: t('errorLoadingFua', 'Error al cargar FUA'),
           subtitle: message,
           kind: 'error',
         });
@@ -108,16 +79,15 @@ const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUu
       }
     };
 
-    void createEncounterAndFua();
+    void loadExistingFua();
   }, [
-    config.encounterTypeUuid,
     config.fuaApiBasePath,
     encounterUuid,
+    activeVisit?.uuid,
     currentVisit?.uuid,
     isLoadingVisit,
     patientUuid,
     retrySeed,
-    session,
     t,
     visitUuid,
   ]);
@@ -134,9 +104,35 @@ const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUu
     return (
       <div style={{ padding: '1rem', display: 'grid', gap: '1rem' }}>
         <p>{errorMessage}</p>
-        <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
-          {t('retry', 'Reintentar')}
-        </Button>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
+            {t('retry', 'Reintentar')}
+          </Button>
+          <Button kind="secondary" onClick={() => navigate({ to: '${openmrsSpaBase}/fua-request' })}>
+            {t('openFuaManagement', 'Abrir gestión FUA')}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!fuaId) {
+    return (
+      <div style={{ padding: '1rem', display: 'grid', gap: '1rem' }}>
+        <p>
+          {t(
+            'noFuaForCurrentVisit',
+            'No hay un FUA registrado para la visita actual. Abra la gestión FUA para revisar o generar el documento en el backend.',
+          )}
+        </p>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <Button kind="secondary" onClick={() => navigate({ to: '${openmrsSpaBase}/fua-request' })}>
+            {t('openFuaManagement', 'Abrir gestión FUA')}
+          </Button>
+          <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
+            {t('retry', 'Reintentar')}
+          </Button>
+        </div>
       </div>
     );
   }

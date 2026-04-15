@@ -44,9 +44,9 @@ export function getMedicationByUuid(abortController: AbortController, orderUuid:
 export function useOrderEncounter(patientUuid: string): {
   activeVisitRequired: boolean;
   isLoading: boolean;
-  error: Error;
-  encounterUuid: string;
-  mutate: Function;
+  error: Error | null | undefined;
+  encounterUuid: string | null | undefined;
+  mutate: () => void | Promise<unknown>;
 } {
   const { systemVisitEnabled, isLoadingSystemVisitSetting, errorFetchingSystemVisitSetting } = useSystemVisitSetting();
 

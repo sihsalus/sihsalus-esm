@@ -1,7 +1,7 @@
 import { ClickableTile, IconButton, Tile } from '@carbon/react';
-import { ExtensionSlot, TrashCanIcon, useLayoutType, WarningIcon } from '@openmrs/esm-framework';
+import { TrashCanIcon, useLayoutType, WarningIcon } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { TestOrderBasketItem } from '../../types';
@@ -25,13 +25,6 @@ export function LabOrderBasketItemTile({ orderBasketItem, onItemClick, onRemoveC
   // handleClick event later. Not sure if this is a bug, but this shouldn't be possible in our flows.
   // Hence, we manually prevent the handleClick callback from being invoked as soon as the button is pressed once.
   const shouldOnClickBeCalled = useRef(true);
-
-  const additionalInfoSlotState = useMemo(
-    () => ({
-      orderItemUuid: orderBasketItem.testType.conceptUuid,
-    }),
-    [orderBasketItem],
-  );
 
   const labTile = (
     <div>
@@ -67,11 +60,6 @@ export function LabOrderBasketItemTile({ orderBasketItem, onItemClick, onRemoveC
           <TrashCanIcon size={16} className={styles.removeButton} />
         </IconButton>
       </div>
-      <ExtensionSlot
-        name="order-item-additional-info-slot"
-        state={additionalInfoSlotState}
-        className={styles.additionalInfoContainer}
-      />
     </div>
   );
 
