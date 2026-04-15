@@ -11,11 +11,11 @@ import { useLocations, useReportDefinitions, useReportDesigns, runReportObservab
 
 import styles from './run-report-form.scss';
 
-interface RunReportForm {
+interface RunReportFormProps {
   closePanel: () => void;
 }
 
-const RunReportForm: React.FC<RunReportForm> = ({ closePanel }) => {
+const RunReportForm: React.FC<RunReportFormProps> = ({ closePanel }) => {
   const { t } = useTranslation();
   const [reportUuid, setReportUuid] = useState('');
   const [renderModeUuid, setRenderModeUuid] = useState('');

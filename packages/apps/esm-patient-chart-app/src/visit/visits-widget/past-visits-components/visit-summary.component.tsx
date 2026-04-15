@@ -59,7 +59,7 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ visit, patientUuid }) => {
     const notes: Array<Note> = [];
 
     visit?.encounters?.forEach((enc: Encounter) => {
-      if (enc.hasOwnProperty('orders')) {
+      if (Object.prototype.hasOwnProperty.call(enc, 'orders')) {
         medications.push(
           ...enc.orders.map((order: Order) => ({
             order,
@@ -72,7 +72,7 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ visit, patientUuid }) => {
       }
 
       // Check if there is a diagnosis associated with this encounter
-      if (enc.hasOwnProperty('diagnoses')) {
+      if (Object.prototype.hasOwnProperty.call(enc, 'diagnoses')) {
         if (enc.diagnoses.length > 0) {
           const validDiagnoses = enc.diagnoses
             .filter((diagnosis: Diagnosis) => !diagnosis.voided)
@@ -87,7 +87,7 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ visit, patientUuid }) => {
       }
 
       // Check for Visit Diagnoses and Notes
-      if (enc.hasOwnProperty('obs')) {
+      if (Object.prototype.hasOwnProperty.call(enc, 'obs')) {
         enc.obs.forEach((obs: Observation) => {
           if (config.notesConceptUuids?.includes(obs.concept.uuid)) {
             // Putting all notes in a single array.

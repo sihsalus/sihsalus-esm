@@ -1,6 +1,6 @@
 import { toDICOMDateTime } from '../src/imaging/utils/help';
 
-import {
+import type {
   DicomStudy,
   Instance,
   OrthancConfiguration,
@@ -157,7 +157,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829431.11401',
     orthancInstanceUID: 'f3a5c83e-b3f5-4a5d-8f0f-5a0a8f4f5b7c',
     instanceNumber: '1',
-    imagePositionPatient: '-112\-17.333334\-540',
+    imagePositionPatient: '-112-17.333334-540',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,
@@ -170,7 +170,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829433.11402',
     orthancInstanceUID: 'e2b3d39e-6bfc-4ef4-a96a-daa176d6d010',
     instanceNumber: '2',
-    imagePositionPatient: '-112\-17.333334\-540.700012',
+    imagePositionPatient: '-112-17.333334-540.700012',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,
@@ -183,7 +183,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829433.11403',
     orthancInstanceUID: 'd1c7e28a-2e42-432e-9c6a-b58700a1c9e2',
     instanceNumber: '3',
-    imagePositionPatient: '-112\-17.333334\-541.400024',
+    imagePositionPatient: '-112-17.333334-541.400024',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,
@@ -196,7 +196,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829434.11404',
     orthancInstanceUID: 'd1c7e28a-2e42-432e-9c6a-b58700a1c9e2',
     instanceNumber: '4',
-    imagePositionPatient: '-112\-17.333334\-542.099976',
+    imagePositionPatient: '-112-17.333334-542.099976',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,
@@ -209,7 +209,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829434.11405',
     orthancInstanceUID: 'd1c7e28a-2e42-432e-9c6a-b58700a1c9e2',
     instanceNumber: '5',
-    imagePositionPatient: '-112\-17.333334\-542.799988',
+    imagePositionPatient: '-112-17.333334-542.799988',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,
@@ -222,7 +222,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829434.11406',
     orthancInstanceUID: 'd1c7e28a-2e42-432e-9c6a-b58700a1c9e2',
     instanceNumber: '6',
-    imagePositionPatient: '-112\-17.333334\-543.5',
+    imagePositionPatient: '-112-17.333334-543.5',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,
@@ -235,7 +235,7 @@ export const testInstances: Array<Instance> = [
     sopInstanceUID: '1.2.840.113704.1.111.6168.1127829434.11407',
     orthancInstanceUID: 'd1c7e28a-2e42-432e-9c6a-b58700a1c9e2',
     instanceNumber: '7',
-    imagePositionPatient: '-112\-17.333334\-544.200012',
+    imagePositionPatient: '-112-17.333334-544.200012',
     numberOfFrames: '',
     orthancConfiguration: {
       id: 1,

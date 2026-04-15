@@ -16,7 +16,6 @@ const ContactUs = () => {
       renderIcon={ArrowUpRight}
       target="_blank"
     >
-      {/* TODO: cambiar a un sitio oficial de soporte */}
       {t('communityforum', 'Community forum')}
     </Link>
   );

@@ -80,7 +80,7 @@ const ClinicalDataOverview: React.FC<ClinicalDataOverviewProps> = ({
   formWorkspace,
   emptyStateDisplayText,
   conceptUnits,
-  config,
+  config: _config,
   chartConfig,
 }) => {
   const { t } = useTranslation();
@@ -98,8 +98,8 @@ const ClinicalDataOverview: React.FC<ClinicalDataOverviewProps> = ({
 
   return (
     <>
-      {(() => {
-        if (isLoading) return <DataTableSkeleton role="progressbar" compact={!isTablet} zebra />;
+      {((): React.ReactNode => {
+        if (isLoading) return <DataTableSkeleton role="progressbar" zebra />;
         if (error) return <ErrorState error={error} headerTitle={headerTitle} />;
         if (data?.length) {
           return (
@@ -131,7 +131,6 @@ const ClinicalDataOverview: React.FC<ClinicalDataOverviewProps> = ({
                 <ClinicalDataChart
                   patientData={data}
                   conceptUnits={conceptUnits}
-                  config={config}
                   vitalSigns={chartConfig.vitalSigns}
                   mappings={chartConfig.mappings}
                 />

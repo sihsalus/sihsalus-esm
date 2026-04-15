@@ -99,7 +99,7 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
     if (!Comp) return null;
     return (
       <svg width="40" height="80" viewBox="0 0 60 120" className="tim-design-preview">
-        <ToothDesigns design={rootDesign as any} />
+        <ToothDesigns design={rootDesign as 'default' | 'design2' | 'design3' | 'design4'} />
         <Tooth zones={zones} />
         <Comp strokeColor={finding.color?.name || 'black'} />
       </svg>
@@ -146,7 +146,7 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
           <div className="tim-overview">
             <div className="tim-tooth-preview">
               <svg width="60" height="120" viewBox="0 0 60 120">
-                <ToothDesigns design={rootDesign as any} />
+                <ToothDesigns design={rootDesign as 'default' | 'design2' | 'design3' | 'design4'} />
                 <Tooth zones={zones} />
                 {findings.map((f, i) => {
                   const comps = TOOTH_DESIGN_COMPONENT_MAP[String(f.findingId)];

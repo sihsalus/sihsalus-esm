@@ -1,41 +1,11 @@
-import { openmrsFetch, restBaseUrl, getGlobalStore, useStore, useConfig, getLocale } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, useConfig, getLocale } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { type Config } from '../config-schema';
 import { omrsDateFormat } from '../constants';
-
-/**
- * Hook to get location and status UUIDs from service-queues store if available
- * Returns undefined values if store is not available (e.g., when used standalone)
- */
-function useServiceQueuesFilters(): {
-  locationUuid?: string;
-  locationName?: string;
-  statusUuid?: string;
-} {
-  try {
-    const store = getGlobalStore<{
-      selectedQueueLocationUuid?: string;
-      selectedQueueLocationName?: string;
-      selectedQueueStatusUuid?: string;
-    }>('serviceQueues', {
-      selectedQueueLocationUuid: undefined,
-      selectedQueueLocationName: undefined,
-      selectedQueueStatusUuid: undefined,
-    });
-    const state = useStore(store);
-    return {
-      locationUuid: state?.selectedQueueLocationUuid,
-      locationName: state?.selectedQueueLocationName,
-      statusUuid: state?.selectedQueueStatusUuid,
-    };
-  } catch {
-    // Store not available, return undefined values
-    return { locationUuid: undefined, locationName: undefined, statusUuid: undefined };
-  }
-}
+import { useServiceQueuesLocationAndName } from '../utils/service-queues-integration';
 
 /**
  * Represents a single patient entry in an emergency queue.
@@ -133,9 +103,9 @@ export function useEmergencyQueueEntries(
   locationUuid?: string,
   queueUuid?: string,
 ) {
-  // If no locationUuid or statusUuid provided, try to get them from service-queues store
+  // If no locationUuid provided, try to get it from service-queues store
   // This allows automatic integration when used within service-queues-app
-  const { locationUuid: serviceQueuesLocation } = useServiceQueuesFilters();
+  const { locationUuid: serviceQueuesLocation } = useServiceQueuesLocationAndName();
   const config = useConfig<Config>();
 
   // Priority: explicit param > service-queues store > config emergency location (standalone fallback)

@@ -5465,6 +5465,7 @@ __metadata:
   dependencies:
     "@carbon/react": "npm:^1.12.0"
     jest: "npm:^29.7.0"
+    jsep: "npm:^1.4.0"
     lodash-es: "npm:^4.17.21"
     typescript: "npm:^5.8.3"
     uuid: "npm:^8.3.2"
@@ -9882,9 +9883,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sihsalus/esm-salud-materna-app@workspace:packages/apps/esm-maternal-and-child-health":
+"@sihsalus/esm-salud-materna-app@workspace:packages/apps/esm-salud-materna-app":
   version: 0.0.0-use.local
-  resolution: "@sihsalus/esm-salud-materna-app@workspace:packages/apps/esm-maternal-and-child-health"
+  resolution: "@sihsalus/esm-salud-materna-app@workspace:packages/apps/esm-salud-materna-app"
   dependencies:
     "@carbon/charts": "npm:^1.23.7"
     "@carbon/charts-react": "npm:^1.23.7"

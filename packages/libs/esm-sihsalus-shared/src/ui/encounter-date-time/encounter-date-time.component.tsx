@@ -12,7 +12,6 @@ import styles from './encounter-date-time.scss';
 interface EncounterDateTimeSectionProps {
   control: Control<FieldValues>;
   firstEncounterDateTime?: number;
-  lastEncounterDateTime?: number;
   patientUuid?: string;
   encounterTypeUuid?: string;
   sectionTitle?: string;
@@ -38,11 +37,7 @@ interface Field {
  * The component conditionally renders the Visit start and end
  * date / time fields based on the visit status (new / ongoing / past)
  */
-const EncounterDateTimeSection: React.FC<EncounterDateTimeSectionProps> = ({
-  control,
-  lastEncounterDateTime,
-  sectionTitle,
-}) => {
+const EncounterDateTimeSection: React.FC<EncounterDateTimeSectionProps> = ({ control, sectionTitle }) => {
   const { t } = useTranslation();
 
   return (

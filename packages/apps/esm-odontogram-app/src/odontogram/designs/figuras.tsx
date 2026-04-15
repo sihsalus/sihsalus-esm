@@ -3,7 +3,13 @@ import React from 'react';
 /** Common props for all design SVG components */
 interface DesignProps {
   strokeColor: string;
-  [key: string]: any;
+  cx?: number;
+  cy?: number;
+  rx?: number;
+  ry?: number;
+  r?: number;
+  width?: number;
+  height?: number;
 }
 
 // Función para renderizar una elipse

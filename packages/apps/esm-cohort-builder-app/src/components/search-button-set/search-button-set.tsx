@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Button, ButtonSet, Column, InlineLoading } from '@carbon/react';
 import styles from './search-button-set.scss';
 
-interface SearchButtonSet {
+interface SearchButtonSetProps {
   isLoading: boolean;
   onHandleSubmit: () => void;
   onHandleReset: () => void;
 }
 
-const SearchButtonSet: React.FC<SearchButtonSet> = ({ isLoading, onHandleSubmit, onHandleReset }) => {
+const SearchButtonSet: React.FC<SearchButtonSetProps> = ({ isLoading, onHandleSubmit, onHandleReset }) => {
   const { t } = useTranslation();
 
   return (

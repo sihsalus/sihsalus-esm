@@ -25,7 +25,7 @@ export default function ChangeLanguageModal({ close }: ChangeLanguageModalProps)
   const { t } = useTranslation();
   const session = useSession();
   const user = session?.user;
-  const allowedLocales = session?.allowedLocales ?? [];
+  const allowedLocales = useMemo(() => session?.allowedLocales ?? [], [session?.allowedLocales]);
   const [selectedLocale, setSelectedLocale] = useState(session?.locale);
   const [shouldChangeDefaultLocale, setShouldChangeDefaultLocale] = useState(true);
   const [isChangingLanguage, setIsChangingLanguage] = useState(false);
@@ -49,7 +49,7 @@ export default function ChangeLanguageModal({ close }: ChangeLanguageModalProps)
         updateSessionLocale(formattedLocale, ac);
       }
     }
-  }, [user.userProperties, user.uuid, selectedLocale, shouldChangeDefaultLocale]);
+  }, [ac, selectedLocale, session?.locale, shouldChangeDefaultLocale, user.userProperties, user.uuid]);
 
   const languageNames = useMemo(
     () =>

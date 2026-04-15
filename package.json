@@ -69,7 +69,7 @@
     "typescript-eslint": "^8.58.0"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "eslint --cache --fix --max-warnings 0",
+    "*.{ts,tsx}": "eslint --cache --fix --max-warnings 0 --no-warn-ignored",
     "*.{css,scss,ts,tsx}": "prettier --write --list-different"
   },
   "packageManager": "yarn@4.13.0",

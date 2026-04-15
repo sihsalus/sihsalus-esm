@@ -6,6 +6,7 @@ import { ODONTOGRAM_CONFIG } from '../config/odontogramConfig';
 import DesignSelector from './DesignSelector';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
 import { isRowFinding } from '../logic/findingDesignLogic';
+import type { FindingDesign } from '../types/odontogram';
 
 interface MainSectionOnTheCanvasProps {
   idTooth: number;
@@ -83,7 +84,7 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({ idTooth
 
   // registerToothFinding handles replace vs toggle-off:
   // same design → toggle off, different → replace, new → add
-  const handleDesignSelect = (design: any) => {
+  const handleDesignSelect = (design: FindingDesign) => {
     if (readOnly || !selectedColor) return;
 
     toothActions.registerToothFinding({

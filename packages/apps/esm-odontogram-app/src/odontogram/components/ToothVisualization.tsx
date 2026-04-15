@@ -5,6 +5,7 @@ import DesignSelector from './DesignSelector';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
 import { isMultiDesignFinding } from '../logic/findingDesignLogic';
 import { TOOTH_DESIGN_COMPONENT_MAP } from './constants';
+import type { FindingDesign } from '../types/odontogram';
 
 interface ToothVisualizationProps {
   idTooth: number;
@@ -57,8 +58,8 @@ const ToothVisualization = ({
     }
 
     // Filtrar diseños según las zonas del diente
-    const filteredDesigns =
-      selectedItem?.designs?.filter((design: any) => {
+    const filteredDesigns: FindingDesign[] =
+      selectedItem?.designs?.filter((design) => {
         if (!design.zones) return true;
         if (Array.isArray(design.zones)) return design.zones.includes(toothZones);
         return design.zones === toothZones;
@@ -86,7 +87,7 @@ const ToothVisualization = ({
   // - same design → toggle off
   // - different design → replace
   // - no existing → add
-  const handleDesignSelect = (design: any) => {
+  const handleDesignSelect = (design: FindingDesign) => {
     if (readOnly || !selectedFindingId) return;
 
     toothActions.registerToothFinding({
@@ -107,7 +108,7 @@ const ToothVisualization = ({
     return tooth.findings.map((finding, index: number) => {
       const findingKey = String(finding.findingId);
       const designKey = String(finding.designNumber);
-      const designComponents = (TOOTH_DESIGN_COMPONENT_MAP as Record<string, Record<string, any>>)[findingKey];
+      const designComponents = TOOTH_DESIGN_COMPONENT_MAP[findingKey];
       if (!designComponents) {
         return null;
       }
@@ -134,7 +135,7 @@ const ToothVisualization = ({
 
   // Filtrar diseños según las zonas del diente
   const filteredDesigns =
-    selectedItem?.designs?.filter((design: any) => {
+    selectedItem?.designs?.filter((design) => {
       if (!design.zones) return true;
       if (Array.isArray(design.zones)) return design.zones.includes(toothZones);
       return design.zones === toothZones;

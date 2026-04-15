@@ -22,7 +22,8 @@ export interface FormsSelectorWorkspaceAdditionalProps {
   onFormLaunch: FormLaunchHandler; // Generic form launcher function
 }
 
-export interface FormsSelectorWorkspace extends DefaultPatientWorkspaceProps, FormsSelectorWorkspaceAdditionalProps {}
+export interface FormsSelectorWorkspaceProps
+  extends DefaultPatientWorkspaceProps, FormsSelectorWorkspaceAdditionalProps {}
 
 export default function FormsSelectorWorkspace({
   availableForms,
@@ -33,10 +34,10 @@ export default function FormsSelectorWorkspace({
   backWorkspace = 'wellchild-control-form',
   onComplete,
   onFormLaunch,
-  patientUuid,
+  patientUuid: _patientUuid,
   closeWorkspace,
   closeWorkspaceWithSavedChanges,
-}: FormsSelectorWorkspace) {
+}: FormsSelectorWorkspaceProps): JSX.Element {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const [completedForms, setCompletedForms] = useState<Set<string>>(new Set());

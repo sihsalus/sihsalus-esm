@@ -18,7 +18,7 @@ function useQueueStatuses() {
   const { queues, isLoading } = useQueues();
 
   const results = useMemo(() => {
-    const allStatuses = ([] as Array<Concept>).concat(...(queues ?? [])?.map((queue) => queue?.allowedStatuses));
+    const allStatuses = ([] as Array<Concept>).concat(...(queues ?? []).map((queue) => queue.allowedStatuses));
 
     const uuidSet = new Set<string>();
 

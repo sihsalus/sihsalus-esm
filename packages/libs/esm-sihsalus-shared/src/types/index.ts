@@ -50,7 +50,7 @@ export interface OpenmrsEncounter extends OpenmrsResource {
   }>;
 
   /** Flat list of observations recorded during this encounter. */
-  obs: Array<OpenmrsResource>;
+  obs: Array<Observation>;
 
   /** The O3 form (if any) that was used to capture this encounter. */
   form?: { name: string; uuid: string };

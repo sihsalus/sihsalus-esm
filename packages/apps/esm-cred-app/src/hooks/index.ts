@@ -39,7 +39,6 @@ export { useSchemasConceptSet } from './useSchemasConceptSet';
 export { useCurrentPregnancy } from './useCurrentPregnancy';
 export { usePrenatalAntecedents } from './usePrenatalAntecedents';
 export { usePostpartumControl } from './usePostpartumControl';
-export { usePartograph } from './usePartograph';
 
 // Appointments & scheduling
 export { useAppointmentsCRED } from './useAppointmentsCRED';

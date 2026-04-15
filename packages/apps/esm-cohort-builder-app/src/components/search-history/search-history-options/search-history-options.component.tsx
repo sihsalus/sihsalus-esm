@@ -16,7 +16,7 @@ const Option = {
 
 type OptionType = (typeof Option)[keyof typeof Option];
 
-interface SearchHistoryOptions {
+interface SearchHistoryOptionsProps {
   searchItem: SearchHistoryItem;
   updateSearchHistory: (selectedSearchItem: SearchHistoryItem) => void;
 }
@@ -56,7 +56,7 @@ const createCohortFromSearchItem = async (
   }
 };
 
-const SearchHistoryOptions: React.FC<SearchHistoryOptions> = ({ searchItem, updateSearchHistory }) => {
+const SearchHistoryOptions: React.FC<SearchHistoryOptionsProps> = ({ searchItem, updateSearchHistory }) => {
   const { t } = useTranslation();
   const [cohortName, setCohortName] = useState('');
   const [cohortDescription, setCohortDescription] = useState('');

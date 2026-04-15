@@ -4,12 +4,12 @@ import { ExtensionSlot, showNotification, showSnackbar, useAbortController, type
 import { useTranslation } from 'react-i18next';
 import { setFulfillerStatus, useInvalidateLabOrders } from '../../laboratory.resource';
 
-interface ApproveLabResultsModal {
+interface ApproveLabResultsModalProps {
   closeModal: () => void;
   order: Order;
 }
 
-const ApproveLabResultsModal: React.FC<ApproveLabResultsModal> = ({ order, closeModal }) => {
+const ApproveLabResultsModal: React.FC<ApproveLabResultsModalProps> = ({ order, closeModal }) => {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const abortController = useAbortController();

@@ -36,7 +36,13 @@ interface FormsTableProps {
   handleFormOpen?: (form: Form, encounterUuid: string) => void;
 }
 
-const FormsTable = ({ tableHeaders, tableRows, isTablet, handleSearch, handleFormOpen }: FormsTableProps) => {
+const FormsTable = ({
+  tableHeaders,
+  tableRows,
+  isTablet,
+  handleSearch,
+  handleFormOpen,
+}: FormsTableProps): JSX.Element => {
   const { t } = useTranslation();
   return (
     <DataTable rows={tableRows} headers={tableHeaders} size={isTablet ? 'lg' : 'sm'} useZebraStyles>
@@ -49,7 +55,7 @@ const FormsTable = ({ tableHeaders, tableRows, isTablet, handleSearch, handleFor
                   <TableToolbarSearch
                     className={styles.search}
                     expanded
-                    onChange={(event: React.ChangeEvent<HTMLFormElement>) => handleSearch(event.target.value)}
+                    onChange={(_, value) => handleSearch(value ?? '')}
                     placeholder={t('searchThisList', 'Buscar en esta lista')}
                     size="sm"
                   />

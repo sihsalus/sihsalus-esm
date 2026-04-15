@@ -2,6 +2,7 @@ import React from 'react';
 import './ToothDetails.css';
 import './spacing/SpaceBetweenStyles.css';
 import { COLOR_CSS } from './constants';
+import type { ToothFinding } from '../types/odontogram';
 import {
   EllipseDesignLeft,
   EllipseDesignRight,
@@ -27,13 +28,11 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda'
   // Obtener el diente
   const tooth = data.teeth.find((t) => t.toothId === idTooth);
 
-  // Annotations come from computed data
-  const annotations = tooth?.annotations ?? [];
-
   // Color mapping for annotation text
 
   // Group annotations by findingId for "/" display
   const groupedAnnotations = React.useMemo(() => {
+    const annotations = tooth?.annotations ?? [];
     const groups: { findingId: number; items: typeof annotations }[] = [];
     const map = new Map<number, typeof annotations>();
     for (const ann of annotations) {
@@ -46,7 +45,7 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda'
       arr.push(ann);
     }
     return groups;
-  }, [annotations]);
+  }, [tooth?.annotations]);
 
   // Buscar los hallazgos específicos
   const Finding11 = tooth?.findings.find((f) => f.findingId === 11);
@@ -84,7 +83,7 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda'
   // Determinar la clase CSS para el SVG
   const svgClassName = 'tooth-details-legend interactive-svg';
 
-  const renderDesignForFinding = (optionId: number, finding: any) => {
+  const renderDesignForFinding = (optionId: number, finding: ToothFinding) => {
     switch (optionId) {
       case 11:
         return (

@@ -1,4 +1,4 @@
-import { Layer, Search, type SearchProps } from '@carbon/react';
+import { Layer, Search, type SearchProps as CarbonSearchProps } from '@carbon/react';
 import classNames from 'classnames';
 import React, { type HTMLAttributes, useEffect, useRef, useState } from 'react';
 
@@ -101,6 +101,7 @@ interface SearchProps extends InputPropsBase {
 interface AutosuggestProps extends SearchProps {
   getDisplayValue: Function;
   getFieldValue: Function;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getSearchResults: (query: string) => Promise<any>;
   onSuggestionSelected: (field: string, value: string) => void;
   invalid?: boolean | undefined;

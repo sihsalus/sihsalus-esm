@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from '@carbon/react';
 import { CheckmarkFilled } from '@carbon/react/icons';
 import Tooth from './Tooth';
+import type { FindingColor, FindingDesign, ToothFinding } from '../types/odontogram';
 import {
   Finding3Design1,
   Finding4Design1,
@@ -153,13 +154,13 @@ const designComponentMap = {
 interface DesignSelectorProps {
   isOpen: boolean;
   onClose: () => void;
-  designs: any[];
-  selectedColor: any;
+  designs: FindingDesign[];
+  selectedColor: FindingColor | null;
   findingName: string;
   toothId: string | number;
   toothZones: number;
-  onDesignSelect: (design: any) => void;
-  existingFindings?: any[];
+  onDesignSelect: (design: FindingDesign) => void;
+  existingFindings?: ToothFinding[];
   /** When true, the modal stays open after selecting a design (for multi-design findings). */
   keepOpen?: boolean;
   /** Suboptions config to show Tipo label on applied designs */
@@ -179,7 +180,7 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
   keepOpen = false,
   suboptions,
 }) => {
-  const handleDesignClick = (design: any) => {
+  const handleDesignClick = (design: FindingDesign) => {
     onDesignSelect(design);
     if (!keepOpen) {
       onClose();
@@ -217,7 +218,7 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
             padding: '10px',
           }}
         >
-          {designs.map((design: any) => {
+          {designs.map((design) => {
             // Obtener el componente de diseño según su nombre
             const DesignComponent = designComponentMap[design.componente as keyof typeof designComponentMap];
 

@@ -19,13 +19,26 @@ import EncounterObservations from '../encounter-observation/encounter-observatio
 import styles from './o-table.scss';
 
 interface TableProps {
-  tableHeaders: Array<{ key: string; header: string }>;
-  tableRows: Array<Record<string, unknown> & { obs?: Array<Observation> }>;
+  tableHeaders: Array<{ key: string; header: React.ReactNode }>;
+  tableRows: Array<Record<string, React.ReactNode | Array<Observation>> & { id: string; obs?: Array<Observation> }>;
   formConceptMap: Record<string, Record<string, unknown>>;
   isExpandable?: boolean;
 }
 
-export const OTable: React.FC<TableProps> = ({ tableHeaders, tableRows, formConceptMap, isExpandable }) => {
+function getHeaderContent(header: React.ReactNode): React.ReactNode {
+  if (typeof header === 'object' && header !== null && 'content' in header) {
+    return (header as { content?: React.ReactNode }).content ?? '';
+  }
+
+  return header;
+}
+
+export const OTable: React.FC<TableProps> = ({
+  tableHeaders,
+  tableRows,
+  formConceptMap,
+  isExpandable: _isExpandable,
+}) => {
   return (
     <TableContainer>
       <DataTable rows={tableRows} headers={tableHeaders} isSortable={true} size="sm">
@@ -42,7 +55,7 @@ export const OTable: React.FC<TableProps> = ({ tableHeaders, tableRows, formConc
                       isSortable: header.isSortable,
                     })}
                   >
-                    {header.header?.content ?? header.header}
+                    {getHeaderContent(header.header)}
                   </TableHeader>
                 ))}
               </TableRow>

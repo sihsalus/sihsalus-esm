@@ -13,7 +13,7 @@ import ListDetailsTable from '../list-details-table/list-details-table.component
 
 import styles from './list-details.scss';
 
-interface ListDetails {
+interface ListDetailsRow {
   name: string;
   identifier: string;
   sex: string;
@@ -39,7 +39,7 @@ const ListDetails = () => {
   const [showEditPatientListDetailOverlay, setEditPatientListDetailOverlay] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
 
-  const patients: Array<ListDetails> = useMemo(
+  const patients: Array<ListDetailsRow> = useMemo(
     () =>
       listMembers
         ? listMembers?.length

@@ -24,12 +24,20 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './care-summary-table.scss';
 
-function collectPrefixesFromMember(member: { display: string }, rowDefinitions: RowDefinition[], seenPrefixes: Set<string>) {
+function collectPrefixesFromMember(
+  member: { display: string },
+  rowDefinitions: RowDefinition[],
+  seenPrefixes: Set<string>,
+): void {
   const matchingRow = rowDefinitions.find((row) => member.display.startsWith(row.prefix));
   if (matchingRow) seenPrefixes.add(matchingRow.prefix);
 }
 
-function collectPrefixesFromEncounter(encounter: Encounter, rowDefinitions: RowDefinition[], seenPrefixes: Set<string>) {
+function collectPrefixesFromEncounter(
+  encounter: Encounter,
+  rowDefinitions: RowDefinition[],
+  seenPrefixes: Set<string>,
+): void {
   encounter.obs.forEach((obs) => {
     (obs.groupMembers || []).forEach((member) => collectPrefixesFromMember(member, rowDefinitions, seenPrefixes));
   });
@@ -38,10 +46,10 @@ function collectPrefixesFromEncounter(encounter: Encounter, rowDefinitions: RowD
 function applyMemberToRow(
   member: { display: string },
   activeRows: RowDefinition[],
-  base: Array<{ id: string; [key: string]: string }>,
+  base: Array<{ id: string; [key: string]: React.ReactNode }>,
   encounterNumber: number,
   extractValue: (d: string) => string,
-) {
+): void {
   const matchingRow = activeRows.find((row) => member.display.startsWith(row.prefix));
   if (matchingRow) {
     const rowRef = base.find((r) => r.id === matchingRow.id);
@@ -54,13 +62,28 @@ function applyMemberToRow(
 function applyObsToRows(
   obs: Encounter['obs'][number],
   activeRows: RowDefinition[],
-  base: Array<{ id: string; [key: string]: string }>,
+  base: Array<{ id: string; [key: string]: React.ReactNode }>,
   encounterNumber: number,
   extractValue: (d: string) => string,
-) {
+): void {
   (obs.groupMembers || []).forEach((member) =>
     applyMemberToRow(member, activeRows, base, encounterNumber, extractValue),
   );
+}
+
+function getTableHeaderContent(header: React.ReactNode): React.ReactNode {
+  if (typeof header === 'object' && header !== null && 'content' in header) {
+    return (header as { content?: React.ReactNode }).content ?? '';
+  }
+
+  return header;
+}
+
+function getTableCellContent(cellValue: React.ReactNode): React.ReactNode {
+  if (cellValue && typeof cellValue === 'object' && 'content' in cellValue) {
+    return (cellValue as { content?: React.ReactNode }).content ?? '';
+  }
+  return cellValue ?? '';
 }
 
 interface Encounter {
@@ -82,7 +105,7 @@ interface RowDefinition {
 interface RowData {
   id: string;
   rowHeader: string;
-  [key: string]: string;
+  [key: string]: React.ReactNode;
 }
 
 interface CareSummaryTableProps {
@@ -181,7 +204,7 @@ const CareSummaryTable: React.FC<CareSummaryTableProps> = ({
       ...Object.fromEntries(Array.from({ length: maxEncounters }, (_, i) => [`atencion${i + 1}`, '--'])),
     }));
 
-    const extractValue = (d: string) => d.split(': ').slice(1).join(': ') || d;
+    const extractValue = (d: string): string => d.split(': ').slice(1).join(': ') || d;
 
     prenatalEncounters.forEach((encounter, i) => {
       let encounterNumber = i + 1;
@@ -222,7 +245,7 @@ const CareSummaryTable: React.FC<CareSummaryTableProps> = ({
                     <TableRow>
                       {headers.map((header) => (
                         <TableHeader key={header.key} {...getHeaderProps({ header })}>
-                          {header.header?.content ?? header.header}
+                          {getTableHeaderContent(header.header)}
                         </TableHeader>
                       ))}
                     </TableRow>
@@ -231,7 +254,7 @@ const CareSummaryTable: React.FC<CareSummaryTableProps> = ({
                     {rows.map((row) => (
                       <TableRow key={row.id}>
                         {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                          <TableCell key={cell.id}>{getTableCellContent(cell.value)}</TableCell>
                         ))}
                       </TableRow>
                     ))}

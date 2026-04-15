@@ -19,7 +19,6 @@ interface ClinicalDataChartProps {
     [key: string]: string | number | null;
   }>;
   conceptUnits: Map<string, string>;
-  config: Record<string, string>;
   vitalSigns: Array<{
     id: string;
     title: string;
@@ -32,7 +31,6 @@ interface ClinicalDataChartProps {
 const ClinicalDataChart: React.FC<ClinicalDataChartProps> = ({
   patientData,
   conceptUnits,
-  config,
   vitalSigns,
   mappings,
   maxDataPoints = Infinity, // Por defecto, no hay límite
@@ -99,7 +97,7 @@ const ClinicalDataChart: React.FC<ClinicalDataChartProps> = ({
       },
     },
     tooltip: {
-      customHTML: ([{ value, group, key }]) =>
+      customHTML: ([{ value, group, key }]): string =>
         `<div class="cds--tooltip cds--tooltip--shown" style="min-width: max-content; font-weight:600">${value} - ${group.toUpperCase()}
         <span style="color: #c6c6c6; font-size: 1rem; font-weight:600">${key}</span></div>`,
     },
@@ -112,7 +110,7 @@ const ClinicalDataChart: React.FC<ClinicalDataChartProps> = ({
         <label className={styles.vitalsSignLabel} htmlFor={`${id}-tabs`}>
           {t('dataDisplayed', 'Data displayed')}
         </label>
-        <Tabs className={styles.verticalTabs}>
+        <Tabs>
           <TabList className={styles.tablist} aria-label={t('dataTabs', 'Data selection tabs')} id={`${id}-tabs`}>
             {vitalSigns.map(({ id, title, value }) => (
               <Tab

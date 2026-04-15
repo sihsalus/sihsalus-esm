@@ -1,4 +1,4 @@
-import type { SwitcherItem } from '@carbon/react';
+import type { SwitcherItem as CarbonSwitcherItem } from '@carbon/react';
 import { Tabs, Tab, TabList, TabPanels, TabPanel, ContentSwitcher, Switch } from '@carbon/react';
 import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React, { useState } from 'react';
@@ -13,14 +13,9 @@ interface OverviewListProps {
   patientUuid: string;
 }
 
-type SwitcherItem = {
-  index: number;
-  name?: string;
-  text?: string;
-};
 const HivTestingEncountersList: React.FC<OverviewListProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
-  const [switchItem, setSwitcherItem] = useState<SwitcherItem>({ index: 0 });
+  const [switchItem, setSwitcherItem] = useState<CarbonSwitcherItem>({ index: 0 });
 
   return (
     <div className={styles.widgetCard}>

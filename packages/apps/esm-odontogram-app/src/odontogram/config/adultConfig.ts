@@ -131,7 +131,17 @@ const INVERTED_LOWER_FINDINGS = new Set([13, 30, 39]);
  * Construye el catálogo de FindingOptionConfig a partir de optionsData.json.
  */
 function buildFindingOptions(): FindingOptionConfig[] {
-  return (optionsData.opciones as any[]).map((opt) => ({
+  return (
+    optionsData.opciones as Array<{
+      id: number;
+      nombre: string;
+      identificador?: string;
+      colores?: FindingOptionConfig['colores'];
+      subopciones?: FindingOptionConfig['subopciones'];
+      designs?: FindingOptionConfig['designs'];
+      abreviaturaSource?: FindingOptionConfig['abreviaturaSource'];
+    }>
+  ).map((opt) => ({
     id: opt.id,
     nombre: opt.nombre,
     identificador: opt.identificador,

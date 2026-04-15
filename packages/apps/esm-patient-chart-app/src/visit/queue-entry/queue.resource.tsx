@@ -9,7 +9,7 @@ export type AllowedPriority = OpenmrsResource;
 export type AllowedStatus = OpenmrsResource;
 export interface Concept extends OpenmrsResource {}
 
-interface VisitQueueEntry {
+interface VisitQueueEntryResponse {
   queueEntry: VisitQueueEntry;
   uuid: string;
   visit: Visit;

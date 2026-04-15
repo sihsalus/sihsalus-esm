@@ -64,7 +64,7 @@ const GenericInput = <T extends FormData>({
     value: string,
     onChange: (value: number | undefined) => void,
     field: (typeof fieldProperties)[0],
-  ) {
+  ): void {
     if (field.type === 'number' || !field.type) {
       const parsedValue = value === '' ? undefined : Number(value);
       const isOutOfRange =
@@ -78,7 +78,7 @@ const GenericInput = <T extends FormData>({
     }
   }
 
-  function handleFocusChange(isFocused: boolean) {
+  function handleFocusChange(isFocused: boolean): void {
     setIsFocused(isFocused);
   }
 
@@ -124,7 +124,7 @@ const GenericInput = <T extends FormData>({
                   <Controller
                     name={fieldProperty.id as Path<T>}
                     control={control}
-                    render={({ field: { onChange, ref, value }, fieldState: { error } }) => {
+                    render={({ field: { onChange, ref, value } }) => {
                       if (fieldProperty.type === 'number' || !fieldProperty.type) {
                         return (
                           <NumberInput
@@ -138,9 +138,7 @@ const GenericInput = <T extends FormData>({
                             min={fieldProperty.min ?? undefined}
                             name={fieldProperty.name}
                             onBlur={() => handleFocusChange(false)}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                              checkValidity(event.target.value, onChange, fieldProperty)
-                            }
+                            onChange={(event) => checkValidity(event.currentTarget.value, onChange, fieldProperty)}
                             onFocus={() => handleFocusChange(true)}
                             placeholder={placeholder} // Usar el prop directamente
                             readOnly={readOnly}
@@ -161,9 +159,7 @@ const GenericInput = <T extends FormData>({
                             maxCount={100}
                             name={fieldProperty.name}
                             onBlur={() => handleFocusChange(false)}
-                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                              checkValidity(e.target.value, onChange, fieldProperty)
-                            }
+                            onChange={(event) => checkValidity(event.currentTarget.value, onChange, fieldProperty)}
                             onFocus={() => handleFocusChange(true)}
                             placeholder={placeholder} // Usar el prop directamente
                             readOnly={readOnly}

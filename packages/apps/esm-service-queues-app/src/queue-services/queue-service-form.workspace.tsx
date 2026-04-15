@@ -15,7 +15,7 @@ import { type DefaultWorkspaceProps, restBaseUrl, showSnackbar } from '@openmrs/
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { mutate } from 'swr';
 import { z } from 'zod';
 
@@ -165,7 +165,7 @@ const QueueServiceForm: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) =
         </Column>
       </Stack>
       <ButtonSet className={styles.buttonSet}>
-        <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
           {t('cancel', 'Cancel')}
         </Button>
         <Button className={styles.button} disabled={isSubmitting} kind="primary" type="submit">

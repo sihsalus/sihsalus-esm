@@ -32,7 +32,7 @@ export interface Appointment {
   providers: Array<OpenmrsResource>;
   // recurring: boolean;
   service: AppointmentService;
-  startDateTime: number | any;
+  startDateTime: number;
   status: string;
   uuid: string;
 }
@@ -181,6 +181,7 @@ export interface Observation {
       display: string;
     };
   }>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
   obsDatetime: string;
 }
@@ -223,6 +224,7 @@ export interface FormattedEncounter {
 }
 
 export interface ObsMetaInfo {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [_: string]: any;
 
   assessValue?: (value: number) => OBSERVATION_INTERPRETATION;
@@ -299,6 +301,8 @@ export enum FilterTypes {
   SHOW,
   HIDE,
 }
+
+export interface OpenmrsProvider extends OpenmrsResource {}
 
 export interface Provider {
   uuid: string;
@@ -461,7 +465,7 @@ export interface QueueEntry {
   patient: Patient;
   priority: Concept;
   priorityComment: string | null;
-  providerWaitingFor: Provider;
+  providerWaitingFor: OpenmrsProvider;
   queue: Queue;
   startedAt: string;
   status: Concept;
@@ -486,5 +490,3 @@ export interface QueueEntrySearchCriteria {
 export interface Concept extends OpenmrsResource {
   setMembers?: Array<Concept>;
 }
-
-export interface Provider extends OpenmrsResource {}

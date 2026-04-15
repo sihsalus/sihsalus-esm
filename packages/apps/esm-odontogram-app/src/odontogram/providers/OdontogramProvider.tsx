@@ -380,7 +380,7 @@ export function OdontogramProvider({
         };
       });
 
-      let newSpacingFindings = { ...data.spacingFindings };
+      const newSpacingFindings = { ...data.spacingFindings };
 
       // Si es row-finding con spacing (7, 31), toggle spacings de la posición
       if (isRowFinding(params.findingId) && data.spacingFindings[params.findingId]) {
@@ -482,7 +482,7 @@ export function OdontogramProvider({
       );
 
       // For row findings, also remove from spacingFindings
-      let newSpacingFindings = { ...data.spacingFindings };
+      const newSpacingFindings = { ...data.spacingFindings };
       if (isRow && data.spacingFindings[params.findingId]) {
         const posTeethIds = new Set(config.teeth[position].map((t) => t.id));
         newSpacingFindings[params.findingId] = data.spacingFindings[params.findingId].map((space) => {
@@ -493,7 +493,7 @@ export function OdontogramProvider({
 
       emit({ ...data, teeth: teethWithAnnotations, spacingFindings: newSpacingFindings });
     },
-    [data, config, readOnly, emit],
+    [data, config.findingOptions, config.teeth, readOnly, emit],
   );
 
   const updateToothNotes = useCallback(
@@ -651,7 +651,7 @@ export function OdontogramProvider({
 
       emit({ ...data, teeth: newTeethFromLegend, legendSpaces: updatedSpaces });
     },
-    [data, config, readOnly, emit],
+    [data, readOnly, emit],
   );
 
   // ---------------------------------------------------------------------------

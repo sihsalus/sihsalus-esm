@@ -4,12 +4,12 @@ import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showNotification, showSnackbar, useAbortController, type Order } from '@openmrs/esm-framework';
 import { setFulfillerStatus, useInvalidateLabOrders } from '../../laboratory.resource';
 
-interface PickupLabRequestModal {
+interface PickupLabRequestModalProps {
   closeModal: () => void;
   order: Order;
 }
 
-const PickupLabRequestModal: React.FC<PickupLabRequestModal> = ({ order, closeModal }) => {
+const PickupLabRequestModal: React.FC<PickupLabRequestModalProps> = ({ order, closeModal }) => {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const abortController = useAbortController();

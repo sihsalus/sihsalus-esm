@@ -21,7 +21,8 @@ import {
 import classNames from 'classnames';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { type TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { mutate } from 'swr';
 import { z } from 'zod';
 
@@ -175,7 +176,7 @@ const QueueRoomForm: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }) => {
         </Column>
       </Stack>
       <ButtonSet className={classNames(isTablet ? styles.tablet : styles.desktop)}>
-        <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
           {getCoreTranslation('cancel', 'Cancel')}
         </Button>
         <Button className={styles.button} disabled={isSubmitting} kind="primary" type="submit">

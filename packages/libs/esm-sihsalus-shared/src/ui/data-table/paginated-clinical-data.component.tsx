@@ -68,13 +68,31 @@ const PaginatedClinicalData: React.FC<PaginatedClinicalDataProps> = ({
     cellA,
     cellB,
     { key, sortDirection }: { key: string; sortDirection: 'ASC' | 'DESC' | 'NONE' },
-  ) => {
+  ): number => {
     if (sortDirection === 'NONE') {
       setSortParams({ key: '', sortDirection });
     } else {
       setSortParams({ key, sortDirection });
     }
+
+    return 0;
   };
+
+  function getTableHeaderContent(header: React.ReactNode): React.ReactNode {
+    if (typeof header === 'object' && header !== null && 'content' in header) {
+      return (header as { content?: React.ReactNode }).content ?? '';
+    }
+
+    return header;
+  }
+
+  function getTableCellContent(cellValue: React.ReactNode): React.ReactNode {
+    if (cellValue && typeof cellValue === 'object' && 'content' in cellValue) {
+      return (cellValue as { content?: React.ReactNode }).content ?? '';
+    }
+
+    return cellValue ?? '';
+  }
 
   const sortedData = useMemo(() => {
     if (sortParams.sortDirection === 'NONE') {
@@ -116,7 +134,7 @@ const PaginatedClinicalData: React.FC<PaginatedClinicalDataProps> = ({
                 <TableRow>
                   {headers.map((header) => (
                     <TableHeader {...getHeaderProps({ header, isSortable: header.isSortable })} key={header.key}>
-                      {header.header?.content ?? header.header}
+                      {getTableHeaderContent(header.header)}
                     </TableHeader>
                   ))}
                 </TableRow>
@@ -131,7 +149,7 @@ const PaginatedClinicalData: React.FC<PaginatedClinicalDataProps> = ({
                         const vitalSignInterpretation = dataObj && dataObj[interpretationKey];
                         return (
                           <StyledTableCell key={`styled-cell-${cell.id}`} interpretation={vitalSignInterpretation}>
-                            {cell.value?.content ?? cell.value}
+                            {getTableCellContent(cell.value)}
                           </StyledTableCell>
                         );
                       })}

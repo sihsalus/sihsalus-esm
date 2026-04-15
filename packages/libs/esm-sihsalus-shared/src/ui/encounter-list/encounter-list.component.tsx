@@ -1,32 +1,16 @@
-import {
-  Button,
-  Link,
-  OverflowMenu,
-  OverflowMenuItem,
-  Pagination,
-  DataTableSkeleton,
-  Layer,
-  Tile,
-} from '@carbon/react';
-import {
-  ErrorState,
-  isDesktop,
-  navigate,
-  useLayoutType,
-  usePagination,
-  type OpenmrsResource,
-} from '@openmrs/esm-framework';
-import { EmptyDataIllustration, EmptyState } from '@openmrs/esm-patient-common-lib';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Link, OverflowMenu, OverflowMenuItem, Pagination, DataTableSkeleton, Layer } from '@carbon/react';
+import { ErrorState, isDesktop, navigate, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { EmptyState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useEncounterRows } from '../../hooks/use-encounter-rows';
-import type { OpenmrsEncounter } from '../../types';
+import type { Observation, OpenmrsEncounter } from '../../types';
 import { OTable } from '../data-table/o-table.component';
 
 import styles from './encounter-list.scss';
 
-function navigateToColumnLink(column: EncounterListColumn, encounter: OpenmrsEncounter) {
+function navigateToColumnLink(column: EncounterListColumn, encounter: OpenmrsEncounter): void {
   if (column.link.handleNavigate) {
     column.link.handleNavigate(encounter);
   } else if (column.link?.getUrl) {
@@ -50,7 +34,7 @@ function renderCellValue(column: EncounterListColumn, encounter: OpenmrsEncounte
 }
 
 function renderActions(actions: Array<{ label: string }>): React.ReactNode {
-  const handleMenuItemClick = (e: React.MouseEvent) => {
+  const handleMenuItemClick = (e: React.MouseEvent): void => {
     e.preventDefault();
   };
   return (
@@ -110,7 +94,7 @@ export interface EncounterListProps {
     workspaceWindowSize?: 'minimized' | 'maximized';
   };
   filter?: (encounter: OpenmrsEncounter) => boolean;
-  formConceptMap: object;
+  formConceptMap: Record<string, Record<string, unknown>>;
   isExpandable?: boolean;
 }
 
@@ -119,7 +103,7 @@ export const EncounterList: React.FC<EncounterListProps> = ({
   encounterType,
   columns,
   headerTitle,
-  description,
+  description: _description,
   formList,
   filter,
   launchOptions,
@@ -127,20 +111,19 @@ export const EncounterList: React.FC<EncounterListProps> = ({
   isExpandable,
 }) => {
   const { t } = useTranslation();
-  const [forms, setForms] = useState<O3FormSchema[]>([]);
   const [pageSize, setPageSize] = useState(10);
   const layout = useLayoutType();
   const pageSizes = [10, 20, 30, 40, 50];
-  const formNames = useMemo(() => formList.map((form) => form.name), [formList]);
-  const { encounters, isLoading, onFormSave, error } = useEncounterRows(patientUuid, encounterType, filter);
-  const { moduleName, workspaceWindowSize, displayText, hideFormLauncher } = launchOptions;
+  const defaultFormName = useMemo(() => formList?.[0]?.name, [formList]);
+  const { encounters, isLoading, error } = useEncounterRows(patientUuid, encounterType, filter);
+  const { hideFormLauncher } = launchOptions;
 
   const defaultActions = useMemo(
     () => [
       {
         label: t('viewEncounter', 'View'),
         form: {
-          name: forms[0]?.name,
+          name: defaultFormName,
         },
         mode: 'view',
         intent: '*',
@@ -148,13 +131,13 @@ export const EncounterList: React.FC<EncounterListProps> = ({
       {
         label: t('editEncounter', 'Edit'),
         form: {
-          name: forms[0]?.name,
+          name: defaultFormName,
         },
         mode: 'view',
         intent: '*',
       },
     ],
-    [forms, t],
+    [defaultFormName, t],
   );
 
   const headers = useMemo(() => {
@@ -169,24 +152,34 @@ export const EncounterList: React.FC<EncounterListProps> = ({
   const { goTo, results, currentPage } = usePagination(encounters, pageSize);
 
   const constructTableRows = useCallback(
-    (results: OpenmrsEncounter[]) => {
+    (
+      results: OpenmrsEncounter[],
+    ): Array<{
+      id: string;
+      actions: React.ReactNode;
+      obs: Array<Observation>;
+      [key: string]: React.ReactNode | Array<Observation>;
+    }> => {
       const rows = results?.map((encounter) => {
-        const tableRow: { id: string; actions: React.ReactNode; obs: Array<OpenmrsResource>; [key: string]: unknown } =
-          {
-            id: encounter.uuid,
-            actions: null,
-            obs: encounter.obs,
-          };
+        const tableRow: {
+          id: string;
+          actions: React.ReactNode;
+          obs: Array<Observation>;
+          [key: string]: React.ReactNode | Array<Observation>;
+        } = {
+          id: encounter.uuid,
+          actions: null,
+          obs: encounter.obs,
+        };
         // inject launch actions
         encounter['launchFormActions'] = {
-          editEncounter: () => {
+          editEncounter: (): void => {
             console.error('editEncounter:', error);
           },
-          viewEncounter: () => {
+          viewEncounter: (): void => {
             console.error('viewEncounter:', error);
           },
         };
-        // process columns
         columns.forEach((column) => {
           tableRow[column.key] = renderCellValue(column, encounter);
         });

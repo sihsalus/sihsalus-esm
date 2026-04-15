@@ -13,7 +13,7 @@ interface PanelTimelineComponentProps {
 
 const PanelTimelineComponent: React.FC<PanelTimelineComponentProps> = ({ activePanel, groupedObservations }) => {
   const { t } = useTranslation();
-  const rows: Array<ObsRecord> = activePanel ? [activePanel, ...activePanel?.relatedObs] : [];
+  const rows: Array<ObsRecord> = [activePanel, ...activePanel.relatedObs];
 
   const mappedObservations = Object.fromEntries(rows.map((obs) => [obs.name, groupedObservations[obs.conceptUuid]]));
 

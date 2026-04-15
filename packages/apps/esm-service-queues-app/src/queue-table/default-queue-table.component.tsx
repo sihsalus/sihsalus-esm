@@ -152,7 +152,7 @@ function QueueTableSection() {
           <QueueDropdownFilter /> <StatusDropdownFilter />
           <TableToolbarSearch
             className={styles.search}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(value) => setSearchTerm(typeof value === 'string' ? value : value.currentTarget.value)}
             placeholder={t('searchThisList', 'Search this list')}
             size={isDesktop(layout) ? 'sm' : 'lg'}
           />

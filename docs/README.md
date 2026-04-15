@@ -43,7 +43,8 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 - `esm-dyaku-app` — FHIR sync for remote communities
 - `esm-fua-app` — FUA (Formato Unico de Atención) integration
 - `esm-indicadores-app` — MINSA reporting indicators
-- `esm-maternal-and-child-health` — CRED (child growth and development)
+- `esm-salud-materna-app` — Salud materna (prenatal, parto, puerperio, planificación familiar, prevención de cáncer)
+- `esm-cred-app` — CRED (control de crecimiento y desarrollo del niño)
 - `esm-consulta-externa-app` — Outpatient consultation
 - `esm-vacunacion-app` — Vaccination management
 

@@ -9,7 +9,11 @@ export { useEncounterRows, encounterRepresentation } from './hooks/use-encounter
 
 // UI: encounter list + data table + encounter observation (tightly coupled trio)
 export { EncounterList } from './ui/encounter-list/encounter-list.component';
-export type { EncounterListColumn, EncounterListProps, O3FormSchema } from './ui/encounter-list/encounter-list.component';
+export type {
+  EncounterListColumn,
+  EncounterListProps,
+  O3FormSchema,
+} from './ui/encounter-list/encounter-list.component';
 export {
   getEncounterValues,
   formatDateTime,
@@ -34,11 +38,18 @@ export { default as EncounterObservations } from './ui/encounter-observation/enc
 export { default as CareSummaryTable } from './ui/care-summary-table/cara-summary-table';
 
 // UI: encounter date time
-export { default as EncounterDateTimeSection, EncounterDateTimeField } from './ui/encounter-date-time/encounter-date-time.component';
+export {
+  default as EncounterDateTimeSection,
+  EncounterDateTimeField,
+} from './ui/encounter-date-time/encounter-date-time.component';
 
 // UI: forms selector
 export { default as FormsSelectorWorkspace } from './ui/forms-selector/forms-selector.workspace';
-export type { FormLaunchHandler, FormsSelectorWorkspaceAdditionalProps, FormsSelectorWorkspace } from './ui/forms-selector/forms-selector.workspace';
+export type {
+  FormLaunchHandler,
+  FormsSelectorWorkspaceAdditionalProps,
+  FormsSelectorWorkspaceProps,
+} from './ui/forms-selector/forms-selector.workspace';
 export { default as FormsList } from './ui/forms-selector/forms-list.component';
 export { default as FormsTable } from './ui/forms-selector/forms-table.component';
 

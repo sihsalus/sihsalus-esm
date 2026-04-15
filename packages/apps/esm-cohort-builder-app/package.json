@@ -19,7 +19,6 @@
     "test-e2e": "playwright test",
     "verify": "turbo run lint test typescript",
     "coverage": "yarn test -- --coverage",
-    "prepare": "husky install",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.modal.tsx' 'src/**/*.extension.tsx' 'src/**/*.workspace.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js"
   },
   "files": [
@@ -82,14 +81,12 @@
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-testing-library": "^7.1.1",
-    "husky": "^9.1.7",
     "i18next": "^25.0.0",
     "i18next-parser": "^9.0.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.4.2",
     "jest-cli": "^29.4.2",
     "jest-environment-jsdom": "^29.4.2",
-    "lint-staged": "^16.0.0",
     "lodash": "^4.17.21",
     "openmrs": "*",
     "prettier": "^3.8.1",
@@ -98,10 +95,6 @@
     "react-i18next": "^16.0.0",
     "turbo": "^2.9.1",
     "typescript": "^5.8.3"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": "eslint --cache --fix --max-warnings 0",
-    "*.{css,scss,ts,tsx}": "prettier --write --list-different"
   },
   "packageManager": "yarn@4.10.3"
 }

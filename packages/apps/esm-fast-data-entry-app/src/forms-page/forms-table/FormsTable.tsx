@@ -20,7 +20,7 @@ import { ErrorState } from '@openmrs/esm-framework';
 import EmptyState from '../../empty-state/EmptyState';
 import styles from './styles.scss';
 
-interface TableHeader {
+interface FormsTableHeader {
   key: string;
   header: string;
   isSortable?: boolean;
@@ -94,7 +94,7 @@ const FormsTable = ({ rows, error, isLoading, activeForms, activeGroupForms }) =
             <Table {...getTableProps()}>
               <TableHead>
                 <TableRow>
-                  {headers.map((header: DataTableHeader & TableHeader) => (
+                  {headers.map((header: DataTableHeader & FormsTableHeader) => (
                     <TableHeader
                       {...getHeaderProps({
                         header,

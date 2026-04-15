@@ -11,13 +11,13 @@ import SimpleCronEditor from '../simple-cron-editor/simple-cron-editor.component
 
 import styles from './edit-scheduled-report-form.scss';
 
-interface EditScheduledReportForm {
+interface EditScheduledReportFormProps {
   reportDefinitionUuid: string;
   reportRequestUuid: string;
   closePanel: () => void;
 }
 
-const EditScheduledReportForm: React.FC<EditScheduledReportForm> = ({
+const EditScheduledReportForm: React.FC<EditScheduledReportFormProps> = ({
   reportDefinitionUuid,
   reportRequestUuid,
   closePanel,

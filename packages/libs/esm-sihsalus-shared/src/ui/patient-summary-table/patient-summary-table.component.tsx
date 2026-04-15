@@ -86,7 +86,7 @@ const PatientSummaryTable = <T,>({
   formWorkspace,
   onFormLaunch,
   pageSize = 10,
-}: PatientSummaryTableProps<T>) => {
+}: PatientSummaryTableProps<T>): JSX.Element => {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { data, isLoading, error, mutate } = dataHook(patientUuid);
@@ -128,7 +128,7 @@ const PatientSummaryTable = <T,>({
           if (isDateLike(rawValue)) {
             try {
               value = formatDate(parseDate(strValue), { mode: 'wide', time: true });
-            } catch (e) {
+            } catch {
               value = strValue; // Fallback si falla el parseo
             }
           } else {

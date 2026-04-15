@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 import { useStoreWithActions } from '@openmrs/esm-framework';
 import { useEffect } from 'react';
 
@@ -7,6 +8,7 @@ import { type OrderBasketStore, orderBasketStore } from './store';
 import type { OrderBasketItem, PostDataPrepFunction } from './types';
 
 const orderBasketStoreActions = {
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   setOrderBasketItems(
     state: OrderBasketStore,
     grouping: string,
@@ -26,6 +28,7 @@ const orderBasketStoreActions = {
       },
     };
   },
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   setPostDataPrepFunctionForGrouping(state: OrderBasketStore, grouping: string, value: PostDataPrepFunction) {
     return {
       postDataPrepFunctions: {
@@ -46,8 +49,8 @@ export interface ClearOrdersOptions {
   exceptThoseMatching: (order: OrderBasketItem) => boolean;
 }
 
-function clearOrders(options?: ClearOrdersOptions) {
-  const exceptThoseMatchingFcn = options?.exceptThoseMatching ?? (() => false);
+function clearOrders(options?: ClearOrdersOptions): void {
+  const exceptThoseMatchingFcn = options?.exceptThoseMatching ?? ((): boolean => false);
   const patientUuid = getPatientUuidFromStore();
   const items = orderBasketStore.getState().items;
   const patientItems = items[patientUuid] ?? {};
@@ -102,12 +105,12 @@ export function useOrderBasket<T extends OrderBasketItem>(
   }, [postDataPrepFunction, grouping, postDataPrepFunctions, setPostDataPrepFunctionForGrouping]);
 
   if (typeof grouping === 'string') {
-    const setOrders = (value: Array<T> | (() => Array<T>)) => {
-      return setOrderBasketItems(grouping, value);
+    const setOrders = (value: Array<T> | (() => Array<T>)): void => {
+      setOrderBasketItems(grouping, value);
     };
     return { orders, clearOrders, setOrders } as UseOrderBasketReturn<T, string>;
   } else {
-    const setOrders = (groupingKey: string, value: Array<T> | (() => Array<T>)) => {
+    const setOrders = (groupingKey: string, value: Array<T> | (() => Array<T>)): void => {
       setOrderBasketItems(groupingKey, value);
     };
     return { orders, clearOrders, setOrders } as UseOrderBasketReturn<T, void>;

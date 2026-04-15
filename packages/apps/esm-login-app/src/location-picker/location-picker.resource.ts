@@ -54,25 +54,25 @@ export function useDefaultLocation(isUpdateFlow: boolean) {
         return;
       }
 
-      updateUserPropsWithDefaultLocation(locationUuid, saveDefaultLocation).then(() => {
-        if (saveDefaultLocation) {
-          showSnackbar({
-            title: !isUpdateFlow ? t('locationSaved', 'Location saved') : t('locationUpdated', 'Location updated'),
-            subtitle: !isUpdateFlow
-              ? t('locationSaveMessage', 'Your preferred location has been saved for future logins')
-              : t('locationUpdateMessage', 'Your preferred login location has been updated'),
-            kind: 'success',
-            isLowContrast: true,
-          });
-        } else if (defaultLocation) {
-          showSnackbar({
-            title: t('locationPreferenceRemoved', 'Location preference removed'),
-            subtitle: t('locationPreferenceRemovedMessage', 'You will need to select a location on each login'),
-            kind: 'success',
-            isLowContrast: true,
-          });
-        }
-      });
+      await updateUserPropsWithDefaultLocation(locationUuid, saveDefaultLocation);
+
+      if (saveDefaultLocation) {
+        showSnackbar({
+          title: !isUpdateFlow ? t('locationSaved', 'Location saved') : t('locationUpdated', 'Location updated'),
+          subtitle: !isUpdateFlow
+            ? t('locationSaveMessage', 'Your preferred location has been saved for future logins')
+            : t('locationUpdateMessage', 'Your preferred login location has been updated'),
+          kind: 'success',
+          isLowContrast: true,
+        });
+      } else if (defaultLocation) {
+        showSnackbar({
+          title: t('locationPreferenceRemoved', 'Location preference removed'),
+          subtitle: t('locationPreferenceRemovedMessage', 'You will need to select a location on each login'),
+          kind: 'success',
+          isLowContrast: true,
+        });
+      }
     },
     [savePreference, defaultLocation, updateUserPropsWithDefaultLocation, t, isUpdateFlow],
   );
@@ -87,10 +87,7 @@ export function useDefaultLocation(isUpdateFlow: boolean) {
 }
 
 export function useLocationCount(useLoginLocationTag: boolean) {
-  const url = `/ws/fhir2/R4/Location?_count=1`;
-  if (useLoginLocationTag) {
-    url.concat(`&tag=Login Location`);
-  }
+  const url = `/ws/fhir2/R4/Location?_count=1${useLoginLocationTag ? '&tag=Login%20Location' : ''}`;
   const { data, error, isLoading } = useSwrImmutable<FetchResponse<LocationResponse>>(url, openmrsFetch, {
     shouldRetryOnError(err) {
       if (err?.response?.status) {

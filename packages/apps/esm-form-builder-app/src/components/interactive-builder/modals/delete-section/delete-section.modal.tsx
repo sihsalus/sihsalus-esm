@@ -4,7 +4,7 @@ import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
 import type { Schema } from '@types';
 
-interface DeleteSectionModal {
+interface DeleteSectionModalProps {
   closeModal: () => void;
   onSchemaChange: (schema: Schema) => void;
   pageIndex: number;
@@ -12,7 +12,7 @@ interface DeleteSectionModal {
   schema: Schema;
 }
 
-const DeleteSectionModal: React.FC<DeleteSectionModal> = ({
+const DeleteSectionModal: React.FC<DeleteSectionModalProps> = ({
   closeModal,
   onSchemaChange,
   pageIndex,
@@ -52,8 +52,8 @@ const DeleteSectionModal: React.FC<DeleteSectionModal> = ({
 
   const removeUnusedReferencedForm = (schema: Schema, targetFormName: string) => {
     let formUsedElsewhere = false;
-    for (let page of schema.pages) {
-      for (let section of page.sections) {
+    for (const page of schema.pages) {
+      for (const section of page.sections) {
         if (section.reference && section.reference.form === targetFormName) {
           formUsedElsewhere = true;
           break;

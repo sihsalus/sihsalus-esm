@@ -22,14 +22,14 @@ import type { PatientNote } from '../types';
 
 import styles from './notes-overview.scss';
 
-interface PaginatedNotes {
+interface PaginatedNotesProps {
   notes: Array<PatientNote>;
   pageSize: number;
   pageUrl: string;
   urlLabel: string;
 }
 
-const PaginatedNotes: React.FC<PaginatedNotes> = ({ notes, pageSize, pageUrl, urlLabel }) => {
+const PaginatedNotes: React.FC<PaginatedNotesProps> = ({ notes, pageSize, pageUrl, urlLabel }) => {
   const { t } = useTranslation();
   const layout = useLayoutType();
   const isTablet = layout === 'tablet';
