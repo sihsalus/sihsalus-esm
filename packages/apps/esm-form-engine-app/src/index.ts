@@ -3,7 +3,7 @@ import { registerExpressionHelper } from '@openmrs/esm-form-engine-lib';
 
 import { configSchema, type ConfigObject } from './config-schema';
 
-const moduleName = '@sihsalus/esm-form-engine-app';
+const moduleName = '@openmrs/esm-form-engine-app';
 
 const options = {
   featureName: 'form-engine',

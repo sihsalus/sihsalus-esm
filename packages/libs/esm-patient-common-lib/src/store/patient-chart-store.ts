@@ -1,5 +1,6 @@
 import { type Actions, createGlobalStore, useStoreWithActions, type Visit } from '@openmrs/esm-framework';
 import type { StoreApi } from 'zustand';
+import { getOrCreateGlobalSingleton } from './global-singleton';
 
 export interface PatientChartStore {
   patientUuid: string | null;
@@ -10,12 +11,14 @@ export interface PatientChartStore {
 
 const patientChartStoreName = 'patient-chart-global-store';
 
-const patientChartStore = createGlobalStore<PatientChartStore>(patientChartStoreName, {
-  patientUuid: null,
-  patient: null,
-  visitContext: null,
-  mutateVisitContext: null,
-});
+const patientChartStore = getOrCreateGlobalSingleton<StoreApi<PatientChartStore>>(patientChartStoreName, () =>
+  createGlobalStore<PatientChartStore>(patientChartStoreName, {
+    patientUuid: null,
+    patient: null,
+    visitContext: null,
+    mutateVisitContext: null,
+  }),
+);
 
 const patientChartStoreActions = {
   setPatient(patientStoreState, patient: fhir.Patient | null): Pick<PatientChartStore, 'patient' | 'patientUuid'> {

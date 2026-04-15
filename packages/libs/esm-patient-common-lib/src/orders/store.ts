@@ -1,5 +1,6 @@
 import { createGlobalStore } from '@openmrs/esm-framework';
-
+import type { StoreApi } from 'zustand';
+import { getOrCreateGlobalSingleton } from '../store/global-singleton';
 import type { OrderBasketItem, PostDataPrepFunction } from './types';
 
 // The order basket holds order information for each patient. The orders are grouped by `key`
@@ -22,11 +23,13 @@ const initialState = {
   postDataPrepFunctions: {},
 };
 
-export const orderBasketStore = createGlobalStore<OrderBasketStore>('order-basket', initialState);
+export const orderBasketStore = getOrCreateGlobalSingleton<StoreApi<OrderBasketStore>>('order-basket', () =>
+  createGlobalStore<OrderBasketStore>('order-basket', initialState),
+);
 
 /**
  * @internal for testing only
  */
-export function _resetOrderBasketStore() {
+export function _resetOrderBasketStore(): void {
   orderBasketStore.setState(initialState);
 }

@@ -38,6 +38,7 @@
   "dependencies": {
     "@carbon/react": "^1.92.1",
     "@carbon/styles": "^1.102.0",
+    "@openmrs/esm-patient-common-lib": "workspace:*",
     "@sihsalus/rbac": "workspace:*",
     "konva": "^9.3.18",
     "react-konva": "^19.0.5",

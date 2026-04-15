@@ -22,6 +22,7 @@ describe('FormRenderer', () => {
   const defaultProps = {
     formUuid: 'test-form-uuid',
     patientUuid: 'test-patient-uuid',
+    patient: { id: 'test-patient-uuid' } as fhir.Patient,
     closeWorkspace: jest.fn(),
     closeWorkspaceWithSavedChanges: jest.fn(),
     promptBeforeClosing: jest.fn(),
@@ -50,7 +51,7 @@ describe('FormRenderer', () => {
     >);
 
     render(<FormRenderer {...defaultProps} />);
-    await expect(screen.getByText(/form engine lib/i)).toBeInTheDocument();
+    expect(await screen.findByText(/form engine lib/i)).toBeInTheDocument();
     expect(mockUseFormSchema).toHaveBeenCalledWith('test-form-uuid');
   });
 });
