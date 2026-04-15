@@ -99,6 +99,7 @@
   "searchFieldOrder": "Buscar por las órdenes de {{orderType}}",
   "searchOrderables": "Buscar conceptos ordenables",
   "searchResultsMatchesForTerm_one": "{{count}} resultados para \"{{searchTerm}}\"",
+  "searchResultsMatchesForTerm_many": "{{count}} results for \"{{searchTerm}}\"",
   "searchResultsMatchesForTerm_other": "{{count}} resultados para \"{{searchTerm}}\"",
   "searchTable": "Buscar tabla",
   "selectOrderType": "Seleccionar tipo de orden",

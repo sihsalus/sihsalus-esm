@@ -75,6 +75,7 @@
   "noMatchingConcepts": "No se encontraron conceptos que coincidan",
   "none": "Ninguno",
   "noOfResultsFound_one": "{{count}} resultado encontrado",
+  "noOfResultsFound_many": "{{count}} resultados encontrados",
   "noOfResultsFound_other": "{{count}} resultados encontrados",
   "numberIsNotValid": "El número no es válido",
   "openmrsId": "ID OpenMRS",

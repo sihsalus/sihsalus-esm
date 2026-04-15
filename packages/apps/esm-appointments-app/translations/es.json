@@ -59,6 +59,7 @@
   "completed": "Completado",
   "Contact": "Contacto {{index}}",
   "countMore_one": "{{count}} más",
+  "countMore_many": "{{count}} más",
   "countMore_other": "{{count}} más",
   "createAppointmentService": "Crear servicios de citas",
   "createNewAppointment": "Crear nueva cita",

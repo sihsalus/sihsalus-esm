@@ -14,6 +14,7 @@
   "date": "Fecha",
   "dateAndTime": "Fecha y hora",
   "daysOldVitals_one": "<0>Estos signos vitales tienen <1>{{count}} día de antigüedad</1></0>",
+  "daysOldVitals_many": "<0>Estos signos vitales tienen <1>{{count}} día de antigüedad</1></0>",
   "daysOldVitals_other": "<0>Estos signos vitales tienen <1>{{count}} días de antigüedad </1></0>",
   "diastolic": "diastólica",
   "discard": "Descartar",

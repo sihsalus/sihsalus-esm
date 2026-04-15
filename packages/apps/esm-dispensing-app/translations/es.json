@@ -5,6 +5,7 @@
   "activePrescriptions": "Recetas activas",
   "age": "Edad",
   "allergiesCount_one": "{{count}} alergia",
+  "allergiesCount_many": "{{ count }} allergies",
   "allergiesCount_other": "{{count}} alergias",
   "allPrescriptions": "Todas las recetas",
   "appName": "Farmacia",

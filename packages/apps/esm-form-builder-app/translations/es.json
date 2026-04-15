@@ -282,6 +282,7 @@
   "validateForm": "Validar formulario",
   "validating": "Validando",
   "validationErrors_one": "La validación encontró {{count}} errores",
+  "validationErrors_many": "Validation found {{count}} errors",
   "validationErrors_other": "La validación encontró {{count}} errores",
   "ValidationSuccessful": "Validación exitosa",
   "validRenderingTypeRequired": "Se requiere un valor de tipo de renderizado válido",

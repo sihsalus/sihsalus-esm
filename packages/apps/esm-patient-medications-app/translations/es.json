@@ -80,6 +80,7 @@
   "searchAgain": "buscar nuevamente",
   "searchFieldPlaceholder": "Buscar un medicamento o un conjunto de órdenes (p. ej., \"Aspirina\")",
   "searchResultsMatchesForTerm_one": "{{count}} resultado para \"{{searchTerm}}\"",
+  "searchResultsMatchesForTerm_many": "{{count}} resultados para \"{{searchTerm}}\"",
   "searchResultsMatchesForTerm_other": "{{count}} resultados para \"{{searchTerm}}\"",
   "selectFrequencyErrorMessage": "La frecuencia es obligatoria",
   "selectQuantityUnitsErrorMessage": "La unidad de cantidad es obligatoria",

@@ -1,0 +1,3 @@
+{
+  "noPathInDashboardExtension": "Cannot render the dashboard extension without the property \"path\" being set in the configuration schema"
+}

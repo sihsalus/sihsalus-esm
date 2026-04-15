@@ -53,6 +53,7 @@
   "noPatientsInList": "No hay pacientes en esta lista",
   "openPatientList": "Agregar a la lista",
   "patientListMemberCount_one": "Esta lista tiene {{count}} paciente",
+  "patientListMemberCount_many": "Esta lista tiene {{count}} pacientes",
   "patientListMemberCount_other": "Esta lista tiene {{count}} pacientes",
   "patientLists": "Listas de pacientes",
   "patientRemovedFromList": "Paciente removido de lista",

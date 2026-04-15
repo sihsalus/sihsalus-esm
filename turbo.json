@@ -99,12 +99,7 @@
       ]
     },
     "extract-translations": {
-      "inputs": [
-        "src/**/*.component.tsx",
-        "src/**/*.extension.tsx",
-        "src/**/*.modal.tsx",
-        "src/**/*.resource.ts"
-      ]
+      "cache": false
     },
     "e2e": {
       "dependsOn": [

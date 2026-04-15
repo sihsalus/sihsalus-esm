@@ -50,6 +50,8 @@
   "errorFetchingOrderedFields": "Error occured fetching ordered fields for address hierarchy",
   "estimatedAgeInMonthsLabelText": "Estimated age in months",
   "estimatedAgeInYearsLabelText": "Estimated age in years",
+  "familyName2LabelText": "Second Family Name",
+  "familyName2Required": "Second family name is required",
   "familyNameLabelText": "Family Name",
   "familyNameRequired": "Family name is required",
   "female": "Female",

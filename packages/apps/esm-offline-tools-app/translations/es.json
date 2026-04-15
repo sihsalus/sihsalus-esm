@@ -1,5 +1,4 @@
 {
-  "Offline Actions": "Acciones sin Internet",
   "emptyStateText": "No hay {{displayText}} para mostrar",
   "home": "Inicio",
   "homeHeader": "Inicio sin internet",
@@ -19,10 +18,10 @@
   "offlineActionsNoActionsEmptyStateContent": "Todas las acciones sin internet se han cargado correctamente\ny se han fusionado con los registros de pacientes en línea.",
   "offlineActionsNoActionsEmptyStateImageAlt": "No hay imagen de acciones pendientes",
   "offlineActionsNoActionsEmptyStateTitle": "No hay acciones pendientes de carga",
-  "offline_actions_link": "Acciones sin Internet",
   "offlineActionsTableAction": "Acción",
   "offlineActionsTableCreatedOn": "Fecha y Hora",
   "offlineActionsTableDeleteActions_one": "Eliminar acción",
+  "offlineActionsTableDeleteActions_many": "Eliminar {{count}} acciones",
   "offlineActionsTableDeleteActions_other": "Eliminar {{count}} acciones",
   "offlineActionsTableError": "Error",
   "offlineActionsTablePatient": "Paciente",
