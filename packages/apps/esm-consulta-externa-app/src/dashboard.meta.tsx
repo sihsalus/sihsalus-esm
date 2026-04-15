@@ -23,42 +23,6 @@ export const htsDashboardMeta = {
   config: {},
 } as const;
 
-export const familyHistoryDashboardMeta = {
-  icon: 'omrs-icon-pedestrian-family',
-  slot: 'patient-chart-family-history-slot',
-  columns: 1,
-  title: 'Family History',
-  path: 'family-history',
-  config: {},
-} as const;
-
-export const contactListDashboardMeta = {
-  icon: 'omrs-icon-group',
-  slot: 'patient-chart-relationships-slot',
-  columns: 1,
-  title: 'Contact List',
-  path: 'contact-list',
-  config: {},
-} as const;
-
-export const otherRelationshipsDashboardMeta = {
-  icon: 'omrs-icon-group',
-  slot: 'patient-chart-relationships-slot',
-  columns: 1,
-  title: 'Other Relationships',
-  path: 'other-relationships',
-  config: {},
-} as const;
-
-export const relationshipsDashboardMeta = {
-  icon: 'omrs-icon-pedestrian-family',
-  slot: 'patient-chart-relationships-slot',
-  columns: 1,
-  title: 'Relaciones',
-  path: 'relationships',
-  config: {},
-} as const;
-
 export const caseManagementDashboardMeta = {
   name: 'case-management',
   slot: 'case-management-dashboard-slot',

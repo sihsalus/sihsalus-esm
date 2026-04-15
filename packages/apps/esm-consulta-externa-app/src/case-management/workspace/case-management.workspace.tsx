@@ -7,8 +7,30 @@ import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { useMappedRelationshipTypes } from '../../family-partner-history/relationships.resource';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import useSWRImmutable from 'swr/immutable';
 import { extractNameString, uppercaseText } from '../../utils/expression-helper';
+
+const useMappedRelationshipTypes = () => {
+  const url = `${restBaseUrl}/relationshiptype?v=default`;
+  const { data, error, isLoading } = useSWRImmutable<{
+    data?: { results: Array<{ uuid: string; display: string; displayAIsToB: string; displayBIsToA: string }> };
+  }>(url, openmrsFetch);
+
+  const relations: Array<{ display: string; uuid: string; direction: string }> = [];
+  data?.data?.results.forEach((type) => {
+    const aIsToB = { display: type.displayAIsToB || type.displayBIsToA, uuid: type.uuid, direction: 'aIsToB' };
+    const bIsToA = { display: type.displayBIsToA || type.displayAIsToB, uuid: type.uuid, direction: 'bIsToA' };
+    if (aIsToB.display === bIsToA.display) {
+      relations.push(aIsToB);
+    } else if (bIsToA.display === 'Paciente') {
+      relations.push(aIsToB, { display: `Paciente (${aIsToB.display})`, uuid: type.uuid, direction: 'bIsToA' });
+    } else {
+      relations.push(aIsToB, bIsToA);
+    }
+  });
+  return { data: relations, error, isLoading };
+};
 
 import { saveRelationship, useActivecases, useCaseManagers } from './case-management.resource';
 import styles from './case-management.scss';

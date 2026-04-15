@@ -18,15 +18,8 @@ export { type TriageVitals, useTriageVitals } from './useTriageVitals';
 export { useEthnicIdentity } from './useEthnicIdentity';
 export { useInsuranceProvider } from './useInsuranceProvider';
 
-// ── Patient tracing & contacts ──────────────────────────────────────────────
-export { default as useContacts } from './useContacts';
+// ── Patient tracing ──────────────────────────────────────────────────────────
 export { usePatientTracing } from './usePatientTracing';
-
-// ── Relationships ────────────────────────────────────────────────────────────
-export { default as useRelationship } from './useRelationship';
-export { default as useRelationshipTypes } from './useRelationshipTypes';
-export { default as useRelativeHivEnrollment } from './useRelativeHivEnrollment';
-export { default as useRelativeHTSEncounter } from './useRelativeHTSEncounter';
 
 // ── Providers ────────────────────────────────────────────────────────────────
 export { useProviders } from './useProviders';

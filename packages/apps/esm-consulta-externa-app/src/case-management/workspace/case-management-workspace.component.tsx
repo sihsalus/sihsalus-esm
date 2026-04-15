@@ -7,9 +7,18 @@ import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
 import { z } from 'zod';
 
-import { updateRelationship } from '../../relationships/relationship.resources';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
 import styles from './case-management-workspace.scss';
+
+const updateRelationship = (relationshipUuid: string, payload: { endDate?: Date }) => {
+  const url = `${restBaseUrl}/relationship/${relationshipUuid}`;
+  return openmrsFetch(url, {
+    body: JSON.stringify(payload),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
 
 const EndRelationshipSchema = z.object({
   endDate: z.date({

@@ -6,7 +6,10 @@ import { z } from 'zod';
 import type { ConfigObject } from '../config-schema';
 import { relationshipFormSchema, saveRelationship } from '../relationships/relationship.resources';
 import type { Enrollment, HTSEncounter } from '../types';
-import { replaceAll } from '../utils/expression-helper';
+
+function replaceAll(str: string, find: string, replace: string): string {
+  return str.split(find).join(replace);
+}
 
 export const BOOLEAN_YES = '1065';
 export const BOOLEAN_NO = '1066';

@@ -4,8 +4,16 @@ import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
 
-import type { RelationshipTypeResponse } from '../case-management/workspace/case-management.resource';
 import { ConfigObject } from '../config-schema';
+
+interface RelationshipTypeResponse {
+  results: Array<{
+    uuid: string;
+    display: string;
+    displayAIsToB: string;
+    displayBIsToA: string;
+  }>;
+}
 
 interface RelationshipsResponse {
   results: Array<Relationship>;
