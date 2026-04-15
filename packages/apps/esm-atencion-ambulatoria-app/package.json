@@ -1,8 +1,8 @@
 {
-  "name": "@sihsalus/esm-sihsalus-consulta-externa-app",
+  "name": "@sihsalus/esm-atencion-ambulatoria-app",
   "version": "1.8.0",
-  "description": "Módulo de Consulta Externa para el contexto de salud peruano - OpenMRS O3",
-  "browser": "dist/sihsalus-esm-sihsalus-consulta-externa-app.js",
+  "description": "Módulo de Atención Ambulatoria (orquestador clínico) para el contexto de salud peruano - OpenMRS O3",
+  "browser": "dist/sihsalus-esm-atencion-ambulatoria-app.js",
   "main": "src/index.ts",
   "source": true,
   "license": "MPL-2.0",

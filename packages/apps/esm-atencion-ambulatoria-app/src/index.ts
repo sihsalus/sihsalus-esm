@@ -30,7 +30,7 @@ import { specialClinicsNavGroup } from './specialized-clinics/special-clinic-das
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-const moduleName = '@sihsalus/esm-sihsalus-consulta-externa-app';
+const moduleName = '@sihsalus/esm-atencion-ambulatoria-app';
 const options = {
   featureName: 'patient-clinical-view-app',
   moduleName,
