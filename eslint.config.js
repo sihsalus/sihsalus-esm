@@ -59,7 +59,7 @@ module.exports = [
     },
   },
   {
-    files: ['packages/libs/audit-logger/**/*.{js,ts,tsx}'],
+    files: ['packages/libs/esm-audit-logger/**/*.{js,ts,tsx}'],
     languageOptions: {
       globals: {
         atob: 'readonly',
@@ -128,6 +128,12 @@ module.exports = [
     rules: {
       'no-console': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/require-await': 'off',
     },
   },
 
@@ -139,6 +145,25 @@ module.exports = [
     },
     rules: {
       ...playwright.configs.recommended.rules,
+      'no-console': 'off',
+    },
+  },
+
+  // 🔹 Tooling (vendored openmrs CLI — loose typing, not our code)
+  {
+    files: ['packages/tooling/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-duplicate-type-constituents': 'off',
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
       'no-console': 'off',
     },
   },

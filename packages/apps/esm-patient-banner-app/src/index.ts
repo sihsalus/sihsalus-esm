@@ -22,7 +22,7 @@ const options = {
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export function startupApp() {
-  messageOmrsServiceWorker({
+  void messageOmrsServiceWorker({
     type: 'registerDynamicRoute',
     pattern: `.+${restBaseUrl}/relationship.+`,
   });

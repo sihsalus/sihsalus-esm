@@ -1,8 +1,9 @@
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { clearKeyCache, decryptPayload, encryptPayload } from './crypto';
 
 describe('crypto', () => {
+  beforeEach(() => localStorage.clear());
   afterEach(() => clearKeyCache());
 
   describe('encryptPayload / decryptPayload', () => {

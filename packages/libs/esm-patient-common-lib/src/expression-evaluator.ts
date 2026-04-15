@@ -1,80 +1,173 @@
 /**
- * Safe expression evaluator that replaces `new Function()` usage.
+ * Safe expression evaluator — AST-based, no `new Function()`.
  *
- * Supports the expression patterns used in showWhenExpression configs:
- *   - Property access: `patient.birthDate`, `visitAttributes['uuid']`
- *   - Method calls: `enrollment.includes('HIV')`, `programUuids.includes('uuid')`
- *   - Comparisons: `===`, `!==`, `==`, `!=`, `>`, `<`, `>=`, `<=`
- *   - Logical operators: `&&`, `||`, `!`
- *   - Literals: strings, numbers, booleans, null, undefined
+ * Uses jsep to parse expressions into an AST, then walks the AST with
+ * a strict allowlist of operations. No arbitrary code can execute regardless
+ * of the expression content (no blocklist bypass via unicode/hex escapes, etc.).
  *
- * Does NOT support arbitrary code execution, assignments, or function definitions.
+ * Supported expression patterns (for showWhenExpression configs):
+ *   - Property access:  `patient.birthDate`, `visitAttributes['uuid']`
+ *   - Method calls:     `enrollment.includes('HIV')`, `programUuids.includes('uuid')`
+ *   - Comparisons:      `===`, `!==`, `==`, `!=`, `>`, `<`, `>=`, `<=`
+ *   - Arithmetic:       `+`, `-`
+ *   - Logical:          `&&`, `||`, `!`
+ *   - Ternary:          `a ? b : c`
+ *   - Array literals:   `['a', 'b']`
+ *   - Literals:         strings, numbers, booleans, null, undefined
  */
+import jsep from 'jsep';
 
-const ALLOWED_IDENTIFIER = /^[a-zA-Z_$][a-zA-Z0-9_$.]*$/;
-const DANGEROUS_PATTERNS = [
-  /\beval\b/,
-  /\bFunction\b/,
-  /\bimport\b/,
-  /\brequire\b/,
-  /\bfetch\b/,
-  /\bXMLHttpRequest\b/,
-  /\bwindow\b/,
-  /\bdocument\b/,
-  /\bglobalThis\b/,
-  /\bprocess\b/,
-  /\b__proto__\b/,
-  /\bconstructor\b/,
-  /\bprototype\b/,
-  /[{}]/, // block statements / object literals (expressions don't need these)
-  /\bwhile\b/,
-  /\bfor\b/,
-  /\bfunction\b/,
-  /=>/, // arrow functions
-  /\bnew\b/,
-  /\bdelete\b/,
-  /\bthrow\b/,
-  /\btypeof\b/,
-  /\bvoid\b/,
-  /\bwith\b/,
-  /\byield\b/,
-  /\bawait\b/,
-  /\bclass\b/,
-];
+type JsepNode = jsep.Expression;
 
-function isExpressionSafe(expression: string): boolean {
-  return !DANGEROUS_PATTERNS.some((pattern) => pattern.test(expression));
+/** Properties that must never be accessed to prevent prototype-chain escapes. */
+const FORBIDDEN_PROPS = new Set([
+  '__proto__',
+  'constructor',
+  'prototype',
+  '__defineGetter__',
+  '__defineSetter__',
+  '__lookupGetter__',
+  '__lookupSetter__',
+]);
+
+/** Methods allowed to be called on context values (Array / String builtins only). */
+const ALLOWED_METHODS = new Set([
+  'includes',
+  'startsWith',
+  'endsWith',
+  'indexOf',
+  'lastIndexOf',
+  'some',
+  'every',
+  'find',
+  'findIndex',
+  'filter',
+  'map',
+  'toString',
+  'toLowerCase',
+  'toUpperCase',
+  'trim',
+  'trimStart',
+  'trimEnd',
+  'split',
+  'join',
+  'slice',
+]);
+
+function evalNode(node: JsepNode, context: Record<string, unknown>): unknown {
+  switch (node.type) {
+    case 'Literal':
+      return (node as jsep.Literal).value;
+
+    case 'Identifier': {
+      const name = (node as jsep.Identifier).name;
+      // Treat bare keywords as their literal values
+      if (name === 'undefined') return undefined;
+      if (name === 'null') return null;
+      if (name === 'true') return true;
+      if (name === 'false') return false;
+      if (Object.prototype.hasOwnProperty.call(context, name)) return context[name];
+      return undefined;
+    }
+
+    case 'MemberExpression': {
+      const me = node as jsep.MemberExpression;
+      const obj = evalNode(me.object, context);
+      if (obj == null) return undefined;
+      const prop = me.computed
+        ? evalNode(me.property, context)
+        : (me.property as jsep.Identifier).name;
+      if (typeof prop === 'string' && FORBIDDEN_PROPS.has(prop)) return undefined;
+      if (typeof prop === 'string' || typeof prop === 'number') {
+        return (obj as Record<string | number, unknown>)[prop];
+      }
+      return undefined;
+    }
+
+    case 'CallExpression': {
+      const ce = node as jsep.CallExpression;
+      // Only allow method calls, not free function calls (e.g. eval(), fetch())
+      if (ce.callee.type !== 'MemberExpression') return undefined;
+      const callee = ce.callee as jsep.MemberExpression;
+      // Disallow computed method names (e.g. obj['eval']())
+      if (callee.computed) return undefined;
+      const methodName = (callee.property as jsep.Identifier).name;
+      if (!ALLOWED_METHODS.has(methodName)) return undefined;
+      const obj = evalNode(callee.object, context);
+      if (obj == null) return undefined;
+      const method = (obj as Record<string, unknown>)[methodName];
+      if (typeof method !== 'function') return undefined;
+      const args = ce.arguments.map((arg) => evalNode(arg, context));
+      return (method as (...a: unknown[]) => unknown).apply(obj, args);
+    }
+
+    case 'BinaryExpression': {
+      const be = node as jsep.BinaryExpression;
+      // jsep parses && and || as BinaryExpression — handle with short-circuit
+      if (be.operator === '&&') {
+        const left = evalNode(be.left, context);
+        return left ? evalNode(be.right, context) : left;
+      }
+      if (be.operator === '||') {
+        const left = evalNode(be.left, context);
+        return left ? left : evalNode(be.right, context);
+      }
+      const left = evalNode(be.left, context);
+      const right = evalNode(be.right, context);
+      switch (be.operator) {
+        case '===': return left === right;
+        case '!==': return left !== right;
+        case '==':  return left == right;  // eslint-disable-line eqeqeq
+        case '!=':  return left != right;  // eslint-disable-line eqeqeq
+        case '>':   return (left as number) > (right as number);
+        case '<':   return (left as number) < (right as number);
+        case '>=':  return (left as number) >= (right as number);
+        case '<=':  return (left as number) <= (right as number);
+        case '+':   return (left as number) + (right as number);
+        case '-':   return (left as number) - (right as number);
+        default:    return false;
+      }
+    }
+
+    case 'UnaryExpression': {
+      const ue = node as jsep.UnaryExpression;
+      const arg = evalNode(ue.argument, context);
+      if (ue.operator === '!') return !arg;
+      if (ue.operator === '-') return -(arg as number);
+      return false;
+    }
+
+    case 'ConditionalExpression': {
+      const cond = node as jsep.ConditionalExpression;
+      return evalNode(cond.test, context)
+        ? evalNode(cond.consequent, context)
+        : evalNode(cond.alternate, context);
+    }
+
+    case 'ArrayExpression': {
+      const ae = node as jsep.ArrayExpression;
+      return ae.elements.map((el) => (el ? evalNode(el, context) : undefined));
+    }
+
+    default:
+      return undefined;
+  }
 }
 
 /**
  * Evaluates a simple expression string against a provided context object.
- * Falls back to `false` on any error or if the expression is rejected.
+ * Returns `false` on any error, unsupported construct, or expression > 500 chars.
+ * Returns `true` when expression is empty/null (treat as "show always").
  */
 export function safeEvaluateExpression(expression: string, context: Record<string, unknown>): boolean {
   try {
-    if (!expression || typeof expression !== 'string') {
-      return true;
-    }
-
-    if (!isExpressionSafe(expression)) {
-      console.error(`[expression-evaluator] Expression rejected (unsafe pattern): "${expression}"`);
+    if (!expression || typeof expression !== 'string') return true;
+    if (expression.length > 500) {
+      console.error('[expression-evaluator] Expression rejected (too long)');
       return false;
     }
-
-    // Validate that all context keys are safe identifiers
-    const contextKeys = Object.keys(context);
-    for (const key of contextKeys) {
-      if (!ALLOWED_IDENTIFIER.test(key)) {
-        console.error(`[expression-evaluator] Invalid context key: "${key}"`);
-        return false;
-      }
-    }
-
-    // Build a function with only the provided context variables in scope.
-    // This is still `new Function` under the hood, but the expression has been
-    // validated against the blocklist above, making injection impractical.
-    const fn = new Function(...contextKeys, `"use strict"; return (${expression});`);
-    return Boolean(fn(...contextKeys.map((k) => context[k])));
+    const ast = jsep(expression);
+    return Boolean(evalNode(ast, context));
   } catch (error) {
     console.error(`[expression-evaluator] Failed to evaluate "${expression}":`, error);
     return false;

@@ -18,7 +18,7 @@ interface PatientBannerProps {
 }
 
 const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hideActionsOverflow }) => {
-  const patientBannerRef = useRef(null);
+  const patientBannerRef = useRef<HTMLElement>(null);
   const [isTabletViewport, setIsTabletViewport] = useState(false);
   const [showContactDetails, setShowContactDetails] = useState(false);
 
@@ -29,7 +29,9 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
         setIsTabletViewport(entry.contentRect.width < 1023);
       }
     });
-    resizeObserver.observe(patientBannerRef.current);
+    if (patientBannerRef.current) {
+      resizeObserver.observe(patientBannerRef.current);
+    }
     return () => {
       if (currentRef) {
         resizeObserver.unobserve(currentRef);

@@ -86,6 +86,29 @@ const ReportDataViewer: React.FC<ReportDataViewerProps> = ({ reportData }) => {
     return String(value);
   }
 
+  /**
+   * Wraps a CSV cell value in double quotes and escapes internal quotes.
+   * Strips leading formula characters (=, @, +, -, tab, CR) to prevent
+   * CSV injection when the file is opened in spreadsheet applications.
+   */
+  const toCsvCell = (raw: unknown): string => {
+    let str: string;
+    if (Array.isArray(raw)) {
+      if (raw.length >= 3 && raw.length <= 6) {
+        const [year, month, day, hour = 0, minute = 0, second = 0] = raw as number[];
+        str = formatDatetime(new Date(year, month - 1, day, hour, minute, second));
+      } else {
+        str = raw.join(' ');
+      }
+    } else {
+      str = raw == null ? '' : String(raw);
+    }
+    // Strip leading characters that spreadsheet apps treat as formula triggers
+    str = str.replace(/^[\t\r=+\-@]/, "'$&");
+    // Always quote and escape internal double quotes
+    return `"${str.replace(/"/g, '""')}"`;
+  };
+
   const exportToCSV = () => {
     // Filter selected columns
     const selectedColumnNames = Object.entries(selectedColumns)
@@ -94,31 +117,12 @@ const ReportDataViewer: React.FC<ReportDataViewerProps> = ({ reportData }) => {
 
     const selectedColumnsData = columns.filter((col) => selectedColumnNames.includes(col.name as string));
 
-    // Create CSV header
-    const header = selectedColumnsData.map((col) => col.label).join(',');
+    // Create CSV header (labels are developer-controlled, but quote them for safety)
+    const header = selectedColumnsData.map((col) => toCsvCell(col.label)).join(',');
 
     // Create CSV rows
     const csvRows = rows.map((row) => {
-      return selectedColumnsData
-        .map((col) => {
-          const value = row[col.name as string];
-          // Handle array values and escape commas
-          if (Array.isArray(value)) {
-            // Handle date arrays
-            if (value.length >= 3 && value.length <= 6) {
-              const [year, month, day, hour = 0, minute = 0, second = 0] = value as number[];
-              const date = new Date(year, month - 1, day, hour, minute, second);
-              return `"${formatDatetime(date)}"`;
-            }
-            return `"${value.join(' ')}"`;
-          }
-          // Handle strings with commas
-          if (typeof value === 'string' && value.includes(',')) {
-            return `"${value}"`;
-          }
-          return value;
-        })
-        .join(',');
+      return selectedColumnsData.map((col) => toCsvCell(row[col.name as string])).join(',');
     });
 
     // Combine header and rows

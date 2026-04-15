@@ -28,7 +28,18 @@ export interface OrthancConfiguration {
 }
 
 export function getBrowserUrl(oc: OrthancConfiguration): string {
-  return oc.orthancProxyUrl ? oc.orthancProxyUrl : oc.orthancBaseUrl;
+  const url = oc.orthancProxyUrl ? oc.orthancProxyUrl : oc.orthancBaseUrl;
+  try {
+    const { protocol } = new URL(url);
+    if (protocol !== 'https:' && protocol !== 'http:') {
+      console.error('[imaging] Blocked unsafe Orthanc URL (unexpected protocol):', url);
+      return '';
+    }
+  } catch {
+    console.error('[imaging] Blocked invalid Orthanc URL:', url);
+    return '';
+  }
+  return url;
 }
 
 export interface Instance {
