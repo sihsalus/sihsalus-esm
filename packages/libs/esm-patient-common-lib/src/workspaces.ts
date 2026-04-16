@@ -1,4 +1,5 @@
 import {
+  getRegisteredWorkspace2Names,
   launchWorkspace,
   launchWorkspace2,
   navigate,
@@ -21,10 +22,10 @@ export interface DefaultPatientWorkspaceProps extends DefaultWorkspaceProps {
 }
 
 export interface PatientWorkspaceGroupProps {
-  patient: fhir.Patient;
+  patient: fhir.Patient | null;
   patientUuid: string;
-  visitContext: Visit;
-  mutateVisitContext: () => void;
+  visitContext: Visit | null;
+  mutateVisitContext: (() => void) | null;
 }
 
 export interface PatientChartWorkspaceActionButtonProps {
@@ -36,10 +37,35 @@ export type PatientWorkspace2DefinitionProps<
   WindowProps extends object,
 > = Workspace2DefinitionProps<WorkspaceProps, WindowProps, PatientWorkspaceGroupProps>;
 
+function isWorkspace2Registered(workspaceName: string): boolean {
+  return getRegisteredWorkspace2Names().includes(workspaceName);
+}
+
+function getPatientWorkspaceGroupProps(): PatientWorkspaceGroupProps | null {
+  const patientUuid = getPatientUuidFromStore();
+
+  if (!patientUuid) {
+    return null;
+  }
+
+  return {
+    patient: null,
+    patientUuid,
+    visitContext: null,
+    mutateVisitContext: null,
+  };
+}
+
 export function launchPatientWorkspace(workspaceName: string, additionalProps?: object): void {
   const patientUuid = getPatientUuidFromStore();
+
+  if (isWorkspace2Registered(workspaceName)) {
+    void launchWorkspace2(workspaceName, additionalProps ?? null, null, getPatientWorkspaceGroupProps());
+    return;
+  }
+
   launchWorkspace(workspaceName, {
-    patientUuid: patientUuid,
+    patientUuid,
     ...additionalProps,
   });
 }
@@ -133,9 +159,10 @@ export function useLaunchWorkspaceRequiringVisit<T extends object>(
   return useCallback(
     (workspaceProps?: T, windowProps?: object, groupProps?: object): void => {
       if (patientUuid) {
+        const patientChartGroupProps = groupProps ?? getPatientWorkspaceGroupProps();
         void startVisitIfNeeded().then((didStartVisit) => {
           if (didStartVisit) {
-            void launchWorkspace2(workspaceName, workspaceProps, windowProps, groupProps);
+            void launchWorkspace2(workspaceName, workspaceProps ?? null, windowProps ?? null, patientChartGroupProps);
           }
         });
         return;

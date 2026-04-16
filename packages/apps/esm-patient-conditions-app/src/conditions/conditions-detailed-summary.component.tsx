@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unused-vars */
 import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -17,8 +17,8 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { AddIcon, formatDate, launchWorkspace2, parseDate, useLayoutType } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { AddIcon, formatDate, parseDate, useLayoutType } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { ConditionsActionMenu } from './conditions-action-menu.component';
 import { type Condition, type ConditionTableHeader, useConditions, useConditionsSorting } from './conditions.resource';
 import styles from './conditions-detailed-summary.scss';
@@ -92,7 +92,7 @@ function ConditionsDetailedSummary({ patient }) {
 
   const launchConditionsForm = useCallback(
     () =>
-      launchWorkspace2('conditions-form-workspace', {
+      launchPatientWorkspace('conditions-form-workspace', {
         formContext: 'creating',
       }),
     [],

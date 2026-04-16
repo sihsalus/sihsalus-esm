@@ -252,5 +252,11 @@
       "title": "startVisitWorkspaceTitle",
       "type": "start-visit"
     }
+  ],
+  "workspaceGroups2": [
+    {
+      "name": "patient-chart",
+      "scopePattern": "^.*?/patient/([^/]+)/chart"
+    }
   ]
 }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unused-vars */
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -22,12 +22,12 @@ import {
   type ConfigObject,
   formatDate,
   formatDatetime,
-  launchWorkspace2,
   useConfig,
   useLayoutType,
   usePagination,
   isDesktop as desktopLayout,
 } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { type ConfigurableProgram } from '../types';
 import { findLastState, usePrograms } from './programs.resource';
 import { ProgramsActionMenu } from './programs-action-menu.component';
@@ -60,7 +60,7 @@ const ProgramsOverview: React.FC<ProgramsOverviewProps> = ({ basePath, patientUu
     [paginatedEnrollments],
   );
 
-  const launchProgramsForm = useCallback(() => launchWorkspace2('programs-form-workspace'), []);
+  const launchProgramsForm = useCallback(() => launchPatientWorkspace('programs-form-workspace'), []);
 
   const tableHeaders = [
     {

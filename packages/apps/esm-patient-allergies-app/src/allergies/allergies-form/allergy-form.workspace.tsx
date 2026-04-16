@@ -26,6 +26,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import {
   ExtensionSlot,
   showSnackbar,
+  usePatient,
   useConfig,
   useLayoutType,
   ResponsiveWrapper,
@@ -43,7 +44,10 @@ import { useAllergies } from '../allergy-intolerance.resource';
 import { type AllergiesConfigObject } from '../../config-schema';
 import { ALLERGEN_TYPES, type Allergy } from '../../types';
 import styles from './allergy-form.scss';
-import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import {
+  type DefaultPatientWorkspaceProps,
+  type PatientWorkspace2DefinitionProps,
+} from '@openmrs/esm-patient-common-lib';
 
 interface AllergyFormData {
   allergen: Allergen;
@@ -70,6 +74,12 @@ interface FormValues {
 
 type Severity = 'mild' | 'moderate' | 'severe';
 type AllergyWorkspaceDefinitionProps = PatientWorkspace2DefinitionProps<AllergyFormWorkspaceProps, object>;
+type LegacyAllergyWorkspaceProps = DefaultPatientWorkspaceProps & AllergyFormWorkspaceProps;
+type AllergyWorkspaceProps = AllergyWorkspaceDefinitionProps | LegacyAllergyWorkspaceProps;
+
+function isWorkspace2Props(props: AllergyWorkspaceProps): props is AllergyWorkspaceDefinitionProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
+}
 
 const allergyFormSchema = (t: TFunction, otherConceptUuid: string) =>
   z
@@ -119,14 +129,17 @@ const allergyFormSchema = (t: TFunction, otherConceptUuid: string) =>
       }
     });
 
-function AllergyFormWorkspace(props: AllergyWorkspaceDefinitionProps) {
-  const { groupProps, workspaceProps } = props;
-  const { patient, patientUuid } = groupProps;
-  const { allergy, formContext } = workspaceProps;
+function AllergyFormWorkspace(props: AllergyWorkspaceProps) {
+  const patientUuid = isWorkspace2Props(props) ? props.groupProps.patientUuid : props.patientUuid;
+  const patientFromGroup = isWorkspace2Props(props) ? props.groupProps.patient : null;
+  const allergy = isWorkspace2Props(props) ? props.workspaceProps.allergy : props.allergy;
+  const formContext = isWorkspace2Props(props) ? props.workspaceProps.formContext : props.formContext;
+  const { patient: fetchedPatient } = usePatient(patientUuid);
+  const patient = patientFromGroup ?? fetchedPatient;
   const { allergens } = useAllergens();
   const { allergicReactions, isLoading: isLoadingReactions } = useAllergicReactions();
   const { concepts } = useConfig<AllergiesConfigObject>();
-  const { allergies, mutate } = useAllergies(patient.id);
+  const { allergies, mutate } = useAllergies(patientUuid);
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const formValuesLoadedRef = useRef(false);

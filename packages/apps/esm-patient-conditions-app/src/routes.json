@@ -41,6 +41,17 @@
       "component": "conditionDeleteConfirmationDialog"
     }
   ],
+  "workspaces": [
+    {
+      "name": "conditions-form-workspace",
+      "title": "Record a Condition",
+      "component": "conditionsFormWorkspace",
+      "type": "condition",
+      "canHide": true,
+      "canMaximize": true,
+      "width": "wider"
+    }
+  ],
   "workspaces2": [
     {
       "name": "conditions-form-workspace",

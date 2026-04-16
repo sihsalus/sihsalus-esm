@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call */
 import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -22,13 +22,18 @@ import {
   AddIcon,
   formatDate,
   isDesktop as isDesktopLayout,
-  launchWorkspace2,
   parseDate,
   useConfig,
   useLayoutType,
   usePagination,
 } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState, ErrorState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import {
+  CardHeader,
+  EmptyState,
+  ErrorState,
+  PatientChartPagination,
+  launchPatientWorkspace,
+} from '@openmrs/esm-patient-common-lib';
 import { ConditionsActionMenu } from './conditions-action-menu.component';
 import { type Condition, useConditions, useConditionsSorting } from './conditions.resource';
 import { type ConfigObject } from '../config-schema';
@@ -68,7 +73,7 @@ const ConditionsOverview: React.FC<ConditionsOverviewProps> = ({ patientUuid }) 
   const [filter, setFilter] = useState<'All' | 'Active' | 'Inactive'>('Active');
   const launchConditionsForm = useCallback(
     () =>
-      launchWorkspace2('conditions-form-workspace', {
+      launchPatientWorkspace('conditions-form-workspace', {
         formContext: 'creating',
       }),
     [],

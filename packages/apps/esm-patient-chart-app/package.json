@@ -47,6 +47,7 @@
     "@carbon/react": "1.x",
     "@openmrs/esm-framework": "9.x",
     "@openmrs/esm-patient-common-lib": "*",
+    "@openmrs/esm-styleguide": "*",
     "dayjs": "1.x",
     "lodash-es": "4.x",
     "react": "18.x",
@@ -58,6 +59,7 @@
     "swr": "2.x"
   },
   "devDependencies": {
+    "@openmrs/esm-styleguide": "*",
     "@rspack/cli": "1.7.11",
     "@types/uuid": "^9.0.4",
     "jest": "^29.7.0",

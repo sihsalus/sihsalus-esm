@@ -9,6 +9,7 @@ import {
   useWorkspaces,
 } from '@openmrs/esm-framework';
 import { getPatientChartStore } from '@openmrs/esm-patient-common-lib';
+import { useWorkspace2Store, WorkspaceWindowsAndMenu } from '@openmrs/esm-styleguide';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -29,7 +30,11 @@ const PatientChart: React.FC = () => {
   const { currentVisit, mutate: mutateVisitContext } = useVisit(patientUuid);
   const state = useMemo(() => ({ patient, patientUuid }), [patient, patientUuid]);
   const { workspaceWindowState, active } = useWorkspaces();
+  const { openedGroup, openedWindows, isMostRecentlyOpenedWindowHidden } = useWorkspace2Store();
   const [layoutMode, setLayoutMode] = useState<LayoutMode>();
+  const hasVisibleWorkspace2Window =
+    openedGroup?.groupName === 'patient-chart' && openedWindows.length > 0 && !isMostRecentlyOpenedWindowHidden;
+  const hasVisibleLegacyWorkspace = workspaceWindowState === 'normal' && active;
 
   // We are responsible for creating a new offline visit while in offline mode.
   // The patient chart widgets assume that this is handled by the chart itself.
@@ -78,7 +83,7 @@ const PatientChart: React.FC = () => {
           <div
             className={classNames(
               styles.innerChartContainer,
-              workspaceWindowState === 'normal' && active ? styles.closeWorkspace : styles.activeWorkspace,
+              hasVisibleLegacyWorkspace || hasVisibleWorkspace2Window ? styles.closeWorkspace : styles.activeWorkspace,
             )}
           >
             {isLoadingPatient ? (
@@ -103,6 +108,7 @@ const PatientChart: React.FC = () => {
         </>
       </main>
       <WorkspaceContainer showSiderailAndBottomNav contextKey={`patient/${patientUuid}`} />
+      <WorkspaceWindowsAndMenu showActionMenu={false} />
     </>
   );
 };

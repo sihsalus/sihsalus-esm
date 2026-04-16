@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-object-type, @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-object-type */
 import React, { useCallback, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button, ButtonSet, Form, InlineLoading, InlineNotification } from '@carbon/react';
 import { useLayoutType, Workspace2 } from '@openmrs/esm-framework';
-import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import {
+  type DefaultPatientWorkspaceProps,
+  type PatientWorkspace2DefinitionProps,
+} from '@openmrs/esm-patient-common-lib';
 import { type Condition, useConditions } from './conditions.resource';
 import ConditionsWidget from './conditions-widget.component';
 import styles from './conditions-form.scss';
@@ -44,11 +47,19 @@ const createSchema = (formContext: 'creating' | 'editing', t: TFunction) => {
 
 export type ConditionsFormSchema = z.infer<ReturnType<typeof createSchema>>;
 
-const ConditionsForm: React.FC<PatientWorkspace2DefinitionProps<ConditionFormProps, {}>> = ({
-  closeWorkspace,
-  groupProps: { patientUuid },
-  workspaceProps: { condition, formContext },
-}) => {
+type ConditionsWorkspaceDefinitionProps = PatientWorkspace2DefinitionProps<ConditionFormProps, {}>;
+type LegacyConditionsWorkspaceProps = DefaultPatientWorkspaceProps & ConditionFormProps;
+type ConditionsWorkspaceProps = ConditionsWorkspaceDefinitionProps | LegacyConditionsWorkspaceProps;
+
+function isWorkspace2Props(props: ConditionsWorkspaceProps): props is ConditionsWorkspaceDefinitionProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
+}
+
+const ConditionsForm: React.FC<ConditionsWorkspaceProps> = (props) => {
+  const closeWorkspace = props.closeWorkspace;
+  const patientUuid = isWorkspace2Props(props) ? props.groupProps.patientUuid : props.patientUuid;
+  const condition = isWorkspace2Props(props) ? props.workspaceProps.condition : props.condition;
+  const formContext = isWorkspace2Props(props) ? props.workspaceProps.formContext : props.formContext;
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { conditions } = useConditions(patientUuid);

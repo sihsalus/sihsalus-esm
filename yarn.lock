@@ -10089,6 +10089,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-patient-chart-app@workspace:packages/apps/esm-patient-chart-app"
   dependencies:
+    "@openmrs/esm-styleguide": "npm:*"
     "@rspack/cli": "npm:1.7.11"
     "@sihsalus/rbac": "workspace:*"
     "@types/uuid": "npm:^9.0.4"
@@ -10101,6 +10102,7 @@ __metadata:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.x
     "@openmrs/esm-patient-common-lib": "*"
+    "@openmrs/esm-styleguide": "*"
     dayjs: 1.x
     lodash-es: 4.x
     react: 18.x

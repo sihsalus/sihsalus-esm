@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -14,8 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { AddIcon, formatDate, launchWorkspace2, parseDate, useLayoutType } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { AddIcon, formatDate, parseDate, useLayoutType } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { patientAllergiesFormWorkspace } from '../constants';
 import { useAllergies } from './allergy-intolerance.resource';
 import { AllergiesActionMenu } from './allergies-action-menu.component';
@@ -34,7 +34,7 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
   const displayText = t('allergyIntolerances', 'allergy intolerances');
   const headerTitle = t('allergies', 'Allergies');
 
-  const launchAllergiesForm = useCallback(() => launchWorkspace2(patientAllergiesFormWorkspace), []);
+  const launchAllergiesForm = useCallback(() => launchPatientWorkspace(patientAllergiesFormWorkspace), []);
 
   const tableHeaders = [
     { key: 'display', header: t('allergen', 'Allergen') },

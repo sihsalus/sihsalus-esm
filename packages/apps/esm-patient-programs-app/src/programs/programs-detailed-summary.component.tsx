@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars */
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -24,9 +24,8 @@ import {
   useConfig,
   useLayoutType,
   isDesktop as desktopLayout,
-  launchWorkspace2,
 } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { findLastState, usePrograms } from './programs.resource';
 import { ProgramsActionMenu } from './programs-action-menu.component';
 import styles from './programs-detailed-summary.scss';
@@ -97,7 +96,7 @@ const ProgramsDetailedSummary: React.FC<ProgramsDetailedSummaryProps> = ({ patie
     [enrollments],
   );
 
-  const launchProgramsForm = useCallback(() => launchWorkspace2('programs-form-workspace'), []);
+  const launchProgramsForm = useCallback(() => launchPatientWorkspace('programs-form-workspace'), []);
 
   const isEnrolledInAllPrograms = useMemo(() => {
     if (!availablePrograms?.length || !enrollments?.length) {

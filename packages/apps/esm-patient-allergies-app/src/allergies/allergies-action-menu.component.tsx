@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import { launchWorkspace2, showModal, useLayoutType } from '@openmrs/esm-framework';
+import { showModal, useLayoutType } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { type Allergy } from '../types';
 import { patientAllergiesFormWorkspace } from '../constants';
 import styles from './allergies-action-menu.scss';
@@ -17,7 +17,7 @@ export const AllergiesActionMenu = ({ allergy, patientUuid }: allergiesActionMen
   const isTablet = useLayoutType() === 'tablet';
 
   const launchEditAllergiesForm = useCallback(() => {
-    launchWorkspace2(patientAllergiesFormWorkspace, {
+    launchPatientWorkspace(patientAllergiesFormWorkspace, {
       allergy,
       formContext: 'editing',
     });

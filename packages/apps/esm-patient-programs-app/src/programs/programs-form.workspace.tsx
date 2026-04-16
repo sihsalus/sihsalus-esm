@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-object-type, @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-object-type */
 import React, { useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -31,7 +31,10 @@ import {
   useSession,
   Workspace2,
 } from '@openmrs/esm-framework';
-import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import {
+  type DefaultPatientWorkspaceProps,
+  type PatientWorkspace2DefinitionProps,
+} from '@openmrs/esm-patient-common-lib';
 import { type ConfigObject } from '../config-schema';
 import {
   createProgramEnrollment,
@@ -57,11 +60,20 @@ const createProgramsFormSchema = (t: TFunction) =>
 
 export type ProgramsFormData = z.infer<ReturnType<typeof createProgramsFormSchema>>;
 
-const ProgramsForm: React.FC<PatientWorkspace2DefinitionProps<ProgramsFormProps, {}>> = ({
-  closeWorkspace,
-  groupProps: { patientUuid },
-  workspaceProps: { programEnrollmentId },
-}) => {
+type ProgramsWorkspaceDefinitionProps = PatientWorkspace2DefinitionProps<ProgramsFormProps, {}>;
+type LegacyProgramsWorkspaceProps = DefaultPatientWorkspaceProps & ProgramsFormProps;
+type ProgramsWorkspaceProps = ProgramsWorkspaceDefinitionProps | LegacyProgramsWorkspaceProps;
+
+function isWorkspace2Props(props: ProgramsWorkspaceProps): props is ProgramsWorkspaceDefinitionProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
+}
+
+const ProgramsForm: React.FC<ProgramsWorkspaceProps> = (props) => {
+  const closeWorkspace = props.closeWorkspace;
+  const patientUuid = isWorkspace2Props(props) ? props.groupProps.patientUuid : props.patientUuid;
+  const programEnrollmentId = isWorkspace2Props(props)
+    ? props.workspaceProps.programEnrollmentId
+    : props.programEnrollmentId;
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const session = useSession();
