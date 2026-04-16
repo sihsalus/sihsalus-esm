@@ -1,4 +1,4 @@
-import { type InpatientRequest } from '@openmrs/esm-ward-app/src/types';
+import { type InpatientRequest } from '@sihsalus/esm-ward-app/src/types';
 import { mockLocationInpatientWard } from './locations.mock';
 import { mockPatientAlice } from './patient.mock';
 import { mockVisitAlice } from './visits.mock';
@@ -28,7 +28,7 @@ export const mockInpatientRequestAlice: InpatientRequest = {
       display: 'Misc',
     },
     set: false,
-    version: null,
+    version: undefined,
     retired: false,
     names: [
       {
