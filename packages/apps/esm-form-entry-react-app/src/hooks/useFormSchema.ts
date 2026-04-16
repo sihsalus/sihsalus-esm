@@ -1,6 +1,10 @@
-import { type FormSchema } from '@openmrs/esm-form-engine-lib';
+import { type FormSchema } from '@sihsalus/esm-form-engine-lib';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+
+interface FormSchemaResponse {
+  data: FormSchema;
+}
 
 /**
  * Fetches a compiled form schema by form UUID from the O3 forms endpoint.
@@ -8,13 +12,35 @@ import useSWR from 'swr';
 const useFormSchema = (formUuid: string) => {
   const url = formUuid ? `${restBaseUrl}/o3/forms/${formUuid}` : null;
 
-  const { data, error, isLoading } = useSWR<{ data: FormSchema }>(url, openmrsFetch);
+  const { data, error, isLoading } = useSWR<FormSchemaResponse, Error>(url, openmrsFetch);
+  const schemaError = error instanceof Error ? error : undefined;
+  const schema = normalizeSchema(data);
 
-  const schema = data?.data
-    ? { ...data.data, encounterType: data.data.encounterType?.['uuid'] ?? data.data.encounterType }
-    : undefined;
-
-  return { schema, error, isLoading };
+  return { schema, error: schemaError, isLoading };
 };
 
 export default useFormSchema;
+
+function normalizeSchema(response: FormSchemaResponse | undefined): FormSchema | undefined {
+  if (!response?.data) {
+    return undefined;
+  }
+
+  return {
+    ...response.data,
+    encounterType: normalizeEncounterType(response.data.encounterType as unknown),
+  };
+}
+
+function normalizeEncounterType(encounterType: unknown): FormSchema['encounterType'] {
+  if (
+    typeof encounterType === 'object' &&
+    encounterType !== null &&
+    'uuid' in encounterType &&
+    typeof encounterType.uuid === 'string'
+  ) {
+    return encounterType.uuid;
+  }
+
+  return encounterType as FormSchema['encounterType'];
+}

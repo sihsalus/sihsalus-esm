@@ -5,6 +5,8 @@ import {
   type DefaultWorkspaceProps,
 } from '@openmrs/esm-framework';
 
+import { type OpenmrsEncounter } from '@sihsalus/esm-form-engine-lib';
+
 import { type HtmlFormEntryForm } from '../types';
 
 export interface FormEntryProps {
@@ -15,6 +17,7 @@ export interface FormEntryProps {
   visitStartDatetime?: string;
   visitStopDatetime?: string;
   htmlForm?: HtmlFormEntryForm;
+  preFilledQuestions?: Record<string, string | number | Date | boolean | Array<string>>;
   additionalProps?: Record<string, unknown>;
 }
 
@@ -29,7 +32,10 @@ export interface FormRendererProps {
   hideControls?: boolean;
   hidePatientBanner?: boolean;
   handlePostResponse?: (encounter?: Encounter) => void;
-  preFilledQuestions?: Record<string, string>;
+  handleEncounterCreate?: (encounter: OpenmrsEncounter) => OpenmrsEncounter | void | Promise<OpenmrsEncounter | void>;
+  handleOnValidate?: (valid: boolean) => void;
+  showDiscardSubmitButtons?: boolean;
+  preFilledQuestions?: Record<string, string | number | Date | boolean | Array<string>>;
   launchChildWorkspace?: Workspace2DefinitionProps['launchChildWorkspace'];
   closeWorkspace?: DefaultWorkspaceProps['closeWorkspace'];
   closeWorkspaceWithSavedChanges?: () => void;

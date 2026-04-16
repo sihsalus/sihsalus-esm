@@ -1,4 +1,4 @@
-import { type OpenmrsFormResource } from '@openmrs/esm-form-engine-lib';
+import { type OpenmrsFormResource } from '@sihsalus/esm-form-engine-lib';
 import { type OpenmrsResource } from '@openmrs/esm-framework';
 
 export interface Form {

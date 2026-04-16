@@ -1,0 +1,21 @@
+@use '@carbon/layout';
+
+.label {
+  font-weight: 600;
+  line-height: 30px;
+  color: #000000;
+}
+
+.thumbnailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 7rem);
+  gap: layout.$spacing-05;
+  margin-top: layout.$spacing-05;
+}
+
+.thumbnailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}

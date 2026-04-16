@@ -1,6 +1,6 @@
 import { InlineLoading } from '@carbon/react';
-import { FormEngine } from '@openmrs/esm-form-engine-lib';
-import { showModal, type Encounter, type Visit } from '@openmrs/esm-framework';
+import { FormEngine } from '@sihsalus/esm-form-engine-lib';
+import { showModal, type Encounter, type OpenmrsResource, type Visit } from '@openmrs/esm-framework';
 import {
   clinicalFormsWorkspace,
   type FormRendererProps,
@@ -8,7 +8,7 @@ import {
 } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { FormField, SessionMode } from '@openmrs/esm-form-engine-lib';
+import type { FormField, SessionMode } from '@sihsalus/esm-form-engine-lib';
 
 import useFormSchema from '../hooks/useFormSchema';
 
@@ -25,11 +25,6 @@ interface FormRendererAdditionalProps {
   openClinicalFormsWorkspaceOnFormClose?: boolean;
 }
 
-interface FormSubmissionPayload {
-  encounters?: Array<Encounter>;
-  uuid?: string;
-}
-
 const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
   const {
     additionalProps,
@@ -37,10 +32,13 @@ const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
     encounterUuid,
     formUuid,
     handlePostResponse,
+    handleEncounterCreate,
+    handleOnValidate,
     hideControls,
     hidePatientBanner,
     patientUuid,
     preFilledQuestions,
+    showDiscardSubmitButtons,
     visit: visitRaw,
     visitUuid,
     clinicalFormsWorkspaceName = clinicalFormsWorkspace,
@@ -50,8 +48,9 @@ const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
   const typedAdditionalProps = additionalProps as FormRendererAdditionalProps | undefined;
   const openClinicalFormsWorkspaceOnFormClose = typedAdditionalProps?.openClinicalFormsWorkspaceOnFormClose ?? true;
   const formSessionIntent = typedAdditionalProps?.formSessionIntent ?? '*';
+  const effectiveHideControls = hideControls ?? showDiscardSubmitButtons === false;
 
-  const visit = useMemo(() => {
+  const visit = useMemo<Visit | undefined>(() => {
     if (visitRaw) {
       return visitRaw;
     }
@@ -64,7 +63,7 @@ const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
   const handleCloseForm = useCallback(() => {
     props.closeWorkspace?.();
     if (!encounterUuid && openClinicalFormsWorkspaceOnFormClose) {
-      launchPatientWorkspace(clinicalFormsWorkspaceName);
+      void launchPatientWorkspace(clinicalFormsWorkspaceName);
     }
   }, [props, encounterUuid, openClinicalFormsWorkspaceOnFormClose, clinicalFormsWorkspaceName]);
 
@@ -84,14 +83,18 @@ const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
   }, []);
 
   const handleOnSubmit = useCallback(
-    (data?: FormSubmissionPayload) => {
+    (data: Array<OpenmrsResource>) => {
       if (closeWorkspaceWithSavedChanges) {
         closeWorkspaceWithSavedChanges();
       } else {
         props.closeWorkspace?.({ ignoreChanges: true, closeWorkspaceGroup: true });
       }
 
-      handlePostResponse?.(data?.encounters?.[0]);
+      const submittedEncounter = data.find(
+        (result): result is OpenmrsResource & Encounter => typeof result?.uuid === 'string',
+      );
+
+      handlePostResponse?.(submittedEncounter);
     },
     [props, closeWorkspaceWithSavedChanges, handlePostResponse],
   );
@@ -120,7 +123,9 @@ const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
           formJson={schema}
           handleClose={handleCloseForm}
           handleConfirmQuestionDeletion={handleConfirmQuestionDeletion}
-          hideControls={hideControls}
+          handleEncounterCreate={handleEncounterCreate}
+          handleOnValidate={handleOnValidate}
+          hideControls={effectiveHideControls}
           hidePatientBanner={hidePatientBanner}
           markFormAsDirty={
             props.setHasUnsavedChanges

@@ -18,7 +18,7 @@ const RestoreDraftSchemaModal: React.FC<RestoreDraftSchemaModalProps> = ({ close
         onSchemaChange(JSON.parse(draftSchema) as Schema);
       }
     } catch (e) {
-      console.error('Error fetching draft schema from localStorage: ', e?.message);
+      console.error('Error fetching draft schema from localStorage: ', e instanceof Error ? e.message : e);
     }
   }, [onSchemaChange]);
 

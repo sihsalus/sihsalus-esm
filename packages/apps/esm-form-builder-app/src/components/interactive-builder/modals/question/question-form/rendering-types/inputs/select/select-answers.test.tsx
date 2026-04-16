@@ -4,7 +4,7 @@ import SelectAnswers from './select-answers.component';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
 import { FormFieldProvider } from '../../../../form-field-context';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Concept } from '@types';
 import userEvent from '@testing-library/user-event';
 

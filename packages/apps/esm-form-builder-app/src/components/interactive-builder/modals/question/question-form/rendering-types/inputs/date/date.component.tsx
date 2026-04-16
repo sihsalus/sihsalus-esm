@@ -34,7 +34,7 @@ const Date: React.FC = () => {
             id={type.value}
             checked={formField.datePickerFormat && formField.datePickerFormat === type.value}
             labelText={type.label}
-            onClick={handleDatePickerTypeChange.bind(null, type)}
+            onClick={() => handleDatePickerTypeChange(type)}
             value={type.value}
           />
         ))}

@@ -1,0 +1,148 @@
+@use '@carbon/layout';
+
+// replaces .formEngine
+.form {
+  height: 100%;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+// replaces .container
+.formContainer {
+  display: flex;
+  height: 100%;
+  overflow-y: hidden;
+  flex-direction: column;
+}
+
+// replaces .body
+.formContent {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+// replaces .content
+.formContentInner {
+  height: var(--desktop-workspace-window-height);
+  margin: 0;
+  flex-basis: 65%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  position: relative;
+  overflow-y: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+// replaces .contentBody
+.formBody {
+  overflow-y: auto;
+  width: inherit;
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.minifiedButtons {
+  button {
+    height: 4rem;
+    display: flex;
+    align-content: flex-start;
+    align-items: baseline;
+    min-width: 50%;
+  }
+}
+
+.markdownContainer {
+  padding: 1rem;
+}
+
+.loader {
+  @extend .formContent;
+  height: 1rem;
+}
+
+:global(.omrs-breakpoint-lt-desktop) {
+  .formContentInner {
+    height: var(--tablet-workspace-window-height);
+  }
+
+  .minifiedButtons {
+    border-top: 1px solid #ededed;
+    padding: 1.5rem 1rem;
+    background-color: white;
+  }
+}
+
+.linearActivity {
+  overflow: hidden;
+  width: 100%;
+  height: 4px;
+  background-color: var(--brand-03);
+  margin-top: 0px;
+}
+
+.determinate {
+  position: relative;
+  max-width: 100%;
+  height: 100%;
+  -webkit-transition: width 500ms ease-out 1s;
+  -moz-transition: width 500ms ease-out 1s;
+  -o-transition: width 500ms ease-out 1s;
+  transition: width 500ms ease-out 1s;
+  background-color: var(--brand-02);
+}
+
+.indeterminate {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.indeterminate:before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  background-color: var(--brand-02);
+  animation: indeterminate_first 2.5s infinite ease-out;
+}
+
+.indeterminate:after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  background-color: var(--brand-01);
+  animation: indeterminate_second 2.5s infinite ease-in;
+}
+
+@keyframes indeterminate_first {
+  0% {
+    left: -100%;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 10%;
+  }
+}
+
+@keyframes indeterminate_second {
+  0% {
+    left: -150%;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 10%;
+  }
+}
+
+.saveButton {
+  &:global(.cds--inline-loading) {
+    min-height: layout.$spacing-05;
+  }
+}

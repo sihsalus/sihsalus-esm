@@ -1,7 +1,7 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { PatientIdentifierType } from '@types';
 import { FormFieldProvider } from '../../../../form-field-context';
 import { usePatientIdentifierTypes } from '@hooks/usePatientIdentifierTypes';

@@ -11,12 +11,12 @@ import {
   MouseSensor,
   KeyboardSensor,
 } from '@dnd-kit/core';
-import type { DragEndEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { Accordion, AccordionItem, Button, IconButton, InlineLoading } from '@carbon/react';
 import { Add, TrashCan, Edit } from '@carbon/react/icons';
 import { useParams } from 'react-router-dom';
-import type { FormSchema, FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormSchema, FormField } from '@sihsalus/esm-form-engine-lib';
 import { showModal, showSnackbar } from '@openmrs/esm-framework';
 import { moveQuestion, type DragQuestionData } from './drag-and-drop-helpers';
 import DraggableQuestion from './draggable/draggable-question.component';
@@ -44,13 +44,59 @@ interface SubQuestionProps {
   questionIndex: number;
 }
 
+interface ActiveQuestionDragData {
+  pageIndex: number;
+  sectionIndex: number;
+  question: FormField;
+  questionCount: number;
+  questionIndex: number;
+  subQuestionIndex?: number | null;
+}
+
+function cloneJsonValue<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function getErrorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : '';
+}
+
+function isActiveQuestionDragData(value: unknown): value is ActiveQuestionDragData {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'pageIndex' in value &&
+    typeof value.pageIndex === 'number' &&
+    'sectionIndex' in value &&
+    typeof value.sectionIndex === 'number' &&
+    'questionIndex' in value &&
+    typeof value.questionIndex === 'number' &&
+    'questionCount' in value &&
+    typeof value.questionCount === 'number' &&
+    'question' in value &&
+    typeof value.question === 'object' &&
+    value.question !== null
+  );
+}
+
+function isDragQuestionData(value: unknown): value is DragQuestionData {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'type' in value &&
+    (value.type === 'question' || value.type === 'obsQuestion') &&
+    'question' in value &&
+    isActiveQuestionDragData(value.question)
+  );
+}
+
 const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
   isLoading,
   onSchemaChange,
   schema,
   validationResponse,
 }) => {
-  const [activeQuestion, setActiveQuestion] = useState(null);
+  const [activeQuestion, setActiveQuestion] = useState<ActiveQuestionDragData | null>(null);
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10, // Enable sort function when dragging 10px 💡 here!!!.
@@ -195,7 +241,7 @@ const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
         showSnackbar({
           title: t('errorRenamingForm', 'Error renaming form'),
           kind: 'error',
-          subtitle: error?.message,
+          subtitle: getErrorMessage(error),
         });
       }
     },
@@ -230,37 +276,10 @@ const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
     [onSchemaChange, schema, t],
   );
 
-  const renameSection = useCallback(
-    (name: string, pageIndex: number, sectionIndex: number) => {
-      try {
-        if (name) {
-          schema.pages[pageIndex].sections[sectionIndex].label = name;
-        }
-        onSchemaChange({ ...schema });
-
-        showSnackbar({
-          title: t('success', 'Success!'),
-          kind: 'success',
-          isLowContrast: true,
-          subtitle: t('sectionRenamed', 'Section renamed'),
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          showSnackbar({
-            title: t('errorRenamingSection', 'Error renaming section'),
-            kind: 'error',
-            subtitle: error?.message,
-          });
-        }
-      }
-    },
-    [onSchemaChange, schema, t],
-  );
-
   const duplicateQuestion = useCallback(
     (question: FormField, pageId: number, sectionId: number, questionId?: number) => {
       try {
-        const questionToDuplicate: FormField = JSON.parse(JSON.stringify(question));
+        const questionToDuplicate = cloneJsonValue(question);
         questionToDuplicate.id = questionToDuplicate.id + 'Duplicate';
 
         if (Number.isInteger(questionId)) {
@@ -293,8 +312,9 @@ const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
     [onSchemaChange, schema, t],
   );
 
-  const handleDragStart = (event) => {
-    setActiveQuestion(event.active.data.current?.question);
+  const handleDragStart = (event: DragStartEvent) => {
+    const dragData: unknown = event.active.data.current?.question;
+    setActiveQuestion(isActiveQuestionDragData(dragData) ? dragData : null);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -303,8 +323,12 @@ const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
 
     const activeId = active.id;
     const overId = over.id;
-    const activeQuestion = active.data.current as DragQuestionData;
-    const overQuestion = over.data.current as DragQuestionData;
+    const activeQuestion = active.data.current;
+    const overQuestion = over.data.current;
+
+    if (!isDragQuestionData(activeQuestion) || !isDragQuestionData(overQuestion)) {
+      return;
+    }
 
     if (activeId === overId) return;
 
@@ -429,7 +453,7 @@ const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
       <DndContext
         collisionDetection={(args) => [...rectIntersection(args), ...closestCorners(args), ...pointerWithin(args)]}
         onDragStart={handleDragStart}
-        onDragEnd={(event: DragEndEvent) => handleDragEnd(event)}
+        onDragEnd={handleDragEnd}
         sensors={sensors}
       >
         <SortableContext

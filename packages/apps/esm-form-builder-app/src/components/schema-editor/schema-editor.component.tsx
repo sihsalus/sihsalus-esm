@@ -6,13 +6,30 @@ import type { IMarker } from 'react-ace';
 import { useTranslation } from 'react-i18next';
 import { ActionableNotification } from '@carbon/react';
 import { useStandardFormSchema } from '@hooks/useStandardFormSchema';
-import Ajv from 'ajv';
+import Ajv, { type AnySchema, type ErrorObject } from 'ajv';
 import debounce from 'lodash-es/debounce';
 import { ChevronRight, ChevronLeft } from '@carbon/react/icons';
 import styles from './schema-editor.scss';
 
 interface MarkerProps extends IMarker {
   text: string;
+}
+
+interface SchemaSuggestion {
+  name: string;
+  type: string;
+  path: string;
+}
+
+interface SchemaPropertyDescriptor {
+  type?: string;
+  properties?: Record<string, unknown>;
+  items?: { type?: string; properties?: Record<string, unknown> };
+  oneOf?: Array<{ type: string }>;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
 }
 
 interface SchemaEditorProps {
@@ -35,46 +52,37 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
 }) => {
   const { schema, schemaProperties } = useStandardFormSchema();
   const { t } = useTranslation();
-  const [autocompleteSuggestions, setAutocompleteSuggestions] = useState<
-    Array<{ name: string; type: string; path: string }>
-  >([]);
+  const [autocompleteSuggestions, setAutocompleteSuggestions] = useState<Array<SchemaSuggestion>>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   // Enable autocompletion in the schema
   const generateAutocompleteSuggestions = useCallback(() => {
-    const suggestions: Array<{ name: string; type: string; path: string }> = [];
+    const suggestions: Array<SchemaSuggestion> = [];
 
-    const traverseSchema = (schemaProps: unknown, path: string) => {
-      if (schemaProps) {
-        if (schemaProps && typeof schemaProps === 'object') {
-          Object.entries(schemaProps).forEach(([propertyName, property]) => {
-            if (propertyName === '$schema') {
-              return;
-            }
-
-            const currentPath = path ? `${path}.${propertyName}` : propertyName;
-            const typedProperty = property as {
-              type?: string;
-              properties?: Array<{ type: string }>;
-              items?: { type?: string; properties?: Array<{ type: string }> };
-              oneOf?: Array<{ type: string }>;
-            };
-
-            if (typeof property === 'object') {
-              if (typedProperty.type === 'array' && typedProperty.items && typedProperty.items.properties) {
-                traverseSchema(typedProperty.items.properties, currentPath);
-              } else if (typedProperty.properties) {
-                traverseSchema(typedProperty.properties, currentPath);
-              } else if (typedProperty.oneOf) {
-                const types = typedProperty?.oneOf?.map((item: { type: string }) => item.type).join(' | ');
-                suggestions.push({ name: propertyName, type: types || 'any', path: currentPath });
-              }
-            }
-
-            suggestions.push({ name: propertyName, type: typedProperty.type || 'any', path: currentPath });
-          });
-        }
+    const traverseSchema = (schemaProps: unknown, path: string): void => {
+      if (!isRecord(schemaProps)) {
+        return;
       }
+
+      Object.entries(schemaProps).forEach(([propertyName, property]) => {
+        if (propertyName === '$schema') {
+          return;
+        }
+
+        const currentPath = path ? `${path}.${propertyName}` : propertyName;
+        const typedProperty: SchemaPropertyDescriptor = isRecord(property) ? property : {};
+
+        if (typedProperty.type === 'array' && typedProperty.items?.properties) {
+          traverseSchema(typedProperty.items.properties, currentPath);
+        } else if (typedProperty.properties) {
+          traverseSchema(typedProperty.properties, currentPath);
+        } else if (typedProperty.oneOf) {
+          const types = typedProperty.oneOf.map((item) => item.type).join(' | ');
+          suggestions.push({ name: propertyName, type: types || 'any', path: currentPath });
+        }
+
+        suggestions.push({ name: propertyName, type: typedProperty.type || 'any', path: currentPath });
+      });
     };
     traverseSchema(schemaProperties, '');
     return suggestions;
@@ -88,7 +96,7 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
 
   useEffect(() => {
     addCompleter({
-      getCompletions: function (editor, session, pos, prefix, callback) {
+      getCompletions: function (_editor, _session, _pos, _prefix, callback) {
         callback(
           null,
           autocompleteSuggestions.map(function (word) {
@@ -105,8 +113,12 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
   }, [autocompleteSuggestions]);
 
   // Validate JSON schema
-  const validateSchema = (content: string, schema) => {
+  const validateSchema = (content: string, schema: AnySchema | undefined): void => {
     try {
+      if (!schema) {
+        setErrors([]);
+        return;
+      }
       const trimmedContent = content.replace(/\s/g, '');
       // Check if the content is an empty object
       if (trimmedContent.trim() === '{}') {
@@ -117,11 +129,11 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
 
       const ajv = new Ajv({ allErrors: true, jsPropertySyntax: true, strict: false });
       const validate = ajv.compile(schema);
-      const parsedContent = JSON.parse(content);
+      const parsedContent: unknown = JSON.parse(content);
       const isValid = validate(parsedContent);
       const jsonLines = content.split('\n');
 
-      const traverse = (schemaPath) => {
+      const traverse = (schemaPath: string): number => {
         const pathSegments = schemaPath.split('/').filter((segment) => segment !== '' || segment !== 'type');
         let lineNumber = -1;
 
@@ -139,15 +151,17 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
       };
 
       if (!isValid) {
-        const errorMarkers = validate.errors.map((error) => {
+        const validationErrors: ErrorObject[] = validate.errors ?? [];
+        const errorMarkers = validationErrors.map((error) => {
           const schemaPath = error.schemaPath.replace(/^#\//, ''); // Remove leading '#/'
           const lineNumber = traverse(schemaPath);
           const pathSegments = error.instancePath.split('.'); // Split the path into segments
           const errorPropertyName = pathSegments[pathSegments.length - 1];
+          const errorMessage = error.message ?? t('unknownValidationError', 'Unknown validation error');
           const message =
             error.keyword === 'type' || error.keyword === 'enum'
-              ? `${errorPropertyName.charAt(0).toUpperCase() + errorPropertyName.slice(1)} ${error.message}`
-              : `${error.message.charAt(0).toUpperCase() + error.message.slice(1)}`;
+              ? `${errorPropertyName.charAt(0).toUpperCase() + errorPropertyName.slice(1)} ${errorMessage}`
+              : `${errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1)}`;
 
           return {
             startRow: lineNumber,
@@ -179,7 +193,7 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
   };
 
   // Schema Validation Errors
-  const ErrorNotification = ({ text, line }) => (
+  const ErrorNotification = ({ text, line }: { text?: string; line?: number }) => (
     <ActionableNotification
       subtitle={text}
       inline

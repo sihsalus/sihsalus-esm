@@ -13,7 +13,7 @@ The Form Builder is a widget used to create OpenMRS form schemas. It enables use
 
 ## Running this code
 
-Under the hood, the Form Builder uses the [React form engine](https://www.npmjs.com/package/@openmrs/esm-form-engine-lib) to render a visual representation of your schema. This visual preview gets progressively updated as you build your schema. When done building, you can save your schema to an OpenMRS server. You can also publish your schema to make it available to your frontend.
+Under the hood, the Form Builder uses the [React form engine](https://www.npmjs.com/package/@sihsalus/esm-form-engine-lib) to render a visual representation of your schema. This visual preview gets progressively updated as you build your schema. When done building, you can save your schema to an OpenMRS server. You can also publish your schema to make it available to your frontend.
 
 To set up environment variables for the project, follow these steps:
 

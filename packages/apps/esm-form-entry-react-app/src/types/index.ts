@@ -1,4 +1,5 @@
-import { type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+import { type DefaultWorkspaceProps, type Encounter as FrameworkEncounter } from '@openmrs/esm-framework';
+import { type OpenmrsEncounter, type PreFilledQuestions } from '@sihsalus/esm-form-engine-lib';
 
 /**
  * Config interface matching the Angular app's configSchema exactly.
@@ -12,7 +13,7 @@ export interface FormEntryReactConfig {
   customDataSources: Array<{
     name: string;
     moduleName: string;
-    moduleExport: 'default' | string;
+    moduleExport: string;
   }>;
   appointmentsResourceUrl: string;
   customEncounterDatetime: boolean;
@@ -33,7 +34,14 @@ export interface FormWidgetProps extends DefaultWorkspaceProps {
   visitStopDatetime?: string;
   encounterUuid?: string;
   isOffline: boolean;
-  additionalProps?: Record<string, any>;
+  additionalProps?: Record<string, unknown>;
+  preFilledQuestions?: PreFilledQuestions;
+  hideControls?: boolean;
+  hidePatientBanner?: boolean;
+  showDiscardSubmitButtons?: boolean;
+  handlePostResponse?: (encounter?: FrameworkEncounter) => void;
+  handleEncounterCreate?: (encounter: OpenmrsEncounter) => OpenmrsEncounter | void | Promise<OpenmrsEncounter | void>;
+  handleOnValidate?: (valid: boolean) => void;
   clinicalFormsWorkspaceName?: string;
 }
 
@@ -71,7 +79,7 @@ export interface Observation {
     concept: { uuid: string; display: string };
     value: { uuid: string; display: string };
   }>;
-  value: any;
+  value: unknown;
   obsDatetime: string;
 }
 
@@ -126,9 +134,9 @@ export interface EncounterCreate {
   encounterType: string;
   location: string;
   encounterProviders?: Array<{ uuid?: string; person: string; provider: string }>;
-  obs?: Array<any>;
-  orders?: Array<any>;
-  diagnoses?: Array<any>;
+  obs?: Array<unknown>;
+  orders?: Array<unknown>;
+  diagnoses?: Array<unknown>;
   form?: string;
   visit?: string;
 }

@@ -27,7 +27,7 @@ jest.mock('@openmrs/esm-framework', () => ({
   showSnackbar: jest.fn(),
 }));
 
-jest.mock('@openmrs/esm-form-engine-lib', () => ({
+jest.mock('@sihsalus/esm-form-engine-lib', () => ({
   FormEngine: jest.fn(() => <div data-testid="form-engine">FormEngine Mock</div>),
 }));
 
@@ -104,7 +104,7 @@ describe('FormRenderer', () => {
   });
 
   it('passes encounterUUID for edit mode', () => {
-    const { FormEngine } = jest.requireMock('@openmrs/esm-form-engine-lib');
+    const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
     mockUseFormSchema.mockReturnValue({
       schema: { uuid: 'test', name: 'Test Form', encounterType: 'enc-type-uuid' } as any,
       error: undefined,
@@ -122,7 +122,7 @@ describe('FormRenderer', () => {
   });
 
   it('defaults to enter mode when no encounterUuid', () => {
-    const { FormEngine } = jest.requireMock('@openmrs/esm-form-engine-lib');
+    const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
     mockUseFormSchema.mockReturnValue({
       schema: { uuid: 'test', name: 'Test Form', encounterType: 'enc-type-uuid' } as any,
       error: undefined,
@@ -139,7 +139,7 @@ describe('FormRenderer', () => {
   });
 
   it('constructs visit object from string props', () => {
-    const { FormEngine } = jest.requireMock('@openmrs/esm-form-engine-lib');
+    const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
     mockUseFormSchema.mockReturnValue({
       schema: { uuid: 'test', name: 'Test Form', encounterType: 'enc-type-uuid' } as any,
       error: undefined,

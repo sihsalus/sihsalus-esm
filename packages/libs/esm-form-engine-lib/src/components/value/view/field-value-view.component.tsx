@@ -1,0 +1,37 @@
+import React from 'react';
+import { isEmpty } from '../../../validators/form-validator';
+import LabelField from '../../label/label.component';
+import { ValueDisplay, ValueEmpty } from '../value.component';
+import styles from './field-value-view.scss';
+import { type FormFieldValue } from '../../../types';
+
+interface FieldValueViewProps {
+  isInline: boolean;
+  label: string;
+  value: FormFieldValue | string | undefined;
+  conceptName?: string;
+}
+
+const FieldValueView: React.FC<FieldValueViewProps> = ({ label, conceptName, value, isInline }) => (
+  <>
+    {isInline ? (
+      <div className={styles.inlineFlexRow}>
+        <div className={styles.inlineFlexColumn}>
+          <LabelField value={label} tooltipText={conceptName} />
+        </div>
+        <div className={styles.inlineFlexColumn}>
+          {isEmpty(value) ? <ValueEmpty /> : <ValueDisplay value={value} />}
+        </div>
+      </div>
+    ) : (
+      <div className={styles.readonly}>
+        <div className={styles.formField}>
+          <LabelField value={label} tooltipText={conceptName} />
+          <div className={styles.value}>{isEmpty(value) ? <ValueEmpty /> : <ValueDisplay value={value} />}</div>
+        </div>
+      </div>
+    )}
+  </>
+);
+
+export default FieldValueView;

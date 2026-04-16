@@ -1,6 +1,19 @@
 import { useEffect } from 'react';
+import { type DataSource, registerCustomDataSource } from '@sihsalus/esm-form-engine-lib';
 
 import type { FormEntryReactConfig } from '../types';
+
+interface ModuleFederationContainer {
+  get(module: string): Promise<() => Record<string, unknown>>;
+}
+
+type DataSourceModuleExport = DataSource<unknown> | undefined;
+
+declare global {
+  interface Window {
+    [key: string]: unknown;
+  }
+}
 
 /**
  * Converts a module name (e.g., "@myOrg/myGreatDataSource") to a window global slug.
@@ -22,15 +35,17 @@ function slugify(name: string): string {
  */
 export function useCustomDataSources(config: FormEntryReactConfig) {
   useEffect(() => {
-    if (!config.customDataSources?.length) return;
+    if (!config.customDataSources?.length) {
+      return;
+    }
 
-    const loadDataSources = async () => {
+    const loadDataSources = async (): Promise<void> => {
       for (const { name, moduleName, moduleExport } of config.customDataSources) {
         try {
           const slug = slugify(moduleName);
-          const moduleEntry = (window as any)[slug];
+          const moduleEntry = window[slug];
 
-          if (!moduleEntry?.get) {
+          if (!isModuleFederationContainer(moduleEntry)) {
             console.warn(
               `Custom data source "${name}": module "${moduleName}" (window.${slug}) not found or does not have a "get" method.`,
             );
@@ -39,31 +54,54 @@ export function useCustomDataSources(config: FormEntryReactConfig) {
 
           const factory = await moduleEntry.get('./start');
           const module = factory();
-          const dataSource = module[moduleExport] ?? module.default;
+          const dataSource = getDataSourceExport(module, moduleExport);
 
           if (!dataSource) {
             console.warn(`Custom data source "${name}": export "${moduleExport}" not found in module "${moduleName}".`);
             continue;
           }
 
-          // Register with FormEngine's data source registry if available
-          try {
-            const { registerCustomDataSource } = await import('@openmrs/esm-form-engine-lib');
-            if (typeof registerCustomDataSource === 'function') {
-              registerCustomDataSource({
-                name,
-                load: () => Promise.resolve({ default: dataSource }),
-              });
-            }
-          } catch {
-            console.warn(`Could not register custom data source "${name}" with FormEngine registry.`);
-          }
+          registerCustomDataSource({
+            name,
+            load: () => Promise.resolve({ default: dataSource }),
+          });
         } catch (error) {
           console.warn(`Failed to load custom data source "${name}" from module "${moduleName}":`, error);
         }
       }
     };
 
-    loadDataSources();
+    void loadDataSources();
   }, [config.customDataSources]);
+}
+
+function isModuleFederationContainer(value: unknown): value is ModuleFederationContainer {
+  return typeof value === 'object' && value !== null && 'get' in value && typeof value.get === 'function';
+}
+
+function isDataSource(value: unknown): value is DataSource<unknown> {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'fetchData' in value &&
+    typeof value.fetchData === 'function' &&
+    'fetchSingleItem' in value &&
+    typeof value.fetchSingleItem === 'function' &&
+    'toUuidAndDisplay' in value &&
+    typeof value.toUuidAndDisplay === 'function'
+  );
+}
+
+function getDataSourceExport(module: Record<string, unknown>, moduleExport: string): DataSourceModuleExport {
+  const namedExport = module[moduleExport];
+  if (isDataSource(namedExport)) {
+    return namedExport;
+  }
+
+  const defaultExport = module.default;
+  if (isDataSource(defaultExport)) {
+    return defaultExport;
+  }
+
+  return undefined;
 }

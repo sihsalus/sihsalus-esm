@@ -1,5 +1,5 @@
 import { Type, validators } from '@openmrs/esm-framework';
-import { type RenderType } from '@openmrs/esm-form-engine-lib';
+import { type RenderType } from '@sihsalus/esm-form-engine-lib';
 import type { QuestionType } from '@types';
 
 const allowedQuestionTypes: Array<QuestionType> = [

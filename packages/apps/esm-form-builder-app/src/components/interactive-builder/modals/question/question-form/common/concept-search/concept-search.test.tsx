@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
 import ConceptSearch from './concept-search.component';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Concept } from '@types';
 
 const formField: FormField = {

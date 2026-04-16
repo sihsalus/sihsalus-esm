@@ -1,5 +1,5 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
 import type { ConfigObject } from '../config-schema';
 
@@ -48,6 +48,43 @@ interface PatientIdentifierTypeResponse {
   data?: unknown;
 }
 
+function parseSchema(schema: string | Schema): Schema {
+  return typeof schema === 'string' ? (JSON.parse(schema) as Schema) : schema;
+}
+
+function isConceptSearchResult(value: unknown): value is ConceptSearchResult {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'datatype' in value &&
+    typeof value.datatype === 'object' &&
+    value.datatype !== null &&
+    'name' in value.datatype &&
+    typeof value.datatype.name === 'string' &&
+    'answers' in value &&
+    Array.isArray(value.answers)
+  );
+}
+
+function getConceptSearchResults(response: ConceptSearchResponse): Array<ConceptSearchResult> {
+  return Array.isArray(response.data?.results) ? response.data.results.filter(isConceptSearchResult) : [];
+}
+
+function hasPatientIdentifierData(response: PatientIdentifierTypeResponse): boolean {
+  return response.data !== undefined && response.data !== null;
+}
+
+function isConceptMapping(value: unknown): value is ConceptMapping {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'type' in value &&
+    typeof value.type === 'string' &&
+    'value' in value &&
+    typeof value.value === 'string'
+  );
+}
+
 export const handleFormValidation = async (
   schema: string | Schema,
   configObject: ConfigObject['dataTypeToRenderingMap'],
@@ -56,14 +93,7 @@ export const handleFormValidation = async (
   const warnings: Array<WarningMessageResponse> = [];
 
   if (schema) {
-    let parsedForm: Schema;
-
-    if (typeof schema === 'string') {
-      const parsed = JSON.parse(schema) as unknown;
-      parsedForm = parsed as Schema;
-    } else {
-      parsedForm = schema;
-    }
+    const parsedForm = parseSchema(schema);
 
     const asyncTasks: Array<Promise<void>> = [];
 
@@ -119,7 +149,7 @@ const handleQuestionValidation = async (
       const response = await openmrsFetch<ConceptSearchResponse>(
         `${restBaseUrl}/concept?references=${searchRef}&v=${conceptRepresentation}`,
       );
-      const results = response.data.results;
+      const results = getConceptSearchResults(response);
 
       if (results.length) {
         const [resObject] = results;
@@ -180,7 +210,7 @@ const handlePatientIdentifierValidation = async (question: FormField, errors: Ar
       const response = await openmrsFetch<PatientIdentifierTypeResponse>(
         `${restBaseUrl}/patientidentifiertype/${question.questionOptions.identifierType}`,
       );
-      if (!response.data) {
+      if (!hasPatientIdentifierData(response)) {
         errors.push({
           errorMessage: `❓ The identifier type does not exist`,
           field: question,
@@ -202,8 +232,10 @@ const dataTypeChecker = (
   array: Array<ErrorMessageResponse>,
   dataTypeToRenderingMap: ConfigObject['dataTypeToRenderingMap'],
 ) => {
-  if (Object.prototype.hasOwnProperty.call(dataTypeToRenderingMap, responseObject.datatype.name)) {
-    if (!dataTypeToRenderingMap[responseObject.datatype.name].includes(conceptObject.questionOptions.rendering)) {
+  const allowedRenderings = dataTypeToRenderingMap[responseObject.datatype.name];
+
+  if (allowedRenderings) {
+    if (!allowedRenderings.includes(conceptObject.questionOptions.rendering)) {
       array.push({
         errorMessage: `❓ ${conceptObject.questionOptions.concept}: datatype "${responseObject.datatype.name}" doesn't match control type "${conceptObject.questionOptions.rendering}"`,
         field: conceptObject,
@@ -224,10 +256,13 @@ const handleAnswerValidation = async (questionObject: FormField, array: Array<Er
 
   if (answerArray?.length) {
     for (const answer of answerArray) {
+      const conceptMappings = Array.isArray(answer.conceptMappings)
+        ? answer.conceptMappings.filter(isConceptMapping)
+        : [];
       const searchRef = answer.concept
         ? answer.concept
-        : answer.conceptMappings?.length
-          ? answer.conceptMappings
+        : conceptMappings.length
+          ? conceptMappings
               .map((eachMapping: ConceptMapping) => {
                 return `${eachMapping.type}:${eachMapping.value}`;
               })
@@ -238,7 +273,7 @@ const handleAnswerValidation = async (questionObject: FormField, array: Array<Er
         const response = await openmrsFetch<ConceptSearchResponse>(
           `${restBaseUrl}/concept?references=${searchRef}&v=${conceptRepresentation}`,
         );
-        if (!response.data.results.length) {
+        if (!getConceptSearchResults(response).length) {
           array.push({
             errorMessage: `❌ concept "${answer.concept}" not found`,
             field: answer,

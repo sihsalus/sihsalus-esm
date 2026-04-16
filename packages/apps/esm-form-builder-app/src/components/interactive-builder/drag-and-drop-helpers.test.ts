@@ -1,5 +1,5 @@
 import { moveQuestion, type DragQuestionData } from './drag-and-drop-helpers';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '../../types';
 
 const dummyFormField = { id: '_', label: '_', type: 'obs', questionOptions: { rendering: 'text' } } as FormField;

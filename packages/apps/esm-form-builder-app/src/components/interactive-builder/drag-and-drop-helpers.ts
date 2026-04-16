@@ -1,4 +1,4 @@
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '../../types';
 
 export interface DragQuestionData {
@@ -10,6 +10,10 @@ export interface DragQuestionData {
     subQuestionIndex?: number;
     question: FormField;
   };
+}
+
+function cloneJsonValue<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
 }
 
 /**
@@ -27,7 +31,7 @@ export function moveQuestion(
     return undefined;
   }
 
-  const clonedSchema: Schema = JSON.parse(JSON.stringify(schema));
+  const clonedSchema = cloneJsonValue(schema);
 
   // Clone the question being moved so the returned schema shares no
   // references with the original.
@@ -35,7 +39,7 @@ export function moveQuestion(
     ...activeQuestion,
     question: {
       ...activeQuestion.question,
-      question: JSON.parse(JSON.stringify(activeQuestion.question.question)),
+      question: cloneJsonValue(activeQuestion.question.question),
     },
   };
 

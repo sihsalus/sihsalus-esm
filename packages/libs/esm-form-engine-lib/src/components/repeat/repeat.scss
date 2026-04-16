@@ -1,0 +1,30 @@
+.boldLegend > legend {
+  font-weight: bolder;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2.5rem;
+  flex: 1;
+}
+
+.removeButton {
+  @extend .flexColumn;
+  margin-left: 0.5rem;
+}
+
+.nodeContainer {
+  margin: 1rem 0rem;
+}
+
+.container {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.divider {
+  border: 1.5px solid #e0e0e0;
+  border-bottom: none;
+  margin: 2rem 0;
+}

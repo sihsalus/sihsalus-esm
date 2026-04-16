@@ -1,4 +1,10 @@
-import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
+import {
+  defineConfigSchema,
+  fhirBaseUrl,
+  getAsyncLifecycle,
+  messageOmrsServiceWorker,
+  restBaseUrl,
+} from '@openmrs/esm-framework';
 
 import { configSchema } from './config-schema';
 import { setupDynamicOfflineFormDataHandler, setupStaticDataOfflinePrecaching } from './offline/caching';
@@ -16,6 +22,38 @@ export function startupApp() {
   defineConfigSchema(moduleName, configSchema);
   setupStaticDataOfflinePrecaching();
   setupDynamicOfflineFormDataHandler();
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${fhirBaseUrl}/Observation.+`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/obs.+`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/session.*`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/provider.*`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/location.*`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/person.*`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/form.*`,
+  });
+  void messageOmrsServiceWorker({
+    type: 'registerDynamicRoute',
+    pattern: `.+${restBaseUrl}/o3/forms.*`,
+  });
 }
 
 export const formWidget = getAsyncLifecycle(() => import('./form-renderer/form-renderer.component'), options);

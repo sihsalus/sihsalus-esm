@@ -5,7 +5,7 @@ import TestOrderTypeQuestion from './test-order-type-question.component';
 import { FormFieldProvider } from '../../../../form-field-context';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 
 const mockUseConceptLookup = jest.mocked(useConceptLookup);
 jest.mock('@hooks/useConceptLookup', () => ({

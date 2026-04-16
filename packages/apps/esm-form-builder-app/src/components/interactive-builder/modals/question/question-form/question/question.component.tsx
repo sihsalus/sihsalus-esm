@@ -5,12 +5,16 @@ import RenderTypeComponent from '../rendering-types/rendering-type.component';
 import QuestionTypeComponent from '../question-types/question-type.component';
 import RequiredLabel from '../common/required-label/required-label.component';
 import { useFormField } from '../../form-field-context';
-import type { FormField, RenderType } from '@openmrs/esm-form-engine-lib';
+import type { FormField, RenderType } from '@sihsalus/esm-form-engine-lib';
 import { questionTypes, renderTypeOptions, renderingTypes } from '@constants';
 import styles from './question.scss';
 
 interface QuestionProps {
   checkIfQuestionIdExists: (idToTest: string) => boolean;
+}
+
+function isQuestionTypeWithRenderOptions(value: string): value is keyof typeof renderTypeOptions {
+  return questionTypes.includes(value as keyof typeof renderTypeOptions);
 }
 
 const Question: React.FC<QuestionProps> = ({ checkIfQuestionIdExists }) => {
@@ -36,7 +40,8 @@ const Question: React.FC<QuestionProps> = ({ checkIfQuestionIdExists }) => {
     (value: string) => {
       setFormField((prevFormField) => {
         if (value === 'false') {
-          const { questionInfo, ...updatedFormField } = prevFormField;
+          const updatedFormField = { ...prevFormField };
+          delete updatedFormField.questionInfo;
           return updatedFormField;
         }
         return prevFormField;
@@ -52,11 +57,10 @@ const Question: React.FC<QuestionProps> = ({ checkIfQuestionIdExists }) => {
       setFormField((prevFormField) => {
         const hasPreviousRenderingType = prevFormField?.questionOptions?.rendering;
         if (hasPreviousRenderingType) {
-          const isQuestionTypeObs = newQuestionType === 'obs' ? true : false;
-          if (!isQuestionTypeObs) {
-            const isRenderingTypeValidForQuestionType =
-              questionTypes.includes(newQuestionType as keyof typeof renderTypeOptions) &&
-              renderTypeOptions[newQuestionType].includes(prevFormField.questionOptions.rendering as RenderType);
+          if (newQuestionType !== 'obs' && isQuestionTypeWithRenderOptions(newQuestionType)) {
+            const isRenderingTypeValidForQuestionType = renderTypeOptions[newQuestionType].includes(
+              prevFormField.questionOptions.rendering,
+            );
             if (!isRenderingTypeValidForQuestionType) {
               return {
                 ...prevFormField,
@@ -167,9 +171,7 @@ const Question: React.FC<QuestionProps> = ({ checkIfQuestionIdExists }) => {
         {!formField.questionOptions?.rendering && (
           <SelectItem text={t('chooseRenderingType', 'Choose a rendering type')} value="" />
         )}
-        {formField.type &&
-        formField.type !== 'obs' &&
-        questionTypes.includes(formField.type as keyof typeof renderTypeOptions)
+        {formField.type && formField.type !== 'obs' && isQuestionTypeWithRenderOptions(formField.type)
           ? renderTypeOptions[formField?.type].map((type, key) => (
               <SelectItem key={`${type}-${key}`} text={type} value={type} />
             ))

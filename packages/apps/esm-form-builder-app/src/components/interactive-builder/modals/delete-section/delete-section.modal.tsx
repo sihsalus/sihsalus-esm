@@ -52,8 +52,8 @@ const DeleteSectionModal: React.FC<DeleteSectionModal> = ({
 
   const removeUnusedReferencedForm = (schema: Schema, targetFormName: string) => {
     let formUsedElsewhere = false;
-    for (let page of schema.pages) {
-      for (let section of page.sections) {
+    for (const page of schema.pages) {
+      for (const section of page.sections) {
         if (section.reference && section.reference.form === targetFormName) {
           formUsedElsewhere = true;
           break;

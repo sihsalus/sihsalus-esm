@@ -4,7 +4,7 @@ import { SelectSkeleton, Stack, ComboBox, InlineNotification, MultiSelect, Tag, 
 import { usePrograms, useProgramWorkStates } from '@hooks/useProgramStates';
 import { useFormField } from '../../../../form-field-context';
 import type { ProgramWorkflow, Program } from '@types';
-import type { ProgramState } from '@openmrs/esm-form-engine-lib';
+import type { ProgramState } from '@sihsalus/esm-form-engine-lib';
 import styles from './program-state-type-question.scss';
 
 interface ProgramStateData {

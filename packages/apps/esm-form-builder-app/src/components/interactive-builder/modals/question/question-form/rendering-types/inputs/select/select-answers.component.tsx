@@ -153,7 +153,7 @@ const SelectAnswers: React.FC = () => {
           if (!(res?.data?.uuid === answer.id)) {
             invalidIds.push(answer.id);
           }
-        } catch (error) {
+        } catch {
           invalidIds.push(answer.id);
         }
       }
@@ -164,7 +164,7 @@ const SelectAnswers: React.FC = () => {
 
   useEffect(() => {
     if (concept?.answers?.length) {
-      validateAnswers();
+      void validateAnswers();
     }
   }, [answerItems, concept, validateAnswers]);
 
