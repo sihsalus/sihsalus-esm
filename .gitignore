@@ -46,3 +46,4 @@ playwright-report/
 *.swp
 *.tmp
 *~
+.env 
