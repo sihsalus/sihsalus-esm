@@ -35,7 +35,7 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
 
   const handleRegisterControl = useCallback(() => {
     launchWorkspace2('wellchild-control-form', {
-      workspaceTitle: t('newCredEncounter', 'Nuevo Control CRED'),
+      workspaceTitle: t('newCredEncounter', 'Nuevo Control Crecimiento y Desarrollo'),
       patientUuid,
       type: 'newControl',
     });
@@ -46,7 +46,7 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
     if (!serviceUuid) {
       showSnackbar({
         title: t('configError', 'Error de configuración'),
-        subtitle: t('noAppointmentServiceUuid', 'No se ha configurado el UUID del servicio de citas CRED.'),
+        subtitle: t('noAppointmentServiceUuid', 'No se ha configurado el UUID del servicio de citas Crecimiento y Desarrollo.'),
         kind: 'error',
       });
       return;
@@ -87,7 +87,7 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
       if (result.created.length > 0) {
         showSnackbar({
           title: t('appointmentsCreated', 'Citas creadas'),
-          subtitle: t('appointmentsCreatedDetail', 'Se crearon {{count}} citas CRED exitosamente.', {
+          subtitle: t('appointmentsCreatedDetail', 'Se crearon {{count}} citas Crecimiento y Desarrollo exitosamente.', {
             count: result.created.length,
           }),
           kind: 'success',
@@ -115,13 +115,13 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
     }
   }, [config, session, pendingControls, patientUuid, mutateAppointments, t]);
 
-  if (isLoading) return <InlineLoading description={t('loadingSchedule', 'Cargando calendario CRED...')} />;
+  if (isLoading) return <InlineLoading description={t('loadingSchedule', 'Cargando calendario Crecimiento y Desarrollo...')} />;
   if (error) return <InlineNotification kind="error" title={t('errorLoadingSchedule', 'Error cargando calendario')} />;
 
   return (
     <div className={styles.widgetCard}>
       <div className={styles.desktopHeading}>
-        <h4>{t('credCheckups', 'Controles CRED')}</h4>
+        <h4>{t('credCheckups', 'Controles Crecimiento y Desarrollo')}</h4>
       </div>
 
       <div className={styles.checkups}>
@@ -211,7 +211,7 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
           >
             {isGenerating
               ? t('generatingAppointments', 'Generando citas...')
-              : t('generateAppointments', 'Generar Citas CRED')}
+              : t('generateAppointments', 'Generar Citas Crecimiento y Desarrollo')}
           </Button>
         </div>
       </div>

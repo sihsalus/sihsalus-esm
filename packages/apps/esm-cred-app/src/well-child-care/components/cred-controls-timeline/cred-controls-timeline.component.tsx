@@ -67,7 +67,7 @@ const CredAgeGroups: React.FC<CredAgeGroupsProps> = ({ patientUuid }) => {
   const handleAgeGroupClick = (group) => {
     setSelectedAgeGroup(group);
     launchWorkspace2('wellchild-control-form', {
-      workspaceTitle: `${t('ageGroupDetails', 'Control CRED - Grupo Etario')} - ${group.label}`,
+      workspaceTitle: `${t('ageGroupDetails', 'Control Crecimiento y Desarrollo - Grupo Etario')} - ${group.label}`,
       patientUuid,
       ageGroup: group,
       type: 'ageGroup',

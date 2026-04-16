@@ -36,7 +36,7 @@ export async function createCREDAppointments(
       endDateTime: endDate.format(dateFormat),
       appointmentKind: 'Scheduled',
       locationUuid,
-      comments: `Control CRED #${control.controlNumber} - ${control.label}`,
+      comments: `Control Crecimiento y Desarrollo #${control.controlNumber} - ${control.label}`,
       status: 'Scheduled',
     };
 
