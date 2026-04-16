@@ -5,7 +5,7 @@ import { shouldUseInlineLayout } from '../../../utils/form-helper';
 import { isTrue } from '../../../utils/boolean-utils';
 import { isEmpty } from '../../../validators/form-validator';
 import { NullSelectOption } from '../../../constants';
-import { type FormFieldInputProps } from '../../../types';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { useFormProviderContext } from '../../../provider/form-provider';
 import FieldValueView from '../../value/view/field-value-view.component';
 import FieldLabel from '../../field-label/field-label.component';
@@ -62,7 +62,11 @@ const Dropdown: React.FC<FormFieldInputProps<string | number | null | undefined>
   return sessionMode == 'view' || sessionMode == 'embedded-view' ? (
     <FieldValueView
       label={t(field.label)}
-      value={value ? formFieldAdapters[field.type].getDisplayValue(field, value) : value}
+      value={
+        value
+          ? (formFieldAdapters[field.type].getDisplayValue(field, value) as FormFieldValue | string | undefined)
+          : value
+      }
       conceptName={field.meta?.concept?.display}
       isInline={isInline}
     />

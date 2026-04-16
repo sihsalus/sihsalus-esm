@@ -8,7 +8,7 @@ import {
   type FormSchemaTransformer,
   type PostSubmissionAction,
 } from '../types';
-import { getGlobalStore } from '@openmrs/esm-framework';
+import { getGlobalStore, type OpenmrsResource } from '@openmrs/esm-framework';
 import { FormsStore } from '../constants';
 import { inbuiltControls } from './inbuilt-components/inbuiltControls';
 import { inbuiltValidators } from './inbuilt-components/inbuiltValidators';
@@ -52,7 +52,7 @@ export interface FormsRegistryStoreState {
   fieldValidators: ComponentRegistration<FormFieldValidator>[];
   fieldValueAdapters: FieldValueAdapterRegistration[];
   postSubmissionActions: ComponentRegistration<PostSubmissionAction>[];
-  dataSources: ComponentRegistration<DataSource>[];
+  dataSources: ComponentRegistration<DataSource<OpenmrsResource>>[];
   expressionHelpers: Record<string, ExpressionHelper>;
   formSchemaTransformers: ComponentRegistration<FormSchemaTransformer>[];
 }
@@ -62,7 +62,7 @@ interface FormRegistryCache {
   controls: Record<string, FormFieldInputComponent>;
   fieldValueAdapters: Record<string, FormFieldValueAdapter>;
   postSubmissionActions: Record<string, PostSubmissionAction>;
-  dataSources: Record<string, DataSource>;
+  dataSources: Record<string, DataSource<OpenmrsResource>>;
   formSchemaTransformers: Record<string, FormSchemaTransformer>;
 }
 
@@ -93,7 +93,7 @@ export function registerFieldValidator(registration: ComponentRegistration<FormF
   getFormsStore().fieldValidators.push(registration);
 }
 
-export function registerCustomDataSource(registration: ComponentRegistration<DataSource>): void {
+export function registerCustomDataSource(registration: ComponentRegistration<DataSource<OpenmrsResource>>): void {
   getFormsStore().dataSources.push(registration);
 }
 
@@ -258,7 +258,7 @@ export async function getRegisteredValidator(name: string): Promise<FormFieldVal
   return validator;
 }
 
-export async function getRegisteredDataSource(name: string): Promise<DataSource> {
+export async function getRegisteredDataSource(name: string): Promise<DataSource<OpenmrsResource>> {
   if (registryCache.dataSources[name]) {
     return registryCache.dataSources[name];
   }

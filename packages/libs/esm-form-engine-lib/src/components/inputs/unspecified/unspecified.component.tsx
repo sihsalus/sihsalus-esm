@@ -41,9 +41,9 @@ const UnspecifiedField: React.FC<UnspecifiedFieldProps> = ({ field, fieldValue, 
   }, [field, fieldValue, updateFormField]);
 
   const handleOnChange = useCallback(
-    (_checked: boolean, _id: string, event: React.ChangeEvent<HTMLInputElement>): void => {
+    (event: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean; id: string }): void => {
       const rendering = field.questionOptions.rendering;
-      if (event.target.checked) {
+      if (data.checked) {
         setIsUnspecified(true);
         const emptyValue: FormFieldValue = rendering === 'checkbox' ? [] : '';
         clearSubmission(field);

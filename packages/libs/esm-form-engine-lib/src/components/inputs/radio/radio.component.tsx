@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormGroup, RadioButtonGroup, RadioButton } from '@carbon/react';
-import { type FormFieldInputProps } from '../../../types';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { isTrue } from '../../../utils/boolean-utils';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
 import { useFormProviderContext } from '../../../provider/form-provider';
@@ -33,7 +33,11 @@ const Radio: React.FC<FormFieldInputProps<string | number | null | undefined>> =
   return sessionMode == 'view' || sessionMode == 'embedded-view' || isTrue(field.readonly) ? (
     <FieldValueView
       label={t(field.label)}
-      value={value ? formFieldAdapters[field.type].getDisplayValue(field, value) : value}
+      value={
+        value
+          ? (formFieldAdapters[field.type].getDisplayValue(field, value) as FormFieldValue | string | undefined)
+          : value
+      }
       conceptName={field.meta?.concept?.display}
       isInline={isInline}
     />

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Toggle as ToggleInput } from '@carbon/react';
-import { type FormFieldInputProps } from '../../../types';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { isTrue } from '../../../utils/boolean-utils';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
 import { isEmpty } from '../../../validators/form-validator';
@@ -49,7 +49,14 @@ const Toggle: React.FC<FormFieldInputProps<boolean | null | undefined>> = ({
   return context.sessionMode == 'view' || context.sessionMode == 'embedded-view' ? (
     <FieldValueView
       label={t(field.label)}
-      value={!isEmpty(value) ? context.formFieldAdapters[field.type]?.getDisplayValue(field, value) : value}
+      value={
+        !isEmpty(value)
+          ? (context.formFieldAdapters[field.type]?.getDisplayValue(field, value) as
+              | FormFieldValue
+              | string
+              | undefined)
+          : value
+      }
       conceptName={field.meta?.concept?.display}
       isInline={isInline}
     />

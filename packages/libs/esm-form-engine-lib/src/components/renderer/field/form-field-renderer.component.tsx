@@ -307,7 +307,7 @@ export const FormFieldRenderer = ({
                 <div>
                   <PreviousValueReview
                     key={`${field.id}-previous-value-review`}
-                    previousValue={previousValue}
+                    previousValue={previousValue as FormFieldValue | undefined}
                     displayText={historicalValue.display}
                     onAfterChange={onAfterChange}
                     field={field}

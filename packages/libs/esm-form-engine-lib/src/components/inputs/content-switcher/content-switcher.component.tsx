@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { FormGroup, ContentSwitcher as CdsContentSwitcher, Switch } from '@carbon/react';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
 import { isTrue } from '../../../utils/boolean-utils';
-import { type FormFieldInputProps } from '../../../types';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import FieldValueView from '../../value/view/field-value-view.component';
 import styles from './content-switcher.scss';
 import { useFormProviderContext } from '../../../provider/form-provider';
@@ -48,7 +48,11 @@ const ContentSwitcher: React.FC<FormFieldInputProps<string | number | null | und
     <div className={styles.formField}>
       <FieldValueView
         label={t(field.label)}
-        value={value ? formFieldAdapters[field.type].getDisplayValue(field, value) : value}
+        value={
+          value
+            ? (formFieldAdapters[field.type].getDisplayValue(field, value) as FormFieldValue | string | undefined)
+            : value
+        }
         conceptName={field.meta?.concept?.display}
         isInline={isInline}
       />

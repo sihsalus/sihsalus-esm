@@ -3,10 +3,10 @@ import styles from './value.scss';
 import { useTranslation } from 'react-i18next';
 import { type FormFieldValue } from '../../types';
 
-type ScalarValue = Exclude<FormFieldValue, Array<unknown> | null> | undefined;
+type ScalarValue = Exclude<FormFieldValue, Array<unknown> | null> | string | undefined;
 type ListValue = Extract<FormFieldValue, Array<unknown>>;
 
-const stringifyValue = (value: ScalarValue): string => {
+const stringifyValue = (value: unknown): string => {
   if (value instanceof Date) {
     return value.toLocaleString();
   }
@@ -36,7 +36,7 @@ export const ValueDisplay = ({ value }: { value: FormFieldValue | string | undef
   if (Array.isArray(value)) {
     return <ListDisplay valueArray={value} />;
   }
-  return <div className={styles.value}>{stringifyValue(value)}</div>;
+  return <div className={styles.value}>{stringifyValue(value as ScalarValue)}</div>;
 };
 
 const ListDisplay = ({ valueArray }: { valueArray: ListValue }): React.JSX.Element => {

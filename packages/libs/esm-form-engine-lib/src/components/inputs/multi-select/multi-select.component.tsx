@@ -3,7 +3,7 @@ import { Checkbox, CheckboxGroup, FilterableMultiSelect, Layer, Tag } from '@car
 import { useTranslation } from 'react-i18next';
 import { isTrue } from '../../../utils/boolean-utils';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
-import { type FormFieldInputProps } from '../../../types';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { useFormProviderContext } from '../../../provider/form-provider';
 import { ValueEmpty } from '../../value/value.component';
 import FieldLabel from '../../field-label/field-label.component';
@@ -87,7 +87,11 @@ const MultiSelect: React.FC<FormFieldInputProps<string[]>> = ({ field, value, er
     <div className={styles.formField}>
       <FieldValueView
         label={t(field.label)}
-        value={value ? formFieldAdapters[field.type]?.getDisplayValue(field, value) : value}
+        value={
+          value
+            ? (formFieldAdapters[field.type]?.getDisplayValue(field, value) as FormFieldValue | string | undefined)
+            : value
+        }
         conceptName={field.meta?.concept?.display}
         isInline={isInline}
       />

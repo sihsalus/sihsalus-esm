@@ -48,7 +48,7 @@ const UiSelectExtended: React.FC<FormFieldInputProps<string | null | undefined>>
     methods: { control, getFieldState },
   } = useFormProviderContext();
 
-  const value = useWatch({ control, name: field.id, exact: true });
+  const value = useWatch({ control, name: field.id, exact: true }) as string | null | undefined;
   const { isDirty } = getFieldState(field.id);
 
   const isInline = useMemo(() => {
