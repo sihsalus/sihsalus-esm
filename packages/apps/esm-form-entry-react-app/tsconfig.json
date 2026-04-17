@@ -1,5 +1,16 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "@openmrs/esm-framework": ["./src/openmrs-esm-framework-shim.d.ts"],
+      "@openmrs/esm-patient-common-lib": ["./src/openmrs-esm-patient-common-lib-shim.d.ts"],
+      "@sihsalus/esm-form-engine-lib": ["./src/esm-form-engine-lib-shim.d.ts"],
+      "@openmrs/*": ["../../../node_modules/@openmrs/*"],
+      "@openmrs/*/src/public": ["../../../node_modules/@openmrs/*/dist/public.d.ts"]
+    }
+  },
   "include": ["src/**/*", "../../tools/setup-tests.ts"],
   "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts"]
 }

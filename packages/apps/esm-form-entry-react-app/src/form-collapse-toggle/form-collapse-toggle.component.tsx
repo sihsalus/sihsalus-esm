@@ -4,12 +4,15 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './form-collapse-toggle.scss';
 
+type FormEmbeddedEvent = CustomEvent<{ value?: boolean }>;
+
 const FormCollapseToggle = () => {
   const { t } = useTranslation();
   const [isFormEmbedded, setIsFormEmbedded] = useState<boolean>(false);
 
-  const handleFormEmbedded = useCallback((event) => {
-    setIsFormEmbedded(event?.detail?.value || false);
+  const handleFormEmbedded = useCallback((event: Event) => {
+    const { detail } = event as FormEmbeddedEvent;
+    setIsFormEmbedded(detail?.value ?? false);
   }, []);
 
   useEffect(() => {

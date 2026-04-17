@@ -1,6 +1,6 @@
-import { useConnectivity, usePatient } from '@openmrs/esm-framework';
+import { ExtensionSlot, useConnectivity, usePatient } from '@openmrs/esm-framework';
 import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
-import { render, screen } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import React from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { mockPatient } from 'test-utils';
@@ -11,13 +11,14 @@ const testProps = {
   closeWorkspace: jest.fn(),
   closeWorkspaceWithSavedChanges: jest.fn(),
   promptBeforeClosing: jest.fn(),
-  patientUuid: mockPatient.id,
+  patientUuid: mockPatient.uuid,
   formInfo: { formUuid: 'some-form-uuid' },
   mutateForm: jest.fn(),
   setTitle: jest.fn(),
 };
 
 const mockFormEntrySub = jest.fn();
+const mockExtensionSlot = jest.mocked(ExtensionSlot);
 const mockUseConnectivity = jest.mocked(useConnectivity);
 const mockUseVisitOrOfflineVisit = useVisitOrOfflineVisit as jest.Mock;
 const mockUsePatient = jest.mocked(usePatient);
@@ -45,7 +46,7 @@ jest.mock('@openmrs/esm-patient-common-lib', () => ({
 }));
 
 jest.mock('@openmrs/esm-framework', () => ({
-  ExtensionSlot: jest.fn().mockImplementation((ext) => ext.name),
+  ExtensionSlot: jest.fn().mockImplementation(({ name }) => name),
   usePatient: jest.fn(),
   useConnectivity: jest.fn(),
 }));
@@ -54,7 +55,7 @@ describe('FormEntry', () => {
   it('renders an extension where the form entry widget plugs in', async () => {
     mockUsePatient.mockReturnValue({
       patient: mockPatient,
-      patientUuid: mockPatient.id,
+      patientUuid: mockPatient.uuid,
       error: null,
       isLoading: false,
     });
@@ -66,7 +67,10 @@ describe('FormEntry', () => {
 
     render(<FormEntry {...testProps} />);
 
-    await screen.findByText(/form-widget-slot/);
-    expect(screen.getByText(/form-widget-slot/)).toBeInTheDocument();
+    await waitFor(() => expect(mockExtensionSlot).toHaveBeenCalled());
+    expect(mockExtensionSlot).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'form-widget-slot' }),
+      expect.anything(),
+    );
   });
 });

@@ -28,25 +28,29 @@ export function mutateEncounterCreateToPartialEncounter(encounterCreate: Encount
  * Walks the given value and transforms all pure strings which are UUIDs
  * into the special UUID object syntax: "uuid-string" -> { uuid: "uuid-string" }.
  */
-function recursivelyMutateAllUuidLikeStrings(value: any) {
-  if (typeof value === 'object') {
+function recursivelyMutateAllUuidLikeStrings(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    for (const inner of value) {
+      recursivelyMutateAllUuidLikeStrings(inner);
+    }
+  } else if (isRecord(value)) {
     for (const [propKey, propValue] of Object.entries(value)) {
-      if (propKey !== 'uuid' && typeof propValue === 'string' && validateUuid(propValue as string)) {
+      if (propKey !== 'uuid' && typeof propValue === 'string' && validateUuid(propValue)) {
         mutateUuidStringToObject(value, propKey);
       } else if (typeof propValue === 'object') {
         recursivelyMutateAllUuidLikeStrings(propValue);
       }
-    }
-  } else if (Array.isArray(value)) {
-    for (const inner of value) {
-      recursivelyMutateAllUuidLikeStrings(inner);
     }
   }
 
   return value;
 }
 
-function mutateUuidStringToObjectAtPath(value: any, path: string) {
+function mutateUuidStringToObjectAtPath(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    return;
+  }
+
   const [currentPathSegment, ...remainingPathSegments] = path.split('.');
 
   if (remainingPathSegments.length === 0) {
@@ -64,9 +68,16 @@ function mutateUuidStringToObjectAtPath(value: any, path: string) {
   }
 }
 
-function mutateUuidStringToObject(value: unknown, keyToTransform: string) {
-  if (typeof value === 'object' && typeof value[keyToTransform] === 'string') {
-    value[keyToTransform] = { uuid: value[keyToTransform] };
+function mutateUuidStringToObject(value: Record<string, unknown>, keyToTransform: string) {
+  const currentValue = value[keyToTransform];
+
+  if (typeof currentValue === 'string') {
+    value[keyToTransform] = { uuid: currentValue };
   }
+
   return value;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
 }

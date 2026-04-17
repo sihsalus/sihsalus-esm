@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { type DataSource, registerCustomDataSource } from '@sihsalus/esm-form-engine-lib';
 
 import type { FormEntryReactConfig } from '../types';
+import type { OpenmrsResource } from '../types';
 
 interface ModuleFederationContainer {
   get(module: string): Promise<() => Record<string, unknown>>;
 }
 
-type DataSourceModuleExport = DataSource<unknown> | undefined;
+type DataSourceModuleExport = DataSource<OpenmrsResource> | undefined;
 
 declare global {
   interface Window {
@@ -79,7 +80,7 @@ function isModuleFederationContainer(value: unknown): value is ModuleFederationC
   return typeof value === 'object' && value !== null && 'get' in value && typeof value.get === 'function';
 }
 
-function isDataSource(value: unknown): value is DataSource<unknown> {
+function isDataSource(value: unknown): value is DataSource<OpenmrsResource> {
   return (
     typeof value === 'object' &&
     value !== null &&

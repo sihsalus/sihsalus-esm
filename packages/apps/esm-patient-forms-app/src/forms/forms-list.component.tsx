@@ -12,7 +12,7 @@ import FormsTable from './forms-table.component';
 
 export type FormsListProps = {
   completedForms?: Array<CompletedFormInfo>;
-  error?: any;
+  error?: unknown;
   sectionName?: string;
   handleFormOpen: (formUuid: string, encounterUuid: string, formName: string) => void;
 };
@@ -26,7 +26,7 @@ const FormsList: React.FC<FormsListProps> = ({ completedForms, error, sectionNam
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const isTablet = useLayoutType() === 'tablet';
-  const [_locale, setLocale] = useState(globalThis.i18next?.language ?? navigator.language);
+  const [, setLocale] = useState(globalThis.i18next?.language ?? navigator.language);
 
   useEffect(() => {
     if (globalThis.i18next?.on) {

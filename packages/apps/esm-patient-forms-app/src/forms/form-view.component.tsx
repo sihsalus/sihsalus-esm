@@ -1,7 +1,5 @@
 import {
   DataTable,
-  type DataTableHeader,
-  type DataTableRow,
   Layer,
   Table,
   TableBody,
@@ -80,7 +78,7 @@ const FormView: React.FC<FormViewProps> = ({
     pageSize,
   );
 
-  const tableHeaders: Array<typeof DataTableHeader> = useMemo(
+  const tableHeaders = useMemo(
     () => [
       { key: 'formName', header: t('formName', 'Form name (A-Z)') },
       {
@@ -91,7 +89,7 @@ const FormView: React.FC<FormViewProps> = ({
     [t],
   );
 
-  const tableRows: Array<typeof DataTableRow> = useMemo(
+  const tableRows = useMemo(
     () =>
       results?.map((formInfo) => {
         return {
@@ -140,7 +138,7 @@ const FormView: React.FC<FormViewProps> = ({
                     <TableToolbarSearch
                       persistent
                       expanded
-                      onChange={(event) => handleSearch(event.target.value)}
+                      onChange={(_, value) => handleSearch(value ?? '')}
                       placeholder={t('searchForAForm', 'Search for a form')}
                       size={isTablet ? 'lg' : 'sm'}
                     />

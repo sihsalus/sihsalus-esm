@@ -58,10 +58,15 @@ module.exports = [
       "prefer-const": "warn"
     }
   },
-    {
-      files: ["**/*.{js,cjs,mjs}"],
-      ...tseslint.configs.disableTypeChecked
-    },
+  {
+    files: ["**/*.{js,cjs,mjs}"],
+    ...tseslint.configs.disableTypeChecked
+  },
+
+  {
+    files: ["packages/apps/**/*.{ts,tsx}"],
+    ...tseslint.configs.disableTypeChecked
+  },
 
   // 🔹 Apps (más flexibles que libs)
   {
@@ -78,6 +83,11 @@ module.exports = [
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/explicit-function-return-type": "warn"
     }
+  },
+
+  {
+    files: ["**/*.{test,spec}.{ts,tsx}"],
+    ...tseslint.configs.disableTypeChecked
   },
 
   // 🔹 Tests

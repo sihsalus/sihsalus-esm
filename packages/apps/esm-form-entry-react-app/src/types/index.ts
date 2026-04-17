@@ -1,4 +1,8 @@
-import { type DefaultWorkspaceProps, type Encounter as FrameworkEncounter } from '@openmrs/esm-framework';
+import {
+  type DefaultWorkspaceProps,
+  type Encounter as FrameworkEncounter,
+  type OpenmrsResource as FrameworkOpenmrsResource,
+} from '@openmrs/esm-framework';
 import { type OpenmrsEncounter, type PreFilledQuestions } from '@sihsalus/esm-form-engine-lib';
 
 /**
@@ -60,9 +64,7 @@ export type FormState =
 
 /** REST API types ported from the Angular app */
 
-export interface OpenmrsResource {
-  display: string;
-  uuid: string;
+export interface OpenmrsResource extends FrameworkOpenmrsResource {
   links?: Array<{ rel: string; uri: string }>;
 }
 

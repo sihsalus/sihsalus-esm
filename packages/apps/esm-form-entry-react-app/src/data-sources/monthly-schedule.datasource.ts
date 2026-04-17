@@ -1,4 +1,5 @@
 import { openmrsFetch } from '@openmrs/esm-framework';
+import { type OpenmrsResource } from '../types';
 
 interface MonthlyScheduleParams {
   startDate: string;
@@ -7,6 +8,8 @@ interface MonthlyScheduleParams {
   limit: number;
   programType: string;
 }
+
+type MonthlyScheduleItem = OpenmrsResource & Record<string, unknown>;
 
 /**
  * Data source for monthly appointment schedules.
@@ -27,15 +30,17 @@ export class MonthlyScheduleDataSource {
       groupBy: 'groupByPerson,groupByAttendedDate,groupByRtcDate',
     });
 
-    const response = await openmrsFetch(`${this.appointmentsResourceUrl}?${params.toString()}`);
+    const response = await openmrsFetch<Array<MonthlyScheduleItem>>(
+      `${this.appointmentsResourceUrl}?${params.toString()}`,
+    );
     return response.data;
   }
 
-  async fetchSingleItem(_uuid: string) {
-    return null;
+  fetchSingleItem(_uuid: string): Promise<null> {
+    return Promise.resolve(null);
   }
 
-  toUuidAndDisplay(item: any) {
-    return { uuid: item?.uuid, display: item?.display };
+  toUuidAndDisplay(item: MonthlyScheduleItem): OpenmrsResource {
+    return { uuid: item.uuid, display: item.display };
   }
 }
