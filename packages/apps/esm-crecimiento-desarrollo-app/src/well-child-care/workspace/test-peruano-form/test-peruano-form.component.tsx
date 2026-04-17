@@ -632,9 +632,9 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
       case 'normal':
         return 'green';
       case 'normal_bajo':
-        return 'yellow';
+        return 'warm-gray';
       case 'limite':
-        return 'orange';
+        return 'magenta';
       case 'retraso':
         return 'red';
       default:
@@ -958,7 +958,7 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
         )}
 
         <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
-          <Button kind="secondary" onClick={closeWorkspace} disabled={isSubmitting}>
+          <Button kind="secondary" onClick={() => closeWorkspace()} disabled={isSubmitting}>
             {t('cancel', 'Cancel')}
           </Button>
           <Button kind="primary" type="submit" disabled={isSubmitting || !childAgeMonths}>
