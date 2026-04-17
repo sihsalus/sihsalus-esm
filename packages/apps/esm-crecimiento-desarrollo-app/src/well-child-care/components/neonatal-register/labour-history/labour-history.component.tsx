@@ -166,7 +166,7 @@ const LabourHistorySummary: React.FC<LabourHistorySummaryProps> = ({ patientUuid
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {summaryRows.map((row) => (
                     <TableRow key={row.id}>
                       <TableCell>{row.category}</TableCell>
                       <TableCell>{row.value}</TableCell>
