@@ -42,7 +42,7 @@ describe('FormView', () => {
 
     render(
       <FormView
-        patientUuid={mockPatient.id}
+        patientUuid={mockPatient.uuid}
         forms={mockForms}
         pageSize={5}
         pageUrl={'/some-url'}
@@ -69,7 +69,7 @@ describe('FormView', () => {
 
     render(
       <FormView
-        patientUuid={mockPatient.id}
+        patientUuid={mockPatient.uuid}
         forms={mockForms}
         pageSize={5}
         pageUrl={'/some-url'}
@@ -83,6 +83,93 @@ describe('FormView', () => {
 
     await user.click(pocForm);
 
-    expect(mockLaunchFormEntryOrHtmlForms).toHaveBeenCalled();
+    expect(mockLaunchFormEntryOrHtmlForms).toHaveBeenCalledWith(
+      [],
+      mockPatient.uuid,
+      mockForms[0].form.uuid,
+      mockCurrentVisit.uuid,
+      undefined,
+      mockForms[0].form.display,
+      mockCurrentVisit.visitType.uuid,
+      mockCurrentVisit.startDatetime,
+      mockCurrentVisit.stopDatetime,
+      undefined,
+    );
+  });
+
+  test('should use the form uuid when launching edit mode from the last completed column', async () => {
+    const user = userEvent.setup();
+
+    mockUseVisitOrOfflineVisit.mockReturnValue({
+      currentVisit: mockCurrentVisit,
+      error: null,
+    });
+
+    const { container } = render(
+      <FormView
+        patientUuid={mockPatient.uuid}
+        forms={mockForms}
+        pageSize={5}
+        pageUrl={'/some-url'}
+        patient={mockPatient}
+        urlLabel="some-url-label"
+      />,
+    );
+
+    const lastCompletedLink = container.querySelectorAll('tbody label')[1];
+
+    expect(lastCompletedLink).toBeInTheDocument();
+
+    await user.click(lastCompletedLink);
+
+    expect(mockLaunchFormEntryOrHtmlForms).toHaveBeenCalledWith(
+      [],
+      mockPatient.uuid,
+      mockForms[0].form.uuid,
+      mockCurrentVisit.uuid,
+      mockForms[0].associatedEncounters[0].uuid,
+      mockForms[0].form.display,
+      mockCurrentVisit.visitType.uuid,
+      mockCurrentVisit.startDatetime,
+      mockCurrentVisit.stopDatetime,
+      undefined,
+    );
+  });
+
+  test('should use the form uuid when launching edit mode from the edit button', async () => {
+    const user = userEvent.setup();
+
+    mockUseVisitOrOfflineVisit.mockReturnValue({
+      currentVisit: mockCurrentVisit,
+      error: null,
+    });
+
+    render(
+      <FormView
+        patientUuid={mockPatient.uuid}
+        forms={mockForms}
+        pageSize={5}
+        pageUrl={'/some-url'}
+        patient={mockPatient}
+        urlLabel="some-url-label"
+      />,
+    );
+
+    const editButton = await screen.findByRole('button', { name: 'Edit form' });
+
+    await user.click(editButton);
+
+    expect(mockLaunchFormEntryOrHtmlForms).toHaveBeenCalledWith(
+      [],
+      mockPatient.uuid,
+      mockForms[0].form.uuid,
+      mockCurrentVisit.uuid,
+      mockForms[0].associatedEncounters[0].uuid,
+      mockForms[0].form.display,
+      mockCurrentVisit.visitType.uuid,
+      mockCurrentVisit.startDatetime,
+      mockCurrentVisit.stopDatetime,
+      undefined,
+    );
   });
 });

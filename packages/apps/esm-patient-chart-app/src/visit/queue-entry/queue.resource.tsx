@@ -7,7 +7,7 @@ export type QueueService = 'Clinical consultation' | 'Triage';
 export type QueueStatus = 'Finished Service' | 'In Service' | 'Waiting';
 export type AllowedPriority = OpenmrsResource;
 export type AllowedStatus = OpenmrsResource;
-export interface Concept extends OpenmrsResource {}
+export type Concept = OpenmrsResource;
 
 interface VisitQueueEntry {
   queueEntry: VisitQueueEntry;
@@ -80,7 +80,7 @@ export interface Location {
   name?: string;
 }
 
-export function useVisitQueueEntry(patientUuid, visitUuid): UseVisitQueueEntries {
+export function useVisitQueueEntry(patientUuid: string, visitUuid?: string): UseVisitQueueEntries {
   const apiUrl = `${restBaseUrl}/visit-queue-entry?v=full&patient=${patientUuid}`;
   const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<VisitQueueEntry> } }, Error>(
     apiUrl,

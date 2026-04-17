@@ -9,7 +9,6 @@ import { useCustomDataSources } from '../hooks/useCustomDataSources';
 import { useCustomEncounterDatetime } from '../hooks/useCustomEncounterDatetime';
 import useFormSchema from '../hooks/useFormSchema';
 import { useLabOrderNotification } from '../hooks/useLabOrderNotification';
-import { useVisitDateValidation } from '../hooks/useVisitDateValidation';
 import { setFormState } from '../store/form-state.store';
 import type { FormEntryReactConfig, FormWidgetProps } from '../types';
 
@@ -33,9 +32,7 @@ const FormRenderer: React.FC<FormWidgetProps> = (props) => {
     patientUuid,
     encounterUuid,
     visit,
-    visitUuid,
     visitStartDatetime,
-    visitStopDatetime,
     additionalProps,
     preFilledQuestions: directPreFilledQuestions,
     hideControls,
@@ -54,7 +51,6 @@ const FormRenderer: React.FC<FormWidgetProps> = (props) => {
 
   // Gap feature hooks
   useCustomDataSources(config);
-  const { adjustVisitDatesIfNeeded } = useVisitDateValidation(visitUuid, visitStartDatetime, visitStopDatetime);
   const { showLabOrdersNotification } = useLabOrderNotification();
   const basePreFilledQuestions = directPreFilledQuestions ?? typedAdditionalProps?.preFilledQuestions;
   const preFilledQuestions = useCustomEncounterDatetime(config, visitStartDatetime, basePreFilledQuestions);
@@ -103,14 +99,13 @@ const FormRenderer: React.FC<FormWidgetProps> = (props) => {
       const submittedEncounterUuid = submittedEncounter?.uuid;
 
       if (submittedEncounterUuid) {
-        await adjustVisitDatesIfNeeded(submittedEncounterUuid);
         await showLabOrdersNotification(submittedEncounterUuid);
       }
 
       handlePostResponse?.(submittedEncounter);
       closeWorkspaceWithSavedChanges?.();
     },
-    [formUuid, adjustVisitDatesIfNeeded, showLabOrdersNotification, handlePostResponse, closeWorkspaceWithSavedChanges],
+    [formUuid, showLabOrdersNotification, handlePostResponse, closeWorkspaceWithSavedChanges],
   );
 
   const handleValidate = useCallback(

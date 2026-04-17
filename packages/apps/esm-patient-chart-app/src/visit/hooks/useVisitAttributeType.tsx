@@ -15,7 +15,7 @@ interface VisitAttributeType {
     | 'org.openmrs.customdatatype.datatype.FreeTextDatatype'
     | 'org.openmrs.customdatatype.datatype.DateDatatype';
   datatypeConfig: string;
-  preferredHandlerClassname: any;
+  preferredHandlerClassname?: string;
   retired: boolean;
 }
 
@@ -56,7 +56,7 @@ export function useVisitAttributeTypes() {
   return results;
 }
 
-export function useVisitAttributeType(uuid) {
+export function useVisitAttributeType(uuid?: string) {
   const { data, error, isLoading } = useSWRImmutable<FetchResponse<VisitAttributeType>, Error>(
     `${restBaseUrl}/visitattributetype/${uuid}?v=${visitAttributeTypeCustomRepresentation}`,
     openmrsFetch,
@@ -78,7 +78,7 @@ export function useVisitAttributeType(uuid) {
   return results;
 }
 
-export function useConceptAnswersForVisitAttributeType(conceptUuid) {
+export function useConceptAnswersForVisitAttributeType(conceptUuid?: string) {
   const { data, error, isLoading } = useSWRImmutable<FetchResponse<Concept>, Error>(
     conceptUuid ? `${restBaseUrl}/concept/${conceptUuid}` : null,
     openmrsFetch,

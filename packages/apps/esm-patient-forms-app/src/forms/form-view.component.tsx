@@ -60,6 +60,7 @@ const FormView: React.FC<FormViewProps> = ({
   const htmlFormEntryForms = config.htmlFormEntryForms;
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
   const [searchTerm, setSearchTerm] = useState('');
+  const currentVisitTypeUuid = currentVisit?.visitType?.uuid;
 
   const filteredForms = useMemo(() => {
     if (!searchTerm) {
@@ -175,7 +176,7 @@ const FormView: React.FC<FormViewProps> = ({
                                   currentVisit?.uuid,
                                   undefined,
                                   results[index].form.display ?? results[index].form.name,
-                                  currentVisit?.visitType?.uuid,
+                                  currentVisitTypeUuid,
                                   currentVisit?.startDatetime,
                                   currentVisit?.stopDatetime,
                                   mutateForms,
@@ -193,11 +194,11 @@ const FormView: React.FC<FormViewProps> = ({
                                 launchFormEntryOrHtmlForms(
                                   htmlFormEntryForms,
                                   patientUuid,
-                                  patientUuid,
+                                  row.id,
                                   currentVisit?.uuid,
                                   first(results[index].associatedEncounters)?.uuid,
                                   results[index].form.display ?? results[index].form.name,
-                                  currentVisit?.visitType.uuid,
+                                  currentVisitTypeUuid,
                                   currentVisit?.startDatetime,
                                   currentVisit?.stopDatetime,
                                   mutateForms,
@@ -219,11 +220,11 @@ const FormView: React.FC<FormViewProps> = ({
                                   launchFormEntryOrHtmlForms(
                                     htmlFormEntryForms,
                                     patientUuid,
-                                    patientUuid,
+                                    row.id,
                                     currentVisit?.uuid,
                                     first(results[index].associatedEncounters)?.uuid,
                                     results[index].form.display ?? results[index].form.name,
-                                    currentVisit?.visitType.uuid,
+                                    currentVisitTypeUuid,
                                     currentVisit?.startDatetime,
                                     currentVisit?.stopDatetime,
                                     mutateForms,

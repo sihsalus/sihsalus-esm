@@ -18,13 +18,13 @@ interface EncounterResponse {
 export function useEncounterRows(
   patientUuid: string,
   encounterType: string,
-  encounterFilter: (encounter) => boolean,
-  afterFormSaveAction: () => void,
-  pageSize?: number,
-  currentPage?: number,
+  encounterFilter?: (encounter: Encounter) => boolean,
+  afterFormSaveAction?: () => void,
+  pageSize = 10,
+  currentPage = 1,
 ) {
   const startIndex = (currentPage - 1) * pageSize;
-  const [encounters, setEncounters] = useState([]);
+  const [encounters, setEncounters] = useState<Encounter[]>([]);
   const url = `${restBaseUrl}/encounter?encounterType=${encounterType}&patient=${patientUuid}&v=${encounterRepresentation}&totalCount=true&limit=${pageSize}&startIndex=${startIndex}`;
 
   const { data: response, error, isLoading, mutate } = useSWR<{ data: EncounterResponse }, Error>(url, openmrsFetch);
@@ -45,7 +45,7 @@ export function useEncounterRows(
 
   const onFormSave = useCallback(() => {
     mutate();
-    afterFormSaveAction && afterFormSaveAction();
+    afterFormSaveAction?.();
   }, [afterFormSaveAction, mutate]);
 
   return {

@@ -1,6 +1,6 @@
 import {
-  type DataTableHeader,
   DataTable,
+  type DataTableHeader,
   InlineLoading,
   Table,
   TableBody,
@@ -24,13 +24,19 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import EncounterObservations from '../encounter-observations';
-import { useEncounters } from '../visit.resource';
+import { type Observation, useEncounters } from '../visit.resource';
 
 import styles from './encounters-table.scss';
 
 interface Encounter {
   datetime?: string;
-  [key: string]: any;
+  display?: string;
+  encounterType?: {
+    display?: string;
+  };
+  obs?: Array<Record<string, unknown>>;
+  uuid?: string;
+  [key: string]: unknown;
 }
 
 interface EncountersTableProps {
@@ -38,15 +44,7 @@ interface EncountersTableProps {
   showAllEncounters?: boolean;
 }
 
-type FilterProps = {
-  rowIds: Array<string>;
-  headers: Array<typeof DataTableHeader>;
-  cellsById: any;
-  inputValue: string;
-  getCellId: (row, key) => string;
-};
-
-const transformEncounters = (inData) => {
+const transformEncounters = (inData?: Array<Encounter>) => {
   if (!inData) return [];
   return inData.map((item) => ({ ...item, id: item.uuid, datetime: formatDatetime(parseDate(item?.datetime)) }));
 };
@@ -54,23 +52,19 @@ const transformEncounters = (inData) => {
 const EncountersTable: React.FC<EncountersTableProps> = ({ showAllEncounters, encounters }) => {
   const encountersCount = 20;
   const { t } = useTranslation();
-  const encounterTypes = [...new Set(encounters?.map((encounter) => encounter.encounterType))]?.sort();
   const { results: paginatedEncounters, goTo, currentPage } = usePagination(encounters ?? [], encountersCount);
   const isTablet = useLayoutType() === 'tablet';
 
-  const tableHeaders = [
+  const tableHeaders: DataTableHeader[] = [
     {
-      id: 1,
       header: t('dateAndTime', 'Date & time'),
       key: 'encounterDatetime',
     },
     {
-      id: 5,
       header: t('name', 'Name'),
       key: 'display',
     },
     {
-      id: 3,
       header: t('encounterType', 'Encounter type'),
       key: 'encounterType.display',
     },
@@ -133,7 +127,9 @@ const EncountersTable: React.FC<EncountersTableProps> = ({ showAllEncounters, en
                         style={{ paddingLeft: isTablet ? '4rem' : '3rem' }}
                         colSpan={headers.length + 2}
                       >
-                        <EncounterObservations observations={encounters[i].obs} />
+                        <EncounterObservations
+                          observations={(encounters[i].obs ?? []) as unknown as Array<Observation>}
+                        />
                       </TableExpandedRow>
                     ) : (
                       <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 2} />

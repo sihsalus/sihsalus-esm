@@ -1,3 +1,19 @@
+jest.mock('@carbon/react', () => {
+  const actual = jest.requireActual('@carbon/react');
+  const React = jest.requireActual('react');
+
+  return {
+    ...actual,
+    OverflowMenuItem: React.forwardRef(function MockOverflowMenuItem({ itemText, onClick, ...props }, ref) {
+      return (
+        <button {...props} onClick={onClick} ref={ref} role="menuitem" type="button">
+          {itemText}
+        </button>
+      );
+    }),
+  };
+});
+
 import { showModal, useVisit } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -22,7 +38,7 @@ describe('StopVisitOverflowMenuItem', () => {
 
     mockUseVisit.mockReturnValue({ currentVisit: mockCurrentVisit } as ReturnType<typeof useVisit>);
 
-    render(<StopVisitOverflowMenuItem patientUuid={mockPatient.id} />);
+    render(React.createElement(StopVisitOverflowMenuItem, { patientUuid: mockPatient.id }));
 
     const endVisitButton = screen.getByRole('menuitem', { name: /End Visit/i });
     expect(endVisitButton).toBeInTheDocument();
@@ -35,7 +51,7 @@ describe('StopVisitOverflowMenuItem', () => {
 
     mockUseVisit.mockReturnValue({ currentVisit: mockCurrentVisit } as ReturnType<typeof useVisit>);
 
-    render(<StopVisitOverflowMenuItem patientUuid={mockPatient.id} />);
+    render(React.createElement(StopVisitOverflowMenuItem, { patientUuid: mockPatient.id }));
 
     const endVisitButton = screen.getByRole('menuitem', { name: /End visit/ });
     expect(endVisitButton).toBeInTheDocument();

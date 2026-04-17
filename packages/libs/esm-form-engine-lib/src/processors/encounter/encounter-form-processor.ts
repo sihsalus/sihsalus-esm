@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { type OpenmrsResource, showSnackbar, translateFrom } from '@openmrs/esm-framework';
 import {
   getMutableSessionProps,
+  hasDuplicatePatientIdentifiers,
   hydrateRepeatField,
   inferInitialValueFromDefaultFieldValue,
   prepareEncounter,
@@ -130,6 +131,18 @@ export class EncounterFormProcessor extends FormProcessor {
     const t = (key: string, defaultValue: string, options?: Omit<TOptions, 'ns' | 'defaultValue'>): string =>
       translateFrom(formEngineAppName, key, defaultValue, options);
     const patientIdentifiers = preparePatientIdentifiers(context.formFields, encounterLocation);
+    const hasDuplicateIdentifiers = await hasDuplicatePatientIdentifiers(context.patient, patientIdentifiers);
+    if (hasDuplicateIdentifiers) {
+      throw new FormSubmissionError({
+        title: t('patientIdentifierDuplication', 'Patient identifier duplication'),
+        subtitle: t(
+          'patientIdentifierDuplicationDescription',
+          'The identifier provided is already associated with an existing patient. Please check the identifier and try again.',
+        ),
+        kind: 'error',
+        isLowContrast: false,
+      });
+    }
     const encounter = await prepareEncounter(
       context,
       encounterDate,

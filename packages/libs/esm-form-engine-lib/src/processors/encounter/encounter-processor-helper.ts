@@ -10,7 +10,7 @@ import {
   type PatientProgram,
   type PatientProgramPayload,
 } from '../../types';
-import { createAttachment, savePatientIdentifier, saveProgramEnrollment } from '../../api';
+import { createAttachment, findPatientsByIdentifier, savePatientIdentifier, saveProgramEnrollment } from '../../api';
 import {
   getResourceUuid,
   hasRendering,
@@ -121,6 +121,58 @@ export function savePatientIdentifiers(patient: fhir.Patient, identifiers: Patie
   });
 }
 
+export async function hasDuplicatePatientIdentifiers(
+  patient: fhir.Patient,
+  identifiers: PatientIdentifier[],
+): Promise<boolean> {
+  const identifierEntries = identifiers
+    .map((identifier) => ({
+      identifier: identifier.identifier.trim(),
+      identifierType: identifier.identifierType,
+    }))
+    .filter((identifier) => identifier.identifier.length > 0);
+
+  if (!identifierEntries.length) {
+    return false;
+  }
+
+  const patientUuid = patient.id;
+  const seenIdentifiers = new Set<string>();
+
+  for (const identifierEntry of identifierEntries) {
+    const entryKey = getPatientIdentifierKey(identifierEntry.identifier, identifierEntry.identifierType);
+    if (seenIdentifiers.has(entryKey)) {
+      return true;
+    }
+
+    seenIdentifiers.add(entryKey);
+  }
+
+  try {
+    const matchedPatients = await Promise.all(
+      identifierEntries.map(async (identifierEntry) => {
+        const candidates = await findPatientsByIdentifier(identifierEntry.identifier);
+
+        return candidates.some(
+          (candidate) =>
+            candidate.uuid !== patientUuid &&
+            candidate.identifiers?.some(
+              (candidateIdentifier) =>
+                candidateIdentifier.identifier === identifierEntry.identifier &&
+                (!identifierEntry.identifierType ||
+                  candidateIdentifier.identifierType?.uuid === identifierEntry.identifierType),
+            ),
+        );
+      }),
+    );
+
+    return matchedPatients.some(Boolean);
+  } catch (error) {
+    console.warn('Failed to check duplicate patient identifiers before submission.', error);
+    return false;
+  }
+}
+
 export function preparePatientPrograms(
   fields: FormField[],
   patient: fhir.Patient,
@@ -212,6 +264,10 @@ export function getMutableSessionProps(context: FormContextProps): {
       ? encounterLocationValue
       : (getResourceUuid(encounter?.location) ?? location.uuid),
   };
+}
+
+function getPatientIdentifierKey(identifier: string, identifierType?: string): string {
+  return `${identifierType ?? ''}::${identifier}`;
 }
 
 // Helpers

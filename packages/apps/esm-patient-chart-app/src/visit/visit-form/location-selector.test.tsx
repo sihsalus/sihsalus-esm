@@ -1,4 +1,10 @@
-import { getDefaultsFromConfigSchema, useConfig, useLocations, useSession } from '@openmrs/esm-framework';
+import {
+  getDefaultsFromConfigSchema,
+  useConfig,
+  useFeatureFlag,
+  useLocations,
+  useSession,
+} from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockLocationsResponse, mockSessionDataResponse } from '__mocks__';
@@ -11,6 +17,7 @@ import LocationSelector from './location-selector.component';
 import { type VisitFormData } from './visit-form.resource';
 
 const mockSession = jest.mocked(useSession);
+const mockUseFeatureFlag = jest.mocked(useFeatureFlag);
 const mockUseLocations = jest.mocked(useLocations);
 const mockUseConfig = jest.mocked(useConfig<ChartConfig>);
 
@@ -20,6 +27,7 @@ beforeEach(() => {
   mockUseConfig.mockReturnValue({
     ...getDefaultsFromConfigSchema(esmPatientChartSchema),
   });
+  mockUseFeatureFlag.mockReturnValue(true);
 });
 
 describe('tests location selector', () => {
@@ -27,13 +35,14 @@ describe('tests location selector', () => {
     mockUseConfig.mockReturnValue({
       ...getDefaultsFromConfigSchema(esmPatientChartSchema),
       disableChangingVisitLocation: true,
+      restrictByVisitLocationTag: false,
     });
 
     renderLocationSelector();
 
     expect(screen.getByText(/visit location/i)).toBeInTheDocument();
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
-    expect(screen.getByRole('paragraph')).toHaveTextContent('Inpatient Ward');
+    expect(screen.getByText('Inpatient Ward')).toBeInTheDocument();
   });
 
   it('renders a combobox with options to pick from if disableChangingVisitLocation is falsy', () => {
@@ -57,7 +66,7 @@ describe('tests location selector', () => {
     mockUseLocations.mockReturnValue(mockLocationsResponse);
 
     renderLocationSelector();
-    expect(mockUseLocations).toHaveBeenCalledWith(null, '');
+    expect(mockUseLocations).toHaveBeenLastCalledWith('Visit Location', '');
 
     const locationSelector = screen.getByRole('combobox');
     expect(locationSelector).toBeInTheDocument();
@@ -75,16 +84,14 @@ describe('tests location selector', () => {
       restrictByVisitLocationTag: true,
     });
 
-    const user = userEvent.setup();
-
     mockUseLocations.mockReturnValue(mockLocationsResponse);
 
     renderLocationSelector();
-    expect(mockUseLocations).toHaveBeenCalledWith('Visit Location', '');
+    expect(mockUseLocations).toHaveBeenLastCalledWith('Visit Location', '');
   });
 });
 
-function renderLocationSelector(props = {}) {
+function renderLocationSelector() {
   const visitToEdit = {
     uuid: 'visit-uuid',
     location: {

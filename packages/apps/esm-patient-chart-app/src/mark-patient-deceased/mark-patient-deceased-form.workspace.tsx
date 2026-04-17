@@ -52,7 +52,7 @@ const MarkPatientDeceasedForm: React.FC<DefaultPatientWorkspaceProps> = ({ close
       : causesOfDeath;
   }, [searchTerm, causesOfDeath]);
 
-  const handleSearchTermChange = (event) => {
+  const handleSearchTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
@@ -140,7 +140,6 @@ const MarkPatientDeceasedForm: React.FC<DefaultPatientWorkspaceProps> = ({ close
                       className={styles.datePicker}
                       dateFormat="d/m/Y"
                       datePickerType="single"
-                      id="deceasedDate"
                       maxDate={new Date().toISOString()}
                       onChange={([date]) => onChange(date)}
                       value={value}
@@ -254,7 +253,7 @@ const MarkPatientDeceasedForm: React.FC<DefaultPatientWorkspaceProps> = ({ close
         )}
       </div>
       <ButtonSet className={classNames({ [styles.tablet]: isTablet, [styles.desktop]: !isTablet })}>
-        <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
           {t('discard', 'Discard')}
         </Button>
         <Button className={styles.button} disabled={isSubmitting} kind="primary" type="submit">

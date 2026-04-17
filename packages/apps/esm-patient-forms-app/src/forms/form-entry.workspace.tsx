@@ -6,7 +6,7 @@ import {
   type FormEntryProps,
   useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 interface FormEntryComponentProps extends DefaultPatientWorkspaceProps {
   mutateForm?: () => void;
@@ -38,7 +38,6 @@ const FormEntry: React.FC<FormEntryComponentProps> = (props) => {
   } = formInfo || {};
   const { patient } = usePatient(patientUuid);
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
-  const [showForm, setShowForm] = useState(true);
   const visit = useMemo<Visit | undefined>(() => {
     if (visitUuid && visitStartDatetime) {
       return {
@@ -94,19 +93,11 @@ const FormEntry: React.FC<FormEntryComponentProps> = (props) => {
     ],
   );
 
-  // FIXME: This logic triggers a reload of the form when the formUuid changes. It's a workaround for the fact that the form doesn't reload when the formUuid changes.
-  useEffect(() => {
-    if (state.formUuid) {
-      setShowForm(false);
-      setTimeout(() => {
-        setShowForm(true);
-      });
-    }
-  }, [state]);
-
   return (
     <div>
-      {showForm && state.formUuid && patientUuid && patient && <ExtensionSlot name="form-widget-slot" state={state} />}
+      {state.formUuid && patientUuid && patient && (
+        <ExtensionSlot key={state.formUuid} name="form-widget-slot" state={state} />
+      )}
     </div>
   );
 };

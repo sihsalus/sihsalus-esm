@@ -6,16 +6,51 @@ import {
   TableBody,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow as CarbonTableRow,
 } from '@carbon/react';
 import React from 'react';
 
+import type { ColumnValue, FormattedColumn, NamedColumn, FormColumn, TableRow as EncounterTableRow } from '../types';
 import styles from './table.scss';
 
 interface TableProps {
-  tableHeaders: any;
-  tableRows: any;
+  tableHeaders: Array<Pick<FormattedColumn, 'header' | 'key'>>;
+  tableRows: Array<EncounterTableRow & Record<string, ColumnValue>>;
 }
+
+const isNamedColumn = (value: ColumnValue): value is NamedColumn =>
+  typeof value === 'object' &&
+  value !== null &&
+  !React.isValidElement(value) &&
+  !Array.isArray(value) &&
+  'name' in value;
+
+const isFormColumn = (value: unknown): value is FormColumn =>
+  typeof value === 'object' && value !== null && 'label' in value;
+
+const renderCellValue = (value: ColumnValue) => {
+  if (value == null) {
+    return null;
+  }
+
+  if (React.isValidElement(value) || typeof value === 'string' || typeof value === 'number') {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => {
+        if (typeof item === 'string') {
+          return item;
+        }
+
+        return isFormColumn(item) ? item.label : item.name.name;
+      })
+      .join(', ');
+  }
+
+  return isNamedColumn(value) ? value.name.name : null;
+};
 
 export const EncounterListDataTable: React.FC<TableProps> = ({ tableHeaders, tableRows }) => {
   return (
@@ -24,7 +59,7 @@ export const EncounterListDataTable: React.FC<TableProps> = ({ tableHeaders, tab
         {({ rows, headers, getHeaderProps, getTableProps }) => (
           <Table {...getTableProps()}>
             <TableHead>
-              <TableRow>
+              <CarbonTableRow>
                 {headers.map((header, index) => (
                   <TableHeader
                     key={index}
@@ -34,18 +69,18 @@ export const EncounterListDataTable: React.FC<TableProps> = ({ tableHeaders, tab
                       isSortable: header.isSortable,
                     })}
                   >
-                    {header.header?.content ?? header.header}
+                    {typeof header.header === 'string' ? header.header : null}
                   </TableHeader>
                 ))}
-              </TableRow>
+              </CarbonTableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.cells.map((cell) => (
-                    <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                <CarbonTableRow key={row.id}>
+                  {row.cells.map((cell: { id: string; value: ColumnValue }) => (
+                    <TableCell key={cell.id}>{renderCellValue(cell.value)}</TableCell>
                   ))}
-                </TableRow>
+                </CarbonTableRow>
               ))}
             </TableBody>
           </Table>

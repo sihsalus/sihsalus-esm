@@ -163,21 +163,23 @@ export function restoreVisit(visitUuid: string) {
 }
 
 export function mapEncounters(visit: Visit): MappedEncounter[] {
-  return visit?.encounters?.map((encounter) => ({
-    id: encounter?.uuid,
-    datetime: encounter?.encounterDatetime,
-    encounterType: encounter?.encounterType?.display,
-    editPrivilege: encounter?.encounterType?.editPrivilege?.display,
-    form: encounter?.form,
-    obs: encounter?.obs,
-    visitUuid: visit?.uuid,
-    visitType: visit?.visitType?.display,
-    visitTypeUuid: visit?.visitType?.uuid,
-    visitStartDatetime: visit?.startDatetime,
-    visitStopDatetime: visit?.stopDatetime,
-    provider:
-      encounter?.encounterProviders?.length > 0 ? encounter.encounterProviders[0].provider?.person?.display : '--',
-  }));
+  return (
+    visit?.encounters?.map((encounter) => ({
+      id: encounter?.uuid,
+      datetime: encounter?.encounterDatetime,
+      encounterType: encounter?.encounterType?.display,
+      editPrivilege: encounter?.encounterType?.editPrivilege?.display ?? '',
+      form: encounter?.form,
+      obs: (encounter?.obs as unknown as Array<Observation>) ?? [],
+      visitUuid: visit?.uuid,
+      visitType: visit?.visitType?.display,
+      visitTypeUuid: visit?.visitType?.uuid,
+      visitStartDatetime: visit?.startDatetime,
+      visitStopDatetime: visit?.stopDatetime,
+      provider:
+        encounter?.encounterProviders?.length > 0 ? encounter.encounterProviders[0].provider?.person?.display : '--',
+    })) ?? []
+  );
 }
 
 export interface MappedEncounter {
@@ -232,26 +234,26 @@ export interface Observation {
   uuid: string;
   concept: {
     uuid: string;
-    display: string;
-    conceptClass: {
+    display?: string;
+    conceptClass?: {
       uuid: string;
       display: string;
     };
   };
-  display: string;
+  display?: string;
   groupMembers: null | Array<{
     uuid: string;
     concept: {
       uuid: string;
-      display: string;
+      display?: string;
     };
     value: {
       uuid: string;
-      display: string;
+      display?: string;
     };
-    display: string;
+    display?: string;
   }>;
-  value: any;
+  value: unknown;
   obsDatetime?: string;
 }
 
@@ -326,7 +328,7 @@ export interface Diagnosis {
   certainty: string;
   display: string;
   encounter: OpenmrsResource;
-  links: Array<any>;
+  links: Array<unknown>;
   patient: OpenmrsResource;
   rank: number;
   resourceVersion: string;
@@ -335,7 +337,7 @@ export interface Diagnosis {
   diagnosis: {
     coded: {
       display: string;
-      links: Array<any>;
+      links: Array<unknown>;
     };
   };
 }

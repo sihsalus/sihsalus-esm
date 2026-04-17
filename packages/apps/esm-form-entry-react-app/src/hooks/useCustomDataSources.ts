@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { type DataSource, registerCustomDataSource } from '@sihsalus/esm-form-engine-lib';
 
+import { MonthlyScheduleDataSource } from '../data-sources/monthly-schedule.datasource';
 import type { FormEntryReactConfig } from '../types';
 import type { OpenmrsResource } from '../types';
 
@@ -9,6 +10,7 @@ interface ModuleFederationContainer {
 }
 
 type DataSourceModuleExport = DataSource<OpenmrsResource> | undefined;
+const registeredDataSources = new Set<string>();
 
 declare global {
   interface Window {
@@ -36,8 +38,18 @@ function slugify(name: string): string {
  */
 export function useCustomDataSources(config: FormEntryReactConfig) {
   useEffect(() => {
-    if (!config.customDataSources?.length) {
-      return;
+    if (config.dataSources?.monthlySchedule) {
+      if (!config.appointmentsResourceUrl) {
+        console.warn(
+          'Custom data source "monthlySchedule": `appointmentsResourceUrl` must be configured when `dataSources.monthlySchedule` is enabled.',
+        );
+      } else {
+        registerDataSourceOnce('monthlySchedule', () =>
+          Promise.resolve({
+            default: new MonthlyScheduleDataSource(config.appointmentsResourceUrl),
+          }),
+        );
+      }
     }
 
     const loadDataSources = async (): Promise<void> => {
@@ -62,18 +74,19 @@ export function useCustomDataSources(config: FormEntryReactConfig) {
             continue;
           }
 
-          registerCustomDataSource({
-            name,
-            load: () => Promise.resolve({ default: dataSource }),
-          });
+          registerDataSourceOnce(name, () => Promise.resolve({ default: dataSource }));
         } catch (error) {
           console.warn(`Failed to load custom data source "${name}" from module "${moduleName}":`, error);
         }
       }
     };
 
+    if (!config.customDataSources?.length) {
+      return;
+    }
+
     void loadDataSources();
-  }, [config.customDataSources]);
+  }, [config.appointmentsResourceUrl, config.customDataSources, config.dataSources?.monthlySchedule]);
 }
 
 function isModuleFederationContainer(value: unknown): value is ModuleFederationContainer {
@@ -105,4 +118,13 @@ function getDataSourceExport(module: Record<string, unknown>, moduleExport: stri
   }
 
   return undefined;
+}
+
+function registerDataSourceOnce(name: string, load: () => Promise<{ default: DataSource<OpenmrsResource> }>): void {
+  if (registeredDataSources.has(name)) {
+    return;
+  }
+
+  registerCustomDataSource({ name, load });
+  registeredDataSources.add(name);
 }

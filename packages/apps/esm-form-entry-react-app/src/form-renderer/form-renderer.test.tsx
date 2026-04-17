@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import FormRenderer from './form-renderer.component';
@@ -45,12 +45,10 @@ jest.mock('../hooks/useCustomDataSources', () => ({
   useCustomDataSources: jest.fn(),
 }));
 
-jest.mock('../hooks/useVisitDateValidation', () => ({
-  useVisitDateValidation: jest.fn(() => ({ adjustVisitDatesIfNeeded: jest.fn() })),
-}));
+const mockShowLabOrdersNotification = jest.fn();
 
 jest.mock('../hooks/useLabOrderNotification', () => ({
-  useLabOrderNotification: jest.fn(() => ({ showLabOrdersNotification: jest.fn() })),
+  useLabOrderNotification: jest.fn(() => ({ showLabOrdersNotification: mockShowLabOrdersNotification })),
 }));
 
 jest.mock('../hooks/useCustomEncounterDatetime', () => ({
@@ -95,6 +93,7 @@ const canonicalProps = {
 describe('FormRenderer', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockShowLabOrdersNotification.mockReset();
   });
 
   it('renders loading state', () => {
@@ -194,6 +193,24 @@ describe('FormRenderer', () => {
     );
   });
 
+  it('allows canonical callers to omit visit context', () => {
+    const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
+    mockUseFormSchema.mockReturnValue({
+      schema: { uuid: 'test', name: 'Test Form', encounterType: 'enc-type-uuid' } as any,
+      error: undefined,
+      isLoading: false,
+    });
+
+    render(<FormRenderer {...canonicalProps} visit={undefined} />);
+
+    expect(FormEngine).toHaveBeenCalledWith(
+      expect.objectContaining({
+        visit: undefined,
+      }),
+      expect.anything(),
+    );
+  });
+
   it('bridges dirty state through promptBeforeClosing for legacy callers', () => {
     const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
     mockUseFormSchema.mockReturnValue({
@@ -225,5 +242,27 @@ describe('FormRenderer', () => {
     formEngineProps.markFormAsDirty(true);
 
     expect(canonicalProps.setHasUnsavedChanges).toHaveBeenCalledWith(true);
+  });
+
+  it('shows lab order notifications and closes the workspace after a successful submit', async () => {
+    const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
+    const handlePostResponse = jest.fn();
+    mockUseFormSchema.mockReturnValue({
+      schema: { uuid: 'test', name: 'Test Form', encounterType: 'enc-type-uuid' } as any,
+      error: undefined,
+      isLoading: false,
+    });
+
+    render(<FormRenderer {...defaultProps} handlePostResponse={handlePostResponse} />);
+    const formEngineProps = (FormEngine as jest.Mock).mock.calls[0][0];
+    const submittedEncounter = { uuid: 'encounter-123' };
+
+    await act(async () => {
+      await formEngineProps.onSubmit([submittedEncounter]);
+    });
+
+    expect(mockShowLabOrdersNotification).toHaveBeenCalledWith('encounter-123');
+    expect(handlePostResponse).toHaveBeenCalledWith(submittedEncounter);
+    expect(defaultProps.closeWorkspaceWithSavedChanges).toHaveBeenCalled();
   });
 });

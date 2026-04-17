@@ -33,6 +33,18 @@ interface OpenmrsResultsResponse<T> {
   results?: T[];
 }
 
+interface PatientSearchIdentifier {
+  identifier?: string;
+  identifierType?: {
+    uuid?: string;
+  };
+}
+
+interface PatientSearchResult {
+  uuid?: string;
+  identifiers?: PatientSearchIdentifier[];
+}
+
 interface FhirObservationBundle {
   entry?: Array<{
     resource?: FHIRObsResource;
@@ -234,6 +246,12 @@ export function savePatientIdentifier(
     method: 'POST',
     body: JSON.stringify(patientIdentifier),
   });
+}
+
+export function findPatientsByIdentifier(identifier: string): Promise<PatientSearchResult[]> {
+  return openmrsFetch<OpenmrsResultsResponse<PatientSearchResult>>(
+    `${restBaseUrl}/patient?q=${encodeURIComponent(identifier)}&v=custom:(uuid,identifiers:(identifier,identifierType:(uuid)))`,
+  ).then(({ data }) => data.results ?? []);
 }
 
 export function markPatientAsDeceased(

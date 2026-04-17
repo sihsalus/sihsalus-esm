@@ -23,7 +23,7 @@ describe('VisitDetailOverview', () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: { results: [] } });
     mockGetConfig.mockResolvedValue({ htmlFormEntryForms: [] });
 
-    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.id} />);
+    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.uuid} />);
 
     await waitForLoadingToFinish();
 
@@ -43,7 +43,7 @@ describe('VisitDetailOverview', () => {
 
     mockOpenmrsFetch.mockRejectedValueOnce(error);
 
-    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.id} />);
+    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.uuid} />);
 
     await waitForLoadingToFinish();
 
@@ -63,7 +63,7 @@ describe('VisitDetailOverview', () => {
       showAllEncountersTab: true,
     });
 
-    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.id} />);
+    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.uuid} />);
 
     await waitForLoadingToFinish();
 
@@ -99,7 +99,7 @@ describe('VisitDetailOverview', () => {
       showAllEncountersTab: false,
     });
 
-    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.id} />);
+    renderWithSwr(<VisitDetailOverview patientUuid={mockPatient.uuid} />);
 
     await waitForLoadingToFinish();
 

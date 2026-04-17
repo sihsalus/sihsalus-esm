@@ -1,5 +1,5 @@
 import { ExtensionSlot, getConfig, getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { visitOverviewDetailMockData, visitOverviewDetailMockDataNotEmpty } from '__mocks__';
 import React from 'react';
@@ -29,6 +29,7 @@ describe('VisitSummary', () => {
     mockGetConfig.mockResolvedValue({ htmlFormEntryForms: [] });
 
     render(<VisitSummary patientUuid={mockPatient.id} visit={mockVisit} />);
+    await waitFor(() => expect(mockGetConfig).toHaveBeenCalled());
 
     expect(screen.getByText(/^Diagnoses$/i)).toBeInTheDocument();
     expect(screen.getByText(/^No diagnoses found$/)).toBeInTheDocument();
@@ -58,10 +59,11 @@ describe('VisitSummary', () => {
     expect(screen.getByText(/test-results-filtered-overview/)).toBeInTheDocument();
   });
 
-  it('renders diagnoses tags when there are diagnoses', () => {
+  it('renders diagnoses tags when there are diagnoses', async () => {
     const mockVisit = visitOverviewDetailMockDataNotEmpty.data.results[0];
 
     render(<VisitSummary patientUuid={mockPatient.id} visit={mockVisit} />);
+    await waitFor(() => expect(mockGetConfig).toHaveBeenCalled());
 
     const malariaTag = screen.getByText(/^malaria, confirmed$/i);
     const hivTag = screen.getByText(/human immunodeficiency virus \(hiv\)/i);
@@ -70,9 +72,8 @@ describe('VisitSummary', () => {
     expect(malariaTag).toBeInTheDocument();
     expect(hivTag).toBeInTheDocument();
 
-     
     expect(malariaTag.closest('div')).toHaveClass('cds--tag--red');
-     
+
     expect(hivTag.closest('div')).toHaveClass('cds--tag--blue');
   });
 
@@ -82,6 +83,7 @@ describe('VisitSummary', () => {
     const mockVisit = visitOverviewDetailMockDataNotEmpty.data.results[0];
 
     render(<VisitSummary patientUuid={mockPatient.id} visit={mockVisit} />);
+    await waitFor(() => expect(mockGetConfig).toHaveBeenCalled());
 
     expect(screen.getByText(/^Diagnoses$/i)).toBeInTheDocument();
     expect(screen.getByText(/^Malaria, confirmed$/)).toBeInTheDocument();

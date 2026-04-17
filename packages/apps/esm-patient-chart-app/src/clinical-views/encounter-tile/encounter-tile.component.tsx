@@ -43,7 +43,7 @@ const EncounterData: React.FC<{
   const { t } = useTranslation();
 
   if (isLoading || isValidating) {
-    return <CodeSnippetSkeleton type="multi" role="progressbar" />;
+    return <CodeSnippetSkeleton className={styles.tileBox} type="multi" role="progressbar" />;
   }
 
   if (error || lastEncounter == undefined) {

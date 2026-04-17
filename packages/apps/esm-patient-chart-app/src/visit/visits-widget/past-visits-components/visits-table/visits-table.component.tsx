@@ -1,6 +1,9 @@
 import {
   Button,
   DataTable,
+  type DataTableCell,
+  type DataTableHeader,
+  type DataTableRenderProps,
   Dropdown,
   Layer,
   OverflowMenu,
@@ -19,7 +22,6 @@ import {
   TableToolbarContent,
   TableToolbarSearch,
   Tile,
-  type DataTableHeader,
 } from '@carbon/react';
 import {
   EditIcon,
@@ -59,11 +61,15 @@ interface VisitTableProps {
 
 type FilterProps = {
   rowIds: Array<string>;
-  headers: Array<typeof DataTableHeader>;
-  cellsById: Record<string, Record<string, boolean | string | null | Record<string, unknown>>>;
+  headers: Array<DataTableHeader>;
+  cellsById: Record<string, DataTableCell<string[]>>;
   inputValue: string;
-  getCellId: (row, key) => string;
+  getCellId: (row: string, key: string) => string;
 };
+
+interface VisitTableRow extends MappedEncounter {
+  formName: string;
+}
 
 const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, patientUuid, mutateVisits }) => {
   const visitCount = 20;
@@ -77,7 +83,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
     getConfig('@sihsalus/esm-patient-forms-app').then((config) => {
       setHtmlFormEntryFormsConfig(config.htmlFormEntryForms as HtmlFormEntryForm[]);
     });
-  });
+  }, []);
 
   const encounterTypes = [...new Set(visits.map((encounter) => encounter.encounterType))].sort();
 
@@ -97,7 +103,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
 
   const { results: paginatedVisits, goTo, currentPage } = usePagination(filteredRows ?? [], visitCount);
 
-  const tableHeaders = [
+  const tableHeaders: DataTableHeader[] = [
     {
       header: t('dateAndTime', 'Date & time'),
       key: 'datetime',
@@ -126,7 +132,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
     },
   );
 
-  const tableRows = useMemo(() => {
+  const tableRows = useMemo<VisitTableRow[]>(() => {
     return paginatedVisits?.map((encounter) => ({
       ...encounter,
       formName: encounter.form?.display ?? '--',
@@ -176,10 +182,12 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
       return rowIds.filter((rowId) =>
         headers.some(({ key }) => {
           const cellId = getCellId(rowId, key);
-          const filterableValue = cellsById[cellId].value;
+          const filterableValue = cellsById[cellId]?.value;
           const filterTerm = inputValue.toLowerCase();
 
-          return ('' + filterableValue).toLowerCase().includes(filterTerm);
+          return String(filterableValue ?? '')
+            .toLowerCase()
+            .includes(filterTerm);
         }),
       );
     },
@@ -213,11 +221,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
           getTableProps,
           getToolbarProps,
           onInputChange,
-        }: {
-          rows: Array<(typeof tableRows)[0] & { isExpanded: boolean; cells: Array<{ id: string; value: string }> }>;
-          headers: typeof tableHeaders;
-          [key: string]: any;
-        }) => (
+        }: DataTableRenderProps<VisitTableRow, string[]>) => (
           <>
             <TableContainer className={styles.tableContainer}>
               <TableToolbar {...getToolbarProps()}>
@@ -275,7 +279,6 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                                   align="left"
                                 >
                                   <OverflowMenuItem
-                                    size={desktopLayout ? 'sm' : 'lg'}
                                     className={styles.menuItem}
                                     itemText={t('goToThisEncounter', 'Go to this encounter')}
                                   />
@@ -284,7 +287,6 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                                       <OverflowMenuItem
                                         className={styles.menuItem}
                                         itemText={t('editThisEncounter', 'Edit this encounter')}
-                                        size={desktopLayout ? 'sm' : 'lg'}
                                         onClick={() => {
                                           launchFormEntryOrHtmlForms(
                                             htmlFormEntryFormsConfig,
@@ -302,7 +304,6 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                                     )}
                                   {userHasAccess(selectedVisit?.editPrivilege, session?.user) && (
                                     <OverflowMenuItem
-                                      size={desktopLayout ? 'sm' : 'lg'}
                                       className={styles.menuItem}
                                       itemText={t('deleteThisEncounter', 'Delete this encounter')}
                                       onClick={() =>

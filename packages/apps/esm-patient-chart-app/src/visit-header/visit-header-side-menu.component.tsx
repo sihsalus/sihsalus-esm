@@ -50,7 +50,11 @@ const VisitHeaderSideMenu: React.FC<VisitHeaderSideMenuProps> = ({ isExpanded, t
 
   // On tablet/mobile, no LeftNavMenu exists yet — render one directly.
   if (!isDesktop(layout)) {
-    return isExpanded ? <LeftNavMenu isChildOfHeader ref={menuRef} /> : null;
+    return isExpanded ? (
+      <div ref={menuRef as React.RefObject<HTMLDivElement>}>
+        <LeftNavMenu isChildOfHeader />
+      </div>
+    ) : null;
   }
 
   // On desktop, the CSS class handles visibility — render nothing extra.
