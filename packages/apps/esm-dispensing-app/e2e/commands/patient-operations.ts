@@ -52,7 +52,7 @@ export const generateRandomPatient = async (api: APIRequestContext): Promise<Pat
   });
 
    
-  await expect(identifierRes.ok()).toBeTruthy();
+  expect(identifierRes.ok()).toBeTruthy();
   const { identifier } = await identifierRes.json();
 
   const patientRes = await api.post('patient', {
@@ -95,7 +95,7 @@ export const generateRandomPatient = async (api: APIRequestContext): Promise<Pat
   });
 
    
-  await expect(patientRes.ok()).toBeTruthy();
+  expect(patientRes.ok()).toBeTruthy();
   return await patientRes.json();
 };
 

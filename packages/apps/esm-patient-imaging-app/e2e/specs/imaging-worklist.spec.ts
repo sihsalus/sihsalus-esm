@@ -11,7 +11,7 @@ import {
   cleanOrthanc,
 } from '../commands/imaging-operations';
 import { test } from '../core';
-import { RequestProcedure, CreateRequestProcedure, CreateRequestProcedureStep } from '../commands/types';
+import type { RequestProcedure, CreateRequestProcedure, CreateRequestProcedureStep } from '../commands/types';
 
 let patientUuid: string;
 
@@ -63,7 +63,7 @@ test.describe('ImagingWorklist - Manager worklist workflow', () => {
     expect(deletedRequest).toBeUndefined();
 
     const reqs = await getRequestsByPatient(api, patientUuid);
-    expect(reqs.length).toBe(0);
+    expect(reqs).toHaveLength(0);
   });
 
   test('Create and delete the steps for the request procedure', async ({ page, api }) => {
@@ -128,11 +128,11 @@ test.describe('ImagingWorklist - Manager worklist workflow', () => {
 
     await deleteProcedureStep(api, steps[0].id.toString());
     const stepsAfterDelete = await getProcedureSteps(api, createdRequest.id);
-    (expect(stepsAfterDelete.length).toBe(1), expect(stepsAfterDelete[0]).toBeDefined());
+    (expect(stepsAfterDelete).toHaveLength(1), expect(stepsAfterDelete[0]).toBeDefined());
     expect(stepsAfterDelete[0].modality).toBe('MRI');
 
     await deleteRequest(api, createdRequest.id);
     const reqs = await getRequestsByPatient(api, patientUuid);
-    expect(reqs.length).toBe(0);
+    expect(reqs).toHaveLength(0);
   });
 });

@@ -190,7 +190,7 @@ test.describe('Billing: Patient Chart workflow', () => {
       await invoicePage.waitForInvoiceToLoad();
 
       const lineItems = await invoicePage.getLineItems();
-      expect(lineItems.length).toBe(1);
+      expect(lineItems).toHaveLength(1);
       expect(lineItems[0].quantity).toBe('2');
 
       const totalAmount = await invoicePage.getTotalAmount();
@@ -234,7 +234,7 @@ test.describe('Billing: Patient Chart workflow', () => {
       const billsResponse = await api.get(`billing/bill?patient=${patientUuid}&v=full`);
       expect(billsResponse.ok()).toBeTruthy();
       const billsData = await billsResponse.json();
-      expect(billsData.results.length).toBe(initialBillCount);
+      expect(billsData.results).toHaveLength(initialBillCount);
     });
   });
 
@@ -457,7 +457,7 @@ test.describe('Billing: Patient Chart workflow', () => {
       billUuid = bill.uuid;
       billsToCleanup.add(billUuid);
 
-      expect(bill.lineItems.length).toBe(1);
+      expect(bill.lineItems).toHaveLength(1);
       const lineItem = bill.lineItems[0];
       expect(lineItem.billableService).toBeTruthy();
       expect(lineItem.quantity).toBe(quantity);
@@ -477,7 +477,7 @@ test.describe('Billing: Patient Chart workflow', () => {
 
     await test.step('Then the invoice should display the line item correctly', async () => {
       const lineItems = await invoicePage.getLineItems();
-      expect(lineItems.length).toBe(1);
+      expect(lineItems).toHaveLength(1);
       expect(lineItems[0].quantity).toBe(quantity.toString());
     });
 
@@ -672,7 +672,7 @@ test.describe('Billing: Patient Chart workflow', () => {
       billsToCleanup.add(billUuid);
 
       const bill = billsData.results[0];
-      expect(bill.lineItems.length).toBe(1);
+      expect(bill.lineItems).toHaveLength(1);
       expect(bill.lineItems[0].quantity).toBe(quantity);
     });
 

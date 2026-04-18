@@ -21,7 +21,7 @@ const worklistUrl = '/openmrs/ws/rest/v1/worklist';
  */
 export const deleteStudy = async (api: APIRequestContext, studyId: string, deleteOption: 'openmrs' | 'orthanc') => {
   const res = await api.delete(`${imagingUrl}/study?studyId=${studyId}&deleteOption=${deleteOption}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 export const getStudiesByConfig = async (
@@ -30,7 +30,7 @@ export const getStudiesByConfig = async (
   patientUuid: string,
 ): Promise<DicomStudy[]> => {
   const res = await api.get(`${imagingUrl}/studiesbyconfig?configurationId=${configuration.id}&patient=${patientUuid}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 
   const json = await res.json();
   return json.studies ?? [];
@@ -51,7 +51,7 @@ export const createRequest = async (api: APIRequestContext, request: CreateReque
     },
     headers: { 'Content-Type': 'application/json' },
   });
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -59,7 +59,7 @@ export const createRequest = async (api: APIRequestContext, request: CreateReque
  */
 export const deleteRequest = async (api: APIRequestContext, requestId: number) => {
   const res = await api.delete(`${worklistUrl}/request?requestId=${requestId}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -84,7 +84,7 @@ export const createProcedureStep = async (
     },
     headers: { 'Content-Type': 'application/json' },
   });
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -92,7 +92,7 @@ export const createProcedureStep = async (
  */
 export const deleteProcedureStep = async (api: APIRequestContext, stepId: string) => {
   const res = await api.delete(`${worklistUrl}/requeststep?stepId=${stepId}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -108,7 +108,7 @@ export const assignStudy = async (api: APIRequestContext, studyId: number, patie
     form: formData,
   });
 
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -121,7 +121,7 @@ export const linkStudies = async (api: APIRequestContext, configuration: Orthanc
       fetchOption,
     },
   });
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -133,7 +133,7 @@ export const uploadStudyFile = async (api: APIRequestContext, file: File, config
   formData.append('configurationId', configuration.id.toString());
 
   const res = await api.post(`${imagingUrl}/instances`, { data: formData });
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 };
 
 /**
@@ -141,7 +141,7 @@ export const uploadStudyFile = async (api: APIRequestContext, file: File, config
  */
 export const getStudiesByPatient = async (api: APIRequestContext, patientUuid: string): Promise<DicomStudy[]> => {
   const res = await api.get(`${imagingUrl}/studies?patient=${patientUuid}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 
   return await res.json();
 };
@@ -154,7 +154,7 @@ export const getRequestsByPatient = async (
   patientUuid: string,
 ): Promise<RequestProcedure[]> => {
   const res = await api.get(`${worklistUrl}/patientrequests?patient=${patientUuid}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
   return await res.json();
 };
 
@@ -163,7 +163,7 @@ export const getRequestsByPatient = async (
  */
 export const getProcedureSteps = async (api: APIRequestContext, requestId: number): Promise<RequestProcedureStep[]> => {
   const res = await api.get(`${worklistUrl}/requeststep?&requestId=${requestId}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
   return await res.json();
 };
 
@@ -172,7 +172,7 @@ export const getProcedureSteps = async (api: APIRequestContext, requestId: numbe
  */
 export const getStudySeries = async (api: APIRequestContext, studyId: number): Promise<Series[]> => {
   const res = await api.get(`${imagingUrl}/studyseries?studyId=${studyId}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
   return await res.json();
 };
 
@@ -185,7 +185,7 @@ export const getStudyInstances = async (
   seriesInstanceUID: string,
 ): Promise<Instance[]> => {
   const res = await api.get(`${imagingUrl}/studyinstances?studyId=${studyId}&seriesInstanceUID=${seriesInstanceUID}`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
   return await res.json();
 };
 
@@ -197,7 +197,7 @@ export const previewInstance = async (api: APIRequestContext, orthancInstanceUID
     `${imagingUrl}/previewinstance?orthancInstanceUID=${orthancInstanceUID}&studyId=${studyId}`,
   );
 
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
 
   const buffer = Buffer.from(await res.body());
 
@@ -234,7 +234,7 @@ export const uploadStudies = async (
       const body = await res.text();
       throw new Error(`Upload failed: ${body}`);
     }
-    await expect(res.ok()).toBeTruthy();
+    expect(res.ok()).toBeTruthy();
   }
 };
 
@@ -243,7 +243,7 @@ export const uploadStudies = async (
  */
 export const getOrthancConfigurations = async (api: APIRequestContext): Promise<OrthancConfiguration[]> => {
   const res = await api.get(`${imagingUrl}/configurations`);
-  await expect(res.ok()).toBeTruthy();
+  expect(res.ok()).toBeTruthy();
   return await res.json();
 };
 

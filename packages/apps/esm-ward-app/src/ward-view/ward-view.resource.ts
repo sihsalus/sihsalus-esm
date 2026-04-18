@@ -166,7 +166,7 @@ export function getWardMetricValueTranslation(name: string, t: TFunction, value:
   }
 }
 
-/* eslint-disable no-redeclare */
+ 
 export function useElementConfig(elementType: 'obs', id: string): ObsElementConfig;
 export function useElementConfig(elementType: 'patientIdentifier', id: string): IdentifierElementConfig;
 export function useElementConfig(elementType: 'patientAddress', id: string): PatientAddressElementConfig;
@@ -196,7 +196,7 @@ export function useElementConfig(elementType, id: string): object {
     return null;
   }
 }
-/* eslint-enable no-redeclare */
+ 
 
 export function useWardConfig(locationUuid: string): WardDefinition {
   const { wards } = useConfig<WardConfigObject>();

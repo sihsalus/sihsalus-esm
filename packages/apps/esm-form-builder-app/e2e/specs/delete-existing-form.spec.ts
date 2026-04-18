@@ -5,6 +5,7 @@ import { FormBuilderPage } from '../pages';
 import { expect } from '@playwright/test';
 
 let form: Form = null;
+
 test.beforeEach(async ({ api }) => {
   form = await createForm(api, false);
   const valueReference = await createValueReference(api);

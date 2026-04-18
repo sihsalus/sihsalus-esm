@@ -5,6 +5,7 @@ import { createForm, createValueReference, addFormResources, deleteForm } from '
 import type { Form } from '@types';
 
 let form: Form = null;
+
 test.beforeEach(async ({ api }) => {
   form = await createForm(api, false);
   const valueReference = await createValueReference(api);
@@ -34,6 +35,7 @@ test('Filter forms based on publish status', async ({ page }) => {
 
 test('Search forms by name', async ({ page }) => {
   const formBuilderPage = new FormBuilderPage(page);
+
   await test.step('When I visit the form builder', async () => {
     await formBuilderPage.gotoFormBuilder();
   });

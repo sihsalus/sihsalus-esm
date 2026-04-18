@@ -37,7 +37,7 @@ export const generateRandomTestOrder = async (
       numberOfRepeats: null,
     },
   });
-  await expect(order.ok()).toBeTruthy();
+  expect(order.ok()).toBeTruthy();
   return await order.json();
 };
 

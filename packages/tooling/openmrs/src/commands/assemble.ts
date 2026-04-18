@@ -241,7 +241,7 @@ export async function runAssemble(args: AssembleArgs) {
   };
 
   const versionManifest = {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     coreVersion: require(resolve(__dirname, '..', '..', 'package.json')).version,
     frontendModules: {},
   };

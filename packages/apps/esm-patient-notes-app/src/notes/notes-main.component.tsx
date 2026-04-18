@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
 import { AddIcon, useLayoutType, useVisit } from '@openmrs/esm-framework';
 import {

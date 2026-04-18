@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
 import { useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { type DataTableSortState } from '@carbon/react';

@@ -54,7 +54,7 @@ export const createEncounter = async (
       encounterType: '39da3525-afe4-45ff-8977-c53b7b359158',
     },
   });
-  await expect(encounterRes.ok()).toBeTruthy();
+  expect(encounterRes.ok()).toBeTruthy();
   return await encounterRes.json();
 };
 

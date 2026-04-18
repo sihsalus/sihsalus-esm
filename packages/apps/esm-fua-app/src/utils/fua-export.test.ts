@@ -53,7 +53,7 @@ describe('buildExportRows', () => {
   });
 
   it('handles FUA without estado', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     const fua = { ...mockFua, fuaEstado: null as any };
     const rows = buildExportRows([fua]);
     expect(rows[0]['Estado']).toBe('Sin estado');
@@ -62,7 +62,7 @@ describe('buildExportRows', () => {
 
 describe('exportFuasToExcel', () => {
   it('calls xlsx writeFile with default filename pattern', () => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     const XLSX = require('xlsx');
     exportFuasToExcel([mockFua]);
     expect(XLSX.utils.json_to_sheet).toHaveBeenCalled();
@@ -71,7 +71,7 @@ describe('exportFuasToExcel', () => {
   });
 
   it('uses custom filename when provided', () => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     const XLSX = require('xlsx');
     exportFuasToExcel([mockFua], 'reporte.xlsx');
     expect(XLSX.writeFile).toHaveBeenCalledWith(expect.anything(), 'reporte.xlsx');

@@ -5,11 +5,13 @@ import { FormBuilderPage } from '../pages';
 import { type Form } from '@types';
 
 let form: Form = null;
+
 test.beforeEach(async ({ api }) => {
   form = await createForm(api, true);
   const valueReference = await createValueReference(api);
   await addFormResources(api, valueReference, form.uuid);
 });
+
 let formUuid = '';
 const formDetails = {
   name: 'Covid-19 Screening',

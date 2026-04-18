@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method, @typescript-eslint/no-unused-vars */
+ 
 import React, { useCallback, useMemo, useState } from 'react';
 import fuzzy from 'fuzzy';
 import { useTranslation } from 'react-i18next';

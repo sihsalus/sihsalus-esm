@@ -42,7 +42,7 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
     await uploadStudies(request, ['testDicomStudy.zip'], orthancConfiguration);
     await linkStudies(request, orthancConfiguration, 'all');
     const newStudies = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
-    expect(newStudies.length).toBe(1);
+    expect(newStudies).toHaveLength(1);
   });
 
   test('DICOM study delete', async ({ page, api, request }) => {
@@ -55,7 +55,7 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
     // First sync existing studies (should be 0 because we cleaned the server)
     await linkStudies(request, orthancConfiguration, 'all');
     let studies = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
-    expect(studies.length).toBe(0);
+    expect(studies).toHaveLength(0);
 
     // If none exist, upload one
     if (studies.length === 0) {
@@ -63,7 +63,7 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
       await linkStudies(request, orthancConfiguration, 'all');
 
       const refreshed = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
-      expect(refreshed.length).toBe(1);
+      expect(refreshed).toHaveLength(1);
 
       studies = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
     }
@@ -75,13 +75,13 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
       }
 
       const refreshed = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
-      expect(refreshed.length).toBe(1);
+      expect(refreshed).toHaveLength(1);
 
       studies = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
     }
 
     // At this point, exactly 1 study exists
-    expect(studies.length).toBe(1);
+    expect(studies).toHaveLength(1);
 
     // Delete the only study
     const studyId = studies[0].id;
@@ -90,7 +90,7 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
     // Verify deletion
     await linkStudies(request, orthancConfiguration, 'all');
     const afterDeleteStudies = await getStudiesByConfig(api, orthancConfiguration, patientUuid);
-    expect(afterDeleteStudies.length).toBe(0);
+    expect(afterDeleteStudies).toHaveLength(0);
   });
 
   test('link a study and display it in the studies table', async ({ page, api, request }) => {
@@ -151,7 +151,7 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
     await assignStudy(api, studies[0].id, patientUuid, true);
     // Assert the study is now asigned to the patient
     const studiesAssigned = await getStudiesByPatient(api, patientUuid);
-    expect(studiesAssigned.length).toBe(1);
+    expect(studiesAssigned).toHaveLength(1);
 
     // Unassing the patient study
     await assignStudy(api, studiesAssigned[0].id, patientUuid, false);
@@ -204,7 +204,7 @@ test.describe('ImagingDetailedSummary - Link Study workflow', () => {
     if (studiesAfterDelete) {
       const deletedStudy = studiesAfterDelete[studyId];
       expect(deletedStudy).not.toBeDefined();
-      expect(studiesAfterDelete.length).toBe(allStudies.length);
+      expect(studiesAfterDelete).toHaveLength(allStudies.length);
     }
   });
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/unbound-method */
+ 
 import {
   Button,
   ButtonSet,

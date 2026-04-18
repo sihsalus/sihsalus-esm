@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
 import { ContentSwitcher, Switch, Button } from '@carbon/react';
 import { navigate, RenewIcon, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';

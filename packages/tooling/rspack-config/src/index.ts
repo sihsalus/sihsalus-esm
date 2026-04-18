@@ -96,7 +96,7 @@ const { ModuleFederationPluginV1: ModuleFederationPlugin } = container;
 
 function getFrameworkVersion() {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+     
     const frameworkPkgUnknown: unknown = require('@openmrs/esm-framework/package.json');
     const frameworkPkg = frameworkPkgUnknown as VersionedPackageJson;
     const version = typeof frameworkPkg.version === 'string' ? frameworkPkg.version : undefined;
@@ -129,7 +129,7 @@ function mergeFunction(objValue: unknown, srcValue: unknown) {
 }
 
 function getPackageJson(root: string): NormalizedPackageJson {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
+   
   const appPkgUnknown: unknown = require(resolve(root, 'package.json'));
   const appPkg = (appPkgUnknown ?? {}) as AppPackageJson;
 
@@ -400,7 +400,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               import: 'swr/_internal',
               shareKey: 'swr/_internal',
               shareScope: 'default',
-              // eslint-disable-next-line @typescript-eslint/no-require-imports
+               
                 version: (require('swr/package.json') as VersionedPackageJson).version,
             };
           } else {

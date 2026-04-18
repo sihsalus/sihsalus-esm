@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument */
+ 
 import {
   Button,
   ButtonSet,

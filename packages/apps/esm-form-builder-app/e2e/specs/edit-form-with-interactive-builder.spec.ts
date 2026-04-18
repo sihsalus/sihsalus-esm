@@ -11,7 +11,7 @@ const formDetails = {
   version: '1.0',
   published: true,
 };
-let updatedForm = {
+const updatedForm = {
   encounterType: 'e22e39fd-7db2-45e7-80f1-60fa0d5a4378',
   name: 'An edited form',
   pages: [
@@ -39,6 +39,7 @@ let updatedForm = {
   version: '1',
   description: 'This is test description',
 };
+
 test.beforeEach(async ({ api }) => {
   form = await createForm(api, false, formDetails);
   const valueReference = await createValueReference(api);

@@ -898,7 +898,7 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
 };
 
 function TimeAndDuration({ t, watch, control, services, errors }) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   const defaultDuration = services?.find((service) => service.name === watch('selectedService'))?.durationMins || null;
 
   return (

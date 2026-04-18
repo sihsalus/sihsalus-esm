@@ -5,6 +5,7 @@ import { FormBuilderPage } from '../pages';
 import type { Form } from '@types';
 
 let form: Form = null;
+
 test.beforeEach(async ({ api }) => {
   form = await createForm(api, true);
   const valueReference = await createValueReference(api);

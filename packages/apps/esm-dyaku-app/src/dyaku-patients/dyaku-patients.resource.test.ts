@@ -71,7 +71,7 @@ describe('syncDyakuPatientsToOpenMRS', () => {
       syncBatchSize: 50,
       syncIntervalMinutes: 60,
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
   } as any;
 
   it('calls onProgress for each patient', async () => {

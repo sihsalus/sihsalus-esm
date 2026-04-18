@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+ 
 import { type Options } from 'react-barcode';
 
 import { type AllowedPatientFields } from '../config-schema';

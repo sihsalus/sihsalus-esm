@@ -24,7 +24,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useConfig } from '@openmrs/esm-framework';
-import { Config } from './config-schema';
+import type { Config } from './config-schema';
 import Root from './root.component';
 
 jest.mock('react-router-dom', () => ({

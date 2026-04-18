@@ -18,7 +18,7 @@ const Workload: React.FC<WorkloadProps> = ({ selectedService, appointmentDate, o
 
   const [selectedTab] = useState(0);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   const calendarWorkload = useCalendarDistribution(serviceUuid, selectedTab === 0 ? 'week' : 'month', appointmentDate);
 
   const monthlyCalendarWorkload = useMonthlyCalendarDistribution(

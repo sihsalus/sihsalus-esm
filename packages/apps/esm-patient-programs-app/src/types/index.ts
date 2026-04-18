@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+ 
 export interface ProgramsFetchResponse {
   results: Array<PatientProgram>;
 }

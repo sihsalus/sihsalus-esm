@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+ 
 import { SkeletonText } from '@carbon/react';
 import { CheckmarkFilledIcon, CloseFilledIcon } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';

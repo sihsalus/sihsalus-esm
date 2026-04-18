@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method */
+ 
 import React, { type ComponentProps, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import { Button } from '@carbon/react';

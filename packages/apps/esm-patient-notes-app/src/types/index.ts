@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface EncountersFetchResponse {
   results: Array<RESTPatientNote>;
 }
