@@ -35,7 +35,7 @@
     "typescript": "tsc",
     "build": "rimraf dist && concurrently \"swc --copy-files --ignore '**/*.test.*' --ignore '**/setup-tests.*' --ignore '**/test-utils.*' src -d dist\" \"tsc --project tsconfig.build.json\"",
     "coverage": "yarn test --coverage",
-    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.ts' --config './tools/i18next-parser.config.js'"
+    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.ts' --config ../../tooling/scripts/i18next-parser.config.js"
   },
   "dependencies": {
     "@carbon/react": "^1.83.0",
