@@ -1,0 +1,85 @@
+import { type OpenmrsResource } from '@openmrs/esm-framework';
+import { type FormContextProps } from '../provider/form-provider';
+import {
+  type ValueAndDisplay,
+  type FormField,
+  type FormFieldValueAdapter,
+  type FormProcessorContextProps,
+} from '../types';
+import { gracefullySetSubmission, isPlainObject } from '../utils/common-utils';
+
+type ResourceWithLabel = OpenmrsResource & { name?: string };
+type EncounterRoleEntry = {
+  encounterRole?: ResourceWithLabel;
+};
+type EncounterRoleResource = OpenmrsResource & {
+  encounterProviders?: EncounterRoleEntry[];
+};
+
+export const EncounterRoleAdapter: FormFieldValueAdapter = {
+  transformFieldValue: function (field: FormField, value: unknown, _context: FormContextProps): unknown {
+    return gracefullySetSubmission(field, typeof value === 'string' ? value : undefined, undefined);
+  },
+  getInitialValue: function (
+    _field: FormField,
+    sourceObject: OpenmrsResource,
+    context: FormProcessorContextProps,
+  ): string | undefined {
+    const encounter = sourceObject ?? context.domainObjectValue;
+    if (encounter) {
+      return getLatestEncounterRole(encounter)?.uuid;
+    }
+    return isDefaultEncounterRole(context.customDependencies?.defaultEncounterRole)
+      ? context.customDependencies.defaultEncounterRole.uuid
+      : undefined;
+  },
+  getPreviousValue: function (
+    _field: FormField,
+    sourceObject: OpenmrsResource,
+    context: FormProcessorContextProps,
+  ): ValueAndDisplay {
+    const encounter = sourceObject ?? context.previousDomainObjectValue;
+    if (encounter) {
+      const role = getLatestEncounterRole(encounter);
+      return {
+        value: role?.uuid,
+        display: role?.display ?? role?.name ?? '',
+      };
+    }
+    return null;
+  },
+  getDisplayValue: function (_field: FormField, value: unknown): unknown {
+    if (isDisplayableResource(value) && typeof value.display === 'string') {
+      return value.display;
+    }
+    return value;
+  },
+  tearDown: function (): void {
+    return;
+  },
+};
+
+function getLatestEncounterRole(encounter: OpenmrsResource): ResourceWithLabel | null {
+  if (hasEncounterProviders(encounter)) {
+    const lastProviderIndex = encounter.encounterProviders.length - 1;
+    return encounter.encounterProviders[lastProviderIndex]?.encounterRole ?? null;
+  }
+  return null;
+}
+
+function hasEncounterProviders(encounter: OpenmrsResource): encounter is EncounterRoleResource {
+  return (
+    Boolean(encounter) &&
+    typeof encounter === 'object' &&
+    'encounterProviders' in encounter &&
+    Array.isArray((encounter as EncounterRoleResource).encounterProviders)
+  );
+}
+
+function isDisplayableResource(value: unknown): value is ResourceWithLabel {
+  return Boolean(value) && typeof value === 'object';
+}
+
+function isDefaultEncounterRole(value: unknown): value is OpenmrsResource {
+  return isPlainObject(value) && typeof value.uuid === 'string';
+}

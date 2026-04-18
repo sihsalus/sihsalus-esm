@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
-
 import { type ConfigObject } from '../config-schema';
 import { type Patient } from '../types';
 

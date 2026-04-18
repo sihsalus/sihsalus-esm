@@ -1,0 +1,20 @@
+.loaderContainer {
+  height: var(--desktop-workspace-window-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// tablet
+:global(.omrs-breakpoint-lt-desktop) {
+  .loaderContainer {
+    height: var(--tablet-workspace-window-height);
+  }
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50%;
+}

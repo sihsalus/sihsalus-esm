@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import {
   DataTable,
   Button,
-  IconButton,
   InlineLoading,
   OverflowMenu,
   OverflowMenuItem,
@@ -41,7 +41,6 @@ import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
 
 import { type AddDrugOrderWorkspaceAdditionalProps } from '../add-drug-order/add-drug-order.workspace';
-import { type ConfigObject } from '../config-schema';
 import PrintComponent from '../print/print.component';
 import { type DrugOrderBasketItem } from '../types';
 
@@ -72,10 +71,13 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
   const { t } = useTranslation();
   const launchOrderBasket = useLaunchWorkspaceRequiringVisit('order-basket');
   const launchAddDrugOrder = useLaunchWorkspaceRequiringVisit('add-drug-order');
-  const config = useConfig() as ConfigObject;
+  const config = useConfig<{
+    excludePatientIdentifierCodeTypes?: { uuids: string[] };
+    showPrintButton?: boolean;
+  }>();
   const showPrintButton = config.showPrintButton;
-  const contentToPrintRef = useRef(null);
-  const { excludePatientIdentifierCodeTypes } = useConfig();
+  const contentToPrintRef = useRef<HTMLDivElement>(null);
+  const { excludePatientIdentifierCodeTypes } = config;
   const [isPrinting, setIsPrinting] = useState(false);
 
   const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications');
@@ -203,7 +205,7 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
     };
   }, [patient, t, excludePatientIdentifierCodeTypes?.uuids]);
 
-  const onBeforeGetContentResolve = useRef(null);
+  const onBeforeGetContentResolve = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (isPrinting && onBeforeGetContentResolve.current) {
@@ -212,12 +214,12 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    content: () => contentToPrintRef.current,
+    contentRef: contentToPrintRef,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
-    onBeforeGetContent: () =>
+    onBeforePrint: () =>
       new Promise((resolve) => {
         if (patient && title) {
-          onBeforeGetContentResolve.current = resolve;
+          onBeforeGetContentResolve.current = () => resolve();
           setIsPrinting(true);
         }
       }),
@@ -332,16 +334,11 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
 
 function InfoTooltip({ orderer }: { orderer: string }) {
   return (
-    <IconButton
-      className={styles.tooltip}
-      align="top-left"
-      direction="top"
-      label={orderer}
-      renderIcon={(props: ComponentProps<typeof UserIcon>) => <UserIcon size={16} {...props} />}
-      iconDescription={orderer}
-      kind="ghost"
-      size="sm"
-    />
+    <Tooltip align="top-left" label={orderer}>
+      <button className={styles.tooltip} type="button" aria-label={orderer}>
+        <UserIcon size={16} />
+      </button>
+    </Tooltip>
   );
 }
 

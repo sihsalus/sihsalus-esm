@@ -1,8 +1,9 @@
-import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
+import { defineConfigSchema, getAsyncLifecycle, getConfig } from '@openmrs/esm-framework';
+import { registerExpressionHelper } from '@sihsalus/esm-form-engine-lib';
 
-import { configSchema } from './config-schema';
+import { configSchema, type ConfigObject } from './config-schema';
 
-const moduleName = '@sihsalus/esm-form-engine-app';
+const moduleName = '@openmrs/esm-form-engine-app';
 
 const options = {
   featureName: 'form-engine',
@@ -11,8 +12,38 @@ const options = {
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-export function startupApp() {
+export async function startupApp() {
   defineConfigSchema(moduleName, configSchema);
+
+  try {
+    const config = await getConfig<ConfigObject>(moduleName);
+    const { phq9Concepts } = config;
+
+    registerExpressionHelper('calcPHQ9Score', (...answers: Array<string | null | undefined>) => {
+      const scoreMap = {
+        [phq9Concepts.notAtAll]: 0,
+        [phq9Concepts.severalDays]: 1,
+        [phq9Concepts.moreThanHalf]: 2,
+        [phq9Concepts.nearlyEveryDay]: 3,
+      };
+
+      return answers.reduce((sum, answer) => {
+        if (!answer) {
+          return sum;
+        }
+
+        const score = scoreMap[answer];
+        if (score === undefined) {
+          console.warn(`Unknown PHQ-9 response concept: ${answer}`);
+          return sum;
+        }
+
+        return sum + score;
+      }, 0);
+    });
+  } catch (error) {
+    console.error('Failed to load PHQ-9 config, using defaults:', error);
+  }
 }
 
 export const formRenderer = getAsyncLifecycle(() => import('./form-renderer/form-renderer.component'), options);

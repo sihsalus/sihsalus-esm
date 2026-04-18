@@ -14,6 +14,7 @@ const ignorePatterns = [
   '**/.cache/**',
   '**/.turbo/**',
   '**/coverage/**',
+  '**/form-engine-lib-runtime.js',
 ];
 
 module.exports = [

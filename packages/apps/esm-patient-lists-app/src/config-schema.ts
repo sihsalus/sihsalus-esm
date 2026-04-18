@@ -1,3 +1,3 @@
-export type ConfigObject = Record<string, never>;
+export type ConfigObject = object;
 
 export const configSchema = {};

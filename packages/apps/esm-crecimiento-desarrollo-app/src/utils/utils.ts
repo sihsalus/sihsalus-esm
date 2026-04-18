@@ -1,4 +1,4 @@
-import { makeUrl, parseDate } from '@openmrs/esm-framework';
+import { getPatientName, makeUrl, parseDate } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 
@@ -28,6 +28,10 @@ export function formatDeceasedName(patient: fhir.Patient): string {
   const familyName = nameObj.family || '';
 
   return `${familyName} ${givenNames}`.trim();
+}
+
+export function getSafePatientName(patient: fhir.Patient | null | undefined): string {
+  return patient ? getPatientName(patient) : '';
 }
 
 /**

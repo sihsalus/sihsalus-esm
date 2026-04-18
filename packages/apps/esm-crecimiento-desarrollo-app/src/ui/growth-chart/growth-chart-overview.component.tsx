@@ -1,6 +1,6 @@
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch } from '@carbon/react';
 import { Add, Analytics, Table } from '@carbon/react/icons';
-import { getPatientName, isDesktop as isDesktopLayout, launchWorkspace2, useLayoutType } from '@openmrs/esm-framework';
+import { isDesktop as isDesktopLayout, launchWorkspace2, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './growth-chart-overview.scss';
 import GrowthChart from './growth-chart.component';
 import { useBiometrics } from './hooks/useBiometrics';
+import { getSafePatientName } from '../../utils/utils';
 
 interface GrowthChartProps {
   patient: fhir.Patient;
@@ -31,7 +32,7 @@ const GrowthChartOverview: React.FC<GrowthChartProps> = ({ patient, patientUuid 
     launchWorkspace2(formWorkspace, { patientUuid });
   }, [patientUuid]);
 
-  const patientName = getPatientName(patient);
+  const patientName = getSafePatientName(patient);
 
   const gender = useMemo(() => {
     const raw = patient?.gender?.toUpperCase?.();

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
 import { AddIcon, useLayoutType, useVisit } from '@openmrs/esm-framework';
 import {
@@ -39,7 +40,7 @@ const NotesMain: React.FC<NotesOverviewProps> = ({ patientUuid, pageSize, urlLab
   }, [currentVisit]);
 
   if (isLoading) {
-    return <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />;
+    return <DataTableSkeleton role="progressbar" zebra />;
   }
   if (error) {
     return <ErrorState error={error} headerTitle={headerTitle} />;

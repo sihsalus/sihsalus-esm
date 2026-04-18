@@ -8,13 +8,17 @@ import {
   useLayoutType,
   UserHasAccess,
 } from '@openmrs/esm-framework';
-import { launchPatientWorkspace, useOrderBasket, usePatientChartStore } from '@openmrs/esm-patient-common-lib';
+import {
+  launchPatientWorkspace,
+  type Order,
+  useOrderBasket,
+  usePatientChartStore,
+} from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { prepMedicationOrderPostData, usePatientOrders } from '../../api/api';
-import { type ConfigObject } from '../../config-schema';
 import type { DrugOrderBasketItem } from '../../types';
 
 import {
@@ -119,18 +123,24 @@ const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openO
   const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications', prepMedicationOrderPostData);
   const { patientUuid } = usePatientChartStore();
   const { data: activeOrders, isLoading: isLoadingActiveOrders } = usePatientOrders(patientUuid);
+  const activeDrugOrders = activeOrders as Array<Order> | null;
   const drugAlreadyInBasket = useMemo(
     () => orders?.some((order) => ordersEqual(order, getTemplateOrderBasketItem(drug))),
     [orders, drug],
   );
   const drugAlreadyPrescribed = useMemo(
-    () => activeOrders?.some((order) => order.drug.uuid == drug.uuid),
-    [activeOrders, drug],
+    () => (activeDrugOrders ?? []).some((order) => order.drug?.uuid === drug.uuid),
+    [activeDrugOrders, drug],
   );
 
   const { templates, error: fetchingDrugOrderTemplatesError } = useDrugTemplate(drug?.uuid);
   const { t } = useTranslation();
-  const config = useConfig() as ConfigObject;
+  const config = useConfig<{
+    daysDurationUnit?: {
+      uuid: string;
+      display: string;
+    };
+  }>();
   const drugItemTemplateOptions: Array<DrugOrderBasketItem> = useMemo(
     () =>
       templates?.length
@@ -253,7 +263,7 @@ const DrugSearchSkeleton = () => {
         <SkeletonText className={styles.searchResultCntSkeleton} />
         <ButtonSkeleton size={buttonSize} />
       </div>
-      {[...Array(4)].map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <Tile key={index} className={tileClassName}>
           <SkeletonText />
         </Tile>

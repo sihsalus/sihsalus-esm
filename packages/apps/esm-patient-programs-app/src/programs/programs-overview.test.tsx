@@ -1,60 +1,44 @@
-import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from '__mocks__';
 import React from 'react';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
-
+import userEvent from '@testing-library/user-event';
+import { screen, within } from '@testing-library/react';
+import { launchWorkspace2, openmrsFetch } from '@openmrs/esm-framework';
+import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from '__mocks__';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
 import ProgramsOverview from './programs-overview.component';
-import { usePrograms } from './programs.resource';
 
-const mockUsePrograms = jest.mocked(usePrograms);
-
-jest.mock('./programs.resource', () => ({
-  usePrograms: jest.fn(),
-  findLastState: jest.fn(),
-}));
-
-jest.mock('@openmrs/esm-patient-common-lib', () => {
-  const originalModule = jest.requireActual('@openmrs/esm-patient-common-lib');
-  return {
-    ...originalModule,
-    launchPatientWorkspace: jest.fn(),
-  };
-});
+const mockOpenmrsFetch = openmrsFetch as jest.Mock;
+const mockLaunchWorkspace = jest.mocked(launchWorkspace2);
 
 const testProps = {
   basePath: `/patient/${mockPatient.id}/chart`,
   patientUuid: mockPatient.id,
 };
 
-const basePrograms = {
-  enrollments: [],
-  isLoading: false,
-  isValidating: false,
-  error: null,
-  activeEnrollments: [],
-  availablePrograms: [],
-  eligiblePrograms: [],
-};
-
 describe('ProgramsOverview', () => {
   it('renders an empty state view when the patient is not enrolled into any programs', async () => {
-    mockUsePrograms.mockReturnValue({ ...basePrograms });
+    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: [] } });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
+
     await waitForLoadingToFinish();
 
     expect(screen.getByText(/Care Programs/i)).toBeInTheDocument();
-    expect(screen.getByText(/There are no program enrollments to display for this patient/)).toBeInTheDocument();
-    expect(screen.getByText(/Record program enrollments/)).toBeInTheDocument();
+    expect(screen.getByText(/There are no program enrollments to display for this patient/i)).toBeInTheDocument();
+    expect(screen.getByText(/Record program enrollments/i)).toBeInTheDocument();
   });
 
   it('renders an error state view if there is a problem fetching program enrollments', async () => {
-    const error = new Error('You are not logged in');
-    mockUsePrograms.mockReturnValue({ ...basePrograms, error });
+    const error = {
+      message: 'You are not logged in',
+      response: {
+        status: 401,
+        statusText: 'Unauthorized',
+      },
+    };
+    mockOpenmrsFetch.mockRejectedValueOnce(error);
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
+
     await waitForLoadingToFinish();
 
     expect(screen.getByText(/Care Programs/i)).toBeInTheDocument();
@@ -64,15 +48,10 @@ describe('ProgramsOverview', () => {
   it("renders a tabular overview of the patient's active program enrollments when available", async () => {
     const user = userEvent.setup();
 
-    mockUsePrograms.mockReturnValue({
-      ...basePrograms,
-      enrollments: mockEnrolledProgramsResponse,
-      activeEnrollments: mockEnrolledProgramsResponse.filter((e) => !e.dateCompleted),
-      availablePrograms: mockCareProgramsResponse,
-      eligiblePrograms: mockCareProgramsResponse,
-    });
+    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockEnrolledProgramsResponse } });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
+
     await waitForLoadingToFinish();
 
     expect(screen.getByText(/Care Programs/i)).toBeInTheDocument();
@@ -89,7 +68,6 @@ describe('ProgramsOverview', () => {
     expect(nextPageButton).toBeDisabled();
     expect(previousPageButton).toBeInTheDocument();
     expect(previousPageButton).toBeDisabled();
-
     const row = screen.getByRole('row', { name: /HIV Care and Treatment/i });
     expect(row).toBeInTheDocument();
     const actionMenuButton = within(row).getByRole('button', { name: /options$/i });
@@ -97,26 +75,24 @@ describe('ProgramsOverview', () => {
 
     expect(addButton).toBeEnabled();
     await user.click(addButton);
-    expect(launchPatientWorkspace).toHaveBeenCalledWith('programs-form-workspace');
+
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith('programs-form-workspace');
 
     await user.click(actionMenuButton);
     await user.click(screen.getByText('Edit'));
-    expect(launchPatientWorkspace).toHaveBeenCalledWith('programs-form-workspace', {
+
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith('programs-form-workspace', {
       programEnrollmentId: mockEnrolledProgramsResponse[0].uuid,
       workspaceTitle: 'Edit program enrollment',
     });
   });
 
   it('renders a notification if the patient is already enrolled in all available programs', async () => {
-    mockUsePrograms.mockReturnValue({
-      ...basePrograms,
-      enrollments: mockEnrolledInAllProgramsResponse,
-      activeEnrollments: mockEnrolledInAllProgramsResponse,
-      availablePrograms: mockCareProgramsResponse,
-      eligiblePrograms: [],
-    });
+    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockEnrolledInAllProgramsResponse } });
+    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockCareProgramsResponse } });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
+
     await waitForLoadingToFinish();
 
     expect(screen.getByRole('row', { name: /hiv care and treatment/i })).toBeInTheDocument();

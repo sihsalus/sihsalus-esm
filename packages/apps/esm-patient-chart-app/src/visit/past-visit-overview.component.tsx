@@ -9,7 +9,6 @@ import {
   TableRow,
   TableHeader,
   TableCell,
-  type DataTableHeader,
 } from '@carbon/react';
 import { EditIcon, setCurrentVisit } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps, ErrorState } from '@openmrs/esm-patient-common-lib';
@@ -25,7 +24,7 @@ const PastVisitOverview: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid
 
   const { data: pastVisits, error, isLoading } = usePastVisits(patientUuid);
 
-  const headerData: Array<typeof DataTableHeader> = useMemo(
+  const headerData = useMemo(
     () => [
       { key: 'startDate', header: t('startDate', 'Start date') },
       { key: 'visitType', header: t('type', 'Type') },
@@ -107,7 +106,7 @@ const PastVisitOverview: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid
             </TableContainer>
           )}
         </DataTable>
-        <Button className={styles.button} onClick={closeWorkspace} kind="secondary">
+        <Button className={styles.button} onClick={() => closeWorkspace()} kind="secondary">
           {t('cancel', 'Cancel')}
         </Button>
       </div>

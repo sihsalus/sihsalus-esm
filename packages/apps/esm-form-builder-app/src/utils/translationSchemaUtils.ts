@@ -1,4 +1,4 @@
-import { type FormField, type QuestionAnswerOption } from '@openmrs/esm-form-engine-lib';
+import { type FormField, type QuestionAnswerOption } from '@sihsalus/esm-form-engine-lib';
 
 interface TranslationSection {
   label?: string;

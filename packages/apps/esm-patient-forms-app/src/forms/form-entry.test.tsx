@@ -1,9 +1,8 @@
-import { useConnectivity, usePatient } from '@openmrs/esm-framework';
+import { ExtensionSlot, usePatient } from '@openmrs/esm-framework';
 import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
-import { render, screen } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import React from 'react';
-import { BehaviorSubject } from 'rxjs';
-import { mockPatientAlice as mockPatient } from '../../../../__mocks__/patient.mock';
+import { mockPatient } from 'test-utils';
 
 import FormEntry from './form-entry.workspace';
 
@@ -17,8 +16,7 @@ const testProps = {
   setTitle: jest.fn(),
 };
 
-const mockFormEntrySub = jest.fn();
-const mockUseConnectivity = jest.mocked(useConnectivity);
+const mockExtensionSlot = jest.mocked(ExtensionSlot);
 const mockUseVisitOrOfflineVisit = useVisitOrOfflineVisit as jest.Mock;
 const mockUsePatient = jest.mocked(usePatient);
 
@@ -45,28 +43,39 @@ jest.mock('@openmrs/esm-patient-common-lib', () => ({
 }));
 
 jest.mock('@openmrs/esm-framework', () => ({
-  ExtensionSlot: jest.fn().mockImplementation((ext: { name?: string }) => ext.name ?? ''),
+  ExtensionSlot: jest.fn().mockImplementation(({ name }) => name),
   usePatient: jest.fn(),
-  useConnectivity: jest.fn(),
 }));
 
 describe('FormEntry', () => {
   it('renders an extension where the form entry widget plugs in', async () => {
     mockUsePatient.mockReturnValue({
-      patient: mockPatient as unknown as ReturnType<typeof usePatient>['patient'],
+      patient: mockPatient,
       patientUuid: mockPatient.uuid,
       error: null,
       isLoading: false,
     });
     mockUseVisitOrOfflineVisit.mockReturnValue({ currentVisit: mockCurrentVisit });
-    mockUseConnectivity.mockReturnValue(true);
-    mockFormEntrySub.mockReturnValue(
-      new BehaviorSubject({ encounterUuid: null, formUuid: 'some-form-uuid', patient: mockPatient }),
-    );
 
     render(<FormEntry {...testProps} />);
 
-    await screen.findByText(/form-widget-slot/);
-    expect(screen.getByText(/form-widget-slot/)).toBeInTheDocument();
+    await waitFor(() => expect(mockExtensionSlot).toHaveBeenCalled());
+    const slotState = mockExtensionSlot.mock.calls[0][0].state;
+
+    expect(mockExtensionSlot).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: 'form-widget-slot',
+        state: expect.objectContaining({
+          formUuid: 'some-form-uuid',
+          patientUuid: mockPatient.uuid,
+          visit: expect.objectContaining({
+            uuid: mockCurrentVisit.uuid,
+            startDatetime: mockCurrentVisit.startDatetime,
+          }),
+        }),
+      }),
+      expect.anything(),
+    );
+    expect(slotState.setHasUnsavedChanges).toEqual(expect.any(Function));
   });
 });

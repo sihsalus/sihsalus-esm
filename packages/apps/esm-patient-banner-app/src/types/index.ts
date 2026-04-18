@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type OpenmrsResource } from '@openmrs/esm-framework';
 
 export interface Location {
@@ -15,7 +16,6 @@ export interface VisitType {
 export interface Patient {
   uuid: string;
   display: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   identifiers: Array<any>;
   person: Person;
 }

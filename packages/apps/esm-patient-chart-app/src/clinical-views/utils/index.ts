@@ -8,6 +8,27 @@ const calculateDateDifferenceInDate = (givenDate: string): string => {
   return `${dayjs().diff(dayjs(givenDate), 'days')} days`;
 };
 
+const getNamedDisplay = (value: unknown) => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+    if (typeof namedValue.display === 'string') {
+      return namedValue.display;
+    }
+    if (typeof namedValue.name === 'string') {
+      return namedValue.name;
+    }
+    if (typeof namedValue.name === 'object' && namedValue.name !== null) {
+      return namedValue.name.display ?? namedValue.name.name ?? '--';
+    }
+  }
+
+  return '--';
+};
+
 export const getEncounterTileColumns = (tileDefinition: MenuCardProps, config: ConfigConcepts) => {
   const columns: Array<EncounterTileColumn> = tileDefinition.columns?.map((column: ColumnDefinition) => ({
     key: column.title,
@@ -37,7 +58,7 @@ export const getEncounterTileColumns = (tileDefinition: MenuCardProps, config: C
           config: config,
         });
       }
-      return typeof obsValue === 'string' ? obsValue : (obsValue?.name?.name ?? '--');
+      return getNamedDisplay(obsValue);
     },
     getSummaryObsValue: column.hasSummary
       ? (encounter: Encounter) => {
@@ -80,7 +101,7 @@ export const getEncounterTileColumns = (tileDefinition: MenuCardProps, config: C
               config: config,
             });
           }
-          return typeof summaryValue === 'string' ? summaryValue : summaryValue?.name?.name || '--';
+          return getNamedDisplay(summaryValue);
         }
       : null,
   }));

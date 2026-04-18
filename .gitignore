@@ -36,6 +36,8 @@ packages/libs/*/src/**/*.d.ts.map
 e2e/storage-state.json
 test-results/
 playwright-report/
+test-screenshots/
+.playwright-mcp/
 
 # Large binary test fixtures (use Git LFS or download at test time)
 **/__mocks__/*.zip
@@ -47,3 +49,6 @@ playwright-report/
 *.tmp
 *~
 .env 
+
+# Codex
+.codex

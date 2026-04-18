@@ -1,0 +1,16 @@
+{
+  "activeVisit": "চলমান ভিজিট",
+  "address1": "ঠিকানা 1",
+  "address2": "ঠিকানা 2",
+  "city": "শহর",
+  "cityVillage": "শহর",
+  "country": "দেশ",
+  "countyDistrict": "জেলা",
+  "deceased": "Deceased",
+  "district": "জেলা",
+  "from_lower": "from",
+  "postalCode": "পোস্টাল কোড",
+  "started": "শুরু হয়েছে",
+  "state": "State",
+  "stateProvince": "State"
+}

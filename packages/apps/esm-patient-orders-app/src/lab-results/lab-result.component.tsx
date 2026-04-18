@@ -13,8 +13,8 @@ type LabResultsProps = {
 };
 const LabResults: React.FC<LabResultsProps> = ({ order }) => {
   const { t } = useTranslation();
-  const { concept, isLoading: isLoadingConcepts, error: conceptError } = useOrderConceptByUuid(order.concept.uuid);
-  const { isLoading, error, completeLabResult, mutate } = useCompletedLabResults(order);
+  const { isLoading: isLoadingConcepts, error: conceptError } = useOrderConceptByUuid(order.concept.uuid);
+  const { isLoading, error } = useCompletedLabResults(order);
 
   if (isLoading || isLoadingConcepts)
     return (

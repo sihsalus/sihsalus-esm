@@ -1,4 +1,30 @@
-export const configSchema = {};
+import { Type } from '@openmrs/esm-framework';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface ConfigObject {}
+export const configSchema = {
+  hideUnansweredQuestionsInReadonlyForms: {
+    _type: Type.Boolean,
+    _description:
+      'Controls whether empty fields are hidden in embedded readonly forms. When true, empty non-transient fields are hidden when forms are displayed in embedded-view mode.',
+    _default: false,
+  },
+  phq9Concepts: {
+    _type: Type.Object,
+    _description: 'PHQ-9 concept UUIDs for score calculation',
+    _default: {
+      notAtAll: '160215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      severalDays: '167000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      moreThanHalf: '167001AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      nearlyEveryDay: '167002AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    },
+  },
+};
+
+export interface ConfigObject {
+  hideUnansweredQuestionsInReadonlyForms: boolean;
+  phq9Concepts: {
+    notAtAll: string;
+    severalDays: string;
+    moreThanHalf: string;
+    nearlyEveryDay: string;
+  };
+}

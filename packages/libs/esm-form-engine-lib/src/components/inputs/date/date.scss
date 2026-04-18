@@ -1,0 +1,37 @@
+@use '@carbon/colors';
+
+.datePickerWarn {
+  font-size: 0.75rem;
+  color: colors.$black-100;
+}
+
+.datePickerLabel {
+  font-weight: 600;
+  color: colors.$black-100;
+  max-width: 18.5rem;
+}
+
+.boldedLabel label {
+  font-weight: 600;
+  color: colors.$black-100;
+}
+
+.datetime {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  > .datePickerSpacing {
+    margin-right: 1rem;
+  }
+}
+
+.timeInput {
+  width: auto;
+  :hover {
+    cursor: text;
+  }
+  :focus {
+    cursor: text;
+  }
+}

@@ -1,7 +1,5 @@
 import {
   DataTable,
-  type DataTableHeader,
-  type DataTableRow,
   Layer,
   Table,
   TableBody,
@@ -62,6 +60,7 @@ const FormView: React.FC<FormViewProps> = ({
   const htmlFormEntryForms = config.htmlFormEntryForms;
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
   const [searchTerm, setSearchTerm] = useState('');
+  const currentVisitTypeUuid = currentVisit?.visitType?.uuid;
 
   const filteredForms = useMemo(() => {
     if (!searchTerm) {
@@ -80,7 +79,7 @@ const FormView: React.FC<FormViewProps> = ({
     pageSize,
   );
 
-  const tableHeaders: Array<typeof DataTableHeader> = useMemo(
+  const tableHeaders = useMemo(
     () => [
       { key: 'formName', header: t('formName', 'Form name (A-Z)') },
       {
@@ -91,7 +90,7 @@ const FormView: React.FC<FormViewProps> = ({
     [t],
   );
 
-  const tableRows: Array<typeof DataTableRow> = useMemo(
+  const tableRows = useMemo(
     () =>
       results?.map((formInfo) => {
         return {
@@ -140,7 +139,7 @@ const FormView: React.FC<FormViewProps> = ({
                     <TableToolbarSearch
                       persistent
                       expanded
-                      onChange={(event) => handleSearch(event.target.value)}
+                      onChange={(_, value) => handleSearch(value ?? '')}
                       placeholder={t('searchForAForm', 'Search for a form')}
                       size={isTablet ? 'lg' : 'sm'}
                     />
@@ -177,7 +176,7 @@ const FormView: React.FC<FormViewProps> = ({
                                   currentVisit?.uuid,
                                   undefined,
                                   results[index].form.display ?? results[index].form.name,
-                                  currentVisit?.visitType?.uuid,
+                                  currentVisitTypeUuid,
                                   currentVisit?.startDatetime,
                                   currentVisit?.stopDatetime,
                                   mutateForms,
@@ -195,11 +194,11 @@ const FormView: React.FC<FormViewProps> = ({
                                 launchFormEntryOrHtmlForms(
                                   htmlFormEntryForms,
                                   patientUuid,
-                                  patientUuid,
+                                  row.id,
                                   currentVisit?.uuid,
                                   first(results[index].associatedEncounters)?.uuid,
                                   results[index].form.display ?? results[index].form.name,
-                                  currentVisit?.visitType.uuid,
+                                  currentVisitTypeUuid,
                                   currentVisit?.startDatetime,
                                   currentVisit?.stopDatetime,
                                   mutateForms,
@@ -221,11 +220,11 @@ const FormView: React.FC<FormViewProps> = ({
                                   launchFormEntryOrHtmlForms(
                                     htmlFormEntryForms,
                                     patientUuid,
-                                    patientUuid,
+                                    row.id,
                                     currentVisit?.uuid,
                                     first(results[index].associatedEncounters)?.uuid,
                                     results[index].form.display ?? results[index].form.name,
-                                    currentVisit?.visitType.uuid,
+                                    currentVisitTypeUuid,
                                     currentVisit?.startDatetime,
                                     currentVisit?.stopDatetime,
                                     mutateForms,

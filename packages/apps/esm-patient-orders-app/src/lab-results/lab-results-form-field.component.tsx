@@ -18,6 +18,11 @@ interface ResultFormFieldProps {
 const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, defaultValue, errors }) => {
   const { t } = useTranslation();
 
+  const getErrorMessage = (fieldName: string) => {
+    const message = errors[fieldName]?.message;
+    return typeof message === 'string' ? message : undefined;
+  };
+
   // TODO: Reference ranges should be dynamically adjusted based on patient demographics:
   // - Age-specific ranges (e.g., pediatric vs adult values)
   // - Gender-specific ranges where applicable
@@ -43,10 +48,13 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
     return units ? ` (${displayUnit})` : '';
   };
 
-  const getSavedMemberValue = (conceptUuid: string, dataType: string) => {
-    return dataType === 'Coded'
-      ? defaultValue?.groupMembers?.find((member) => member.concept.uuid === conceptUuid)?.value?.uuid
-      : defaultValue?.groupMembers?.find((member) => member.concept.uuid === conceptUuid)?.value;
+  const getSavedMemberValue = (conceptUuid: string, dataType: string): string | number | undefined => {
+    const savedValue =
+      dataType === 'Coded'
+        ? defaultValue?.groupMembers?.find((member) => member.concept.uuid === conceptUuid)?.value?.uuid
+        : defaultValue?.groupMembers?.find((member) => member.concept.uuid === conceptUuid)?.value;
+
+    return typeof savedValue === 'string' || typeof savedValue === 'number' ? savedValue : undefined;
   };
 
   return (
@@ -63,7 +71,8 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
               key={concept.uuid}
               labelText={`${concept?.display ? concept.display + ' ' : ''}${formatLabRange(concept)}`}
               type="text"
-              invalidText={errors[concept.uuid]?.message}
+              value={typeof field.value === 'string' || typeof field.value === 'number' ? field.value : ''}
+              invalidText={getErrorMessage(concept.uuid)}
               invalid={!!errors[concept.uuid]}
             />
           )}
@@ -83,9 +92,9 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
               id={concept.uuid}
               key={concept.uuid}
               label={`${concept?.display ? concept.display + ' ' : ''}${formatLabRange(concept)}`}
-              onChange={(event) => field.onChange(parseFloat(event.target.value))}
-              value={field.value || ''}
-              invalidText={errors[concept.uuid]?.message}
+              onChange={(_, { value }) => field.onChange(value === '' ? null : parseFloat(String(value)))}
+              value={typeof field.value === 'number' ? field.value : ''}
+              invalidText={getErrorMessage(concept.uuid)}
               invalid={!!errors[concept.uuid]}
             />
           )}
@@ -104,7 +113,8 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
               id={`select-${concept.uuid}`}
               key={concept.uuid}
               labelText={`${concept?.display ? concept.display + ' ' : ''}${formatLabRange(concept)}`}
-              invalidText={errors[concept.uuid]?.message}
+              value={typeof field.value === 'string' ? field.value : ''}
+              invalidText={getErrorMessage(concept.uuid)}
               invalid={!!errors[concept.uuid]}
             >
               <SelectItem text={t('chooseAnOption', 'Choose an option')} value="" />
@@ -134,7 +144,8 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
                     key={member.uuid}
                     labelText={`${member?.display ? member.display + ' ' : ''}${formatLabRange(member)}`}
                     type="text"
-                    invalidText={errors[member.uuid]?.message}
+                    value={typeof field.value === 'string' || typeof field.value === 'number' ? field.value : ''}
+                    invalidText={getErrorMessage(member.uuid)}
                     invalid={!!errors[member.uuid]}
                   />
                 )}
@@ -153,9 +164,9 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
                     id={`number-${member.uuid}`}
                     key={member.uuid}
                     label={`${member?.display ? member.display + ' ' : ''}${formatLabRange(member)}`}
-                    onChange={(event) => field.onChange(parseFloat(event.target.value))}
-                    value={field.value || ''}
-                    invalidText={errors[member.uuid]?.message}
+                    onChange={(_, { value }) => field.onChange(value === '' ? null : parseFloat(String(value)))}
+                    value={typeof field.value === 'number' ? field.value : ''}
+                    invalidText={getErrorMessage(member.uuid)}
                     invalid={!!errors[member.uuid]}
                   />
                 )}
@@ -169,12 +180,12 @@ const ResultFormField: React.FC<ResultFormFieldProps> = ({ concept, control, def
                   <Select
                     {...field}
                     className={styles.textInput}
-                    defaultValue={getSavedMemberValue(member.uuid, member.datatype.display)}
+                    defaultValue={getSavedMemberValue(member.uuid, member.datatype.display) ?? ''}
                     id={`select-${member.uuid}`}
                     key={member.uuid}
                     labelText={`${member?.display ? member.display + ' ' : ''}${formatLabRange(member)}`}
-                    type="text"
-                    invalidText={errors[member.uuid]?.message}
+                    value={typeof field.value === 'string' ? field.value : ''}
+                    invalidText={getErrorMessage(member.uuid)}
                     invalid={!!errors[member.uuid]}
                   >
                     <SelectItem text={t('chooseAnOption', 'Choose an option')} value="" />

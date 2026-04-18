@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { FormFieldProvider } from '../../form-field-context';
 import QuestionTypeComponent from './question-type.component';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 
 const mockSetFormField = jest.fn();
 const formField: FormField = {

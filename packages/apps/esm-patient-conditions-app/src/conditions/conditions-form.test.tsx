@@ -1,30 +1,46 @@
-import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { mockFhirConditionsResponse, searchedCondition } from '__mocks__';
-import dayjs from 'dayjs';
 import React from 'react';
-import { getByTextWithMarkup, mockPatient } from 'test-utils';
-
-import ConditionsForm from './conditions-form.workspace';
+import dayjs from 'dayjs';
+import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
+import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
+import { mockFhirConditionsResponse, searchedCondition } from '__mocks__';
+import { getByTextWithMarkup, mockPatient } from 'tools';
 import { createCondition, useConditionsSearch } from './conditions.resource';
+import ConditionsForm, { type ConditionFormProps } from './conditions-form.workspace';
+import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const utc = require('dayjs/plugin/utc');
+import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 
-const defaultProps = {
-  condition: null,
+const defaultProps: PatientWorkspace2DefinitionProps<ConditionFormProps, object> = {
   closeWorkspace: jest.fn(),
-  closeWorkspaceWithSavedChanges: jest.fn(),
-  patientUuid: mockPatient.id,
-  promptBeforeClosing: jest.fn(),
-  formContext: 'creating' as 'creating' | 'editing',
-  setTitle: jest.fn(),
+  groupProps: {
+    patientUuid: mockPatient.id,
+    patient: mockPatient,
+    visitContext: null,
+    mutateVisitContext: null,
+  },
+  workspaceName: '',
+  launchChildWorkspace: jest.fn(),
+  workspaceProps: {
+    condition: null,
+    formContext: 'creating' as 'creating' | 'editing',
+  },
+  windowProps: {},
+  windowName: '',
+  isRootWorkspace: false,
+  showActionMenu: true,
 };
 
-function renderConditionsForm(props = {}) {
-  render(<ConditionsForm {...defaultProps} {...props} />);
+function renderConditionsForm(workspaceProps?: ConditionFormProps) {
+  const props = {
+    ...defaultProps,
+    workspaceProps: {
+      ...defaultProps.workspaceProps,
+      ...workspaceProps,
+    },
+  };
+  render(<ConditionsForm {...props} />);
 }
 
 const mockCreateCondition = jest.mocked(createCondition);
@@ -53,11 +69,10 @@ describe('Conditions form', () => {
     renderConditionsForm();
 
     expect(screen.getByRole('group', { name: /condition/i })).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /onset date/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/onset date/i)).toBeInTheDocument();
     expect(screen.getByRole('group', { name: /clinical status/i })).toBeInTheDocument();
     expect(screen.getByRole('searchbox', { name: /enter condition/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /clear search input/i })).toBeInTheDocument();
-
     expect(screen.getByLabelText(/^active/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/^active/i)).not.toBeChecked();
     expect(screen.getByLabelText(/inactive/i)).toBeInTheDocument();
@@ -83,11 +98,12 @@ describe('Conditions form', () => {
     const user = userEvent.setup();
     renderConditionsForm();
 
+    // TODO: use better selector
     await user.click(screen.getByLabelText(/^active/i));
-    expect(screen.queryByLabelText(/end date/i)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText('End date')).not.toBeInTheDocument();
 
     await user.click(screen.getByLabelText(/inactive/i));
-    expect(screen.getByLabelText(/end date/i)).toBeInTheDocument();
+    expect(screen.getByLabelText('End date')).toBeInTheDocument();
   });
 
   it('renders a list of matching conditions when the user types a query into the searchbox', async () => {
@@ -133,13 +149,19 @@ describe('Conditions form', () => {
     const submitButton = screen.getByRole('button', { name: /save & close/i });
     const activeStatusInput = screen.getByRole('radio', { name: 'Active' });
     const conditionSearchInput = screen.getByRole('searchbox', { name: /enter condition/i });
+
     const onsetDateInput = screen.getByRole('textbox', { name: /onset date/i });
+    expect(onsetDateInput).toBeInTheDocument();
+
     expect(cancelButton).toBeEnabled();
 
     await user.type(conditionSearchInput, 'Headache');
     await user.click(screen.getByRole('menuitem', { name: /headache/i }));
     await user.click(activeStatusInput);
-    await user.type(onsetDateInput, '2020-05-05');
+    await user.click(onsetDateInput);
+    await user.paste('2020-05-05');
+    expect(onsetDateInput).toHaveDisplayValue(/05\/05\/2020/i);
+    expect(submitButton).toBeEnabled();
     await user.click(submitButton);
 
     await waitFor(() => {
@@ -179,7 +201,8 @@ describe('Conditions form', () => {
     mockCreateCondition.mockRejectedValue(error);
     await user.type(conditionSearchInput, 'Headache');
     await user.click(screen.getByRole('menuitem', { name: /Headache/i }));
-    await user.type(onsetDateInput, '2020-05-05');
+    await user.click(onsetDateInput);
+    await user.paste('2020-05-05');
     await user.click(activeStatusInput);
     expect(activeStatusInput).toBeChecked();
     expect(submitButton).toBeEnabled();

@@ -1,3 +1,19 @@
+jest.mock('@carbon/react', () => {
+  const actual = jest.requireActual('@carbon/react');
+  const React = jest.requireActual('react');
+
+  return {
+    ...actual,
+    OverflowMenuItem: React.forwardRef(function MockOverflowMenuItem({ itemText, onClick, ...props }, ref) {
+      return (
+        <button {...props} onClick={onClick} ref={ref} role="menuitem" type="button">
+          {itemText}
+        </button>
+      );
+    }),
+  };
+});
+
 import { getDefaultsFromConfigSchema, useConfig, useVisit, type VisitReturnType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { screen, render } from '@testing-library/react';
@@ -33,7 +49,7 @@ describe('StartVisitOverflowMenuItem', () => {
   it('should launch the start visit form', async () => {
     const user = userEvent.setup();
 
-    render(<StartVisitOverflowMenuItem patient={mockPatient} />);
+    render(React.createElement(StartVisitOverflowMenuItem, { patient: mockPatient }));
 
     const startVisitButton = screen.getByRole('menuitem', { name: /start visit/i });
     expect(startVisitButton).toBeInTheDocument();
@@ -47,12 +63,12 @@ describe('StartVisitOverflowMenuItem', () => {
 
   it('should not show start visit button for a deceased patient', () => {
     render(
-      <StartVisitOverflowMenuItem
-        patient={{
+      React.createElement(StartVisitOverflowMenuItem, {
+        patient: {
           ...mockPatient,
           deceasedDateTime: '2023-05-07T10:20:30Z',
-        }}
-      />,
+        },
+      }),
     );
 
     const startVisitButton = screen.queryByRole('menuitem', { name: /start visit/i });

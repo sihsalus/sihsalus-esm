@@ -1,4 +1,5 @@
 import {
+  ExtensionSlot,
   type FetchResponse,
   getDefaultsFromConfigSchema,
   saveVisit,
@@ -28,6 +29,80 @@ import {
   useVisitFormCallbacks,
 } from './visit-form.resource';
 import StartVisitForm from './visit-form.workspace';
+
+jest.mock('@carbon/react', () => {
+  const actual = jest.requireActual('@carbon/react');
+  const React = jest.requireActual('react');
+  const dayjs = jest.requireActual('dayjs');
+
+  const MockDatePickerInput = React.forwardRef(function MockDatePickerInput(
+    { id, labelText, invalid, invalidText, placeholder, style, value, onChange, ...props },
+    ref,
+  ) {
+    return (
+      <>
+        <label htmlFor={id}>{labelText}</label>
+        <input
+          {...props}
+          aria-invalid={invalid}
+          id={id}
+          onChange={onChange}
+          placeholder={placeholder}
+          ref={ref}
+          style={style}
+          type="text"
+          value={value ?? ''}
+        />
+        {invalid ? <span>{invalidText}</span> : null}
+      </>
+    );
+  });
+
+  return {
+    ...actual,
+    ComboBox: ({ 'aria-label': ariaLabel, id, items, itemToString, onChange, selectedItem, titleText }) => {
+      const selectedValue = selectedItem?.uuid ?? items[0]?.uuid ?? '';
+
+      return (
+        <>
+          <label htmlFor={id}>{titleText}</label>
+          <select
+            aria-label={ariaLabel ?? titleText}
+            id={id}
+            onChange={(event) => {
+              const nextValue = event.target.value;
+              onChange?.({
+                selectedItem: items.find((item) => item?.uuid === nextValue) ?? null,
+              });
+            }}
+            value={selectedValue}
+          >
+            <option value="" />
+            {items.map((item) => (
+              <option key={item.uuid} value={item.uuid}>
+                {itemToString(item)}
+              </option>
+            ))}
+          </select>
+        </>
+      );
+    },
+    DatePicker: ({ children, onChange, value }) => {
+      const child = React.Children.only(children);
+      const formattedValue = value ? dayjs(value).format('DD/MM/YYYY') : '';
+
+      return React.cloneElement(child, {
+        onChange: (event) => {
+          child.props.onChange?.(event);
+          const parsedDate = dayjs(event.target.value, 'DD/MM/YYYY', true);
+          onChange?.([parsedDate.isValid() ? parsedDate.toDate() : undefined]);
+        },
+        value: formattedValue,
+      });
+    },
+    DatePickerInput: MockDatePickerInput,
+  };
+});
 
 const visitUuid = 'test_visit_uuid';
 const visitAttributes = {
@@ -69,6 +144,7 @@ const testProps = {
 
 const mockSaveVisit = jest.mocked(saveVisit);
 const mockUpdateVisit = jest.mocked(updateVisit);
+const mockExtensionSlot = jest.mocked(ExtensionSlot);
 const mockUseConfig = jest.mocked(useConfig<ChartConfig>);
 const mockUseVisitAttributeType = jest.mocked(useVisitAttributeType);
 const mockUseVisitTypes = jest.mocked(useVisitTypes);
@@ -185,6 +261,17 @@ mockSaveVisit.mockResolvedValue({
 
 describe('Visit form', () => {
   beforeEach(() => {
+    mockExtensionSlot.mockImplementation(({ children }) => {
+      if (typeof children === 'function') {
+        return children({
+          id: 'test-extension-id',
+          meta: {},
+          moduleName: '@openmrs/esm-patient-chart-app',
+        });
+      }
+
+      return children ?? null;
+    });
     mockUseConfig.mockReturnValue({
       ...getDefaultsFromConfigSchema(esmPatientChartSchema),
       visitAttributeTypes: [
@@ -236,9 +323,9 @@ describe('Visit form', () => {
     // Testing the location picker
     const combobox = screen.getByRole('combobox', { name: /Select a location/i });
     expect(screen.getByText(/Outpatient Visit/i)).toBeInTheDocument();
-    await userEvent.click(combobox);
-    expect(screen.getByText(/Mosoriot/i)).toBeInTheDocument();
-    expect(screen.getByText(/Inpatient Ward/i)).toBeInTheDocument();
+    expect(combobox).toHaveDisplayValue('Mosoriot');
+    expect(screen.getByRole('option', { name: /Mosoriot/i })).toBeInTheDocument();
+    expect(screen.getByRole('option', { name: /Inpatient Ward/i })).toBeInTheDocument();
   });
 
   it('does not render visit type combo box if atFacilityVisitType set', async () => {
@@ -263,8 +350,7 @@ describe('Visit form', () => {
 
     const saveButton = screen.getByRole('button', { name: /start visit/i });
     const locationPicker = screen.getByRole('combobox', { name: /select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText('Inpatient Ward'));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
     await user.click(saveButton);
 
     expect(screen.getByText(/missing visit type/i)).toBeInTheDocument();
@@ -306,8 +392,7 @@ describe('Visit form', () => {
 
     // Set location
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText('Inpatient Ward'));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
 
     await user.click(saveButton);
 
@@ -342,8 +427,7 @@ describe('Visit form', () => {
 
     // Set location
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText('Inpatient Ward'));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
 
     const punctualityPicker = screen.getByRole('combobox', { name: 'Punctuality (optional)' });
     await user.selectOptions(punctualityPicker, 'On time');
@@ -406,8 +490,7 @@ describe('Visit form', () => {
 
     // Set location
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText('Inpatient Ward'));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
 
     const punctualityPicker = screen.getByRole('combobox', { name: 'Punctuality (optional)' });
     await user.selectOptions(punctualityPicker, 'Late');
@@ -466,8 +549,7 @@ describe('Visit form', () => {
 
     // Set location
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText('Inpatient Ward'));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
 
     const punctualityPicker = screen.getByRole('combobox', { name: 'Punctuality (optional)' });
     await user.selectOptions(punctualityPicker, 'Select an option');
@@ -521,8 +603,7 @@ describe('Visit form', () => {
 
     const saveButton = screen.getByRole('button', { name: /Start Visit/i });
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText(/Inpatient Ward/i));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
 
     await user.click(saveButton);
 
@@ -549,8 +630,7 @@ describe('Visit form', () => {
 
     const saveButton = screen.getByRole('button', { name: /Start Visit/i });
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText(/Inpatient Ward/i));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
 
     const punctualityPicker = screen.getByRole('combobox', { name: 'Punctuality (optional)' });
     await user.selectOptions(punctualityPicker, 'On time');
@@ -636,8 +716,7 @@ describe('Visit form', () => {
 
     // Set location
     const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
-    await user.click(locationPicker);
-    await user.click(screen.getByText('Inpatient Ward'));
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
     await user.click(saveButton);
 
     expect(mockSaveVisit).not.toHaveBeenCalled();
@@ -670,5 +749,5 @@ describe('Visit form', () => {
 });
 
 function renderVisitForm(visitToEdit?: Visit) {
-  render(<StartVisitForm {...{ ...testProps, visitToEdit }} />);
+  render(React.createElement(StartVisitForm, { ...testProps, visitToEdit }));
 }

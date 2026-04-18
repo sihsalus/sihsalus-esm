@@ -5,6 +5,7 @@ import {
   getSyncLifecycle,
   registerFeatureFlag,
 } from '@openmrs/esm-framework';
+import * as Framework from '@openmrs/esm-framework';
 import * as PatientCommonLib from '@openmrs/esm-patient-common-lib';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 
@@ -28,19 +29,31 @@ import startVisitActionButtonOnPatientSearch from './visit/start-visit-button.co
 import currentVisitSummaryComponent from './visit/visits-widget/current-visit-summary.component';
 import pastVisitsOverviewComponent from './visit/visits-widget/visit-detail-overview.component';
 
+const startupKey = Symbol.for('sihsalus.esm-patient-chart-app.startup-complete');
+const patientChartNavGroupExtensionName = 'patient-chart-nav-group';
+const patientChartDashboardExtensionName = 'patient-chart-dashboard';
+
 // This allows @openmrs/esm-patient-common-lib to be accessed by modules that are not
 // using webpack. This is used for ngx-formentry.
 window['_openmrs_esm_patient_common_lib'] = PatientCommonLib;
+window['_openmrs_esm_framework'] = Framework;
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export function startupApp() {
+  const globalScope = globalThis as typeof globalThis & { [startupKey]?: boolean };
+  if (globalScope[startupKey]) {
+    return;
+  }
+
+  globalScope[startupKey] = true;
+
   setupOfflineVisitsSync();
   setupCacheableRoutes();
 
   defineConfigSchema(moduleName, esmPatientChartSchema);
-  defineExtensionConfigSchema('nav-group', genericNavGroupConfigSchema);
-  defineExtensionConfigSchema('dashboard', genericDashboardConfigSchema);
+  defineExtensionConfigSchema(patientChartNavGroupExtensionName, genericNavGroupConfigSchema);
+  defineExtensionConfigSchema(patientChartDashboardExtensionName, genericDashboardConfigSchema);
 
   registerFeatureFlag(
     'rde',

@@ -1,13 +1,34 @@
-import { Tag } from '@carbon/react';
+import { Tag, type TagProps } from '@carbon/react';
 import React from 'react';
 
 import { type ConfigConcepts, type Encounter } from '../types';
 import { getObsFromEncounter, findObs } from '../utils/helpers';
 
+const getTagText = (value: unknown) => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+    if (typeof namedValue.display === 'string') {
+      return namedValue.display;
+    }
+    if (typeof namedValue.name === 'string') {
+      return namedValue.name;
+    }
+    if (typeof namedValue.name === 'object' && namedValue.name !== null) {
+      return namedValue.name.display ?? namedValue.name.name ?? '--';
+    }
+  }
+
+  return '--';
+};
+
 export const renderTag = (
   encounter: Encounter,
   concept: string,
-  statusColorMappings: Record<string, string>,
+  statusColorMappings: Record<string, NonNullable<TagProps<'div'>['type']>>,
   config: ConfigConcepts,
 ) => {
   const columnStatus = getObsFromEncounter({ encounter: encounter, obsConcept: concept, config: config });
@@ -15,19 +36,19 @@ export const renderTag = (
 
   if (columnStatus == '--') {
     return '--';
-  } else {
-    return (
-      <Tag
-        type={
-          typeof columnStatusObs?.value === 'object' && 'uuid' in columnStatusObs.value
-            ? statusColorMappings[columnStatusObs.value.uuid]
-            : undefined
-        }
-        title={columnStatus}
-        style={{ minWidth: '80px' }}
-      >
-        {columnStatus}
-      </Tag>
-    );
   }
+
+  return (
+    <Tag
+      type={
+        typeof columnStatusObs?.value === 'object' && 'uuid' in columnStatusObs.value
+          ? statusColorMappings[columnStatusObs.value.uuid]
+          : undefined
+      }
+      title={getTagText(columnStatus)}
+      style={{ minWidth: '80px' }}
+    >
+      {getTagText(columnStatus)}
+    </Tag>
+  );
 };

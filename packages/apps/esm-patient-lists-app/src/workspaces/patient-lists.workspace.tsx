@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method, @typescript-eslint/no-unused-vars */
+import React, { useCallback, useMemo, useState } from 'react';
+import fuzzy from 'fuzzy';
+import { useTranslation } from 'react-i18next';
 import {
   DataTable,
-  type DataTableHeader,
-  type DataTableRow,
   DataTableSkeleton,
   Layer,
   Link,
@@ -17,29 +19,26 @@ import {
   TableToolbarSearch,
   Tile,
 } from '@carbon/react';
-import { useDebounce, useLayoutType } from '@openmrs/esm-framework';
-import { EmptyDataIllustration, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import fuzzy from 'fuzzy';
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
-import { type MappedList, usePatientLists } from '../patient-lists.resource';
-
+import { EmptyDataIllustration, type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import { launchWorkspace, useLayoutType, Workspace2 } from '@openmrs/esm-framework';
+import { usePatientLists } from '../patient-lists.resource';
 import styles from './patient-lists.scss';
 
-function PatientListsWorkspace() {
+function PatientListsWorkspace({ launchChildWorkspace }: PatientWorkspace2DefinitionProps<object, object>) {
   const { t } = useTranslation();
   const layout = useLayoutType();
   const responsiveSize = layout === 'tablet' ? 'lg' : 'sm';
   const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm);
   const { patientLists, isLoading } = usePatientLists();
 
-  const launchListDetailsWorkspace = useCallback((list: MappedList) => {
-    launchPatientWorkspace('patient-list-details', { list, workspaceTitle: list.name });
-  }, []);
+  const launchListDetailsWorkspace = useCallback(
+    (list) => {
+      launchChildWorkspace('patient-list-details', { list });
+    },
+    [launchChildWorkspace],
+  );
 
-  const tableHeaders: Array<typeof DataTableHeader> = [
+  const tableHeaders = [
     {
       key: 'name',
       header: t('listName', 'List name'),
@@ -55,122 +54,112 @@ function PatientListsWorkspace() {
   ];
 
   const filteredLists = useMemo(() => {
-    if (!debouncedSearchTerm) {
+    if (!searchTerm) {
       return patientLists;
     }
 
-    return debouncedSearchTerm
-      ? fuzzy
-          .filter(debouncedSearchTerm, patientLists, {
-            extract: (list) => `${list.name} ${list.type}`,
-          })
-          .sort((r1, r2) => r1.score - r2.score)
-          .map((result) => result.original)
-      : patientLists;
-  }, [debouncedSearchTerm, patientLists]);
-
-  const tableRows: Array<typeof DataTableRow> = useMemo(
-    () =>
-      filteredLists?.map((list) => ({
-        ...list,
-        numberOfPatients: list.size,
-      })) ?? [],
-    [filteredLists],
-  );
+    return fuzzy
+      .filter(searchTerm, patientLists, {
+        extract: (list) => `${list.name} ${list.type}`,
+      })
+      .sort((r1, r2) => r1.score - r2.score)
+      .map((result) => result.original);
+  }, [searchTerm, patientLists]);
 
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value);
 
   if (isLoading)
     return (
-      <div className={styles.skeletonContainer}>
-        <DataTableSkeleton className={styles.dataTableSkeleton} rowCount={5} columnCount={5} zebra />
-      </div>
+      <Workspace2 title={t('patientListsWorkspaceTitle', 'Patient Lists')} hasUnsavedChanges={false}>
+        <div className={styles.skeletonContainer}>
+          <DataTableSkeleton className={styles.dataTableSkeleton} rowCount={5} columnCount={5} zebra />
+        </div>
+      </Workspace2>
     );
 
   if (patientLists?.length > 0) {
     return (
-      <section className={styles.container}>
-        <DataTable headers={tableHeaders} rows={tableRows} size={responsiveSize} useZebraStyles>
-          {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-            <>
-              <TableContainer className={styles.tableContainer}>
-                <div className={styles.toolbarWrapper}>
-                  <TableToolbar className={styles.tableToolbar}>
-                    <TableToolbarContent>
-                      <TableToolbarSearch
-                        className={styles.search}
-                        expanded
-                        onChange={handleSearchTermChange}
-                        placeholder={t('searchThisList', 'Search this list')}
-                        size={responsiveSize}
-                      />
-                    </TableToolbarContent>
-                  </TableToolbar>
-                </div>
-                {rows.length > 0 ? (
-                  <Table aria-label="patient lists" className={styles.table} {...getTableProps()}>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map((header) => (
-                          <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => {
-                        const currentList = patientLists?.find((list) => list?.id === row.id);
+      <Workspace2 title={t('patientListsWorkspaceTitle', 'Patient Lists')} hasUnsavedChanges={false}>
+        <section className={styles.container}>
+          <DataTable headers={tableHeaders} rows={filteredLists || []} size={responsiveSize} useZebraStyles>
+            {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
+              <>
+                <TableContainer className={styles.tableContainer}>
+                  <div className={styles.toolbarWrapper}>
+                    <TableToolbar className={styles.tableToolbar}>
+                      <TableToolbarContent>
+                        <TableToolbarSearch
+                          className={styles.search}
+                          expanded
+                          onChange={handleSearchTermChange}
+                          placeholder={t('searchThisList', 'Search this list')}
+                          size={responsiveSize}
+                        />
+                      </TableToolbarContent>
+                    </TableToolbar>
+                  </div>
+                  {rows.length > 0 ? (
+                    <Table aria-label="patient lists" className={styles.table} {...getTableProps()}>
+                      <TableHead>
+                        <TableRow>
+                          {headers.map((header) => (
+                            <TableHeader key={header.key} {...getHeaderProps({ header })}>
+                              {header.header}
+                            </TableHeader>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row) => {
+                          const currentList = patientLists?.find((list) => list?.id === row.id);
 
-                        return (
-                          <TableRow {...getRowProps({ row })} key={row.id}>
-                            <TableCell>
-                              <Link
-                                className={styles.link}
-                                onClick={() => {
-                                  if (currentList) {
-                                    launchListDetailsWorkspace(currentList);
-                                  }
-                                }}
-                              >
-                                {currentList?.name ?? ''}
-                              </Link>
-                            </TableCell>
-                            <TableCell>{currentList?.type ?? ''}</TableCell>
-                            <TableCell>{currentList?.size ?? ''}</TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
+                          return (
+                            <TableRow {...getRowProps({ row })} key={row.id}>
+                              <TableCell>
+                                <Link className={styles.link} onClick={() => launchListDetailsWorkspace(currentList)}>
+                                  {currentList?.name ?? ''}
+                                </Link>
+                              </TableCell>
+                              <TableCell>{currentList?.type ?? ''}</TableCell>
+                              <TableCell>{currentList?.size ?? ''}</TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  ) : null}
+                </TableContainer>
+                {filteredLists?.length === 0 ? (
+                  <div className={styles.tileContainer}>
+                    <Tile className={styles.tile}>
+                      <div className={styles.tileContent}>
+                        <p className={styles.content}>{t('noMatchingListsFound', 'No matching lists to display')}</p>
+                        <p className={styles.helper}>{t('checkFilters', 'Check the filters above')}</p>
+                      </div>
+                    </Tile>
+                  </div>
                 ) : null}
-              </TableContainer>
-              {filteredLists?.length === 0 ? (
-                <div className={styles.tileContainer}>
-                  <Tile className={styles.tile}>
-                    <div className={styles.tileContent}>
-                      <p className={styles.content}>{t('noMatchingListsFound', 'No matching lists to display')}</p>
-                      <p className={styles.helper}>{t('checkFilters', 'Check the filters above')}</p>
-                    </div>
-                  </Tile>
-                </div>
-              ) : null}
-            </>
-          )}
-        </DataTable>
-      </section>
+              </>
+            )}
+          </DataTable>
+        </section>
+      </Workspace2>
     );
   }
 
   return (
-    <div className={styles.emptyStateContainer}>
-      <Layer>
-        <Tile className={styles.emptyStateTile}>
-          <div className={styles.tileContent}>
-            <EmptyDataIllustration />
-            <p className={styles.emptyStateContent}>{t('noPatientListsToDisplay', 'No patient lists to display')}</p>
-          </div>
-        </Tile>
-      </Layer>
-    </div>
+    <Workspace2 title={t('patientListsWorkspaceTitle', 'Patient Lists')} hasUnsavedChanges={false}>
+      <div className={styles.emptyStateContainer}>
+        <Layer>
+          <Tile className={styles.emptyStateTile}>
+            <div className={styles.tileContent}>
+              <EmptyDataIllustration />
+              <p className={styles.emptyStateContent}>{t('noPatientListsToDisplay', 'No patient lists to display')}</p>
+            </div>
+          </Tile>
+        </Layer>
+      </div>
+    </Workspace2>
   );
 }
 

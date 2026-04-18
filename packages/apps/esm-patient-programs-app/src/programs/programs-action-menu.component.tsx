@@ -1,9 +1,8 @@
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { showModal, useLayoutType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import styles from './programs-action-menu.scss';
 
 interface ProgramActionsProps {
@@ -36,8 +35,8 @@ export const ProgramsActionMenu = ({ patientUuid, programEnrollmentId }: Program
   return (
     <Layer className={styles.layer}>
       <OverflowMenu
-        align="left"
         aria-label={t('editOrDeleteProgram', 'Edit or delete program')}
+        align="left"
         flipped
         size={isTablet ? 'lg' : 'sm'}
       >

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment */
 import { LineChart } from '@carbon/charts-react';
 import { Button, InlineLoading, SkeletonText } from '@carbon/react';
 import { ArrowLeftIcon, ConfigurableLink, formatDate } from '@openmrs/esm-framework';
@@ -208,7 +209,7 @@ const Trendline: React.FC<TrendlineProps> = ({
   );
 
   if (isLoading) {
-    return <SkeletonText role="progressbar" />;
+    return <SkeletonText />;
   }
 
   if (obs.length === 0) {

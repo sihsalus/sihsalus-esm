@@ -1,23 +1,11 @@
-import {
-  type FetchResponse,
-  openmrsFetch,
-  type OpenmrsResource,
-  restBaseUrl,
-  toOmrsIsoString,
-} from '@openmrs/esm-framework';
-import {
-  type OrderBasketItem,
-  priorityOptions,
-  type OrderUrgency,
-  type OrderPost,
-  type OrderableConcept,
-} from '@openmrs/esm-patient-common-lib';
+import { toOmrsIsoString } from '@openmrs/esm-framework';
+import { type OrderBasketItem, type OrderPost, type OrderableConcept } from '@openmrs/esm-patient-common-lib';
 
 export function createEmptyOrder(concept: OrderableConcept, orderer: string): OrderBasketItem {
   return {
     action: 'NEW',
-    urgency: priorityOptions[0].value as OrderUrgency,
-    display: concept.label,
+    urgency: 'ROUTINE',
+    display: concept.display ?? '',
     concept,
     orderer,
   };
@@ -79,6 +67,6 @@ export function prepOrderPostData(
       scheduledDate: order.scheduledDate ? toOmrsIsoString(order.scheduledDate) : null,
     };
   } else {
-    throw new Error(`Unknown order action: ${order.action}.`);
+    throw new Error(`Unknown order action: ${String(order.action)}.`);
   }
 }

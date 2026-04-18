@@ -94,7 +94,7 @@ const PanelView: React.FC<PanelViewProps> = ({ expanded, testUuid, basePath, typ
               <EmptyState displayText={t('panels', 'panels')} headerTitle={t('noPanelsFound', 'No panels found')} />
             )
           ) : (
-            <DataTableSkeleton columns={3} role="progressbar" />
+            <DataTableSkeleton role="progressbar" columnCount={3} />
           )}
         </div>
         {activePanel ? (
@@ -141,7 +141,7 @@ const PanelView: React.FC<PanelViewProps> = ({ expanded, testUuid, basePath, typ
                 <EmptyState displayText={t('panels', 'panels')} headerTitle={t('noPanelsFound', 'No panels found')} />
               )
             ) : (
-              <DataTableSkeleton columns={3} role="progressbar" />
+              <DataTableSkeleton role="progressbar" columnCount={3} />
             )}
           </>
         </div>
@@ -151,7 +151,7 @@ const PanelView: React.FC<PanelViewProps> = ({ expanded, testUuid, basePath, typ
       >
         <div className={styles.stickySection}>
           {isLoading ? (
-            <DataTableSkeleton columns={3} role="progressbar" />
+            <DataTableSkeleton role="progressbar" columnCount={3} />
           ) : trendlineView ? (
             <Trendline patientUuid={patientUuid} conceptUuid={testUuid} basePath={basePath} showBackToTimelineButton />
           ) : activePanel ? (
@@ -231,7 +231,7 @@ const PanelViewHeader: React.FC<PanelViewHeaderProps> = ({
               size="sm"
               value={localSearchTerm}
             />
-            <Button data-testid="execute-search-button" kind="secondary" size="sm" onClick={handleSearchTerm}>
+            <Button data-testid="execute-search-button" kind="secondary" size="sm" type="submit">
               {t('search', 'Search')}
             </Button>
           </Form>
@@ -256,7 +256,7 @@ const PanelViewHeader: React.FC<PanelViewHeaderProps> = ({
                 size="lg"
                 value={localSearchTerm}
               />
-              <Button kind="secondary" onClick={handleSearchTerm}>
+              <Button kind="secondary" type="submit">
                 {t('search', 'Search')}
               </Button>
             </Form>

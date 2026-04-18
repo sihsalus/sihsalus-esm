@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument */
 import {
   Button,
   ButtonSet,
@@ -34,10 +35,11 @@ import {
 } from '@openmrs/esm-framework';
 import { usePatientChartStore } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
+import type { TFunction } from 'i18next';
 import { capitalize } from 'lodash-es';
 import React, { type ChangeEvent, type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { type Control, Controller, useController, useForm } from 'react-hook-form';
-import { type TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { useRequireOutpatientQuantity } from '../api';
@@ -218,6 +220,19 @@ function InputWrapper({ children }) {
   );
 }
 
+type ComboBoxFilterParams = {
+  item?: { value?: string; names?: string[] };
+  inputValue?: string;
+};
+
+type CustomNumberInputProps = {
+  control: Control<MedicationOrderFormData>;
+  isTablet: boolean;
+  setValue: ReturnType<typeof useForm<MedicationOrderFormData>>['setValue'];
+  name: 'duration' | 'numRefills';
+  labelText: string;
+};
+
 export function DrugOrderForm({ initialOrderBasketItem, onSave, onCancel, promptBeforeClosing }: DrugOrderFormProps) {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
@@ -226,9 +241,11 @@ export function DrugOrderForm({ initialOrderBasketItem, onSave, onCancel, prompt
   const { requireOutpatientQuantity } = useRequireOutpatientQuantity();
 
   const defaultStartDate = useMemo(() => {
-    if (typeof initialOrderBasketItem?.startDate === 'string') parseDate(initialOrderBasketItem?.startDate);
+    if (typeof initialOrderBasketItem?.startDate === 'string') {
+      return parseDate(initialOrderBasketItem.startDate);
+    }
 
-    return initialOrderBasketItem?.startDate as Date;
+    return initialOrderBasketItem?.startDate;
   }, [initialOrderBasketItem?.startDate]);
 
   const medicationOrderFormSchema = useMemo(
@@ -345,11 +362,11 @@ export function DrugOrderForm({ initialOrderBasketItem, onSave, onCancel, prompt
     return orderConfigObject?.orderFrequencies ?? [];
   }, [orderConfigObject]);
 
-  const filterItemsByName = useCallback((menu) => {
+  const filterItemsByName = useCallback((menu: ComboBoxFilterParams) => {
     return menu?.item?.value?.toLowerCase().includes(menu?.inputValue?.toLowerCase());
   }, []);
 
-  const filterItemsBySynonymNames = useCallback((menu) => {
+  const filterItemsBySynonymNames = useCallback((menu: ComboBoxFilterParams) => {
     if (menu?.inputValue?.length) {
       return menu.item?.names?.some((abbr: string) => abbr.toLowerCase().includes(menu.inputValue.toLowerCase()));
     }
@@ -362,9 +379,9 @@ export function DrugOrderForm({ initialOrderBasketItem, onSave, onCancel, prompt
   const patientName = patient ? getPatientName(patient) : '';
   const { maxDispenseDurationInDays } = useConfig<ConfigObject>();
 
-  const observer = useRef(null);
+  const observer = useRef<IntersectionObserver | null>(null);
   const medicationInfoHeaderRef = useCallback(
-    (node) => {
+    (node: HTMLDivElement | null) => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         ([e]) => {
@@ -598,14 +615,12 @@ export function DrugOrderForm({ initialOrderBasketItem, onSave, onCancel, prompt
                     <Controller
                       name="startDate"
                       control={control}
-                      render={({ field: { onBlur, value, onChange, ref } }) => (
+                      render={({ field: { value, onChange } }) => (
                         <DatePicker
                           datePickerType="single"
-                          maxDate={new Date().toISOString()}
+                          maxDate={new Date()}
                           value={value}
                           onChange={([newStartDate]) => onChange(newStartDate)}
-                          onBlur={onBlur}
-                          ref={ref}
                         >
                           <DatePickerInput
                             id="startDatePicker"
@@ -757,7 +772,7 @@ export function DrugOrderForm({ initialOrderBasketItem, onSave, onCancel, prompt
   );
 }
 
-const CustomNumberInput = ({ setValue, control, name, labelText, isTablet, ...inputProps }) => {
+const CustomNumberInput = ({ setValue, control, name, labelText, isTablet, ...inputProps }: CustomNumberInputProps) => {
   const { t } = useTranslation();
   const { maxDispenseDurationInDays } = useConfig();
   const responsiveSize = isTablet ? 'lg' : 'sm';
@@ -790,11 +805,13 @@ const CustomNumberInput = ({ setValue, control, name, labelText, isTablet, ...in
           <Subtract size={16} />
         </IconButton>
         <TextInput
+          id={`${name}-custom-input`}
+          labelText={labelText}
           onChange={handleChange}
           className={styles.customInput}
           onBlur={onBlur}
           ref={ref}
-          value={value ? value : '--'}
+          value={typeof value === 'number' ? value : ''}
           size={responsiveSize}
           {...inputProps}
         />
@@ -816,15 +833,7 @@ interface BaseControlledFieldInputProps {
   getValues?: (name: keyof MedicationOrderFormData) => MedicationOrderFormValue;
 }
 
-type ControlledFieldInputProps = Omit<BaseControlledFieldInputProps, 'type'> &
-  (
-    | ({ type: 'toggle' } & ComponentProps<typeof Toggle>)
-    | ({ type: 'checkbox' } & ComponentProps<typeof Checkbox>)
-    | ({ type: 'number' } & ComponentProps<typeof NumberInput>)
-    | ({ type: 'textArea' } & ComponentProps<typeof TextArea>)
-    | ({ type: 'textInput' } & ComponentProps<typeof TextInput>)
-    | ({ type: 'comboBox' } & ComponentProps<typeof ComboBox>)
-  );
+type ControlledFieldInputProps = BaseControlledFieldInputProps & Record<string, unknown>;
 
 const ControlledFieldInput = ({
   name,
@@ -857,12 +866,22 @@ const ControlledFieldInput = ({
   const component = useMemo(() => {
     if (type === 'toggle') {
       return (
-        <Toggle toggled={value} onToggle={(value: MedicationOrderFormValue) => handleChange(value)} {...restProps} />
+        <Toggle
+          toggled={Boolean(value)}
+          onToggle={handleChange}
+          {...(restProps as unknown as ComponentProps<typeof Toggle>)}
+        />
       );
     }
 
     if (type === 'checkbox') {
-      return <Checkbox checked={value} onChange={(e, { checked }) => handleChange(checked)} {...restProps} />;
+      return (
+        <Checkbox
+          checked={Boolean(value)}
+          onChange={(_, { checked }) => handleChange(checked)}
+          {...(restProps as unknown as ComponentProps<typeof Checkbox>)}
+        />
+      );
     }
 
     if (type === 'number') {
@@ -872,13 +891,13 @@ const ControlledFieldInput = ({
           disableWheel
           onBlur={onBlur}
           onChange={(e, { value }) => {
-            const number = parseFloat(value);
+            const number = parseFloat(String(value));
             handleChange(isNaN(number) ? null : number);
           }}
           ref={ref}
           size={responsiveSize}
-          value={value ? value : 0}
-          {...restProps}
+          value={typeof value === 'number' ? value : 0}
+          {...(restProps as unknown as ComponentProps<typeof NumberInput>)}
         />
       );
     }
@@ -890,9 +909,8 @@ const ControlledFieldInput = ({
           onBlur={onBlur}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleChange(e.target.value)}
           ref={ref}
-          size={responsiveSize}
-          value={value}
-          {...restProps}
+          value={typeof value === 'string' ? value : ''}
+          {...(restProps as unknown as ComponentProps<typeof TextArea>)}
         />
       );
     }
@@ -905,8 +923,8 @@ const ControlledFieldInput = ({
           onBlur={onBlur}
           ref={ref}
           size={responsiveSize}
-          value={value}
-          {...restProps}
+          value={typeof value === 'string' || typeof value === 'number' ? value : ''}
+          {...(restProps as unknown as ComponentProps<typeof TextInput>)}
         />
       );
     }
@@ -917,10 +935,9 @@ const ControlledFieldInput = ({
           className={fieldErrorStyles}
           onBlur={onBlur}
           onChange={({ selectedItem }) => handleChange(selectedItem)}
-          ref={ref}
           size={responsiveSize}
           selectedItem={value}
-          {...restProps}
+          {...(restProps as unknown as ComponentProps<typeof ComboBox>)}
         />
       );
     }

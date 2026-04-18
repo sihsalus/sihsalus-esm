@@ -20,9 +20,9 @@ interface EncounterCreate {
   encounterType: string;
   location: string;
   encounterProviders?: Array<{ uuid?: string; person: string; provider: string }>;
-  obs?: Array<Record<string, any>>;
-  orders?: Array<Record<string, any>>;
-  diagnoses?: Array<Record<string, any>>;
+  obs?: Array<Record<string, unknown>>;
+  orders?: Array<Record<string, unknown>>;
+  diagnoses?: Array<Record<string, unknown>>;
   form?: string;
   visit?: string;
 }

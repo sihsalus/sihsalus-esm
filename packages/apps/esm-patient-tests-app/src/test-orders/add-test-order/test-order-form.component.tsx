@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/unbound-method */
 import {
   Button,
   ButtonSet,
@@ -50,16 +51,14 @@ export function LabOrderForm({
   closeWorkspaceWithSavedChanges,
   promptBeforeClosing,
   orderTypeUuid,
-  orderableConceptSets,
 }: LabOrderFormProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const session = useSession();
-  const isEditing = useMemo(() => initialOrder && initialOrder.action === 'REVISE', [initialOrder]);
   const { orders, setOrders } = useOrderBasket<TestOrderBasketItem>(orderTypeUuid, prepTestOrderPostData);
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const config = useConfig<ConfigObject>();
-  const { orderType, isLoadingOrderType } = useOrderType(orderTypeUuid);
+  const { orderType } = useOrderType(orderTypeUuid);
   const orderReasonRequired = (
     config.labTestsWithOrderReasons?.find((c) => c.labTestUuid === initialOrder?.testType?.conceptUuid) || {}
   ).required;
@@ -291,7 +290,7 @@ export function LabOrderForm({
                       itemToString={(item) => item?.display}
                       onBlur={onBlur}
                       onChange={({ selectedItem }) => onChange(selectedItem?.uuid || '')}
-                      selectedItem={''}
+                      selectedItem={null}
                       shouldFilterItem={filterItemsByName}
                       size={responsiveSize}
                       titleText={t('orderReason', 'Order reason')}
@@ -318,7 +317,6 @@ export function LabOrderForm({
                     maxCount={500}
                     onBlur={onBlur}
                     onChange={onChange}
-                    size={responsiveSize}
                     value={value}
                   />
                 )}

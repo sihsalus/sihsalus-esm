@@ -39,31 +39,49 @@ export function ordersEqual(order1: DrugsOrOrders, order2: DrugsOrOrders) {
   return order1.action === order2.action;
 }
 
-const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceProps> = ({
-  order: initialOrder,
-  orderTypeUuid,
-  closeWorkspace,
-  closeWorkspaceWithSavedChanges,
-  promptBeforeClosing,
-  setTitle,
-}) => {
+const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceProps> = (props) => {
   const { t } = useTranslation();
+  const { order: initialOrder, orderTypeUuid } = props;
   const isTablet = useLayoutType() === 'tablet';
   const { orders } = useOrderBasket<OrderBasketItem>(orderTypeUuid, prepOrderPostData);
   const { patientUuid } = usePatientChartStore();
   const { orderTypes } = useConfig<ConfigObject>();
   const [currentOrder, setCurrentOrder] = useState(initialOrder);
   const { orderType } = useOrderType(orderTypeUuid);
+  const handleSetTitle = useCallback(
+    (value: string) => {
+      props.setTitle(value);
+    },
+    [props],
+  );
+
+  const handleCloseWorkspace = useCallback(
+    (options?: Parameters<DefaultWorkspaceProps['closeWorkspace']>[0]) => {
+      props.closeWorkspace(options);
+    },
+    [props],
+  );
+
+  const handleCloseWorkspaceWithSavedChanges = useCallback(() => {
+    props.closeWorkspaceWithSavedChanges();
+  }, [props]);
+
+  const handlePromptBeforeClosing = useCallback(
+    (callback: () => boolean) => {
+      props.promptBeforeClosing(callback);
+    },
+    [props],
+  );
 
   useEffect(() => {
     if (orderType) {
-      setTitle(
+      props.setTitle(
         t(`addOrderableForOrderType`, 'Add {{orderTypeDisplay}}', {
           orderTypeDisplay: orderType.display.toLocaleLowerCase(),
         }),
       );
     }
-  }, [orderType, t, setTitle]);
+  }, [orderType, props, t]);
 
   const orderableConceptSets = useMemo(
     () => orderTypes.find((orderType) => orderType.orderTypeUuid === orderTypeUuid).orderableConceptSets,
@@ -71,11 +89,11 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
   );
 
   const cancelDrugOrder = useCallback(() => {
-    closeWorkspace({
+    props.closeWorkspace({
       onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
       closeWorkspaceGroup: false,
     });
-  }, [closeWorkspace]);
+  }, [props]);
 
   const openOrderForm = useCallback(
     (order: OrderBasketItem) => {
@@ -107,18 +125,18 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
       {currentOrder ? (
         <OrderForm
           initialOrder={currentOrder}
-          closeWorkspace={closeWorkspace}
-          closeWorkspaceWithSavedChanges={closeWorkspaceWithSavedChanges}
-          promptBeforeClosing={promptBeforeClosing}
+          closeWorkspace={handleCloseWorkspace}
+          closeWorkspaceWithSavedChanges={handleCloseWorkspaceWithSavedChanges}
+          promptBeforeClosing={handlePromptBeforeClosing}
           orderTypeUuid={orderTypeUuid}
           orderableConceptSets={orderableConceptSets}
           patientUuid={patientUuid}
-          setTitle={() => {}}
+          setTitle={handleSetTitle}
         />
       ) : (
         <ConceptSearch
           openOrderForm={openOrderForm}
-          closeWorkspace={closeWorkspace}
+          closeWorkspace={handleCloseWorkspace}
           orderableConceptSets={orderableConceptSets}
           orderTypeUuid={orderTypeUuid}
         />
@@ -140,7 +158,7 @@ function ConceptSearch({ closeWorkspace, orderTypeUuid, openOrderForm, orderable
   const isTablet = useLayoutType() === 'tablet';
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const searchInputRef = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   const cancelDrugOrder = useCallback(() => {
     closeWorkspace({

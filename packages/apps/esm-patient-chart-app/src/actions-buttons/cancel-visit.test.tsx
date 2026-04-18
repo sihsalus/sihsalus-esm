@@ -1,3 +1,19 @@
+jest.mock('@carbon/react', () => {
+  const actual = jest.requireActual('@carbon/react');
+  const React = jest.requireActual('react');
+
+  return {
+    ...actual,
+    OverflowMenuItem: React.forwardRef(function MockOverflowMenuItem({ itemText, onClick, ...props }, ref) {
+      return (
+        <button {...props} onClick={onClick} ref={ref} role="menuitem" type="button">
+          {itemText}
+        </button>
+      );
+    }),
+  };
+});
+
 import { useVisit } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,7 +30,7 @@ describe('CancelVisitOverflowMenuItem', () => {
 
     mockUseVisit.mockReturnValueOnce({ currentVisit: mockCurrentVisit } as ReturnType<typeof useVisit>);
 
-    render(<CancelVisitOverflowMenuItem patientUuid="some-uuid" />);
+    render(React.createElement(CancelVisitOverflowMenuItem, { patientUuid: 'some-uuid' }));
 
     const cancelVisitButton = screen.getByRole('menuitem', { name: /cancel visit/i });
     expect(cancelVisitButton).toBeInTheDocument();

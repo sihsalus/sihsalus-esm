@@ -1,0 +1,21 @@
+{
+  "backToPatientLists": "חזרה לרשימות המטופלים",
+  "checkFilters": "בדוק את המסננים למעלה",
+  "createdOn": "נוצר ב",
+  "identifier": "מזהה",
+  "listName": "שם הרשימה",
+  "listType": "סוג הרשימה",
+  "name": "שם",
+  "noMatchingListsFound": "לא נמצאו רשימות תואמות להצגה",
+  "noMatchingPatients": "לא נמצאו מטופלים תואמים להצגה",
+  "noPatientListsToDisplay": "אין רשימות מטופלים להצגה",
+  "noPatientsInList": "אין מטופלים ברשימה זו",
+  "numberOfPatients": "מספר המטופלים",
+  "patientListDetailWorkspaceTitle": "Patient List Details",
+  "patientLists": "רשימות מטופלים",
+  "patientListsWorkspaceTitle": "Patient Lists",
+  "patients": "מטופלים",
+  "searchThisList": "חפש ברשימה זו",
+  "sex": "מין",
+  "startDate": "תאריך התחלה"
+}

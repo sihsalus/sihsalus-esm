@@ -1,13 +1,12 @@
-import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-
-import type { OpenMRSResource } from '../../types';
-import { AllergenType } from '../../types';
+import { openmrsFetch, restBaseUrl, useConfig, type OpenmrsResource } from '@openmrs/esm-framework';
+import type { AllergiesConfigObject } from '../../config-schema';
+import { ALLERGEN_TYPES, type AllergenType } from '../../types';
 
 interface ConceptFetchResponse {
-  setMembers: Array<OpenMRSResource>;
+  setMembers: Array<OpenmrsResource>;
 }
 
 export interface NewAllergy {
@@ -45,6 +44,7 @@ export interface Allergen {
   uuid: string;
   display: string;
   type: AllergenType;
+  disabled?: boolean;
 }
 
 export interface AllergicReaction {
@@ -53,26 +53,30 @@ export interface AllergicReaction {
 }
 
 export function useAllergicReactions() {
-  const allergyReactionUuid = useConfig().concepts.allergyReactionUuid;
+  const {
+    concepts: { allergyReactionUuid },
+  } = useConfig<AllergiesConfigObject>();
   const { data: allergicReactionsData, isLoading } = useSWRImmutable<{ data: ConceptFetchResponse }>(
     `${restBaseUrl}/concept/${allergyReactionUuid}?v=full`,
     openmrsFetch,
   );
 
-  const allergicReactions: AllergicReaction[] = allergicReactionsData?.data.setMembers.map((allergicReaction) => {
-    return { uuid: allergicReaction.uuid, display: allergicReaction.display };
-  });
+  const allergicReactions: AllergicReaction[] =
+    allergicReactionsData?.data.setMembers.map((allergicReaction) => ({
+      uuid: allergicReaction.uuid,
+      display: allergicReaction.display,
+    })) ?? [];
 
   return {
     isLoading,
-    allergicReactions: allergicReactions,
+    allergicReactions,
   };
 }
 
 export function useAllergens() {
   const {
     concepts: { drugAllergenUuid, environmentalAllergenUuid, foodAllergenUuid, otherConceptUuid },
-  } = useConfig();
+  } = useConfig<AllergiesConfigObject>();
 
   const { data: drugAllergenData } = useSWRImmutable<{ data: ConceptFetchResponse }>(
     `${restBaseUrl}/concept/${drugAllergenUuid}?v=full`,
@@ -90,15 +94,15 @@ export function useAllergens() {
   return useMemo(() => {
     const allergens: Allergen[] = [];
 
-    const extract = (allergenData, type) => {
+    const extract = (allergenData: { data: ConceptFetchResponse } | undefined, type: AllergenType): void => {
       allergenData?.data?.setMembers?.forEach((allergen) => {
         allergens.push({ uuid: allergen.uuid, display: allergen.display, type });
       });
     };
 
-    extract(drugAllergenData, AllergenType.DRUG);
-    extract(environmentalAllergenData, AllergenType.ENVIRONMENT);
-    extract(foodAllergenData, AllergenType.FOOD);
+    extract(drugAllergenData, ALLERGEN_TYPES.DRUG);
+    extract(environmentalAllergenData, ALLERGEN_TYPES.ENVIRONMENT);
+    extract(foodAllergenData, ALLERGEN_TYPES.FOOD);
 
     // remove if uuid is otherConceptUuid
     allergens.forEach((allergen, index) => {
@@ -107,15 +111,18 @@ export function useAllergens() {
       }
     });
 
+    // Sort allergens alphabetically
+    allergens.sort((a, b) => a.display.localeCompare(b.display));
+
     return {
-      allergens: allergens.slice().sort((a, b) => a.display.localeCompare(b.display)),
+      allergens,
       isLoading: !drugAllergenData || !environmentalAllergenData || !foodAllergenData,
     };
   }, [drugAllergenData, environmentalAllergenData, foodAllergenData, otherConceptUuid]);
 }
 
 export function useAllergenSearch(allergenToLookup: string) {
-  const allergenConceptClassUuid = useConfig()?.concepts.allergenUuid;
+  const allergenConceptClassUuid = useConfig<AllergiesConfigObject>()?.concepts.allergenUuid;
 
   const searchURL = `${restBaseUrl}/conceptsearch?conceptClasses=${allergenConceptClassUuid}&q=${allergenToLookup}`;
 

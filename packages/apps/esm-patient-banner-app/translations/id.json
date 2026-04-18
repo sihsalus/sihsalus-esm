@@ -1,0 +1,16 @@
+{
+  "activeVisit": "Kunjungan Aktif",
+  "address1": "Baris alamat 1",
+  "address2": "Baris alamat 2",
+  "city": "Kota",
+  "cityVillage": "kota/desa",
+  "country": "Negara",
+  "countyDistrict": "Kabupaten",
+  "deceased": "Meninggal",
+  "district": "Kecamatan",
+  "from_lower": "dari",
+  "postalCode": "Kode pos",
+  "started": "Dimulai",
+  "state": "Provinsi",
+  "stateProvince": "Provinsi"
+}

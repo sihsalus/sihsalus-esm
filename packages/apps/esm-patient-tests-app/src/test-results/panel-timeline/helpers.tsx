@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { formatDate, formatTime, parseDate, showModal } from '@openmrs/esm-framework';
 import { type OBSERVATION_INTERPRETATION, getPatientUuidFromStore } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
@@ -57,7 +58,7 @@ export const Grid: React.FC<{
   );
 };
 
-export const PaddingContainer = React.forwardRef<HTMLElement, any>((props, ref) => (
+export const PaddingContainer = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>((props, ref) => (
   <div ref={ref} className={styles['padding-container']} {...props} />
 ));
 

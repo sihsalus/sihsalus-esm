@@ -12,7 +12,6 @@ import { useCallback, useMemo } from 'react';
 import useSWR, { mutate } from 'swr';
 import useSWRImmutable from 'swr/immutable';
 
-import { type ConfigObject } from '../config-schema';
 import type { TestOrderBasketItem } from '../types';
 
 export const careSettingUuid = '6f0c9a92-6f24-11e3-af88-005056821db0';
@@ -24,7 +23,12 @@ export const careSettingUuid = '6f0c9a92-6f24-11e3-af88-005056821db0';
  * @param status Allows fetching either all orders or only active orders.
  */
 export function usePatientLabOrders(patientUuid: string, status: 'ACTIVE' | 'any') {
-  const { labOrderTypeUuid: labOrderTypeUUID } = (useConfig() as ConfigObject).orders;
+  const { orders } = useConfig<{
+    orders?: {
+      labOrderTypeUuid?: string;
+    };
+  }>();
+  const labOrderTypeUUID = orders?.labOrderTypeUuid ?? '';
   const ordersUrl = `${restBaseUrl}/order?patient=${patientUuid}&careSetting=${careSettingUuid}&status=${status}&orderType=${labOrderTypeUUID}`;
 
   const { data, error, isLoading, isValidating } = useSWR<FetchResponse<PatientOrderFetchResponse>, Error>(
@@ -137,7 +141,7 @@ export function prepTestOrderPostData(
       scheduledDate: order.scheduledDate ? toOmrsIsoString(order.scheduledDate) : null,
     };
   } else {
-    throw new Error(`Unknown order action: ${order.action}.`);
+    throw new Error(`Unknown order action: ${String(order.action)}.`);
   }
 }
 

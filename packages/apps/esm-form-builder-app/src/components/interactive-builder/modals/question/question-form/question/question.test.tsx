@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Question from './question.component';
 import { FormFieldProvider } from '../../form-field-context';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import { renderingTypes } from '@constants';
 
 const initialFormField: FormField = {

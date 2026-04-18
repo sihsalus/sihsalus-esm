@@ -15,7 +15,7 @@ import {
 import { showSnackbar } from '@openmrs/esm-framework';
 import Question from './question-form/question/question.component';
 import { FormFieldProvider, useFormField } from './form-field-context';
-import type { FormField, FormSchema } from '@openmrs/esm-form-engine-lib';
+import type { FormField, FormSchema } from '@sihsalus/esm-form-engine-lib';
 import styles from './question.scss';
 
 interface QuestionModalProps {

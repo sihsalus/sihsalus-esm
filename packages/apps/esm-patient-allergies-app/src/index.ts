@@ -7,11 +7,11 @@ import {
   restBaseUrl,
 } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-
-import allergiesDetailedSummaryComponent from './allergies/allergies-detailed-summary.component';
-import allergyTileComponent from './allergies/allergies-tile.component';
 import { configSchema } from './config-schema';
 import { dashboardMeta } from './dashboard.meta';
+import allergiesDetailedSummaryComponent from './allergies/allergies-detailed-summary.component';
+import allergiesTileExtension from './allergies/allergies-tile.extension';
+import allergiesListExtension from './allergies/allergies-list.extension';
 
 const moduleName = '@sihsalus/esm-patient-allergies-app';
 
@@ -23,17 +23,17 @@ const options = {
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export function startupApp() {
-  messageOmrsServiceWorker({
+  void messageOmrsServiceWorker({
     type: 'registerDynamicRoute',
     pattern: `.+${restBaseUrl}/concept.+`,
   });
 
-  messageOmrsServiceWorker({
+  void messageOmrsServiceWorker({
     type: 'registerDynamicRoute',
     pattern: `.+${restBaseUrl}/patient/.+/allergy.+`,
   });
 
-  messageOmrsServiceWorker({
+  void messageOmrsServiceWorker({
     type: 'registerDynamicRoute',
     pattern: `.+${fhirBaseUrl}/AllergyIntolerance.+`,
   });
@@ -52,15 +52,13 @@ export const allergiesDashboardLink = getSyncLifecycle(
   options,
 );
 
-// t('recordNewAllergy', "Record a new allergy")
 export const allergyFormWorkspace = getAsyncLifecycle(
   () => import('./allergies/allergies-form/allergy-form.workspace'),
   options,
 );
 
-export const allergyTile = getSyncLifecycle(allergyTileComponent, options);
+export const allergiesTile = getSyncLifecycle(allergiesTileExtension, options);
 
-export const allergyDeleteConfirmationDialog = getAsyncLifecycle(
-  () => import('./allergies/delete-allergy.modal'),
-  options,
-);
+export const allergiesList = getSyncLifecycle(allergiesListExtension, options);
+
+export const deleteAllergyModal = getAsyncLifecycle(() => import('./allergies/delete-allergy.modal'), options);

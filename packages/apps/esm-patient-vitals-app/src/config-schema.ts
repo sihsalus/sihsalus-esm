@@ -52,16 +52,21 @@ export const configSchema = {
       _type: Type.Boolean,
       _default: false,
       _description:
-        'Whether to use an Ampath form as the vitals and biometrics form. If set to true, encounterUuid and formUuid must be set as well.',
+        'Whether to use the form engine for vitals and biometrics. If set to true, formUuid must be configured (formName is optional).',
     },
     encounterTypeUuid: {
       _type: Type.UUID,
       _default: '67a71486-1a54-468f-ac3e-7091a9a79584',
     },
+    vitalsOverdueThresholdHours: {
+      _type: Type.Number,
+      _default: 12,
+      _description: 'Hours at or above which vitals are considered overdue',
+    },
     logo: {
       src: {
         _type: Type.String,
-        _default: null,
+        _default: '',
         _description: 'A path or URL to an image. Defaults to the OpenMRS SVG sprite.',
       },
       alt: {
@@ -71,7 +76,7 @@ export const configSchema = {
       },
       name: {
         _type: Type.String,
-        _default: null,
+        _default: '',
         _description: 'The organization name displayed when image is absent',
       },
     },
@@ -119,12 +124,19 @@ export interface ConfigObject {
     heightUuid: string;
     weightUuid: string;
     respiratoryRateUuid: string;
+    generalPatientNoteUuid: string;
     midUpperArmCircumferenceUuid: string;
     vitalSignsConceptSetUuid: string;
   };
   vitals: {
     useFormEngine: boolean;
     encounterTypeUuid: string;
+    vitalsOverdueThresholdHours: number;
+    logo: {
+      src: string;
+      alt: string;
+      name: string;
+    };
     formUuid: string;
     formName: string;
     useMuacColors: boolean;

@@ -30,7 +30,7 @@ export function useConditionalVisitTypes() {
   return visitTypesHook();
 }
 export interface VisitFormCallbacks {
-  onVisitCreatedOrUpdated: (visit: Visit) => Promise<any>;
+  onVisitCreatedOrUpdated: (visit: Visit) => Promise<unknown>;
 }
 
 export function useVisitFormCallbacks() {

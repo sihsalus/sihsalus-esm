@@ -1,7 +1,7 @@
 import React from 'react';
 import { Date, Markdown, Number, SelectAnswers, Text, TextArea, Toggle, UiSelectExtended } from './inputs';
 import { useFormField } from '../../form-field-context';
-import type { RenderType } from '@openmrs/esm-form-engine-lib';
+import type { RenderType } from '@sihsalus/esm-form-engine-lib';
 import { renderTypeOptions, renderingTypes } from '@constants';
 
 const componentMap: Partial<Record<RenderType, React.FC>> = {
@@ -18,15 +18,23 @@ const componentMap: Partial<Record<RenderType, React.FC>> = {
   checkbox: SelectAnswers,
 };
 
+function isQuestionTypeWithRenderOptions(value: string): value is keyof typeof renderTypeOptions {
+  return value in renderTypeOptions;
+}
+
 const RenderTypeComponent: React.FC = () => {
   const { formField } = useFormField();
   // Get allowed rendering types based on formField.type
   const allowedRenderingTypes =
-    formField.type && formField.type !== 'obs' ? renderTypeOptions[formField.type] : renderingTypes;
+    formField.type && formField.type !== 'obs' && isQuestionTypeWithRenderOptions(formField.type)
+      ? renderTypeOptions[formField.type]
+      : renderingTypes;
 
   // Only get component if rendering type is allowed. Exception is program state because selecting the states is also implemented in the SelectAnswers component
   const Component =
-    allowedRenderingTypes?.includes(formField.questionOptions?.rendering) && formField.type !== 'programState'
+    formField.questionOptions?.rendering &&
+    allowedRenderingTypes.includes(formField.questionOptions.rendering) &&
+    formField.type !== 'programState'
       ? componentMap[formField.questionOptions?.rendering]
       : null;
 

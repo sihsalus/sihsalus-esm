@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useCallback, useMemo, useEffect, useRef, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { InlineNotification, ModalBody, ModalHeader, Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { type FetchResponse, type UploadedFile } from '@openmrs/esm-framework';
 import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
-import React, { useState, useCallback, useMemo, useEffect, useRef, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
-
-import CameraMediaUploaderContext from './camera-media-uploader-context.resources';
-import styles from './camera-media-uploader.scss';
 import CameraComponent from './camera.component';
+import CameraMediaUploaderContext from './camera-media-uploader-context.resources';
 import FileReviewContainer from './file-review.component';
 import MediaUploaderComponent from './media-uploader.component';
 import UploadStatusComponent from './upload-status.component';
+import styles from './camera-media-uploader.scss';
 
 interface CameraMediaUploaderModalProps {
   cameraOnly?: boolean;
@@ -17,7 +17,6 @@ interface CameraMediaUploaderModalProps {
   collectDescription?: boolean;
   multipleFiles?: boolean;
   onCompletion?: () => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   saveFile: (file: UploadedFile) => Promise<FetchResponse<any>>;
   title?: string;
 }
@@ -125,29 +124,31 @@ const CameraMediaUploadTabs: React.FC<CameraMediaUploadTabsProps> = ({ title }) 
     <div className={styles.cameraSection}>
       <ModalHeader closeModal={closeModal} title={title || t('addAttachment_title', 'Add Attachment')} />
       <ModalBody className={styles.modalBody}>
-        <Tabs className={styles.tabs} defaultSelectedIndex={1}>
-          <TabList aria-label="Attachments-upload-section" className={styles.tabList}>
-            <Tab onClick={() => setView('camera')}>{t('webcam', 'Webcam')}</Tab>
-            <Tab onClick={() => setView('upload')}>{t('uploadFiles', 'Upload files')}</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              {error ? (
-                <InlineNotification
-                  subtitle={t(
-                    'cameraAccessErrorMessage',
-                    'Please enable camera access in your browser settings and try again.',
-                  )}
-                  title={t('cameraError', 'Camera error')}
-                />
-              ) : null}
-              {view === 'camera' && <CameraComponent mediaStream={mediaStream} stopCameraStream={stopCameraStream} />}
-            </TabPanel>
-            <TabPanel>
-              <MediaUploaderComponent />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <div className={styles.tabs}>
+          <Tabs defaultSelectedIndex={1}>
+            <TabList aria-label="Attachments-upload-section" className={styles.tabList}>
+              <Tab onClick={() => setView('camera')}>{t('webcam', 'Webcam')}</Tab>
+              <Tab onClick={() => setView('upload')}>{t('uploadFiles', 'Upload files')}</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                {error ? (
+                  <InlineNotification
+                    subtitle={t(
+                      'cameraAccessErrorMessage',
+                      'Please enable camera access in your browser settings and try again.',
+                    )}
+                    title={t('cameraError', 'Camera error')}
+                  />
+                ) : null}
+                {view === 'camera' && <CameraComponent mediaStream={mediaStream} stopCameraStream={stopCameraStream} />}
+              </TabPanel>
+              <TabPanel>
+                <MediaUploaderComponent />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </div>
       </ModalBody>
     </div>
   );

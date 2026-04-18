@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars */
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -13,14 +16,10 @@ import {
 } from '@carbon/react';
 import { AddIcon, formatDate, parseDate, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import { patientAllergiesFormWorkspace } from '../constants';
-
+import { useAllergies } from './allergy-intolerance.resource';
 import { AllergiesActionMenu } from './allergies-action-menu.component';
 import styles from './allergies-detailed-summary.scss';
-import { useAllergies } from './allergy-intolerance.resource';
 
 interface AllergiesDetailedSummaryProps {
   patient: fhir.Patient;
@@ -28,12 +27,12 @@ interface AllergiesDetailedSummaryProps {
 
 const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ patient }) => {
   const { t } = useTranslation();
-  const displayText = t('allergyIntolerances', 'allergy intolerances');
-  const headerTitle = t('allergies', 'Allergies');
-  const { allergies, error, isLoading, isValidating } = useAllergies(patient.id);
   const layout = useLayoutType();
+  const { allergies, error, isLoading, isValidating } = useAllergies(patient.id);
   const isTablet = layout === 'tablet';
   const isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
+  const displayText = t('allergyIntolerances', 'allergy intolerances');
+  const headerTitle = t('allergies', 'Allergies');
 
   const launchAllergiesForm = useCallback(() => launchPatientWorkspace(patientAllergiesFormWorkspace), []);
 
@@ -50,18 +49,26 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
     },
   ];
 
-  const tableRows = useMemo(() => {
-    return allergies?.map((allergy) => ({
-      ...allergy,
-      reactionSeverity: allergy.reactionSeverity?.toUpperCase() ?? '--',
-      lastUpdated: allergy.lastUpdated ? formatDate(parseDate(allergy.lastUpdated), { time: false }) : '--',
-      reaction: allergy.reactionManifestations?.join(', '),
-      note: allergy?.note ?? '--',
-    }));
-  }, [allergies]);
+  const tableRows = useMemo(
+    () =>
+      allergies?.map((allergy) => ({
+        ...allergy,
+        lastUpdated: allergy.lastUpdated ? formatDate(parseDate(allergy.lastUpdated), { time: false }) : '--',
+        note: allergy?.note ?? '--',
+        reaction: allergy.reactionManifestations?.sort((a, b) => a.localeCompare(b))?.join(', ') ?? '--',
+        reactionSeverity: t(allergy.reactionSeverity) ?? '--',
+      })),
+    [allergies, t],
+  );
 
-  if (isLoading) return <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />;
-  if (error) return <ErrorState error={error} headerTitle={headerTitle} />;
+  if (isLoading) {
+    return <DataTableSkeleton role="progressbar" zebra />;
+  }
+
+  if (error) {
+    return <ErrorState error={error} headerTitle={headerTitle} />;
+  }
+
   if (allergies?.length) {
     return (
       <div className={styles.widgetCard}>
@@ -87,10 +94,9 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
                         className={styles.tableHeader}
                         {...getHeaderProps({
                           header,
-                          isSortable: header.isSortable,
                         })}
                       >
-                        {header.header?.content ?? header.header}
+                        {header.header}
                       </TableHeader>
                     ))}
                     <TableHeader />
@@ -118,6 +124,7 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
       </div>
     );
   }
+
   return <EmptyState displayText={displayText} headerTitle={headerTitle} launchForm={launchAllergiesForm} />;
 };
 

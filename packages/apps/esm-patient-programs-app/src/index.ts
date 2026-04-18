@@ -1,10 +1,9 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-
 import { configSchema } from './config-schema';
 import { dashboardMeta } from './dashboard.meta';
-import programsDetailedSummaryComponent from './programs/programs-detailed-summary.component';
 import programsOverviewComponent from './programs/programs-overview.component';
+import programsDetailedSummaryComponent from './programs/programs-detailed-summary.component';
 
 const moduleName = '@sihsalus/esm-patient-programs-app';
 

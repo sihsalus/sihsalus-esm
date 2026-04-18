@@ -1,69 +1,69 @@
 import { InlineLoading } from '@carbon/react';
-import { FormEngine } from '@openmrs/esm-form-engine-lib';
-import { showModal, useConfig } from '@openmrs/esm-framework';
+import { showModal, useConfig, type Encounter, type OpenmrsResource } from '@openmrs/esm-framework';
 import { clinicalFormsWorkspace, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { FormEngine, type PreFilledQuestions, type SessionMode } from '../form-engine-lib-runtime';
 import { useCustomDataSources } from '../hooks/useCustomDataSources';
 import { useCustomEncounterDatetime } from '../hooks/useCustomEncounterDatetime';
 import useFormSchema from '../hooks/useFormSchema';
 import { useLabOrderNotification } from '../hooks/useLabOrderNotification';
-import { useVisitDateValidation } from '../hooks/useVisitDateValidation';
 import { setFormState } from '../store/form-state.store';
 import type { FormEntryReactConfig, FormWidgetProps } from '../types';
 
 import FormError from './form-error.component';
+import { normalizeFormWidgetProps } from './form-widget-adapter';
 import styles from './form-renderer.scss';
 
-const FormRenderer: React.FC<FormWidgetProps> = ({
-  formUuid,
-  patientUuid,
-  encounterUuid,
-  visitUuid,
-  visitTypeUuid,
-  visitStartDatetime,
-  visitStopDatetime,
-  closeWorkspace,
-  closeWorkspaceWithSavedChanges,
-  promptBeforeClosing,
-  isOffline: _isOffline,
-  additionalProps,
-  clinicalFormsWorkspaceName = clinicalFormsWorkspace,
-}) => {
+interface FormRendererAdditionalProps {
+  formSessionIntent?: string;
+  mode?: SessionMode;
+  openClinicalFormsWorkspaceOnFormClose?: boolean;
+  preFilledQuestions?: PreFilledQuestions;
+}
+
+const FormRenderer: React.FC<FormWidgetProps> = (props) => {
+  const normalizedProps = normalizeFormWidgetProps(props);
+  const {
+    closeWorkspace,
+    closeWorkspaceWithSavedChanges,
+    formUuid,
+    patientUuid,
+    encounterUuid,
+    visit,
+    visitStartDatetime,
+    additionalProps,
+    preFilledQuestions: directPreFilledQuestions,
+    hideControls,
+    hidePatientBanner,
+    showDiscardSubmitButtons,
+    handlePostResponse,
+    handleEncounterCreate,
+    handleOnValidate,
+    clinicalFormsWorkspaceName = clinicalFormsWorkspace,
+    setHasUnsavedChanges,
+  } = normalizedProps;
   const { t } = useTranslation();
   const config = useConfig<FormEntryReactConfig>();
   const { schema, error, isLoading } = useFormSchema(formUuid);
+  const typedAdditionalProps = additionalProps as FormRendererAdditionalProps | undefined;
 
   // Gap feature hooks
   useCustomDataSources(config);
-  const { adjustVisitDatesIfNeeded } = useVisitDateValidation(visitUuid, visitStartDatetime, visitStopDatetime);
   const { showLabOrdersNotification } = useLabOrderNotification();
-  const preFilledQuestions = useCustomEncounterDatetime(
-    config,
-    visitStartDatetime,
-    additionalProps?.preFilledQuestions,
-  );
+  const basePreFilledQuestions = directPreFilledQuestions ?? typedAdditionalProps?.preFilledQuestions;
+  const preFilledQuestions = useCustomEncounterDatetime(config, visitStartDatetime, basePreFilledQuestions);
 
-  const openClinicalFormsWorkspaceOnFormClose = additionalProps?.openClinicalFormsWorkspaceOnFormClose ?? true;
-  const formSessionIntent = additionalProps?.formSessionIntent ?? '*';
-  const mode = additionalProps?.mode ?? (encounterUuid ? 'edit' : 'enter');
-
-  const visit = useMemo(() => {
-    if (!visitUuid) return undefined;
-    return {
-      uuid: visitUuid,
-      startDatetime: visitStartDatetime,
-      stopDatetime: visitStopDatetime ?? null,
-      visitType: visitTypeUuid ? { uuid: visitTypeUuid, display: '' } : undefined,
-      encounters: [],
-    } as any;
-  }, [visitUuid, visitStartDatetime, visitStopDatetime, visitTypeUuid]);
+  const openClinicalFormsWorkspaceOnFormClose = typedAdditionalProps?.openClinicalFormsWorkspaceOnFormClose ?? true;
+  const formSessionIntent = typedAdditionalProps?.formSessionIntent ?? '*';
+  const mode = typedAdditionalProps?.mode ?? (encounterUuid ? 'edit' : 'enter');
+  const effectiveHideControls = hideControls ?? showDiscardSubmitButtons === false;
 
   const handleCloseForm = useCallback(() => {
-    closeWorkspace();
+    closeWorkspace?.();
     if (!encounterUuid && openClinicalFormsWorkspaceOnFormClose) {
-      launchPatientWorkspace(clinicalFormsWorkspaceName);
+      void launchPatientWorkspace(clinicalFormsWorkspaceName);
     }
   }, [closeWorkspace, encounterUuid, openClinicalFormsWorkspaceOnFormClose, clinicalFormsWorkspaceName]);
 
@@ -72,7 +72,7 @@ const FormRenderer: React.FC<FormWidgetProps> = ({
       const dispose = showModal('form-engine-delete-question-confirm-modal', {
         onCancel() {
           dispose();
-          reject();
+          reject(new Error('Question deletion cancelled'));
         },
         onConfirm() {
           dispose();
@@ -83,27 +83,37 @@ const FormRenderer: React.FC<FormWidgetProps> = ({
   }, []);
 
   const handleMarkFormAsDirty = useCallback(
-    (isDirty: boolean) => promptBeforeClosing?.(() => isDirty),
-    [promptBeforeClosing],
+    (isDirty: boolean) => {
+      setHasUnsavedChanges?.(isDirty);
+    },
+    [setHasUnsavedChanges],
   );
 
   const handleOnSubmit = useCallback(
-    async (data: any) => {
+    async (data: Array<OpenmrsResource>) => {
       setFormState(formUuid, 'submitted');
 
-      // Extract encounter UUID from submission data
-      const submittedEncounterUuid = data?.encounters?.[0]?.uuid ?? data?.uuid;
+      const submittedEncounter = data.find(
+        (result): result is OpenmrsResource & Encounter => typeof result?.uuid === 'string',
+      );
+      const submittedEncounterUuid = submittedEncounter?.uuid;
 
       if (submittedEncounterUuid) {
-        // Post-submission: adjust visit dates if encounter datetime is out of bounds
-        await adjustVisitDatesIfNeeded(submittedEncounterUuid);
-        // Post-submission: show lab orders notification
         await showLabOrdersNotification(submittedEncounterUuid);
       }
 
+      handlePostResponse?.(submittedEncounter);
       closeWorkspaceWithSavedChanges?.();
     },
-    [formUuid, adjustVisitDatesIfNeeded, showLabOrdersNotification, closeWorkspaceWithSavedChanges],
+    [formUuid, showLabOrdersNotification, handlePostResponse, closeWorkspaceWithSavedChanges],
+  );
+
+  const handleValidate = useCallback(
+    (valid: boolean) => {
+      setFormState(formUuid, valid ? 'ready' : 'readyWithValidationErrors');
+      handleOnValidate?.(valid);
+    },
+    [formUuid, handleOnValidate],
   );
 
   // Track form state
@@ -131,25 +141,27 @@ const FormRenderer: React.FC<FormWidgetProps> = ({
     );
   }
 
-  return (
-    <>
-      {schema && (
-        <FormEngine
-          encounterUUID={encounterUuid}
-          formJson={schema}
-          handleClose={handleCloseForm}
-          handleConfirmQuestionDeletion={handleConfirmQuestionDeletion}
-          markFormAsDirty={handleMarkFormAsDirty}
-          mode={mode}
-          formSessionIntent={formSessionIntent}
-          onSubmit={handleOnSubmit}
-          patientUUID={patientUuid}
-          visit={visit}
-          preFilledQuestions={preFilledQuestions}
-        />
-      )}
-    </>
-  );
+  return schema ? (
+    <FormEngine
+      encounterUUID={encounterUuid}
+      formJson={schema}
+      handleClose={handleCloseForm}
+      handleConfirmQuestionDeletion={handleConfirmQuestionDeletion}
+      handleEncounterCreate={handleEncounterCreate}
+      handleOnValidate={handleValidate}
+      hideControls={effectiveHideControls}
+      hidePatientBanner={hidePatientBanner}
+      markFormAsDirty={handleMarkFormAsDirty}
+      mode={mode}
+      formSessionIntent={formSessionIntent}
+      onSubmit={(data) => {
+        void handleOnSubmit(data);
+      }}
+      patientUUID={patientUuid}
+      visit={visit}
+      preFilledQuestions={preFilledQuestions}
+    />
+  ) : null;
 };
 
 export default FormRenderer;

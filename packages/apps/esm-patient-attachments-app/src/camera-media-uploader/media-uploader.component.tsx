@@ -1,23 +1,16 @@
-import { FileUploaderDropContainer, InlineNotification } from '@carbon/react';
-import { useConfig } from '@openmrs/esm-framework';
-import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useCallback, useContext, useState } from 'react';
+import { FileUploaderDropContainer, InlineNotification } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-
+import { useConfig } from '@openmrs/esm-framework';
 import { readFileAsString } from '../utils';
-
+import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
 import CameraMediaUploaderContext from './camera-media-uploader-context.resources';
 import styles from './media-uploader.scss';
 
 interface ErrorNotification {
   title: string;
   subtitle: string;
-}
-
-function getFileType(mimeType: string): 'image' | 'pdf' | 'other' {
-  if (mimeType.split('/')[0] === 'image') return 'image';
-  if (mimeType.split('/')[1] === 'pdf') return 'pdf';
-  return 'other';
 }
 
 const MediaUploaderComponent = () => {
@@ -62,7 +55,8 @@ const MediaUploaderComponent = () => {
                 base64Content,
                 file,
                 fileName: file.name,
-                fileType: getFileType(file.type),
+                fileType:
+                  file.type.split('/')[0] === 'image' ? 'image' : file.type.split('/')[1] === 'pdf' ? 'pdf' : 'other',
                 fileDescription: '',
                 status: 'uploading',
               },

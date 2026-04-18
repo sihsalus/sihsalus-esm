@@ -11,8 +11,8 @@ function computeTrendlineData(treeNode: TreeNode): Array<TreeNode> {
     return tests;
   }
   treeNode?.subSets.forEach((subNode) => {
-    if ((subNode as TreeNode)?.obs) {
-      const TreeNode = subNode as TreeNode;
+    if ((subNode)?.obs) {
+      const TreeNode = subNode;
       const assess = assessValue(TreeNode);
       tests.push({
         ...TreeNode,
@@ -20,7 +20,7 @@ function computeTrendlineData(treeNode: TreeNode): Array<TreeNode> {
         obs: TreeNode.obs.map((ob) => ({ ...ob, interpretation: assess(ob.value) })),
       });
     } else if (subNode?.subSets) {
-      const subTreesTests = computeTrendlineData(subNode as TreeNode); // recursion
+      const subTreesTests = computeTrendlineData(subNode); // recursion
       tests.push(...subTreesTests);
     }
   });

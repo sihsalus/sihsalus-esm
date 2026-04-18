@@ -1,0 +1,21 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+
+.label {
+  font-weight: 600;
+  color: colors.$black-100;
+}
+
+.errorLabel label {
+  color: colors.$red-60;
+  font-weight: 600;
+}
+
+.workspaceButton {
+  margin: layout.$spacing-05 0;
+}
+
+.noPatientNotification {
+  margin-top: layout.$spacing-03;
+  max-width: 32rem;
+}

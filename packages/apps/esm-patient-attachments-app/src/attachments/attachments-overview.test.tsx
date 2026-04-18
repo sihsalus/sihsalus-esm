@@ -1,8 +1,7 @@
-import { useAttachments } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
 import React from 'react';
-
+import { render, screen } from '@testing-library/react';
 import AttachmentsOverview from './attachments-overview.component';
+import { useAttachments } from '@openmrs/esm-framework';
 
 const mockUseAttachments = jest.mocked(useAttachments);
 

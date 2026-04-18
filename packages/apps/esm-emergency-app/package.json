@@ -29,13 +29,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/sihsalus/frontend-web#readme",
+  "homepage": "https://github.com/sihsalus/sihsalus-esm#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sihsalus/frontend-web.git"
+    "url": "git+https://github.com/sihsalus/sihsalus-esm.git"
   },
   "bugs": {
-    "url": "https://github.com/sihsalus/frontend-web/issues"
+    "url": "https://github.com/sihsalus/sihsalus-esm/issues"
   },
   "dependencies": {
     "@carbon/react": "^1.83.0",

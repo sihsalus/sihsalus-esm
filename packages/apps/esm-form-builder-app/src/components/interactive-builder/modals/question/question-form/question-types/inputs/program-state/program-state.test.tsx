@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import ProgramStateTypeQuestion from './program-state-type-question.component';
 import { FormFieldProvider } from '../../../../form-field-context';
 import { usePrograms, useProgramWorkStates } from '@hooks/useProgramStates';
-import type { FormField, ProgramState } from '@openmrs/esm-form-engine-lib';
+import type { FormField, ProgramState } from '@sihsalus/esm-form-engine-lib';
 import type { Program } from '@types';
 
 const mockSetFormField = jest.fn();

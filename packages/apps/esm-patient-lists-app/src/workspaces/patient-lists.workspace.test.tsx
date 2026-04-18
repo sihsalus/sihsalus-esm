@@ -1,9 +1,7 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
-
 import { usePatientLists } from '../patient-lists.resource';
-
 import PatientListsWorkspace from './patient-lists.workspace';
 
 const mockUsePatientLists = jest.mocked(usePatientLists);
@@ -19,9 +17,10 @@ it('renders an empty state if patient list data is unavailable', () => {
     isLoading: false,
     error: null,
     patientLists: [],
+    mutate: jest.fn(),
+    isValidating: false,
   });
-
-  render(<PatientListsWorkspace />);
+  renderPatientListWorkspace();
 
   expect(screen.getByTitle(/empty data illustration/i)).toBeInTheDocument();
   expect(screen.getByText(/no patient lists to display/i)).toBeInTheDocument();
@@ -45,9 +44,11 @@ it('renders a tabular overview of the available patient lists', async () => {
         type: 'My List',
       },
     ],
+    mutate: jest.fn(),
+    isValidating: false,
   });
 
-  render(<PatientListsWorkspace />);
+  renderPatientListWorkspace();
 
   await screen.findByRole('table');
 
@@ -70,3 +71,24 @@ it('renders a tabular overview of the available patient lists', async () => {
   await user.type(searchbox, 'COTD');
   expect(screen.getByRole('row', { name: /COTD Study My List 2/i })).toBeInTheDocument();
 });
+
+function renderPatientListWorkspace() {
+  render(
+    <PatientListsWorkspace
+      workspaceName={''}
+      launchChildWorkspace={jest.fn()}
+      closeWorkspace={jest.fn()}
+      workspaceProps={{}}
+      windowProps={{}}
+      groupProps={{
+        mutateVisitContext: jest.fn(),
+        patient: null,
+        patientUuid: null,
+        visitContext: null,
+      }}
+      windowName={''}
+      isRootWorkspace={false}
+      showActionMenu={true}
+    />,
+  );
+}

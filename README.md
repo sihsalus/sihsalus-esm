@@ -1,4 +1,4 @@
-# SIH Salus Frontend Web
+# SIH Salus ESM
 
 Turborepo-powered monorepo for the **SIH Salus Hospital Information System** — an offline-first, FHIR-compliant, HIPAA-compliant frontend serving ~30,000 inhabitants across 112 native Amazonian communities along 500+ km of the Napo River (Peru).
 
@@ -14,8 +14,8 @@ Built on [OpenMRS 3.x](https://openmrs.org/) with the single-spa microfrontend a
 
 ```bash
 # 1. Clonar e instalar
-git clone <url-del-repo>
-cd frontend-web
+git clone git@github.com:sihsalus/sihsalus-esm.git
+cd sihsalus-esm
 corepack enable          # activa la versión de Yarn incluida en .yarn/releases/
 nvm use                  # usa la versión definida en .nvmrc
 yarn install
@@ -121,7 +121,7 @@ yarn turbo run test --filter=@openmrs/esm-login-app   # Single package
 ### Docker
 
 ```bash
-docker build -t sihsalus/frontend-web .
+docker build -t sihsalus/sihsalus-esm .
 ```
 
 Nginx / reverse proxy configuration is managed in the infra repo (`sihsalus-distro-referenceapplication`).

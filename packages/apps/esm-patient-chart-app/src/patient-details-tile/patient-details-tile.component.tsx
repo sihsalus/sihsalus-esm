@@ -1,7 +1,6 @@
 import { age, getPatientName, formatDate, parseDate } from '@openmrs/esm-framework';
 import capitalize from 'lodash-es/capitalize';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import styles from './patient-details-tile.scss';
 
@@ -10,8 +9,6 @@ interface PatientDetailsTileInterface {
 }
 
 const PatientDetailsTile: React.FC<PatientDetailsTileInterface> = ({ patient }) => {
-  const { t } = useTranslation();
-
   return (
     <div className={styles.container}>
       <p className={styles.name}>{patient ? getPatientName(patient) : ''}</p>

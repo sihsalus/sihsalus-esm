@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-argument */
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, Loading } from '@carbon/react';
 import { List, Thumbnail_2 } from '@carbon/react/icons';
 import {
@@ -13,15 +16,11 @@ import {
   UserHasAccess,
 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-
 import { createGalleryEntry } from '../utils';
-
 import AttachmentPreview from './attachment-preview.component';
 import AttachmentsGridOverview from './attachments-grid-overview.component';
-import styles from './attachments-overview.scss';
 import AttachmentsTableOverview from './attachments-table-overview.component';
+import styles from './attachments-overview.scss';
 
 interface AttachmentsOverviewProps {
   patientUuid: string;
@@ -151,6 +150,7 @@ const AttachmentsOverview: React.FC<AttachmentsOverviewProps> = ({ patientUuid }
             <div className={styles.attachmentHeaderActionItems}>
               <ContentSwitcher
                 onChange={(event: SwitchEventHandlersParams) => setView(event.name.toString() as ViewType)}
+                selectedIndex={view === 'grid' ? 0 : 1}
                 size={isTablet ? 'md' : 'sm'}
               >
                 <IconSwitch name="grid" text={t('gridView', 'Grid view')}>

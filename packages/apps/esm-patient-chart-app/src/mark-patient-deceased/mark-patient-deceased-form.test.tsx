@@ -9,6 +9,51 @@ import { markPatientDeceased, useCausesOfDeath } from '../data.resource';
 
 import MarkPatientDeceasedForm from './mark-patient-deceased-form.workspace';
 
+jest.mock('@carbon/react', () => {
+  const actual = jest.requireActual('@carbon/react');
+  const React = jest.requireActual('react');
+  const dayjs = jest.requireActual('dayjs');
+
+  const MockDatePickerInput = React.forwardRef(function MockDatePickerInput(
+    { id, labelText, placeholder, style, value, onChange, ...props },
+    ref,
+  ) {
+    return (
+      <>
+        <label htmlFor={id}>{labelText}</label>
+        <input
+          {...props}
+          id={id}
+          onChange={onChange}
+          placeholder={placeholder}
+          ref={ref}
+          style={style}
+          type="text"
+          value={value ?? ''}
+        />
+      </>
+    );
+  });
+
+  return {
+    ...actual,
+    DatePicker: ({ children, onChange, value }) => {
+      const child = React.Children.only(children);
+      const formattedValue = value ? dayjs(value).format('DD/MM/YYYY') : '';
+
+      return React.cloneElement(child, {
+        onChange: (event) => {
+          child.props.onChange?.(event);
+          const parsedDate = dayjs(event.target.value, 'DD/MM/YYYY', true);
+          onChange?.([parsedDate.isValid() ? parsedDate.toDate() : undefined]);
+        },
+        value: formattedValue,
+      });
+    },
+    DatePickerInput: MockDatePickerInput,
+  };
+});
+
 const originalLocation = window.location;
 delete window.location;
 window.location = { ...originalLocation, reload: jest.fn() };
@@ -28,7 +73,7 @@ describe('MarkPatientDeceasedForm', () => {
   const freeTextFieldConceptUuid = '1234e218-6c8a-4ca3-8edb-9f6d9c8c8c7f';
 
   const defaultProps = {
-    patientUuid: mockPatient.id,
+    patientUuid: mockPatient.uuid,
     closeWorkspace: mockCloseWorkspace,
     closeWorkspaceWithSavedChanges: jest.fn(),
     promptBeforeClosing: jest.fn(),
@@ -76,7 +121,7 @@ describe('MarkPatientDeceasedForm', () => {
   });
 
   it('renders the cause of death form', () => {
-    render(<MarkPatientDeceasedForm {...defaultProps} />);
+    render(React.createElement(MarkPatientDeceasedForm, defaultProps));
 
     expect(screen.getByRole('img', { name: /warning/i })).toBeInTheDocument();
     expect(
@@ -95,7 +140,7 @@ describe('MarkPatientDeceasedForm', () => {
   it('searches through the list when the user types in the search input', async () => {
     const user = userEvent.setup();
 
-    render(<MarkPatientDeceasedForm {...defaultProps} />);
+    render(React.createElement(MarkPatientDeceasedForm, defaultProps));
 
     const searchInput = screen.getByRole('searchbox');
 
@@ -113,7 +158,7 @@ describe('MarkPatientDeceasedForm', () => {
     const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
     const user = userEvent.setup();
 
-    render(<MarkPatientDeceasedForm {...defaultProps} />);
+    render(React.createElement(MarkPatientDeceasedForm, defaultProps));
 
     const submitButton = screen.getByRole('button', { name: /save and close/i });
 
@@ -139,7 +184,7 @@ describe('MarkPatientDeceasedForm', () => {
   it('submits the form with a coded cause of death', async () => {
     const user = userEvent.setup();
 
-    render(<MarkPatientDeceasedForm {...defaultProps} />);
+    render(React.createElement(MarkPatientDeceasedForm, defaultProps));
 
     const submitButton = screen.getByRole('button', { name: /save and close/i });
     const traumaticInjuryRadio = screen.getByRole('radio', { name: 'Traumatic injury' });
@@ -162,7 +207,7 @@ describe('MarkPatientDeceasedForm', () => {
 
     mockMarkPatientDeceased.mockRejectedValueOnce(mockError);
 
-    render(<MarkPatientDeceasedForm {...defaultProps} />);
+    render(React.createElement(MarkPatientDeceasedForm, defaultProps));
 
     const submitButton = screen.getByRole('button', { name: /save and close/i });
     const traumaticInjuryRadio = screen.getByRole('radio', { name: 'Traumatic injury' });
@@ -182,7 +227,7 @@ describe('MarkPatientDeceasedForm', () => {
   it('clicking the discard button closes the workspace', async () => {
     const user = userEvent.setup();
 
-    render(<MarkPatientDeceasedForm {...defaultProps} />);
+    render(React.createElement(MarkPatientDeceasedForm, defaultProps));
 
     const discardButton = screen.getByRole('button', { name: /discard/i });
     await user.click(discardButton);

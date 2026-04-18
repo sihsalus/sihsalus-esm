@@ -5,7 +5,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useEncounterRows, useFormsJson } from '../hooks';
-import type { TableRow, Encounter, Mode, ColumnValue, FormattedColumn } from '../types';
+import type { TableRow, Encounter, Mode, ColumnValue, FormattedColumn, NamedColumn, FormColumn } from '../types';
 import { deleteEncounter } from '../utils/encounter-list.resource';
 import { launchEncounterForm } from '../utils/helpers';
 
@@ -16,7 +16,7 @@ export interface EncounterListColumn {
   key: string;
   header: string;
   getValue: (encounter: Encounter) => ColumnValue;
-  link?: any;
+  link?: FormattedColumn['link'];
 }
 
 export interface EncounterListProps {
@@ -42,6 +42,33 @@ export interface EncounterListProps {
   deathStatus?: boolean;
   currentVisit: Visit;
 }
+
+const isNamedColumn = (value: ColumnValue): value is NamedColumn =>
+  typeof value === 'object' &&
+  value !== null &&
+  !React.isValidElement(value) &&
+  !Array.isArray(value) &&
+  'name' in value;
+
+const isFormColumn = (value: unknown): value is FormColumn =>
+  typeof value === 'object' && value !== null && 'label' in value;
+
+const getNamedDisplay = (value: unknown) => {
+  if (typeof value === 'object' && value !== null) {
+    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+    if (typeof namedValue.display === 'string') {
+      return namedValue.display;
+    }
+    if (typeof namedValue.name === 'string') {
+      return namedValue.name;
+    }
+    if (typeof namedValue.name === 'object' && namedValue.name !== null) {
+      return namedValue.name.display ?? namedValue.name.name ?? '--';
+    }
+  }
+
+  return '--';
+};
 
 export const EncounterList: React.FC<EncounterListProps> = ({
   patientUuid,
@@ -72,6 +99,34 @@ export const EncounterList: React.FC<EncounterListProps> = ({
   );
 
   const { displayText, hideFormLauncher } = launchOptions;
+
+  const renderColumnValue = useCallback((value: ColumnValue): React.ReactNode => {
+    if (value == null) {
+      return null;
+    }
+
+    if (React.isValidElement(value)) {
+      return value;
+    }
+
+    if (typeof value === 'string' || typeof value === 'number') {
+      return value;
+    }
+
+    if (Array.isArray(value)) {
+      return value
+        .map((item) => {
+          if (typeof item === 'string') {
+            return item;
+          }
+
+          return isFormColumn(item) ? item.label : getNamedDisplay(item);
+        })
+        .join(', ');
+    }
+
+    return isNamedColumn(value) ? getNamedDisplay(value) : null;
+  }, []);
 
   const defaultActions = useMemo(
     () => [
@@ -148,9 +203,9 @@ export const EncounterList: React.FC<EncounterListProps> = ({
     [onFormSave, t, mutate],
   );
 
-  const tableRows = useMemo(() => {
+  const tableRows = useMemo<Array<TableRow & Record<string, ColumnValue>>>(() => {
     return encounters.map((encounter: Encounter) => {
-      const tableRow: TableRow = { id: encounter.uuid, actions: null };
+      const tableRow = { id: encounter.uuid, actions: null } as TableRow & Record<string, ColumnValue>;
 
       encounter['launchFormActions'] = {
         editEncounter: createLaunchFormAction(encounter, 'edit'),
@@ -167,11 +222,13 @@ export const EncounterList: React.FC<EncounterListProps> = ({
                 if (column.link.handleNavigate) {
                   column.link.handleNavigate(encounter);
                 } else {
-                  column.link?.getUrl && navigate({ to: column.link.getUrl(encounter) });
+                  if (column.link?.getUrl) {
+                    navigate({ to: column.link.getUrl(encounter) });
+                  }
                 }
               }}
             >
-              {val}
+              {renderColumnValue(val)}
             </Link>
           );
         }
@@ -194,17 +251,19 @@ export const EncounterList: React.FC<EncounterListProps> = ({
                   itemText={t(actionItem.label)}
                   onClick={(e) => {
                     e.preventDefault();
-                    actionItem.mode === 'delete'
-                      ? handleDeleteEncounter(encounter.uuid, encounter.encounterType.name)
-                      : launchEncounterForm(
-                          formsJson,
-                          currentVisit,
-                          actionItem.mode === 'enter' ? 'add' : actionItem.mode,
-                          onFormSave,
-                          encounter.uuid,
-                          actionItem.intent,
-                          patientUuid,
-                        );
+                    if (actionItem.mode === 'delete') {
+                      handleDeleteEncounter(encounter.uuid, encounter.encounterType?.name ?? '');
+                    } else {
+                      launchEncounterForm(
+                        formsJson,
+                        currentVisit,
+                        actionItem.mode === 'enter' ? 'add' : actionItem.mode,
+                        onFormSave,
+                        encounter.uuid,
+                        actionItem.intent,
+                        patientUuid,
+                      );
+                    }
                   }}
                 />
               )
@@ -237,6 +296,7 @@ export const EncounterList: React.FC<EncounterListProps> = ({
     onFormSave,
     patientUuid,
     currentVisit,
+    renderColumnValue,
   ]);
 
   const headers = useMemo(() => {

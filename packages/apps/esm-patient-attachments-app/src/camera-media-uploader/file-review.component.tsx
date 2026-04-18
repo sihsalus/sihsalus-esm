@@ -1,13 +1,13 @@
-import { Button, Form, ModalBody, ModalFooter, ModalHeader, Stack, TextArea, TextInput } from '@carbon/react';
-import { DocumentPdf, DocumentUnknown } from '@carbon/react/icons';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { getCoreTranslation, type UploadedFile, UserHasAccess } from '@openmrs/esm-framework';
-import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/unbound-method, @typescript-eslint/no-unused-vars */
 import React, { type SyntheticEvent, useCallback, useState, useContext } from 'react';
+import { Button, Form, ModalBody, ModalFooter, ModalHeader, Stack, TextArea, TextInput } from '@carbon/react';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { DocumentPdf, DocumentUnknown } from '@carbon/react/icons';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
+import { getCoreTranslation, type UploadedFile, UserHasAccess } from '@openmrs/esm-framework';
 import CameraMediaUploaderContext from './camera-media-uploader-context.resources';
 import styles from './file-review.scss';
 
@@ -108,7 +108,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   uploadedFile,
   collectDescription,
   onSaveFile,
-  clearData: _clearData,
+  clearData,
   closeModal,
 }) => {
   const { t } = useTranslation();
@@ -116,9 +116,12 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   const fileNameWithoutExtension = uploadedFile.fileName.trim().replace(/\.[^\\/.]+$/, '');
 
   const schema = z.object({
-    fileName: z.string({
-      required_error: t('nameIsRequired', 'Name is required'),
-    }),
+    fileName: z
+      .string({
+        required_error: t('nameIsRequired', 'Name is required'),
+      })
+      .trim()
+      .min(1, { message: t('nameIsRequired', 'Name is required') }),
     fileDescription: z.string().optional(),
   });
 
@@ -220,7 +223,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
         </div>
       </ModalBody>
       <ModalFooter>
-        <UserHasAccess privilege="Create Attachment">
+        <UserHasAccess privilege="Create Attachments">
           <Button kind="secondary" onClick={handleCancelUpload} size="lg">
             {getCoreTranslation('cancel')}
           </Button>

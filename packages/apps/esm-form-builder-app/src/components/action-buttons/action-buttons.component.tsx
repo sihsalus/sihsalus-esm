@@ -130,7 +130,13 @@ function ActionButtons({
 
       <>
         {form && enableFormValidation && (
-          <Button kind="tertiary" onClick={onFormValidation} disabled={isValidating}>
+          <Button
+            kind="tertiary"
+            onClick={() => {
+              void onFormValidation();
+            }}
+            disabled={isValidating}
+          >
             {isValidating ? (
               <InlineLoading className={styles.spinner} description={t('validating', 'Validating') + '...'} />
             ) : (
@@ -142,7 +148,9 @@ function ActionButtons({
           enableFormValidation ? (
             <Button
               kind="secondary"
-              onClick={handleValidateAndPublish}
+              onClick={() => {
+                void handleValidateAndPublish();
+              }}
               disabled={status === 'validateBeforePublishing' || schemaErrors.length > 0}
             >
               {status === 'validateBeforePublishing' ? (
@@ -154,7 +162,9 @@ function ActionButtons({
           ) : (
             <Button
               kind="secondary"
-              onClick={handlePublish}
+              onClick={() => {
+                void handlePublish();
+              }}
               disabled={status === 'publishing' || schemaErrors.length > 0}
             >
               {status === 'publishing' && !form?.published ? (

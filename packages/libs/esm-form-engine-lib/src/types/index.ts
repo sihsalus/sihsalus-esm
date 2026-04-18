@@ -1,0 +1,162 @@
+import { type Visit, type LayoutType, type OpenmrsResource } from '@openmrs/esm-framework';
+import { type FormProcessor } from '../processors/form-processor';
+import { type FormContextProps } from '../provider/form-provider';
+import { type FormField, type FormFieldValue, type FormSchema } from './schema';
+import { type OpenmrsEncounter } from './domain';
+
+export type SessionMode = 'edit' | 'enter' | 'view' | 'embedded-view';
+
+export interface FormProcessorContextProps {
+  patient: fhir.Patient;
+  formJson: FormSchema;
+  visit: Visit;
+  sessionMode: SessionMode;
+  sessionDate: Date;
+  location: OpenmrsResource;
+  currentProvider: OpenmrsResource;
+  layoutType: LayoutType;
+  domainObjectValue?: OpenmrsResource;
+  previousDomainObjectValue?: OpenmrsResource;
+  processor: FormProcessor;
+  formFields?: FormField[];
+  formFieldAdapters?: Record<string, FormFieldValueAdapter>;
+  formFieldValidators?: Record<string, FormFieldValidator>;
+  customDependencies?: Record<string, unknown>;
+  handleEncounterCreate?: (encounter: OpenmrsEncounter) => OpenmrsEncounter | void | Promise<OpenmrsEncounter | void>;
+}
+
+export interface ValueAndDisplay {
+  value: unknown;
+  display: string;
+}
+
+export type ExpressionHelper = (...args: unknown[]) => unknown;
+export type FormFieldInputComponent = React.ComponentType<object>;
+
+/**
+ * Interface for adapting form field values between primitive and composite formats.
+ */
+export interface FormFieldValueAdapter {
+  /**
+   * Adapts a field value from its primitive form to a composite form for backend submission.
+   */
+  transformFieldValue: (field: FormField, value: unknown, context: FormContextProps) => unknown;
+  /**
+   * Extracts the primitive value of a field from an Openmrs object.
+   * @param field - The form field whose value is to be extracted.
+   * @param sourceObject - The Openmrs object to extract the value from eg. patient, encounter etc.
+   */
+  getInitialValue: (
+    field: FormField,
+    sourceObject: OpenmrsResource,
+    context: FormProcessorContextProps,
+  ) =>
+    | Promise<FormFieldValue | ValueAndDisplay | null | undefined>
+    | FormFieldValue
+    | ValueAndDisplay
+    | null
+    | undefined;
+  /**
+   * Very similar to `getInitialValue`, but used to extract "previous" values.
+   */
+  getPreviousValue: (
+    field: FormField,
+    sourceObject: OpenmrsResource,
+    context: FormProcessorContextProps,
+  ) => Promise<ValueAndDisplay> | ValueAndDisplay;
+  /**
+   * Extracts the display value from a composite object.
+   */
+  getDisplayValue: (field: FormField, value: unknown) => unknown;
+  /**
+   * Tears down the adapter.
+   */
+  tearDown: () => void;
+}
+
+export interface DataSource<T = unknown> {
+  /**
+   * Fetches arbitrary data from a data source
+   */
+  fetchData(searchTerm?: string, config?: Record<string, unknown>): Promise<Array<T>>;
+
+  /**
+   * Fetches a single item from the data source based on its UUID.
+   * This is used for value binding with previously selected values.
+   */
+  fetchSingleItem(uuid: string): Promise<T | null>;
+
+  /**
+   * Maps a data source item to an object with a uuid and display property
+   */
+  toUuidAndDisplay(item: T): OpenmrsResource;
+}
+
+export interface ControlTemplate {
+  name: string;
+  datasource: DataSourceParameters;
+}
+
+export interface DataSourceParameters {
+  name: string;
+  config?: Record<string, unknown>;
+}
+
+/**
+ * A form schema transformer is used to bridge the gap caused by different variations of form schemas
+ * in the OpenMRS JSON schema-based form-entry world. It fine-tunes custom schemas to be compliant
+ * with the React Form Engine.
+ */
+export interface FormSchemaTransformer {
+  /**
+   * Transforms the raw schema to be compatible with the React Form Engine.
+   * Adds default values to questions based on the preFilledQuestions object.
+   */
+  transform: (form: FormSchema, preFilledQuestions?: PreFilledQuestions) => FormSchema;
+}
+
+export interface PostSubmissionAction {
+  applyAction(
+    formSession: {
+      patient: fhir.Patient;
+      encounters: Array<OpenmrsEncounter>;
+      sessionMode: SessionMode;
+    },
+    config?: Record<string, unknown>,
+    enabled?: string,
+  ): void | Promise<void>;
+}
+
+export interface FormFieldInputProps<TValue = FormFieldValue> {
+  value: TValue;
+  field: FormField;
+  errors: ValidationResult[];
+  warnings: ValidationResult[];
+  /**
+   * Callback function to handle changes to the field value in the React Hook Form context.
+   *
+   * @param value - The new value of the field.
+   */
+  setFieldValue: (value: TValue) => void;
+}
+
+/**
+ * Field validator
+ */
+export interface FormFieldValidator {
+  /**
+   * Validates a field and returns validation errors
+   */
+  validate(field: FormField, value?: unknown, config?: unknown): Array<ValidationResult>;
+}
+
+export interface ValidationResult {
+  resultType: 'warning' | 'error';
+  errCode?: string;
+  message: string;
+}
+
+export type PreFilledQuestions = Record<string, FormFieldValue>;
+
+export * from './schema';
+export * from './domain';

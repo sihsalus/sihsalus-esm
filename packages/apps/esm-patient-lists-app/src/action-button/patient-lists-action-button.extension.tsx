@@ -1,20 +1,17 @@
-import { EventsIcon, ActionMenuButton } from '@openmrs/esm-framework';
-import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const handleLaunchPatientListsWorkspace = () => launchPatientWorkspace('patient-lists');
+import { EventsIcon, ActionMenuButton2 } from '@openmrs/esm-framework';
 
 function PatientListsActionButton() {
   const { t } = useTranslation();
 
   return (
-    <ActionMenuButton
-      getIcon={(props: ComponentProps<typeof EventsIcon>) => <EventsIcon {...props} />}
+    <ActionMenuButton2
+      icon={(props: ComponentProps<typeof EventsIcon>) => <EventsIcon {...props} />}
       label={t('patientLists', 'Patient lists')}
-      iconDescription={t('patientLists', 'Patient lists')}
-      handler={handleLaunchPatientListsWorkspace}
-      type="patient-lists"
+      workspaceToLaunch={{
+        workspaceName: 'patient-lists',
+      }}
     />
   );
 }

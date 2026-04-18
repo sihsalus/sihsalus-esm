@@ -33,8 +33,25 @@
   "workspaces": [
     {
       "name": "programs-form-workspace",
-      "title": "programEnrollmentWorkspaceTitle",
-      "component": "programsFormWorkspace"
+      "title": "Record program enrollment",
+      "component": "programsFormWorkspace",
+      "type": "program-enrollment",
+      "canHide": true,
+      "canMaximize": true,
+      "width": "wider"
+    }
+  ],
+  "workspaces2": [
+    {
+      "name": "programs-form-workspace",
+      "component": "programsFormWorkspace",
+      "window": "programs-form-window"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "programs-form-window",
+      "group": "patient-chart"
     }
   ],
   "modals": [
@@ -44,4 +61,3 @@
     }
   ]
 }
-

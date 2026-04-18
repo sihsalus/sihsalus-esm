@@ -1,11 +1,10 @@
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { showModal, useLayoutType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-
-import styles from './conditions-action-menu.scss';
 import { type Condition } from './conditions.resource';
+import styles from './conditions-action-menu.scss';
 
 interface conditionsActionMenuProps {
   condition: Condition;
@@ -36,7 +35,7 @@ export const ConditionsActionMenu = ({ condition, patientUuid }: conditionsActio
 
   return (
     <Layer className={styles.layer}>
-      <OverflowMenu aria-label="Edit or delete condition" size={isTablet ? 'lg' : 'sm'} flipped align="left">
+      <OverflowMenu aria-label="Edit or delete condition" align="left" size={isTablet ? 'lg' : 'sm'} flipped>
         <OverflowMenuItem
           className={styles.menuItem}
           id="editCondition"

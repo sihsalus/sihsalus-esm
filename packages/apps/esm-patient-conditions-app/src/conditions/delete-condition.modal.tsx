@@ -1,8 +1,8 @@
-import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showSnackbar } from '@openmrs/esm-framework';
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { showSnackbar } from '@openmrs/esm-framework';
 import { deleteCondition, useConditions } from './conditions.resource';
 import styles from './delete-condition.scss';
 

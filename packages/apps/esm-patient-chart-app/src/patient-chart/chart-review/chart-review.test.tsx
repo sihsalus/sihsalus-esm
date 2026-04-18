@@ -1,18 +1,20 @@
 import {
   type AssignedExtension,
   type ExtensionSlotState,
+  ExtensionSlot,
   useExtensionStore,
   useExtensionSlotMeta,
 } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { mockPatient } from 'test-utils';
 
 import ChartReview from './chart-review.component';
 
 const mockUseExtensionStore = jest.mocked(useExtensionStore);
 const mockUseExtensionSlotMeta = jest.mocked(useExtensionSlotMeta);
+const mockExtensionSlot = jest.mocked(ExtensionSlot);
 
 jest.mock('@openmrs/esm-patient-common-lib', () => {
   return {
@@ -40,6 +42,20 @@ function slotMetaFromStore(store, slotName) {
 }
 
 describe('ChartReview', () => {
+  beforeEach(() => {
+    mockExtensionSlot.mockImplementation(({ children }) => {
+      if (typeof children === 'function') {
+        return children({
+          id: 'mocked-extension',
+          meta: {},
+          moduleName: '@openmrs/esm-patient-chart-app',
+        } as AssignedExtension);
+      }
+
+      return children ?? null;
+    });
+  });
+
   test('renders a grid-based layout', () => {
     const mockStore = {
       slots: {
@@ -73,9 +89,9 @@ describe('ChartReview', () => {
     mockUseExtensionSlotMeta.mockImplementation((slotName) => slotMetaFromStore(mockStore, slotName));
 
     render(
-      <BrowserRouter>
+      <MemoryRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <ChartReview patient={mockPatient} patientUuid={mockPatient.id} view="Patient Summary" />
-      </BrowserRouter>,
+      </MemoryRouter>,
     );
 
     expect(screen.getByRole('heading')).toHaveTextContent(/Patient summary/i);

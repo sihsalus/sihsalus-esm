@@ -40,6 +40,14 @@ export function launchFormEntry(
   launchPatientWorkspace('patient-form-entry-workspace', {
     workspaceTitle: formName,
     mutateForm,
-    formInfo: { encounterUuid, formUuid, visit: currentVisit },
+    formInfo: {
+      encounterUuid,
+      formUuid,
+      patientUuid,
+      visitUuid: currentVisit?.uuid,
+      visitTypeUuid: currentVisit?.visitType?.uuid,
+      visitStartDatetime: currentVisit?.startDatetime,
+      visitStopDatetime: currentVisit?.stopDatetime,
+    },
   });
 }

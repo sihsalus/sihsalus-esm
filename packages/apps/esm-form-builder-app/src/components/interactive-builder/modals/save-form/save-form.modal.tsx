@@ -254,7 +254,12 @@ const SaveFormModal: React.FC<SaveFormModalProps> = ({ form, schema }) => {
 
       <ComposedModal open={openSaveFormModal} onClose={() => setOpenSaveFormModal(false)} preventCloseOnClickOutside>
         <ModalHeader title={t('saveFormToServer', 'Save form to server')} />
-        <Form onSubmit={handleSubmit} className={styles.saveFormBody}>
+        <Form
+          onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
+            void handleSubmit(event);
+          }}
+          className={styles.saveFormBody}
+        >
           <ModalBody>
             <p>
               {t(

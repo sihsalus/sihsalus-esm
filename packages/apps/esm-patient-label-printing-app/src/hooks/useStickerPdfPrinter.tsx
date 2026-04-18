@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -48,7 +49,7 @@ export const useStickerPdfPrinter = () => {
 
             try {
               contentWindow.addEventListener('afterprint', cleanup, { once: true });
-            } catch {
+            } catch (e) {
               // Cross-origin, use polling fallback
             }
 
@@ -64,7 +65,7 @@ export const useStickerPdfPrinter = () => {
 
             setTimeout(cleanup, 30000);
             setTimeout(() => clearInterval(pollInterval), 30000);
-          } catch {
+          } catch (error) {
             setIsPrinting(false);
             resolve();
           }

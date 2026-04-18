@@ -1,5 +1,4 @@
 import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
-
 import { configSchema } from './config-schema';
 
 const moduleName = '@sihsalus/esm-patient-label-printing-app';

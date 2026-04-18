@@ -94,7 +94,7 @@
     },
     {
       "name": "dispensing-order-basket-workspace",
-      "component": "@openmrs/esm-patient-orders-app#exportedOrderBasketWorkspace",
+      "component": "@sihsalus/esm-patient-orders-app#exportedOrderBasketWorkspace",
       "window": "fill-prescription-window"
     },
     {

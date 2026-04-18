@@ -1,4 +1,11 @@
-import { type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+import {
+  type DefaultWorkspaceProps,
+  type Encounter as FrameworkEncounter,
+  type OpenmrsResource as FrameworkOpenmrsResource,
+  type Visit,
+} from '@openmrs/esm-framework';
+import { type FormRendererProps as CanonicalFormWidgetProps } from '@openmrs/esm-patient-common-lib';
+import { type OpenmrsEncounter, type PreFilledQuestions } from '@sihsalus/esm-form-engine-lib';
 
 /**
  * Config interface matching the Angular app's configSchema exactly.
@@ -12,17 +19,17 @@ export interface FormEntryReactConfig {
   customDataSources: Array<{
     name: string;
     moduleName: string;
-    moduleExport: 'default' | string;
+    moduleExport: string;
   }>;
   appointmentsResourceUrl: string;
   customEncounterDatetime: boolean;
 }
 
 /**
- * Props passed to the form-widget-slot extension by form-entry.workspace.tsx.
- * This contract must match what the Angular app received.
+ * Legacy props passed to the form-widget-slot extension by older callers.
+ * This matches the historical Angular-era contract and is adapted internally.
  */
-export interface FormWidgetProps extends DefaultWorkspaceProps {
+export interface LegacyFormWidgetProps extends DefaultWorkspaceProps {
   formUuid: string;
   patientUuid: string;
   patient: fhir.Patient;
@@ -33,8 +40,30 @@ export interface FormWidgetProps extends DefaultWorkspaceProps {
   visitStopDatetime?: string;
   encounterUuid?: string;
   isOffline: boolean;
-  additionalProps?: Record<string, any>;
+  additionalProps?: Record<string, unknown>;
+  preFilledQuestions?: PreFilledQuestions;
+  hideControls?: boolean;
+  hidePatientBanner?: boolean;
+  showDiscardSubmitButtons?: boolean;
+  handlePostResponse?: (encounter?: FrameworkEncounter) => void;
+  handleEncounterCreate?: (encounter: OpenmrsEncounter) => OpenmrsEncounter | void | Promise<OpenmrsEncounter | void>;
+  handleOnValidate?: (valid: boolean) => void;
   clinicalFormsWorkspaceName?: string;
+}
+
+/**
+ * Canonical props passed to the form-widget-slot extension by v12-style callers.
+ */
+export interface CanonicalFormWidgetState extends CanonicalFormWidgetProps {
+  clinicalFormsWorkspaceName?: string;
+}
+
+export type FormWidgetProps = CanonicalFormWidgetState | LegacyFormWidgetProps;
+
+export interface NormalizedFormWidgetProps extends CanonicalFormWidgetState {
+  visit?: Visit;
+  visitStartDatetime?: string;
+  visitStopDatetime?: string;
 }
 
 /**
@@ -52,9 +81,7 @@ export type FormState =
 
 /** REST API types ported from the Angular app */
 
-export interface OpenmrsResource {
-  display: string;
-  uuid: string;
+export interface OpenmrsResource extends FrameworkOpenmrsResource {
   links?: Array<{ rel: string; uri: string }>;
 }
 
@@ -71,7 +98,7 @@ export interface Observation {
     concept: { uuid: string; display: string };
     value: { uuid: string; display: string };
   }>;
-  value: any;
+  value: unknown;
   obsDatetime: string;
 }
 
@@ -126,9 +153,9 @@ export interface EncounterCreate {
   encounterType: string;
   location: string;
   encounterProviders?: Array<{ uuid?: string; person: string; provider: string }>;
-  obs?: Array<any>;
-  orders?: Array<any>;
-  diagnoses?: Array<any>;
+  obs?: Array<unknown>;
+  orders?: Array<unknown>;
+  diagnoses?: Array<unknown>;
   form?: string;
   visit?: string;
 }

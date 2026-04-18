@@ -35,7 +35,7 @@ import { useClobdata } from '@hooks/useClobdata';
 import { useForm } from '@hooks/useForm';
 import { useLanguageOptions } from '@hooks/getLanguageOptionsFromSession';
 import type { IMarker } from 'react-ace';
-import type { FormSchema } from '@openmrs/esm-form-engine-lib';
+import type { FormSchema } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
 import type { ConfigObject } from '../../config-schema';
 import styles from './form-editor.scss';
@@ -54,6 +54,10 @@ interface MarkerProps extends IMarker {
 }
 
 type Status = 'idle' | 'formLoaded' | 'schemaLoaded';
+
+function parseSchemaJson(serializedSchema: string): Schema {
+  return JSON.parse(serializedSchema) as Schema;
+}
 
 const ErrorNotification = ({ error, title }: ErrorProps) => {
   return (
@@ -225,7 +229,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
     resetErrorMessage();
     {
       try {
-        const parsedJson: Schema = JSON.parse(stringifiedSchema);
+        const parsedJson = parseSchemaJson(stringifiedSchema);
         updateSchema(parsedJson);
         setStringifiedSchema(JSON.stringify(parsedJson, null, 2));
       } catch (e) {
@@ -266,12 +270,12 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
       const result = e.target?.result;
       if (typeof result === 'string') {
         const fileContent: string = result;
-        const parsedJson: Schema = JSON.parse(fileContent);
+        const parsedJson = parseSchemaJson(fileContent);
         setSchema(parsedJson);
       } else if (result instanceof ArrayBuffer) {
         const decoder = new TextDecoder();
         const fileContent: string = decoder.decode(result);
-        const parsedJson: Schema = JSON.parse(fileContent);
+        const parsedJson = parseSchemaJson(fileContent);
         setSchema(parsedJson);
       }
     };
@@ -300,7 +304,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
   return (
     <div className={styles.container}>
       <Grid
-        className={classNames(styles.grid as string, {
+        className={classNames(styles.grid, {
           [styles.maximized]: isMaximized,
         })}
       >
@@ -373,7 +377,9 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
                     className="cds--btn--md"
                     iconDescription={t('copySchema', 'Copy schema')}
                     kind="ghost"
-                    onClick={handleCopySchema}
+                    onClick={() => {
+                      void handleCopySchema();
+                    }}
                   />
                   <a download={`${form?.name}.json`} href={globalThis.URL.createObjectURL(downloadableSchema)}>
                     <IconButton
@@ -459,7 +465,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
 function BackButton({ t }: TranslationFnProps) {
   return (
     <div className={styles.backButton}>
-      <ConfigurableLink to={globalThis.getOpenmrsSpaBase() + 'form-builder'}>
+      <ConfigurableLink to={`${globalThis.spaBase}/form-builder`}>
         <Button
           kind="ghost"
           renderIcon={(props) => <ArrowLeft size={24} {...props} />}

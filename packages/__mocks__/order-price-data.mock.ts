@@ -1,4 +1,4 @@
-import type { OrderPriceData } from '@openmrs/esm-patient-orders-app/src/types/order';
+import type { OrderPriceData } from '@sihsalus/esm-patient-orders-app/src/types/order';
 
 export const mockOrderPriceData: OrderPriceData = {
   resourceType: 'Bundle',

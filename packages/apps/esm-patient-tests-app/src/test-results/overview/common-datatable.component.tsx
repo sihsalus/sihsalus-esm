@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import {
   DataTable,
   Table,
@@ -40,6 +41,23 @@ const CommonDataTable: React.FC<CommonDataTableProps> = ({ title, data, descript
 
   const isTablet = useLayoutType() === 'tablet';
 
+  const getInterpretation = (value: unknown): OBSERVATION_INTERPRETATION | undefined => {
+    if (value && typeof value === 'object' && 'interpretation' in value) {
+      const interpretation = value.interpretation;
+      return typeof interpretation === 'string' ? (interpretation as OBSERVATION_INTERPRETATION) : undefined;
+    }
+
+    return undefined;
+  };
+
+  const getDisplayValue = (value: unknown) => {
+    if (value && typeof value === 'object' && 'value' in value) {
+      return value.value as React.ReactNode;
+    }
+
+    return value as React.ReactNode;
+  };
+
   return (
     <DataTable rows={data} headers={tableHeaders} size="sm" useZebraStyles>
       {({ rows, headers, getHeaderProps, getRowProps, getTableProps, getTableContainerProps }) => (
@@ -67,11 +85,12 @@ const CommonDataTable: React.FC<CommonDataTableProps> = ({ title, data, descript
             </TableHead>
             <TableBody>
               {rows.map((row, i) => (
-                <TypedTableRow key={row.id} interpretation={data[i]?.value?.interpretation} {...getRowProps({ row })}>
+                <TypedTableRow key={row.id} interpretation={getInterpretation(data[i]?.value)} {...getRowProps({ row })}>
                   {row.cells.map((cell) => {
-                    return cell.value?.interpretation ? (
-                      <TableCell className={styles[interpretationToCSS[cell.value.interpretation]]} key={cell.id}>
-                        <span>{cell.value?.value ?? cell.value}</span>
+                    const interpretation = getInterpretation(cell.value);
+                    return interpretation ? (
+                      <TableCell className={styles[interpretationToCSS[interpretation]]} key={cell.id}>
+                        <span>{getDisplayValue(cell.value)}</span>
                       </TableCell>
                     ) : (
                       <TableCell key={cell.id}>{cell?.value}</TableCell>
@@ -87,9 +106,10 @@ const CommonDataTable: React.FC<CommonDataTableProps> = ({ title, data, descript
   );
 };
 
-const TypedTableRow: React.FC<{
-  interpretation: OBSERVATION_INTERPRETATION;
-}> = ({ interpretation, ...props }) => {
+const TypedTableRow: React.FC<React.ComponentProps<typeof TableRow> & { interpretation?: OBSERVATION_INTERPRETATION }> = ({
+  interpretation,
+  ...props
+}) => {
   switch (interpretation) {
     case 'OFF_SCALE_HIGH':
       return <TableRow {...props} className={styles['off-scale-high']} />;

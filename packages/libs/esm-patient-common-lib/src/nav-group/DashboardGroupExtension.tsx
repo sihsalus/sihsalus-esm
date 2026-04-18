@@ -12,7 +12,12 @@ export interface DashboardGroupExtensionProps {
   readonly isExpanded?: boolean;
 }
 
-export const DashboardGroupExtension = ({ title, slotName, basePath, isExpanded }: DashboardGroupExtensionProps) => {
+export const DashboardGroupExtension = ({
+  title,
+  slotName,
+  basePath,
+  isExpanded,
+}: DashboardGroupExtensionProps): React.JSX.Element => {
   const { t } = useTranslation();
   useEffect(() => {
     registerNavGroup(slotName);

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-object-type, @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents */
 export interface EncountersFetchResponse {
   results: Array<RESTPatientNote>;
 }
@@ -48,6 +48,7 @@ export interface DiagnosisData {
   };
   names: Array<ConceptNames>;
   mappings: Array<ConceptMapping>;
+  voided: boolean;
 }
 
 export interface ConceptNames {
@@ -79,7 +80,6 @@ export interface SessionData {
     display: string;
     person: DisplayMetadata;
     identifier: string;
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     attributes: Array<{}>;
     retired: boolean;
     links: Links;

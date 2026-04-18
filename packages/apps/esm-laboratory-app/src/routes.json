@@ -157,7 +157,7 @@
   "workspaces2": [
     {
       "name": "lab-app-test-results-form-workspace",
-      "component": "@openmrs/esm-patient-orders-app#exportedTestResultsFormWorkspace",
+      "component": "@sihsalus/esm-patient-orders-app#exportedTestResultsFormWorkspace",
       "window": "labs-app-test-results-window"
     },
     {
@@ -177,7 +177,7 @@
     },
     {
       "name": "add-test-order-basket-workspace",
-      "component": "@openmrs/esm-patient-orders-app#exportedOrderBasketWorkspace",
+      "component": "@sihsalus/esm-patient-orders-app#exportedOrderBasketWorkspace",
       "window": "add-test-order-window"
     },
     {

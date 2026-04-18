@@ -13,6 +13,30 @@ import type {
 
 type LaunchAction = 'add' | 'view' | 'edit' | 'embedded-view';
 
+function getDisplayName(value: unknown): string {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+
+    if (typeof namedValue.display === 'string') {
+      return namedValue.display;
+    }
+
+    if (typeof namedValue.name === 'string') {
+      return namedValue.name;
+    }
+
+    if (typeof namedValue.name === 'object' && namedValue.name !== null) {
+      return namedValue.name.display ?? namedValue.name.name ?? '--';
+    }
+  }
+
+  return '--';
+}
+
 export function launchEncounterForm(
   form: Form,
   visit: Visit,
@@ -140,7 +164,7 @@ export function getObsFromEncounter({
 
   if (isTrueFalseConcept) {
     if (typeof obs?.value === 'object') {
-      return obs?.value?.name?.name;
+      return getDisplayName(obs.value);
     }
   }
 
@@ -150,7 +174,7 @@ export function getObsFromEncounter({
   }
 
   if (secondaryConcept && typeof obs.value === 'object' && obs.value.names) {
-    const primaryValue = obs.value.name.display;
+    const primaryValue = getDisplayName(obs.value);
     if (primaryValue === config.otherConceptUuid) {
       const secondaryObs = findObs(encounter, secondaryConcept);
       return secondaryObs ? secondaryObs.value : '--';
@@ -175,8 +199,8 @@ export function getObsFromEncounter({
     }
   }
 
-  if (typeof obs.value === 'object' && obs.value?.name) {
-    return obs.value?.name?.display;
+  if (typeof obs.value === 'object' && obs.value !== null) {
+    return getDisplayName(obs.value);
   }
   return obs.value;
 }
@@ -197,11 +221,16 @@ export const getEncounterProperty = (encounter: Encounter, type: EncounterProper
   }
 
   if (type === 'provider') {
-    return encounter.encounterProviders.map((p) => p.provider.name).join(' | ');
+    return (
+      encounter.encounterProviders
+        ?.map((p) => p.provider?.name)
+        .filter(Boolean)
+        .join(' | ') || '--'
+    );
   }
 
   if (type === 'visitType') {
-    return encounter.encounterType.name;
+    return encounter.encounterType?.name ?? '--';
   }
 
   if (type === 'ageAtEncounter') {

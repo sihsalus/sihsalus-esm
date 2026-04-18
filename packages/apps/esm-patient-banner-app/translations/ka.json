@@ -1,0 +1,16 @@
+{
+  "activeVisit": "აქტიური ვიზიტი",
+  "address1": "მისამართის ხაზი 1",
+  "address2": "მისამართის ხაზი 2",
+  "city": "ქალაქი",
+  "cityVillage": "ქალაქი",
+  "country": "ქვეყანა",
+  "countyDistrict": "რაიონი",
+  "deceased": "გარდაცვლილია",
+  "district": "რაიონი",
+  "from_lower": "საიდან",
+  "postalCode": "საფოსტო კოდი",
+  "started": "დაწყებულია",
+  "state": "შტატი",
+  "stateProvince": "შტატი"
+}

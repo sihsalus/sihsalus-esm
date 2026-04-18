@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/unbound-method */
 import {
   Button,
   TextArea,
@@ -15,7 +16,7 @@ import { showSnackbar, useLayoutType } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps, usePatientOrders, type Order } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, type FieldErrors, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
@@ -63,8 +64,8 @@ const OrderCancellationForm: React.FC<OrderCancellationFormProps> = ({
     resolver: zodResolver(cancelOrderSchema),
   });
 
-  function onError(err) {
-    if (err?.oneFieldRequired) {
+  function onError(err: FieldErrors<CancelOrderFormData>) {
+    if (Object.keys(err).length > 0) {
       setShowErrorNotification(true);
     }
   }
@@ -84,7 +85,7 @@ const OrderCancellationForm: React.FC<OrderCancellationFormProps> = ({
       };
 
       cancelOrder(order, payload).then(
-        (res) => {
+        () => {
           closeWorkspace();
           mutate();
 
@@ -123,13 +124,11 @@ const OrderCancellationForm: React.FC<OrderCancellationFormProps> = ({
               render={({ field: { onChange, value } }) => (
                 <div className={styles.row}>
                   <DatePicker
-                    id="cancellationDate"
-                    minDate={dayjs().startOf('day')}
+                    minDate={dayjs().startOf('day').toDate()}
                     dateFormat="d/m/Y"
                     datePickerType="single"
                     value={value}
                     onChange={([date]) => onChange(date)}
-                    autocomplete="off"
                   >
                     <DatePickerInput
                       id="date-picker-calendar-id"
@@ -151,7 +150,6 @@ const OrderCancellationForm: React.FC<OrderCancellationFormProps> = ({
               render={({ field: { onChange, value } }) => (
                 <div className={styles.row}>
                   <TextArea
-                    type="text"
                     id="reasonForCancellation"
                     labelText={t('reasonForCancellation', 'Reason for cancellation')}
                     value={value}
@@ -178,7 +176,7 @@ const OrderCancellationForm: React.FC<OrderCancellationFormProps> = ({
       )}
 
       <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
-        <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
           {t('discard', 'Discard')}
         </Button>
         <Button

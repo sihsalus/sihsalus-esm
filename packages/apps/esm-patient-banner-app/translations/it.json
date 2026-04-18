@@ -1,0 +1,16 @@
+{
+  "activeVisit": "Visita attiva",
+  "address1": "Indirizzo riga 1",
+  "address2": "Indirizzo riga 2",
+  "city": "Città",
+  "cityVillage": "città",
+  "country": "Paese",
+  "countyDistrict": "Provincia",
+  "deceased": "Deceduto",
+  "district": "Distretto",
+  "from_lower": "da",
+  "postalCode": "Codice postale",
+  "started": "Iniziato",
+  "state": "Stato",
+  "stateProvince": "Stato"
+}

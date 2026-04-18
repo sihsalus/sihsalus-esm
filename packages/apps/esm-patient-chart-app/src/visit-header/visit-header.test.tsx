@@ -14,7 +14,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockCurrentVisit } from '__mocks__';
 import React from 'react';
-import { getByTextWithMarkup, mockPatient, mockPatientWithLongName } from 'test-utils';
+import { getByTextWithMarkup } from 'test-utils';
 
 import VisitHeader from './visit-header.component';
 
@@ -29,6 +29,31 @@ jest.mock('@openmrs/esm-patient-common-lib', () => ({
   ...jest.requireActual('@openmrs/esm-patient-common-lib'),
   launchPatientWorkspace: jest.fn(),
 }));
+
+const mockVisitHeaderPatient: fhir.Patient = {
+  resourceType: 'Patient',
+  id: '8673ee4f-e2ab-4077-ba55-4980f408773e',
+  name: [
+    {
+      text: 'John Wilson',
+      family: 'Wilson',
+      given: ['John'],
+    },
+  ],
+  gender: 'male',
+  birthDate: '1986-04-03',
+};
+
+const mockVisitHeaderPatientWithLongName: fhir.Patient = {
+  ...mockVisitHeaderPatient,
+  name: [
+    {
+      text: 'Some very long given name family name',
+      family: 'family name',
+      given: ['Some', 'very', 'long', 'given', 'name'],
+    },
+  ],
+};
 
 describe('Visit header', () => {
   beforeEach(() => {
@@ -59,7 +84,7 @@ describe('Visit header', () => {
     });
     mockUseLayoutType.mockReturnValue('tablet');
 
-    render(<VisitHeader patient={mockPatient} />);
+    render(<VisitHeader patient={mockVisitHeaderPatient} />);
 
     const headerBanner = screen.getByRole('banner', { name: /OpenMRS/i });
     expect(headerBanner).toBeInTheDocument();
@@ -102,7 +127,7 @@ describe('Visit header', () => {
     });
     mockUseLayoutType.mockReturnValue('small-desktop');
 
-    render(<VisitHeader patient={mockPatientWithLongName} />);
+    render(<VisitHeader patient={mockVisitHeaderPatientWithLongName} />);
 
     const longNameText = screen.getByText(/^Some very long given name...$/i);
     expect(longNameText).toBeInTheDocument();
@@ -122,7 +147,7 @@ describe('Visit header', () => {
     });
     mockUseLayoutType.mockReturnValue('small-desktop');
 
-    render(<VisitHeader patient={mockPatientWithLongName} />);
+    render(<VisitHeader patient={mockVisitHeaderPatientWithLongName} />);
 
     // Should be able to end a visit
     const endVisitButton = screen.getByRole('button', { name: /End visit/i });
@@ -142,10 +167,10 @@ describe('Visit header', () => {
     mockGetHistory.mockReturnValue([
       'https://o3.openmrs.org/openmrs/spa/home',
       'https://o3.openmrs.org/openmrs/spa/patient/1234/chart',
-      `https://o3.openmrs.org/openmrs/spa/patient/${mockPatient.id}/chart`,
-      `https://o3.openmrs.org/openmrs/spa/patient/${mockPatient.id}/chart/labs`,
+      `https://o3.openmrs.org/openmrs/spa/patient/${mockVisitHeaderPatient.id}/chart`,
+      `https://o3.openmrs.org/openmrs/spa/patient/${mockVisitHeaderPatient.id}/chart/labs`,
     ]);
-    render(<VisitHeader patient={mockPatient} />);
+    render(<VisitHeader patient={mockVisitHeaderPatient} />);
     const closeButton = screen.getByRole('button', { name: 'Close' });
     await user.click(closeButton);
     expect(goBackInHistory).toHaveBeenCalledWith({ toUrl: 'https://o3.openmrs.org/openmrs/spa/patient/1234/chart' });
@@ -153,10 +178,10 @@ describe('Visit header', () => {
 
   test('close button should navigate to home if no such URL exists in history', async () => {
     const user = userEvent.setup();
-    render(<VisitHeader patient={mockPatient} />);
+    render(<VisitHeader patient={mockVisitHeaderPatient} />);
     mockGetHistory.mockReturnValue([
-      `https://o3.openmrs.org/openmrs/spa/patient/${mockPatient.id}/chart`,
-      `https://o3.openmrs.org/openmrs/spa/patient/${mockPatient.id}/chart/labs`,
+      `https://o3.openmrs.org/openmrs/spa/patient/${mockVisitHeaderPatient.id}/chart`,
+      `https://o3.openmrs.org/openmrs/spa/patient/${mockVisitHeaderPatient.id}/chart/labs`,
     ]);
     const closeButton = screen.getByRole('button', { name: 'Close' });
     await user.click(closeButton);

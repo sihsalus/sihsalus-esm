@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/unbound-method */
 import {
   Button,
   ButtonSet,
@@ -52,7 +53,6 @@ export function OrderForm({
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const session = useSession();
-  const isEditing = useMemo(() => initialOrder && initialOrder.action === 'REVISE', [initialOrder]);
   const { orders, setOrders } = useOrderBasket<OrderBasketItem>(orderTypeUuid, prepOrderPostData);
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const { orderType } = useOrderType(orderTypeUuid);
@@ -98,10 +98,6 @@ export function OrderForm({
   });
 
   const isScheduledDateRequired = watch('urgency') === 'ON_SCHEDULED_DATE';
-
-  const filterItemsByName = useCallback((menu) => {
-    return menu?.item?.value?.toLowerCase().includes(menu?.inputValue?.toLowerCase());
-  }, []);
 
   const handleFormSubmission = useCallback(
     (data: OrderBasketItem) => {
@@ -267,7 +263,6 @@ export function OrderForm({
                       maxCount={500}
                       onBlur={onBlur}
                       onChange={onChange}
-                      size={responsiveSize}
                       value={value}
                     />
                   )}

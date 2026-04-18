@@ -1,6 +1,22 @@
 import { useEffect } from 'react';
+import { type DataSource, registerCustomDataSource } from '../form-engine-lib-runtime';
 
+import { MonthlyScheduleDataSource } from '../data-sources/monthly-schedule.datasource';
 import type { FormEntryReactConfig } from '../types';
+import type { OpenmrsResource } from '../types';
+
+interface ModuleFederationContainer {
+  get(module: string): Promise<() => Record<string, unknown>>;
+}
+
+type DataSourceModuleExport = DataSource<OpenmrsResource> | undefined;
+const registeredDataSources = new Set<string>();
+
+declare global {
+  interface Window {
+    [key: string]: unknown;
+  }
+}
 
 /**
  * Converts a module name (e.g., "@myOrg/myGreatDataSource") to a window global slug.
@@ -22,15 +38,27 @@ function slugify(name: string): string {
  */
 export function useCustomDataSources(config: FormEntryReactConfig) {
   useEffect(() => {
-    if (!config.customDataSources?.length) return;
+    if (config.dataSources?.monthlySchedule) {
+      if (!config.appointmentsResourceUrl) {
+        console.warn(
+          'Custom data source "monthlySchedule": `appointmentsResourceUrl` must be configured when `dataSources.monthlySchedule` is enabled.',
+        );
+      } else {
+        registerDataSourceOnce('monthlySchedule', () =>
+          Promise.resolve({
+            default: new MonthlyScheduleDataSource(config.appointmentsResourceUrl),
+          }),
+        );
+      }
+    }
 
-    const loadDataSources = async () => {
+    const loadDataSources = async (): Promise<void> => {
       for (const { name, moduleName, moduleExport } of config.customDataSources) {
         try {
           const slug = slugify(moduleName);
-          const moduleEntry = (window as any)[slug];
+          const moduleEntry = window[slug];
 
-          if (!moduleEntry?.get) {
+          if (!isModuleFederationContainer(moduleEntry)) {
             console.warn(
               `Custom data source "${name}": module "${moduleName}" (window.${slug}) not found or does not have a "get" method.`,
             );
@@ -39,31 +67,64 @@ export function useCustomDataSources(config: FormEntryReactConfig) {
 
           const factory = await moduleEntry.get('./start');
           const module = factory();
-          const dataSource = module[moduleExport] ?? module.default;
+          const dataSource = getDataSourceExport(module, moduleExport);
 
           if (!dataSource) {
             console.warn(`Custom data source "${name}": export "${moduleExport}" not found in module "${moduleName}".`);
             continue;
           }
 
-          // Register with FormEngine's data source registry if available
-          try {
-            const { registerCustomDataSource } = await import('@openmrs/esm-form-engine-lib');
-            if (typeof registerCustomDataSource === 'function') {
-              registerCustomDataSource({
-                name,
-                load: () => Promise.resolve({ default: dataSource }),
-              });
-            }
-          } catch {
-            console.warn(`Could not register custom data source "${name}" with FormEngine registry.`);
-          }
+          registerDataSourceOnce(name, () => Promise.resolve({ default: dataSource }));
         } catch (error) {
           console.warn(`Failed to load custom data source "${name}" from module "${moduleName}":`, error);
         }
       }
     };
 
-    loadDataSources();
-  }, [config.customDataSources]);
+    if (!config.customDataSources?.length) {
+      return;
+    }
+
+    void loadDataSources();
+  }, [config.appointmentsResourceUrl, config.customDataSources, config.dataSources?.monthlySchedule]);
+}
+
+function isModuleFederationContainer(value: unknown): value is ModuleFederationContainer {
+  return typeof value === 'object' && value !== null && 'get' in value && typeof value.get === 'function';
+}
+
+function isDataSource(value: unknown): value is DataSource<OpenmrsResource> {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'fetchData' in value &&
+    typeof value.fetchData === 'function' &&
+    'fetchSingleItem' in value &&
+    typeof value.fetchSingleItem === 'function' &&
+    'toUuidAndDisplay' in value &&
+    typeof value.toUuidAndDisplay === 'function'
+  );
+}
+
+function getDataSourceExport(module: Record<string, unknown>, moduleExport: string): DataSourceModuleExport {
+  const namedExport = module[moduleExport];
+  if (isDataSource(namedExport)) {
+    return namedExport;
+  }
+
+  const defaultExport = module.default;
+  if (isDataSource(defaultExport)) {
+    return defaultExport;
+  }
+
+  return undefined;
+}
+
+function registerDataSourceOnce(name: string, load: () => Promise<{ default: DataSource<OpenmrsResource> }>): void {
+  if (registeredDataSources.has(name)) {
+    return;
+  }
+
+  registerCustomDataSource({ name, load });
+  registeredDataSources.add(name);
 }

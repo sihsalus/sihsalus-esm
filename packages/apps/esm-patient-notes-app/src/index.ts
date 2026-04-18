@@ -5,7 +5,6 @@ import {
   messageOmrsServiceWorker,
   restBaseUrl,
 } from '@openmrs/esm-framework';
-
 import { configSchema } from './config-schema';
 import notesOverviewExtension from './notes/notes-overview.extension';
 import visitNotesActionButtonExtension from './visit-note-action-button.extension';
@@ -20,7 +19,7 @@ const options = {
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export function startupApp() {
-  messageOmrsServiceWorker({
+  void messageOmrsServiceWorker({
     type: 'registerDynamicRoute',
     pattern: `.+${restBaseUrl}/encounter.+`,
   });
@@ -29,7 +28,6 @@ export function startupApp() {
 }
 
 export const notesOverview = getSyncLifecycle(notesOverviewExtension, options);
-
 export const visitNotesActionButton = getSyncLifecycle(visitNotesActionButtonExtension, options);
 
 // t('visitNoteWorkspaceTitle', 'Visit Note')

@@ -13,22 +13,14 @@ import {
   Tag,
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  showSnackbar,
-  useConfig,
-  useLayoutType,
-  useSession,
-  usePatient,
-  useVisit,
-  getPatientName,
-} from '@openmrs/esm-framework';
+import { showSnackbar, useLayoutType, usePatient } from '@openmrs/esm-framework';
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import type { ConfigObject } from '../../../config-schema';
 import type { DefaultPatientWorkspaceProps } from '../../../types';
+import { getSafePatientName } from '../../../utils/utils';
 
 import styles from './tepsi-form.scss';
 
@@ -510,22 +502,13 @@ const TEPSIForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, wor
   const { t } = useTranslation();
   const TEPSISchema = useMemo(() => createTEPSISchema(t), [t]);
   const isTablet = useLayoutType() === 'tablet';
-  const config = useConfig<ConfigObject>();
-  const session = useSession();
   const patient = usePatient(patientUuid);
-  const { currentVisit } = useVisit(patientUuid);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({});
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<TEPSIFormType>({
+  const { handleSubmit, watch, setValue } = useForm<TEPSIFormType>({
     mode: 'all',
     resolver: zodResolver(TEPSISchema),
     defaultValues: {
@@ -598,18 +581,11 @@ const TEPSIForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, wor
   };
 
   const saveTEPSIData = useCallback(
-    async (data: TEPSIFormType) => {
+    async (_data: TEPSIFormType) => {
       setIsSubmitting(true);
       setShowErrorNotification(false);
 
       try {
-        const tepsiData = {
-          ...data,
-          items: selectedItems,
-          results,
-          appropriateItems: appropriateItems.map((item) => item.id),
-        };
-
         showSnackbar({
           isLowContrast: true,
           kind: 'success',
@@ -631,7 +607,7 @@ const TEPSIForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, wor
         setIsSubmitting(false);
       }
     },
-    [selectedItems, results, appropriateItems, closeWorkspace, t],
+    [closeWorkspace, t],
   );
 
   const getClassificationColor = (classification: string) => {
@@ -675,7 +651,7 @@ const TEPSIForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace, wor
             <Stack gap={3}>
               <h4>{t('patientInfo', 'Información del Paciente')}</h4>
               <p>
-                <strong>{t('name', 'Nombre')}:</strong> {getPatientName(patient.patient)}
+                <strong>{t('name', 'Nombre')}:</strong> {getSafePatientName(patient.patient)}
               </p>
               <p>
                 <strong>{t('age', 'Edad')}:</strong> {t('ageMonths', '{{count}} meses', { count: childAgeMonths })}

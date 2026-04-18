@@ -23,10 +23,6 @@ import { useConceptAnswersForVisitAttributeType, useVisitAttributeType } from '.
 import styles from './visit-attribute-type.scss';
 import { type VisitFormData } from './visit-form.resource';
 
-interface VisitAttributes {
-  [uuid: string]: string;
-}
-
 interface VisitAttributeTypeFieldsProps {
   setErrorFetchingResources: React.Dispatch<
     React.SetStateAction<{
@@ -142,6 +138,7 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
             labelText={labelText}
             invalid={!!errors.visitAttributes?.[uuid]}
             invalidText={errors.visitAttributes?.[uuid]?.message}
+            value={fieldProps.value ?? ''}
           >
             <SelectItem text={t('selectAnOption', 'Select an option')} value={''} />
             {answers.map((ans, indx) => (
@@ -153,6 +150,7 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
         return (
           <NumberInput
             {...fieldProps}
+            id={`number-input-${id}`}
             label={labelText}
             hideSteppers
             invalid={!!errors.visitAttributes?.[uuid]}
@@ -168,6 +166,7 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
             placeholder={labelText}
             invalid={!!errors.visitAttributes?.[uuid]}
             invalidText={errors.visitAttributes?.[uuid]?.message}
+            value={fieldProps.value ?? ''}
           />
         );
       case 'org.openmrs.customdatatype.datatype.LongFreeTextDatatype':
@@ -177,12 +176,14 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
             labelText={labelText}
             invalid={!!errors.visitAttributes?.[uuid]}
             invalidText={errors.visitAttributes?.[uuid]?.message}
+            value={fieldProps.value ?? ''}
           />
         );
       case 'org.openmrs.customdatatype.datatype.BooleanDatatype':
         return (
           <Checkbox
             {...fieldProps}
+            id={`checkbox-${id}`}
             labelText={labelText}
             invalid={!!errors.visitAttributes?.[uuid]}
             invalidText={errors.visitAttributes?.[uuid]?.message}
@@ -191,7 +192,6 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
       case 'org.openmrs.customdatatype.datatype.DateDatatype':
         return (
           <DatePicker
-            {...fieldProps}
             dateFormat="d/m/Y"
             datePickerType="single"
             onChange={([date]) => onChange(dayjs(date).format('YYYY-MM-DD'))}
@@ -210,9 +210,11 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
         return (
           <TextInput
             {...fieldProps}
+            id={`text-input-${id}`}
             labelText={labelText}
             invalid={!!errors.visitAttributes?.[uuid]}
             invalidText={errors.visitAttributes?.[uuid]?.message}
+            value={fieldProps.value ?? ''}
           />
         );
     }

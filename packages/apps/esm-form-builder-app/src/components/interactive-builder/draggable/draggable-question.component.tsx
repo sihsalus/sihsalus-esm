@@ -6,7 +6,7 @@ import { IconButton } from '@carbon/react';
 import { Draggable, Edit, TrashCan, Copy } from '@carbon/react/icons';
 import { showModal, ChevronDownIcon, ChevronUpIcon } from '@openmrs/esm-framework';
 import MarkdownWrapper from '../markdown-wrapper/markdown-wrapper';
-import type { FormField } from '@openmrs/esm-form-engine-lib';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
 import styles from './draggable-question.scss';
 
@@ -70,7 +70,7 @@ const DraggableQuestion: React.FC<DraggableQuestionProps> = ({
     });
   }, [onSchemaChange, pageIndex, question, questionIndex, schema, sectionIndex, subQuestionIndex]);
 
-  const { attributes, listeners, setNodeRef, active, isDragging, over, isOver } = useSortable({
+  const { attributes, listeners, setNodeRef, active, isDragging, over } = useSortable({
     id: question.id,
     data: {
       type: subQuestionIndex === null || subQuestionIndex === undefined ? 'question' : 'obsQuestion',

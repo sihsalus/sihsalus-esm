@@ -2,6 +2,7 @@ import { Type } from '@openmrs/esm-framework';
 
 export interface AllergiesConfigObject {
   concepts: {
+    allergenUuid?: string;
     drugAllergenUuid: string;
     environmentalAllergenUuid: string;
     foodAllergenUuid: string;

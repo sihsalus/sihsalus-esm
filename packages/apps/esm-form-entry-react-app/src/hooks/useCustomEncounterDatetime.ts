@@ -1,3 +1,4 @@
+import { type PreFilledQuestions } from '@sihsalus/esm-form-engine-lib';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
@@ -11,9 +12,9 @@ import type { FormEntryReactConfig } from '../types';
  */
 export function useCustomEncounterDatetime(
   config: FormEntryReactConfig,
-  visitStartDatetime: string,
-  existingPreFilledQuestions?: Record<string, any>,
-): Record<string, any> | undefined {
+  visitStartDatetime?: string,
+  existingPreFilledQuestions?: PreFilledQuestions,
+): PreFilledQuestions | undefined {
   return useMemo(() => {
     if (!config.customEncounterDatetime || !visitStartDatetime) {
       return existingPreFilledQuestions;

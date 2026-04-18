@@ -74,5 +74,10 @@
   "unknownErrorLoadingContent": "Error desconocido al cargar el contenido",
   "user": "Usuario",
   "verifyServer": "Verifique que el servidor esté funcionando",
-  "viewFua": "Ver FUA"
+  "viewFua": "Ver FUA",
+  "resend": "Reenviar a SETI-SIS",
+  "fuaReset": "FUA devuelto a Pendiente para corrección",
+  "setiSisObservation": "Observación SETI-SIS",
+  "noFuaForCurrentVisit": "No hay un FUA registrado para la visita actual. Abra la gestión FUA para revisar o generar el documento en el backend.",
+  "openFuaManagement": "Abrir gestión FUA"
 }

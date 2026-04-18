@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import {
   Button,
   DataTable,
@@ -41,9 +42,9 @@ function PrintModal({ patientUuid, closeDialog }) {
   const isTablet = useLayoutType() === 'tablet';
   const session = useSession();
   const { panels } = usePanelData();
-  const printContainerRef = useRef(null);
-  const [selectedFromDate, setSelectedFromDate] = useState(null);
-  const [selectedToDate, setSelectedToDate] = useState(null);
+  const printContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedFromDate, setSelectedFromDate] = useState<Date | null>(null);
+  const [selectedToDate, setSelectedToDate] = useState<Date | null>(null);
   const { excludePatientIdentifierCodeTypes } = useConfig<{
     excludePatientIdentifierCodeTypes: {
       uuids: string[];
@@ -63,7 +64,7 @@ function PrintModal({ patientUuid, closeDialog }) {
   ];
 
   const handlePrint = useReactToPrint({
-    content: () => printContainerRef.current,
+    contentRef: printContainerRef,
   });
 
   const patient = usePatient(patientUuid);
@@ -123,11 +124,12 @@ function PrintModal({ patientUuid, closeDialog }) {
               className={styles.datePicker}
               dateFormat={datePickerFormat}
               datePickerType="single"
-              maxDate={new Date().toISOString()}
+              maxDate={new Date()}
               onChange={([date]) => setSelectedFromDate(date)}
               value={selectedFromDate}
             >
               <DatePickerInput
+                id="test-results-print-start-date"
                 labelText={t('startDate', 'Start date')}
                 placeholder={datePickerPlaceHolder}
                 style={{ width: '100%' }}
@@ -138,11 +140,12 @@ function PrintModal({ patientUuid, closeDialog }) {
               dateFormat={datePickerFormat}
               datePickerType="single"
               minDate={selectedFromDate}
-              maxDate={new Date().toISOString()}
+              maxDate={new Date()}
               onChange={([date]) => setSelectedToDate(date)}
               value={selectedToDate}
             >
               <DatePickerInput
+                id="test-results-print-end-date"
                 labelText={t('endDate', 'End date')}
                 placeholder={datePickerPlaceHolder}
                 style={{ width: '100%' }}
@@ -181,9 +184,9 @@ function PrintModal({ patientUuid, closeDialog }) {
           </div>
 
           {testResults?.length > 0 && (
-            <DataTable
-              className={styles.table}
-              rows={testResults}
+            <div className={styles.table}>
+              <DataTable
+                rows={testResults}
               headers={tableHeaders}
               isSortable
               size={isTablet ? 'lg' : 'sm'}
@@ -202,7 +205,7 @@ function PrintModal({ patientUuid, closeDialog }) {
                               isSortable: header.isSortable,
                             })}
                           >
-                            {header.header?.content ?? header.header}
+                            {header.header}
                           </TableHeader>
                         ))}
                       </TableRow>
@@ -211,7 +214,7 @@ function PrintModal({ patientUuid, closeDialog }) {
                       {rows.map((row) => (
                         <TableRow key={row.id}>
                           {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                            <TableCell key={cell.id}>{cell.value}</TableCell>
                           ))}
                         </TableRow>
                       ))}
@@ -219,7 +222,8 @@ function PrintModal({ patientUuid, closeDialog }) {
                   </Table>
                 </TableContainer>
               )}
-            </DataTable>
+              </DataTable>
+            </div>
           )}
 
           {testResults.length === 0 && (

@@ -1,8 +1,8 @@
-import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showSnackbar } from '@openmrs/esm-framework';
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/require-await */
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { showSnackbar } from '@openmrs/esm-framework';
 import { deletePatientAllergy, useAllergies } from './allergy-intolerance.resource';
 
 interface DeleteAllergyModalProps {
@@ -44,7 +44,7 @@ const DeleteAllergyModal: React.FC<DeleteAllergyModalProps> = ({ closeDeleteModa
   }, [closeDeleteModal, allergyId, mutate, t, patientUuid]);
 
   return (
-    <div>
+    <>
       <ModalHeader closeModal={closeDeleteModal} title={t('deletePatientAllergy', 'Delete allergy')} />
       <ModalBody>
         <p>{t('deleteModalConfirmationText', 'Are you sure you want to delete this allergy?')}</p>
@@ -61,7 +61,7 @@ const DeleteAllergyModal: React.FC<DeleteAllergyModalProps> = ({ closeDeleteModa
           )}
         </Button>
       </ModalFooter>
-    </div>
+    </>
   );
 };
 

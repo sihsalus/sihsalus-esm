@@ -1,0 +1,25 @@
+@use '@carbon/colors';
+
+.boldedLabel label,
+legend > span {
+  font-weight: 600;
+  color: colors.$black-100;
+}
+
+.errorLabel label {
+  color: colors.$red-60;
+  font-weight: 600;
+}
+
+.selectionDisplay {
+  margin-top: 0.125rem;
+}
+
+.tagContainer {
+  margin: 0.5rem 0;
+}
+
+.checkbox label {
+  color: colors.$black-100 !important;
+  font-weight: 500 !important;
+}

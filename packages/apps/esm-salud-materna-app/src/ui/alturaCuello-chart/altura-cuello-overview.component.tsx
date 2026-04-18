@@ -1,13 +1,13 @@
 // altura-cuello-overview.component.tsx
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { getPatientName, launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { launchWorkspace2 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { ConfigObject } from '../../config-schema';
 import { usePrenatalMeasurements } from '../../hooks/usePrenatalMeasurements';
+import { getSafePatientName } from '../../utils/utils';
 
 import AlturaCuelloChart from './altura-cuello-chart.component';
 import styles from './altura-cuello-overview.scss';
@@ -19,7 +19,6 @@ interface AlturaCuelloOverviewProps {
 
 const AlturaCuelloOverview: React.FC<AlturaCuelloOverviewProps> = ({ patient, patientUuid }) => {
   const { t } = useTranslation();
-  const config = useConfig<ConfigObject>();
 
   const headerTitle = t('obstetricalCharts', 'Obstetrical Charts');
   const displayText = t('noMeasurementDataAvailable', 'No hay datos de mediciones disponibles');
@@ -31,7 +30,7 @@ const AlturaCuelloOverview: React.FC<AlturaCuelloOverviewProps> = ({ patient, pa
     });
   }, []);
 
-  const patientName = getPatientName(patient);
+  const patientName = getSafePatientName(patient);
 
   // Calcular semanas gestacionales actuales
   const gestationalWeeks = useMemo(() => {

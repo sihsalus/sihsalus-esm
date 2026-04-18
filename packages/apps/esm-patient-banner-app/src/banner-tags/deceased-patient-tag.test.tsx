@@ -1,8 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import { mockDeceasedPatient } from '__mocks__';
 import React from 'react';
-import { mockPatient } from 'test-utils';
-
+import { render, screen } from '@testing-library/react';
+import { mockPatient } from 'tools';
+import { mockDeceasedPatient } from '__mocks__';
 import DeceasedPatientBannerTag from './deceased-patient-tag.extension';
 
 describe('DeceasedPatientTag', () => {

@@ -3,6 +3,9 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { updateVisitDates } from '../api/visit.resource';
+import type { Encounter } from '../types';
+
+type EncounterDatetimeResponse = Pick<Encounter, 'encounterDatetime'>;
 
 /**
  * Post-submission hook that validates encounter datetime against visit bounds
@@ -19,10 +22,10 @@ export function useVisitDateValidation(visitUuid: string, visitStartDatetime: st
 
       try {
         // Fetch the saved encounter to get its datetime
-        const encounterResponse = await openmrsFetch(
+        const encounterResponse = await openmrsFetch<EncounterDatetimeResponse>(
           `${restBaseUrl}/encounter/${encounterUuid}?v=custom:(uuid,encounterDatetime)`,
         );
-        const encounterDatetime = encounterResponse.data?.encounterDatetime;
+        const encounterDatetime = encounterResponse.data.encounterDatetime;
         if (!encounterDatetime) return;
 
         const encDate = new Date(encounterDatetime).getTime();

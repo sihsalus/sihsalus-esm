@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { getPatientName, showSnackbar, useConfig, getCoreTranslation } from '@openmrs/esm-framework';
 import React, { useCallback, useEffect, useRef, useState } from 'react';

@@ -1,0 +1,114 @@
+@use '@carbon/colors';
+@use '@carbon/layout';
+@use '@carbon/type';
+
+.pageLink {
+  border-left: 0.5rem solid colors.$teal-20;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  background-color: colors.$white;
+  margin: 0 0 0.063rem;
+
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.pageLinkTablet {
+  height: layout.$spacing-09;
+}
+
+.pageLink button {
+  @include type.type-style('body-01');
+  font-family: inherit;
+  display: block;
+  background-color: inherit;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  min-height: 2rem;
+  white-space: normal;
+  word-wrap: break-word;
+  margin: 0 0 0.063rem;
+  color: colors.$gray-100;
+
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.activePage {
+  border-left: 0.5rem solid colors.$teal-50;
+  background-color: #ededed;
+
+  button {
+    font-weight: 600;
+  }
+}
+
+.errorPage {
+  border-left: 0.5rem solid colors.$red-40;
+  background-color: colors.$red-10;
+
+  button {
+    color: colors.$red-60 !important;
+  }
+}
+
+.activeErrorPage {
+  @extend .errorPage;
+  background-color: colors.$red-30;
+  border-left: 0.5rem solid colors.$red-60;
+
+  button {
+    font-weight: 600;
+  }
+}
+
+.sidebar {
+  width: 11.25rem;
+  min-height: 8rem;
+  overscroll-behavior: contain;
+}
+
+.sideNavActions {
+  margin-left: 0.6rem;
+}
+
+@media all and (device-width: 600px) and (device-height: 1024px) and (orientation: portrait) {
+  .sidebar {
+    width: 11rem;
+    max-height: 500px;
+    margin-right: 20px;
+    position: fixed;
+  }
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid colors.$gray-40;
+  margin: 1rem 0.5rem;
+}
+
+.button {
+  width: 10rem;
+}
+
+.topMargin {
+  margin-top: 1.5rem;
+}
+
+.saveButton {
+  @extend .button;
+  margin-bottom: 0.625rem;
+
+  &:global(.cds--inline-loading) {
+    min-height: layout.$spacing-05;
+  }
+}
+
+.closeButton {
+  @extend .button;
+}

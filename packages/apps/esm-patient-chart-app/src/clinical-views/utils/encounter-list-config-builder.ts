@@ -1,3 +1,5 @@
+import { type TagProps } from '@carbon/react';
+
 import { renderTag } from '../encounter-list/tag.component';
 import {
   type Encounter,
@@ -31,7 +33,12 @@ const getColumnValue = (encounter: Encounter, column: ColumnDefinition, config: 
     return getActions(encounter, column, config);
   }
   if (column.statusColorMappings) {
-    return renderTag(encounter, column.concept, column.statusColorMappings, config);
+    return renderTag(
+      encounter,
+      column.concept,
+      column.statusColorMappings as Record<string, NonNullable<TagProps<'div'>['type']>>,
+      config,
+    );
   }
 
   if (column.isConditionalConcept) {

@@ -47,7 +47,7 @@ const FormsTable = ({ tableHeaders, tableRows, isTablet, handleSearch, handleFor
                   <TableToolbarSearch
                     className={styles.search}
                     expanded
-                    onChange={(event: React.ChangeEvent<HTMLFormElement>) => handleSearch(event.target.value)}
+                    onChange={(_, value) => handleSearch(value ?? '')}
                     placeholder={t('searchThisList', 'Search this list')}
                     size="sm"
                   />

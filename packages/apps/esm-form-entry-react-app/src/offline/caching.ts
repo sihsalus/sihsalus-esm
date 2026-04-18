@@ -10,21 +10,23 @@ import {
 import escapeRegExp from 'lodash-es/escapeRegExp';
 
 export function setupStaticDataOfflinePrecaching() {
-  subscribePrecacheStaticDependencies(async () => {
-    const urlsToCache = [
-      `${restBaseUrl}/location?q=&v=custom:(uuid,display)`,
-      `${restBaseUrl}/provider?q=&v=custom:(uuid,display,person:(uuid))`,
-    ];
+  subscribePrecacheStaticDependencies(() => {
+    void (async () => {
+      const urlsToCache = [
+        `${restBaseUrl}/location?q=&v=custom:(uuid,display)`,
+        `${restBaseUrl}/provider?q=&v=custom:(uuid,display,person:(uuid))`,
+      ];
 
-    await Promise.all(
-      urlsToCache.map(async (url) => {
-        await messageOmrsServiceWorker({
-          type: 'registerDynamicRoute',
-          pattern: '.+' + url,
-        });
-        await openmrsFetch(url);
-      }),
-    );
+      await Promise.all(
+        urlsToCache.map(async (url) => {
+          await messageOmrsServiceWorker({
+            type: 'registerDynamicRoute',
+            pattern: '.+' + url,
+          });
+          await openmrsFetch(url);
+        }),
+      );
+    })();
   });
 }
 
@@ -66,7 +68,7 @@ export function setupDynamicOfflineFormDataHandler() {
 }
 
 async function getCacheableFormUrls(formUuid: string) {
-  const getFormRes = await openmrsFetch(`${restBaseUrl}/o3/forms/${formUuid}`);
+  const getFormRes = await openmrsFetch<{ uuid: string }>(`${restBaseUrl}/o3/forms/${formUuid}`);
   const form = getFormRes.data;
 
   if (!form) {

@@ -1,22 +1,21 @@
-import { type FetchResponse, getDefaultsFromConfigSchema, openmrsFetch, useConfig } from '@openmrs/esm-framework';
-import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockFhirConditionsResponse } from '__mocks__';
-import React from 'react';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
-
+import {
+  type FetchResponse,
+  getDefaultsFromConfigSchema,
+  launchWorkspace2,
+  openmrsFetch,
+  useConfig,
+} from '@openmrs/esm-framework';
 import { type ConfigObject, configSchema } from '../config-schema';
-
+import { mockFhirConditionsResponse } from '__mocks__';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
 import ConditionsOverview from './conditions-overview.component';
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
 const mockOpenmrsFetch = jest.mocked(openmrsFetch);
-
-jest.mock('@openmrs/esm-patient-common-lib', () => ({
-  ...jest.requireActual('@openmrs/esm-patient-common-lib'),
-  launchPatientWorkspace: jest.fn(),
-}));
+const mockLaunchWorkspace = jest.mocked(launchWorkspace2);
 
 mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
@@ -35,7 +34,7 @@ describe('ConditionsOverview', () => {
     expect(screen.getByRole('heading', { name: /conditions/i })).toBeInTheDocument();
     expect(screen.getByTitle(/Empty data illustration/i)).toBeInTheDocument();
     expect(screen.getByText(/There are no conditions to display for this patient/i)).toBeInTheDocument();
-    expect(screen.getByText(/Record conditions/i)).toBeInTheDocument();
+    expect(screen.getByText(/record conditions/i)).toBeInTheDocument();
   });
 
   it('renders an error state view if there is a problem fetching conditions', async () => {
@@ -100,11 +99,11 @@ describe('ConditionsOverview', () => {
 
     await waitForLoadingToFinish();
 
-    const recordConditionsLink = screen.getByText(/record conditions/i);
+    const recordConditionsLink = screen.getByRole('button', { name: /record conditions/i });
 
     await user.click(recordConditionsLink);
 
-    expect(launchPatientWorkspace).toHaveBeenCalledTimes(1);
-    expect(launchPatientWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' });
+    expect(mockLaunchWorkspace).toHaveBeenCalledTimes(1);
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' });
   });
 });

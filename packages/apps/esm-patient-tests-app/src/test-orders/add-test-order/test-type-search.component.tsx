@@ -9,10 +9,10 @@ import {
   useLayoutType,
   useSession,
 } from '@openmrs/esm-framework';
-import { launchPatientWorkspace, useOrderBasket, useOrderType } from '@openmrs/esm-patient-common-lib';
+import { launchPatientWorkspace, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo, useRef, useState } from 'react';
-import { type TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import type { TestOrderBasketItem } from '../../types';
 import { prepTestOrderPostData } from '../api';
@@ -43,7 +43,7 @@ export function TestTypeSearch({ openLabForm, orderTypeUuid, orderableConceptSet
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm);
-  const searchInputRef = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const focusAndClearSearchInput = () => {
     setSearchTerm('');
@@ -272,7 +272,7 @@ const TestTypeSearchSkeleton = () => {
         <SkeletonText className={styles.searchResultCntSkeleton} />
         <ButtonSkeleton size={buttonSize} />
       </div>
-      {[...Array(4)].map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <Tile key={index} className={tileClassName}>
           <SkeletonText />
         </Tile>

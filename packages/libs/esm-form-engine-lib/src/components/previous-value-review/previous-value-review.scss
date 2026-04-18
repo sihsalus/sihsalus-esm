@@ -1,0 +1,36 @@
+@use '@carbon/colors';
+
+.formField {
+  display: flex;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  align-items: center;
+
+  > div > div > label {
+    color: colors.$gray-70;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: colors.$gray-60;
+  font-size: 0.8rem;
+}
+
+.value {
+  display: flex;
+  align-items: baseline;
+  padding-left: 0.5rem;
+}
+
+.reuseButton {
+  font-size: 0.8rem;
+  margin: 0 1rem;
+  color: colors.$blue-60;
+}
+
+.reuseButton:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,15 @@
+@use '@carbon/colors';
+
+.required {
+  color: colors.$red-60;
+  margin-left: 0.25rem;
+}
+
+.questionLabel {
+  display: flex;
+  align-items: center;
+}
+
+.tooltipIcon {
+  margin-left: 0.25rem;
+}

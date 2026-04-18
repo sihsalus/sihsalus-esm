@@ -72,13 +72,13 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({ control }) => {
                 onChange={({ selectedItem }) => onChange(selectedItem)}
                 onInputChange={(searchTerm) => handleSearch(searchTerm)}
                 readOnly={disableChangingVisitLocation}
-                selectedItem={value}
+                selectedItem={value ?? null}
                 titleText={t('selectLocation', 'Select a location')}
               />
             )}
           />
         ) : (
-          <p className={styles.bodyShort02}>{defaultVisitLocation?.display}</p>
+          <p className={styles.bodyShort02}>{defaultVisitLocation?.display ?? sessionLocation?.display ?? ''}</p>
         )}
       </div>
     </section>

@@ -1,10 +1,10 @@
-import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import { type Attachment, CloseIcon, useLayoutType } from '@openmrs/esm-framework';
-import Linkify from 'linkify-react';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { type Attachment, CloseIcon, useLayoutType } from '@openmrs/esm-framework';
 import styles from './attachment-preview.scss';
+import Linkify from 'linkify-react';
 
 interface AttachmentPreviewProps {
   attachmentToPreview: Attachment;
@@ -30,22 +30,21 @@ const AttachmentPreview: React.FC<AttachmentPreviewProps> = ({
       }
     };
 
-    globalThis.addEventListener('keydown', closePreviewOnEscape);
+    window.addEventListener('keydown', closePreviewOnEscape);
 
     return () => {
-      globalThis.removeEventListener('keydown', closePreviewOnEscape);
+      window.removeEventListener('keydown', closePreviewOnEscape);
     };
   }, [onClosePreview]);
 
   return (
-    <div className={styles.previewContainer}>
+    <div role="dialog" aria-label={t('attachmentPreview', 'Attachment preview')} className={styles.previewContainer}>
       <div className={styles.leftPanel}>
         <Button
           className={styles.closePreviewButton}
           hasIconOnly
           iconDescription={t('closePreview', 'Close preview')}
           kind="ghost"
-          label={t('closePreview', 'Close preview')}
           onClick={onClosePreview}
           renderIcon={CloseIcon}
           size={responsiveSize}
@@ -57,7 +56,7 @@ const AttachmentPreview: React.FC<AttachmentPreviewProps> = ({
             <iframe className={styles.pdfViewer} src={attachmentToPreview.src} title="PDFViewer" />
           ) : null}
         </div>
-        <OverflowMenu className={styles.overflowMenu} flipped size={responsiveSize}>
+        <OverflowMenu align="left" className={styles.overflowMenu} flipped size={responsiveSize}>
           <OverflowMenuItem
             aria-label={t('options', 'Options')}
             className={styles.menuItem}

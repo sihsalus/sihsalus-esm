@@ -1,11 +1,10 @@
-import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
-import { mockPatient } from 'test-utils';
-
-import DeleteProgramModal from './delete-program.modal';
+import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
+import { mockPatient } from 'tools';
 import { deleteProgramEnrollment, useEnrollments } from './programs.resource';
+import DeleteProgramModal from './delete-program.modal';
 
 jest.mock('./programs.resource', () => ({
   deleteProgramEnrollment: jest.fn(),

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SkeletonText } from '@carbon/react';
 import { CheckmarkFilledIcon, CloseFilledIcon } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
@@ -26,7 +27,7 @@ const OrderStockDetailsComponent: React.FC<OrderStockDetailsComponentProps> = ({
   }, [stockData]);
 
   if (isLoading) {
-    return <SkeletonText width="100px" role="progressbar" />;
+    return <SkeletonText width="100px" />;
   }
 
   if (!stockData?.entry || error) {

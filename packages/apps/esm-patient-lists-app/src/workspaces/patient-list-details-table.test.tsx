@@ -1,7 +1,6 @@
+import React from 'react';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
-
 import PatientListDetailsTable from './patient-list-details-table.component';
 
 const defaultProps = {

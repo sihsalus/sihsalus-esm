@@ -1,0 +1,16 @@
+{
+  "activeVisit": "Vizită activă",
+  "address1": "Adresă linia 1",
+  "address2": "Adresă linia 2",
+  "city": "Oraș",
+  "cityVillage": "oraș",
+  "country": "Țară",
+  "countyDistrict": "District",
+  "deceased": "Decedat",
+  "district": "District",
+  "from_lower": "de la",
+  "postalCode": "Cod poștal",
+  "started": "Început",
+  "state": "Stat",
+  "stateProvince": "Stat/Provincie"
+}

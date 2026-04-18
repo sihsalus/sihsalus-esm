@@ -53,7 +53,7 @@ import { type ChartConfig } from '../../config-schema';
 import { useDefaultVisitLocation } from '../hooks/useDefaultVisitLocation';
 import { useEmrConfiguration } from '../hooks/useEmrConfiguration';
 import { useVisitAttributeTypes } from '../hooks/useVisitAttributeType';
-import { invalidateUseVisits, useInfiniteVisits, useVisits } from '../visits-widget/visit.resource';
+import { invalidateUseVisits, useInfiniteVisits } from '../visits-widget/visit.resource';
 
 import BaseVisitType from './base-visit-type.component';
 import LocationSelector from './location-selector.component';
@@ -81,6 +81,11 @@ interface StartVisitFormProps extends DefaultPatientWorkspaceProps {
   showPatientHeader?: boolean;
   showVisitEndDateTimeFields: boolean;
   visitToEdit?: Visit;
+}
+
+interface ExtraVisitInfoState {
+  attributes?: NewVisitPayload['attributes'];
+  handleCreateExtraVisitInfo?: () => void;
 }
 
 const StartVisitForm: React.FC<StartVisitFormProps> = ({
@@ -117,7 +122,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
   }>(null);
   const { visitAttributeTypes } = useVisitAttributeTypes();
   const [visitFormCallbacks, setVisitFormCallbacks] = useVisitFormCallbacks();
-  const [extraVisitInfo, setExtraVisitInfo] = useState(null);
+  const [extraVisitInfo, setExtraVisitInfo] = useState<ExtraVisitInfoState | null>(null);
 
   const displayVisitStopDateTimeFields = useMemo(
     () => Boolean(visitToEdit?.uuid || showVisitEndDateTimeFields),
@@ -260,7 +265,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
     promptBeforeClosing(() => isDirty);
   }, [isDirty, promptBeforeClosing]);
 
-  let [maxVisitStartDatetime, minVisitStopDatetime] = useMemo(() => {
+  const [maxVisitStartDatetime, initialMinVisitStopDatetime] = useMemo(() => {
     const now = Date.now();
 
     if (!visitToEdit?.encounters?.length) {
@@ -275,6 +280,11 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
     const minVisitStopDatetime = Math.max(...allEncounterDatetimes);
     return [maxVisitStartDatetime, minVisitStopDatetime];
   }, [visitToEdit]);
+
+  const visitStartDate = getValues('visitStartDate') ?? new Date();
+  const minVisitStopDatetime = initialMinVisitStopDatetime ?? Date.parse(visitStartDate.toLocaleString());
+  const minVisitStopDatetimeFallback = Date.parse(visitStartDate.toLocaleString());
+  const resolvedMinVisitStopDatetime = minVisitStopDatetime || minVisitStopDatetimeFallback;
 
   const validateVisitStartStopDatetime = useCallback(() => {
     const visitStartDate = getValues('visitStartDate');
@@ -604,11 +614,6 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
     ],
   );
 
-  const visitStartDate = getValues('visitStartDate') ?? new Date();
-  minVisitStopDatetime = minVisitStopDatetime ?? Date.parse(visitStartDate.toLocaleString());
-  const minVisitStopDatetimeFallback = Date.parse(visitStartDate.toLocaleString());
-  minVisitStopDatetime = minVisitStopDatetime || minVisitStopDatetimeFallback;
-
   return (
     <FormProvider {...methods}>
       <Form className={styles.form} onSubmit={handleSubmit(onSubmit)} data-openmrs-role="Start Visit Form">
@@ -653,7 +658,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
             {displayVisitStopDateTimeFields && (
               <VisitDateTimeField
                 dateFieldName="visitStopDate"
-                minDate={minVisitStopDatetime}
+                minDate={resolvedMinVisitStopDatetime}
                 timeFieldName="visitStopTime"
                 timeFormatFieldName="visitStopTimeFormat"
                 visitDatetimeLabel={t('visitStopDatetime', 'Visit stop date and time')}
@@ -793,7 +798,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
             [styles.desktop]: !isTablet,
           })}
         >
-          <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+          <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
             {t('discard', 'Discard')}
           </Button>
           <Button
@@ -892,7 +897,13 @@ class ExtraVisitSlotErrorBoundary extends React.Component<{ children: React.Reac
 }
 
 const MemoizedExtraVisitSlot = React.memo(
-  ({ patientUuid, setExtraVisitInfo }: { patientUuid: string; setExtraVisitInfo: (state: any) => void }) => (
+  ({
+    patientUuid,
+    setExtraVisitInfo,
+  }: {
+    patientUuid: string;
+    setExtraVisitInfo: (state: ExtraVisitInfoState) => void;
+  }) => (
     <ExtraVisitSlotErrorBoundary>
       <ExtensionSlot state={{ patientUuid, setExtraVisitInfo }} name="extra-visit-attribute-slot" />
     </ExtraVisitSlotErrorBoundary>

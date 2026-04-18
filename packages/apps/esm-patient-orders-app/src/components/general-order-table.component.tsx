@@ -88,7 +88,7 @@ const GeneralOrderTable: React.FC<GeneralOrderProps> = ({ order }) => {
   return (
     <div className={styles.order}>
       {isLoadingConcept ? (
-        <DataTableSkeleton role="progressbar" compact={isTablet} zebra />
+        <DataTableSkeleton role="progressbar" zebra />
       ) : (
         <DataTable rows={rows} headers={tableHeaders} size={isTablet ? 'lg' : 'sm'} useZebraStyles>
           {({ rows, headers, getHeaderProps, getRowProps, getTableProps, getTableContainerProps }) => (

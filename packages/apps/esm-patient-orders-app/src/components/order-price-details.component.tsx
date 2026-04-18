@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SkeletonText, Tooltip } from '@carbon/react';
 import { getLocale, InformationIcon } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
@@ -38,7 +39,8 @@ const OrderPriceDetailsComponent: React.FC<OrderPriceDetailsComponentProps> = ({
         maximumFractionDigits: 2,
       }).format(amount.value);
     } catch (error) {
-      console.error(`Invalid currency code: ${amount.currency}. Error: ${error.message}`);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`Invalid currency code: ${amount.currency}. Error: ${message}`);
       return `${new Intl.NumberFormat(locale, {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -47,7 +49,7 @@ const OrderPriceDetailsComponent: React.FC<OrderPriceDetailsComponentProps> = ({
   }, [locale, amount]);
 
   if (isLoading) {
-    return <SkeletonText width="100px" role="progressbar" />;
+    return <SkeletonText width="100px" />;
   }
 
   if (!priceData || !amount || error) {

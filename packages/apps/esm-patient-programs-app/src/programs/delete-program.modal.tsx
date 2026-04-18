@@ -1,10 +1,10 @@
-import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showSnackbar, getCoreTranslation } from '@openmrs/esm-framework';
+/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import React, { useCallback, useState } from 'react';
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-
-import styles from './delete-program.scss';
+import { showSnackbar, getCoreTranslation } from '@openmrs/esm-framework';
 import { deleteProgramEnrollment, useEnrollments } from './programs.resource';
+import styles from './delete-program.scss';
 
 interface DeleteProgramProps {
   closeDeleteModal: () => void;

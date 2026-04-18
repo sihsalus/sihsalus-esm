@@ -1,3 +1,5 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 import {
   getPatientName,
   PatientBannerActionsMenu,
@@ -6,13 +8,10 @@ import {
   PatientBannerToggleContactDetailsButton,
   PatientPhoto,
 } from '@openmrs/esm-framework';
-import classNames from 'classnames';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-
 import styles from './patient-banner.scss';
 
 interface PatientBannerProps {
-  patient: fhir.Patient;
+  patient?: fhir.Patient | null;
   patientUuid: string;
   hideActionsOverflow?: boolean;
 }
@@ -24,6 +23,10 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
 
   useEffect(() => {
     const currentRef = patientBannerRef.current;
+    if (!currentRef) {
+      return;
+    }
+
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         setIsTabletViewport(entry.contentRect.width < 1023);
@@ -33,9 +36,7 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
       resizeObserver.observe(patientBannerRef.current);
     }
     return () => {
-      if (currentRef) {
-        resizeObserver.unobserve(currentRef);
-      }
+      resizeObserver.unobserve(currentRef);
     };
   }, [patientBannerRef, setIsTabletViewport]);
 
@@ -49,6 +50,10 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
   const maxDesktopWorkspaceWidthInPx = 520;
   const showDetailsButtonBelowHeader = patientBannerRef.current?.scrollWidth <= maxDesktopWorkspaceWidthInPx;
 
+  if (!patient) {
+    return null;
+  }
+
   return (
     <header
       aria-label="patient banner"
@@ -60,18 +65,17 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
       ref={patientBannerRef}
     >
       <div className={styles.patientBanner}>
-        <div className={styles.patientAvatar} role="img">
+        <div className={styles.patientAvatar}>
           <PatientPhoto patientUuid={patientUuid} patientName={patientName} />
         </div>
-        <PatientBannerPatientInfo patient={patient} />
+        <PatientBannerPatientInfo patient={patient} renderedFrom="patient-chart" />
         <div className={styles.buttonCol}>
           <div className={styles.buttonRow}>
             {!hideActionsOverflow ? (
               <PatientBannerActionsMenu
                 actionsSlotName="patient-actions-slot"
-                isDeceased={patient?.deceasedBoolean}
-                patientUuid={patientUuid}
                 patient={patient}
+                patientUuid={patientUuid}
               />
             ) : null}
           </div>
@@ -94,7 +98,7 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
       {showContactDetails && (
         <div
           className={classNames(styles.contactDetails, {
-            [styles.deceasedContactDetails]: patient?.deceasedBoolean,
+            [styles.deceasedContactDetails]: patient.deceasedBoolean,
             [styles.tabletContactDetails]: isTabletViewport,
           })}
         >

@@ -117,7 +117,7 @@ export const Timeline: React.FC<TimelineParams> = ({ parsedTime, rowData, panelN
   if (yearColumns && dayColumns && timeColumns)
     return (
       <RecentResultsGrid>
-        <PaddingContainer ref={containerRef}>
+        <PaddingContainer ref={containerRef as React.Ref<HTMLDivElement>}>
           <PanelNameCorner showShadow={xIsScrolled} panelName={panelName} />
           <DateHeaderGrid
             {...{

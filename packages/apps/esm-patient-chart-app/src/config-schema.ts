@@ -16,6 +16,20 @@ export const esmPatientChartSchema = {
     _default: false,
     _description: 'Disable notes/tests/medications/encounters tabs when empty',
   },
+  encounterEditableDuration: {
+    _type: Type.Number,
+    _default: 0,
+    _description:
+      'The number of minutes an encounter is editable after it is created. 0 means the encounter is editable forever.',
+  },
+  encounterEditableDurationOverridePrivileges: {
+    _type: Type.Array,
+    _elements: {
+      _type: Type.String,
+    },
+    _default: [],
+    _description: 'Privileges that allow editing encounters after the editable duration has expired.',
+  },
   freeTextFieldConceptUuid: {
     _default: '5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     _type: Type.ConceptUuid,
@@ -102,6 +116,39 @@ export const esmPatientChartSchema = {
     _description: 'Whether start visit form should display upcoming appointments',
     _default: true,
   },
+  tileDefinitions: {
+    _type: Type.Array,
+    _default: [
+      {
+        title: 'Weight and Height',
+        columns: [
+          {
+            title: 'Weight',
+            concept: '5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            encounterType: '67a71486-1a54-468f-ac3e-7091a9a79584',
+            hasSummary: true,
+          },
+          {
+            title: 'Height',
+            concept: '5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+            encounterType: '67a71486-1a54-468f-ac3e-7091a9a79584',
+            hasSummary: true,
+          },
+        ],
+      },
+    ],
+    _description: 'Definitions for clinical summary tiles with their concepts and encounter types',
+  },
+  requireActiveVisitForEncounterTile: {
+    _type: Type.Boolean,
+    _description: 'Whether to require an active visit for the encounter tile',
+    _default: true,
+  },
+  drugOrderTypeUUID: {
+    _type: Type.UUID,
+    _description: "UUID for the 'Drug' order type to fetch medications",
+    _default: '131168f4-15f5-102d-96e4-000c29c2a5d7',
+  },
   visitAttributeTypes: {
     _type: Type.Array,
     _description: 'List of visit attribute types shown when filling the visit form',
@@ -163,6 +210,9 @@ export const esmPatientChartSchema = {
 export interface ChartConfig {
   defaultFacilityUrl: string;
   disableChangingVisitLocation: boolean;
+  disableEmptyTabs: boolean;
+  encounterEditableDuration: number;
+  encounterEditableDurationOverridePrivileges: Array<string>;
   freeTextFieldConceptUuid: string;
   logo: {
     alt: string;
@@ -180,6 +230,15 @@ export interface ChartConfig {
   showRecommendedVisitTypeTab: boolean;
   showServiceQueueFields: boolean; // used by extension from esm-service-queues-app
   showUpcomingAppointments: boolean; // used by extension from esm-appointments-app
+  tileDefinitions: Array<{
+    title: string;
+    columns: Array<{
+      title: string;
+      concept: string;
+      encounterType: string;
+      hasSummary?: boolean;
+    }>;
+  }>;
   visitTypeResourceUrl: string;
   visitAttributeTypes: Array<{
     displayInThePatientBanner: boolean;
@@ -188,7 +247,9 @@ export interface ChartConfig {
     uuid: string;
   }>;
   visitDiagnosisConceptUuid: string;
+  requireActiveVisitForEncounterTile: boolean;
   trueConceptUuid: string;
   falseConceptUuid: string;
   otherConceptUuid: string;
+  drugOrderTypeUUID: string;
 }
