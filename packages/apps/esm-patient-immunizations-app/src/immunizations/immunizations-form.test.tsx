@@ -20,9 +20,7 @@ import { FHIR_NEXT_DOSE_DATE_EXTENSION_URL } from './immunization-mapper';
 import ImmunizationsForm from './immunizations-form.workspace';
 
 const mockCloseWorkspace = jest.fn();
-const mockPromptBeforeClosing = jest.fn();
 const mockSavePatientImmunization = savePatientImmunization as jest.Mock;
-const mockSetTitle = jest.fn();
 const mockUseConfig = jest.mocked<() => ImmunizationConfigObject>(useConfig);
 const mockUseSession = jest.mocked(useSession);
 const mockToOmrsIsoString = jest.mocked(toOmrsIsoString);
@@ -251,7 +249,6 @@ describe('Immunizations Form', () => {
     const vaccineField = screen.getByRole('combobox', { name: /Immunization/i });
     const doseField = screen.getByRole('spinbutton', { name: /Dose number within series/i });
     const lotField = screen.getByRole('textbox', { name: /Lot number/i });
-    const NoteField = screen.getByRole('textbox', { name: /note/i });
     const manufacturerField = screen.getByRole('textbox', { name: /Manufacturer/i });
     const expirationDateField = screen.getByRole('textbox', { name: /Expiration date/i });
     const saveButton = screen.getByRole('button', { name: /Save/i });
