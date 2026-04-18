@@ -9,7 +9,7 @@ import ImmunizationsOverview from './immunizations-overview.component';
 const testProps = {
   basePath: patientChartBasePath,
   patient: mockPatient,
-  patientUuid: mockPatient.id,
+  patientUuid: mockPatient.uuid,
 };
 
 const mockUseFhirFetchAll = useFhirFetchAll as jest.Mock;

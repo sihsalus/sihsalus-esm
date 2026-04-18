@@ -118,7 +118,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 
@@ -146,7 +146,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 
@@ -169,7 +169,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
     expect(screen.getByRole('heading', { name: /immunizations/i })).toBeInTheDocument();
@@ -189,7 +189,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
@@ -218,7 +218,7 @@ describe('ImmunizationsDetailedSummary', () => {
     });
 
     renderWithSwr(
-      <ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={mockLaunchStartVisitPrompt} />,
+      <ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={mockLaunchStartVisitPrompt} />,
     );
 
     await waitForLoadingToFinish();
@@ -226,7 +226,7 @@ describe('ImmunizationsDetailedSummary', () => {
     const addButton = screen.getByTestId('add-immunizations-button');
     await user.click(addButton);
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('immunization-form-workspace');
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith('vacunacion-form-workspace');
     expect(mockLaunchStartVisitPrompt).not.toHaveBeenCalled();
   });
 
@@ -234,7 +234,7 @@ describe('ImmunizationsDetailedSummary', () => {
     const user = userEvent.setup();
     const mockLaunchStartVisitPrompt = jest.fn();
     mockUsePatientChartStore.mockReturnValue({
-      patientUuid: mockPatient.id,
+      patientUuid: mockPatient.uuid,
       patient: mockPatient,
       visitContext: null,
       mutateVisitContext: null,
@@ -250,7 +250,7 @@ describe('ImmunizationsDetailedSummary', () => {
     });
 
     renderWithSwr(
-      <ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={mockLaunchStartVisitPrompt} />,
+      <ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={mockLaunchStartVisitPrompt} />,
     );
 
     await waitForLoadingToFinish();
@@ -308,7 +308,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 
@@ -336,7 +336,7 @@ describe('ImmunizationsDetailedSummary', () => {
       ],
     }));
 
-    mockUseImmunizations.mockReturnValueOnce({
+    mockUseImmunizations.mockReturnValue({
       data: largeImmunizationDataset,
       isLoading: false,
       error: null,
@@ -344,14 +344,14 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 
     // Should show pagination controls
     expect(screen.getByText(/items per page/i)).toBeInTheDocument();
     // Check that we have multiple pages (15 items should create multiple pages)
-    expect(screen.getAllByText(/of 2 pages/i)).toHaveLength(2);
+    expect(screen.getByText(/of 2 pages/i)).toBeInTheDocument();
   });
 
   it('displays sequence labels when available', async () => {
@@ -383,7 +383,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 
@@ -420,7 +420,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 
@@ -436,7 +436,7 @@ describe('ImmunizationsDetailedSummary', () => {
       },
     ];
 
-    mockUseImmunizations.mockReturnValueOnce({
+    mockUseImmunizations.mockReturnValue({
       data: immunizationWithoutDoses,
       isLoading: false,
       error: null,
@@ -444,7 +444,7 @@ describe('ImmunizationsDetailedSummary', () => {
       mutate: jest.fn(),
     });
 
-    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.id} launchStartVisitPrompt={jest.fn()} />);
+    renderWithSwr(<ImmunizationsDetailedSummary patientUuid={mockPatient.uuid} launchStartVisitPrompt={jest.fn()} />);
 
     await waitForLoadingToFinish();
 

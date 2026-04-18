@@ -67,7 +67,7 @@ jest.mock('./immunizations.resource', () => ({
 const testProps: PatientWorkspace2DefinitionProps<Record<string, never>, Record<string, never>> = {
   closeWorkspace: mockCloseWorkspace,
   groupProps: {
-    patientUuid: mockPatient.id,
+    patientUuid: mockPatient.uuid,
     patient: mockPatient,
     visitContext: mockCurrentVisit,
     mutateVisitContext: null,

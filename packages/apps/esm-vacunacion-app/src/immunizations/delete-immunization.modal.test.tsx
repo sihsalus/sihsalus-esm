@@ -44,7 +44,7 @@ const defaultProps = {
   close: jest.fn(),
   doseNumber: 1,
   immunizationId: 'de195ad6-0887-4b09-bd4a-6e37d7d8db63',
-  patientUuid: mockPatient.id,
+  patientUuid: mockPatient.uuid,
   vaccineUuid: '886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
 };
 
