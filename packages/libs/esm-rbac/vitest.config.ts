@@ -1,8 +1,7 @@
-import { defineConfig } from 'vitest/config';
+import { defineWorkspaceVitestConfig } from '../../tooling/configs/vitest-config';
 
-export default defineConfig({
+export default defineWorkspaceVitestConfig({
   test: {
-    environment: 'happy-dom',
     coverage: {
       provider: 'v8',
       thresholds: {

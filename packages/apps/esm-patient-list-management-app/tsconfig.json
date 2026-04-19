@@ -1,6 +1,4 @@
 {
   "extends": "../../tooling/tsconfig.app.json",
-  // Incluimos los tests en el proyecto de TypeScript para que ESLint
-  // pueda resolverlos correctamente con parserOptions.project.
   "include": ["src/**/*"]
 }

@@ -285,12 +285,12 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    contentRef: contentToPrintRef,
+    content: () => contentToPrintRef.current,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
     onBeforePrint: () =>
-      new Promise((resolve) => {
+      new Promise<void>((resolve) => {
         if (patient && title) {
-          onBeforeGetContentResolve.current = () => resolve();
+          onBeforeGetContentResolve.current = resolve;
           setIsPrinting(true);
         }
       }),
