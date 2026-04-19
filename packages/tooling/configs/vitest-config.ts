@@ -1,6 +1,7 @@
 import { defineConfig, mergeConfig, type UserConfig } from 'vitest/config';
 
 import { createVitestAliases } from './vitest-aliases';
+import sharedTestAliases from './shared-test-aliases.json';
 
 type AliasMap = Record<string, string>;
 
@@ -34,7 +35,9 @@ export function defineAppVitestConfig(
       alias: [
         ...extraAliases,
         ...createVitestAliases(rootDir, {
-          'react-i18next': '../../test-utils/stubs/react-i18next.js',
+          ...Object.fromEntries(
+            Object.entries(sharedTestAliases).map(([key, value]) => [key, `../../${value}`]),
+          ),
           ...aliases,
         }),
       ],

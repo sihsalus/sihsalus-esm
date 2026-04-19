@@ -3,6 +3,11 @@
  */
 
 const path = require('path');
+const sharedTestAliases = require('./tooling/configs/shared-test-aliases.json');
+
+const resolvedSharedTestAliases = Object.fromEntries(
+  Object.entries(sharedTestAliases).map(([pattern, relativeTarget]) => [pattern, path.resolve(__dirname, relativeTarget)]),
+);
 
 module.exports = {
   clearMocks: true,
@@ -18,9 +23,7 @@ module.exports = {
     '^dexie$': require.resolve('dexie'),
     '^lodash-es/(.*)$': 'lodash/$1',
     'lodash-es': 'lodash',
-    '^react-i18next$': path.resolve(__dirname, 'test-utils', 'stubs', 'react-i18next.js'),
-    '^react-markdown$': path.resolve(__dirname, 'test-utils', 'stubs', 'react-markdown.tsx'),
-    '\\.(png|jpg|jpeg|gif|svg)$': path.resolve(__dirname, 'test-utils', 'stubs', 'fileMock.js'),
+    ...resolvedSharedTestAliases,
     '^uuid$': require.resolve('uuid'),
     '^react$': require.resolve('react'),
     '^react-dom$': require.resolve('react-dom'),
