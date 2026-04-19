@@ -8,20 +8,11 @@ export const importTranslation = require.context('../translations', false, /.jso
 const moduleName = '@sihsalus/esm-odontologia-app';
 
 const attentionDashboardMeta = {
-  slot: 'patient-chart-odontologia-attention-slot',
+  slot: 'patient-chart-odontologia-slot',
   columns: 1,
   title: 'Atención odontológica',
-  path: 'odontologia-atencion',
+  path: 'atencion-odontologica',
   icon: 'omrs-icon-clipboard',
-  isLink: true,
-};
-
-const odontogramDashboardMeta = {
-  slot: 'patient-chart-odontologia-odontogram-slot',
-  columns: 1,
-  title: 'Odontograma',
-  path: 'odontologia-odontograma',
-  icon: 'omrs-icon-clinical',
   isLink: true,
 };
 
@@ -41,25 +32,9 @@ export const odontologiaAttentionDashboardLink = getSyncLifecycle(createDashboar
 });
 
 export const odontologiaAttentionDashboard = getAsyncLifecycle(
-  () => import('./dental-attention/odontologia-attention-dashboard.component'),
+  () => import('./odontologia-dashboard/odontologia-dashboard.component'),
   {
     featureName: 'odontologia-attention-dashboard',
-    moduleName,
-  },
-);
-
-export const odontologiaOdontogramDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...odontogramDashboardMeta, moduleName }),
-  {
-    featureName: 'odontologia-odontogram-dashboard-link',
-    moduleName,
-  },
-);
-
-export const odontologiaOdontogramWidget = getAsyncLifecycle(
-  () => import('./odontogram-dashboard/odontogram-dashboard.component'),
-  {
-    featureName: 'odontologia-odontogram-widget',
     moduleName,
   },
 );

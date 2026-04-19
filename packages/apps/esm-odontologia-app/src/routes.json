@@ -15,37 +15,17 @@
       "component": "odontologiaAttentionDashboardLink",
       "slot": "patient-chart-dashboard-slot",
       "meta": {
-        "slot": "patient-chart-odontologia-attention-slot",
+        "slot": "patient-chart-odontologia-slot",
         "columns": 1,
         "title": "Atención odontológica",
-        "path": "odontologia-atencion",
+        "path": "atencion-odontologica",
         "layoutMode": "anchored"
       }
     },
     {
       "name": "odontologia-attention-dashboard",
       "component": "odontologiaAttentionDashboard",
-      "slot": "patient-chart-odontologia-attention-slot",
-      "order": 0,
-      "online": true,
-      "offline": false
-    },
-    {
-      "name": "odontologia-odontogram-dashboard-link",
-      "component": "odontologiaOdontogramDashboardLink",
-      "slot": "patient-chart-dashboard-slot",
-      "meta": {
-        "slot": "patient-chart-odontologia-odontogram-slot",
-        "columns": 1,
-        "title": "Odontograma",
-        "path": "odontologia-odontograma",
-        "layoutMode": "anchored"
-      }
-    },
-    {
-      "name": "odontologia-odontogram-widget",
-      "component": "odontologiaOdontogramWidget",
-      "slot": "patient-chart-odontologia-odontogram-slot",
+      "slot": "patient-chart-odontologia-slot",
       "order": 0,
       "online": true,
       "offline": false
