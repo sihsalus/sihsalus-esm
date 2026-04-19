@@ -220,9 +220,18 @@ export async function checkModules(): Promise<Array<ResolvedDependenciesModule>>
       .map((module) => ({
         backendDependencies: module[1].backendDependencies,
         optionalBackendDependencies: Object.fromEntries(
-          Object.entries(module[1].optionalBackendDependencies ?? {}).map(([key, value]) =>
-            typeof value === 'string' || typeof value === 'undefined' ? [key, value] : [key, value.version],
-          ),
+          Object.entries(module[1].optionalBackendDependencies ?? {}).map(([key, value]) => {
+            if (typeof value === 'string' || typeof value === 'undefined' || value === null) {
+              return [key, value];
+            }
+
+            const resolvedValue =
+              typeof value === 'object' && 'version' in value && typeof value.version === 'string'
+                ? value.version
+                : undefined;
+
+            return [key, resolvedValue];
+          }),
         ),
         moduleName: module[0],
       }));
