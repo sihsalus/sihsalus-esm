@@ -116,13 +116,7 @@ const ProgramsOverview: React.FC<ProgramsOverviewProps> = ({ basePath: _basePath
   }
 
   if (error) {
-    const formattedError = {
-      response: {
-        status: error?.response?.status || 'unknown',
-        statusText: error?.response?.statusText || 'Unknown error occurred',
-      },
-    };
-    return <ErrorState error={formattedError} headerTitle={headerTitle} />;
+    return <ErrorState error={error} headerTitle={headerTitle} />;
   }
 
   if (enrollments?.length) {

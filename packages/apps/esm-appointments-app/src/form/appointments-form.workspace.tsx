@@ -630,14 +630,12 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                             id="startDatePickerInput"
                             labelText={t('startDate', 'Start date')}
                             style={{ width: '100%' }}
-                            value={watch('appointmentDateTime').startDateText}
                           />
                           <DatePickerInput
                             id="endDatePickerInput"
                             labelText={t('endDate', 'End date')}
                             style={{ width: '100%' }}
                             placeholder={datePickerPlaceHolder}
-                            value={watch('appointmentDateTime').recurringPatternEndDateText}
                           />
                         </DatePicker>
                       </ResponsiveWrapper>
@@ -664,8 +662,8 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                         size="md"
                         value={value}
                         onBlur={onBlur}
-                        onChange={(e) => {
-                          onChange(Number(e.target.value));
+                        onChange={(_event, { value: nextValue }) => {
+                          onChange(typeof nextValue === 'string' ? Number(nextValue) : nextValue);
                         }}
                       />
                     )}
@@ -711,9 +709,7 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
                             handleSelectChange(e);
                           }}
                           selectionFeedback="top-after-reopen"
-                          sortItems={(items) => {
-                            return items.sort((a, b) => a.order > b.order);
-                          }}
+                          sortItems={(items) => [...items].sort((a, b) => a.order - b.order)}
                         />
                       )}
                     />
@@ -886,7 +882,7 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
         </section>
       </Stack>
       <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
-        <Button className={styles.button} onClick={closeWorkspace} kind="secondary">
+        <Button className={styles.button} onClick={() => closeWorkspace()} kind="secondary">
           {t('discard', 'Discard')}
         </Button>
         <Button className={styles.button} disabled={isSubmitting} type="submit">
@@ -898,7 +894,6 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
 };
 
 function TimeAndDuration({ t, watch, control, services, errors }) {
-   
   const defaultDuration = services?.find((service) => service.name === watch('selectedService'))?.durationMins || null;
 
   return (
@@ -954,7 +949,9 @@ function TimeAndDuration({ t, watch, control, services, errors }) {
               max={1440}
               min={0}
               onBlur={onBlur}
-              onChange={(event) => onChange(event.target.value === '' ? null : Number(event.target.value))}
+              onChange={(_event, { value: nextValue }) =>
+                onChange(nextValue === '' || nextValue === undefined ? null : Number(nextValue))
+              }
               ref={ref}
               size="md"
               value={value}
