@@ -1,11 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tooling/tsconfig.app.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@mocks/*": ["./__mocks__/*"],
+      "@mocks/*": ["./test-utils/mocks/*"],
       "@tools/test-helpers": ["../../test-utils/index"]
     }
   },
-  "include": ["src/**/*", "__mocks__/**/*", "../../tools/setup-tests.ts"]
+  "include": ["src/**/*", "test-utils/**/*", "../../tools/setup-tests.ts"]
 }

@@ -262,13 +262,13 @@ export interface FormattedCardColumn {
   hasSummary: boolean;
 }
 
-interface ChartConfigConcepts {
+export interface ChartConfigConcepts {
   trueConceptUuid: string;
   falseConceptUuid: string;
   otherConceptUuid: string;
 }
 
-interface ChartEncounter extends OpenmrsResource {
+export interface ChartEncounter extends OpenmrsResource {
   encounterDatetime: Date;
   encounterType: { uuid: string; name: string };
   patient: {

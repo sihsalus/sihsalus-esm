@@ -31,8 +31,8 @@ const ClinicalViewsSummary: React.FC<OverviewListProps> = memo(({ patientUuid })
 
   return tilesData?.length > 0 ? (
     <>
-      {tilesData.map((tile, index) => (
-        <EncounterTile key={index} patientUuid={patientUuid} columns={tile.columns} headerTitle={tile.title} />
+      {tilesData.map((tile) => (
+        <EncounterTile key={tile.title} patientUuid={patientUuid} columns={tile.columns} headerTitle={tile.title} />
       ))}
     </>
   ) : null;

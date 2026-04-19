@@ -875,18 +875,19 @@ export const configSchema = {
     _description: 'Configuración del Test Peruano de Desarrollo Infantil',
     _default: {
       encounterTypeUuid: 'a990eabc-3405-419f-bfb1-96ca2d8279b8', // Control de Niño Sano — NTS 102
-      scoreCognitivoUuid: '',      // TODO: concept UUID for cognitive score
-      scoreMotorUuid: '',          // TODO: concept UUID for motor score
-      scoreSocialUuid: '',         // TODO: concept UUID for social-emotional score
-      scoreLenguajeUuid: '',       // TODO: concept UUID for language score
-      clasificacionTotalUuid: '',  // TODO: concept UUID for overall classification (Coded)
-      observacionesUuid: '',       // TODO: concept UUID for observations text
-      contextoCulturalUuid: '',    // TODO: concept UUID for cultural context
-      idiomaUuid: '',              // TODO: concept UUID for primary language
+      scoreCognitivoUuid: '', // TODO: concept UUID for cognitive score
+      scoreMotorUuid: '', // TODO: concept UUID for motor score
+      scoreSocialUuid: '', // TODO: concept UUID for social-emotional score
+      scoreLenguajeUuid: '', // TODO: concept UUID for language score
+      clasificacionTotalUuid: '', // TODO: concept UUID for overall classification (Coded)
+      observacionesUuid: '', // TODO: concept UUID for observations text
+      contextoCulturalUuid: '', // TODO: concept UUID for cultural context
+      idiomaUuid: '', // TODO: concept UUID for primary language
     },
     encounterTypeUuid: {
       _type: Type.UUID,
-      _description: 'Encounter type UUID para el Test Peruano de Desarrollo. Por defecto usa Control de Niño Sano (NTS 102).',
+      _description:
+        'Encounter type UUID para el Test Peruano de Desarrollo. Por defecto usa Control de Niño Sano (NTS 102).',
       _default: 'a990eabc-3405-419f-bfb1-96ca2d8279b8',
     },
     scoreCognitivoUuid: {
@@ -911,7 +912,8 @@ export const configSchema = {
     },
     clasificacionTotalUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Concept UUID de la clasificación total del test (Coded: superior/normal/limite/retraso) — pendiente configurar en OCL',
+      _description:
+        'Concept UUID de la clasificación total del test (Coded: superior/normal/limite/retraso) — pendiente configurar en OCL',
       _default: '',
     },
     observacionesUuid: {

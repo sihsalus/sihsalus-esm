@@ -1,7 +1,7 @@
 import { openmrsFetch, getConfig, useConfig, getDefaultsFromConfigSchema } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { visitOverviewDetailMockData } from '__mocks__';
+import { visitOverviewDetailMockData } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 

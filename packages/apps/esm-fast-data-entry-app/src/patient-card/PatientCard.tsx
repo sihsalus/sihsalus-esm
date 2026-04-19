@@ -37,9 +37,7 @@ const PatientCard = ({ patientUuid, activePatientUuid, editEncounter, encounters
     <CardContainer onClick={active ? () => undefined : () => editEncounter(patientUuid)} active={active}>
       <div className={styles.patientInfo}>
         <div className={styles.identifier}>{identifier}</div>
-        <div className={`${styles.displayName} ${active && styles.activeDisplayName}`}>
-          {displayName}
-        </div>
+        <div className={`${styles.displayName} ${active && styles.activeDisplayName}`}>{displayName}</div>
       </div>
       <div>
         {patientUuid in encounters ? (

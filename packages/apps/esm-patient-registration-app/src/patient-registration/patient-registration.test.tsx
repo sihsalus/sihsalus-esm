@@ -7,7 +7,7 @@ import {
 } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockedAddressTemplate } from '__mocks__';
+import { mockedAddressTemplate } from 'test-utils';
 import React from 'react';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import { mockPatient } from 'test-utils';
@@ -387,8 +387,8 @@ describe('Registering a new patient', () => {
     expect(mockSavePatient).toHaveBeenCalledTimes(1);
     expect(mockSaveEncounter).toHaveBeenCalledTimes(1);
 
-    (expect(mockShowSnackbar).toHaveBeenCalledWith(expect.objectContaining({ subtitle: 'an error message' })),
-      mockSaveEncounter.mockResolvedValue({} as FetchResponse));
+    expect(mockShowSnackbar).toHaveBeenCalledWith(expect.objectContaining({ subtitle: 'an error message' })),
+      mockSaveEncounter.mockResolvedValue({} as FetchResponse);
 
     await user.click(registerPatientButton);
     expect(mockSavePatient).toHaveBeenCalledTimes(2);

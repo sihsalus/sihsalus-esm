@@ -1,7 +1,7 @@
 import { type FetchResponse, showSnackbar, useConfig, getDefaultsFromConfigSchema } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockConceptMetadata, mockConceptRanges, mockConceptUnits, mockVitalsConfig } from '__mocks__';
+import { mockConceptMetadata, mockConceptRanges, mockConceptUnits, mockVitalsConfig } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 

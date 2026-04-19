@@ -1,4 +1,3 @@
- 
 import { ContentSwitcher, Switch, Button } from '@carbon/react';
 import { navigate, RenewIcon, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
@@ -146,7 +145,7 @@ const ResultsViewer: React.FC<ResultsViewerProps> = ({ patientUuid, basePath, lo
           <TabletOverlay
             headerText={t('trendline', 'Trendline')}
             close={navigateBackFromTrendlineView}
-            buttonsGroup={<></>}
+            buttonsGroup={null}
           >
             <Trendline patientUuid={patientUuid} conceptUuid={testUuid} basePath={basePath} />
           </TabletOverlay>

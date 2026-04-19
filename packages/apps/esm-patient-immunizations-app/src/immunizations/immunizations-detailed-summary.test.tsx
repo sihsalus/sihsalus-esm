@@ -9,8 +9,8 @@ import {
   type VisitReturnType,
 } from '@openmrs/esm-framework';
 import { configSchema, type ImmunizationConfigObject } from '../config-schema';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
-import { mockCurrentVisit } from '__mocks__';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import { mockCurrentVisit } from 'test-utils';
 import { usePatientChartStore } from '@openmrs/esm-patient-common-lib';
 import { useImmunizations } from '../hooks/useImmunizations';
 import ImmunizationsDetailedSummary from './immunizations-detailed-summary.component';

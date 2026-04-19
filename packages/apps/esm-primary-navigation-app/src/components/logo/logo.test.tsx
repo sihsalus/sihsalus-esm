@@ -1,6 +1,5 @@
 import { useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { vi, describe, it, expect } from 'vitest';
 
@@ -62,7 +61,6 @@ describe('Logo', () => {
   });
 
   it('should handle image load errors', () => {
-    const user = userEvent.setup();
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const mockConfig = {
       logo: {

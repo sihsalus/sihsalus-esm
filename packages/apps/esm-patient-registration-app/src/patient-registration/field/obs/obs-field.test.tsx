@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockOpenmrsId, mockPatient } from '__mocks__';
+import { mockOpenmrsId, mockPatient } from 'test-utils';
 import React from 'react';
 
 import { esmPatientRegistrationSchema, type FieldDefinition, type RegistrationConfig } from '../../../config-schema';

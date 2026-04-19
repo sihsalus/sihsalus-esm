@@ -22,12 +22,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "keywords": [
-    "openmrs",
-    "microfrontends",
-    "webpack",
-    "config"
-  ],
+  "keywords": ["openmrs", "microfrontends", "webpack", "config"],
   "homepage": "https://github.com/openmrs/openmrs-esm-core#readme",
   "dependencies": {
     "@rspack/cli": "1.7.11",

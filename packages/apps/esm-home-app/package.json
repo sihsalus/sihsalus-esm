@@ -19,12 +19,8 @@
     "test": "jest --config jest.config.js --verbose false --passWithNoTests",
     "coverage": "yarn test --coverage"
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs"
-  ],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs"],
   "publishConfig": {
     "access": "public"
   },

@@ -27,7 +27,7 @@ const ClinicalEncounter: React.FC<SurgicalSummaryProps> = ({
   isLoading,
   error,
   mutate,
-  isValidating,
+  isValidating: _isValidating,
 }) => {
   const { t } = useTranslation();
   const {
@@ -46,7 +46,7 @@ const ClinicalEncounter: React.FC<SurgicalSummaryProps> = ({
       },
     });
   };
-  const formattedEncounters = encounters.map((encounter, index) => {
+  const formattedEncounters = encounters.map((encounter) => {
     return {
       encounterDate: formatDate(new Date(encounter.encounterDatetime)),
       admissionDate:

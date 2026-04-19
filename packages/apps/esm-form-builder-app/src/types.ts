@@ -4,9 +4,10 @@ import type { AuditInfo } from './components/audit-details/audit-details.compone
 import type { questionTypes } from '@constants';
 
 // Extend FormSchema to include description property
-export interface FormBuilderSchema extends FormSchema {
+export type FormBuilderSchema = Omit<FormSchema, 'translations'> & {
   description?: string;
-}
+  translations?: Record<string, string> | Record<string, Record<string, string>>;
+};
 
 export interface Form {
   uuid: string;

@@ -12,7 +12,6 @@ export interface PackageManifest {
 }
 
 export function getSharedDependencies() {
-   
   return require('@openmrs/esm-app-shell/dependencies.json');
 }
 

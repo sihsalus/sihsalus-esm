@@ -59,7 +59,10 @@ const OdontogramWorkspace: React.FC<OdontogramWorkspaceProps> = ({
       showSnackbar({
         title: t('odontogramSaveError', 'Error saving odontogram'),
         kind: 'error',
-        subtitle: err instanceof Error ? err.message : t('odontogramSaveErrorSubtitle', 'Could not save odontogram. Please try again.'),
+        subtitle:
+          err instanceof Error
+            ? err.message
+            : t('odontogramSaveErrorSubtitle', 'Could not save odontogram. Please try again.'),
       });
     }
   };

@@ -15,10 +15,12 @@ import styles from './list-details.scss';
 
 interface ListDetailsRow {
   name: string;
-  identifier: string;
+  identifier: string | null;
   sex: string;
-  startDate: string;
+  startDate: string | null;
   uuid: string;
+  membershipUuid: string;
+  mobile: string | null;
 }
 
 const ListDetails = () => {
@@ -27,7 +29,7 @@ const ListDetails = () => {
   const patientListUuid = params.patientListUuid;
   const [currentPage, setPageCount] = useState(1);
   const [currentPageSize, setCurrentPageSize] = useState(10);
-  const [searchString, setSearchString] = useState('');
+  const [searchString, _setSearchString] = useState('');
   const { listDetails, mutateListDetails } = usePatientListDetails(patientListUuid);
   const { listMembers, isLoadingListMembers, mutateListMembers } = usePatientListMembers(
     patientListUuid,

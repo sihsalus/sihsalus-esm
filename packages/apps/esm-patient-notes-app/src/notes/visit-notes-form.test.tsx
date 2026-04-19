@@ -16,9 +16,9 @@ import {
   mockFetchLocationByUuidResponse,
   mockFetchProviderByUuidResponse,
   mockSessionDataResponse,
-} from '__mocks__';
+} from 'test-utils';
 import { configSchema, type ConfigObject } from '../config-schema';
-import { mockPatient, getByTextWithMarkup } from 'tools';
+import { mockPatient, getByTextWithMarkup } from 'test-utils';
 import VisitNotesForm, { type VisitNotesFormProps } from './visit-notes-form.workspace';
 
 const defaultProps: PatientWorkspace2DefinitionProps<VisitNotesFormProps, {}> = {

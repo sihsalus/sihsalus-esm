@@ -1,4 +1,4 @@
-import { Button, ButtonSet, Column, ComboBox, DatePicker, DatePickerInput, Form, Stack, TextArea } from '@carbon/react';
+import { Button, ButtonSet, Column, ComboBox, DatePicker, DatePickerInput, Form, Stack } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useConfig, useSession } from '@openmrs/esm-framework';
 import React from 'react';

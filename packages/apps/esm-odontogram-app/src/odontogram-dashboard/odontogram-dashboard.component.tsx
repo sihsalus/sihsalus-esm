@@ -120,7 +120,7 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
         onChange={handleChange}
         className={styles.recordSelect}
       >
-        {groups.map((g, gIdx) => (
+        {groups.map((g) => (
           <SelectItemGroup key={g.base.encounterUuid} label={g.base.label}>
             <SelectItem value={g.base.encounterUuid} text={t('baseLabel', 'Base')} />
             {g.attentions.map((a, aIdx) => (
@@ -144,10 +144,11 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
         kind="ghost"
         size="sm"
         label={t('addAttention', 'New attention')}
-        renderIcon={Add}
         onClick={onAdd}
         data-testid="add-attention-btn"
-      />
+      >
+        <Add />
+      </IconButton>
     </div>
   );
 };
@@ -159,6 +160,7 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
 const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const data = useOdontogramDataStore((s) => s.data);
+  const setData = useOdontogramDataStore((s) => s.setData);
   const setPatient = useOdontogramDataStore((s) => s.setPatient);
   const setWorkspaceMode = useOdontogramDataStore((s) => s.setWorkspaceMode);
   const setSelectedEncounterUuid = useOdontogramDataStore((s) => s.setSelectedEncounterUuid);
@@ -166,7 +168,7 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
   const selectedEncounterUuid = useOdontogramDataStore((s) => s.selectedEncounterUuid);
   const activeBaseEncounterUuid = useOdontogramDataStore((s) => s.activeBaseEncounterUuid);
 
-  const { groups, baseRecords, isLoading, error, mutate } = useOdontogramHistory(patientUuid);
+  const { groups, baseRecords, isLoading, error, mutate: _mutate } = useOdontogramHistory(patientUuid);
   const hasBase = baseRecords.length > 0;
 
   // Sync patient into store
@@ -237,7 +239,7 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
         />
       </CardHeader>
       <div className={styles.canvasWrapper}>
-        <OdontogramCanvas config={adultConfig} data={data} />
+        <OdontogramCanvas config={adultConfig} data={data} onChange={setData} readOnly />
       </div>
     </div>
   );

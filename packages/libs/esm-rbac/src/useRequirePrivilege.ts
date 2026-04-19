@@ -5,10 +5,7 @@ export type UseRequirePrivilegeResult =
   | { status: 'unauthorized'; missingPrivilege: string | string[] }
   | { status: 'unauthenticated' };
 
-export function useRequirePrivilege(
-  privilege: string | string[],
-  requireAll = true,
-): UseRequirePrivilegeResult {
+export function useRequirePrivilege(privilege: string | string[], requireAll = true): UseRequirePrivilegeResult {
   const session = useSession();
 
   if (!session?.authenticated || !session.user) {

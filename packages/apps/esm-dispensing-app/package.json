@@ -19,18 +19,10 @@
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.workspace.tsx' 'src/**/*.modal.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js",
     "check-translations": "yarn extract-translations && git diff --exit-code -- translations/en.json",
     "coverage": "yarn test --coverage",
-    "test-e2e": "playwright test"
+    "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/dispensing/playwright.config.ts"
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs",
-    "microfrontends",
-    "medication",
-    "dispensing",
-    "pharmacy"
-  ],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs", "microfrontends", "medication", "dispensing", "pharmacy"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-dispensing.git"

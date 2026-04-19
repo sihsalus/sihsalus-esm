@@ -62,7 +62,7 @@ export const Autosuggest: React.FC<AutosuggestProps> = ({
     }
   };
 
-  const handleClear = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleClear = () => {
     onSuggestionSelected(name, undefined);
   };
 
@@ -92,7 +92,7 @@ export const Autosuggest: React.FC<AutosuggestProps> = ({
           {suggestions.map((suggestion, index) => (
             <li
               key={index}
-              onClick={(e) => handleClick(index)}
+              onClick={() => handleClick(index)}
               role="presentation"
               className={typeof renderSuggestionItem !== 'function' ? styles.displayText : undefined}
             >

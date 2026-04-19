@@ -15,12 +15,12 @@ import {
 } from '@openmrs/esm-framework';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { mockConfig } from '../../../../__mocks__/login-config.mock';
+import { mockConfig } from '../../../../test-utils/mocks/login-config.mock';
 import {
   mockLoginLocations,
   validatingLocationFailureResponse,
   validatingLocationSuccessResponse,
-} from '../../../../__mocks__/locations.mock';
+} from '../../../../test-utils/mocks/locations.mock';
 import renderWithRouter from '../test-helpers/render-with-router';
 
 import LocationPickerView from './location-picker-view.component';

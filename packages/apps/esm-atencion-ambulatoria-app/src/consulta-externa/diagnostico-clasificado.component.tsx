@@ -29,7 +29,7 @@ interface DiagnosticoClasificadoProps {
 const DiagnosticoClasificado: React.FC<DiagnosticoClasificadoProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { diagnoses, isLoading, error } = useDiagnosisHistory(patientUuid, config.encounterTypes?.externalConsultation);
+  const { diagnoses, isLoading } = useDiagnosisHistory(patientUuid, config.encounterTypes?.externalConsultation);
 
   const headers = [
     { key: 'date', header: t('date', 'Fecha') },

@@ -63,6 +63,7 @@ describe('RecentlySearchedPatients', () => {
           givenName: 'John',
           middleName: 'Doe',
           familyName: 'Smith',
+          familyName2: '',
         },
       },
       uuid: 'test-patient-uuid',

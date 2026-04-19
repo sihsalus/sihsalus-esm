@@ -42,7 +42,7 @@ jest.mock('react-hook-form', () => ({
     setValue: jest.fn(),
     formState: { errors: {} },
   }),
-  Controller: ({ render, name, control }) =>
+  Controller: ({ render, name, control: _control }) =>
     render({
       field: {
         onChange: jest.fn(),

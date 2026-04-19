@@ -5,7 +5,6 @@ import { getDesignComponentByPosition } from '../config/designMapping';
 import { ODONTOGRAM_CONFIG } from '../config/odontogramConfig';
 import DesignSelector from './DesignSelector';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
-import { isRowFinding } from '../logic/findingDesignLogic';
 import type { FindingDesign } from '../types/odontogram';
 
 interface MainSectionOnTheCanvasProps {

@@ -18,10 +18,7 @@ export function startupApp() {
   registerBreadcrumbs([
     {
       path: `${globalThis.spaBase}/system-administration`,
-      title: () =>
-        Promise.resolve(
-          (globalThis.i18next as i18n).t('systemAdmin', 'System Administration'),
-        ),
+      title: () => Promise.resolve((globalThis.i18next as i18n).t('systemAdmin', 'System Administration')),
       parent: `${globalThis.spaBase}/home`,
     },
   ]);

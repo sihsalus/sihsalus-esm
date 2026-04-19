@@ -12,7 +12,7 @@ import {
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit } from '__mocks__';
+import { mockCurrentVisit } from 'test-utils';
 import React from 'react';
 import { getByTextWithMarkup } from 'test-utils';
 

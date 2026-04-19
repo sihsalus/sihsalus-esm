@@ -1,4 +1,3 @@
- 
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
 import { AddIcon, useLayoutType, useVisit } from '@openmrs/esm-framework';
 import {
@@ -28,8 +27,8 @@ const NotesMain: React.FC<NotesOverviewProps> = ({ patientUuid, pageSize, urlLab
   const displayText = t('visitNotes', 'Visit notes');
   const headerTitle = t('visitNotes', 'Visit notes');
   const { visitNotes, error, isLoading, isValidating } = useVisitNotes(patientUuid);
-  const layout = useLayoutType();
-  const isDesktop = layout === 'large-desktop' || layout === 'small-desktop';
+  const _layout = useLayoutType();
+  const _isDesktop = _layout === 'large-desktop' || _layout === 'small-desktop';
 
   const launchVisitNoteForm = React.useCallback(() => {
     if (currentVisit) {

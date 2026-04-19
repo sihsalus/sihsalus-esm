@@ -1,4 +1,4 @@
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
 import type { ConfigObject } from '../config-schema';
@@ -66,8 +66,16 @@ function isConceptSearchResult(value: unknown): value is ConceptSearchResult {
   );
 }
 
-function getConceptSearchResults(response: ConceptSearchResponse): Array<ConceptSearchResult> {
-  return Array.isArray(response.data?.results) ? response.data.results.filter(isConceptSearchResult) : [];
+function getConceptSearchResults(
+  response: ConceptSearchResponse | FetchResponse<ConceptSearchResponse> | { data?: { results?: Array<ConceptSearchResult> } },
+): Array<ConceptSearchResult> {
+  const data = 'data' in response && response.data && 'data' in response.data ? response.data.data : response.data;
+
+  if (!data || typeof data !== 'object' || !('results' in data) || !Array.isArray(data.results)) {
+    return [];
+  }
+
+  return data.results.filter(isConceptSearchResult);
 }
 
 function hasPatientIdentifierData(response: PatientIdentifierTypeResponse): boolean {

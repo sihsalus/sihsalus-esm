@@ -7,7 +7,7 @@ import PatientSearchPageComponent from './patient-search-page/patient-search-pag
 const PatientSearchRootComponent: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-patient-search-app">
-        <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
+      <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
         <Routes>
           <Route path="search" element={<PatientSearchPageComponent />} />
         </Routes>

@@ -18,6 +18,7 @@ describe('PatientSearchButton', () => {
         disableTabletSearchOnKeyUp: false,
         patientChartUrl: '',
         showRecentlySearchedPatients: false,
+        searchFilterFields: getDefaultsFromConfigSchema(configSchema).search.searchFilterFields,
       },
     });
   });

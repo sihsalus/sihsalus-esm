@@ -23,8 +23,5 @@ export function useAuditLogger(): (event: Omit<AuditEvent, 'timestamp' | 'userUu
   }, [session]);
 
   // Stable reference across renders — consumers can use it as a dep safely.
-  return useCallback(
-    (event: Omit<AuditEvent, 'timestamp' | 'userUuid' | 'sessionId'>) => auditLogger.log(event),
-    [],
-  );
+  return useCallback((event: Omit<AuditEvent, 'timestamp' | 'userUuid' | 'sessionId'>) => auditLogger.log(event), []);
 }

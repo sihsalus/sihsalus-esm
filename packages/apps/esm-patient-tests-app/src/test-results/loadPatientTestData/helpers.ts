@@ -128,9 +128,9 @@ export function loadPresentConcepts(entries: Array<ObsRecord>): Promise<Array<Co
     [...new Set(entries.map(getEntryConceptClassUuid))].map(
       (conceptUuid) =>
         conceptCache[conceptUuid] ||
-        (conceptCache[conceptUuid] = fetch(`${globalThis.openmrsBase}${restBaseUrl}/concept/${conceptUuid}?v=full`).then(
-          (res) => res.json(),
-        )),
+        (conceptCache[conceptUuid] = fetch(
+          `${globalThis.openmrsBase}${restBaseUrl}/concept/${conceptUuid}?v=full`,
+        ).then((res) => res.json())),
     ),
   );
 }
@@ -141,7 +141,7 @@ export function loadPresentConcepts(entries: Array<ObsRecord>): Promise<Array<Co
  * @param args any
  * @returns {boolean}
  */
-export function exist(...args: any[]): boolean {
+export function exist(...args: unknown[]): boolean {
   for (const y of args) {
     if (y === null || y === undefined) {
       return false;
@@ -154,10 +154,10 @@ export function exist(...args: any[]): boolean {
 export const assessValue =
   (meta: ObsMetaInfo) =>
   (value: string): OBSERVATION_INTERPRETATION => {
-    if (isNaN(parseFloat(value))) {
+    if (Number.isNaN(Number.parseFloat(value))) {
       return 'NORMAL';
     }
-    const numericValue = parseFloat(value);
+    const numericValue = Number.parseFloat(value);
     if (exist(meta.hiAbsolute) && numericValue > meta.hiAbsolute) {
       return 'OFF_SCALE_HIGH';
     }

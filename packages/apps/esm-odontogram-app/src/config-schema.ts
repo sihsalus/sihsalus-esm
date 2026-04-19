@@ -18,8 +18,7 @@ export const configSchema = {
   },
   findingConceptUuids: {
     _type: Type.Object,
-    _description:
-      'Optional map of findingId -> concept UUID to store specific obs concept per odontogram finding',
+    _description: 'Optional map of findingId -> concept UUID to store specific obs concept per odontogram finding',
     _default: {},
   },
 };

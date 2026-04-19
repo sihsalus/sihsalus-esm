@@ -36,10 +36,7 @@ const insuranceTagType: Record<string, string> = {
 const Financiador: React.FC<FinanciadorProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { insuranceEntries, isLoading, error } = useInsuranceProvider(
-    patientUuid,
-    config.concepts?.insuranceProviderUuid,
-  );
+  const { insuranceEntries, isLoading } = useInsuranceProvider(patientUuid, config.concepts?.insuranceProviderUuid);
 
   const headers = [
     { key: 'date', header: t('date', 'Fecha') },

@@ -35,13 +35,25 @@ export function usePrenatalSupplementation(patientUuid: string): PrenatalSupplem
     const defs: Array<{ name: string; uuid: string; total: number }> = [];
 
     if (config.supplementation?.folicAcidConceptUuid) {
-      defs.push({ name: 'Ácido Fólico', uuid: config.supplementation.folicAcidConceptUuid, total: 90 });
+      defs.push({
+        name: 'Ácido Fólico',
+        uuid: config.supplementation.folicAcidConceptUuid,
+        total: 90,
+      });
     }
     if (config.supplementation?.ironConceptUuid) {
-      defs.push({ name: 'Sulfato Ferroso', uuid: config.supplementation.ironConceptUuid, total: 180 });
+      defs.push({
+        name: 'Sulfato Ferroso',
+        uuid: config.supplementation.ironConceptUuid,
+        total: 180,
+      });
     }
     if (config.supplementation?.calciumConceptUuid) {
-      defs.push({ name: 'Calcio', uuid: config.supplementation.calciumConceptUuid, total: 140 });
+      defs.push({
+        name: 'Calcio',
+        uuid: config.supplementation.calciumConceptUuid,
+        total: 140,
+      });
     }
 
     return defs;
@@ -76,14 +88,20 @@ export function usePrenatalSupplementation(patientUuid: string): PrenatalSupplem
     const supplements: SupplementItem[] = supplementDefs.map((def, idx) => {
       const observations = data[idx]?.results ?? [];
       const delivered = observations.reduce((sum: number, obs: { value?: number | string }) => {
-        const val = typeof obs.value === 'number' ? obs.value : parseFloat(obs.value);
-        return sum + (isNaN(val) ? 0 : val);
+        const val = typeof obs.value === 'number' ? obs.value : Number.parseFloat(obs.value);
+        return sum + (Number.isNaN(val) ? 0 : val);
       }, 0);
 
       const percentage = def.total > 0 ? Math.min((delivered / def.total) * 100, 100) : 0;
       const isComplete = delivered >= def.total;
 
-      return { name: def.name, delivered, total: def.total, percentage, isComplete };
+      return {
+        name: def.name,
+        delivered,
+        total: def.total,
+        percentage,
+        isComplete,
+      };
     });
 
     const overallPercentage =

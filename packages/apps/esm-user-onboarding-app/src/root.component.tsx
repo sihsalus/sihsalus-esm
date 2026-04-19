@@ -104,7 +104,7 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-user-onboarding-app">
-        <div
+      <div
         onMouseDown={(e) => {
           e.stopPropagation();
         }}

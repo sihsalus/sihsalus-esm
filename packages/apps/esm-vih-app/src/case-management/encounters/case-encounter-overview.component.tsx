@@ -1,13 +1,5 @@
 import { ComboBox, DataTableSkeleton, Dropdown, Layer, Pagination, Tile } from '@carbon/react';
-import {
-  formatDate,
-  showModal,
-  showSnackbar,
-  useConfig,
-  useLayoutType,
-  usePagination,
-  launchWorkspace,
-} from '@openmrs/esm-framework';
+import { formatDate, showModal, showSnackbar, useConfig, usePagination, launchWorkspace } from '@openmrs/esm-framework';
 import { CardHeader, EmptyDataIllustration, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -95,13 +87,11 @@ const CaseEncounterHeader = ({ patientUuid, mutate, onFilterChange }: CaseEncoun
 };
 
 const CaseEncounterOverviewComponent = ({ patientUuid }: CaseEncounterOverviewComponentProps): JSX.Element => {
-  const { visits, isLoading, error, hasMore, isValidating, mutateVisits, setSize, size } =
-    useInfiniteVisits(patientUuid);
+  const { visits, isLoading, mutateVisits } = useInfiniteVisits(patientUuid);
   const { t } = useTranslation();
   const { caseManagementForms } = useConfig<ConfigObject>();
   const [filterFormUuid, setFilterFormUuid] = useState('');
   const [pageSize, setPageSize] = useState(10);
-  const layout = useLayoutType();
 
   const formUuids = caseManagementForms.map((form) => form.formUuid);
 
@@ -131,13 +121,6 @@ const CaseEncounterOverviewComponent = ({ patientUuid }: CaseEncounterOverviewCo
     { header: 'Encounter type', key: 'encounterType' },
     { header: 'Form name', key: 'formName' },
   ];
-
-  function formatProviderName(display) {
-    if (!display) {
-      return '--';
-    }
-    return display.split(':')[0].trim();
-  }
 
   const rows = results.map((encounter) => ({
     id: `${encounter.uuid}`,

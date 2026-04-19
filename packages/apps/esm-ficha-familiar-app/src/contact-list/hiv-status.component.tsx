@@ -11,7 +11,7 @@ interface HIVStatusProps {
 }
 
 const HIVStatus: React.FC<HIVStatusProps> = ({ relativeUuid }) => {
-  const { enrollment, isLoading, error } = useRelativeHivEnrollment(relativeUuid);
+  const { enrollment, isLoading } = useRelativeHivEnrollment(relativeUuid);
   const { encounters, isLoading: encounterLoading } = useRelativeHTSEncounter(relativeUuid);
 
   if (isLoading || encounterLoading) {

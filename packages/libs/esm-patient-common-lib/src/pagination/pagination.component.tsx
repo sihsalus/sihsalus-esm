@@ -11,8 +11,7 @@ interface PatientChartPaginationProps {
   readonly totalItems: number;
   readonly pageNumber: number;
   readonly pageSize: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly onPageNumberChange?: any;
+  readonly onPageNumberChange?: React.ComponentProps<typeof Pagination>['onChange'];
   readonly dashboardLinkUrl?: string;
   readonly dashboardLinkLabel?: string;
 }

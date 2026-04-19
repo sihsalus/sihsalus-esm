@@ -1,11 +1,8 @@
 import { getDefaultsFromConfigSchema, useAppContext, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { mockPatientAlice, mockVisitAlice } from '__mocks__';
+import { mockInpatientAdmissionAlice, mockPatientAlice, mockVisitAlice, mockWardBeds } from 'test-utils';
 import React from 'react';
 import { renderWithSwr } from 'test-utils';
-
-import { mockInpatientAdmissionAlice } from '../../../../../__mocks__/inpatient-admission';
-import { mockWardBeds } from '../../../../../__mocks__/wardBeds.mock';
 import { mockWardViewContext } from '../../../mock';
 import { configSchema, type WardConfigObject } from '../../config-schema';
 import { useObs } from '../../hooks/useObs';

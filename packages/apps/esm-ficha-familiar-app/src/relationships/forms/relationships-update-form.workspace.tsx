@@ -71,7 +71,7 @@ const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({ closeWo
       mutate((key) => {
         return typeof key === 'string' && key.startsWith('/ws/rest/v1/relationship');
       });
-    } catch (error) {
+    } catch {
       showSnackbar({
         title: t('error', 'Error'),
         subtitle: t('failedUpdatingRelationship', 'Failed to update relationship'),

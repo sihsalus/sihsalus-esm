@@ -13,7 +13,7 @@ import {
   TableCell,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { formatDate, parseDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState, CardHeader } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -44,7 +44,7 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
   encounters,
   isLoading,
   error,
-  isValidating,
+  isValidating: _isValidating,
 }) => {
   const { t } = useTranslation();
   const {
@@ -99,7 +99,7 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
     },
   ];
   const tableRows = encounters
-    ?.map((encounter, index) => {
+    ?.map((encounter) => {
       const allFieldsNull = () => {
         return (
           getObsFromEncounter(encounter, Alcohol_Use_UUID) === '--' &&

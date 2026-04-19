@@ -113,7 +113,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
     [resetErrorMessage],
   );
 
-  const updateSchema = useCallback((updatedSchema: FormSchema) => {
+  const updateSchema = useCallback((updatedSchema: Schema) => {
     setSchema(updatedSchema);
     localStorage.setItem('formJSON', JSON.stringify(updatedSchema));
   }, []);
@@ -161,7 +161,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
   };
 
   const inputDummySchema = useCallback(() => {
-    const dummySchema: FormSchema = {
+    const dummySchema: Schema = {
       encounterType: '',
       name: 'Sample Form',
       processor: 'EncounterFormProcessor',
@@ -227,15 +227,13 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
 
   const renderSchemaChanges = useCallback(() => {
     resetErrorMessage();
-    {
-      try {
-        const parsedJson = parseSchemaJson(stringifiedSchema);
-        updateSchema(parsedJson);
-        setStringifiedSchema(JSON.stringify(parsedJson, null, 2));
-      } catch (e) {
-        if (e instanceof Error) {
-          setInvalidJsonErrorMessage(e.message);
-        }
+    try {
+      const parsedJson = parseSchemaJson(stringifiedSchema);
+      updateSchema(parsedJson);
+      setStringifiedSchema(JSON.stringify(parsedJson, null, 2));
+    } catch (e) {
+      if (e instanceof Error) {
+        setInvalidJsonErrorMessage(e.message);
       }
     }
   }, [stringifiedSchema, updateSchema, resetErrorMessage]);
@@ -440,7 +438,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <FormRenderer schema={translatedSchema} isLoading={isLoadingFormOrSchema} />
+                <FormRenderer schema={translatedSchema as FormSchema} isLoading={isLoadingFormOrSchema} />
               </TabPanel>
               <TabPanel>
                 <InteractiveBuilder

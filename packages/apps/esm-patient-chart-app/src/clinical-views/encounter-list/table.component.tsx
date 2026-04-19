@@ -30,7 +30,10 @@ const isFormColumn = (value: unknown): value is FormColumn =>
 
 const getNamedDisplay = (value: unknown) => {
   if (typeof value === 'object' && value !== null) {
-    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+    const namedValue = value as {
+      display?: string;
+      name?: string | { display?: string; name?: string };
+    };
     if (typeof namedValue.display === 'string') {
       return namedValue.display;
     }
@@ -77,9 +80,9 @@ export const EncounterListDataTable: React.FC<TableProps> = ({ tableHeaders, tab
           <Table {...getTableProps()}>
             <TableHead>
               <CarbonTableRow>
-                {headers.map((header, index) => (
+                {headers.map((header) => (
                   <TableHeader
-                    key={index}
+                    key={String(header.key)}
                     className={`${styles.productiveHeading01} ${styles.text02}`}
                     {...getHeaderProps({
                       header,

@@ -80,11 +80,10 @@ export function useInfiniteVisits(patientUuid: string) {
     return url;
   };
 
-  const { data, error, isLoading, isValidating, mutate, size, setSize } = useSWRInfinite<FetchResponse<VisitPageData>, Error>(
-    patientUuid ? getKey : null,
-    openmrsFetch,
-    { parallel: true },
-  );
+  const { data, error, isLoading, isValidating, mutate, size, setSize } = useSWRInfinite<
+    FetchResponse<VisitPageData>,
+    Error
+  >(patientUuid ? getKey : null, openmrsFetch, { parallel: true });
 
   return {
     visits: data ? ([] as Array<Record<string, unknown>>).concat(data.flatMap((page) => page.data.results)) : null,

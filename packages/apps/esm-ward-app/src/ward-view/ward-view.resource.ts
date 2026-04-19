@@ -166,7 +166,6 @@ export function getWardMetricValueTranslation(name: string, t: TFunction, value:
   }
 }
 
- 
 export function useElementConfig(elementType: 'obs', id: string): ObsElementConfig;
 export function useElementConfig(elementType: 'patientIdentifier', id: string): IdentifierElementConfig;
 export function useElementConfig(elementType: 'patientAddress', id: string): PatientAddressElementConfig;
@@ -179,7 +178,7 @@ export function useElementConfig(elementType, id: string): object {
 
   try {
     return config?.patientCardElements?.[elementType]?.find((elementConfig) => elementConfig?.id == id);
-  } catch (e) {
+  } catch {
     showNotification({
       title: t('errorConfiguringPatientCard', 'Error configuring patient card'),
       kind: 'error',
@@ -196,7 +195,6 @@ export function useElementConfig(elementType, id: string): object {
     return null;
   }
 }
- 
 
 export function useWardConfig(locationUuid: string): WardDefinition {
   const { wards } = useConfig<WardConfigObject>();

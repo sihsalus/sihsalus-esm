@@ -1,4 +1,3 @@
- 
 import React, { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
@@ -23,7 +22,7 @@ interface NotesOverviewProps {
 /**
  * This extension uses the patient chart store and MUST only be mounted within the patient chart
  */
-const NotesOverview: React.FC<NotesOverviewProps> = ({ patientUuid, patient, basePath }) => {
+const NotesOverview: React.FC<NotesOverviewProps> = ({ patientUuid, patient, basePath: _basePath }) => {
   const pageSize = 5;
   const { t } = useTranslation();
   const { patientUuid: storedPatientUuid, patient: storedPatient, visitContext } = usePatientChartStore(patientUuid);
@@ -34,8 +33,8 @@ const NotesOverview: React.FC<NotesOverviewProps> = ({ patientUuid, patient, bas
   const displayText = t('visitNotes', 'Visit notes');
   const headerTitle = t('visitNotes', 'Visit notes');
   const { visitNotes, error, isLoading, isValidating } = useVisitNotes(resolvedPatientUuid);
-  const layout = useLayoutType();
-  const isDesktop = layout === 'large-desktop' || layout === 'small-desktop';
+  const _layout = useLayoutType();
+  const _isDesktop = _layout === 'large-desktop' || _layout === 'small-desktop';
 
   const launchVisitNoteForm = React.useCallback(() => {
     if (visitContext) {

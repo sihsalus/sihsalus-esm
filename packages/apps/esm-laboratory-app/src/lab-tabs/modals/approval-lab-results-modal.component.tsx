@@ -51,9 +51,7 @@ const ApproveLabResultsModal: React.FC<ApproveLabResultsModalProps> = ({ order, 
             'You are about to approve and finalize these lab results. Once approved, the results will be marked as complete and made available to clinicians. Are you sure you want to proceed?',
           )}
         </p>
-        <>
-          <ExtensionSlot state={{ order: order }} name="completed-lab-order-results-slot" />
-        </>
+        <ExtensionSlot state={{ order: order }} name="completed-lab-order-results-slot" />
       </ModalBody>
       <ModalFooter>
         <Button kind="secondary" onClick={closeModal}>

@@ -59,11 +59,7 @@ function openDb(dbName: string): Promise<IDBDatabase> {
  * All within a single IDB `readwrite` transaction, so concurrent tabs cannot
  * race between the count check and the write (TOCTOU eliminated).
  */
-function putEncryptedEntry(
-  dbName: string,
-  encEntry: EncryptedEntry,
-  maxEntries: number,
-): Promise<void> {
+function putEncryptedEntry(dbName: string, encEntry: EncryptedEntry, maxEntries: number): Promise<void> {
   return openDb(dbName).then(
     (db) =>
       new Promise<void>((resolve, reject) => {
@@ -88,8 +84,7 @@ function putEncryptedEntry(
                 store.put(encEntry);
               }
             };
-            cursorReq.onerror = () =>
-              reject(cursorReq.error ?? new Error('Cursor error during eviction'));
+            cursorReq.onerror = () => reject(cursorReq.error ?? new Error('Cursor error during eviction'));
           } else {
             store.put(encEntry);
           }
@@ -105,11 +100,7 @@ function putEncryptedEntry(
  * Encrypt `entry` with the user's derived key and store it atomically,
  * evicting the oldest entry if the store is at capacity.
  */
-export async function queueEntry(
-  dbName: string,
-  entry: StoredAuditEntry,
-  maxEntries: number,
-): Promise<void> {
+export async function queueEntry(dbName: string, entry: StoredAuditEntry, maxEntries: number): Promise<void> {
   const encEntry: EncryptedEntry = {
     id: entry.id,
     userUuid: entry.userUuid,
@@ -123,10 +114,7 @@ export async function queueEntry(
  * Fetch and decrypt all entries belonging to `userUuid`.
  * Entries that cannot be decrypted (wrong key, corrupted) are silently skipped.
  */
-export async function getEntriesForUser(
-  dbName: string,
-  userUuid: string,
-): Promise<StoredAuditEntry[]> {
+export async function getEntriesForUser(dbName: string, userUuid: string): Promise<StoredAuditEntry[]> {
   const db = await openDb(dbName);
   const encEntries = await new Promise<EncryptedEntry[]>((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, 'readonly');

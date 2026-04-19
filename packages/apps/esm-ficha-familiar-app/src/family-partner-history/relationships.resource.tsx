@@ -1,10 +1,8 @@
 import type { FetchResponse, FHIRResource } from '@openmrs/esm-framework';
-import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-
-import { ConfigObject } from '../config-schema';
 
 interface RelationshipTypeResponse {
   results: Array<{

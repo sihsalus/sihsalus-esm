@@ -435,7 +435,6 @@ yargs.command(
     }),
 );
 
- 
 yargs
   .epilog(
     'The SPA assemble config JSON is a JSON file, typically `frontend.json`, which defines parameters for the `build` and `assemble` ' +

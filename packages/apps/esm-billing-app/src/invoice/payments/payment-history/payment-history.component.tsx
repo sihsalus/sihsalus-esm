@@ -42,7 +42,8 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = ({ bill }) => {
         sortKey: date.getTime(),
       };
     })
-    .slice().sort((a, b) => b.sortKey - a.sortKey);
+    .slice()
+    .sort((a, b) => b.sortKey - a.sortKey);
 
   if (Object.values(bill?.payments ?? {}).length === 0) {
     return;

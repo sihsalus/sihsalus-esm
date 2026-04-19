@@ -40,7 +40,6 @@ export default function JsonEditor({ height }: JsonEditorProps) {
     setError('');
     clearConfigErrors();
     temporaryConfigStore.setState({ config });
-     
   }, [editorValue]);
 
   useEffect(() => {

@@ -183,7 +183,8 @@ const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, 
     <>
       {(() => {
         if (isLoading) return <DataTableSkeleton role="progressbar" compact={!isTablet} zebra />;
-        if (error || conceptsError) return <ErrorState error={(error ?? conceptsError) as Error} headerTitle={headerTitle} />;
+        if (error || conceptsError)
+          return <ErrorState error={(error ?? conceptsError) as Error} headerTitle={headerTitle} />;
         if (vitals?.length) {
           return (
             <div className={styles.widgetCard}>

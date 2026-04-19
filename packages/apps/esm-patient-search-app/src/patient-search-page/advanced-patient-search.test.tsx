@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockAdvancedSearchResults } from '__mocks__';
+import { mockAdvancedSearchResults } from 'test-utils';
 import React from 'react';
 
 import { configSchema, type PatientSearchConfig } from '../config-schema';
@@ -50,7 +50,7 @@ const mockSearchResults: PatientSearchResponse = {
   setPage: jest.fn(),
   hasMore: false,
   isLoading: false,
-  fetchError: null,
+  fetchError: null as unknown as Error,
 };
 
 const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -91,7 +91,7 @@ describe('AdvancedPatientSearchComponent', () => {
     });
     mockUsePersonAttributeType.mockReturnValue({
       isLoading: false,
-      error: null,
+      error: undefined,
       data: {
         format: 'java.lang.String',
         uuid: '14d4f066-15f5-102d-96e4-000c29c2a5d7',

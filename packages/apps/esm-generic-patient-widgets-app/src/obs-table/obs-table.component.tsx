@@ -31,7 +31,11 @@ const ObsTable: React.FC<ObsTableProps> = ({ patientUuid }) => {
   );
 
   const tableHeaders = [
-    { key: 'date', header: t('dateAndTime', 'Date and time'), isSortable: true },
+    {
+      key: 'date',
+      header: t('dateAndTime', 'Date and time'),
+      isSortable: true,
+    },
     ...config.data.map(({ concept, label }) => ({
       key: concept,
       header: label,
@@ -39,7 +43,11 @@ const ObsTable: React.FC<ObsTableProps> = ({ patientUuid }) => {
   ];
 
   if (config.showEncounterType) {
-    tableHeaders.splice(1, 0, { key: 'encounter', header: t('encounterType', 'Encounter type'), isSortable: true });
+    tableHeaders.splice(1, 0, {
+      key: 'encounter',
+      header: t('encounterType', 'Encounter type'),
+      isSortable: true,
+    });
   }
 
   const tableRows = React.useMemo(
@@ -47,7 +55,9 @@ const ObsTable: React.FC<ObsTableProps> = ({ patientUuid }) => {
       obssGroupedByEncounters?.map((obss, index) => {
         const rowData = {
           id: `${index}`,
-          date: formatDatetime(new Date(obss[0].effectiveDateTime), { mode: 'wide' }),
+          date: formatDatetime(new Date(obss[0].effectiveDateTime), {
+            mode: 'wide',
+          }),
           encounter: obss[0].encounter.name,
         };
 
@@ -111,13 +121,16 @@ const ObsTable: React.FC<ObsTableProps> = ({ patientUuid }) => {
                 <TableRow>
                   {headers.map((header) => (
                     <TableHeader
+                      key={String(header.key ?? header.header)}
                       className={styles.tableHeader}
                       {...getHeaderProps({
                         header,
                         isSortable: header.isSortable,
                       })}
                     >
-                      {header.header?.content ?? header.header}
+                      {typeof header.header === 'object' && header.header !== null && 'content' in header.header
+                        ? (header.header.content as React.ReactNode)
+                        : (header.header as React.ReactNode)}
                     </TableHeader>
                   ))}
                 </TableRow>

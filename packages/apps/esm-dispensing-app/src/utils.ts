@@ -572,10 +572,7 @@ export function isMostRecentMedicationDispense(
   const sorted = medicationDispenses?.sort(sortMedicationDispensesByWhenHandedOver);
 
   // prettier-ignore
-  return medicationDispense &&
-    sorted &&
-    sorted.length > 0 &&
-    sorted[0].id === medicationDispense.id ? true : false;
+  return medicationDispense && sorted && sorted.length > 0 && sorted[0].id === medicationDispense.id ? true : false;
 }
 
 /**

@@ -37,7 +37,7 @@ const InPatientSummary: React.FC<InPatientSummaryProps> = ({ patientUuid, encoun
       },
     });
   };
-  const tableRows = encounters?.map((encounter, index) => {
+  const tableRows = encounters?.map((encounter) => {
     return {
       id: `${encounter.uuid}`,
       bloodGroup: '',

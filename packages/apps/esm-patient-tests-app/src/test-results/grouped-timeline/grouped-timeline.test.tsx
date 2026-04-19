@@ -1,7 +1,7 @@
 import { showModal } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockGroupedResults } from '__mocks__';
+import { mockGroupedResults } from 'test-utils';
 import React from 'react';
 
 import FilterContext from '../filter/filter-context';
@@ -108,9 +108,8 @@ describe('GroupedTimeline', () => {
 
     renderGroupedTimeline(contextWithInterpretations as FilterContextProps);
 
-     
     const highCell = screen.getByText('100').closest('div');
-     
+
     const normalCell = screen.getByText('50').closest('div');
 
     // TODO: Add tests for low interpretation

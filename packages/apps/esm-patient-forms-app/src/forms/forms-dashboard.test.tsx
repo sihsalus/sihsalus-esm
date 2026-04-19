@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
-import { mockCurrentVisit } from '__mocks__';
+import { mockCurrentVisit } from 'test-utils';
 import React from 'react';
 
 import { configSchema, type ConfigObject } from '../config-schema';

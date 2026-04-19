@@ -15,7 +15,7 @@ interface ContactActionsProps {
 }
 
 const ContactActions: React.FC<ContactActionsProps> = ({ relativeUuid, baseLineHIVStatus }) => {
-  const { enrollment, isLoading, error } = useRelativeHivEnrollment(relativeUuid);
+  const { enrollment, isLoading } = useRelativeHivEnrollment(relativeUuid);
   const { encounters, isLoading: encounterLoading } = useRelativeHTSEncounter(relativeUuid);
 
   const {

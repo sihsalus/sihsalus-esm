@@ -61,6 +61,7 @@ const CreateEditPatientList: React.FC<CreateEditPatientListProps> = ({
           close();
         })
         .catch((error) => {
+          console.error('Failed to update patient list', error);
           showSnackbar({
             title: t('errorUpdatingList', 'Error updating list'),
             subtitle: t('problemUpdatingList', 'There was a problem updating the list'),
@@ -88,6 +89,7 @@ const CreateEditPatientList: React.FC<CreateEditPatientListProps> = ({
           close();
         })
         .catch((error) => {
+          console.error('Failed to create patient list', error);
           showSnackbar({
             title: t('errorCreatingList', 'Error creating list'),
             subtitle: t('problemCreatingList', 'There was a problem creating the list'),

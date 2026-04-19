@@ -248,9 +248,7 @@ export class FormManager {
         const identifier =
           !autoGeneration || autoGenerationManualEntry
             ? identifierValue
-            : await (
-                await generateIdentifier(selectedSource.uuid)
-              ).data.identifier;
+            : await (await generateIdentifier(selectedSource.uuid)).data.identifier;
 
         const identifierToCreate = {
           uuid: identifierUuid,
@@ -431,9 +429,7 @@ export class FormManager {
         given: [name.givenName, name.middleName].filter(Boolean),
         family: name.familyName,
         text: [name.familyName, name.familyName2, name.givenName, name.middleName].filter(Boolean).join(' '),
-        ...(name.familyName2
-          ? { extension: [{ extension: [{ valueString: name.familyName2 }] }] }
-          : {}),
+        ...(name.familyName2 ? { extension: [{ extension: [{ valueString: name.familyName2 }] }] } : {}),
       })),
       address: patient.person?.addresses.map((address) => ({
         city: address.cityVillage,

@@ -124,7 +124,10 @@ class AuditLogger {
       const batch = entries.slice(i, i + FLUSH_BATCH_SIZE);
       try {
         await this.sendEntries(batch);
-        await clearEntries(dbName, batch.map((e) => e.id));
+        await clearEntries(
+          dbName,
+          batch.map((e) => e.id),
+        );
       } catch (err) {
         console.error('[AuditLogger] Flush batch failed, stopping:', err);
         break;

@@ -1,4 +1,3 @@
- 
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
@@ -44,10 +43,11 @@ fs.mkdirSync(outDir, { recursive: true });
 
 // ── Phase 1: Copy locally-built app bundles (@sihsalus/* and @openmrs/* overrides) ──
 logInfo('Phase 1: Local modules');
-const appDirs = fs.readdirSync('packages/apps', { withFileTypes: true })
-  .filter(d => d.isDirectory() && d.name.startsWith('esm-'))
-  .map(d => path.join('packages/apps', d.name, 'dist'))
-  .filter(d => fs.existsSync(d));
+const appDirs = fs
+  .readdirSync('packages/apps', { withFileTypes: true })
+  .filter((d) => d.isDirectory() && d.name.startsWith('esm-'))
+  .map((d) => path.join('packages/apps', d.name, 'dist'))
+  .filter((d) => fs.existsSync(d));
 const localBaseNames = new Set();
 
 // Track packages found locally but without a built dist, for a summary warning
@@ -101,7 +101,11 @@ for (const distDir of appDirs) {
   // Collect routes — prefer src/routes.json (source of truth), fall back to dist/routes.json
   const routesPathSrc = path.join(distDir, '..', 'src', 'routes.json');
   const routesPathDist = path.join(distDir, 'routes.json');
-  const routesPath = fs.existsSync(routesPathSrc) ? routesPathSrc : fs.existsSync(routesPathDist) ? routesPathDist : null;
+  const routesPath = fs.existsSync(routesPathSrc)
+    ? routesPathSrc
+    : fs.existsSync(routesPathDist)
+      ? routesPathDist
+      : null;
   if (routesPath) {
     routesRegistry[pkg.name] = {
       ...JSON.parse(fs.readFileSync(routesPath, 'utf8')),
@@ -194,7 +198,10 @@ async function downloadNpmModules() {
         fs.cpSync(pkgDistDir, versionedDir, { recursive: true, force: true });
       } else {
         // browserField is at the package root (no subdirectory)
-        copyFileReplacingIfNeeded(path.join(tmpDir, browserField), path.join(versionedDir, path.basename(browserField)));
+        copyFileReplacingIfNeeded(
+          path.join(tmpDir, browserField),
+          path.join(versionedDir, path.basename(browserField)),
+        );
       }
 
       const entryFileName = path.basename(browserField);
@@ -296,20 +303,17 @@ function patchIndexHtml() {
 
   logInfo('Phase 6: Patching index.html');
 
-  const importmapUrl    = process.env.IMPORTMAP_URL      || '';
-  const spaPath         = process.env.SPA_PATH           || '';
-  const apiUrl          = process.env.API_URL            || '';
-  const defaultLocale   = process.env.SPA_DEFAULT_LOCALE || 'es';
-  const rawConfigUrls   = (process.env.SPA_CONFIG_URLS   || '').trim();
+  const importmapUrl = process.env.IMPORTMAP_URL || '';
+  const spaPath = process.env.SPA_PATH || '';
+  const apiUrl = process.env.API_URL || '';
+  const defaultLocale = process.env.SPA_DEFAULT_LOCALE || 'es';
+  const rawConfigUrls = (process.env.SPA_CONFIG_URLS || '').trim();
 
   let html = fs.readFileSync(indexPath, 'utf8');
 
   // 1. IMPORTMAP_URL — replace "$SPA_PATH/importmap.json" with the override URL
   if (importmapUrl && spaPath) {
-    html = html.replace(
-      /(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g,
-      `$1${importmapUrl}$1`,
-    );
+    html = html.replace(/(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g, `$1${importmapUrl}$1`);
   }
 
   // 2. SPA_CONFIG_URLS — convert comma-separated list to JS array elements
@@ -343,10 +347,7 @@ function patchIndexHtml() {
   if (fs.existsSync(swPath)) {
     let sw = fs.readFileSync(swPath, 'utf8');
     if (importmapUrl && spaPath) {
-      sw = sw.replace(
-        /(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g,
-        `$1${importmapUrl}$1`,
-      );
+      sw = sw.replace(/(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g, `$1${importmapUrl}$1`);
     }
     fs.writeFileSync(swPath, envsubst(sw));
     logInfo('OK service-worker.js patched');

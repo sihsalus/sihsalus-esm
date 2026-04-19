@@ -112,7 +112,10 @@ const CREDControlsWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
       patientAge: formattedAge,
       controlNumber: credControlNumber,
       title: t('credFormsSelection', 'Selección de Formularios Crecimiento y Desarrollo'),
-      subtitle: t('credFormsInstructions', 'Seleccione los formularios que desea completar para este control Crecimiento y Desarrollo.'),
+      subtitle: t(
+        'credFormsInstructions',
+        'Seleccione los formularios que desea completar para este control Crecimiento y Desarrollo.',
+      ),
       backWorkspace: 'wellchild-control-form',
     });
   }, [watch, patientUuid, visit, allAvailableForms, formattedAge, credControlNumber, t]);
@@ -190,7 +193,9 @@ const CREDControlsWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
             align="top"
             label={
               <div className={styles.ageGroupTooltipInfo}>
-                <p className={styles.tooltipTitle}>{t('ageGroupsInfo', 'Información de Grupos Etarios Crecimiento y Desarrollo:')}</p>
+                <p className={styles.tooltipTitle}>
+                  {t('ageGroupsInfo', 'Información de Grupos Etarios Crecimiento y Desarrollo:')}
+                </p>
                 <ul className={styles.ageGroupsList}>
                   <li>{t('recienNacido', 'Recién Nacido: 0-28 días')}</li>
                   <li>{t('lactanteMenor', 'Lactante Menor: 29 días - 11 meses')}</li>

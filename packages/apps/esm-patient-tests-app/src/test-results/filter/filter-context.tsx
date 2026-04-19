@@ -39,7 +39,7 @@ const initialContext = {
 const FilterContext = createContext<FilterContextProps>(initialContext);
 
 export interface FilterProviderProps {
-  roots: any[];
+  roots: Array<TreeNode>;
   children: React.ReactNode;
 }
 

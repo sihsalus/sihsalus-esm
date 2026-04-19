@@ -1,4 +1,3 @@
- 
 import { InlineNotification } from '@carbon/react';
 import { useAppContext, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
 import React, { createContext, type ReactNode } from 'react';
@@ -20,7 +19,7 @@ const AdmissionRequestsWorkspace: React.FC<AdmissionRequestsWorkspaceProps> = (p
   const { t } = useTranslation();
   const { errorFetchingEmrConfiguration } = useEmrConfiguration();
   const { wardPatientGroupDetails } = useAppContext<WardViewContext>('ward-view-context') ?? {};
-  const { inpatientRequests, isLoading, error } = wardPatientGroupDetails?.inpatientRequestResponse ?? {};
+  const { inpatientRequests } = wardPatientGroupDetails?.inpatientRequestResponse ?? {};
 
   return (
     <div className={styles.admissionRequestsWorkspaceContainer}>

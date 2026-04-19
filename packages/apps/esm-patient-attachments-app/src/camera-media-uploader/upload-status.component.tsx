@@ -1,4 +1,3 @@
- 
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonSet, FileUploaderItem, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';

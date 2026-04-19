@@ -1,4 +1,4 @@
-import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
+import { defineConfigSchema, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 
 import { configSchema } from './config-schema';
@@ -70,6 +70,16 @@ export const relationshipsLink = getSyncLifecycle(
 export const contactList = getSyncLifecycle(ContactList, options);
 export const contactListForm = getSyncLifecycle(ContactListForm, options);
 export const contactListLink = getSyncLifecycle(
-  createDashboardLink({ ...{ icon: 'omrs-icon-group', slot: 'patient-chart-relationships-slot', columns: 1, title: 'Contact List', path: 'contact-list', config: {} }, moduleName }),
+  createDashboardLink({
+    ...{
+      icon: 'omrs-icon-group',
+      slot: 'patient-chart-relationships-slot',
+      columns: 1,
+      title: 'Contact List',
+      path: 'contact-list',
+      config: {},
+    },
+    moduleName,
+  }),
   options,
 );

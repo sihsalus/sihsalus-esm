@@ -199,7 +199,6 @@ export async function runProject(
       continue;
     }
 
-     
     const project = require(projectFile);
     const startup = project['openmrs:develop'];
 

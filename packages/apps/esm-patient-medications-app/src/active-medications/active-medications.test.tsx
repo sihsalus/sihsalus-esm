@@ -1,7 +1,7 @@
 import { launchWorkspace, openmrsFetch, useSession } from '@openmrs/esm-framework';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockPatientDrugOrdersApiData, mockSessionDataResponse } from '__mocks__';
+import { mockPatientDrugOrdersApiData, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 

@@ -49,7 +49,16 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({ isPrinting, pageSize,
   const handleSorting = (
     _cellA: any,
     _cellB: any,
-    { key, sortDirection }: { key: string; sortDirection: 'ASC' | 'DESC' | 'NONE'; sortStates: any; locale: string; compare: (a: any, b: any) => number },
+    {
+      key,
+      sortDirection,
+    }: {
+      key: string;
+      sortDirection: 'ASC' | 'DESC' | 'NONE';
+      sortStates: any;
+      locale: string;
+      compare: (a: any, b: any) => number;
+    },
   ): number => {
     if (sortDirection === 'NONE') {
       setSortParams({ key: '', sortDirection });

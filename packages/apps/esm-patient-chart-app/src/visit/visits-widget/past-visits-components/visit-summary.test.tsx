@@ -1,7 +1,7 @@
 import { ExtensionSlot, getConfig, getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { visitOverviewDetailMockData, visitOverviewDetailMockDataNotEmpty } from '__mocks__';
+import { visitOverviewDetailMockData, visitOverviewDetailMockDataNotEmpty } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 

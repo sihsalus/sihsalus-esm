@@ -1,4 +1,3 @@
- 
 import { Button, ButtonSet, Form, InlineNotification } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSnackbar, useAppContext } from '@openmrs/esm-framework';
@@ -44,7 +43,6 @@ export default function PatientBedSwapForm({
     formState: { errors, isDirty },
     control,
     handleSubmit,
-    getValues,
   } = useForm<FormValues>({ resolver: zodResolver(zodSchema) });
 
   useEffect(() => {
@@ -159,14 +157,14 @@ export default function PatientBedSwapForm({
         />
         {showErrorNotifications && (
           <div className={styles.notifications}>
-            {Object.values(errors).map((error) => (
-              <InlineNotification lowContrast subtitle={error.message} />
+            {Object.entries(errors).map(([fieldName, error]) => (
+              <InlineNotification key={fieldName} lowContrast subtitle={error.message} />
             ))}
           </div>
         )}
       </div>
       <ButtonSet className={styles.buttonSet}>
-        <Button size="xl" kind="secondary" onClick={closeWorkspaceWithSavedChanges}>
+        <Button size="xl" kind="secondary" onClick={() => closeWorkspaceWithSavedChanges()}>
           {t('cancel', 'Cancel')}
         </Button>
         <Button

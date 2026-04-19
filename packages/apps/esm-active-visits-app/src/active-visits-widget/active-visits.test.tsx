@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, type OpenmrsResource, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockSession } from '__mocks__';
+import { mockSession } from 'test-utils';
 import React from 'react';
 
 import { type ActiveVisitsConfigSchema, configSchema } from '../config-schema';

@@ -2,7 +2,6 @@ import {
   Button,
   DataTable,
   DataTableSkeleton,
-  Layer,
   Pagination,
   Table,
   TableBody,
@@ -19,7 +18,6 @@ import {
   ErrorState,
   isDesktop,
   launchWorkspace,
-  useConfig,
   useLayoutType,
   usePagination,
 } from '@openmrs/esm-framework';
@@ -115,8 +113,6 @@ const ContactList: React.FC<ContactListProps> = ({ patientUuid }) => {
 
   const tableRows =
     results?.map((relation) => {
-      const patientUuid = relation.patientUuid;
-
       return {
         id: `${relation.uuid}`,
         startDate: relation.startDate ?? '--',
@@ -207,7 +203,7 @@ const ContactList: React.FC<ContactListProps> = ({ patientUuid }) => {
                         isSortable: header.isSortable,
                       })}
                     >
-                      {header.header?.content ?? header.header}
+                      {header.header}
                     </TableHeader>
                   ))}
                 </TableRow>

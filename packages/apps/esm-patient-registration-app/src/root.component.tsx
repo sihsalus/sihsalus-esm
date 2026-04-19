@@ -35,7 +35,7 @@ export default function Root() {
 
   return (
     <AppErrorBoundary appName="esm-patient-registration-app">
-        <main className={classNames('omrs-main-content', styles.root)}>
+      <main className={classNames('omrs-main-content', styles.root)}>
         <Grid className={styles.grid}>
           <Row>
             <ExtensionSlot name="breadcrumbs-slot" />
@@ -63,6 +63,6 @@ export default function Root() {
           </ResourcesContext.Provider>
         </Grid>
       </main>
-      </AppErrorBoundary>
+    </AppErrorBoundary>
   );
 }

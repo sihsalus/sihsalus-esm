@@ -27,10 +27,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useFilteredEncounter } from '../../hooks/useFilteredEncounter';
 
-import ObservationGroupDetails, {
-  type ObservationGroup,
-  type ObservationRow,
-} from './observation-group-details.component';
+import ObservationGroupDetails, { type ObservationGroup } from './observation-group-details.component';
 import styles from './patient-observation-group-table.scss';
 
 // Importar tipos desde el componente separado
@@ -58,7 +55,7 @@ const GroupTitleCell: React.FC<{ group: ObservationGroup }> = ({ group }) => (
 const GroupDateCell: React.FC<{ group: ObservationGroup }> = ({ group }) => <div>{group.date}</div>;
 
 // Componente para acciones (si necesitas agregar alguna)
-const GroupActionsCell: React.FC<{ group: ObservationGroup }> = ({ group }) => (
+const GroupActionsCell: React.FC<{ group: ObservationGroup }> = ({ group: _group }) => (
   <div>{/* Aquí puedes agregar acciones específicas por grupo si es necesario */}</div>
 );
 

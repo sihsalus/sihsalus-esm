@@ -41,8 +41,8 @@ const InPatientNote: React.FC<InPatientNoteProps> = ({ note }) => {
         </span>
       </div>
       {note.diagnoses &&
-        note.diagnoses.split(',').map((diagnosis, index) => (
-          <Tag key={index} type="red">
+        note.diagnoses.split(',').map((diagnosis) => (
+          <Tag key={diagnosis.trim()} type="red">
             {diagnosis.trim()}
           </Tag>
         ))}

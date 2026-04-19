@@ -110,7 +110,7 @@ const reducer = (state, action) => {
           activeFormUuid: null,
         };
         persistData(newState);
-         
+
         navigate({ to: '${openmrsSpaBase}/forms' });
         return newState;
       } else {
@@ -243,7 +243,7 @@ const reducer = (state, action) => {
         activeFormUuid: null,
       };
       persistData(newState);
-       
+
       navigate({ to: '${openmrsSpaBase}/forms' });
       return newState;
     }
@@ -253,7 +253,7 @@ const reducer = (state, action) => {
         activeFormUuid: null,
       };
       persistData(newState);
-       
+
       navigate({ to: '${openmrsSpaBase}/forms' });
       return newState;
     }

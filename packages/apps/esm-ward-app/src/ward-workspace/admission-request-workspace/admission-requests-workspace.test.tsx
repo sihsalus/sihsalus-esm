@@ -1,4 +1,3 @@
- 
 import { useAppContext } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import React from 'react';

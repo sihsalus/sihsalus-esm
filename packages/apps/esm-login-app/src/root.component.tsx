@@ -10,7 +10,7 @@ import RedirectLogout from './redirect-logout/redirect-logout.component';
 const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-login-app">
-        <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
+      <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="login/confirm" element={<Login />} />

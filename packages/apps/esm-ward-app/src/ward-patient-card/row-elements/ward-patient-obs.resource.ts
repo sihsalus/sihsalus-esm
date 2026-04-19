@@ -5,11 +5,11 @@ import { type ColoredObsTagConfig } from '../../config-schema';
 import { type Observation } from '../../types';
 
 // prettier-ignore
-export const obsCustomRepresentation = 
-  'custom:(uuid,display,obsDatetime,value,' + 
-    'concept:(uuid,display),' + 
-    'encounter:(uuid,display,encounterType,encounterDatetime,' + 
-      'visit:(uuid,display)))';
+export const obsCustomRepresentation =
+  'custom:(uuid,display,obsDatetime,value,' +
+  'concept:(uuid,display),' +
+  'encounter:(uuid,display,encounterType,encounterDatetime,' +
+  'visit:(uuid,display)))';
 
 //  get the setMembers of a concept set
 const conceptSetCustomRepresentation = 'custom:(uuid,setMembers:(uuid))';

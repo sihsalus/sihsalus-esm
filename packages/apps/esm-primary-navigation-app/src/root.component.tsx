@@ -8,7 +8,7 @@ import styles from './root.scss';
 const Root: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-primary-navigation-app">
-        <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
+      <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
         <Routes>
           <Route path="login/*" element={null} />
           <Route path="logout/*" element={null} />

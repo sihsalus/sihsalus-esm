@@ -55,7 +55,10 @@ const isFormColumn = (value: unknown): value is FormColumn =>
 
 const getNamedDisplay = (value: unknown) => {
   if (typeof value === 'object' && value !== null) {
-    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+    const namedValue = value as {
+      display?: string;
+      name?: string | { display?: string; name?: string };
+    };
     if (typeof namedValue.display === 'string') {
       return namedValue.display;
     }
@@ -246,7 +249,7 @@ export const EncounterList: React.FC<EncounterListProps> = ({
             return (
               form && (
                 <OverflowMenuItem
-                  key={index}
+                  key={`${actionItem.label}-${actionItem.mode}-${actionItem.intent ?? index}`}
                   index={index}
                   itemText={t(actionItem.label)}
                   onClick={(e) => {

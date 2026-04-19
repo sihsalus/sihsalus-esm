@@ -62,7 +62,7 @@
     {
       "name": "visit-form-queue-fields",
       "component": "visitFormQueueFields",
-      "slot":"visit-form-bottom-slot"
+      "slot": "visit-form-bottom-slot"
     },
     {
       "name": "queue-patient-info-queue-entry-status",

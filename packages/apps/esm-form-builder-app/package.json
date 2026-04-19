@@ -15,23 +15,14 @@
     "typescript": "tsc",
     "test": "jest --config jest.config.js --color",
     "test:watch": "jest --config jest.config.js --watch --color",
-    "test-e2e": "playwright test",
+    "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/form-builder/playwright.config.ts",
     "verify": "turbo run lint typescript coverage --color",
     "coverage": "yarn test --coverage --passWithNoTests",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.modal.tsx' --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs",
-    "microfrontends",
-    "form builder"
-  ],
+  "files": ["dist", "src"],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs", "microfrontends", "form builder"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-form-builder.git"

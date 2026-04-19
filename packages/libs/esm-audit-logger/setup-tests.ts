@@ -13,8 +13,8 @@ afterEach(cleanup);
  * We bind to globalThis first to avoid infinite recursion when the spy fires.
  */
 const _win = globalThis as unknown as {
-	addEventListener: typeof globalThis.addEventListener;
-	removeEventListener: typeof globalThis.removeEventListener;
+  addEventListener: typeof globalThis.addEventListener;
+  removeEventListener: typeof globalThis.removeEventListener;
 };
 const _boundAdd: typeof globalThis.addEventListener = _win.addEventListener.bind(_win);
 const _boundRemove: typeof globalThis.removeEventListener = _win.removeEventListener.bind(_win);

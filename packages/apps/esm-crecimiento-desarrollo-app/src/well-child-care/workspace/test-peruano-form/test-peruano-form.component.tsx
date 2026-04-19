@@ -379,12 +379,7 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({});
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-  } = useForm<TestPeruanoFormType>({
+  const { control, handleSubmit, watch, setValue } = useForm<TestPeruanoFormType>({
     mode: 'all',
     resolver: zodResolver(TestPeruanoSchema),
     defaultValues: {
@@ -509,8 +504,7 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
       'Development is appropriate for age and cultural context. Continue with regular activities.';
     if (totalClassification === 'retraso' || totalClassification === 'limite') {
       recommendationKey = 'tpRecommendationDelay';
-      recommendationDefault =
-        'Specialist evaluation and culturally appropriate early stimulation are recommended.';
+      recommendationDefault = 'Specialist evaluation and culturally appropriate early stimulation are recommended.';
     } else if (totalClassification === 'normal_bajo') {
       recommendationKey = 'tpRecommendationLowNormal';
       recommendationDefault = 'Stimulation activities using familiar cultural elements are suggested.';
@@ -614,7 +608,8 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
           title: t('testPeruanoSaveError', 'Error saving Test Peruano'),
           kind: 'error',
           isLowContrast: false,
-          subtitle: (error as Error)?.message ?? t('unexpectedError', 'An unexpected error occurred. Please try again.'),
+          subtitle:
+            (error as Error)?.message ?? t('unexpectedError', 'An unexpected error occurred. Please try again.'),
         });
       } finally {
         setIsSubmitting(false);
@@ -683,8 +678,7 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
                     {patient.patient ? getPatientName(patient.patient) : t('loading', 'Loading...')}
                   </p>
                   <p>
-                    <strong>{t('age', 'Age')}:</strong>{' '}
-                    {t('ageMonths', '{{count}} months', { count: childAgeMonths })}
+                    <strong>{t('age', 'Age')}:</strong> {t('ageMonths', '{{count}} months', { count: childAgeMonths })}
                   </p>
                 </div>
                 <div>

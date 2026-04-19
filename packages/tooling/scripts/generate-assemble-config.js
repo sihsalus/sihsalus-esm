@@ -1,5 +1,5 @@
 #!/usr/bin/env node
- 
+
 /**
  * generate-assemble-config.js
  *
@@ -27,7 +27,8 @@ const outPath = process.env.SPA_ASSEMBLE_CONFIG || 'config/spa-assemble-config.j
 const frontendModules = {};
 const skipped = [];
 
-const dirs = fs.readdirSync(appsDir, { withFileTypes: true })
+const dirs = fs
+  .readdirSync(appsDir, { withFileTypes: true })
   .filter((d) => d.isDirectory() && d.name.startsWith('esm-'))
   .map((d) => path.join(appsDir, d.name));
 
@@ -60,15 +61,11 @@ if (skipped.length > 0) {
   for (const s of skipped) logWarn(`  - ${s}`);
 }
 
-const existing = fs.existsSync(outPath)
-  ? JSON.parse(fs.readFileSync(outPath, 'utf8'))
-  : { frontendModules: {} };
+const existing = fs.existsSync(outPath) ? JSON.parse(fs.readFileSync(outPath, 'utf8')) : { frontendModules: {} };
 
 // Preserve any manually-added external (@openmrs/* or other) entries
 // that are NOT overridden by a local package with the same base name
-const localBaseNames = new Set(
-  Object.keys(frontendModules).map((n) => n.replace(/^@[^/]+\//, ''))
-);
+const localBaseNames = new Set(Object.keys(frontendModules).map((n) => n.replace(/^@[^/]+\//, '')));
 
 const externalEntries = Object.entries(existing.frontendModules || {}).filter(([name]) => {
   const baseName = name.replace(/^@[^/]+\//, '');

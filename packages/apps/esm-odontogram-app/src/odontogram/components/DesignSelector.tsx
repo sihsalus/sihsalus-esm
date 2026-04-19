@@ -4,16 +4,9 @@ import { CheckmarkFilled } from '@carbon/react/icons';
 import Tooth from './Tooth';
 import type { FindingColor, FindingDesign, ToothFinding } from '../types/odontogram';
 import {
-  Finding3Design1,
-  Finding4Design1,
   Finding8Design1,
   Finding8Design2,
   Finding8Design3,
-  Finding20Design1,
-  Finding23Design1,
-  Finding38Design1,
-  Finding7Design1,
-  Finding28Design1,
   Finding37Design1,
   Finding37Design2,
   Finding37Design3,

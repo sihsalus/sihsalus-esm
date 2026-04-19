@@ -1,4 +1,3 @@
- 
 import { SkeletonText } from '@carbon/react';
 import { CheckmarkFilledIcon, CloseFilledIcon } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';

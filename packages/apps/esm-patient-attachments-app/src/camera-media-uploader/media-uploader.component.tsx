@@ -1,4 +1,3 @@
- 
 import React, { useCallback, useContext, useState } from 'react';
 import { FileUploaderDropContainer, InlineNotification } from '@carbon/react';
 import { useTranslation } from 'react-i18next';

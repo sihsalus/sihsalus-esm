@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { useReactToPrint } from 'react-to-print';
 import { getDefaultsFromConfigSchema, useConfig, usePatient } from '@openmrs/esm-framework';
 import { configSchema, type BillingConfig } from '../config-schema';
-import { mockBill, mockPatient } from 'mocks/bills.mock';
+import { mockBill, mockPatient } from '../../test-utils/mocks/bills.mock';
 import { useBill } from '../billing.resource';
 import { usePaymentModes } from './payments/payment.resource';
 import { waitForLoadingToFinish } from 'test-utils';

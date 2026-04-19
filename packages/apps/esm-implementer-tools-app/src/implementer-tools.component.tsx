@@ -20,8 +20,7 @@ function PopupHandler() {
   useEffect(() => {
     // displaying actionable notification if backend modules have missing dependencies
     setShouldShowNotification(
-      (alreadyShowing) =>
-        alreadyShowing || (backendError ? true : hasInvalidDependencies(backendDependencies)),
+      (alreadyShowing) => alreadyShowing || (backendError ? true : hasInvalidDependencies(backendDependencies)),
     );
   }, [backendDependencies, backendError]);
 

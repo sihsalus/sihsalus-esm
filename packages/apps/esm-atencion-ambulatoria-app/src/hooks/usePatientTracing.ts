@@ -1,10 +1,9 @@
 import { openmrsFetch, useConfig } from '@openmrs/esm-framework';
-import groupBy from 'lodash-es/groupBy';
 import useSWR from 'swr';
 
 import type { ConfigObject } from '../config-schema';
 import type { OpenmrsEncounter } from '../types';
-import { encounterRepresentation, MissedAppointmentDate_UUID } from '../utils/constants';
+import { encounterRepresentation } from '../utils/constants';
 
 export function usePatientTracing(patientUuid: string) {
   const config = useConfig() as ConfigObject;

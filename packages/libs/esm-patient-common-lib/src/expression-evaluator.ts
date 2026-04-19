@@ -74,9 +74,7 @@ function evalNode(node: JsepNode, context: Record<string, unknown>): unknown {
       const me = node as jsep.MemberExpression;
       const obj = evalNode(me.object, context);
       if (obj == null) return undefined;
-      const prop = me.computed
-        ? evalNode(me.property, context)
-        : (me.property as jsep.Identifier).name;
+      const prop = me.computed ? evalNode(me.property, context) : (me.property as jsep.Identifier).name;
       if (typeof prop === 'string' && FORBIDDEN_PROPS.has(prop)) return undefined;
       if (typeof prop === 'string' || typeof prop === 'number') {
         return (obj as Record<string | number, unknown>)[prop];
@@ -115,17 +113,28 @@ function evalNode(node: JsepNode, context: Record<string, unknown>): unknown {
       const left = evalNode(be.left, context);
       const right = evalNode(be.right, context);
       switch (be.operator) {
-        case '===': return left === right;
-        case '!==': return left !== right;
-        case '==':  return left == right;   
-        case '!=':  return left != right;   
-        case '>':   return (left as number) > (right as number);
-        case '<':   return (left as number) < (right as number);
-        case '>=':  return (left as number) >= (right as number);
-        case '<=':  return (left as number) <= (right as number);
-        case '+':   return (left as number) + (right as number);
-        case '-':   return (left as number) - (right as number);
-        default:    return false;
+        case '===':
+          return left === right;
+        case '!==':
+          return left !== right;
+        case '==':
+          return left == right;
+        case '!=':
+          return left != right;
+        case '>':
+          return (left as number) > (right as number);
+        case '<':
+          return (left as number) < (right as number);
+        case '>=':
+          return (left as number) >= (right as number);
+        case '<=':
+          return (left as number) <= (right as number);
+        case '+':
+          return (left as number) + (right as number);
+        case '-':
+          return (left as number) - (right as number);
+        default:
+          return false;
       }
     }
 
@@ -139,9 +148,7 @@ function evalNode(node: JsepNode, context: Record<string, unknown>): unknown {
 
     case 'ConditionalExpression': {
       const cond = node as jsep.ConditionalExpression;
-      return evalNode(cond.test, context)
-        ? evalNode(cond.consequent, context)
-        : evalNode(cond.alternate, context);
+      return evalNode(cond.test, context) ? evalNode(cond.consequent, context) : evalNode(cond.alternate, context);
     }
 
     case 'ArrayExpression': {

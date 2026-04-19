@@ -9,7 +9,7 @@ import {
 } from '@openmrs/esm-framework';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockUseAppointmentServiceData, mockSession, mockLocations, mockProviders } from '__mocks__';
+import { mockUseAppointmentServiceData, mockSession, mockLocations, mockProviders } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 

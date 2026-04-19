@@ -1,7 +1,7 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { type Order } from '@openmrs/esm-patient-common-lib';
 
-export function cancelOrder(order: Order, requestBody: any) {
+export function cancelOrder(order: Order, requestBody: unknown) {
   const ac = new AbortController();
 
   return openmrsFetch(`${restBaseUrl}/order/${order.uuid}/fulfillerdetails/`, {

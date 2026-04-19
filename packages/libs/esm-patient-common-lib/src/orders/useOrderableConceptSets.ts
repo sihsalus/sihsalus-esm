@@ -60,7 +60,6 @@ function useOrderableConceptSWR(searchTerm: string, orderableConceptSets?: Array
   };
 }
 
- 
 export interface OrderableConcept extends OpenmrsResource {}
 
 export function useOrderableConceptSets(searchTerm: string, orderableConcepts: Array<string>) {

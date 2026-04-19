@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { showSnackbar, showNotification, type Order } from '@openmrs/esm-framework';
+import { showSnackbar, showNotification, type FetchResponse, type Order } from '@openmrs/esm-framework';
 import { setFulfillerStatus, useInvalidateLabOrders } from '../../laboratory.resource';
 import PickupLabRequestModal from './pickup-lab-request-modal.component';
 
@@ -51,7 +51,7 @@ describe('PickupLabRequestModal', () => {
   });
 
   it('should call setFulfillerStatus and show success snackbar when picking up order succeeds', async () => {
-    mockSetFulfillerStatus.mockResolvedValue({} as any);
+    mockSetFulfillerStatus.mockResolvedValue({} as FetchResponse<unknown>);
 
     render(<PickupLabRequestModal order={mockOrder as Order} closeModal={mockCloseModal} />);
 
@@ -111,14 +111,16 @@ describe('PickupLabRequestModal', () => {
     render(<PickupLabRequestModal order={mockOrder as Order} closeModal={mockCloseModal} />);
 
     const user = userEvent.setup();
-    const submitButton = screen.getByRole('button', { name: 'Pick up lab request' });
+    const submitButton = screen.getByRole('button', {
+      name: 'Pick up lab request',
+    });
     expect(submitButton).not.toBeDisabled();
 
     await user.click(submitButton);
 
     expect(submitButton).toBeDisabled();
 
-    resolvePromise!({});
+    resolvePromise?.({});
 
     await waitFor(() => {
       expect(mockCloseModal).toHaveBeenCalled();

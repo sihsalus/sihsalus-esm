@@ -3,7 +3,7 @@ import {
   mockInpatientAdmissions,
   mockInpatientRequests,
   mockLocationInpatientWard,
-} from '__mocks__';
+} from 'test-utils';
 import { useAdmissionLocation } from './src/hooks/useAdmissionLocation';
 import { useInpatientAdmission } from './src/hooks/useInpatientAdmission';
 import { createAndGetWardPatientGrouping } from './src/ward-view/ward-view.resource';

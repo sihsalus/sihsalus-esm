@@ -233,7 +233,9 @@ const OverviewComponent: React.FC = () => {
     async (reportRequestUuid: string) => {
       try {
         const response = await downloadReport(reportRequestUuid);
-        processAndDownloadFile(response);
+        if (isDownloadableFile(response)) {
+          processAndDownloadFile(response);
+        }
         clearReportCheckboxes();
         showSnackbar({
           kind: 'success',
@@ -252,10 +254,12 @@ const OverviewComponent: React.FC = () => {
   );
 
   const handleDownloadMultipleReports = useCallback(
-    async (reportRequestUuids) => {
+    async (reportRequestUuids: string[]) => {
       try {
         const response = await downloadMultipleReports(reportRequestUuids);
-        response.forEach((file) => processAndDownloadFile(file));
+        if (Array.isArray(response)) {
+          response.forEach((file) => processAndDownloadFile(file));
+        }
         clearReportCheckboxes();
         showSnackbar({
           kind: 'success',
@@ -273,7 +277,7 @@ const OverviewComponent: React.FC = () => {
     [t],
   );
 
-  const processAndDownloadFile = (file) => {
+  const processAndDownloadFile = (file: { fileContent: string; fileName: string; mimeType: string }) => {
     const decodedData = globalThis.atob(file.fileContent);
     const byteArray = new Uint8Array(decodedData.length);
     for (let i = 0; i < decodedData.length; i++) {
@@ -282,7 +286,7 @@ const OverviewComponent: React.FC = () => {
     const url = globalThis.URL.createObjectURL(new Blob([byteArray]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', file.filename);
+    link.setAttribute('download', file.fileName);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -304,7 +308,7 @@ const OverviewComponent: React.FC = () => {
             kind="ghost"
             renderIcon={() => <Download size={16} className={styles.actionButtonIcon} />}
             iconDescription="Download reports"
-            onClick={() => handleDownloadMultipleReports(checkedReportUuidsArray.join(','))}
+            onClick={() => handleDownloadMultipleReports(checkedReportUuidsArray)}
             className={classNames(styles.mainActionButton, {
               [styles.downloadReportsVisible]: downloadReportButtonVisible,
               [styles.downloadReportsHidden]: !downloadReportButtonVisible,
@@ -447,6 +451,19 @@ const OverviewComponent: React.FC = () => {
       ) : null}
     </div>
   );
-};
+  };
+
+  function isDownloadableFile(value: unknown): value is { fileContent: string; fileName: string; mimeType: string } {
+    return (
+      typeof value === 'object' &&
+      value !== null &&
+      'fileContent' in value &&
+      typeof value.fileContent === 'string' &&
+      'fileName' in value &&
+      typeof value.fileName === 'string' &&
+      'mimeType' in value &&
+      typeof value.mimeType === 'string'
+    );
+  }
 
 export default OverviewComponent;

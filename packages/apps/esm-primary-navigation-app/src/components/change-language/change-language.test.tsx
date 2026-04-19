@@ -13,8 +13,8 @@ const mockUser = {
   },
 };
 
-const mockUpdateUserProperties = vi.fn((...args) => Promise.resolve());
-const mockUpdateSessionLocale = vi.fn((...args) => Promise.resolve());
+const mockUpdateUserProperties = vi.fn((..._args) => Promise.resolve());
+const mockUpdateSessionLocale = vi.fn((..._args) => Promise.resolve());
 
 vi.mock('@openmrs/esm-framework', () => ({
   __esModule: true,

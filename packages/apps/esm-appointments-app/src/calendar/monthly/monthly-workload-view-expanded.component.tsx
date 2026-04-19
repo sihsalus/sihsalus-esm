@@ -31,6 +31,7 @@ const MonthlyWorkloadViewExpanded: React.FC<MonthlyWorkloadViewExpandedProps> = 
   return (
     <Popover open={isOpen} align="top" ref={popoverRef}>
       <button
+        type="button"
         className={styles.showMoreItems}
         onClick={(e) => {
           e.stopPropagation();

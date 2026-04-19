@@ -39,11 +39,12 @@ El dev server hace proxy de las peticiones de API al backend definido en `SIHSAL
 
 ```
 packages/
-  __mocks__/                            # Shared Jest mocks
   declarations.d.ts                     # Global declarations for TS
   jest.config.js                        # Root Jest configuration
   tsconfig.json                         # Root TypeScript configuration
+  test-utils/                           # Shared fixtures, test wrappers and stubs
   tooling/
+    configs/                            # Shared Jest/Vitest/TS config helpers
     openmrs/                            # CLI (openmrs develop, build, assemble)
     rspack-config/                      # Shared Rspack configuration
   apps/                                 # 57 frontend modules (esm-*-app)
@@ -108,6 +109,17 @@ yarn lint                                   # ESLint all packages
 yarn typecheck                              # TypeScript check all packages
 yarn verify                                 # lint + typecheck + test
 ```
+
+### Cleaning
+
+```bash
+yarn clean                                  # Remove generated monorepo artifacts
+yarn clean:dry-run                          # Preview what would be removed
+```
+
+`yarn clean` is a repo-wide clean for generated artifacts only. It removes workspace outputs such as `dist/`, `coverage/`, `.turbo/`, `storybook-static/`, Playwright reports, and TypeScript build info files without touching `node_modules/` or source directories.
+
+Use `yarn clean:dry-run` first when you want to inspect what will be deleted.
 
 ### Concurrency
 

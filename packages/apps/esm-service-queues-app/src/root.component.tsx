@@ -13,7 +13,7 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-service-queues-app">
-        <main>
+      <main>
         <BrowserRouter basename={serviceQueuesBasename}>
           <Routes>
             <Route path="/" element={<Home />} />

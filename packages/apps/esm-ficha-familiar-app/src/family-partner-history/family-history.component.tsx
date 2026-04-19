@@ -1,7 +1,6 @@
 import {
   DataTable,
   DataTableSkeleton,
-  Layer,
   Pagination,
   Table,
   TableBody,

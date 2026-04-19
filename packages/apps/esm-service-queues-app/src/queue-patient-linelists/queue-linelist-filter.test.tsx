@@ -1,7 +1,7 @@
 import { useLayoutType, useVisitTypes } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockVisitTypes } from '__mocks__';
+import { mockVisitTypes } from 'test-utils';
 import React from 'react';
 
 import QueueLinelistFilter from './queue-linelist-filter.workspace';

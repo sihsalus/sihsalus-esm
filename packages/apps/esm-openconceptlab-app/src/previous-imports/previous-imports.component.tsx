@@ -74,58 +74,58 @@ const PreviousImports: React.FC = () => {
   });
 
   return (
-      <Grid className={styles.grid}>
-        <Column sm={4} md={8} lg={10}>
-          <h3 className={styles.productiveHeading03}>{t('previousImports', 'Previous Imports')}</h3>
+    <Grid className={styles.grid}>
+      <Column sm={4} md={8} lg={10}>
+        <h3 className={styles.productiveHeading03}>{t('previousImports', 'Previous Imports')}</h3>
 
-          <DataTable rows={rowData} headers={headerData} size="sm">
-            {({ rows, headers, getHeaderProps, getRowProps, getTableProps }) => (
-              <Table {...getTableProps()} className={styles.tableBordered}>
-                <TableHead>
-                  <TableRow>
-                    <TableExpandHeader />
-                    {headers.map((header, i) => (
-                      <TableHeader key={i} {...getHeaderProps({ header })}>
-                        {header.header}
-                      </TableHeader>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <Fragment key={row.id}>
-                      <TableExpandRow {...getRowProps({ row })} className={styles.tableRow}>
-                        {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
-                        ))}
-                      </TableExpandRow>
-                      {row.isExpanded && (
-                        <TableExpandedRow colSpan={headers.length + 1} className={styles.tableExpandedRow}>
-                          <ImportOverview
-                            selectedImportObject={prevImports.find((importItem: Import) => importItem.uuid === row.id)}
-                          />
-                        </TableExpandedRow>
-                      )}
-                    </Fragment>
+        <DataTable rows={rowData} headers={headerData} size="sm">
+          {({ rows, headers, getHeaderProps, getRowProps, getTableProps }) => (
+            <Table {...getTableProps()} className={styles.tableBordered}>
+              <TableHead>
+                <TableRow>
+                  <TableExpandHeader />
+                  {headers.map((header, i) => (
+                    <TableHeader key={i} {...getHeaderProps({ header })}>
+                      {header.header}
+                    </TableHeader>
                   ))}
-                </TableBody>
-              </Table>
-            )}
-          </DataTable>
-          <Pagination
-            className={styles.pagination}
-            size="sm"
-            page={currentPage}
-            pageSize={pageSize}
-            pageSizes={[10, 20, 50, 100]}
-            totalItems={prevImports?.length ?? 0}
-            onChange={({ page, pageSize }) => {
-              goTo(page);
-              setPageSize(pageSize);
-            }}
-          />
-        </Column>
-      </Grid>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <Fragment key={row.id}>
+                    <TableExpandRow {...getRowProps({ row })} className={styles.tableRow}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                    </TableExpandRow>
+                    {row.isExpanded && (
+                      <TableExpandedRow colSpan={headers.length + 1} className={styles.tableExpandedRow}>
+                        <ImportOverview
+                          selectedImportObject={prevImports.find((importItem: Import) => importItem.uuid === row.id)}
+                        />
+                      </TableExpandedRow>
+                    )}
+                  </Fragment>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </DataTable>
+        <Pagination
+          className={styles.pagination}
+          size="sm"
+          page={currentPage}
+          pageSize={pageSize}
+          pageSizes={[10, 20, 50, 100]}
+          totalItems={prevImports?.length ?? 0}
+          onChange={({ page, pageSize }) => {
+            goTo(page);
+            setPageSize(pageSize);
+          }}
+        />
+      </Column>
+    </Grid>
   );
 };
 

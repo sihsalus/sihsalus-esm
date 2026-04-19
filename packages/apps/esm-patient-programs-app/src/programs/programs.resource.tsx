@@ -1,4 +1,3 @@
- 
 import useSWR from 'swr';
 import { filter, includes, map, uniqBy } from 'lodash-es';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';

@@ -11,7 +11,7 @@ const useEncounters = (patientUuid: string, encounterTypeUuid: string, fromdate?
   const params = new URLSearchParams(
     pickBy(
       { patient: patientUuid, encounterType: encounterTypeUuid, v: customeRepresntation, fromdate, todate },
-      (value, key) => value,
+      (value) => value,
     ),
   );
 

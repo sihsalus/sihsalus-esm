@@ -25,7 +25,7 @@ import { buildURL } from '../utils/help';
 export interface AssignStudiesTableProps {
   data?: StudiesWithScores | null;
   patientUuid: string;
-   
+
   assignStudyFunction: Function;
 }
 

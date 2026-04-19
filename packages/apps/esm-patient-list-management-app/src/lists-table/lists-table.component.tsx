@@ -80,7 +80,7 @@ const ListsTable: React.FC<PatientListTableProps> = ({
 
   const { toggleStarredList, starredLists } = useStarredLists();
 
-  function customSortRow(listA, listB, { sortDirection, sortStates, ...props }) {
+  function customSortRow(listA, listB, { sortDirection, sortStates: _sortStates, ...props }) {
     const { key } = props;
     setSortParams({ key, order: sortDirection });
   }

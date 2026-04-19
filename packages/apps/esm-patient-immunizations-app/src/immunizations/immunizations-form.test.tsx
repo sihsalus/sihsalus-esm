@@ -13,8 +13,8 @@ import {
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 import { configSchema, type ImmunizationConfigObject } from '../config-schema';
 import { immunizationFormSub } from './utils';
-import { mockCurrentVisit, mockSessionDataResponse } from '__mocks__';
-import { mockPatient } from 'tools';
+import { mockCurrentVisit, mockSessionDataResponse } from 'test-utils';
+import { mockPatient } from 'test-utils';
 import { savePatientImmunization } from './immunizations.resource';
 import { FHIR_NEXT_DOSE_DATE_EXTENSION_URL } from './immunization-mapper';
 import ImmunizationsForm from './immunizations-form.workspace';

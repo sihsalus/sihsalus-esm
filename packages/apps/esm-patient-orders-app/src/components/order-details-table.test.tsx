@@ -8,7 +8,7 @@ import {
 import { useOrderTypes, usePatientOrders } from '@openmrs/esm-patient-common-lib';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockOrders, mockSessionDataResponse } from '__mocks__';
+import { mockOrders, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
 import { useReactToPrint } from 'react-to-print';
 

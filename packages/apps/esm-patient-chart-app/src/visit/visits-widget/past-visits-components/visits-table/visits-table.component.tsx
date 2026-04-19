@@ -210,7 +210,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
         rows={tableRows}
         overflowMenuOnHover={desktopLayout}
         size={desktopLayout ? 'sm' : 'lg'}
-        useZebraStyles={visits?.length > 1 ? true : false}
+        useZebraStyles={visits?.length > 1}
       >
         {({
           rows,
@@ -250,8 +250,12 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                 <TableHead>
                   <TableRow>
                     <TableExpandHeader enableToggle {...getExpandHeaderProps()} />
-                    {headers.map((header, i) => (
-                      <TableHeader className={styles.tableHeader} key={i} {...getHeaderProps({ header })}>
+                    {headers.map((header) => (
+                      <TableHeader
+                        className={styles.tableHeader}
+                        key={String(header.key ?? header.header)}
+                        {...getHeaderProps({ header })}
+                      >
                         {header.header}
                       </TableHeader>
                     ))}

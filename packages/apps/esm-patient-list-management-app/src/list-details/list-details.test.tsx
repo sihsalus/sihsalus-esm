@@ -116,7 +116,6 @@ describe('ListDetails', () => {
     expect(screen.getByText('Delete')).toBeInTheDocument();
     expect(screen.getByText('Cancel')).toBeInTheDocument();
 
-     
     expect(screen.getByText('Delete').closest('button')).toBeEnabled();
 
     await userEvent.click(screen.getByText('Cancel'));

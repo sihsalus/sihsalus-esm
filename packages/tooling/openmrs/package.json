@@ -24,12 +24,7 @@
   "bugs": {
     "url": "https://github.com/openmrs/openmrs-esm-core/issues"
   },
-  "keywords": [
-    "openmrs",
-    "microfrontends",
-    "cli",
-    "tool"
-  ],
+  "keywords": ["openmrs", "microfrontends", "cli", "tool"],
   "homepage": "https://github.com/openmrs/openmrs-esm-core#readme",
   "dependencies": {
     "@openmrs/esm-app-shell": "9.0.2",

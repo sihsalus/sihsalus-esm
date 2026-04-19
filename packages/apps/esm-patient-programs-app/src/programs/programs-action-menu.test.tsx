@@ -1,13 +1,23 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
-import { launchWorkspace2, showModal, useLayoutType } from '@openmrs/esm-framework';
-import { mockPatient } from 'tools';
+import { showModal, useLayoutType } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import { mockPatient } from 'test-utils';
 import { ProgramsActionMenu } from './programs-action-menu.component';
 
 const mockShowModal = jest.mocked(showModal);
 const mockUseLayoutType = jest.mocked(useLayoutType);
-const mockLaunchWorkspace = jest.mocked(launchWorkspace2);
+const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);
+
+jest.mock('@openmrs/esm-patient-common-lib', () => {
+  const originalModule = jest.requireActual('@openmrs/esm-patient-common-lib');
+
+  return {
+    ...originalModule,
+    launchPatientWorkspace: jest.fn(),
+  };
+});
 
 const testProps = {
   programEnrollmentId: '123',
@@ -47,7 +57,7 @@ describe('ProgramActionsMenu', () => {
     await user.click(screen.getByRole('button'));
     await user.click(screen.getByText('Edit'));
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('programs-form-workspace', {
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('programs-form-workspace', {
       programEnrollmentId: testProps.programEnrollmentId,
       workspaceTitle: 'Edit program enrollment',
     });

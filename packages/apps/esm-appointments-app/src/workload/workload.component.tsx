@@ -18,8 +18,8 @@ const Workload: React.FC<WorkloadProps> = ({ selectedService, appointmentDate, o
 
   const [selectedTab] = useState(0);
 
-   
-  const calendarWorkload = useCalendarDistribution(serviceUuid, selectedTab === 0 ? 'week' : 'month', appointmentDate);
+  // Prefetch via SWR cache — result no se consume aún (semana vs mes pendiente de integrar).
+  const _calendarWorkload = useCalendarDistribution(serviceUuid, selectedTab === 0 ? 'week' : 'month', appointmentDate);
 
   const monthlyCalendarWorkload = useMonthlyCalendarDistribution(
     serviceUuid,

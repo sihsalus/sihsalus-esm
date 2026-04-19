@@ -1,8 +1,7 @@
- 
-import { createErrorHandler, ResponsiveWrapper, showSnackbar, translateFrom, useSession } from '@openmrs/esm-framework';
+import { showSnackbar, useSession } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { emrConfigurationMock, mockPatient, mockSession } from '__mocks__';
+import { emrConfigurationMock, mockPatient, mockSession } from 'test-utils';
 import React from 'react';
 
 import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
@@ -22,9 +21,6 @@ const testProps = {
 
 const mockSavePatientNote = savePatientNote as jest.Mock;
 const mockedShowSnackbar = jest.mocked(showSnackbar);
-const mockedCreateErrorHandler = jest.mocked(createErrorHandler);
-const mockedTranslateFrom = jest.mocked(translateFrom);
-const mockedResponsiveWrapper = jest.mocked(ResponsiveWrapper);
 const mockedUseSession = jest.mocked(useSession);
 
 jest.mock('../notes.resource', () => ({

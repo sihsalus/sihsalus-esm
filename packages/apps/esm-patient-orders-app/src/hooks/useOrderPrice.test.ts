@@ -1,6 +1,6 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { act, renderHook } from '@testing-library/react';
-import { mockOrderPriceData } from '__mocks__';
+import { mockOrderPriceData } from 'test-utils';
 
 import { type OrderPriceData } from '../types/order';
 

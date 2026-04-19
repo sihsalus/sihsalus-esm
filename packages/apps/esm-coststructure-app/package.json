@@ -20,18 +20,9 @@
     "extract-translations": "i18next \"src/**/*.component.tsx\" --config ../../tooling/scripts/i18next-parser.config.js",
     "test-e2e": "playwright test"
   },
-  "files": [
-    "dist",
-    "src",
-    "translations"
-  ],
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs",
-    "sihsalus"
-  ],
+  "files": ["dist", "src", "translations"],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs", "sihsalus"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sihsalus/sihsalus-esm-modules.git"

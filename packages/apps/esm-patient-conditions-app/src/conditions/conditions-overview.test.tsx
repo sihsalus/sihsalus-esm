@@ -9,8 +9,8 @@ import {
   useConfig,
 } from '@openmrs/esm-framework';
 import { type ConfigObject, configSchema } from '../config-schema';
-import { mockFhirConditionsResponse } from '__mocks__';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockFhirConditionsResponse } from 'test-utils';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import ConditionsOverview from './conditions-overview.component';
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);

@@ -139,9 +139,7 @@ const NewGroupForm = (props: NewGroupFormProps) => {
       <FormLabel>
         {patientList.length} {t('patientsInGroup', 'Patients in group')}
       </FormLabel>
-      {errors?.patientList && (
-        <p className="formError">{t('noPatientError', 'Please enter at least one patient.')}</p>
-      )}
+      {errors?.patientList && <p className="formError">{t('noPatientError', 'Please enter at least one patient.')}</p>}
       {!errors?.patientList && (
         <ul className="patientList">
           {patientList?.map((patient) => (

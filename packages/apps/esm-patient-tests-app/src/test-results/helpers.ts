@@ -2,7 +2,7 @@ import { navigate } from '@openmrs/esm-framework';
 
 import { dashboardMeta } from './dashboard.meta';
 
-export const makeThrottled = <T extends (...args: any[]) => any>(
+export const makeThrottled = <T extends (...args: unknown[]) => unknown>(
   func: T,
   time = 1000,
 ): ((...funcArgs: Parameters<T>) => void) => {

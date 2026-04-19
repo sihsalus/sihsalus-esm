@@ -21,7 +21,7 @@ export interface TreeNode {
   obs?: Array<ObservationData>;
   units?: string;
   range?: string;
-  [x: string]: any;
+  [x: string]: unknown;
 }
 
 export interface FilterNodeProps {
@@ -101,18 +101,18 @@ export interface TimelineData {
 
 export interface FilterContextProps extends ReducerState {
   timelineData: TimelineData;
-  tableData?: any;
+  tableData?: unknown;
   activeTests: string[];
   someChecked: boolean;
   totalResultsCount: number;
-  initialize: any;
-  toggleVal: any;
-  updateParent: any;
+  initialize: (trees: Array<TreeNode>) => void;
+  toggleVal: (name: string) => void;
+  updateParent: (name: string) => void;
   resetTree: () => void;
 }
 
 export interface obsShape {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface RowData extends TreeNode {

@@ -10,7 +10,9 @@
       "@openmrs/esm-context/src/public": ["../../../node_modules/@openmrs/esm-context/dist/public"],
       "@openmrs/esm-dynamic-loading/src/public": ["../../../node_modules/@openmrs/esm-dynamic-loading/dist/public"],
       "@openmrs/esm-emr-api/src/public": ["../../../node_modules/@openmrs/esm-emr-api/dist/public"],
-      "@openmrs/esm-expression-evaluator/src/public": ["../../../node_modules/@openmrs/esm-expression-evaluator/dist/public"],
+      "@openmrs/esm-expression-evaluator/src/public": [
+        "../../../node_modules/@openmrs/esm-expression-evaluator/dist/public"
+      ],
       "@openmrs/esm-extensions/src/public": ["../../../node_modules/@openmrs/esm-extensions/dist/public"],
       "@openmrs/esm-feature-flags/src/public": ["../../../node_modules/@openmrs/esm-feature-flags/dist/public"],
       "@openmrs/esm-globals": ["../../../node_modules/@openmrs/esm-globals/dist/public"],

@@ -3,7 +3,7 @@ import { screen, render } from '@testing-library/react';
 import React from 'react';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-import { mockLoggedInUser } from '../../../__mocks__/mock-user';
+import { mockLoggedInUser } from '../../../test-utils/mocks/mock-user';
 
 import UserPanelSwitcher from './user-panel-switcher.component';
 

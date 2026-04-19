@@ -16,22 +16,14 @@
     "typescript": "tsc",
     "test": "jest --config jest.config.js --verbose",
     "test:watch": "jest --config jest.config.js --watch",
-    "test-e2e": "playwright test",
+    "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/cohort-builder/playwright.config.ts",
     "verify": "turbo run lint test typescript",
     "coverage": "yarn test -- --coverage",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.modal.tsx' 'src/**/*.extension.tsx' 'src/**/*.workspace.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs",
-    "microfrontends"
-  ],
+  "files": ["dist", "src"],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs", "microfrontends"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-cohortbuilder.git"

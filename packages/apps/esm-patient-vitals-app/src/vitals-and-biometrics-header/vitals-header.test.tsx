@@ -2,7 +2,7 @@ import { type WorkspacesInfo, getDefaultsFromConfigSchema, useConfig, useWorkspa
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockVitalsConfig, mockCurrentVisit, mockConceptUnits, mockConceptMetadata, formattedVitals } from '__mocks__';
+import { mockVitalsConfig, mockCurrentVisit, mockConceptUnits, mockConceptMetadata, formattedVitals } from 'test-utils';
 import dayjs from 'dayjs';
 import React from 'react';
 import { mockPatient, getByTextWithMarkup, renderWithSwr, waitForLoadingToFinish } from 'test-utils';

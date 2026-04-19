@@ -12,7 +12,9 @@ const customRepresentation =
  * @param patientUuid Unique Patient identifier
  * @returns Object containing `patient-attributes`, `isLoading` loading status, `error`
  */
-export const usePatientAttributes = (patientUuid: string): { isLoading: boolean; attributes: Array<Attribute>; error: Error | undefined } => {
+export const usePatientAttributes = (
+  patientUuid: string,
+): { isLoading: boolean; attributes: Array<Attribute>; error: Error | undefined } => {
   const { data, error, isLoading } = useSWRImmutable<FetchResponse<Patient>, Error>(
     `${restBaseUrl}/patient/${patientUuid}?v=${customRepresentation}`,
     openmrsFetch,
@@ -40,14 +42,19 @@ export const usePatientAttributes = (patientUuid: string): { isLoading: boolean;
  * @property {boolean} isLoading - Loading status
  * @property {Error|null} error - Error object if request fails
  */
-export const usePatientContactAttributes = (patientUuid: string): { contactAttributes: Array<Attribute>; isLoading: boolean; error: Error | undefined } => {
+export const usePatientContactAttributes = (
+  patientUuid: string,
+): { contactAttributes: Array<Attribute>; isLoading: boolean; error: Error | undefined } => {
   const { contactAttributeTypes = [] } = useConfig<{ contactAttributeTypes: Array<string> }>({
     externalModuleName: '@openmrs/esm-patient-banner-app',
   });
 
   const { attributes, error, isLoading } = usePatientAttributes(patientUuid);
   const contactAttributes = useMemo(
-    () => attributes.filter(({ attributeType }) => contactAttributeTypes?.some((uuid: string) => attributeType.uuid === uuid)),
+    () =>
+      attributes.filter(({ attributeType }) =>
+        contactAttributeTypes?.some((uuid: string) => attributeType.uuid === uuid),
+      ),
     [attributes, contactAttributeTypes],
   );
 

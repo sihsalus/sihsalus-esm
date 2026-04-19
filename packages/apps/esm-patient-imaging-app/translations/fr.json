@@ -69,7 +69,7 @@
   "errorDeletingSeries": "An error occurred while deleting the study series",
   "errorDeletingStudy": "An error occurred while deleting the study",
   "deletePatientStudy": "Delete the image study",
-  "deleteModalConfirmationTextStudy": "Are you sure you want to delete this study?", 
+  "deleteModalConfirmationTextStudy": "Are you sure you want to delete this study?",
   "deleteFromOpenMRS": "From OpenMRS",
   "deleteFromOrthancOpenMRS": "From Orthanc & OpenMRS",
   "studyAssigned": "The study has been successfully assigned",

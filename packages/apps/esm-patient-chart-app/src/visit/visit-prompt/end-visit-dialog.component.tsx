@@ -17,7 +17,9 @@ interface FUAFormTemplate {
 }
 
 function useFUATemplate(templateUuid: string) {
-  const url = templateUuid ? `${restBaseUrl}/form/${templateUuid}?v=custom:(uuid,name,description,encounterType)` : null;
+  const url = templateUuid
+    ? `${restBaseUrl}/form/${templateUuid}?v=custom:(uuid,name,description,encounterType)`
+    : null;
   const { data, error, isLoading } = useSWR<{ data: FUAFormTemplate }, Error>(url, openmrsFetch);
   return {
     data: data?.data ?? null,
@@ -153,7 +155,11 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
         <Button kind="secondary" onClick={closeModal}>
           {t('cancel', 'Cancel')}
         </Button>
-        <Button kind="danger" onClick={() => void handleEndVisitAndGenerateFUA()} disabled={isLoading || !!templateError}>
+        <Button
+          kind="danger"
+          onClick={() => void handleEndVisitAndGenerateFUA()}
+          disabled={isLoading || !!templateError}
+        >
           {t('endVisitAndGenerateFua_title', 'End Visit and Generate FUA')}
         </Button>
         <Button kind="danger--tertiary" onClick={handleEndVisit}>

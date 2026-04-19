@@ -191,9 +191,7 @@ const VaccinationSchedule: React.FC<VaccinationScheduleProps> = ({ patientUuid }
   }, [patientUuid, t, mutateImmunizations, mutateVaccines]);
 
   if (isLoading) {
-    return (
-      <DataTableSkeleton aria-label={t('loadingData', 'Loading data...')} headers={tableHeaders} />
-    );
+    return <DataTableSkeleton aria-label={t('loadingData', 'Loading data...')} headers={tableHeaders} />;
   }
 
   if (error) {

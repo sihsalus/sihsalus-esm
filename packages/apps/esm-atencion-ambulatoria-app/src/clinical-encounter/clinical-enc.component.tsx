@@ -29,7 +29,7 @@ const ClinicalEncounter: React.FC<ClinicalEncounterProps> = ({
   isLoading,
   error,
   mutate,
-  isValidating,
+  isValidating: _isValidating,
 }) => {
   const { t } = useTranslation();
   const {
@@ -48,7 +48,7 @@ const ClinicalEncounter: React.FC<ClinicalEncounterProps> = ({
       },
     });
   };
-  const tableRows = encounters?.map((encounter, index) => {
+  const tableRows = encounters?.map((encounter) => {
     return {
       id: `${encounter.uuid}`,
       encounterDate: formatDate(new Date(encounter.encounterDatetime)),

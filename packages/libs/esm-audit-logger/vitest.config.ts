@@ -1,9 +1,7 @@
-import { defineConfig } from 'vitest/config';
+import { defineWorkspaceVitestConfig } from '../../tooling/configs/vitest-config';
 
-export default defineConfig({
+export default defineWorkspaceVitestConfig({
   test: {
-    environment: 'happy-dom',
-    mockReset: true,
     setupFiles: ['./setup-tests.ts'],
     coverage: {
       provider: 'v8',

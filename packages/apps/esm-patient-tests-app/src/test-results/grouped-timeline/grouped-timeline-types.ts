@@ -13,23 +13,7 @@ export interface DateHeaderGridProps {
   dayColumns: Array<Record<string, number | string>>;
   showShadow: boolean;
   xScroll: number;
-  setXScroll: any;
-}
-
-interface DataEntry {
-  value: number | string;
-  effectiveDateTime: string;
-  interpretation: OBSERVATION_INTERPRETATION;
-}
-
-interface DataRow extends TreeNode {
-  entries: Array<DataEntry>;
-  display: string;
-  name: string;
-  type: string;
-  uuid: string;
-  units: string;
-  range: string;
+  setXScroll: (x: number) => void;
 }
 
 export interface NewRowStartCellProps {

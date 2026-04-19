@@ -25,29 +25,78 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "a11y": {
+        "noInteractiveElementToNoninteractiveRole": "off",
+        "noNoninteractiveElementToInteractiveRole": "off",
+        "noLabelWithoutControl": "off",
+        "noSvgWithoutTitle": "off",
+        "useAltText": "off",
+        "useAriaPropsForRole": "off",
+        "useButtonType": "off",
+        "useFocusableInteractive": "off",
+        "useHeadingContent": "off",
+        "useIframeTitle": "off",
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off",
+        "useValidAnchor": "off",
+        "useValidAriaRole": "off"
+      },
       "complexity": {
+        "noBannedTypes": "off",
         "noForEach": "off",
+        "noStaticOnlyClass": "off",
+        "noUselessFragments": "off",
+        "noUselessRename": "off",
+        "noUselessTernary": "off",
+        "noUselessSwitchCase": "off",
+        "useArrowFunction": "off",
+        "useRegexLiterals": "off",
+        "useFlatMap": "off",
         "useLiteralKeys": "off",
         "useOptionalChain": "off"
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "noChildrenProp": "off",
+        "useExhaustiveDependencies": "off",
+        "useJsxKeyInIterable": "off"
       },
       "performance": {
+        "noAccumulatingSpread": "off",
         "noDelete": "off"
       },
+      "security": {
+        "noGlobalEval": "off"
+      },
       "style": {
+        "noCommaOperator": "off",
         "noInferrableTypes": "off",
+        "noNonNullAssertion": "off",
         "noParameterAssign": "off",
+        "useSingleVarDeclarator": "off",
         "noUnusedTemplateLiteral": "off",
         "noUselessElse": "off",
         "useDefaultParameterLast": "off",
+        "useEnumInitializers": "off",
+        "useExportType": "off",
         "useImportType": "off",
         "useNodejsImportProtocol": "off",
+        "useNumberNamespace": "off",
+        "useShorthandFunctionType": "off",
         "useSelfClosingElements": "off",
         "useTemplate": "off"
       },
       "suspicious": {
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noConfusingVoidType": "off",
+        "noEmptyInterface": "off",
+        "noExplicitAny": "off",
+        "noGlobalIsNan": "off",
+        "noImplicitAnyLet": "off",
+        "noMisleadingCharacterClass": "off",
+        "noShorthandPropertyOverrides": "off",
+        "noShadowRestrictedNames": "off",
+        "noThenProperty": "off",
         "noDoubleEquals": "off"
       }
     }

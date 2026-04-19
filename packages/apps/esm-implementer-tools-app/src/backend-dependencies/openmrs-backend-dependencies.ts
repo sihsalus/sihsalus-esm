@@ -126,10 +126,7 @@ async function fetchInstalledBackendModules(): Promise<Array<BackendModule>> {
 
       // Handle error responses (e.g., authentication failures)
       if (data?.error) {
-        console.error(
-          `Backend API error when fetching modules: ${data.error.message || 'Unknown error'}`,
-          data.error,
-        );
+        console.error(`Backend API error when fetching modules: ${data.error.message || 'Unknown error'}`, data.error);
         throw new Error(
           `Backend returned error: ${data.error.message || 'Unknown error when fetching backend modules'}`,
         );
@@ -223,9 +220,18 @@ export async function checkModules(): Promise<Array<ResolvedDependenciesModule>>
       .map((module) => ({
         backendDependencies: module[1].backendDependencies,
         optionalBackendDependencies: Object.fromEntries(
-          Object.entries(module[1].optionalBackendDependencies ?? {}).map(([key, value]) =>
-            typeof value === 'string' || typeof value === 'undefined' ? [key, value] : [key, value.version],
-          ),
+          Object.entries(module[1].optionalBackendDependencies ?? {}).map(([key, value]) => {
+            if (typeof value === 'string' || typeof value === 'undefined' || value === null) {
+              return [key, value];
+            }
+
+            const resolvedValue =
+              typeof value === 'object' && 'version' in value && typeof value.version === 'string'
+                ? value.version
+                : undefined;
+
+            return [key, resolvedValue];
+          }),
         ),
         moduleName: module[0],
       }));

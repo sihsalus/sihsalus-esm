@@ -1,7 +1,7 @@
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockPanelData } from '__mocks__';
+import { mockPanelData } from 'test-utils';
 import React from 'react';
 
 import PanelView from './panel-view.component';

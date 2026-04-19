@@ -96,7 +96,6 @@ const { ModuleFederationPluginV1: ModuleFederationPlugin } = container;
 
 function getFrameworkVersion() {
   try {
-     
     const frameworkPkgUnknown: unknown = require('@openmrs/esm-framework/package.json');
     const frameworkPkg = frameworkPkgUnknown as VersionedPackageJson;
     const version = typeof frameworkPkg.version === 'string' ? frameworkPkg.version : undefined;
@@ -129,7 +128,6 @@ function mergeFunction(objValue: unknown, srcValue: unknown) {
 }
 
 function getPackageJson(root: string): NormalizedPackageJson {
-   
   const appPkgUnknown: unknown = require(resolve(root, 'package.json'));
   const appPkg = (appPkgUnknown ?? {}) as AppPackageJson;
 
@@ -376,7 +374,9 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
         exposes: {
           './start': srcFile,
         },
-          shared: [...Object.keys(peerDependencies), '@openmrs/esm-framework/src/internal'].reduce<Record<string, SharedDependencyConfig>>((obj, depName) => {
+        shared: [...Object.keys(peerDependencies), '@openmrs/esm-framework/src/internal'].reduce<
+          Record<string, SharedDependencyConfig>
+        >((obj, depName) => {
           const versionSpec = peerDependencies[depName] ?? false;
 
           if (typeof versionSpec === 'string' && versionSpec.startsWith('workspace:')) {
@@ -400,8 +400,8 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               import: 'swr/_internal',
               shareKey: 'swr/_internal',
               shareScope: 'default',
-               
-                version: (require('swr/package.json') as VersionedPackageJson).version,
+
+              version: (require('swr/package.json') as VersionedPackageJson).version,
             };
           } else {
             obj[depName] = {
@@ -415,7 +415,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
           }
 
           return obj;
-          }, {}),
+        }, {}),
       }),
       hasRoutesDefined &&
         new CopyRspackPlugin({
@@ -425,15 +425,20 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               transform: {
                 transformer: (content) =>
                   JSON.stringify(
-                      Object.assign({}, JSON.parse(content.toString()) as Record<string, unknown>, {
-                        version: mode === production ? version : (inc(version, 'prerelease', 'local') ?? version),
+                    Object.assign({}, JSON.parse(content.toString()) as Record<string, unknown>, {
+                      version: mode === production ? version : (inc(version, 'prerelease', 'local') ?? version),
                     }),
                   ),
               },
             },
           ],
         }),
-      new (StatsWriterPlugin as unknown as new (options: { filename: string; stats: { all: boolean; chunks: boolean } }) => Plugin)({
+      new (
+        StatsWriterPlugin as unknown as new (options: {
+          filename: string;
+          stats: { all: boolean; chunks: boolean };
+        }) => Plugin
+      )({
         filename: `${filename}.buildmanifest.json`,
         stats: {
           all: false,

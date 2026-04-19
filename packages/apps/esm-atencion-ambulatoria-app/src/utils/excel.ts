@@ -23,7 +23,7 @@ export async function exportAppointmentsToSpreadsheet(
   rowData: Array<RowData>,
   fileName = 'Appointments',
 ): Promise<void> {
-  const config = await getConfig<ConfigObject>(moduleName);
+  await getConfig<ConfigObject>(moduleName);
   // const includePhoneNumbers = config.includePhoneNumberInExcelSpreadsheet ?? false;
   const includePhoneNumbers = false;
 

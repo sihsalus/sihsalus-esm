@@ -28,7 +28,7 @@ interface PlanTratamientoProps {
 const PlanTratamiento: React.FC<PlanTratamientoProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { treatmentPlans, isLoading, error } = useTreatmentPlan(
+  const { treatmentPlans, isLoading } = useTreatmentPlan(
     patientUuid,
     config.encounterTypes?.externalConsultation,
     config.concepts,

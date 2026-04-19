@@ -9,7 +9,7 @@ import {
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockSessionDataResponse } from '__mocks__';
+import { mockCurrentVisit, mockSessionDataResponse } from 'test-utils';
 import dayjs from 'dayjs';
 import React from 'react';
 import { mockPatient } from 'test-utils';

@@ -203,7 +203,7 @@ function getPatientName({ item, patient }: SyncItemWithPatient) {
 
   const patientName = patient?.name?.[0];
   return patientName
-    ? patientName.text ?? [patientName.family, ...(patientName.given ?? [])].filter(Boolean).join(' ')
+    ? (patientName.text ?? [patientName.family, ...(patientName.given ?? [])].filter(Boolean).join(' '))
     : item.descriptor.patientUuid;
 }
 
@@ -242,7 +242,6 @@ function filterTableRows({
   headers,
   cellsById,
   inputValue,
-  // @ts-expect-error `getCellId` is not in the types, but present in Carbon.
   getCellId,
 }) {
   return rowIds.filter((rowId) =>

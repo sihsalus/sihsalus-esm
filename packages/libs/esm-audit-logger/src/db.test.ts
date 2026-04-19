@@ -75,19 +75,11 @@ describe('queueEntry / getEntriesForUser', () => {
 
     // Fill to capacity — oldest timestamp first so eviction is predictable.
     for (let i = 0; i < MAX; i++) {
-      await queueEntry(
-        DB,
-        makeEntry({ id: `entry-${i}`, timestamp: new Date(t0.getTime() + i).toISOString() }),
-        MAX,
-      );
+      await queueEntry(DB, makeEntry({ id: `entry-${i}`, timestamp: new Date(t0.getTime() + i).toISOString() }), MAX);
     }
 
     // Add one more — should evict entry-0 (oldest).
-    await queueEntry(
-      DB,
-      makeEntry({ id: 'entry-new', timestamp: new Date(t0.getTime() + MAX).toISOString() }),
-      MAX,
-    );
+    await queueEntry(DB, makeEntry({ id: 'entry-new', timestamp: new Date(t0.getTime() + MAX).toISOString() }), MAX);
 
     const results = await getEntriesForUser(DB, 'user-1');
     expect(results).toHaveLength(MAX);

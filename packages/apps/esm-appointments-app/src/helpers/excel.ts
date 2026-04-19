@@ -77,13 +77,15 @@ export function exportUnscheduledAppointmentsToSpreadsheet(
   unscheduledAppointments: Array<UnscheduledAppointment>,
   fileName: string = `Unscheduled appointments ${formatDate(new Date(), { year: true, time: true })}`,
 ) {
-  const appointmentsJSON = unscheduledAppointments?.map((appointment): SpreadsheetRow => ({
-    'Patient name': appointment.name,
-    Gender: appointment.gender === 'F' ? 'Female' : 'Male',
-    Age: appointment.age,
-    'Phone Number': appointment.phoneNumber ?? '--',
-    Identifier: appointment.identifier ?? '--',
-  }));
+  const appointmentsJSON = unscheduledAppointments?.map(
+    (appointment): SpreadsheetRow => ({
+      'Patient name': appointment.name,
+      Gender: appointment.gender === 'F' ? 'Female' : 'Male',
+      Age: appointment.age,
+      'Phone Number': appointment.phoneNumber ?? '--',
+      Identifier: appointment.identifier ?? '--',
+    }),
+  );
 
   const worksheet = createWorksheet(appointmentsJSON);
   const workbook = createWorkbook(worksheet, 'Appointment list');

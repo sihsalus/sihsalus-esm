@@ -18,7 +18,9 @@ export function extractOclErrorMessage(response: { status: number; data?: unknow
       return t('oclErrorUnavailable', 'OCL service is unavailable — try again later');
     default: {
       const data = response.data as Record<string, unknown> | null | undefined;
-      return (data?.error as string) ?? (data?.message as string) ?? t('oclErrorGeneric', 'An unexpected error occurred');
+      return (
+        (data?.error as string) ?? (data?.message as string) ?? t('oclErrorGeneric', 'An unexpected error occurred')
+      );
     }
   }
 }

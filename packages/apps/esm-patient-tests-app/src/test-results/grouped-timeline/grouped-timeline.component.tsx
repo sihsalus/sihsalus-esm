@@ -1,5 +1,5 @@
 import { showModal } from '@openmrs/esm-framework';
-import { EmptyState } from '@openmrs/esm-patient-common-lib';
+import { EmptyState, type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -97,7 +97,7 @@ const TimelineCell: React.FC<TimelineCellProps> = ({ text, interpretation = 'NOR
 
 const GridItems = React.memo<{
   sortedTimes: Array<string>;
-  obs: any;
+  obs: Array<{ value: string; interpretation?: OBSERVATION_INTERPRETATION } | undefined>;
   zebra: boolean;
 }>(({ sortedTimes, obs, zebra }) => (
   <>
@@ -117,7 +117,7 @@ const DataRows: React.FC<DataRowsProps> = ({ patientUuid, timeColumns, rowData, 
       {rowData.map((row, index) => {
         const obs = row.entries;
         const { units = '', range = '', obs: values } = row;
-        const isString = isNaN(parseFloat(values?.[0]?.value));
+        const isString = Number.isNaN(Number.parseFloat(values?.[0]?.value));
         return (
           <React.Fragment key={index}>
             <NewRowStartCell

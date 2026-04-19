@@ -85,7 +85,7 @@ const OutPatientMedicalHistory: React.FC<OutPatientMedicalHistoryProps> = ({
     },
   ];
   const tableRows = encounters
-    ?.map((encounter, index) => {
+    ?.map((encounter) => {
       const allFieldsNull = () => {
         return (
           getObsFromEncounter(encounter, SURGICAL_HISTORY_UUID) === '--' &&

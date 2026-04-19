@@ -12,7 +12,7 @@ type SearchEmptyStateProps = {
   onAdd?: () => void;
 };
 
-const SearchEmptyState: React.FC<SearchEmptyStateProps> = ({ searchValue, message, onAdd }) => {
+const SearchEmptyState: React.FC<SearchEmptyStateProps> = ({ searchValue: _searchValue, message, onAdd }) => {
   const { t } = useTranslation();
 
   return (

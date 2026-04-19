@@ -1,11 +1,10 @@
-import { usePatient, openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
 import { usePatientChartStore } from '@openmrs/esm-patient-common-lib';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 
 import { assessValue, exist } from '../loadPatientTestData/helpers';
-
 
 export const getName = (prefix: string | undefined, name: string) => {
   return prefix ? `${prefix}-${name}` : name;

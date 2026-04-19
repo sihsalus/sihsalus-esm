@@ -20,11 +20,12 @@ const WardBed: React.FC<WardBedProps> = (props) => {
 const OccupiedBed: React.FC<WardBedProps> = ({ patientCards, isLoadingDivider }) => {
   // interlace patient card with bed dividers between each of them
   const patientCardsWithDividers = patientCards.flatMap((patientCard, index) => {
-    if (index == 0) {
+    if (index === 0) {
       return [patientCard];
-    } else {
-      return [<BedShareDivider key={'divider-' + index} isLoading={isLoadingDivider} />, patientCard];
     }
+
+    const dividerKey = React.isValidElement(patientCard) && patientCard.key != null ? patientCard.key : 'divider';
+    return [<BedShareDivider key={`divider-${dividerKey}`} isLoading={isLoadingDivider} />, patientCard];
   });
 
   return <div className={styles.occupiedBed}>{patientCardsWithDividers}</div>;

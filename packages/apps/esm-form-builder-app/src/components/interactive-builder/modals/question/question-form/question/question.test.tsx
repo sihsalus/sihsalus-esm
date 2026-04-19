@@ -29,6 +29,16 @@ const renderWithFormFieldProvider = (
 };
 
 describe('Question Component', () => {
+  let consoleErrorSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it('should render all required fields', () => {
     renderWithFormFieldProvider(<Question checkIfQuestionIdExists={checkIfQuestionIdExists} />);
 
@@ -135,7 +145,6 @@ describe('Question Component', () => {
   });
 
   it('should show only date and datetime rendering types for encounterDatetime question type', async () => {
-    const user = userEvent.setup();
     renderWithFormFieldProvider(<Question checkIfQuestionIdExists={checkIfQuestionIdExists} />, {
       formField: { ...initialFormField, type: 'encounterDatetime' },
     });

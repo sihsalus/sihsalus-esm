@@ -30,10 +30,7 @@ function formatAttentionLabel(isoDate: string): string {
  * an attention belongs to the most recent base that precedes it in time.
  * Attentions that predate all bases fall under the oldest base as a safety fallback.
  */
-function groupByBase(
-  bases: OdontogramRecord[],
-  attentions: OdontogramRecord[],
-): OdontogramBaseGroup[] {
+function groupByBase(bases: OdontogramRecord[], attentions: OdontogramRecord[]): OdontogramBaseGroup[] {
   // bases are already sorted oldest→newest
   const groups: OdontogramBaseGroup[] = bases.map((base) => ({ base, attentions: [] }));
 
@@ -104,8 +101,7 @@ export function useOdontogramHistory(patientUuid: string | null) {
       label: formatAttentionLabel(enc.encounterDatetime),
     }));
 
-  const groups: OdontogramBaseGroup[] =
-    baseRecords.length > 0 ? groupByBase(baseRecords, attentionRecords) : [];
+  const groups: OdontogramBaseGroup[] = baseRecords.length > 0 ? groupByBase(baseRecords, attentionRecords) : [];
 
   const mutate = () => {
     mutateBase();

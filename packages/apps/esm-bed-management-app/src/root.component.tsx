@@ -35,7 +35,7 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-bed-management-app">
-        <BrowserRouter basename={bedManagementBasename}>
+      <BrowserRouter basename={bedManagementBasename}>
         <LeftPanel />
         <main className={styles.container}>
           <Routes>

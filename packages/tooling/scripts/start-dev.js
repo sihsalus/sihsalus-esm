@@ -1,5 +1,5 @@
 #!/usr/bin/env node
- 
+
 'use strict';
 
 require('dotenv').config({ quiet: true });
@@ -13,8 +13,7 @@ const logInfo = (msg) => console.log(`${chalk.green.bold('[start-dev]')} ${msg}`
 const logWarn = (msg) => console.warn(`${chalk.yellow.bold('[start-dev]')} ${chalk.yellow(msg)}`);
 const logFail = (msg) => console.error(`${chalk.red.bold('[start-dev]')} ${chalk.red(msg)}`);
 
-const backend =
-  process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
+const backend = process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
 
 if (!process.env.SIHSALUS_BACKEND_URL) {
   logWarn(`SIHSALUS_BACKEND_URL not set, using default: ${backend}`);
@@ -55,14 +54,7 @@ function startCli(args) {
 
 function ensureOpenmrsCli() {
   const workspaceRoot = resolve(__dirname, '..', '..', '..');
-  const rspackConfigEntry = resolve(
-    workspaceRoot,
-    'node_modules',
-    '@openmrs',
-    'rspack-config',
-    'dist',
-    'index.js',
-  );
+  const rspackConfigEntry = resolve(workspaceRoot, 'node_modules', '@openmrs', 'rspack-config', 'dist', 'index.js');
   const openmrsBin = resolve(workspaceRoot, 'node_modules', 'openmrs', 'dist', 'cli.js');
 
   if (!existsSync(rspackConfigEntry)) {
@@ -112,7 +104,8 @@ async function startWithProxy(cliArgs) {
   const { createProxyMiddleware } = require('http-proxy-middleware');
 
   const configuredCliPort = Number(process.env.SIHSALUS_INTERNAL_CLI_PORT);
-  const cliPort = Number.isFinite(configuredCliPort) && configuredCliPort > 0 ? configuredCliPort : await findFreePort();
+  const cliPort =
+    Number.isFinite(configuredCliPort) && configuredCliPort > 0 ? configuredCliPort : await findFreePort();
 
   // Files managed by the openmrs CLI — always proxy these to the CLI
   const cliManagedPaths = new Set(['/importmap.json', '/routes.registry.json', '/routes.json']);
@@ -148,7 +141,10 @@ async function startWithProxy(cliArgs) {
 }
 
 if (devAppsEnv) {
-  const apps = devAppsEnv.split(',').map((a) => a.trim()).filter(Boolean);
+  const apps = devAppsEnv
+    .split(',')
+    .map((a) => a.trim())
+    .filter(Boolean);
   const sourcesArgs = apps.flatMap((app) => {
     const dir = resolve(__dirname, '..', '..', 'apps', app);
     if (!existsSync(dir)) {
@@ -166,7 +162,15 @@ if (devAppsEnv) {
     }
 
     // Use reverse proxy: dist/spa bundles + chunks served from same origin
-    startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, '--config-file', frontendConfig, ...sourcesArgs]);
+    startWithProxy([
+      '--importmap',
+      assembledImportmap,
+      '--routes',
+      assembledRoutes,
+      '--config-file',
+      frontendConfig,
+      ...sourcesArgs,
+    ]);
   } else {
     logWarn('No assembled importmap found. Only apps in SIHSALUS_DEV_APPS will be available.');
     logWarn('For all apps: yarn assemble');
@@ -183,5 +187,14 @@ if (devAppsEnv) {
   logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
 
   const shimSource = resolve(__dirname, '..', '..', 'apps', 'esm-login-app');
-  startWithProxy(['--importmap', assembledImportmap, '--routes', assembledRoutes, '--config-file', frontendConfig, '--sources', shimSource]);
+  startWithProxy([
+    '--importmap',
+    assembledImportmap,
+    '--routes',
+    assembledRoutes,
+    '--config-file',
+    frontendConfig,
+    '--sources',
+    shimSource,
+  ]);
 }

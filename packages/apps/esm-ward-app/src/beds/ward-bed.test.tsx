@@ -2,12 +2,7 @@ import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 
-import {
-  mockAdmissionLocation,
-  mockLocationInpatientWard,
-  mockPatientAlice,
-  mockPatientBrian,
-} from '../../../../__mocks__';
+import { mockAdmissionLocation, mockLocationInpatientWard, mockPatientAlice, mockPatientBrian } from 'test-utils';
 import { configSchema, type WardConfigObject } from '../config-schema';
 import { useObs } from '../hooks/useObs';
 import useWardLocation from '../hooks/useWardLocation';
@@ -82,7 +77,7 @@ describe('Ward bed', () => {
         bed={mockBed}
         patientCards={[
           <DefaultWardPatientCard key={mockPatientAlice.uuid} wardPatient={mockWardPatientAliceProps} />,
-          <DefaultWardPatientCard key={mockPatientBrian.uuid} wardPatient={mockWardPatientAliceProps} />,
+          <DefaultWardPatientCard key={mockPatientBrian.uuid} wardPatient={mockWardPatientBrianProps} />,
         ]}
       />,
     );

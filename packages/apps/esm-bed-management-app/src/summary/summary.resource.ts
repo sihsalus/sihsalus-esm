@@ -84,10 +84,7 @@ export const useLocationName = (locationUuid: string) => {
   return results;
 };
 
-function mapBedWithLocation(
-  bed: Bed,
-  location: { display: string; uuid: string },
-): BedWithLocation {
+function mapBedWithLocation(bed: Bed, location: { display: string; uuid: string }): BedWithLocation {
   return { ...bed, location };
 }
 

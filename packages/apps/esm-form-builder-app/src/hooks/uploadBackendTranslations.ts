@@ -7,6 +7,10 @@ interface FormResource {
   name: string;
 }
 
+function isFormResource(resource: Resource): resource is Resource & FormResource {
+  return typeof resource.name === 'string';
+}
+
 export async function uploadBackendTranslations(
   formUuid: string,
   langCode: string,
@@ -18,9 +22,7 @@ export async function uploadBackendTranslations(
     const formResources: Resource[] = Array.isArray(formResponse.data.resources) ? formResponse.data.resources : [];
 
     const resourceName = `${formName}_translations_${langCode}`;
-    const existingResource = formResources.find(
-      (r): r is FormResource => typeof r.name === 'string' && r.name === resourceName,
-    );
+    const existingResource = formResources.find((r) => isFormResource(r) && r.name === resourceName);
 
     if (existingResource) {
       await openmrsFetch(`${restBaseUrl}/form/${formUuid}/resource/${existingResource.uuid}`, {

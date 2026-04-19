@@ -187,11 +187,11 @@ export interface Encounter extends OpenmrsResourceStrict {
   form?: OpenmrsResource;
   encounterType?: EncounterType;
   obs?: Array<Observation>;
-  orders?: any;
+  orders?: Array<unknown>;
   voided?: boolean;
   visit?: Visit;
   encounterProviders?: Array<EncounterProvider>;
-  diagnoses?: any;
+  diagnoses?: Array<unknown>;
 }
 
 export interface EncounterProvider extends OpenmrsResourceStrict {
@@ -226,7 +226,7 @@ export interface EncounterPayload {
   encounterProviders?: Array<{ encounterRole: string; provider: string }>;
   obs: Array<ObsPayload>;
   form?: string;
-  orders?: Array<any>;
+  orders?: Array<unknown>;
   visit?: string;
 }
 

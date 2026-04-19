@@ -1,18 +1,13 @@
 {
+  "extends": "../../tooling/tsconfig.app.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "jsx": "react",
-    "lib": ["dom", "scripthost", "es2020", "es2021", "es2022"],
-    "module": "esnext",
+    "baseUrl": ".",
     "moduleResolution": "node",
-    "noEmit": true,
+    "lib": ["dom", "scripthost", "es2020", "es2021", "es2022"],
     "paths": {
-      "@mocks": ["./__mocks__"],
+      "@mocks": ["./test-utils/mocks"],
       "@tools": ["./tools"]
-    },
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "target": "esnext"
-  }
+    }
+  },
+  "include": ["src/**/*", "test-utils/**/*", "tools/**/*"]
 }

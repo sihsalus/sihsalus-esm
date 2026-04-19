@@ -1,4 +1,3 @@
- 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
@@ -84,7 +83,7 @@ interface DiagnosisSearchProps {
   setIsSearching: (isSearching: boolean) => void;
 }
 
-const createSchema = (t: TFunction) => {
+const createSchema = (_t: TFunction) => {
   return z.object({
     noteDate: z.date(),
     primaryDiagnosisSearch: z.string(),
@@ -187,7 +186,7 @@ const VisitNotesForm: React.FC<PatientWorkspace2DefinitionProps<VisitNotesFormPr
         setSelectedPrimaryDiagnoses(primaryDiagnoses);
         setSelectedSecondaryDiagnoses(secondaryDiagnoses);
         setCombinedDiagnoses([...primaryDiagnoses, ...secondaryDiagnoses]);
-      } catch (err) {
+      } catch {
         setError(new Error(t('errorTransformingDiagnoses', 'Error transforming diagnoses')));
         createErrorHandler();
       }

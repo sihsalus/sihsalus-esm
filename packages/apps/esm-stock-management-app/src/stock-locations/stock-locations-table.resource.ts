@@ -43,16 +43,16 @@ export function useStockLocationPages(filter: StockOperationFilter) {
 
   const tableRows = useMemo(() => {
     return stockLocations.map((location) => ({
-      id: location?.uuid,
-      key: `key-${location?.uuid}`,
-      uuid: `${location?.uuid}`,
+      id: location?.id,
+      key: `key-${location?.id}`,
+      uuid: `${location?.id}`,
       name: `${location?.name}`,
       tags:
         location?.meta.tag
           ?.filter((tag) => tag.code !== 'SUBSETTED')
           .map((p) => p.code)
           ?.join(', ') ?? '',
-      childLocations: location?.childLocations?.map((p) => p.display)?.join(', ') ?? '',
+      childLocations: '',
     }));
   }, [stockLocations]);
   return {
@@ -73,7 +73,6 @@ export function useStockLocationPages(filter: StockOperationFilter) {
 export const useLocationTags = () => {
   const url = `${restBaseUrl}/locationtag/`;
 
-   
   const { data, isLoading, mutate } = useSWR<{ data }, Error>(url, openmrsFetch);
   const results = data?.data?.results ? data?.data?.results : [];
   return {

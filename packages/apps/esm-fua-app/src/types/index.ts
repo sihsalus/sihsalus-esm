@@ -4,13 +4,7 @@ export interface DateFilterContext {
 }
 
 // FUA status lifecycle
-export type FuaEstado =
-  | 'PENDIENTE'
-  | 'EN_PROCESO'
-  | 'ENVIADO_SETI_SIS'
-  | 'COMPLETADO'
-  | 'RECHAZADO'
-  | 'CANCELADO';
+export type FuaEstado = 'PENDIENTE' | 'EN_PROCESO' | 'ENVIADO_SETI_SIS' | 'COMPLETADO' | 'RECHAZADO' | 'CANCELADO';
 
 export type SeguroTipo = 'SIS' | 'ESSALUD' | 'PARTICULAR' | 'OTRO';
 

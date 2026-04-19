@@ -1,0 +1,5 @@
+{
+  "react-i18next": "test-utils/stubs/react-i18next.js",
+  "react-markdown": "test-utils/stubs/react-markdown.tsx",
+  "\\.(png|jpg|jpeg|gif|svg)$": "test-utils/stubs/fileMock.js"
+}

@@ -7,14 +7,14 @@ import useWardLocation from './useWardLocation';
 // prettier-ignore
 const defaultRep =
   'custom:(' +
-    'dispositionLocation,' +
-    'dispositionType,' +
-    'disposition,' +
-    'dispositionEncounter:full,' +
-    'patient:(uuid,identifiers,voided,' +
-      'person:(uuid,display,gender,age,birthdate,birthtime,preferredName,preferredAddress,dead,deathDate)),' + 
-    'dispositionObsGroup,' +
-    'visit)';
+  'dispositionLocation,' +
+  'dispositionType,' +
+  'disposition,' +
+  'dispositionEncounter:full,' +
+  'patient:(uuid,identifiers,voided,' +
+  'person:(uuid,display,gender,age,birthdate,birthtime,preferredName,preferredAddress,dead,deathDate)),' +
+  'dispositionObsGroup,' +
+  'visit)';
 
 /**
  * fetches a list of pending inpatient requests for the current ward location

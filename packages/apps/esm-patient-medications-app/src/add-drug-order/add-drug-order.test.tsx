@@ -1,4 +1,3 @@
- 
 import { closeWorkspace, useSession } from '@openmrs/esm-framework';
 import { type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
@@ -9,7 +8,7 @@ import {
   mockDrugOrderTemplateApiData,
   mockPatientDrugOrdersApiData,
   mockSessionDataResponse,
-} from '__mocks__';
+} from 'test-utils';
 import React from 'react';
 import { getByTextWithMarkup } from 'test-utils';
 

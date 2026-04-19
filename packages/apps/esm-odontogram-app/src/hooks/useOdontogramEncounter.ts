@@ -39,9 +39,7 @@ export function useOdontogramEncounter() {
       const { workspaceMode } = useOdontogramDataStore.getState();
 
       const encounterTypeUuid =
-        workspaceMode === 'base'
-          ? config.baseEncounterTypeUuid?.trim()
-          : config.attentionEncounterTypeUuid?.trim();
+        workspaceMode === 'base' ? config.baseEncounterTypeUuid?.trim() : config.attentionEncounterTypeUuid?.trim();
 
       if (!encounterTypeUuid) {
         throw new Error(
@@ -73,9 +71,7 @@ export function useOdontogramEncounter() {
       }));
 
       const payload = { patient: patientUuid, encounterType: encounterTypeUuid, obs };
-      const response = encounterUuid
-        ? await updateEncounter(encounterUuid, payload)
-        : await saveEncounter(payload);
+      const response = encounterUuid ? await updateEncounter(encounterUuid, payload) : await saveEncounter(payload);
 
       return response.data;
     } catch (err) {

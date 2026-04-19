@@ -7,20 +7,27 @@ import { showModal, showSnackbar } from '@openmrs/esm-framework';
 import { useLanguageOptions } from '@hooks/getLanguageOptionsFromSession';
 import { uploadBackendTranslations } from '@hooks/uploadBackendTranslations';
 import { fetchBackendTranslations } from '@hooks/useBackendTranslations';
+import type { Schema } from '@types';
 
 import { extractTranslatableStrings } from '../../utils/translationSchemaUtils';
 import styles from './translation-builder.module.scss';
 
-interface TranslatableFormSchema {
-  uuid?: string;
-  name?: string;
-  translations?: Record<string, Record<string, string>>;
-  [key: string]: unknown;
+interface TranslationBuilderProps {
+  formSchema: Schema | null | undefined;
+  onUpdateSchema: (updatedSchema: Schema) => void;
 }
 
-interface TranslationBuilderProps {
-  formSchema: TranslatableFormSchema | null | undefined;
-  onUpdateSchema: (updatedSchema: TranslatableFormSchema) => void;
+function getNestedTranslations(schema: Schema | null | undefined): Record<string, Record<string, string>> {
+  if (!schema?.translations || typeof schema.translations !== 'object') {
+    return {};
+  }
+
+  return Object.fromEntries(
+    Object.entries(schema.translations).filter((entry): entry is [string, Record<string, string>] => {
+      const [, value] = entry;
+      return typeof value === 'object' && value !== null;
+    }),
+  );
 }
 
 const TranslationBuilder: React.FC<TranslationBuilderProps> = ({ formSchema, onUpdateSchema }) => {
@@ -54,11 +61,13 @@ const TranslationBuilder: React.FC<TranslationBuilderProps> = ({ formSchema, onU
       const updatedTranslations = { ...translations, [key]: newValue };
       setTranslations(updatedTranslations);
       if (formSchema) {
-        const updatedSchema = { ...formSchema };
-        if (!updatedSchema.translations) {
-          updatedSchema.translations = {};
-        }
-        updatedSchema.translations[langCode] = updatedTranslations;
+        const updatedSchema: Schema = {
+          ...formSchema,
+          translations: {
+            ...getNestedTranslations(formSchema),
+            [langCode]: updatedTranslations,
+          },
+        };
         onUpdateSchema(updatedSchema);
       }
     },
@@ -84,7 +93,7 @@ const TranslationBuilder: React.FC<TranslationBuilderProps> = ({ formSchema, onU
 
   const downloadableTranslationResource = useMemo(() => {
     if (!formSchema) return null;
-    const schemaTranslations = formSchema.translations?.[langCode];
+    const schemaTranslations = getNestedTranslations(formSchema)[langCode];
     const translationsToExport = langCode === 'en' ? fallbackStrings : schemaTranslations;
 
     if (!translationsToExport) return null;
@@ -133,10 +142,10 @@ const TranslationBuilder: React.FC<TranslationBuilderProps> = ({ formSchema, onU
       const merged = await fetchBackendTranslations(formUuid, newLangCode, fallbackStrings);
       setTranslations(merged);
 
-      const updatedSchema = {
+      const updatedSchema: Schema = {
         ...formSchema,
         translations: {
-          ...(formSchema.translations || {}),
+          ...getNestedTranslations(formSchema),
           [newLangCode]: merged,
         },
       };
@@ -181,7 +190,7 @@ const TranslationBuilder: React.FC<TranslationBuilderProps> = ({ formSchema, onU
   const handleUploadTranslationFromSchema = useCallback(async () => {
     if (!formSchema) return;
 
-    const schemaTranslations = formSchema.translations?.[langCode];
+    const schemaTranslations = getNestedTranslations(formSchema)[langCode];
     const translationsToUpload = langCode === 'en' ? fallbackStrings : schemaTranslations;
 
     if (!translationsToUpload) {

@@ -132,10 +132,7 @@ describe('log() — guards', () => {
     }
 
     expect(mockFetch).toHaveBeenCalledTimes(20);
-    expect(warnSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Rate limit'),
-      expect.any(String),
-    );
+    expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('Rate limit'), expect.any(String));
 
     warnSpy.mockRestore();
     vi.useRealTimers();
@@ -217,10 +214,7 @@ describe('configure() — endpoint validation', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     auditLogger.configure({ endpoint: '/ws/rest/v1/sihsalus/audit' });
     auditLogger.configure({ endpoint: 'https://evil.example.com/exfil' });
-    expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Rejected unsafe endpoint'),
-      expect.any(String),
-    );
+    expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Rejected unsafe endpoint'), expect.any(String));
     errorSpy.mockRestore();
   });
 });

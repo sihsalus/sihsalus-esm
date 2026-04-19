@@ -14,7 +14,10 @@ const getNamedDisplay = (value: unknown) => {
   }
 
   if (typeof value === 'object' && value !== null) {
-    const namedValue = value as { display?: string; name?: string | { display?: string; name?: string } };
+    const namedValue = value as {
+      display?: string;
+      name?: string | { display?: string; name?: string };
+    };
     if (typeof namedValue.display === 'string') {
       return namedValue.display;
     }
@@ -37,7 +40,7 @@ export const getEncounterTileColumns = (tileDefinition: MenuCardProps, config: C
     encounterTypeUuid: column.encounterType,
     hasSummary: column.hasSummary || false,
     getObsValue: (encounter: Encounter) => {
-      let obsValue;
+      let obsValue: unknown;
       if (column.conceptMappings) {
         const concept = getConceptFromMappings(encounter, column.conceptMappings);
         obsValue = getObsFromEncounter({
@@ -62,7 +65,7 @@ export const getEncounterTileColumns = (tileDefinition: MenuCardProps, config: C
     },
     getSummaryObsValue: column.hasSummary
       ? (encounter: Encounter) => {
-          let summaryValue;
+          let summaryValue: unknown;
 
           if (column.summaryConcept?.secondaryConcept) {
             const primaryConceptType = getObsFromEncounter({

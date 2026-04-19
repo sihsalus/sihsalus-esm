@@ -241,7 +241,6 @@ export async function runAssemble(args: AssembleArgs) {
   };
 
   const versionManifest = {
-     
     coreVersion: require(resolve(__dirname, '..', '..', 'package.json')).version,
     frontendModules: {},
   };

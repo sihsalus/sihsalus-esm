@@ -39,8 +39,8 @@ const CompactPatientSearchComponent: React.FC<CompactPatientSearchProps> = ({
   const { showRecentlySearchedPatients } = config.search;
 
   const {
-    user,
-    sessionLocation: { uuid: currentLocation },
+    user: _user,
+    sessionLocation: { uuid: _currentLocation },
   } = useSession();
 
   const patientSearchResponse = useInfinitePatientSearch(debouncedSearchTerm, config.includeDead);

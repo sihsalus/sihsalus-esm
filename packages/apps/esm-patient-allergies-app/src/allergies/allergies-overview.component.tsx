@@ -1,4 +1,3 @@
- 
 import React, { useCallback, useMemo } from 'react';
 import {
   DataTableSkeleton,
@@ -39,7 +38,7 @@ const AllergiesOverview: React.FC<AllergiesOverviewProps> = ({ patient }) => {
   const pageUrl = `\${openmrsSpaBase}/patient/${patient.id}/chart/Allergies`;
   const layout = useLayoutType();
   const isTablet = layout === 'tablet';
-  const isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
+  const _isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
 
   const { allergies, error, isLoading, isValidating } = useAllergies(patient.id);
   const { results: paginatedAllergies, goTo, currentPage } = usePagination(allergies ?? [], allergiesCount);

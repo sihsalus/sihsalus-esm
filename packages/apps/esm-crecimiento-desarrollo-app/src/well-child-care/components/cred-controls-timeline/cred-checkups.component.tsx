@@ -46,7 +46,10 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
     if (!serviceUuid) {
       showSnackbar({
         title: t('configError', 'Error de configuración'),
-        subtitle: t('noAppointmentServiceUuid', 'No se ha configurado el UUID del servicio de citas Crecimiento y Desarrollo.'),
+        subtitle: t(
+          'noAppointmentServiceUuid',
+          'No se ha configurado el UUID del servicio de citas Crecimiento y Desarrollo.',
+        ),
         kind: 'error',
       });
       return;
@@ -87,9 +90,13 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
       if (result.created.length > 0) {
         showSnackbar({
           title: t('appointmentsCreated', 'Citas creadas'),
-          subtitle: t('appointmentsCreatedDetail', 'Se crearon {{count}} citas Crecimiento y Desarrollo exitosamente.', {
-            count: result.created.length,
-          }),
+          subtitle: t(
+            'appointmentsCreatedDetail',
+            'Se crearon {{count}} citas Crecimiento y Desarrollo exitosamente.',
+            {
+              count: result.created.length,
+            },
+          ),
           kind: 'success',
         });
         mutateAppointments();
@@ -115,7 +122,8 @@ const CredCheckups: React.FC<CredCheckupsProps> = ({ patientUuid }) => {
     }
   }, [config, session, pendingControls, patientUuid, mutateAppointments, t]);
 
-  if (isLoading) return <InlineLoading description={t('loadingSchedule', 'Cargando calendario Crecimiento y Desarrollo...')} />;
+  if (isLoading)
+    return <InlineLoading description={t('loadingSchedule', 'Cargando calendario Crecimiento y Desarrollo...')} />;
   if (error) return <InlineNotification kind="error" title={t('errorLoadingSchedule', 'Error cargando calendario')} />;
 
   return (

@@ -10,7 +10,6 @@ import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import usePatientResultsData from '../loadPatientTestData/usePatientResultsData';
 
 import CommonOverview from './common-overview.component';

@@ -17,7 +17,7 @@ interface NotasSoapProps {
 const NotasSoap: React.FC<NotasSoapProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { soapEntries, isLoading, error } = useSoapNotes(
+  const { soapEntries, isLoading } = useSoapNotes(
     patientUuid,
     config.encounterTypes?.externalConsultation,
     config.concepts,

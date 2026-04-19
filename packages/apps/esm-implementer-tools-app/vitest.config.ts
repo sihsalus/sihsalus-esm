@@ -1,19 +1,12 @@
-import { defineConfig } from 'vitest/config';
+import { aliasPresets, defineAppVitestConfig } from '../../tooling/configs/vitest-config';
 
-export default defineConfig({
-  resolve: {
-    alias: [
-      { find: /^lodash-es$/, replacement: 'lodash' },
-      { find: /^lodash-es\/(.*)$/, replacement: 'lodash/$1' },
-      { find: '@openmrs/esm-framework/src/internal', replacement: '@openmrs/esm-framework/mock' },
-      { find: /^@openmrs\/esm-framework$/, replacement: '@openmrs/esm-framework/mock' },
-    ],
-  },
+export default defineAppVitestConfig(__dirname, {
+  aliases: aliasPresets.frameworkVitestStubAliases,
+  extraAliases: [
+    { find: /^lodash-es$/, replacement: aliasPresets.lodashEsAliases['lodash-es'] },
+    { find: /^lodash-es\/(.*)$/, replacement: 'lodash/$1' },
+  ],
   test: {
-    environment: 'happy-dom',
-    mockReset: true,
-    setupFiles: ['./setup-tests.ts'],
-    globals: true,
     coverage: {
       provider: 'v8',
     },

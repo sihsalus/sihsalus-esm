@@ -1,4 +1,3 @@
- 
 import { useStoreWithActions } from '@openmrs/esm-framework';
 import { useEffect } from 'react';
 
@@ -8,7 +7,6 @@ import { type OrderBasketStore, orderBasketStore } from './store';
 import type { OrderBasketItem, PostDataPrepFunction } from './types';
 
 const orderBasketStoreActions = {
-   
   setOrderBasketItems(
     state: OrderBasketStore,
     grouping: string,
@@ -28,7 +26,7 @@ const orderBasketStoreActions = {
       },
     };
   },
-   
+
   setPostDataPrepFunctionForGrouping(state: OrderBasketStore, grouping: string, value: PostDataPrepFunction) {
     return {
       postDataPrepFunctions: {
@@ -82,7 +80,7 @@ type UseOrderBasketReturn<T, U> = {
  *  A PostDataPrepFunction must be provided for each grouping, but does not necessarily have to be provided
  *  in every usage of useOrderBasket with a grouping key.
  */
-export function useOrderBasket<T extends OrderBasketItem>(): UseOrderBasketReturn<T, void>;
+export function useOrderBasket<T extends OrderBasketItem>(): UseOrderBasketReturn<T, undefined>;
 export function useOrderBasket<T extends OrderBasketItem>(grouping: string): UseOrderBasketReturn<T, string>;
 export function useOrderBasket<T extends OrderBasketItem>(
   grouping: string,
@@ -91,7 +89,7 @@ export function useOrderBasket<T extends OrderBasketItem>(
 export function useOrderBasket<T extends OrderBasketItem>(
   grouping?: string | null,
   postDataPrepFunction?: PostDataPrepFunction,
-): UseOrderBasketReturn<T, string | void> {
+): UseOrderBasketReturn<T, string | undefined> {
   const { items, postDataPrepFunctions, setOrderBasketItems, setPostDataPrepFunctionForGrouping } = useStoreWithActions(
     orderBasketStore,
     orderBasketStoreActions,
@@ -108,11 +106,19 @@ export function useOrderBasket<T extends OrderBasketItem>(
     const setOrders = (value: Array<T> | (() => Array<T>)): void => {
       setOrderBasketItems(grouping, value);
     };
-    return { orders, clearOrders, setOrders } as UseOrderBasketReturn<T, string>;
+    return {
+      orders,
+      clearOrders,
+      setOrders,
+    } as unknown as UseOrderBasketReturn<T, string>;
   } else {
     const setOrders = (groupingKey: string, value: Array<T> | (() => Array<T>)): void => {
       setOrderBasketItems(groupingKey, value);
     };
-    return { orders, clearOrders, setOrders } as UseOrderBasketReturn<T, void>;
+    return {
+      orders,
+      clearOrders,
+      setOrders,
+    } as unknown as UseOrderBasketReturn<T, undefined>;
   }
 }

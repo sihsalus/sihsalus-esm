@@ -32,7 +32,9 @@ export interface FormRendererProps {
   hideControls?: boolean;
   hidePatientBanner?: boolean;
   handlePostResponse?: (encounter?: Encounter) => void;
-  handleEncounterCreate?: (encounter: OpenmrsEncounter) => OpenmrsEncounter | void | Promise<OpenmrsEncounter | void>;
+  handleEncounterCreate?: (
+    encounter: OpenmrsEncounter,
+  ) => OpenmrsEncounter | undefined | Promise<OpenmrsEncounter | undefined>;
   handleOnValidate?: (valid: boolean) => void;
   showDiscardSubmitButtons?: boolean;
   preFilledQuestions?: Record<string, string | number | Date | boolean | Array<string>>;

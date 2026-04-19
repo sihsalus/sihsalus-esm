@@ -2,7 +2,7 @@ import { getDefaultsFromConfigSchema, showModal, useConfig } from '@openmrs/esm-
 import { launchFormEntryOrHtmlForms, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockForms } from '__mocks__';
+import { mockCurrentVisit, mockForms } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 

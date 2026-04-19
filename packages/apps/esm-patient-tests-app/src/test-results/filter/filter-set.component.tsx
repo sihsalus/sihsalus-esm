@@ -1,4 +1,3 @@
- 
 import { Accordion, AccordionItem, Button, Checkbox } from '@carbon/react';
 import { useConfig, useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';

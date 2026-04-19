@@ -1,4 +1,3 @@
- 
 import React, { type ComponentProps, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';

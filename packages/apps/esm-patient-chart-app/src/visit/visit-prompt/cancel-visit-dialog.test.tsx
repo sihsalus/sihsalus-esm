@@ -1,7 +1,7 @@
 import { useVisit, openmrsFetch, showSnackbar, type FetchResponse } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockVisitQueueEntries } from '__mocks__';
+import { mockCurrentVisit, mockVisitQueueEntries } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 

@@ -22,7 +22,7 @@ const MarkdownQuestion: React.FC = () => {
   return (
     <div className={styles.container}>
       <ReactMde
-        value={formField.value}
+        value={typeof formField.value === 'string' ? formField.value : ''}
         onChange={handleEditorChange}
         selectedTab={selectedTab}
         onTabChange={handleTabChange}

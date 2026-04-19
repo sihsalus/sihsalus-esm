@@ -11,19 +11,19 @@ export interface ObsRecord {
     type: string;
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [_: string]: any;
+  [_: string]: unknown;
 }
 
 export interface ObsMetaInfo {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [_: string]: any;
+  [_: string]: unknown;
   assessValue?: (value: string) => OBSERVATION_INTERPRETATION;
 }
 
 export interface ConceptRecord {
   uuid: ConceptUuid;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [_: string]: any;
+  [_: string]: unknown;
 }
 
 export interface PatientData {

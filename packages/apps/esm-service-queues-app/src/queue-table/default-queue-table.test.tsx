@@ -7,7 +7,7 @@ import {
   mockQueueRooms,
   mockServices,
   mockSession,
-} from '__mocks__';
+} from 'test-utils';
 import React from 'react';
 import { renderWithSwr } from 'test-utils';
 

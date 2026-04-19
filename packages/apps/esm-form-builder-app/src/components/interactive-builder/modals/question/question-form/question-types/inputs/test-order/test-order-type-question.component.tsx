@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, FormGroup, Stack, TextInput } from '@carbon/react';
 import { Add, TrashCan } from '@carbon/react/icons';
+import type { QuestionAnswerOption } from '@sihsalus/esm-form-engine-lib';
 import ConceptSearch from '../../../common/concept-search/concept-search.component';
 import { useFormField } from '../../../../form-field-context';
 import styles from './test-order-type-question.scss';
@@ -16,7 +17,7 @@ const TestOrderTypeQuestion: React.FC = () => {
   const { formField, setFormField } = useFormField();
 
   const selectableOrders = useMemo(
-    () => formField.questionOptions?.selectableOrders || [],
+    () => ((((formField.questionOptions?.selectableOrders as unknown) as Array<SelectableOrder> | undefined) ?? [])),
     [formField.questionOptions?.selectableOrders],
   );
 
@@ -39,7 +40,7 @@ const TestOrderTypeQuestion: React.FC = () => {
       ...prevField,
       questionOptions: {
         ...prevField.questionOptions,
-        selectableOrders: [...selectableOrders, newOrder],
+          selectableOrders: [...selectableOrders, newOrder] as Array<QuestionAnswerOption>,
       },
     }));
   }, [selectableOrders, setFormField]);
@@ -51,7 +52,7 @@ const TestOrderTypeQuestion: React.FC = () => {
         ...prevField,
         questionOptions: {
           ...prevField.questionOptions,
-          selectableOrders: updatedOrders,
+          selectableOrders: updatedOrders as Array<QuestionAnswerOption>,
         },
       }));
     },
@@ -65,7 +66,7 @@ const TestOrderTypeQuestion: React.FC = () => {
         ...prevField,
         questionOptions: {
           ...prevField.questionOptions,
-          selectableOrders: updatedOrders,
+          selectableOrders: updatedOrders as Array<QuestionAnswerOption>,
         },
       }));
     },
@@ -101,7 +102,7 @@ const TestOrderTypeQuestion: React.FC = () => {
                   id={`order-label-${index}`}
                   labelText={t('label', 'Label')}
                   value={order.label}
-                  onChange={(e) => handleSelectableOrderChange(index, 'label', e.target.value)}
+                  onChange={(e) => handleSelectableOrderChange(index, 'label', e.currentTarget.value)}
                   placeholder={t('enterOrderLabel', 'Enter order label')}
                 />
                 <Button

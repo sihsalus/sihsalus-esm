@@ -1,5 +1,6 @@
 import React from 'react';
-import { useTranslation, type TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { Button, ModalBody, ModalFooter, ModalHeader, TextInput, Stack } from '@carbon/react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

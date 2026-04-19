@@ -18,6 +18,7 @@ const WardPatientCard: React.FC<Props> = ({ children, wardPatient }) => {
     <div className={styles.wardPatientCard}>
       {children}
       <button
+        type="button"
         className={styles.wardPatientCardButton}
         onClick={() => {
           launchWorkspaceGroup('ward-patient', {

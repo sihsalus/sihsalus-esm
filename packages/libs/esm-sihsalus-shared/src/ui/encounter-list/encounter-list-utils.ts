@@ -52,7 +52,10 @@ export function findObs(encounter: EncounterWithObservations, obsConcept: string
   return allObs?.length == 1 ? allObs[0] : allObs?.sort(obsArrayDateComparator)[0];
 }
 
-export function getObsFromEncounters(encounters: Array<EncounterWithObservations>, obsConcept: string): string | number {
+export function getObsFromEncounters(
+  encounters: Array<EncounterWithObservations>,
+  obsConcept: string,
+): string | number {
   const filteredEnc = encounters?.find((enc) => enc.obs.find((obs) => obs.concept.uuid === obsConcept));
   return getObsFromEncounter(filteredEnc, obsConcept);
 }

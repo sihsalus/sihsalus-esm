@@ -1,8 +1,8 @@
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import { type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockBasePanel, mockObservations, mockConceptMeta, mockObservationsWithInterpretations } from '__mocks__';
+import { mockBasePanel, mockObservations, mockConceptMeta, mockObservationsWithInterpretations } from 'test-utils';
 import React from 'react';
 
 import { type ObsRecord } from '../../types';

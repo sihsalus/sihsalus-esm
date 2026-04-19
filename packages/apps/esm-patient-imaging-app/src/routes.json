@@ -50,7 +50,7 @@
       "component": "instancePreviewDialog"
     }
   ],
-  
+
   "workspaces": [
     {
       "name": "upload-studies-form-workspace",

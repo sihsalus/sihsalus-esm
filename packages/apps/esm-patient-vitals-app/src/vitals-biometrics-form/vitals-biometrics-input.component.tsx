@@ -151,9 +151,7 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
                               min={fieldProperty.min ?? undefined}
                               name={fieldProperty.name}
                               onBlur={() => handleFocusChange(false)}
-                              onChange={(_event, { value }) =>
-                                checkValidity(String(value ?? ''), onChange)
-                              }
+                              onChange={(_event, { value }) => checkValidity(String(value ?? ''), onChange)}
                               onFocus={() => handleFocusChange(true)}
                               placeholder={generatePlaceholder(fieldProperty.name)}
                               readOnly={readOnly}

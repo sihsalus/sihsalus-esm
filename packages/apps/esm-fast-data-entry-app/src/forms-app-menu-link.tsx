@@ -4,8 +4,5 @@ import { ConfigurableLink } from '@openmrs/esm-framework';
 
 export default function FormsAppMenuLink() {
   const { t } = useTranslation();
-  return (
-     
-    <ConfigurableLink to="${openmrsSpaBase}/forms">{t('formsAppMenuLink', 'Fast Data Entry')}</ConfigurableLink>
-  );
+  return <ConfigurableLink to="${openmrsSpaBase}/forms">{t('formsAppMenuLink', 'Fast Data Entry')}</ConfigurableLink>;
 }

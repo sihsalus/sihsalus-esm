@@ -16,11 +16,26 @@ interface ReportParameterInputProps {
   onChange: (value: unknown) => void;
 }
 
+type LocationParameterValue = { uuid: string } | null;
+type ReportInputValue = string | number;
+
+function isLocationValue(value: unknown): value is { uuid: string } {
+  return typeof value === 'object' && value !== null && 'uuid' in value && typeof value.uuid === 'string';
+}
+
+function toComparableDateValue(value: unknown): string | number | Date {
+  if (typeof value === 'string' || typeof value === 'number' || value instanceof Date) {
+    return value;
+  }
+
+  return '';
+}
+
 function getInitialValue(parameter: ReportParameter, value: unknown) {
   if (parameter.type === 'java.util.Date') {
-    return new Date(value);
+    return typeof value === 'string' || typeof value === 'number' || value instanceof Date ? new Date(value) : new Date('');
   } else if (parameter.type === 'org.openmrs.Location') {
-    return value?.uuid;
+    return isLocationValue(value) ? value.uuid : '';
   } else {
     return value;
   }
@@ -29,8 +44,11 @@ function getInitialValue(parameter: ReportParameter, value: unknown) {
 const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, value, onChange }) => {
   const { t } = useTranslation();
   const { locations } = useLocations();
-  const [valueInternal, setValueInternal] = useState<string | number>(getInitialValue(parameter, value));
-  const searchInputRef = useRef(null);
+  const [valueInternal, setValueInternal] = useState<string | number>(() => {
+    const initialValue = getInitialValue(parameter, value);
+    return typeof initialValue === 'string' || typeof initialValue === 'number' ? initialValue : '';
+  });
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedConcept, setSelectedConcept] = useState<{ uuid: string; display?: string } | null>(null);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
@@ -43,15 +61,21 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
   const handleOnChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const target = event.target as HTMLInputElement | HTMLSelectElement;
-      const eventValue = (target as HTMLInputElement).type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
+      const eventValue =
+        (target as HTMLInputElement).type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
+
+      if (typeof eventValue === 'boolean') {
+        onChange(eventValue);
+        return;
+      }
 
       setValueInternal(eventValue);
 
       if (parameter.type === 'java.util.Date') {
-        onChange(new Date(eventValue).toLocaleDateString());
-      } else {
-        onChange(eventValue);
-      }
+          onChange(new Date(eventValue).toLocaleDateString());
+        } else {
+          onChange(eventValue);
+        }
     },
     [onChange, parameter.type],
   );
@@ -74,9 +98,9 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
   );
 
   const isValueEqual = useCallback(
-    (valueA, valueB) => {
+    (valueA: unknown, valueB: unknown) => {
       if (parameter.type === 'java.util.Date') {
-        return isEqual(new Date(valueA), new Date(valueB));
+        return isEqual(new Date(toComparableDateValue(valueA)), new Date(toComparableDateValue(valueB)));
       } else {
         return isEqual(valueA, valueB);
       }
@@ -98,8 +122,9 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
   useEffect(() => {
     const newInternalValue = getInitialValue(parameter, value);
     setValueInternal((prevValue) => {
-      if (!isValueEqual(newInternalValue, prevValue)) {
-        return newInternalValue;
+      const normalizedValue = typeof newInternalValue === 'string' || typeof newInternalValue === 'number' ? newInternalValue : '';
+      if (!isValueEqual(normalizedValue, prevValue)) {
+        return normalizedValue;
       }
       return prevValue;
     });
@@ -177,7 +202,7 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
     }
   };
 
-  function handleOnDateChange(dateValue) {
+  function handleOnDateChange(dateValue: string | Date) {
     const newDate = new Date(dateValue);
     setValueInternal(newDate.toISOString());
     onChange(newDate.toISOString());

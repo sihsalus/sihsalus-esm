@@ -137,13 +137,12 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
           })
         : z.string().optional();
 
-    const visitAttributes = (config.visitAttributeTypes ?? [])?.reduce(
-      (acc, { uuid, required }) => ({
-        ...acc,
-        [uuid]: createVisitAttributeSchema(required),
-      }),
-      {},
-    );
+    const visitAttributes = (config.visitAttributeTypes ?? [])?.reduce<
+      Record<string, ReturnType<typeof createVisitAttributeSchema>>
+    >((acc, { uuid, required }) => {
+      acc[uuid] = createVisitAttributeSchema(required);
+      return acc;
+    }, {});
 
     // Validates that the start time is not in the future
     const validateStartTime = (data: z.infer<typeof visitFormSchema>) => {
@@ -220,13 +219,10 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
       visitType: visitToEdit?.visitType?.uuid ?? emrConfiguration?.atFacilityVisitType?.uuid,
       visitLocation: visitToEdit?.location ?? defaultVisitLocation ?? {},
       visitAttributes:
-        visitToEdit?.attributes.reduce(
-          (acc, curr) => ({
-            ...acc,
-            [curr.attributeType.uuid]: typeof curr.value === 'object' ? curr?.value?.uuid : `${curr.value ?? ''}`,
-          }),
-          {},
-        ) ?? {},
+        visitToEdit?.attributes.reduce<Record<string, string>>((acc, curr) => {
+          acc[curr.attributeType.uuid] = typeof curr.value === 'object' ? curr?.value?.uuid : `${curr.value ?? ''}`;
+          return acc;
+        }, {}) ?? {},
     };
 
     if (visitStopDate) {
@@ -668,7 +664,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
             {/* Upcoming appointments. This get shown when config.showUpcomingAppointments is true. */}
             {config.showUpcomingAppointments && (
               <section>
-                <h1 className={styles.sectionTitle}></h1>
+                <div className={styles.sectionTitle} />
                 <div className={styles.sectionField}>
                   <VisitFormExtensionSlot
                     name="visit-form-top-slot"
@@ -751,7 +747,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
 
                 {errors?.visitType && (
                   <section>
-                    <h1 className={styles.sectionTitle}></h1>
+                    <div className={styles.sectionTitle} />
                     <div className={styles.sectionField}>
                       <InlineNotification
                         role="alert"
@@ -780,7 +776,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
             {/* Queue location and queue fields. These get shown when config.showServiceQueueFields is true,
                 or when the form is opened from the queues app */}
             <section>
-              <h1 className={styles.sectionTitle}></h1>
+              <div className={styles.sectionTitle} />
               <div className={styles.sectionField}>
                 <VisitFormExtensionSlot
                   name="visit-form-bottom-slot"

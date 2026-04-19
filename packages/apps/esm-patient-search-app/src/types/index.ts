@@ -88,7 +88,7 @@ export interface FHIRPatientSearchResponse {
 export interface PatientSearchResponse {
   currentPage: number;
   data?: Array<SearchedPatient>;
-  fetchError: Error;
+  fetchError: Error | null;
   hasMore: boolean;
   isLoading: boolean;
   isValidating: boolean;

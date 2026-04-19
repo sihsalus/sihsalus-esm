@@ -93,7 +93,8 @@
       "title": "admissionRequests",
       "type": "pending-admission-requests",
       "width": "wider"
-    },{
+    },
+    {
       "name": "create-admission-encounter-workspace",
       "component": "createAdmissionEncounterWorkspace",
       "title": "admitPatient",
@@ -105,7 +106,6 @@
       "component": "wardPatientNotesWorkspace",
       "type": "ward-patient-notes",
       "title": "inpatientNotesWorkspaceTitle"
-
     },
     {
       "name": "admit-patient-form-workspace",
@@ -125,7 +125,6 @@
       "component": "patientTransferAndSwapWorkspace",
       "title": "transfers",
       "type": "transfer-swap-bed-form"
-
     },
     {
       "name": "patient-transfer-request-workspace",
@@ -169,10 +168,7 @@
     },
     {
       "name": "ward-patient-admission-requests",
-      "members": [
-        "admission-requests-workspace",
-        "create-admission-encounter-workspace"
-      ]
+      "members": ["admission-requests-workspace", "create-admission-encounter-workspace"]
     }
   ]
 }

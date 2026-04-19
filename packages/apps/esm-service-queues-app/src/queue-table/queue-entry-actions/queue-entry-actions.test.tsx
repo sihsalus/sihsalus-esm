@@ -1,7 +1,7 @@
 import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockQueues, mockQueueEntryAlice } from '__mocks__';
+import { mockQueues, mockQueueEntryAlice } from 'test-utils';
 import React from 'react';
 import { renderWithSwr } from 'test-utils';
 

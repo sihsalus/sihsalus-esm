@@ -1,6 +1,6 @@
-import { type FetchResponse, useSession } from '@openmrs/esm-framework';
+import { useSession } from '@openmrs/esm-framework';
 import { renderHook } from '@testing-library/react';
-import { mockSession } from '__mocks__';
+import { mockSession } from 'test-utils';
 import { useParams } from 'react-router-dom';
 
 import useLocation from './useLocation';

@@ -12,9 +12,7 @@ import { useAppointmentServices } from './appointment-services-hook';
 import { validationSchema } from './appointment-services-validation';
 import styles from './appointment-services.scss';
 
-interface AppointmentServicesProps {}
-
-const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
+const AppointmentServices: React.FC = () => {
   const { t } = useTranslation();
   const { appointmentServiceInitialValue, addNewAppointmentService } = useAppointmentServices();
 
@@ -70,7 +68,7 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 onChange={props.handleChange}
                 value={props.values.name}
                 name="name"
-                onBlue={props.handleBlur}
+                onBlur={props.handleBlur}
               />
             </Layer>
             <Layer>
@@ -78,7 +76,6 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 className={styles.timePickerInput}
                 invalid={!!(props.touched && props.errors.startTime)}
                 pattern="([\d]+:[\d]{2})"
-                name="startTime"
                 value={props.values.startTime}
                 onChange={props.handleChange}
                 labelText={t('startTime', 'Start Time')}
@@ -88,9 +85,7 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                   name="startTimeTimeFormat"
                   onChange={props.handleChange}
                   value={props.values.startTimeTimeFormat}
-                  invalid={!!(props.touched && props.errors.startTimeTimeFormat)}
                   id="start-time-picker"
-                  labelText={t('time', 'Time')}
                   aria-label={t('time', 'Time')}
                 >
                   <SelectItem value="AM" text="AM" />
@@ -105,7 +100,6 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 className={styles.timePickerInput}
                 pattern="([\d]+:[\d]{2})"
                 value={props.values.endTime}
-                name="endTime"
                 onChange={props.handleChange}
                 labelText={t('endTime', 'End Time')}
                 id="end-time-picker"
@@ -115,7 +109,6 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                   onChange={props.handleChange}
                   id="end-time-picker"
                   value={props.values.endTimeTimeFormat}
-                  labelText={t('time', 'Time')}
                   aria-label={t('time', 'Time')}
                 >
                   <SelectItem value="AM" text="AM" />
@@ -146,13 +139,13 @@ const AppointmentServices: React.FC<AppointmentServicesProps> = () => {
                 itemToString={(item) => (item ? item.display : '')}
                 selectedItem={props.values.location}
                 invalid={!!(props.touched && props.errors.location?.uuid)}
-                name="location"
                 onChange={({ selectedItem }) => props.setValues({ ...props.values, location: selectedItem })}
               />
             </Layer>
 
             <Layer>
               <TextInput
+                id="color"
                 invalid={!!(props.touched && props.errors.color)}
                 onChange={props.handleChange}
                 invalidText={props.errors.color}

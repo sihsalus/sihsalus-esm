@@ -23,7 +23,8 @@ export interface FormsSelectorWorkspaceAdditionalProps {
 }
 
 export interface FormsSelectorWorkspaceProps
-  extends DefaultPatientWorkspaceProps, FormsSelectorWorkspaceAdditionalProps {}
+  extends DefaultPatientWorkspaceProps,
+    FormsSelectorWorkspaceAdditionalProps {}
 
 export default function FormsSelectorWorkspace({
   availableForms,

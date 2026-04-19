@@ -1,4 +1,3 @@
- 
 import React from 'react';
 import { describe, expect, it, afterEach, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -92,6 +91,20 @@ const mockImplToolsConfig = {
 };
 
 describe('Configuration', () => {
+  beforeEach(() => {
+    mockUseConceptLookup.mockImplementation(() => ({
+      concepts: [],
+      error: null,
+      isSearchingConcepts: false,
+    }));
+
+    mockUseGetConceptByUuid.mockImplementation(() => ({
+      concept: null,
+      error: null,
+      isLoadingConcept: false,
+    }));
+  });
+
   afterEach(() => {
     implementerToolsConfigStore.setState({ config: {} });
     temporaryConfigStore.setState({ config: {} });
@@ -133,7 +146,7 @@ describe('Configuration', () => {
       const editor = row.getByRole('button', { name: /edit/i });
 
       await user.click(editor);
-      await user.click(row.getByText('Save'));
+      await user.click(row.getByText(/save/i));
 
       expect(temporaryConfigStore.setState).toHaveBeenCalledWith({
         config: { '@openmrs/mario': { hasHat: false } },
@@ -189,7 +202,7 @@ describe('Configuration', () => {
       const targetConcept = await row.findByText('Fedora');
 
       await user.click(targetConcept);
-      await user.click(row.getByText('Save'));
+      await user.click(row.getByText(/save/i));
 
       // expect(temporaryConfigStore.setState).toHaveBeenCalledWith({
       //   config: {
@@ -229,7 +242,7 @@ describe('Configuration', () => {
 
       await user.clear(editor);
       await user.type(editor, '11');
-      await user.click(row.getByText('Save'));
+      await user.click(row.getByText(/save/i));
 
       expect(temporaryConfigStore.setState).toHaveBeenCalledWith({
         config: { '@openmrs/mario': { numberFingers: 11 } },
@@ -262,7 +275,7 @@ describe('Configuration', () => {
 
       await user.clear(editor);
       await user.type(editor, 'Bowser');
-      await user.click(row.getByText('Save'));
+      await user.click(row.getByText(/save/i));
 
       expect(temporaryConfigStore.setState).toHaveBeenCalledWith({
         config: { '@openmrs/mario': { nemesisName: 'Bowser' } },
@@ -298,7 +311,7 @@ describe('Configuration', () => {
       await user.clear(editor);
       const newUuid = '34f03796-f0e2-4f64-9e9a-28fb49a94baf';
       await user.type(editor, newUuid);
-      await user.click(row.getByText('Save'));
+      await user.click(row.getByText(/save/i));
 
       expect(temporaryConfigStore.setState).toHaveBeenCalledWith({
         config: { '@openmrs/mario': { mustacheUuid: newUuid } },

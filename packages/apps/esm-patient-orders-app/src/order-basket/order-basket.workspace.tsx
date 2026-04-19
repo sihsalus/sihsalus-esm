@@ -1,4 +1,3 @@
- 
 import { ActionableNotification, Button, ButtonSet, InlineLoading, InlineNotification } from '@carbon/react';
 import { ExtensionSlot, showModal, showSnackbar, useConfig, useLayoutType, useSession } from '@openmrs/esm-framework';
 import {

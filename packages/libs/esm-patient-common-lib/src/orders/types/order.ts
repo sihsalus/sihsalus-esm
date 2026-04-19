@@ -116,7 +116,6 @@ export interface DrugOrderPost extends OrderPost {
   dosingInstructions?: string;
 }
 
- 
 export interface TestOrderPost extends OrderPost {}
 
 export interface PatientOrderFetchResponse {
@@ -152,7 +151,7 @@ export interface Order {
   orderReasonNonCoded: string | null;
   orderType: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    conceptClasses: Array<any>;
+    conceptClasses: Array<unknown>;
     description: string;
     display: string;
     name: string;

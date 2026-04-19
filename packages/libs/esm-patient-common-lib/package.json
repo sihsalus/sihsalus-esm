@@ -11,12 +11,8 @@
     "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests",
     "typescript": "tsc"
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs"
-  ],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs"],
   "homepage": "https://github.com/openmrs/openmrs-esm-patient-chart#readme",
   "publishConfig": {
     "access": "public"

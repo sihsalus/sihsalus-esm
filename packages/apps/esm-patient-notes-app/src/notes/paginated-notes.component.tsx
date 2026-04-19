@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import {
   DataTable,
-  type DataTableCell,
-  type DataTableSortState,
   Table,
   TableCell,
   TableContainer,

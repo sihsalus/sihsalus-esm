@@ -21,7 +21,8 @@ export interface AddDrugOrderWorkspaceAdditionalProps {
 }
 
 export interface AddDrugOrderWorkspaceProps
-  extends DefaultPatientWorkspaceProps, AddDrugOrderWorkspaceAdditionalProps {}
+  extends DefaultPatientWorkspaceProps,
+    AddDrugOrderWorkspaceAdditionalProps {}
 
 export default function AddDrugOrderWorkspace({
   order: initialOrder,

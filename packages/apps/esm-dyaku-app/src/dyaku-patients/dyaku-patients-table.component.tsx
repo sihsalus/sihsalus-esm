@@ -22,7 +22,12 @@ import { useTranslation } from 'react-i18next';
 import DyakuPatientSyncButton from './dyaku-patient-sync-button.component';
 import DyakuPatientsSync from './dyaku-patients-sync.component';
 import styles from './dyaku-patients-table.scss';
-import { type DyakuPatient, DNI_SYSTEM, useDyakuPatients, useDyakuPatientsByIdentifier } from './dyaku-patients.resource';
+import {
+  type DyakuPatient,
+  DNI_SYSTEM,
+  useDyakuPatients,
+  useDyakuPatientsByIdentifier,
+} from './dyaku-patients.resource';
 
 interface DyakuPatientsTableProps {
   pageSize?: number;
@@ -106,8 +111,11 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
     ? patients.map((patient, index) => ({
         id: patient.id || `patient-${index}`,
         dni:
-          patient.identifier?.find((identifier) => identifier.system === DNI_SYSTEM || identifier.type?.coding?.some((c) => c.code === 'DNI'))
-            ?.value ?? patient.identifier?.[0]?.value ?? '-',
+          patient.identifier?.find(
+            (identifier) => identifier.system === DNI_SYSTEM || identifier.type?.coding?.some((c) => c.code === 'DNI'),
+          )?.value ??
+          patient.identifier?.[0]?.value ??
+          '-',
         firstName: patient.name?.[0]?.given?.join(' ') || '-',
         lastName: patient.name?.[0]?.family || '-',
         gender:
@@ -132,7 +140,11 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
       )
     : allRows;
 
-  const { results: paginatedData, goTo, currentPage } = usePagination(filteredRows, pageSize) as {
+  const {
+    results: paginatedData,
+    goTo,
+    currentPage,
+  } = usePagination(filteredRows, pageSize) as {
     results: Array<DyakuPatientsTableRow>;
     goTo: (page: number) => void;
     currentPage: number;
@@ -220,8 +232,10 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
                             onSyncComplete={handleSyncComplete}
                             size="sm"
                           />
+                        ) : typeof cell.value === 'string' ? (
+                          cell.value
                         ) : (
-                          typeof cell.value === 'string' ? cell.value : ''
+                          ''
                         )}
                       </TableCell>
                     ))}

@@ -11,7 +11,7 @@ const mockActionMenuButton = jest.mocked(ActionMenuButton);
 const mockUseLaunchWorkspaceRequiringVisit = useLaunchWorkspaceRequiringVisit as jest.Mock;
 
 mockActionMenuButton.mockImplementation(({ handler, label, tagContent }) => (
-  <button onClick={handler}>
+  <button type="button" onClick={handler}>
     {tagContent} {label}
   </button>
 ));

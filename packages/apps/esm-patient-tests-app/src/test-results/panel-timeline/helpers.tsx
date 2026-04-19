@@ -1,4 +1,3 @@
- 
 import { formatDate, formatTime, parseDate, showModal } from '@openmrs/esm-framework';
 import { type OBSERVATION_INTERPRETATION, getPatientUuidFromStore } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';

@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { formattedVitals, mockConceptMetadata, mockConceptUnits, mockVitalsConfig } from '__mocks__';
+import { formattedVitals, mockConceptMetadata, mockConceptUnits, mockVitalsConfig } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 

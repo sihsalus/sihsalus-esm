@@ -1,6 +1,6 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { mockAppointmentsData } from '__mocks__';
+import { mockAppointmentsData } from 'test-utils';
 import React from 'react';
 import { renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 

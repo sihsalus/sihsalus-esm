@@ -11,7 +11,7 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-appointments-app">
-        <main>
+      <main>
         <BrowserRouter basename={appointmentsBasename}>
           <Routes>
             <Route path="/" element={<Appointments />} />

@@ -49,7 +49,7 @@ export const deleteRelationship = async (relationshipUuid: string) => {
         mutate((key) => typeof key === 'string' && key.startsWith(`${restBaseUrl}/relationship`));
         dispose();
         showSnackbar({ title: 'Success', kind: 'success', subtitle: 'Relationship deleted successfully!' });
-      } catch (e) {
+      } catch {
         showSnackbar({ title: 'Failure', kind: 'error', subtitle: 'Error deleting relationship' });
       }
     },

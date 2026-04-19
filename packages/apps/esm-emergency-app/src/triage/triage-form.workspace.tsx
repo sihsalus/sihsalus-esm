@@ -230,6 +230,7 @@ const TriageFormWorkspace: React.FC<TriageFormWorkspaceProps> = ({ closeWorkspac
       patientUuid,
       queueEntry.uuid,
       conceptMap,
+      consciousnessLevelItems,
       fieldToConceptUuid,
       referenceRanges,
       triageEncounter.encounterTypeUuid,

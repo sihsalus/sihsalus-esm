@@ -82,11 +82,11 @@ export interface Location {
 
 export function useVisitQueueEntry(patientUuid: string, visitUuid?: string): UseVisitQueueEntries {
   const apiUrl = `${restBaseUrl}/visit-queue-entry?v=full&patient=${patientUuid}`;
-  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<VisitQueueEntry> } }, Error>(
-    apiUrl,
-    openmrsFetch,
-  );
-  const mapVisitQueueEntryProperties = (visitQueueEntry: VisitQueueEntry): MappedVisitQueueEntry => ({
+  const { data, error, isLoading, isValidating, mutate } = useSWR<
+    { data: { results: Array<VisitQueueEntryResponse> } },
+    Error
+  >(apiUrl, openmrsFetch);
+  const mapVisitQueueEntryProperties = (visitQueueEntry: VisitQueueEntryResponse): MappedVisitQueueEntry => ({
     id: visitQueueEntry.uuid,
     name: visitQueueEntry.queueEntry.queue.display,
     patientUuid: visitQueueEntry.queueEntry.patient.uuid,

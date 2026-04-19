@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "license": "MPL-2.0",
-  "workspaces": [
-    "packages/tooling/*",
-    "packages/apps/*",
-    "packages/libs/*"
-  ],
+  "workspaces": ["packages/tooling/*", "packages/apps/*", "packages/libs/*"],
   "scripts": {
     "build": "turbo run build",
     "build:apps": "turbo run build --filter='./packages/apps/*'",
@@ -28,7 +24,8 @@
     "typecheck": "turbo run typescript",
     "verify": "cross-env TZ=UTC turbo run lint typescript test",
     "extract-translations": "turbo run extract-translations",
-    "clean": "turbo run clean && rm -rf dist/spa",
+    "clean": "node packages/tooling/scripts/clean-monorepo.js",
+    "clean:dry-run": "node packages/tooling/scripts/clean-monorepo.js --dry-run",
     "setup": "yarn install && turbo run build",
     "prepare": "husky"
   },

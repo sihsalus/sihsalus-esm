@@ -1,6 +1,6 @@
 import { useFhirFetchAll } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { mockImmunizationData } from '__mocks__';
+import { mockImmunizationData } from 'test-utils';
 import React from 'react';
 import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 

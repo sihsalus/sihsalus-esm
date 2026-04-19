@@ -21,8 +21,7 @@ import { changeAppointmentStatus, usePatientAppointments } from './patient-appoi
 import styles from './patient-upcoming-appointments-card.scss';
 
 interface VisitFormCallbacks {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onVisitCreatedOrUpdated: (visit: Visit) => Promise<any>;
+  onVisitCreatedOrUpdated: (visit: Visit) => Promise<unknown>;
 }
 
 // See VisitFormExtensionState in esm-patient-chart-app
@@ -138,7 +137,9 @@ const PatientUpcomingAppointmentsCard: React.FC<PatientUpcomingAppointmentsProps
             {appointments.map((appointment, index) => (
               <StructuredListRow key={index} className={styles.structuredList}>
                 <StructuredListCell>
-                  {formatDate(parseDate(appointment.startDateTime), { mode: 'wide' })}
+                  {formatDate(parseDate(String(appointment.startDateTime)), {
+                    mode: 'wide',
+                  })}
                 </StructuredListCell>
                 <StructuredListCell>{appointment.service ? appointment.service.name : '——'}</StructuredListCell>
                 <StructuredListCell>

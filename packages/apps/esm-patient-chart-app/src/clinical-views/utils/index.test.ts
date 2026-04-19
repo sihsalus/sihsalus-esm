@@ -1,3 +1,5 @@
+import type { Encounter, MenuCardProps } from '../types';
+
 import { getEncounterTileColumns } from './index';
 
 const config = {
@@ -19,7 +21,7 @@ describe('clinical view column utilities', () => {
             encounterType: 'encounter-type-uuid',
           },
         ],
-      } as any,
+      } as MenuCardProps,
       config,
     );
 
@@ -34,7 +36,7 @@ describe('clinical view column utilities', () => {
           },
         },
       ],
-    } as any;
+    } as unknown as Encounter;
 
     expect(columns[0].getObsValue(encounter)).toBe('Recovered');
   });

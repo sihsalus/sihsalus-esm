@@ -1,4 +1,3 @@
- 
 import {
   Button,
   ButtonSet,
@@ -17,7 +16,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import useWardLocation from '../../hooks/useWardLocation';
 import LocationSelector from '../../location-selector/location-selector.component';
 import type { ObsPayload, WardPatientWorkspaceProps, WardViewContext } from '../../types';
 import { useCreateEncounter } from '../../ward.resource';
@@ -80,7 +78,10 @@ export default function PatientAdmitOrTransferForm({
     control,
     handleSubmit,
     setValue,
-  } = useForm<FormValues>({ resolver: zodResolver(zodSchema), defaultValues: formDefaultValues });
+  } = useForm<FormValues>({
+    resolver: zodResolver(zodSchema),
+    defaultValues: formDefaultValues,
+  });
 
   useEffect(() => {
     if (dispositionsWithTypeTransfer?.length === 1) {
@@ -228,7 +229,12 @@ export default function PatientAdmitOrTransferForm({
                     invalidText={error?.message}
                   >
                     {dispositionsWithTypeTransfer.map((disposition) => (
-                      <RadioButton id={disposition.uuid} labelText={disposition.name} value={disposition.uuid} />
+                      <RadioButton
+                        key={disposition.uuid}
+                        id={disposition.uuid}
+                        labelText={disposition.name}
+                        value={disposition.uuid}
+                      />
                     ))}
                   </RadioButtonGroup>
                 </ResponsiveWrapper>
@@ -243,21 +249,21 @@ export default function PatientAdmitOrTransferForm({
             control={control}
             render={({ field, fieldState: { error } }) => (
               <ResponsiveWrapper>
-                <TextArea {...field} invalid={!!error?.message} invalidText={error?.message} />
+                <TextArea {...field} labelText="" invalid={!!error?.message} invalidText={error?.message} />
               </ResponsiveWrapper>
             )}
           />
         </div>
         {showErrorNotifications && (
           <div className={styles.notifications}>
-            {Object.values(errors).map((error) => (
-              <InlineNotification lowContrast subtitle={error?.message} hideCloseButton />
+            {Object.entries(errors).map(([fieldName, error]) => (
+              <InlineNotification key={fieldName} lowContrast subtitle={error?.message} hideCloseButton />
             ))}
           </div>
         )}
       </Stack>
       <ButtonSet className={styles.buttonSet}>
-        <Button size="xl" kind="secondary" onClick={closeWorkspaceWithSavedChanges}>
+        <Button size="xl" kind="secondary" onClick={() => closeWorkspaceWithSavedChanges()}>
           {t('cancel', 'Cancel')}
         </Button>
         <Button
