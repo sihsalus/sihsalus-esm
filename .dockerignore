@@ -13,8 +13,8 @@ dist
 **/dist
 coverage
 **/coverage
-playwright-report
-test-results
+/playwright-report
+/test-results
 
 # Local environment / editor
 .env
