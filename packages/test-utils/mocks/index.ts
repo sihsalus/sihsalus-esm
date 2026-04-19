@@ -1,5 +1,5 @@
 // --- patient-management mocks ---
-export * from './active-visits.mock';
+export { mockServiceData } from './active-visits.mock';
 export * from './address.mock';
 export * from './appointments.mock';
 export * from './auto-generation-options.mock';
@@ -46,4 +46,3 @@ export * from './visit-notes.mock';
 export * from './visitQueueEntry.mock';
 export * from './visits-pc.mock';
 export * from './vitals-and-biometrics.mock';
-export * from './vitals-concept-metadata.mock';

@@ -1,4 +1,4 @@
-import { type Encounter } from '../packages/esm-ward-app/src/types';
+import { type Encounter } from '../../apps/esm-ward-app/src/types';
 import { mockPatientAlice } from './patient.mock';
 import { mockLocationSurgery } from './queue-entry.mock';
 import { mockVisitAlice } from './visits.mock';

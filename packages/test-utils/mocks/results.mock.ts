@@ -1,5 +1,5 @@
 import type { OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib/src/types';
-import type { ObsRecord } from '../packages/esm-patient-tests-app/src/types';
+import type { ObsRecord } from '../../apps/esm-patient-tests-app/src/types';
 
 export const mockPanelData = {
   isLoading: false,

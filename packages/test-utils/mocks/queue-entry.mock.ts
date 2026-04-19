@@ -4,7 +4,7 @@ import {
   type MappedQueueEntry,
   type Queue,
   type QueueEntry,
-} from '../packages/esm-service-queues-app/src/types';
+} from '../../apps/esm-service-queues-app/src/types';
 import { mockPatientAlice, mockPatientBrian } from './patient.mock';
 
 // Services:

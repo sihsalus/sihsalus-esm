@@ -9,6 +9,8 @@ import { type AdvancedPatientSearchState, type SearchFieldConfig } from '../../t
 import { PersonAttributeField } from './person-attribute-field.component';
 import styles from './search-field.scss';
 
+const getNumberInputValue = (value: string | number) => (typeof value === 'number' ? value : parseInt(value, 10) || 0);
+
 interface SearchFieldProps {
   field: SearchFieldConfig;
   control: Control<AdvancedPatientSearchState>;
@@ -69,9 +71,9 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
                 id="dateOfBirth"
                 placeholder="DD"
                 value={value || ''}
-                onChange={(e) => onChange(parseInt(e.target.value) || 0)}
+                onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 className={styles.dobField}
-                type="number"
+                 type="number"
                 label={t('dayOfBirth', 'Day of Birth')}
                 min={1}
                 max={31}
@@ -89,9 +91,9 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
                 id="monthOfBirth"
                 placeholder="MM"
                 value={value || ''}
-                onChange={(e) => onChange(parseInt(e.target.value) || 0)}
+                onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 className={styles.dobField}
-                type="number"
+                 type="number"
                 label={t('monthOfBirth', 'Month of Birth')}
                 min={1}
                 max={12}
@@ -109,9 +111,9 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
                 id="yearOfBirth"
                 placeholder="YYYY"
                 value={value || ''}
-                onChange={(e) => onChange(parseInt(e.target.value) || 0)}
+                onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 className={styles.dobField}
-                type="number"
+                 type="number"
                 label={t('yearOfBirth', 'Year of Birth')}
                 allowEmpty
                 hideSteppers
@@ -134,7 +136,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
               <NumberInput
                 id={field.name}
                 value={value || ''}
-                onChange={(e) => onChange(parseInt(e.target.value) || 0)}
+                onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 type="number"
                 label={t('age', 'Age')}
                 min={field.min}
@@ -156,11 +158,11 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
             name="postcode"
             control={control}
             render={({ field: { onChange, value } }) => (
-              <TextInput
-                id={field.name}
-                labelText={t('postcode', 'Postcode')}
-                onChange={(e) => onChange(e.target.value)}
-                value={value}
+                <TextInput
+                  id={field.name}
+                  labelText={t('postcode', 'Postcode')}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}
+                  value={value}
                 size={isTablet ? 'lg' : 'md'}
                 placeholder={field.placeholder}
               />

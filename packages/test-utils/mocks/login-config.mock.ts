@@ -1,4 +1,4 @@
-import { type ConfigSchema } from '../apps/esm-login-app/src/config-schema';
+import { type ConfigSchema } from '../../apps/esm-login-app/src/config-schema';
 
 export const mockConfig: ConfigSchema = {
   provider: {

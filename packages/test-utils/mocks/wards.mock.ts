@@ -2,7 +2,7 @@ import {
   type AdmissionLocationFetchResponse,
   type BedType,
   type InpatientAdmission,
-} from '../packages/esm-ward-app/src/types';
+} from '../../apps/esm-ward-app/src/types';
 import { mockLocationInpatientWard } from './locations.mock';
 import { mockPatientAlice, mockPatientBrian } from './patient.mock';
 

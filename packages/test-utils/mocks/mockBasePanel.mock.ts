@@ -1,5 +1,5 @@
 import { type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';
-import type { GroupedObservation } from '../packages/esm-patient-tests-app/src/types';
+import type { GroupedObservation } from '../../apps/esm-patient-tests-app/src/types';
 
 export const mockBasePanel: GroupedObservation = {
   key: 'Hematology',

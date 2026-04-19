@@ -1,4 +1,4 @@
-import { type InpatientAdmission } from '@openmrs/esm-ward-app/src/types';
+import { type InpatientAdmission } from '../../apps/esm-ward-app/src/types';
 import { mockEncounterAlice } from './encounter-ward.mock';
 import { mockPatientAlice } from './patient.mock';
 import { mockVisitAlice } from './visits.mock';

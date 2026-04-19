@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 import styles from './patient-search-bar.scss';
 
 interface PatientSearchBarProps {
-  buttonProps?: object;
+  buttonProps?: Omit<React.ComponentProps<typeof Button>, 'children' | 'onClick' | 'size' | 'type'>;
   initialSearchTerm?: string;
-  onChange?: (searchTerm) => void;
+  onChange?: (searchTerm: string) => void;
   onClear: () => void;
-  onSubmit: (searchTerm) => void;
+  onSubmit: (searchTerm: string) => void;
   isCompact?: boolean;
 }
 
@@ -52,7 +52,7 @@ const PatientSearchBar = React.forwardRef<HTMLInputElement, React.PropsWithChild
           size={responsiveSize}
           value={searchTerm}
         />
-        <Button kind="secondary" onClick={handleSubmit} {...buttonProps} size={responsiveSize} type="submit">
+        <Button kind="secondary" {...buttonProps} size={responsiveSize} type="submit">
           {t('search', 'Search')}
         </Button>
       </form>

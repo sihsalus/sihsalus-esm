@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
 import { mockFhirAllergyIntoleranceResponse } from 'test-utils';
-import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import { mockFhirPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import AllergiesOverview from './allergies-overview.component';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
@@ -10,7 +10,7 @@ const mockOpenmrsFetch = openmrsFetch as jest.Mock;
 describe('AllergiesOverview', () => {
   it('renders an empty state view if allergy data is unavailable', async () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: [] });
-    renderWithSwr(<AllergiesOverview patient={mockPatient} basePath={patientChartBasePath} />);
+    renderWithSwr(<AllergiesOverview patient={mockFhirPatient} basePath={patientChartBasePath} />);
 
     await waitForLoadingToFinish();
 
@@ -29,7 +29,7 @@ describe('AllergiesOverview', () => {
       },
     };
     mockOpenmrsFetch.mockRejectedValueOnce(error);
-    renderWithSwr(<AllergiesOverview patient={mockPatient} basePath={patientChartBasePath} />);
+    renderWithSwr(<AllergiesOverview patient={mockFhirPatient} basePath={patientChartBasePath} />);
 
     await waitForLoadingToFinish();
 
@@ -46,7 +46,7 @@ describe('AllergiesOverview', () => {
   it("renders an overview of the patient's allergic reactions and their manifestations", async () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: mockFhirAllergyIntoleranceResponse });
 
-    renderWithSwr(<AllergiesOverview patient={mockPatient} basePath={patientChartBasePath} />);
+    renderWithSwr(<AllergiesOverview patient={mockFhirPatient} basePath={patientChartBasePath} />);
 
     await waitForLoadingToFinish();
 
