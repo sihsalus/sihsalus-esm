@@ -30,8 +30,8 @@ describe('OrderPriceDetailsComponent', () => {
       error: null,
     });
 
-    renderWithSwr(<OrderPriceDetailsComponent orderItemUuid={mockOrderItemUuid} />);
-    expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    const { container } = renderWithSwr(<OrderPriceDetailsComponent orderItemUuid={mockOrderItemUuid} />);
+    expect(container.querySelector('.cds--skeleton__text')).toBeInTheDocument();
   });
 
   it('renders nothing when amount is null', () => {

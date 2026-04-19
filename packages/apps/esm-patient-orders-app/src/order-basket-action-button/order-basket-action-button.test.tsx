@@ -1,5 +1,5 @@
-import { ActionMenuButton, launchWorkspace, useLayoutType, usePatient, useWorkspaces } from '@openmrs/esm-framework';
-import { type OrderBasketItem, useOrderBasket } from '@openmrs/esm-patient-common-lib';
+import { ActionMenuButton, useLayoutType, usePatient, useWorkspaces } from '@openmrs/esm-framework';
+import { type OrderBasketItem, useLaunchWorkspaceRequiringVisit, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { orderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
 import { screen, render, renderHook } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -11,8 +11,8 @@ import OrderBasketActionButton from './order-basket-action-button.extension';
 const mockUseLayoutType = jest.mocked(useLayoutType);
 const mockUsePatient = jest.mocked(usePatient);
 const mockUseWorkspaces = useWorkspaces as jest.Mock;
-const mockLaunchWorkspace = launchWorkspace as jest.Mock;
 const MockActionMenuButton = jest.mocked(ActionMenuButton);
+const mockUseLaunchWorkspaceRequiringVisit = useLaunchWorkspaceRequiringVisit as jest.Mock;
 
 MockActionMenuButton.mockImplementation(({ handler, label, tagContent }) => (
   <button onClick={handler}>
@@ -49,6 +49,7 @@ jest.mock('@openmrs/esm-patient-common-lib', () => {
     ...originalModule,
     getPatientUuidFromUrl: () => mockGetPatientUuidFromUrl(),
     getPatientUuidFromStore: () => mockGetPatientUuidFromUrl(),
+    useLaunchWorkspaceRequiringVisit: jest.fn(),
     launchPatientWorkspace: (arg) => mockLaunchPatientWorkspace(arg),
   };
 });
@@ -88,44 +89,56 @@ describe('<OrderBasketActionButton/>', () => {
     });
   });
 
+  beforeEach(() => {
+    mockUseLaunchWorkspaceRequiringVisit.mockReturnValue(jest.fn());
+  });
+
   it('should display tablet view action button', async () => {
     const user = userEvent.setup();
+    const mockLaunchOrderBasket = jest.fn();
     mockUseLayoutType.mockReturnValue('tablet');
+    mockUseLaunchWorkspaceRequiringVisit.mockReturnValue(mockLaunchOrderBasket);
     render(<OrderBasketActionButton />);
 
     const orderBasketButton = screen.getByRole('button', { name: /Order Basket/i });
     expect(orderBasketButton).toBeInTheDocument();
     await user.click(orderBasketButton);
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('order-basket', expect.any(Object));
+    expect(mockUseLaunchWorkspaceRequiringVisit).toHaveBeenCalledWith('order-basket');
+    expect(mockLaunchOrderBasket).toHaveBeenCalled();
   });
 
   it('should display desktop view action button', async () => {
     const user = userEvent.setup();
+    const mockLaunchOrderBasket = jest.fn();
     mockUseLayoutType.mockReturnValue('small-desktop');
+    mockUseLaunchWorkspaceRequiringVisit.mockReturnValue(mockLaunchOrderBasket);
     render(<OrderBasketActionButton />);
 
     const orderBasketButton = screen.getByRole('button', { name: /order basket/i });
     expect(orderBasketButton).toBeInTheDocument();
     await user.click(orderBasketButton);
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('order-basket', expect.any(Object));
+    expect(mockUseLaunchWorkspaceRequiringVisit).toHaveBeenCalledWith('order-basket');
+    expect(mockLaunchOrderBasket).toHaveBeenCalled();
   });
 
-  it('should prompt user to start visit if no currentVisit found', async () => {
+  it('should render the action button even if no currentVisit is found', async () => {
     const user = userEvent.setup();
+    const mockLaunchOrderBasket = jest.fn();
     mockUseLayoutType.mockReturnValue('small-desktop');
     mockUseSystemVisitSetting.mockReturnValue({ systemVisitEnabled: true });
     mockUseVisitOrOfflineVisit.mockImplementation(() => ({
       activeVisit: null,
       currentVisit: null,
     }));
+    mockUseLaunchWorkspaceRequiringVisit.mockReturnValue(mockLaunchOrderBasket);
 
     render(<OrderBasketActionButton />);
 
     const orderBasketButton = screen.getByRole('button', { name: /order basket/i });
     expect(orderBasketButton).toBeInTheDocument();
     await user.click(orderBasketButton);
-    expect(mockLaunchPatientWorkspace).not.toHaveBeenCalled();
-    expect(mockLaunchStartVisitPrompt).toHaveBeenCalled();
+    expect(mockUseLaunchWorkspaceRequiringVisit).toHaveBeenCalledWith('order-basket');
+    expect(mockLaunchOrderBasket).toHaveBeenCalled();
   });
 
   it('should display a count tag when orders are present on the desktop view', () => {

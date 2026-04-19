@@ -37,8 +37,8 @@ describe('OrderStockDetailsComponent', () => {
       error: null,
     });
 
-    renderWithSwr(<OrderStockDetailsComponent orderItemUuid={mockOrderItemUuid} />);
-    expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    const { container } = renderWithSwr(<OrderStockDetailsComponent orderItemUuid={mockOrderItemUuid} />);
+    expect(container.querySelector('.cds--skeleton__text')).toBeInTheDocument();
   });
 
   it('renders nothing when stock data is null', () => {
