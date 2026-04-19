@@ -19,8 +19,14 @@
     "coverage": "yarn test -- --coverage",
     "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/laboratory/playwright.config.ts"
   },
-  "browserslist": ["extends browserslist-config-openmrs"],
-  "keywords": ["openmrs", "microfrontends", "laboratory"],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs",
+    "microfrontends",
+    "laboratory"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-laboratory.git"

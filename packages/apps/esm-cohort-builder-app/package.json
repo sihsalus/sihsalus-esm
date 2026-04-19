@@ -21,9 +21,17 @@
     "coverage": "yarn test -- --coverage",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.modal.tsx' 'src/**/*.extension.tsx' 'src/**/*.workspace.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "files": ["dist", "src"],
-  "browserslist": ["extends browserslist-config-openmrs"],
-  "keywords": ["openmrs", "microfrontends"],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs",
+    "microfrontends"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-cohortbuilder.git"
