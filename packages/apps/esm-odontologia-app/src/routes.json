@@ -11,8 +11,8 @@
   ],
   "extensions": [
     {
-      "name": "odontologia-attention-dashboard-link",
-      "component": "odontologiaAttentionDashboardLink",
+      "name": "odontologia-dashboard-link",
+      "component": "odontologiaDashboardLink",
       "slot": "patient-chart-dashboard-slot",
       "meta": {
         "slot": "patient-chart-odontologia-slot",
@@ -23,8 +23,8 @@
       }
     },
     {
-      "name": "odontologia-attention-dashboard",
-      "component": "odontologiaAttentionDashboard",
+      "name": "odontologia-dashboard",
+      "component": "odontologiaDashboard",
       "slot": "patient-chart-odontologia-slot",
       "order": 0,
       "online": true,

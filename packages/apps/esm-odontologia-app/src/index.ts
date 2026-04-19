@@ -7,7 +7,7 @@ export const importTranslation = require.context('../translations', false, /.jso
 
 const moduleName = '@sihsalus/esm-odontologia-app';
 
-const attentionDashboardMeta = {
+const odontologiaDashboardMeta = {
   slot: 'patient-chart-odontologia-slot',
   columns: 1,
   title: 'Atención odontológica',
@@ -26,15 +26,15 @@ export const root = getAsyncLifecycle(() => import('./root.component'), {
   moduleName,
 });
 
-export const odontologiaAttentionDashboardLink = getSyncLifecycle(createDashboardLink({ ...attentionDashboardMeta, moduleName }), {
-  featureName: 'odontologia-attention-dashboard-link',
+export const odontologiaDashboardLink = getSyncLifecycle(createDashboardLink({ ...odontologiaDashboardMeta, moduleName }), {
+  featureName: 'odontologia-dashboard-link',
   moduleName,
 });
 
-export const odontologiaAttentionDashboard = getAsyncLifecycle(
+export const odontologiaDashboard = getAsyncLifecycle(
   () => import('./odontologia-dashboard/odontologia-dashboard.component'),
   {
-    featureName: 'odontologia-attention-dashboard',
+    featureName: 'odontologia-dashboard',
     moduleName,
   },
 );
