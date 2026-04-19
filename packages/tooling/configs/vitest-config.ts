@@ -31,7 +31,13 @@ export function defineAppVitestConfig(
 
   return defineWorkspaceVitestConfig({
     resolve: {
-      alias: [...extraAliases, ...createVitestAliases(rootDir, aliases)],
+      alias: [
+        ...extraAliases,
+        ...createVitestAliases(rootDir, {
+          'react-i18next': '../../test-utils/stubs/react-i18next.js',
+          ...aliases,
+        }),
+      ],
     },
     test: {
       setupFiles: ['./setup-tests.ts'],

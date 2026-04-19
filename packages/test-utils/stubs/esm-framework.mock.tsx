@@ -29,7 +29,7 @@ export const showSnackbar = vi.fn();
 export const showToast = vi.fn();
 export const showModal = vi.fn();
 export const showNotification = vi.fn();
-export const getCoreTranslation = vi.fn((key: string) => key);
+export const getCoreTranslation = vi.fn((key: string, defaultValue?: string) => defaultValue ?? key);
 export const interpolateUrl = vi.fn((url: string) => url);
 export const getSyncLifecycle = vi.fn();
 export const getExtensionInternalStore = vi.fn(() => ({
@@ -52,17 +52,17 @@ export const useSession = vi.fn(() => ({ authenticated: false, user: null, sessi
 export const useStore = vi.fn((store) => (typeof store?.getState === 'function' ? store.getState() : {}));
 export const useAssignedExtensions = vi.fn(() => []);
 
-export const createGlobalStore = vi.fn(<T,>(initialState: T) => {
+export const createGlobalStore = vi.fn(<T,>(_name: string, initialState: T) => {
   let state = initialState;
-  const listeners = new Set<() => void>();
+  const listeners = new Set<(state: T) => void>();
 
   return {
     getState: () => state,
     setState: (update: Partial<T> | ((prev: T) => T)) => {
       state = typeof update === 'function' ? update(state) : ({ ...state, ...update } as T);
-      listeners.forEach((listener) => listener());
+      listeners.forEach((listener) => listener(state));
     },
-    subscribe: (listener: () => void) => {
+    subscribe: (listener: (state: T) => void) => {
       listeners.add(listener);
       return () => listeners.delete(listener);
     },
@@ -84,6 +84,7 @@ export const AddIcon = () => <span />;
 export const ChevronDownIcon = () => <span />;
 export const ChevronUpIcon = () => <span />;
 export const CloseIcon = () => <span />;
+export const DownloadIcon = () => <span />;
 export const EditIcon = () => <span />;
 export const LocationIcon = () => <span />;
 export const PasswordIcon = () => <span />;
