@@ -288,25 +288,25 @@ npm start -- --backend http://localhost:YOUR-BACKEND-PORT/
 
 > **Note** Orthanc configuration is correctly added to your environment.
 
-This project provides the `start-e2e.sh` helper script to start the E2E test suite.
+This project uses the shared root Playwright runner. The package-level `yarn test-e2e` command delegates to the patient imaging suite config at `e2e/patient-imaging/playwright.config.ts`.
 
 ### Run a single **E2E(end-to-end)** suite
 
 ```bash
 export E2E_BASE_URL=http://localhost:YOUR-BACKEND-PORT/openmrs
-./start-e2e.sh e2e/specs/imaging-detailed-summary.component.spec.ts
+yarn test-e2e -- --grep "imaging detailed summary"
 ```
 
 ### Run **E2E(end-to-end)** test suites
 
 ```bash
 export E2E_BASE_URL=http://localhost:YOUR-BACKEND-PORT/openmrs
-./start-e2a.sh
+yarn test-e2e
 ```
 
 Clean up the previous test results and reports to avoid confusion or clutter:
 ```bash
-rm -rf test-results/ playwright-report/
+yarn --cwd ../../.. clean
 ```
 
 ## Repo links

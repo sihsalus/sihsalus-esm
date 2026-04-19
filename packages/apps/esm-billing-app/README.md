@@ -70,6 +70,8 @@ To run end-to-end tests, run:
 yarn test-e2e
 ```
 
+This command delegates to the shared root Playwright runner using the billing suite config at `e2e/billing/playwright.config.ts`.
+
 Read the [e2e testing guide](https://openmrs.atlassian.net/wiki/x/Z8CEAQ) to learn more about End-to-End tests in this project.
 
 ## Configuration

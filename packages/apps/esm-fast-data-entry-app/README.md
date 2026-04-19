@@ -179,4 +179,6 @@ To see more options run `npx openmrs --help`
 yarn test-e2e
 ```
 
+This command delegates to the shared root Playwright runner using the fast data entry suite config at `e2e/fast-data-entry/playwright.config.ts`.
+
 Read the [e2e testing guide](https://openmrs.atlassian.net/wiki/spaces/docs/pages/150962731/Testing+Frontend+Modules+O3) to learn more about End-to-End tests in this project.
