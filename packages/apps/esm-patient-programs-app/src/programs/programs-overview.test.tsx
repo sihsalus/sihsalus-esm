@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { screen, within } from '@testing-library/react';
 import { launchWorkspace2, openmrsFetch } from '@openmrs/esm-framework';
 import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from '__mocks__';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import ProgramsOverview from './programs-overview.component';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;

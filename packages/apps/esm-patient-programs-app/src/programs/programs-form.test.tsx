@@ -9,7 +9,7 @@ import {
   getDefaultsFromConfigSchema,
 } from '@openmrs/esm-framework';
 import { mockCareProgramsResponse, mockEnrolledProgramsResponse, mockLocationsResponse } from '__mocks__';
-import { mockPatient } from 'tools';
+import { mockPatient } from 'test-utils';
 import {
   createProgramEnrollment,
   updateProgramEnrollment,

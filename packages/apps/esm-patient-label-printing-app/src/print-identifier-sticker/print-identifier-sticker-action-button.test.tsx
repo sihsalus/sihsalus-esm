@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, showSnackbar, useConfig, UserHasAccess } from '@openmrs/esm-framework';
 import { mockFhirPatient } from '__mocks__';
-import { renderWithSwr } from 'tools';
+import { renderWithSwr } from 'test-utils';
 import { useStickerPdfPrinter } from '../hooks/useStickerPdfPrinter';
 import { configSchema, type ConfigObject } from '../config-schema';
 import PrintIdentifierStickerOverflowMenuItem from './print-identifier-sticker-action-button.component';

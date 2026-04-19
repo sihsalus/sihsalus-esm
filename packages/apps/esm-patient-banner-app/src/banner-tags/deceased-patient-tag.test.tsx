@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { mockPatient } from 'tools';
+import { mockPatient } from 'test-utils';
 import { mockDeceasedPatient } from '__mocks__';
 import DeceasedPatientBannerTag from './deceased-patient-tag.extension';
 

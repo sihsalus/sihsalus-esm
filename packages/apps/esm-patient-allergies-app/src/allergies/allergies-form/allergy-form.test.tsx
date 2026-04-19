@@ -4,7 +4,7 @@ import { screen, render } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, showSnackbar, useConfig } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 import { mockAllergens, mockAllergicReactions, mockAllergy } from '__mocks__';
-import { mockPatient } from 'tools';
+import { mockPatient } from 'test-utils';
 import {
   type NewAllergy,
   saveAllergy,

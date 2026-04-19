@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { screen, within } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, launchWorkspace2, openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from '__mocks__';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import { type ConfigObject, configSchema } from '../config-schema';
 import ProgramsDetailedSummary from './programs-detailed-summary.component';
 

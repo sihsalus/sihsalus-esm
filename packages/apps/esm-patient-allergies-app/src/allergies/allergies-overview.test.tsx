@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
 import { mockFhirAllergyIntoleranceResponse } from '__mocks__';
-import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import AllergiesOverview from './allergies-overview.component';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;

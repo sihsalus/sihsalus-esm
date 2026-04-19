@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, render } from '@testing-library/react';
 import { type LayoutType, useLayoutType } from '@openmrs/esm-framework';
 import VisitNoteActionButton from './visit-note-action-button.extension';
-import { mockPatient } from 'tools';
+import { mockPatient } from 'test-utils';
 
 const mockUseLayoutType = jest.mocked(useLayoutType);
 

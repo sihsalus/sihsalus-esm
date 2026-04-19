@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
 import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
 import { mockFhirConditionsResponse, searchedCondition } from '__mocks__';
-import { getByTextWithMarkup, mockPatient } from 'tools';
+import { getByTextWithMarkup, mockPatient } from 'test-utils';
 import { createCondition, useConditionsSearch } from './conditions.resource';
 import ConditionsForm, { type ConditionFormProps } from './conditions-form.workspace';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
