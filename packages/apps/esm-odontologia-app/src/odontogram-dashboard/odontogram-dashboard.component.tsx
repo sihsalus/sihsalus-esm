@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@carbon/react';
 import { launchWorkspace } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,6 +18,7 @@ import { adultConfig } from '../odontogram/config/adultConfig';
 import { useOdontogramHistory } from '../hooks/useOdontogramHistory';
 import useOdontogramDataStore from '../store/odontogramDataStore';
 import type { OdontogramBaseGroup, OdontogramRecord } from '../types/odontogram-record';
+import DentalEmptyState from '../ui/dental-empty-state.component';
 import styles from './odontogram-dashboard.scss';
 
 interface OdontogramDashboardProps {
@@ -47,10 +48,14 @@ const OdontogramEmpty: React.FC<{ onGenerate: () => void }> = ({ onGenerate }) =
   const { t } = useTranslation();
 
   return (
-    <EmptyState
-      displayText={t('odontogramBase', 'base odontogram')}
-      headerTitle={t('odontogram', 'Odontogram')}
-      launchForm={onGenerate}
+    <DentalEmptyState
+      title={t('odontogram', 'Odontograma')}
+      description={t(
+        'odontogramEmptyDescription',
+        'No hay odontograma base registrado para mostrar para este paciente.',
+      )}
+      actionLabel={t('registerBaseOdontogram', 'Registrar odontograma base')}
+      onAction={onGenerate}
     />
   );
 };
@@ -128,7 +133,7 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
               <SelectItem
                 key={a.encounterUuid}
                 value={a.encounterUuid}
-                text={`${t('attentionLabel', 'Attention')} ${aIdx + 1}`}
+            text={`${t('attentionLabel', 'Atención')} ${aIdx + 1}`}
               />
             ))}
           </SelectItemGroup>
@@ -241,7 +246,7 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid, 
           />
         </div>
       ) : (
-        <CardHeader title={t('odontogram', 'Odontogram')}>
+        <CardHeader title={t('odontogram', 'Odontograma')}>
           <RecordSelector
             groups={groups}
             selectedEncounterUuid={selectedEncounterUuid}

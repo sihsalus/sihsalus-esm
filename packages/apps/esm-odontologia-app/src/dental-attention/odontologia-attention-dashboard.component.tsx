@@ -8,7 +8,7 @@ import {
   showSnackbar,
   useConfig,
 } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
@@ -16,6 +16,7 @@ import useSWR from 'swr';
 import type { Encounter } from '@sihsalus/esm-sihsalus-shared';
 
 import type { OdontogramConfig } from '../config-schema';
+import DentalEmptyState from '../ui/dental-empty-state.component';
 import { deleteEncounter, getDentalAttentionUrl, type EncountersResponse } from './odontologia-attention.resource';
 
 type OdontologiaAttentionDashboardProps = {
@@ -108,10 +109,14 @@ const OdontologiaAttentionDashboard: React.FC<OdontologiaAttentionDashboardProps
 
   if (encounters.length === 0) {
     return (
-      <EmptyState
-        displayText={t('dentalAttention', 'Atención odontológica')}
-        headerTitle={t('dentalAttention', 'Atención odontológica')}
-        launchForm={() => launchDentalForm()}
+      <DentalEmptyState
+        title={t('dentalAttention', 'Atención odontológica')}
+        description={t(
+          'dentalAttentionEmptyDescription',
+          'No hay registros de atención odontológica para mostrar para este paciente.',
+        )}
+        actionLabel={t('registerDentalAttention', 'Registrar atención odontológica')}
+        onAction={() => launchDentalForm()}
       />
     );
   }
