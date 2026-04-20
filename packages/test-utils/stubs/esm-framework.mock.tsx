@@ -29,6 +29,7 @@ export const showSnackbar = vi.fn();
 export const showToast = vi.fn();
 export const showModal = vi.fn();
 export const showNotification = vi.fn();
+export const getRegisteredWorkspace2Names = vi.fn(() => []);
 export const getCoreTranslation = vi.fn((key: string, defaultValue?: string) => defaultValue ?? key);
 export const interpolateUrl = vi.fn((url: string) => url);
 export const getSyncLifecycle = vi.fn();

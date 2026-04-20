@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
       <div className={styles.logosContainer}>
         {logos.map((logo) => (
           <img
-            alt={logo.alt ? t(logo.alt) : t('footerlogo', 'Footer Logo')}
+            alt={logo.alt || t('footerlogo', 'Footer Logo')}
             className={styles.poweredByLogo}
             key={logo.src}
             onError={handleImageLoadError}

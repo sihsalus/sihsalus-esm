@@ -194,13 +194,13 @@ const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' 
         showSnackbar({
           kind: 'success',
           title: t('success', 'Éxito'),
-          subtitle: t('fuaReset', 'FUA devuelto a Pendiente para corrección'),
+          description: t('fuaReset', 'FUA devuelto a Pendiente para corrección'),
         });
       } catch {
         showSnackbar({
           kind: 'error',
           title: t('error', 'Error'),
-          subtitle: t('errorChangingStatus', 'Ocurrió un error al cambiar el estado del FUA'),
+          description: t('errorChangingStatus', 'Ocurrió un error al cambiar el estado del FUA'),
         });
       }
     },

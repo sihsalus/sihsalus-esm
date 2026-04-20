@@ -24,12 +24,12 @@ export const ClinicalViewSection: React.FC<ClinicalViewSectionProps> = ({ basePa
   return (
     <>
       <div className={styles.container}>
-        <span className={styles.span}>{t('clinicalViews', 'Clinical views')}</span>
+        <span className={styles.span}>{t('clinicalViews', 'Módulos MINSA')}</span>
         <Tooltip
           align="top"
           label={t(
             'customViews',
-            "In this section, you'll find custom clinical views tailored to patients' conditions and enrolled care programs.",
+            'En esta sección encontrará los módulos y programas MINSA disponibles para la atención del paciente.',
           )}
         >
           <button className={styles.tooltipButton} type="button">

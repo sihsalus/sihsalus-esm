@@ -19,8 +19,13 @@
     "typescript": "tsc",
     "extract-translations": "i18next \"src/**/*.component.tsx\" \"src/**/*.modal.tsx\" \"src/**/*.extension.tsx\" \"src/**/*.workspace.tsx\" \"src/**/*.hook.tsx\" \"src/index.ts\" --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "browserslist": ["extends browserslist-config-openmrs"],
-  "keywords": ["sihsalus", "hiisc"],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "sihsalus",
+    "hiisc"
+  ],
   "homepage": "https://github.com/sihsalus/sihsalus-esm-modules#readme",
   "publishConfig": {
     "access": "public"

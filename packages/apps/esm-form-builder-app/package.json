@@ -20,9 +20,18 @@
     "coverage": "yarn test --coverage --passWithNoTests",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.modal.tsx' --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "files": ["dist", "src"],
-  "browserslist": ["extends browserslist-config-openmrs"],
-  "keywords": ["openmrs", "microfrontends", "form builder"],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs",
+    "microfrontends",
+    "form builder"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-form-builder.git"

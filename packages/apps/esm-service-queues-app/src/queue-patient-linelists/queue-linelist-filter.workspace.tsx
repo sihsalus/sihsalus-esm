@@ -32,10 +32,10 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
   const allVisitTypes = useVisitTypes();
   const isTablet = useLayoutType() === 'tablet';
 
-  const [endAge, setEndAge] = useState<number | undefined>(undefined);
+  const [endAge, setEndAge] = useState<number | ''>('');
   const [, setGender] = useState('');
   const [returnDate, setReturnDate] = useState(new Date());
-  const [startAge, setStartAge] = useState<number | undefined>(undefined);
+  const [startAge, setStartAge] = useState<number | ''>('');
   const [, setVisitType] = useState('');
 
   const handleFilter = (event) => {
@@ -47,11 +47,11 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
   };
 
   const handleStartAgeChange = (event) => {
-    setStartAge(event.currentTarget.value === '' ? undefined : Number(event.currentTarget.value));
+    setStartAge(event.currentTarget.value === '' ? '' : Number(event.currentTarget.value));
   };
 
   const handleEndAgeChange = (event) => {
-    setEndAge(event.currentTarget.value === '' ? undefined : Number(event.currentTarget.value));
+    setEndAge(event.currentTarget.value === '' ? '' : Number(event.currentTarget.value));
   };
 
   return (

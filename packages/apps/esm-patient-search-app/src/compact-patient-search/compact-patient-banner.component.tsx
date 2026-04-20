@@ -105,7 +105,7 @@ const CompactPatientBanner = forwardRef<HTMLDivElement, CompactPatientBannerProp
           <div className={styles.patientAvatar} role="img">
             <PatientPhoto patientUuid={patient.id} patientName={patientName} />
           </div>
-          <PatientBannerPatientInfo patient={patient} />
+          <PatientBannerPatientInfo patient={patient} renderedFrom="patient-search" />
         </ClickablePatientContainer>
       );
     },

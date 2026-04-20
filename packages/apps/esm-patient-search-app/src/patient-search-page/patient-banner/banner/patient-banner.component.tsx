@@ -124,7 +124,7 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
           <div className={styles.patientAvatar} role="img">
             <PatientPhoto patientUuid={patientUuid} patientName={patientName} />
           </div>
-          <PatientBannerPatientInfo patient={fhirMappedPatient} />
+          <PatientBannerPatientInfo patient={fhirMappedPatient} renderedFrom="patient-search" />
         </ClickablePatientContainer>
         <div className={styles.actionButtons}>
           <PatientBannerToggleContactDetailsButton

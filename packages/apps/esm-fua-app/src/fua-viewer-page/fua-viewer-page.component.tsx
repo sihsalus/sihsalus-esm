@@ -40,7 +40,7 @@ const FuaViewerPage: React.FC = () => {
         setError(errorMessage);
         showSnackbar({
           title: t('errorLoadingFua', 'Error loading FUA'),
-          subtitle: errorMessage,
+          description: errorMessage,
           kind: 'error',
         });
       } finally {

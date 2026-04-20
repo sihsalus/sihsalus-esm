@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "pages": [
+    {
+      "component": "root",
+      "route": "odontologia"
+    }
+  ],
+  "extensions": [
+    {
+      "name": "odontologia-dashboard-link",
+      "component": "odontologiaDashboardLink",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-odontologia-slot",
+        "columns": 1,
+        "title": "Atención odontológica",
+        "path": "atencion-odontologica",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "odontologia-dashboard",
+      "component": "odontologiaDashboard",
+      "slot": "patient-chart-odontologia-slot",
+      "order": 0,
+      "online": true,
+      "offline": false
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "odontologia-odontogram-form-workspace",
+      "component": "odontologiaOdontogramWorkspace",
+      "type": "form",
+      "title": "odontogramWorkspaceTitle",
+      "canHide": true
+    }
+  ]
+}

@@ -60,7 +60,7 @@ const ChangeFuaStatusModal: React.FC<ChangeFuaStatusModalProps> = ({ closeModal,
     if (!selectedEstadoId) {
       showSnackbar({
         title: t('error', 'Error'),
-        subtitle: t('selectStatus', 'Debe seleccionar un estado'),
+        description: t('selectStatus', 'Debe seleccionar un estado'),
         kind: 'error',
       });
       return;
@@ -74,7 +74,7 @@ const ChangeFuaStatusModal: React.FC<ChangeFuaStatusModalProps> = ({ closeModal,
 
       showSnackbar({
         title: t('success', 'Éxito'),
-        subtitle: t('statusChangedSuccessfully', 'El estado del FUA se actualizó correctamente'),
+        description: t('statusChangedSuccessfully', 'El estado del FUA se actualizó correctamente'),
         kind: 'success',
       });
 
@@ -83,7 +83,7 @@ const ChangeFuaStatusModal: React.FC<ChangeFuaStatusModalProps> = ({ closeModal,
     } catch {
       showSnackbar({
         title: t('error', 'Error'),
-        subtitle: t('errorChangingStatus', 'Ocurrió un error al cambiar el estado del FUA'),
+        description: t('errorChangingStatus', 'Ocurrió un error al cambiar el estado del FUA'),
         kind: 'error',
       });
     } finally {

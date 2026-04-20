@@ -9,7 +9,7 @@ const Logo: React.FC<{ t: TFunction }> = ({ t }) => {
   const { logo } = useConfig<ConfigSchema>();
   return logo.src ? (
     <img
-      alt={logo.alt ? t(logo.alt) : t('openmrsLogo', 'OpenMRS logo')}
+      alt={logo.alt || t('openmrsLogo', 'OpenMRS logo')}
       className={styles.logoImg}
       src={interpolateUrl(logo.src)}
     />

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@carbon/react';
 import { launchWorkspace } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,10 +18,12 @@ import { adultConfig } from '../odontogram/config/adultConfig';
 import { useOdontogramHistory } from '../hooks/useOdontogramHistory';
 import useOdontogramDataStore from '../store/odontogramDataStore';
 import type { OdontogramBaseGroup, OdontogramRecord } from '../types/odontogram-record';
+import DentalEmptyState from '../ui/dental-empty-state.component';
 import styles from './odontogram-dashboard.scss';
 
 interface OdontogramDashboardProps {
   patientUuid: string;
+  embedded?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -46,10 +48,14 @@ const OdontogramEmpty: React.FC<{ onGenerate: () => void }> = ({ onGenerate }) =
   const { t } = useTranslation();
 
   return (
-    <EmptyState
-      displayText={t('odontogramBase', 'base odontogram')}
-      headerTitle={t('odontogram', 'Odontogram')}
-      launchForm={onGenerate}
+    <DentalEmptyState
+      title={t('odontogram', 'Odontograma')}
+      description={t(
+        'odontogramEmptyDescription',
+        'No hay odontograma base registrado para mostrar para este paciente.',
+      )}
+      actionLabel={t('registerBaseOdontogram', 'Registrar odontograma base')}
+      onAction={onGenerate}
     />
   );
 };
@@ -127,7 +133,7 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
               <SelectItem
                 key={a.encounterUuid}
                 value={a.encounterUuid}
-                text={`${t('attentionLabel', 'Attention')} ${aIdx + 1}`}
+            text={`${t('attentionLabel', 'Atención')} ${aIdx + 1}`}
               />
             ))}
           </SelectItemGroup>
@@ -157,7 +163,7 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
 // Dashboard
 // ---------------------------------------------------------------------------
 
-const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }) => {
+const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid, embedded = false }) => {
   const { t } = useTranslation();
   const data = useOdontogramDataStore((s) => s.data);
   const setData = useOdontogramDataStore((s) => s.setData);
@@ -187,18 +193,18 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
 
   const handleGenerateBase = useCallback(() => {
     setWorkspaceMode('base');
-    launchWorkspace('odontogram-form-workspace', { patientUuid, workspaceMode: 'base' });
+    launchWorkspace('odontologia-odontogram-form-workspace', { patientUuid, workspaceMode: 'base' });
   }, [patientUuid, setWorkspaceMode]);
 
   const handleAddClick = useCallback(() => {
     if (!hasBase) {
       // No base yet → create one
       setWorkspaceMode('base');
-      launchWorkspace('odontogram-form-workspace', { patientUuid, workspaceMode: 'base' });
+      launchWorkspace('odontologia-odontogram-form-workspace', { patientUuid, workspaceMode: 'base' });
     } else {
       // Base exists → create an attention linked to the active base
       setWorkspaceMode('attention');
-      launchWorkspace('odontogram-form-workspace', {
+      launchWorkspace('odontologia-odontogram-form-workspace', {
         patientUuid,
         workspaceMode: 'attention',
         baseEncounterUuid: activeBaseEncounterUuid,
@@ -230,14 +236,25 @@ const OdontogramDashboard: React.FC<OdontogramDashboardProps> = ({ patientUuid }
 
   return (
     <div className={styles.dashboardWrapper}>
-      <CardHeader title={t('odontogram', 'Odontogram')}>
-        <RecordSelector
-          groups={groups}
-          selectedEncounterUuid={selectedEncounterUuid}
-          onSelect={handleSelectRecord}
-          onAdd={handleAddClick}
-        />
-      </CardHeader>
+      {embedded ? (
+        <div className={styles.embeddedToolbar}>
+          <RecordSelector
+            groups={groups}
+            selectedEncounterUuid={selectedEncounterUuid}
+            onSelect={handleSelectRecord}
+            onAdd={handleAddClick}
+          />
+        </div>
+      ) : (
+        <CardHeader title={t('odontogram', 'Odontograma')}>
+          <RecordSelector
+            groups={groups}
+            selectedEncounterUuid={selectedEncounterUuid}
+            onSelect={handleSelectRecord}
+            onAdd={handleAddClick}
+          />
+        </CardHeader>
+      )}
       <div className={styles.canvasWrapper}>
         <OdontogramCanvas config={adultConfig} data={data} onChange={setData} readOnly />
       </div>

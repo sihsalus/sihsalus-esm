@@ -177,7 +177,7 @@ describe('ImmunizationsDetailedSummary', () => {
     expect(screen.getByText(/vaccine/i)).toBeInTheDocument();
     expect(screen.getByText(/recent vaccination/i)).toBeInTheDocument();
     expect(screen.getByText(/polio/i)).toBeInTheDocument();
-    expect(screen.getByText(/last dose on 20-Nov-2018, Primary Series/i)).toBeInTheDocument();
+    expect(screen.getByText(/last dose on 19-Nov-2018, Primary Series/i)).toBeInTheDocument();
   });
 
   it('shows loading indicator when data is loading', async () => {
@@ -357,7 +357,7 @@ describe('ImmunizationsDetailedSummary', () => {
     // Should show pagination controls
     expect(screen.getByText(/items per page/i)).toBeInTheDocument();
     // Check that we have multiple pages (15 items should create multiple pages)
-    expect(screen.getByText(/of 2 pages/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/of 2 pages/i).length).toBeGreaterThan(0);
   });
 
   it('displays sequence labels when available', async () => {

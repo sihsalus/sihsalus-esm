@@ -18,7 +18,7 @@ module.exports = {
   moduleDirectories: ['node_modules', __dirname],
   moduleNameMapper: {
     '\\.(s?css)$': 'identity-obj-proxy',
-    '@openmrs/esm-framework': '@openmrs/esm-framework/mock',
+    '^@openmrs/esm-framework$': path.resolve(__dirname, 'tooling', 'scripts', 'esm-framework-jest-mock.tsx'),
     '@openmrs/esm-translations': '@openmrs/esm-translations/mock',
     '^dexie$': require.resolve('dexie'),
     '^lodash-es/(.*)$': 'lodash/$1',

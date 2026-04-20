@@ -20,7 +20,7 @@ jest.mock('react-to-print', () => ({
   useReactToPrint: jest.fn(),
 }));
 
-jest.mock('react-barcode', () => jest.fn().mockReturnValue(<div data-testid="barcode" />));
+jest.mock('react-barcode', () => jest.fn().mockReturnValue(<div data-testid="barcode" />), { virtual: true });
 
 describe('PrintIdentifierStickerModal', () => {
   beforeEach(() => {

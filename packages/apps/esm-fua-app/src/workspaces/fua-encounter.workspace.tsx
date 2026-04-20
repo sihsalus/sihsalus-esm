@@ -71,7 +71,7 @@ const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUu
         setErrorMessage(message);
         showSnackbar({
           title: t('errorLoadingFua', 'Error al cargar FUA'),
-          subtitle: message,
+          description: message,
           kind: 'error',
         });
       } finally {

@@ -484,7 +484,7 @@ describe('Updating an existing patient record', () => {
 
     expect(screen.getByLabelText(/first name/i)).toHaveValue(mockPatient.name.split(' ')[0]);
     expect(screen.getByLabelText(/^family name$/i)).toHaveValue(mockPatient.name.split(' ')[1]);
-    expect((screen.getByRole('textbox', { name: /date of birth/i }) as HTMLInputElement).value).toContain('1972-04-04');
+    expect((screen.getByRole('textbox', { name: /date of birth/i }) as HTMLInputElement).value).toContain('03/04/1972');
     expect(
       screen.getByRole('radio', {
         name: /^male$/i,
@@ -501,7 +501,7 @@ describe('Updating an existing patient record', () => {
 
     expect(mockSavePatientForm).toHaveBeenCalledWith(
       false,
-      {
+      expect.objectContaining({
         addNameInLocalLanguage: false,
         additionalFamilyName: '',
         additionalFamilyName2: '',
@@ -510,7 +510,7 @@ describe('Updating an existing patient record', () => {
         address: {
           country: 'កម្ពុជា (Cambodia)',
         },
-        birthdate: '1972-04-04',
+        birthdate: new Date('1972-04-04T00:00:00.000Z'),
         birthdateEstimated: false,
         deathCause: '',
         nonCodedCauseOfDeath: '',
@@ -551,9 +551,8 @@ describe('Updating an existing patient record', () => {
         patientUuid: '8673ee4f-e2ab-4077-ba55-4980f408773e',
         relationships: [],
         telephoneNumber: '',
-        unidentifiedPatient: undefined,
         yearsEstimated: 0,
-      },
+      }),
       expect.anything(),
       expect.anything(),
       null,

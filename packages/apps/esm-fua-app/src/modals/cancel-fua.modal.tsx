@@ -22,7 +22,7 @@ const CancelFuaModal: React.FC<CancelFuaModalProps> = ({ closeModal, fuaRequest,
     if (!comment.trim()) {
       showSnackbar({
         title: t('error', 'Error'),
-        subtitle: t('commentRequired', 'Debe ingresar un motivo de cancelación'),
+        description: t('commentRequired', 'Debe ingresar un motivo de cancelación'),
         kind: 'error',
       });
       return;
@@ -36,7 +36,7 @@ const CancelFuaModal: React.FC<CancelFuaModalProps> = ({ closeModal, fuaRequest,
 
       showSnackbar({
         title: t('success', 'Éxito'),
-        subtitle: t('fuaCancelledSuccessfully', 'El FUA se canceló correctamente'),
+        description: t('fuaCancelledSuccessfully', 'El FUA se canceló correctamente'),
         kind: 'success',
       });
 
@@ -45,7 +45,7 @@ const CancelFuaModal: React.FC<CancelFuaModalProps> = ({ closeModal, fuaRequest,
     } catch {
       showSnackbar({
         title: t('error', 'Error'),
-        subtitle: t('errorCancellingFua', 'Ocurrió un error al cancelar el FUA'),
+        description: t('errorCancellingFua', 'Ocurrió un error al cancelar el FUA'),
         kind: 'error',
       });
     } finally {

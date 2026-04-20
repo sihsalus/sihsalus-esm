@@ -59,8 +59,8 @@ describe('QueueFields', () => {
 
   it('renders the form fields and returns the set values', async () => {
     const user = userEvent.setup();
-    let onSubmit: (visit: Visit) => Promise<any> = null;
-    const setOnSubmit = (callback) => {
+    let onSubmit: ((visit: Visit) => Promise<any>) | undefined;
+    const setOnSubmit = (callback: (visit: Visit) => Promise<any>) => {
       onSubmit = callback;
     };
     render(<QueueFields setOnSubmit={setOnSubmit} />);
@@ -70,17 +70,19 @@ describe('QueueFields', () => {
 
     const queueUuid = 'e2ec9cf0-ec38-4d2b-af6c-59c82fa30b90';
     const serviceSelect = screen.getByLabelText('Select a service').closest('select');
+    expect(serviceSelect).not.toBeNull();
     await user.selectOptions(serviceSelect, queueUuid);
 
     expect(screen.getByText('Priority')).toBeInTheDocument();
     expect(screen.getByText('High')).toBeInTheDocument();
 
-    await onSubmit(mockVisitAlice);
+    expect(onSubmit).toBeDefined();
+    await onSubmit!(mockVisitAlice);
     expect(mockPostQueueEntry).toHaveBeenCalledWith(
       mockVisitAlice.uuid,
       queueUuid, // queueUuid
       mockVisitAlice.patient.uuid,
-      'f4620bfa-3625-4883-bd3f-84c2cce14470', // priority
+      'bf3a08c6-cbe6-4f00-8e06-5f5437790b85', // priority
       '51ae5e4d-b72b-4912-bf31-a17efb690aeb', // status
       0, // sortWeight
       '1', // locationUuid

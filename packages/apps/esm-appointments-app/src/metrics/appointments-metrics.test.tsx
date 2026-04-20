@@ -1,6 +1,5 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import { mockAppointmentMetrics, mockProvidersCount, mockStartTime } from 'test-utils';
 import React from 'react';
 
 import AppointmentsMetrics from './appointments-metrics.component';
@@ -10,20 +9,23 @@ const mockOpenmrsFetch = jest.mocked(openmrsFetch);
 jest.mock('../hooks/useClinicalMetrics', () => ({
   ...jest.requireActual('../hooks/useClinicalMetrics'),
   useClinicalMetrics: jest.fn().mockReturnValue({
-    highestServiceLoad: mockAppointmentMetrics.highestServiceLoad,
-    isLoading: mockAppointmentMetrics.isLoading,
-    error: mockAppointmentMetrics.error,
+    highestServiceLoad: {
+      serviceName: 'Outpatient',
+      count: 4,
+    },
+    isLoading: false,
+    error: null,
   }),
   useAllAppointmentsByDate: jest.fn().mockReturnValue({
-    totalProviders: mockProvidersCount.totalProviders,
-    isLoading: mockProvidersCount.isLoading,
-    error: mockProvidersCount.error,
+    totalProviders: 4,
+    isLoading: false,
+    error: null,
   }),
   useScheduledAppointments: jest.fn().mockReturnValue({
-    totalScheduledAppointments: mockAppointmentMetrics.totalAppointments,
+    totalScheduledAppointments: 16,
   }),
   useAppointmentDate: jest.fn().mockReturnValue({
-    startDate: mockStartTime.startTime,
+    startDate: '2024-01-01',
   }),
 }));
 
@@ -39,6 +41,6 @@ describe('Appointment metrics', () => {
     expect(screen.getByText(/scheduled appointments/i)).toBeInTheDocument();
     expect(screen.getByText(/^appointments$/i)).toBeInTheDocument();
     expect(screen.getByText(/16/i)).toBeInTheDocument();
-    expect(screen.getByText(/4/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/^4$/i)).toHaveLength(2);
   });
 });

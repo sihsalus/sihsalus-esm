@@ -7,7 +7,7 @@ import { adultConfig } from './odontogram/config/adultConfig';
 import type { OdontogramData } from './odontogram/types/odontogram';
 import useOdontogramDataStore from './store/odontogramDataStore';
 
-export default function OdontogramRoot() {
+export default function OdontologiaRoot() {
   const data = useOdontogramDataStore((state) => state.data);
   const setData = useOdontogramDataStore((state) => state.setData);
 
@@ -19,7 +19,7 @@ export default function OdontogramRoot() {
   );
 
   return (
-    <AppErrorBoundary appName="esm-odontogram-app">
+    <AppErrorBoundary appName="esm-odontologia-app">
       <div style={{ padding: '1rem 0' }}>
         <OdontogramCanvas config={adultConfig} data={data} onChange={handleChange} />
       </div>

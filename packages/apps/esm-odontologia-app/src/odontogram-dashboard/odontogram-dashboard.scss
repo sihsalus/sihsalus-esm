@@ -9,6 +9,12 @@
   padding: 0 1rem 1rem;
 }
 
+.embeddedToolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 1rem 0.5rem;
+}
+
 // Skeleton
 .skeletonWrapper {
   padding: 1rem;

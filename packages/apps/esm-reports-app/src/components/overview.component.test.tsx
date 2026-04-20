@@ -10,7 +10,7 @@ const mockReports = [
   {
     id: 'report-1',
     reportName: 'OPD/IPD Report',
-    status: 'Failed',
+    status: 'FAILED',
     requestedBy: 'RUHINYURAMPUNZI RUHINYURAMPUNZI RUHINYURAMPUNZI',
     requestedByUserUuid: mockSession.data.user.uuid,
     requestedOn: '2025-11-12 12:00',
@@ -22,7 +22,7 @@ const mockReports = [
   {
     id: 'report-2',
     reportName: 'OPD/IPD Report',
-    status: 'Failed',
+    status: 'FAILED',
     requestedBy: 'RUHINYURAMPUNZI RUHINYURAMPUNZI RUHINYURAMPUNZI',
     requestedByUserUuid: mockSession.data.user.uuid,
     requestedOn: '2025-11-11 12:00',
@@ -34,7 +34,7 @@ const mockReports = [
   {
     id: 'report-3',
     reportName: 'OPD/IPD Report',
-    status: 'Failed',
+    status: 'FAILED',
     requestedBy: 'RUHINYURAMPUNZI RUHINYURAMPUNZI RUHINYURAMPUNZI',
     requestedByUserUuid: mockSession.data.user.uuid,
     requestedOn: '2025-11-10 12:00',
@@ -46,7 +46,7 @@ const mockReports = [
   {
     id: 'report-4',
     reportName: 'Generic Encounter Report',
-    status: 'Completed',
+    status: 'COMPLETED',
     requestedBy: 'Admin User',
     requestedByUserUuid: mockSession.data.user.uuid,
     requestedOn: '2025-11-13 10:30',
@@ -58,7 +58,7 @@ const mockReports = [
   {
     id: 'report-5',
     reportName: 'Patient Demographics Report',
-    status: 'Completed',
+    status: 'COMPLETED',
     requestedBy: 'System Administrator',
     requestedByUserUuid: mockSession.data.user.uuid,
     requestedOn: '2025-11-13 09:15',

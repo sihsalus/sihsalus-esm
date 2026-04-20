@@ -272,10 +272,14 @@ export async function mergeImportmapAndRoutes(
     }
 
     const map = JSON.parse(importDecl.value);
+    const additionalBaseNames = new Set(Object.keys(additionalImports).map((name) => name.replace(/^@[^/]+\//, '')));
+    const dedupedImports = Object.fromEntries(
+      Object.entries(map.imports).filter(([name]) => !additionalBaseNames.has(name.replace(/^@[^/]+\//, ''))),
+    );
 
     importDecl.value = JSON.stringify({
       imports: {
-        ...map.imports,
+        ...dedupedImports,
         ...additionalImports,
       },
     });
@@ -288,9 +292,13 @@ export async function mergeImportmapAndRoutes(
     }
 
     const routes = JSON.parse(routesDecl.value);
+    const additionalBaseNames = new Set(Object.keys(additionalRoutes).map((name) => name.replace(/^@[^/]+\//, '')));
+    const dedupedRoutes = Object.fromEntries(
+      Object.entries(routes).filter(([name]) => !additionalBaseNames.has(name.replace(/^@[^/]+\//, ''))),
+    );
 
     routesDecl.value = JSON.stringify({
-      ...routes,
+      ...dedupedRoutes,
       ...additionalRoutes,
     });
   }

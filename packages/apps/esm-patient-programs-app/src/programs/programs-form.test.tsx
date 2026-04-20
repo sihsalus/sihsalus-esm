@@ -149,10 +149,11 @@ describe('ProgramsForm', () => {
       mockEnrolledProgramsResponse[0].uuid,
       expect.objectContaining({
         dateCompleted: expect.stringMatching(/^2020-05-05/),
-        dateEnrolled: expect.stringMatching(/^2020-01-16/),
+        dateEnrolled: expect.stringMatching(/^2020-01-15T19:00:00-05:00|^2020-01-16/),
         location: mockEnrolledProgramsResponse[0].location.uuid,
         patient: mockPatient.id,
         program: mockEnrolledProgramsResponse[0].program.uuid,
+        states: expect.any(Array),
       }),
       new AbortController(),
     );

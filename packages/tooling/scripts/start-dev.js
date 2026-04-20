@@ -186,7 +186,11 @@ if (devAppsEnv) {
   }
   logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
 
-  const shimSource = resolve(__dirname, '..', '..', 'apps', 'esm-login-app');
+  // The OpenMRS CLI still requires at least one --sources workspace even when
+  // the proxy serves a fully assembled importmap. Use a neutral tooling
+  // workspace so we don't inject app-specific dev-server clients into the SPA.
+  const cliShimSource = resolve(__dirname, '..', 'openmrs');
+
   startWithProxy([
     '--importmap',
     assembledImportmap,
@@ -195,6 +199,6 @@ if (devAppsEnv) {
     '--config-file',
     frontendConfig,
     '--sources',
-    shimSource,
+    cliShimSource,
   ]);
 }

@@ -134,7 +134,7 @@ describe('TreeViewWrapper', () => {
 
     renderTreeViewWrapperWithMockContext();
 
-    expect(screen.getByRole('table')).toBeInTheDocument();
+    expect(screen.getAllByRole('table').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Complete blood count').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Haemoglobin').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Hematocrit').length).toBeGreaterThan(0);

@@ -9896,9 +9896,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sihsalus/esm-odontogram-app@workspace:packages/apps/esm-odontogram-app":
+"@sihsalus/esm-odontologia-app@workspace:packages/apps/esm-odontologia-app":
   version: 0.0.0-use.local
-  resolution: "@sihsalus/esm-odontogram-app@workspace:packages/apps/esm-odontogram-app"
+  resolution: "@sihsalus/esm-odontologia-app@workspace:packages/apps/esm-odontologia-app"
   dependencies:
     "@carbon/react": "npm:^1.92.1"
     "@carbon/styles": "npm:^1.102.0"

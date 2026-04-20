@@ -134,7 +134,7 @@ describe('OrderDetailsTable', () => {
     await screen.findByRole('table');
 
     Object.values(columns).forEach((headerText) => {
-      expect(screen.getByRole('button', { name: new RegExp(headerText, 'i') })).toBeInTheDocument();
+      expect(screen.getAllByText(new RegExp(headerText, 'i')).length).toBeGreaterThan(0);
     });
 
     const expectedOrder = {

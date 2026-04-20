@@ -44,7 +44,7 @@ const FuaHtmlViewer: React.FC<FuaHtmlViewerProps> = ({ fuaId, endpoint }) => {
         setError(errorMessage);
         showSnackbar({
           title: t('error', 'Error'),
-          subtitle: errorMessage,
+          description: errorMessage,
           kind: 'error',
         });
       } finally {
