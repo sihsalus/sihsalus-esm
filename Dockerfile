@@ -6,15 +6,14 @@ WORKDIR /app
 RUN corepack enable && corepack prepare yarn@4.13.0 --activate
 
 # Copy root manifests first
-COPY package.json yarn.lock .yarnrc.yml turbo.json ./
+COPY package.json yarn.lock .yarnrc.yml turbo.json tsconfig.base.json ./
 COPY .yarn/ ./.yarn/
 
 # Copy workspaces (required so Yarn can resolve workspace:* deps)
 COPY packages/ ./packages/
 
 ENV CI=true
-ENV YARN_ENABLE_NETWORK=0
-RUN yarn install --immutable --immutable-cache --check-cache
+RUN yarn install --immutable
 
 RUN yarn turbo run build --filter='./packages/apps/*' --filter='!@sihsalus/esm-form-entry-react-app'
 
@@ -33,5 +32,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/packages/apps ./packages/apps
 COPY --from=builder /app/packages/tooling/scripts/assemble-importmap.js ./packages/tooling/scripts/assemble-importmap.js
 COPY config/ ./config/
+COPY assets/ ./assets/
 
 CMD ["node", "packages/tooling/scripts/assemble-importmap.js"]

@@ -291,7 +291,23 @@ function copyConfigFiles() {
   }
 }
 
-// ── Phase 6: Patch index.html — port of startup.sh envsubst logic ─────
+// ── Phase 6: Copy brand assets (logos, favicon) into outDir ──────────
+function copyAssets() {
+  logInfo('Phase 6: Brand assets');
+  const assetsDir = path.resolve('assets/resources');
+  if (!fs.existsSync(assetsDir)) {
+    logWarn('assets/resources/ not found — skipping brand assets');
+    return;
+  }
+  for (const file of fs.readdirSync(assetsDir)) {
+    const src = path.join(assetsDir, file);
+    if (!fs.statSync(src).isFile()) continue;
+    copyFileReplacingIfNeeded(src, path.join(outDir, file));
+    logInfo(`OK assets/resources/${file} -> ${outDir}/`);
+  }
+}
+
+// ── Phase 7: Patch index.html — port of startup.sh envsubst logic ─────
 // Injects SPA_PATH, API_URL, SPA_CONFIG_URLS, SPA_DEFAULT_LOCALE, IMPORTMAP_URL
 // so nginx serves a fully-resolved index.html with no runtime substitution needed.
 function patchIndexHtml() {
@@ -360,6 +376,7 @@ function patchIndexHtml() {
   copyAppShell();
   writeOutputs();
   copyConfigFiles();
+  copyAssets();
   patchIndexHtml();
   logInfo('Done! dist/spa/ is self-contained.');
 })().catch((err) => {
