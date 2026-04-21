@@ -95,8 +95,8 @@ export function useLocations(locationTag?: string, count: number = 0, searchQuer
       ).toString();
     }
 
-    let url = `${fhirBaseUrl}/Location?`;
-    let urlSearchParameters = new URLSearchParams();
+    const url = `${fhirBaseUrl}/Location?`;
+    const urlSearchParameters = new URLSearchParams();
     urlSearchParameters.append('_summary', 'data');
 
     if (count) {

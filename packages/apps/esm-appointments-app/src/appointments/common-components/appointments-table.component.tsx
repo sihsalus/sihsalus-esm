@@ -119,7 +119,7 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
   }));
 
   if (isLoading) {
-    return <DataTableSkeleton role="progressbar" row={5} />;
+    return <DataTableSkeleton role="progressbar" rowCount={5} />;
   }
 
   if (hasActiveFilters && !appointments?.length) {
@@ -172,7 +172,7 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
           renderIcon={Download}
           onClick={() => {
             const date = appointments[0]?.startDateTime
-              ? formatDate(parseDate(appointments[0]?.startDateTime), {
+              ? formatDate(new Date(appointments[0].startDateTime), {
                   time: false,
                   noToday: true,
                 })
@@ -241,7 +241,6 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                                 <OverflowMenuItem
                                   className={styles.menuItem}
                                   itemText={t('editAppointment', 'Edit appointment')}
-                                  size={responsiveSize}
                                   onClick={() =>
                                     launchWorkspace('appointments-form-workspace', {
                                       patientUuid: matchingAppointment.patient.uuid,

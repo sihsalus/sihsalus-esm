@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any, @typescript-eslint/restrict-plus-operands */
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
@@ -32,7 +31,7 @@ export interface Cohort {
 
 export interface CohortResponse<T> {
   results: Array<T>;
-  error: any;
+  error: unknown;
   totalCount: number;
 }
 
@@ -91,8 +90,8 @@ export interface OpenmrsCohort {
   resourceVersion: string;
   name: string;
   description: string;
-  attributes: Array<any>;
-  links: Array<any>;
+  attributes: Array<unknown>;
+  links: Array<Record<string, unknown>>;
   location: Location | null;
   groupCohort: boolean | null;
   startDate: string | null;

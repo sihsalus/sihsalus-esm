@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { type OpenmrsResource, showSnackbar, translateFrom } from '@openmrs/esm-framework/src/internal';
+import { type OpenmrsResource, showSnackbar, translateFrom } from '@openmrs/esm-framework';
 import {
   getMutableSessionProps,
   hasDuplicatePatientIdentifiers,

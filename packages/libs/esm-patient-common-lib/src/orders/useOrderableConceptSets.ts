@@ -60,7 +60,6 @@ function useOrderableConceptSWR(searchTerm: string, orderableConceptSets?: Array
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface OrderableConcept extends OpenmrsResource {}
 
 export function useOrderableConceptSets(searchTerm: string, orderableConcepts: Array<string>) {

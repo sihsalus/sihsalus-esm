@@ -8,8 +8,8 @@ import {
   useConfig,
   getDefaultsFromConfigSchema,
 } from '@openmrs/esm-framework';
-import { mockCareProgramsResponse, mockEnrolledProgramsResponse, mockLocationsResponse } from '__mocks__';
-import { mockPatient } from 'tools';
+import { mockCareProgramsResponse, mockEnrolledProgramsResponse, mockLocationsResponse } from 'test-utils';
+import { mockPatient } from 'test-utils';
 import {
   createProgramEnrollment,
   updateProgramEnrollment,
@@ -33,7 +33,7 @@ const testProps: PatientWorkspace2DefinitionProps<ProgramsFormProps, {}> = {
   closeWorkspace: mockCloseWorkspace,
   groupProps: {
     patientUuid: mockPatient.id,
-    patient: mockPatient,
+    patient: mockPatient as unknown as fhir.Patient,
     visitContext: null,
     mutateVisitContext: null,
   },
@@ -149,10 +149,11 @@ describe('ProgramsForm', () => {
       mockEnrolledProgramsResponse[0].uuid,
       expect.objectContaining({
         dateCompleted: expect.stringMatching(/^2020-05-05/),
-        dateEnrolled: expect.stringMatching(/^2020-01-16/),
+        dateEnrolled: expect.stringMatching(/^2020-01-15T19:00:00-05:00|^2020-01-16/),
         location: mockEnrolledProgramsResponse[0].location.uuid,
         patient: mockPatient.id,
         program: mockEnrolledProgramsResponse[0].program.uuid,
+        states: expect.any(Array),
       }),
       new AbortController(),
     );

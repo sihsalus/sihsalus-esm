@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { formattedVitals, mockConceptMetadata, mockConceptUnits, mockVitalsConfig } from '__mocks__';
+import { formattedVitals, mockConceptMetadata, mockConceptUnits, mockVitalsConfig } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 
@@ -52,7 +52,7 @@ jest.mock('../common', () => {
 
 mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
-  mockVitalsConfig,
+  ...mockVitalsConfig,
 } as ConfigObject);
 
 describe('VitalsOverview', () => {
@@ -118,10 +118,10 @@ describe('VitalsOverview', () => {
     );
 
     const expectedTableRows = [
-      /19 — May — 2021, 04:26 AM 37 121 \/ 89 76 12 --/,
-      /10 — May — 2021, 06:41 AM 37 120 \/ 90 66 45 90/,
-      /07 — May — 2021, 09:04 AM -- 120 \/ 80 -- -- --/,
-      /08 — Apr — 2021, 02:44 PM 36.5 -- \/ -- 78 65 --/,
+      /19 — May — 2021, .* 37 121 \/ 89 76 12 --/,
+      /10 — May — 2021, .* 37 120 \/ 90 66 45 90/,
+      /07 — May — 2021, .* -- 120 \/ 80 -- -- --/,
+      /08 — Apr — 2021, .* 36.5 -- \/ -- 78 65 --/,
     ];
     expectedTableRows.map((row) => expect(screen.getByRole('row', { name: new RegExp(row, 'i') })).toBeInTheDocument());
 

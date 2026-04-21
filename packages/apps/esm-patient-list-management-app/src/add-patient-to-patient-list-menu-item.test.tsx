@@ -1,7 +1,7 @@
 import { showModal } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockPatient } from '__mocks__';
+import { mockPatient } from 'test-utils';
 import React from 'react';
 
 import AddPatientToPatientListMenuItem from './add-patient-to-patient-list-menu-item.component';

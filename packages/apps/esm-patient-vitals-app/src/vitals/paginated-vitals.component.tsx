@@ -31,8 +31,15 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
   tableHeaders,
   tableRows,
   urlLabel,
-}) => {
-  const isTablet = useLayoutType() === 'tablet';
+	}) => {
+	  const isTablet = useLayoutType() === 'tablet';
+  const renderHeader = (header: React.ReactNode | { content?: React.ReactNode }): React.ReactNode => {
+    if (typeof header === 'object' && header !== null && 'content' in header) {
+      return header.content ?? null;
+    }
+
+    return header as React.ReactNode;
+  };
 
   const StyledTableCell = ({ interpretation, children }: { interpretation: string; children: React.ReactNode }) => {
     switch (interpretation) {
@@ -64,6 +71,7 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
     } else {
       setSortParams({ key, sortDirection });
     }
+    return 0;
   };
 
   const sortedData: Array<VitalsTableRow> = useMemo(() => {
@@ -104,18 +112,18 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
             <Table className={styles.table} aria-label="vitals" {...getTableProps()}>
               <TableHead>
                 <TableRow>
-                  {headers.map((header) => (
-                    <TableHeader {...getHeaderProps({ header, isSortable: header.isSortable })} key={header.key}>
-                      {header.header?.content ?? header.header}
-                    </TableHeader>
-                  ))}
+	                  {headers.map((header) => (
+	                    <TableHeader {...getHeaderProps({ header, isSortable: header.isSortable })} key={header.key}>
+	                      {renderHeader(header.header)}
+	                    </TableHeader>
+	                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.id}>
                     {row.cells.map((cell) => {
-                      const vitalsObj = paginatedVitals.find((obj) => obj.id === row.id);
+                      const vitalsObj = rows.find((obj) => obj.id === row.id);
                       const vitalSignInterpretation = vitalsObj && vitalsObj[cell.id.substring(2) + 'Interpretation'];
 
                       return (

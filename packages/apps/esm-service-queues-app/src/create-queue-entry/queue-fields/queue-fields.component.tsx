@@ -178,7 +178,7 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
         <section className={styles.section}>
           <div className={styles.sectionTitle}>{t('priority', 'Priority')}</div>
           {isLoadingQueues ? (
-            <RadioButtonGroup>
+            <RadioButtonGroup id="priority-skeleton" name="priority-skeleton">
               <RadioButtonSkeleton />
               <RadioButtonSkeleton />
               <RadioButtonSkeleton />
@@ -201,7 +201,7 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
               name="priority"
               id="priority"
               defaultSelected={defaultPriorityConceptUuid}
-              onChange={(uuid) => setPriority(uuid)}
+              onChange={(uuid) => setPriority(String(uuid))}
             >
               {priorities.map(({ uuid, display }) => (
                 <RadioButton key={uuid} labelText={display} value={uuid} />

@@ -2,7 +2,7 @@
   "$schema": "https://json.openmrs.org/routes.schema.json",
   "optionalBackendDependencies": {
     "emrapi": {
-      "version": "^2.0.0",
+      "version": ">=2.0.0",
       "feature": {
         "flagName": "emrapi-module",
         "label": "EMR API Module",
@@ -234,7 +234,7 @@
   "pages": [
     {
       "component": "root",
-      "routeRegex": "^patient\/.+\/chart",
+      "routeRegex": "^patient/.+/chart",
       "online": true,
       "offline": true
     }

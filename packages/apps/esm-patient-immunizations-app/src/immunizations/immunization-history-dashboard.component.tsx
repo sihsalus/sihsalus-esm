@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CardHeader } from '@openmrs/esm-patient-common-lib';

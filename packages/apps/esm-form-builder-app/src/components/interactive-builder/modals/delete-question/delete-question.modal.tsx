@@ -5,7 +5,7 @@ import { showSnackbar } from '@openmrs/esm-framework';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
 
-interface DeleteQuestionModal {
+interface DeleteQuestionModalProps {
   closeModal: () => void;
   onSchemaChange: (schema: Schema) => void;
   pageIndex: number;
@@ -17,7 +17,7 @@ interface DeleteQuestionModal {
   showModal: boolean;
 }
 
-const DeleteQuestionModal: React.FC<DeleteQuestionModal> = ({
+const DeleteQuestionModal: React.FC<DeleteQuestionModalProps> = ({
   closeModal,
   onSchemaChange,
   pageIndex,

@@ -1,7 +1,7 @@
 import { Dropdown, InlineNotification, RadioButton, RadioButtonGroup, RadioButtonSkeleton } from '@carbon/react';
 import { type Patient } from '@openmrs/esm-framework';
 import React from 'react';
-import { type Control, type FieldError } from 'react-hook-form';
+import { type FieldError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import useWardLocation from '../hooks/useWardLocation';
@@ -16,7 +16,6 @@ interface BedSelectorProps {
   selectedBedId: number;
   error: FieldError;
   onChange(bedId: number): void;
-  control: Control<{ bedId?: number }>;
   minBedCountToUseDropdown?: number;
 }
 
@@ -33,7 +32,6 @@ const BedSelector: React.FC<BedSelectorProps> = ({
   error,
   onChange,
   currentPatient,
-  control,
   minBedCountToUseDropdown = 16,
 }) => {
   const { location } = useWardLocation();
@@ -90,7 +88,7 @@ const BedSelector: React.FC<BedSelectorProps> = ({
         items={bedDropdownItems}
         itemToString={(bedDropdownItem: BedDropdownItem) => bedDropdownItem.label}
         selectedItem={selectedItem}
-        onChange={({ selectedItem }: { selectedItem: BedLayout }) => onChange(selectedItem.bedId)}
+        onChange={({ selectedItem }) => onChange((selectedItem as BedDropdownItem | null)?.bedId ?? 0)}
         invalid={!!error}
         invalidText={error?.message}
       />
@@ -100,7 +98,7 @@ const BedSelector: React.FC<BedSelectorProps> = ({
       <RadioButtonGroup
         name="bedId"
         className={styles.radioButtonGroup}
-        onChange={onChange}
+        onChange={(value) => onChange(Number(value))}
         invalid={!!error}
         invalidText={error?.message}
       >
@@ -108,7 +106,6 @@ const BedSelector: React.FC<BedSelectorProps> = ({
           <RadioButton
             key={bedId}
             labelText={label}
-            control={control}
             value={bedId}
             checked={bedId === selectedBedId}
             disabled={disabled}

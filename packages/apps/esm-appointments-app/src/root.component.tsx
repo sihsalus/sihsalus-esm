@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Appointments from './appointments.component';
@@ -11,7 +11,7 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-appointments-app">
-        <main>
+      <main>
         <BrowserRouter basename={appointmentsBasename}>
           <Routes>
             <Route path="/" element={<Appointments />} />

@@ -4,6 +4,10 @@ import useSWR from 'swr';
 
 const BASE_URL = '/ws/module/indicators/api/indicators';
 
+interface OpenMRSResponse<T> {
+  data: T;
+}
+
 export interface IndicatorDefinition {
   id: number;
   name: string;
@@ -31,7 +35,8 @@ interface EvaluationResult {
 
 /** GET /ws/module/indicators/api/indicators */
 export function useIndicators() {
-  const { data, isLoading, error, mutate } = useSWR<{ data: IndicatorListResponse }>(BASE_URL, openmrsFetch);
+  const fetchIndicators = async () => (await openmrsFetch(BASE_URL)) as OpenMRSResponse<IndicatorListResponse>;
+  const { data, isLoading, error, mutate } = useSWR<OpenMRSResponse<IndicatorListResponse>>(BASE_URL, fetchIndicators);
   return {
     indicators: data?.data?.results ?? [],
     totalCount: data?.data?.totalCount ?? 0,
@@ -43,9 +48,11 @@ export function useIndicators() {
 
 /** GET /ws/module/indicators/api/indicators/{id}/evaluate */
 export function useEvaluateIndicator(id: number | null) {
-  const { data, isLoading, error, mutate } = useSWR<{ data: EvaluationResult }>(
+  const fetchEvaluation = async () =>
+    (await openmrsFetch(`${BASE_URL}/${id}/evaluate`)) as OpenMRSResponse<EvaluationResult>;
+  const { data, isLoading, error, mutate } = useSWR<OpenMRSResponse<EvaluationResult>>(
     id != null ? `${BASE_URL}/${id}/evaluate` : null,
-    openmrsFetch,
+    fetchEvaluation,
   );
   return {
     patientCount: data?.data?.patientCount ?? 0,

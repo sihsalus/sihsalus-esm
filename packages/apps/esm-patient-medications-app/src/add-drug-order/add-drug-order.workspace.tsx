@@ -20,14 +20,16 @@ export interface AddDrugOrderWorkspaceAdditionalProps {
   order: DrugOrderBasketItem;
 }
 
-export interface AddDrugOrderWorkspace extends DefaultPatientWorkspaceProps, AddDrugOrderWorkspaceAdditionalProps {}
+export interface AddDrugOrderWorkspaceProps
+  extends DefaultPatientWorkspaceProps,
+    AddDrugOrderWorkspaceAdditionalProps {}
 
 export default function AddDrugOrderWorkspace({
   order: initialOrder,
   closeWorkspace,
   closeWorkspaceWithSavedChanges,
   promptBeforeClosing,
-}: AddDrugOrderWorkspace) {
+}: AddDrugOrderWorkspaceProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications', prepMedicationOrderPostData);

@@ -1,5 +1,5 @@
 import { showModal } from '@openmrs/esm-framework';
-import { EmptyState } from '@openmrs/esm-patient-common-lib';
+import { EmptyState, type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -97,7 +97,7 @@ const TimelineCell: React.FC<TimelineCellProps> = ({ text, interpretation = 'NOR
 
 const GridItems = React.memo<{
   sortedTimes: Array<string>;
-  obs: any;
+  obs: Array<{ value: string; interpretation?: OBSERVATION_INTERPRETATION } | undefined>;
   zebra: boolean;
 }>(({ sortedTimes, obs, zebra }) => (
   <>
@@ -117,7 +117,7 @@ const DataRows: React.FC<DataRowsProps> = ({ patientUuid, timeColumns, rowData, 
       {rowData.map((row, index) => {
         const obs = row.entries;
         const { units = '', range = '', obs: values } = row;
-        const isString = isNaN(parseFloat(values?.[0]?.value));
+        const isString = Number.isNaN(Number.parseFloat(values?.[0]?.value));
         return (
           <React.Fragment key={index}>
             <NewRowStartCell
@@ -147,7 +147,7 @@ const DateHeaderGrid: React.FC<DateHeaderGridProps> = ({
   xScroll,
   setXScroll,
 }) => {
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   const el: HTMLElement | null = ref.current;
 
   if (el) {
@@ -155,8 +155,11 @@ const DateHeaderGrid: React.FC<DateHeaderGridProps> = ({
   }
 
   const handleScroll = useCallback(
-    (e) => {
-      setXScroll(e.target.scrollLeft);
+    (event: Event) => {
+      const target = event.target;
+      if (target instanceof HTMLDivElement) {
+        setXScroll(target.scrollLeft);
+      }
     },
     [setXScroll],
   );
@@ -222,8 +225,8 @@ const TimelineDataGroup: React.FC<TimelineDataGroupProps> = ({
     },
   } = timelineData;
 
-  const ref = useRef();
-  const titleRef = useRef();
+  const ref = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   const el: HTMLElement | null = ref.current;
   if (el) {
@@ -235,8 +238,11 @@ const TimelineDataGroup: React.FC<TimelineDataGroupProps> = ({
   }
 
   useEffect(() => {
-    const handleScroll = makeThrottled((e) => {
-      setXScroll(e.target.scrollLeft);
+    const handleScroll = makeThrottled((event: Event) => {
+      const target = event.target;
+      if (target instanceof HTMLDivElement) {
+        setXScroll(target.scrollLeft);
+      }
     }, 200);
 
     const div: HTMLElement | null = ref.current;

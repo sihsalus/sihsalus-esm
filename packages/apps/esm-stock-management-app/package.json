@@ -11,14 +11,14 @@
     "serve": "rspack serve --mode=development",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
-    "prettier": "prettier --write \"src/**/*.{css,scss,ts,tsx}\" --list-different",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
+    "prettier": "node ../../tooling/scripts/run-biome.js format --write src",
     "typescript": "tsc",
     "test": "jest --config jest.config.js --passWithNoTests",
     "verify": "turbo run lint typescript coverage",
     "coverage": "yarn test --coverage",
-    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.tsx' --config ./tools/i18next-parser.config.js",
-    "test-e2e": "playwright test"
+    "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.tsx' --config ../../tooling/scripts/i18next-parser.config.js",
+    "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/stock-management/playwright.config.ts"
   },
   "browserslist": [
     "extends browserslist-config-openmrs"
@@ -43,7 +43,7 @@
     "@carbon/react": "^1.92.1",
     "@hookform/resolvers": "^3.3.0",
     "@playwright/test": "^1.58.2",
-    "@sihsalus/rbac": "workspace:*",
+    "@sihsalus/esm-rbac": "workspace:*",
     "dotenv": "^17.3.1",
     "file-saver": "^2.0.5",
     "lodash-es": "^4.17.21",
@@ -80,23 +80,15 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@types/webpack-env": "^1.18.1",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
     "css-loader": "^6.8.1",
     "dayjs": "^1.11.9",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-testing-library": "^6.3.0",
-    "husky": "^9.1.7",
     "i18next": "^25.0.0",
     "i18next-parser": "^9.3.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "lint-staged": "^16.0.0",
     "openmrs": "*",
-    "prettier": "^3.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^16.0.0",
@@ -107,9 +99,5 @@
     "turbo": "^2.9.1",
     "typescript": "^5.8.3",
     "yup": "^1.2.0"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": "eslint --cache --fix --max-warnings 0",
-    "*.{css,scss,ts,tsx}": "prettier --write --list-different"
   }
 }

@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockedAddressTemplate, mockedAddressOptions, mockedOrderedFields } from '__mocks__';
+import { mockedAddressTemplate, mockedAddressOptions, mockedOrderedFields } from 'test-utils';
 import { Formik, Form, useFormikContext } from 'formik';
 import React from 'react';
 

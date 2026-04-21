@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "growth-chart-overview-widget",
+      "component": "growthChart",
+      "slot": "patient-chart-summary-dashboard-slot"
+    },
+    {
+      "name": "system-administration-scheduling-card-link",
+      "slot": "system-admin-page-card-link-slot",
+      "component": "schedulingAdminPageCardLink",
+      "online": true,
+      "offline": true
+    },
+    {
+      "name": "child-immunization-schedule",
+      "component": "childImmunizationScheduleLink",
+      "slot": "well-child-care-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-child-immunization-schedule-dashboard-slot",
+        "path": "child-immunization-schedule-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "child-immunization-schedule-dashboard",
+      "slot": "patient-chart-child-immunization-schedule-dashboard-slot",
+      "component": "childImmunizationSchedule"
+    },
+    {
+      "name": "cred-checkouts",
+      "component": "credCheckouts",
+      "slot": "cred-schedule-slot",
+      "order": 2
+    },
+    {
+      "name": "cred-controls-timeline",
+      "component": "credControls",
+      "slot": "cred-schedule-slot",
+      "order": 1
+    },
+    {
+      "name": "cred-matrix",
+      "component": "credControlsMatrix",
+      "slot": "cred-following-slot",
+      "order": 3
+    },
+    {
+      "name": "anemia-screening-widget",
+      "component": "anemiaScreening",
+      "slot": "cred-following-slot",
+      "order": 4
+    },
+    {
+      "name": "supplementation-tracker-widget",
+      "component": "supplementationTracker",
+      "slot": "cred-following-slot",
+      "order": 5
+    },
+    {
+      "name": "screening-indicators-widget",
+      "component": "screeningIndicators",
+      "slot": "cred-following-slot",
+      "order": 6
+    },
+    {
+      "name": "neonatal-attention-chart",
+      "component": "neonatalAttentionChart",
+      "slot": "neonatal-attention-slot",
+      "order": 1
+    },
+    {
+      "name": "neonatal-care-dashboard",
+      "slot": "patient-chart-neonatal-care-dashboard-slot",
+      "component": "neonatalCare"
+    },
+    {
+      "name": "neonatal-care-dashboard-link",
+      "component": "neonatalCareLink",
+      "slot": "well-child-care-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-neonatal-care-dashboard-slot",
+        "path": "neonatal-care-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "neonatal-counseling-chart",
+      "component": "neonatalCounselingChart",
+      "slot": "neonatal-counseling-slot",
+      "order": 1
+    },
+    {
+      "name": "neonatal-alojamiento-conjunto-chart",
+      "component": "alojamientoConjunto",
+      "slot": "neonatal-alojamiento-conjunto-slot",
+      "order": 1
+    },
+    {
+      "name": "neonatal-evaluation-chart",
+      "component": "neonatalEvaluationChart",
+      "slot": "neonatal-evaluation-slot",
+      "order": 1
+    },
+    {
+      "name": "prenatal-antecedents-history",
+      "component": "childMedicalHistory",
+      "slot": "neonatal-perinatal-slot",
+      "order": 1
+    },
+    {
+      "name": "prenatal-history-widget",
+      "component": "prenatalHistory",
+      "slot": "neonatal-perinatal-slot",
+      "order": 2
+    },
+    {
+      "name": "labour-history-chart",
+      "component": "neonatalRegisterChart",
+      "slot": "neonatal-perinatal-slot",
+      "order": 3
+    },
+    {
+      "name": "detalles-nacimiento-chart",
+      "component": "neonatalRegisterBirth",
+      "slot": "neonatal-perinatal-slot",
+      "order": 4
+    },
+    {
+      "name": "pregnancy-details-chart",
+      "component": "pregnancyDetails",
+      "slot": "neonatal-perinatal-slot",
+      "order": 5
+    },
+    {
+      "name": "grow-chart",
+      "component": "growthChart",
+      "slot": "neonatal-vitals-slot",
+      "order": 4
+    },
+    {
+      "name": "newborn-balance-overview-chart",
+      "component": "newbornBalanceOverviewChart",
+      "slot": "neonatal-vitals-slot",
+      "order": 2
+    },
+    {
+      "name": "newborn-biometrics-base-chart",
+      "component": "newbornBiometricsBaseChart",
+      "slot": "neonatal-vitals-slot",
+      "order": 3
+    },
+    {
+      "name": "vaccination-appointment",
+      "component": "vaccinationAppointment",
+      "slot": "vaccination-appointment-slot"
+    },
+    {
+      "name": "vaccination-schedule",
+      "component": "vaccinationSchedule",
+      "slot": "vaccination-schedule-slot"
+    },
+    {
+      "name": "well-child-care",
+      "component": "wellChildCareLink",
+      "slot": "well-child-care-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-well-child-care-dashboard-slot",
+        "path": "well-child-care-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "well-child-care-dashboard",
+      "slot": "patient-chart-well-child-care-dashboard-slot",
+      "component": "wellChildCare"
+    },
+    {
+      "name": "well-child-care-dashboard-group-link",
+      "component": "wellChildCareSideNavGroup",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "well-child-care-slot",
+        "isFolder": true
+      }
+    },
+    {
+      "name": "early-stimulation-dashboard",
+      "slot": "patient-chart-early-stimulation-dashboard-slot",
+      "component": "earlyStimulation"
+    },
+    {
+      "name": "early-stimulation-dashboard-link",
+      "component": "earlyStimulationLink",
+      "slot": "well-child-care-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-early-stimulation-dashboard-slot",
+        "path": "early-stimulation-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "child-nutrition-dashboard",
+      "slot": "patient-chart-child-nutrition-dashboard-slot",
+      "component": "childNutrition"
+    },
+    {
+      "name": "child-nutrition-dashboard-link",
+      "component": "childNutritionLink",
+      "slot": "well-child-care-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-child-nutrition-dashboard-slot",
+        "path": "child-nutrition-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "nutritional-assessment-widget",
+      "component": "nutritionalAssessment",
+      "slot": "child-nutrition-assessment-slot",
+      "order": 1
+    },
+    {
+      "name": "feeding-counseling-widget",
+      "component": "feedingCounseling",
+      "slot": "child-nutrition-counseling-slot",
+      "order": 1
+    },
+    {
+      "name": "nutrition-followup-widget",
+      "component": "nutritionFollowup",
+      "slot": "child-nutrition-followup-slot",
+      "order": 1
+    },
+    {
+      "name": "stimulation-sessions-widget",
+      "component": "stimulationSessions",
+      "slot": "early-stimulation-sessions-slot",
+      "order": 1
+    },
+    {
+      "name": "stimulation-followup-widget",
+      "component": "stimulationFollowup",
+      "slot": "early-stimulation-followup-slot",
+      "order": 1
+    },
+    {
+      "name": "stimulation-counseling-widget",
+      "component": "stimulationCounseling",
+      "slot": "early-stimulation-counseling-slot",
+      "order": 1
+    },
+    {
+      "name": "cred-form-action-button",
+      "component": "credFormActionButton",
+      "slot": "action-menu-items-slot",
+      "order": 1
+    },
+    {
+      "name": "antecedentes-patologicos-overview",
+      "component": "antecedentesPatologicos",
+      "slot": "additional-health-services-slot"
+    },
+    {
+      "name": "development-overview-widget",
+      "component": "developmentOverview",
+      "slot": "cred-development-slot",
+      "order": 1
+    },
+    {
+      "name": "well-child-care-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-well-child-care-dashboard-slot",
+        "path": "well-child-care-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "neonatal-care-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-neonatal-care-dashboard-slot",
+        "path": "neonatal-care-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "child-immunization-schedule-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-child-immunization-schedule-dashboard-slot",
+        "path": "child-immunization-schedule-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "early-stimulation-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-early-stimulation-dashboard-slot",
+        "path": "early-stimulation-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "child-nutrition-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-child-nutrition-dashboard-slot",
+        "path": "child-nutrition-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    }
+  ],
+  "modals": [
+    {
+      "name": "condition-delete-confirmation-dialog",
+      "component": "conditionFilterDeleteConfirmationDialog"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "adverse-reaction-form-workspace",
+      "component": "adverseReactionFormWorkspace",
+      "title": "Reacción Adversa",
+      "type": "form"
+    },
+    {
+      "name": "antecedentes-patologicos-form-workspace",
+      "component": "antecedentesPatologicosFormWorkspace",
+      "title": "Antecedentes Patológicos",
+      "type": "form"
+    },
+    {
+      "name": "conditions-filter-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "title": "Agregar Condición",
+      "type": "form"
+    },
+    {
+      "name": "maternal-conditions-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "title": "Agregar Condición",
+      "type": "form"
+    },
+    {
+      "name": "forms-selector-workspace",
+      "component": "formsSelectorWorkspace",
+      "title": "Selección de Formularios",
+      "type": "form"
+    },
+    {
+      "name": "newborn-anthropometric-form",
+      "component": "newbornAnthropometricsworkspace",
+      "title": "Antropometría del Recién Nacido",
+      "type": "form"
+    },
+    {
+      "name": "newborn-fluidBalance-form",
+      "component": "newbornFluidBalanceworkspace",
+      "title": "Balance Hídrico del Recién Nacido",
+      "type": "form"
+    },
+    {
+      "name": "perinatal-register-form",
+      "component": "perinatalRegisterworkspace",
+      "title": "Registro Perinatal",
+      "type": "form"
+    },
+    {
+      "name": "wellchild-control-form",
+      "component": "wellchildControlsworkspace",
+      "title": "Control de Niño Sano",
+      "type": "form"
+    },
+    {
+      "name": "tepsi-form",
+      "component": "tepsiFormWorkspace",
+      "title": "Evaluación TEPSI",
+      "type": "form"
+    },
+    {
+      "name": "test-peruano-form",
+      "component": "testPeruanoFormWorkspace",
+      "title": "Test Peruano de Desarrollo",
+      "type": "form"
+    }
+  ]
+}

@@ -30,7 +30,9 @@ export interface SearchedPatient {
     display?: string;
     personName?: {
       givenName: string;
+      middleName?: string;
       familyName: string;
+      familyName2?: string;
       display?: string;
     };
   };

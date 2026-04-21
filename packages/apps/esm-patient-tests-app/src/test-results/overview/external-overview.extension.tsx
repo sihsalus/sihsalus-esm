@@ -10,7 +10,6 @@ import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import usePatientResultsData from '../loadPatientTestData/usePatientResultsData';
 
 import CommonOverview from './common-overview.component';
@@ -19,7 +18,7 @@ import { parseSingleEntry, type OverviewPanelEntry } from './useOverviewData';
 
 const resultsToShow = 3;
 
-function getFilteredOverviewData(sortedObs: PatientData, filter) {
+function getFilteredOverviewData(sortedObs: PatientData, filter: (filterProps: PanelFilterProps) => boolean) {
   return Object.entries(sortedObs)
     .flatMap(([panelName, { entries, type, uuid }]) => {
       return entries.map((e) => [e, uuid, type, panelName] as PanelFilterProps);
@@ -29,9 +28,9 @@ function getFilteredOverviewData(sortedObs: PatientData, filter) {
       return [
         panelName,
         type,
-        parseSingleEntry(entry, type, panelName),
+        parseSingleEntry(entry, type as PatientData[string]['type'], panelName),
         new Date(entry.effectiveDateTime),
-        new Date(entry.issued),
+        new Date(entry.issued ?? entry.effectiveDateTime),
         uuid,
       ];
     })
@@ -107,6 +106,6 @@ const ExternalOverview: React.FC<ExternalOverviewProps> = ({ patientUuid, filter
 
 export default ExternalOverview;
 
-const RecentResultsGrid = (props) => {
+const RecentResultsGrid: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => {
   return <div {...props} className={styles['recent-results-grid']} />;
 };

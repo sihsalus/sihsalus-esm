@@ -77,9 +77,10 @@ const PatientRow = ({ patient, removePatient }: { patient: PatientSummary; remov
 
     const { identifier, name } = patientInfo;
     const displayIdentifier = identifier?.[0]?.value || '';
-    const givenNames = `${(name?.[0]?.given || []).join(' ')} ${name?.[0]?.family || ''}`;
+    const nameObj = name?.[0];
+    const fullName = nameObj?.text || [nameObj?.family, ...(nameObj?.given ?? [])].filter(Boolean).join(' ');
 
-    return `${displayIdentifier ? `${displayIdentifier} -` : ''}${givenNames ? ` ${givenNames}` : ''}`.trim();
+    return `${displayIdentifier ? `${displayIdentifier} -` : ''}${fullName ? ` ${fullName}` : ''}`.trim();
   }, [isLoading, error, patientInfo]);
 
   return (
@@ -138,9 +139,7 @@ const NewGroupForm = (props: NewGroupFormProps) => {
       <FormLabel>
         {patientList.length} {t('patientsInGroup', 'Patients in group')}
       </FormLabel>
-      {errors?.patientList && (
-        <p className="formError">{t('noPatientError', 'Please enter at least one patient.')}</p>
-      )}
+      {errors?.patientList && <p className="formError">{t('noPatientError', 'Please enter at least one patient.')}</p>}
       {!errors?.patientList && (
         <ul className="patientList">
           {patientList?.map((patient) => (

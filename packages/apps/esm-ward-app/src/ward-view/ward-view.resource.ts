@@ -178,7 +178,7 @@ export function useElementConfig(elementType, id: string): object {
 
   try {
     return config?.patientCardElements?.[elementType]?.find((elementConfig) => elementConfig?.id == id);
-  } catch (e) {
+  } catch {
     showNotification({
       title: t('errorConfiguringPatientCard', 'Error configuring patient card'),
       kind: 'error',

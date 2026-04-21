@@ -15,9 +15,7 @@ export type Tag = {
 };
 
 export type LocationFetchResponse = {
-  data: {
-    results: Array<Location>;
-  };
+  results: Array<Location>;
 };
 
 export type Location = {

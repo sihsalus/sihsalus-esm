@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-empty-object-type, @typescript-eslint/unbound-method */
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +27,7 @@ import { useImmunizations } from '../hooks/useImmunizations';
 import { useImmunizationsConceptSet } from '../hooks/useImmunizationsConceptSet';
 import styles from './immunizations-form.scss';
 
-const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<{}, {}>> = ({
+const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string, never>, Record<string, never>>> = ({
   closeWorkspace,
   groupProps: { patientUuid, patient, visitContext },
 }) => {

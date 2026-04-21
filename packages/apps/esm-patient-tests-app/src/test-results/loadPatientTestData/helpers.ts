@@ -11,9 +11,16 @@ import {
 const PAGE_SIZE = 300;
 const CHUNK_PREFETCH_COUNT = 1;
 
-const retrieveFromIterator = <T>(iteratorOrIterable: IterableIterator<T>, length: number): Array<T | undefined> => {
+interface FhirObservationBundle {
+  total: number;
+  entry?: Array<{
+    resource: ObsRecord;
+  }>;
+}
+
+const retrieveFromIterator = <T>(iteratorOrIterable: IterableIterator<T>, length: number): Array<T> => {
   const iterator = iteratorOrIterable[Symbol.iterator]();
-  return Array.from({ length }, () => iterator.next().value);
+  return Array.from({ length }, () => iterator.next().value).filter((value): value is T => value !== undefined);
 };
 
 const PATIENT_DATA_CACHE_SIZE = 5;
@@ -46,7 +53,8 @@ async function getLatestObsUuid(patientUuid: string): Promise<string> {
     _format: 'json',
     _count: '1',
   });
-  const result = await request.next().value;
+  const firstRequest = request.next().value as Promise<FhirObservationBundle>;
+  const result = await firstRequest;
   return result?.entry?.[0]?.resource?.id;
 }
 
@@ -82,10 +90,10 @@ function* fhirObservationRequests(queries: Record<string, string>) {
       .map(([q, v]) => q + '=' + v)
       .join('&');
 
-  const pathWithPageOffset = (offset) => path + '&_getpagesoffset=' + offset * PAGE_SIZE;
+  const pathWithPageOffset = (offset: number) => path + '&_getpagesoffset=' + offset * PAGE_SIZE;
   let offsetCounter = 0;
   while (true) {
-    yield fetch(pathWithPageOffset(offsetCounter++)).then((res) => res.json());
+    yield fetch(pathWithPageOffset(offsetCounter++)).then((res) => res.json() as Promise<FhirObservationBundle>);
   }
 }
 
@@ -107,17 +115,23 @@ export const loadObsEntries = async (patientUuid: string): Promise<Array<ObsReco
 
   let responses = await Promise.all(retrieveFromIterator(requests, CHUNK_PREFETCH_COUNT));
 
-  const total = responses[0].total;
+  const total = responses[0]?.total ?? 0;
+
+  if (responses.length === 0 || total === 0) {
+    return [];
+  }
 
   if (total > CHUNK_PREFETCH_COUNT * PAGE_SIZE) {
     const missingRequestsCount = Math.ceil(total / PAGE_SIZE) - CHUNK_PREFETCH_COUNT;
     responses = [...responses, ...(await Promise.all(retrieveFromIterator(requests, missingRequestsCount)))];
   }
 
-  return responses.slice(0, Math.ceil(total / PAGE_SIZE)).flatMap((res) => res.entry.map((e) => e.resource));
+  return responses
+    .slice(0, Math.ceil(total / PAGE_SIZE))
+    .flatMap((res) => (res.entry ?? []).map((entry) => entry.resource));
 };
 
-export const getEntryConceptClassUuid = (entry) => entry.code.coding[0].code;
+export const getEntryConceptClassUuid = (entry: ObsRecord): string => entry.code?.coding?.[0]?.code ?? '';
 
 const conceptCache: Record<ConceptUuid, Promise<ConceptRecord>> = {};
 /**
@@ -128,9 +142,9 @@ export function loadPresentConcepts(entries: Array<ObsRecord>): Promise<Array<Co
     [...new Set(entries.map(getEntryConceptClassUuid))].map(
       (conceptUuid) =>
         conceptCache[conceptUuid] ||
-        (conceptCache[conceptUuid] = fetch(`${globalThis.openmrsBase}${restBaseUrl}/concept/${conceptUuid}?v=full`).then(
-          (res) => res.json(),
-        )),
+        (conceptCache[conceptUuid] = fetch(
+          `${globalThis.openmrsBase}${restBaseUrl}/concept/${conceptUuid}?v=full`,
+        ).then((res) => res.json())),
     ),
   );
 }
@@ -141,7 +155,7 @@ export function loadPresentConcepts(entries: Array<ObsRecord>): Promise<Array<Co
  * @param args any
  * @returns {boolean}
  */
-export function exist(...args: any[]): boolean {
+export function exist(...args: unknown[]): boolean {
   for (const y of args) {
     if (y === null || y === undefined) {
       return false;
@@ -154,31 +168,31 @@ export function exist(...args: any[]): boolean {
 export const assessValue =
   (meta: ObsMetaInfo) =>
   (value: string): OBSERVATION_INTERPRETATION => {
-    if (isNaN(parseFloat(value))) {
+    if (Number.isNaN(Number.parseFloat(value))) {
       return 'NORMAL';
     }
-    const numericValue = parseFloat(value);
-    if (exist(meta.hiAbsolute) && numericValue > meta.hiAbsolute) {
+    const numericValue = Number.parseFloat(value);
+    if (typeof meta.hiAbsolute === 'number' && numericValue > meta.hiAbsolute) {
       return 'OFF_SCALE_HIGH';
     }
 
-    if (exist(meta.hiCritical) && numericValue > meta.hiCritical) {
+    if (typeof meta.hiCritical === 'number' && numericValue > meta.hiCritical) {
       return 'CRITICALLY_HIGH';
     }
 
-    if (exist(meta.hiNormal) && numericValue > meta.hiNormal) {
+    if (typeof meta.hiNormal === 'number' && numericValue > meta.hiNormal) {
       return 'HIGH';
     }
 
-    if (exist(meta.lowAbsolute) && numericValue < meta.lowAbsolute) {
+    if (typeof meta.lowAbsolute === 'number' && numericValue < meta.lowAbsolute) {
       return 'OFF_SCALE_LOW';
     }
 
-    if (exist(meta.lowCritical) && numericValue < meta.lowCritical) {
+    if (typeof meta.lowCritical === 'number' && numericValue < meta.lowCritical) {
       return 'CRITICALLY_LOW';
     }
 
-    if (exist(meta.lowNormal) && numericValue < meta.lowNormal) {
+    if (typeof meta.lowNormal === 'number' && numericValue < meta.lowNormal) {
       return 'LOW';
     }
 
@@ -187,37 +201,25 @@ export const assessValue =
 
 export function extractMetaInformation(concepts: Array<ConceptRecord>): Record<ConceptUuid, ObsMetaInfo> {
   return Object.fromEntries(
-    concepts.map(
-      ({
-        uuid,
-        hiAbsolute,
-        hiCritical,
-        hiNormal,
-        lowAbsolute,
-        lowCritical,
-        lowNormal,
-        units,
-        datatype: { display: datatype },
-      }) => {
-        const meta: ObsMetaInfo = {
-          hiAbsolute,
-          hiCritical,
-          hiNormal,
-          lowAbsolute,
-          lowCritical,
-          lowNormal,
-          units,
-          datatype,
-        };
+    concepts.map((concept) => {
+      const meta: ObsMetaInfo = {
+        hiAbsolute: concept.hiAbsolute,
+        hiCritical: concept.hiCritical,
+        hiNormal: concept.hiNormal,
+        lowAbsolute: concept.lowAbsolute,
+        lowCritical: concept.lowCritical,
+        lowNormal: concept.lowNormal,
+        units: concept.units,
+        datatype: concept.datatype?.display,
+      };
 
-        if (exist(hiNormal, lowNormal)) {
-          meta.range = `${lowNormal} – ${hiNormal}`;
-        }
+      if (typeof concept.hiNormal === 'number' && typeof concept.lowNormal === 'number') {
+        meta.range = `${concept.lowNormal} – ${concept.hiNormal}`;
+      }
 
-        meta.assessValue = assessValue(meta);
+      meta.assessValue = assessValue(meta);
 
-        return [uuid, meta];
-      },
-    ),
+      return [concept.uuid, meta];
+    }),
   );
 }

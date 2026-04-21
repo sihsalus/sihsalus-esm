@@ -22,12 +22,42 @@ import { useTranslation } from 'react-i18next';
 import DyakuPatientSyncButton from './dyaku-patient-sync-button.component';
 import DyakuPatientsSync from './dyaku-patients-sync.component';
 import styles from './dyaku-patients-table.scss';
-import { DNI_SYSTEM, useDyakuPatients, useDyakuPatientsByIdentifier } from './dyaku-patients.resource';
+import {
+  type DyakuPatient,
+  DNI_SYSTEM,
+  useDyakuPatients,
+  useDyakuPatientsByIdentifier,
+} from './dyaku-patients.resource';
 
 interface DyakuPatientsTableProps {
   pageSize?: number;
   searchDni?: string;
 }
+
+type DyakuPatientsTableRow = {
+  id: string;
+  dni: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  birthDate: string;
+  email: string;
+  phone: string;
+  actions: DyakuPatient;
+};
+
+type DyakuPatientsTableCell = {
+  id: string;
+  info: {
+    header: string;
+  };
+  value: string | DyakuPatient;
+};
+
+type DyakuPatientsTableRenderRow = {
+  id: string;
+  cells: Array<DyakuPatientsTableCell>;
+};
 
 const PAGE_SIZES = [10, 20, 30];
 
@@ -37,7 +67,7 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [tableSearch, setTableSearch] = useState('');
 
-  const isSearchMode = searchDni && searchDni.trim().length >= 8;
+  const isSearchMode = Boolean(searchDni && searchDni.trim().length >= 8);
 
   const {
     data: allPatients,
@@ -58,7 +88,7 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
   const isLoading = isSearchMode ? isSearching : isLoadingAll;
   const mutate = isSearchMode ? mutateSearch : mutateAll;
 
-  const tableHeaders = [
+  const tableHeaders: Array<{ key: string; header: string }> = [
     { key: 'dni', header: t('dni', 'DNI') },
     { key: 'firstName', header: t('firstName', 'Nombres') },
     { key: 'lastName', header: t('lastName', 'Apellidos') },
@@ -69,12 +99,13 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
     { key: 'actions', header: t('actions', 'Acciones') },
   ];
 
-  const allRows = patients
+  const allRows: Array<DyakuPatientsTableRow> = patients
     ? patients.map((patient, index) => ({
         id: patient.id || `patient-${index}`,
         dni:
-          patient.identifier?.find((id) => id.system === DNI_SYSTEM || id.type?.coding?.some((c) => c.code === 'DNI'))
-            ?.value ??
+          patient.identifier?.find(
+            (identifier) => identifier.system === DNI_SYSTEM || identifier.type?.coding?.some((c) => c.code === 'DNI'),
+          )?.value ??
           patient.identifier?.[0]?.value ??
           '-',
         firstName: patient.name?.[0]?.given?.join(' ') || '-',
@@ -92,19 +123,28 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
       }))
     : [];
 
-  // Client-side search within the table
   const filteredRows = tableSearch
     ? allRows.filter(
-        (r) =>
-          r.dni.toLowerCase().includes(tableSearch.toLowerCase()) ||
-          r.firstName.toLowerCase().includes(tableSearch.toLowerCase()) ||
-          r.lastName.toLowerCase().includes(tableSearch.toLowerCase()),
+        (row) =>
+          row.dni.toLowerCase().includes(tableSearch.toLowerCase()) ||
+          row.firstName.toLowerCase().includes(tableSearch.toLowerCase()) ||
+          row.lastName.toLowerCase().includes(tableSearch.toLowerCase()),
       )
     : allRows;
 
-  const { results: paginatedData, goTo, currentPage } = usePagination(filteredRows, pageSize);
+  const {
+    results: paginatedData,
+    goTo,
+    currentPage,
+  } = usePagination(filteredRows, pageSize) as {
+    results: Array<DyakuPatientsTableRow>;
+    goTo: (page: number) => void;
+    currentPage: number;
+  };
 
-  const handleSyncComplete = () => mutate();
+  const handleSyncComplete = () => {
+    void mutate();
+  };
 
   if (isSearchMode && (!patients || patients.length === 0) && !isLoading && !error) {
     return null;
@@ -156,7 +196,7 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
                 <Layer>
                   <TableToolbarSearch
                     expanded
-                    onChange={(e) => setTableSearch(typeof e === 'string' ? e : e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTableSearch(e.target.value)}
                     placeholder={t('searchThisList', 'Buscar por DNI o nombre...')}
                     size="sm"
                   />
@@ -184,8 +224,10 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
                             onSyncComplete={handleSyncComplete}
                             size="sm"
                           />
-                        ) : (
+                        ) : typeof cell.value === 'string' ? (
                           cell.value
+                        ) : (
+                          ''
                         )}
                       </TableCell>
                     ))}
@@ -208,7 +250,7 @@ const DyakuPatientsTable: React.FC<DyakuPatientsTableProps> = ({ pageSize: initi
           pageSize={pageSize}
           pageSizes={PAGE_SIZES}
           totalItems={filteredRows.length}
-          onChange={({ page, pageSize: newPageSize }) => {
+          onChange={({ page, pageSize: newPageSize }: { page: number; pageSize: number }) => {
             if (newPageSize !== pageSize) setPageSize(newPageSize);
             goTo(page);
           }}

@@ -20,7 +20,7 @@ export const useLocationsWithAdmissionTag = () => {
   const { admissionLocationTagName } = useConfig<BedManagementConfig>();
   const locationsUrl = `${restBaseUrl}/location?tag=${admissionLocationTagName}&v=full`;
 
-  const { data, error, isLoading, isValidating, mutate } = useSWR<LocationFetchResponse, Error>(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<FetchResponse<LocationFetchResponse>, Error>(
     admissionLocationTagName ? locationsUrl : null,
     openmrsFetch,
   );
@@ -84,10 +84,7 @@ export const useLocationName = (locationUuid: string) => {
   return results;
 };
 
-function mapBedWithLocation(
-  bed: Bed,
-  location: { display: string; uuid: string },
-): BedWithLocation {
+function mapBedWithLocation(bed: Bed, location: { display: string; uuid: string }): BedWithLocation {
   return { ...bed, location };
 }
 
@@ -105,7 +102,7 @@ export function useBedsGroupedByLocation() {
       const fetchData = async () => {
         const promises = admissionLocations.map(async (location): Promise<Array<BedWithLocation> | null> => {
           const bedsUrl = `${restBaseUrl}/bed?locationUuid=${location.uuid}`;
-          const bedsFetchResult = await openmrsFetch<{ data: BedFetchResponse }>(bedsUrl, {
+          const bedsFetchResult = await openmrsFetch<BedFetchResponse>(bedsUrl, {
             method: 'GET',
           });
           const beds = bedsFetchResult.data.results;
@@ -161,7 +158,7 @@ export function useBedsGroupedByLocation() {
 export const useAdmissionLocations = () => {
   const locationsUrl = `${restBaseUrl}/admissionLocation?v=full`;
   const { data, error, isLoading, isValidating, mutate } = useSWR<
-    { data: { results: Array<AdmissionLocation> } },
+    FetchResponse<{ results: Array<AdmissionLocation> }>,
     Error
   >(locationsUrl, openmrsFetch);
 
@@ -181,7 +178,7 @@ export const useAdmissionLocations = () => {
 
 export const useAdmissionLocationBedLayout = (locationUuid: string) => {
   const locationsUrl = `${restBaseUrl}/admissionLocation/${locationUuid}?v=full`;
-  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: AdmissionLocation }, Error>(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<FetchResponse<AdmissionLocation>, Error>(
     locationsUrl,
     openmrsFetch,
   );
@@ -202,7 +199,10 @@ export const useAdmissionLocationBedLayout = (locationUuid: string) => {
 
 export const useBedTypes = () => {
   const url = `${restBaseUrl}/bedtype/`;
-  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<BedType> } }, Error>(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<
+    FetchResponse<{ results: Array<BedType> }>,
+    Error
+  >(
     url,
     openmrsFetch,
   );
@@ -223,7 +223,10 @@ export const useBedTypes = () => {
 
 export const useBedTags = () => {
   const url = `${restBaseUrl}/bedTag/`;
-  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<BedTagData> } }, Error>(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<
+    FetchResponse<{ results: Array<BedTagData> }>,
+    Error
+  >(
     url,
     openmrsFetch,
   );
@@ -247,7 +250,7 @@ export async function saveBedType({
 }: {
   bedTypePayload: BedTypePayload;
 }): Promise<FetchResponse<BedType>> {
-  const response = await openmrsFetch<FetchResponse<BedType>>(`${restBaseUrl}/bedtype`, {
+  const response = await openmrsFetch<BedType>(`${restBaseUrl}/bedtype`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: bedTypePayload,
@@ -260,7 +263,7 @@ export async function saveBedTag({
 }: {
   bedTagPayload: BedTagPayload;
 }): Promise<FetchResponse<BedTagData>> {
-  return await openmrsFetch(`${restBaseUrl}/bedTag/`, {
+  return await openmrsFetch<BedTagData>(`${restBaseUrl}/bedTag/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: bedTagPayload,
@@ -274,7 +277,7 @@ export async function editBedType({
   bedTypeId: string;
   bedTypePayload: BedTypePayload;
 }): Promise<FetchResponse<BedType>> {
-  return await openmrsFetch(`${restBaseUrl}/bedtype/${bedTypeId}`, {
+  return await openmrsFetch<BedType>(`${restBaseUrl}/bedtype/${bedTypeId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: bedTypePayload,
@@ -288,7 +291,7 @@ export async function editBedTag({
   bedTagId: string;
   bedTagPayload: BedTagPayload;
 }): Promise<FetchResponse<BedTagData>> {
-  return await openmrsFetch(`${restBaseUrl}/bedTag/${bedTagId}`, {
+  return await openmrsFetch<BedTagData>(`${restBaseUrl}/bedTag/${bedTagId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: bedTagPayload,

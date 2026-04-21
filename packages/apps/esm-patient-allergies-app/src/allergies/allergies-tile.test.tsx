@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { mockPatient, renderWithSwr } from 'tools';
-import { mockFhirAllergyIntoleranceResponse } from '__mocks__';
+import { mockFhirAllergyIntoleranceResponse, mockFhirPatient, renderWithSwr } from 'test-utils';
 import AllergiesTile from './allergies-tile.extension';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
@@ -15,7 +14,7 @@ describe('AllergiesTile', () => {
         entry: [],
       },
     });
-    renderWithSwr(<AllergiesTile patientUuid={mockPatient.id} />);
+    renderWithSwr(<AllergiesTile patientUuid={mockFhirPatient.id} />);
 
     await waitFor(() => {
       expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
@@ -27,7 +26,7 @@ describe('AllergiesTile', () => {
 
   it("renders a summary of the patient's allergy data when available", async () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: mockFhirAllergyIntoleranceResponse });
-    renderWithSwr(<AllergiesTile patientUuid={mockPatient.id} />);
+    renderWithSwr(<AllergiesTile patientUuid={mockFhirPatient.id} />);
 
     await waitFor(() => {
       expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();

@@ -185,6 +185,7 @@ export function useActiveVisitsSorting(tableRows: Array<any>) {
 
   const sortRow = (cellA, cellB, { key, sortDirection }) => {
     setSortParams({ key, sortDirection });
+    return 0;
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

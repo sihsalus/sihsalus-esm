@@ -15,7 +15,6 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { preload } from 'swr';
 
 import CompactPatientSearchComponent from '../compact-patient-search/compact-patient-search.component';
-import { PatientSearchContext } from '../patient-search-context';
 import PatientSearchOverlay from '../patient-search-overlay/patient-search-overlay.component';
 
 import styles from './patient-search-icon.scss';
@@ -105,8 +104,6 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
               aria-label={t('closeSearch', 'Close Search Panel')}
               className={styles.activeSearchIconButton}
               data-testid="closeSearchIcon"
-              enterDelayMs={500}
-              name="CloseSearchIcon"
               onClick={closePatientSearch}
             >
               <Close size={20} />
@@ -114,23 +111,22 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
           </div>
         </>
       ) : (
-        <div>
+        <div
+          onMouseEnter={() => {
+            // Preload the user object on hover. This object may contain a 'patientsVisited'
+            // property with UUIDs of recently viewed patients. This data can be used to display
+            // recently viewed patients if the 'showRecentlySearchedPatients' config property
+            // is enabled.
+            if (userUuid) {
+              void preload(`${restBaseUrl}/user/${userUuid}`, openmrsFetch);
+            }
+          }}
+        >
           <HeaderGlobalAction
             aria-label={t('searchPatient', 'Search patient')}
             className={styles.searchIconButton}
             data-testid="searchPatientIcon"
-            enterDelayMs={500}
-            name="SearchPatientIcon"
             onClick={handleShowSearchInput}
-            onMouseEnter={() => {
-              // Preload the user object on hover. This object may contain a 'patientsVisited'
-              // property with UUIDs of recently viewed patients. This data can be used to display
-              // recently viewed patients if the 'showRecentlySearchedPatients' config property
-              // is enabled.
-              if (userUuid) {
-                void preload(`${restBaseUrl}/user/${userUuid}`, openmrsFetch);
-              }
-            }}
           >
             <Search size={20} />
           </HeaderGlobalAction>

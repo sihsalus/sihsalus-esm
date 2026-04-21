@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockMappedAppointmentsData } from '__mocks__';
+import { mockMappedAppointmentsData } from 'test-utils';
 import React from 'react';
 import { renderWithSwr } from 'test-utils';
 

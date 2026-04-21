@@ -1,4 +1,4 @@
-export const enum OclErrorCode {
+export enum OclErrorCode {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   CONFLICT = 409,

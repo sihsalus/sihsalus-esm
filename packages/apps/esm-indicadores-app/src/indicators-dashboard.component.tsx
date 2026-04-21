@@ -117,7 +117,13 @@ const IndicatorsDashboard: React.FC = () => {
       <div className={styles.header}>
         <h2>{t('indicatorsTitle', 'Indicadores Clínicos - Panel de Prueba')}</h2>
         <div className={styles.headerActions}>
-          <Button kind="ghost" renderIcon={Renew} onClick={() => refresh()}>
+          <Button
+            kind="ghost"
+            renderIcon={Renew}
+            onClick={() => {
+              void refresh();
+            }}
+          >
             {t('refresh', 'Refrescar')}
           </Button>
           <Button renderIcon={Add} onClick={() => setShowCreateModal(true)}>
@@ -178,7 +184,9 @@ const IndicatorsDashboard: React.FC = () => {
                                 kind="ghost"
                                 size="sm"
                                 renderIcon={Play}
-                                onClick={() => setEvaluatingId(indicator?.id ?? null)}
+                                onClick={() => {
+                                  setEvaluatingId(indicator?.id ?? null);
+                                }}
                               >
                                 {t('evaluate', 'Evaluar')}
                               </Button>
@@ -186,7 +194,11 @@ const IndicatorsDashboard: React.FC = () => {
                                 kind="danger--ghost"
                                 size="sm"
                                 renderIcon={TrashCan}
-                                onClick={() => indicator && handleDelete(indicator.id)}
+                                onClick={() => {
+                                  if (indicator) {
+                                    void handleDelete(indicator.id);
+                                  }
+                                }}
                               >
                                 {t('delete', 'Eliminar')}
                               </Button>
@@ -214,7 +226,9 @@ const IndicatorsDashboard: React.FC = () => {
         primaryButtonText={t('create', 'Crear')}
         secondaryButtonText={t('cancel', 'Cancelar')}
         onRequestClose={() => setShowCreateModal(false)}
-        onRequestSubmit={handleCreate}
+        onRequestSubmit={() => {
+          void handleCreate();
+        }}
       >
         <div className={styles.form}>
           <TextInput

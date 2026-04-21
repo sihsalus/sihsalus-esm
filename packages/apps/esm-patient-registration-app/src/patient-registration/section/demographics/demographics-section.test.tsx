@@ -83,38 +83,11 @@ describe('Demographics section', () => {
 
   it('renders demographics fields and date of birth inputs', async () => {
     const inputNames = await setupSection();
-    expect(inputNames.length).toBe(2);
+    expect(inputNames.length).toBe(3);
 
     expect(screen.getByText(/date of birth known\?/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole('tab', {
-        name: /yes/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('tab', {
-        name: /no/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('group', {
-        name: /date of birth/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /day, date of birth/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /month, date of birth/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /year, date of birth/i,
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /yes/i })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: /no/i })).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /date of birth/i })).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
 import type { ConfigObject } from '../config-schema';
@@ -39,9 +39,7 @@ interface ConceptSearchResult {
 }
 
 interface ConceptSearchResponse {
-  data: {
-    results: Array<ConceptSearchResult>;
-  };
+  results: Array<ConceptSearchResult>;
 }
 
 interface PatientIdentifierTypeResponse {
@@ -66,7 +64,7 @@ function isConceptSearchResult(value: unknown): value is ConceptSearchResult {
   );
 }
 
-function getConceptSearchResults(response: ConceptSearchResponse): Array<ConceptSearchResult> {
+function getConceptSearchResults(response: FetchResponse<ConceptSearchResponse>): Array<ConceptSearchResult> {
   return Array.isArray(response.data?.results) ? response.data.results.filter(isConceptSearchResult) : [];
 }
 

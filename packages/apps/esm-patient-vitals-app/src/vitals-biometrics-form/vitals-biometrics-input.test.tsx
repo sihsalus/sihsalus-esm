@@ -1,6 +1,6 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
-import { mockConceptUnits } from '__mocks__';
+import { mockConceptUnits } from 'test-utils';
 import React from 'react';
 
 import { assessValue, getReferenceRangesForConcept } from '../common';
@@ -113,11 +113,11 @@ const defaultProps = {
 };
 
 mockUseConfig.mockReturnValue({
-  ...getDefaultsFromConfigSchema(configSchema),
+  ...(getDefaultsFromConfigSchema(configSchema) as Record<string, unknown>),
   concepts: {
     pulseUuid: '5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
   },
-} as ConfigObject);
+} as unknown as ConfigObject);
 
 describe('VitalsAndBiometricsInput', () => {
   it('renders number inputs based correctly on the props provided', () => {

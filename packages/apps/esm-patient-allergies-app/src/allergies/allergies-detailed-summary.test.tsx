@@ -1,8 +1,8 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { mockFhirAllergyIntoleranceResponse } from '__mocks__';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockFhirAllergyIntoleranceResponse } from 'test-utils';
+import { mockFhirPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import AllergiesDetailedSummary from './allergies-detailed-summary.component';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
@@ -11,7 +11,7 @@ mockOpenmrsFetch.mockImplementation(jest.fn());
 describe('AllergiesDetailedSummary', () => {
   it('renders an empty state view if allergy data is unavailable', async () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: { entry: [] } });
-    renderWithSwr(<AllergiesDetailedSummary patient={mockPatient} />);
+    renderWithSwr(<AllergiesDetailedSummary patient={mockFhirPatient} />);
     await waitForLoadingToFinish();
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('AllergiesDetailedSummary', () => {
       },
     };
     mockOpenmrsFetch.mockRejectedValueOnce(error);
-    renderWithSwr(<AllergiesDetailedSummary patient={mockPatient} />);
+    renderWithSwr(<AllergiesDetailedSummary patient={mockFhirPatient} />);
     await waitForLoadingToFinish();
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('AllergiesDetailedSummary', () => {
 
   it("renders a detailed summary of the patient's allergic reactions and their manifestations", async () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: mockFhirAllergyIntoleranceResponse });
-    renderWithSwr(<AllergiesDetailedSummary patient={mockPatient} />);
+    renderWithSwr(<AllergiesDetailedSummary patient={mockFhirPatient} />);
     await waitForLoadingToFinish();
 
     expect(screen.getByRole('heading', { name: /allergies/i })).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('AllergiesDetailedSummary', () => {
 
   it("renders non-coded allergen name and non-coded allergic reaction name in the detailed summary of the patient's allergies", async () => {
     mockOpenmrsFetch.mockReturnValueOnce({ data: mockFhirAllergyIntoleranceResponse });
-    renderWithSwr(<AllergiesDetailedSummary patient={mockPatient} />);
+    renderWithSwr(<AllergiesDetailedSummary patient={mockFhirPatient} />);
     await waitForLoadingToFinish();
 
     expect(screen.getByRole('heading', { name: /allergies/i })).toBeInTheDocument();

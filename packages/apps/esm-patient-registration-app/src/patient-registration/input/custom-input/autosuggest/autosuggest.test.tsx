@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { renderWithRouter } from 'test-utils';
+import { render } from '@testing-library/react';
 
 import { Autosuggest } from './autosuggest.component';
 
@@ -34,7 +34,7 @@ const mockHandleSuggestionSelected = jest.fn((field, value) => [field, value]);
 
 describe('Autosuggest', () => {
   it('renders a search box', () => {
-    renderWithRouter(
+    render(
       <Autosuggest
         getSearchResults={mockGetSearchResults}
         getDisplayValue={(item) => item.display}
@@ -53,7 +53,7 @@ describe('Autosuggest', () => {
   it('renders matching search results in a list when the user types a query', async () => {
     const user = userEvent.setup();
 
-    renderWithRouter(
+    render(
       <Autosuggest
         getSearchResults={mockGetSearchResults}
         getDisplayValue={(item) => item.display}
@@ -79,7 +79,7 @@ describe('Autosuggest', () => {
   it('clears the list of suggestions when a suggestion is selected', async () => {
     const user = userEvent.setup();
 
-    renderWithRouter(
+    render(
       <Autosuggest
         getSearchResults={mockGetSearchResults}
         getDisplayValue={(item) => item.display}
@@ -112,7 +112,7 @@ describe('Autosuggest', () => {
   it('changes suggestions when a search input is changed', async () => {
     const user = userEvent.setup();
 
-    renderWithRouter(
+    render(
       <Autosuggest
         getSearchResults={mockGetSearchResults}
         getDisplayValue={(item) => item.display}
@@ -142,7 +142,7 @@ describe('Autosuggest', () => {
   it('hides the list of suggestions when the user clicks outside of the component', async () => {
     const user = userEvent.setup();
 
-    renderWithRouter(
+    render(
       <Autosuggest
         getSearchResults={mockGetSearchResults}
         getDisplayValue={(item) => item.display}

@@ -110,7 +110,6 @@ const production = 'production';
 const { ModuleFederationPluginV1: ModuleFederationPlugin } = container;
 function getFrameworkVersion() {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const frameworkPkgUnknown: unknown = require('@openmrs/esm-framework/package.json');
     const frameworkPkg = frameworkPkgUnknown as VersionedPackageJson;
     const version = typeof frameworkPkg.version === 'string' ? frameworkPkg.version : undefined;
@@ -183,7 +182,6 @@ function mergeFunction(objValue: unknown, srcValue: unknown) {
 }
 
 function getPackageJson(root: string): NormalizedPackageJson {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const appPkgUnknown: unknown = require(resolve(root, 'package.json'));
   const appPkg = (appPkgUnknown ?? {}) as AppPackageJson;
 
@@ -454,7 +452,6 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               import: 'swr/_internal',
               shareKey: 'swr/_internal',
               shareScope: 'default',
-              // eslint-disable-next-line @typescript-eslint/no-require-imports
               version: (require('swr/package.json') as VersionedPackageJson).version,
             };
           } else {
@@ -483,15 +480,20 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
               transform: {
                 transformer: (content) =>
                   JSON.stringify(
-                      Object.assign({}, JSON.parse(content.toString()) as Record<string, unknown>, {
-                        version: mode === production ? version : (inc(version, 'prerelease', 'local') ?? version),
+                    Object.assign({}, JSON.parse(content.toString()) as Record<string, unknown>, {
+                      version: mode === production ? version : (inc(version, 'prerelease', 'local') ?? version),
                     }),
                   ),
               },
             },
           ],
         }),
-      new (StatsWriterPlugin as unknown as new (options: { filename: string; stats: { all: boolean; chunks: boolean } }) => Plugin)({
+      new (
+        StatsWriterPlugin as unknown as new (options: {
+          filename: string;
+          stats: { all: boolean; chunks: boolean };
+        }) => Plugin
+      )({
         filename: `${filename}.buildmanifest.json`,
         stats: {
           all: false,

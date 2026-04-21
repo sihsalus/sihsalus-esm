@@ -80,9 +80,10 @@ const ListsTable: React.FC<PatientListTableProps> = ({
 
   const { toggleStarredList, starredLists } = useStarredLists();
 
-  function customSortRow(listA, listB, { sortDirection, sortStates, ...props }) {
+  function customSortRow(listA, listB, { sortDirection, sortStates: _sortStates, ...props }) {
     const { key } = props;
     setSortParams({ key, order: sortDirection });
+    return 0;
   }
 
   const filteredLists: Array<PatientList> = useMemo(() => {
@@ -118,7 +119,7 @@ const ListsTable: React.FC<PatientListTableProps> = ({
     return (
       <DataTableSkeleton
         columnCount={headers.length}
-        compact={isDesktop(layout)}
+        size={isDesktop(layout) ? 'sm' : 'lg'}
         role="progressbar"
         rowCount={pageSize}
         showHeader={false}
@@ -257,7 +258,6 @@ const PatientListStarIcon: React.FC<PatientListStarIconProps> = ({ cohortUuid, i
         hasIconOnly
         renderIcon={isStarred ? StarFilled : Star}
         tooltipPosition="left"
-        enterDelayMs={500}
         onClick={() => toggleStarredList(cohortUuid, !isStarred)}
       />
     </TableCell>

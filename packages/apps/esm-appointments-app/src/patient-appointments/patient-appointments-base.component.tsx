@@ -51,7 +51,7 @@ const PatientAppointmentsBase: React.FC<PatientAppointmentsBaseProps> = ({ patie
   };
 
   if (isLoading) {
-    return <DataTableSkeleton role="progressbar" compact={!isTablet} zebra />;
+    return <DataTableSkeleton role="progressbar" size={isTablet ? 'lg' : 'sm'} zebra />;
   }
 
   if (error) {

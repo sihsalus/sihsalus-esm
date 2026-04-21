@@ -97,6 +97,8 @@ Then, in a separate terminal, run:
 yarn test-e2e --headed
 ```
 
+This command delegates to the shared root Playwright runner using the form builder suite config at `e2e/form-builder/playwright.config.ts`.
+
 Read the [E2E testing guide](https://openmrs.atlassian.net/wiki/x/K4L-C) to learn more about End-to-End tests in this project.
 
 #### Troubleshooting

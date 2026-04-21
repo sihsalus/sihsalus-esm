@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "labour-and-delivery-dashboard",
+      "slot": "patient-chart-labour-and-delivery-dashboard-slot",
+      "component": "labourAndDelivery"
+    },
+    {
+      "name": "labour-and-delivery-dashboard-link",
+      "component": "labourAndDeliveryLink",
+      "slot": "maternal-and-child-health-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-labour-and-delivery-dashboard-slot",
+        "path": "labour-and-delivery-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "deliveryOrAbortion-chart",
+      "component": "deliveryOrAbortionTable",
+      "slot": "labour-delivery-delivery-abortion-slot",
+      "order": 1
+    },
+    {
+      "name": "partograph-chart",
+      "component": "partograph",
+      "slot": "labour-delivery-partograph-slot",
+      "order": 1
+    },
+    {
+      "name": "summaryOfLaborAndPostpartum-chart",
+      "component": "summaryOfLaborAndPostpartumTable",
+      "slot": "labour-delivery-summary-slot",
+      "order": 1
+    },
+    {
+      "name": "maternal-and-child-health-dashboard-group-link",
+      "component": "maternalAndChildHealthSideNavGroup",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "maternal-and-child-health-slot",
+        "isFolder": true
+      }
+    },
+    {
+      "name": "family-planning-dashboard",
+      "slot": "patient-chart-family-planning-dashboard-slot",
+      "component": "familyPlanning"
+    },
+    {
+      "name": "family-planning-dashboard-link",
+      "component": "familyPlanningLink",
+      "slot": "maternal-and-child-health-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-family-planning-dashboard-slot",
+        "path": "family-planning-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "cancer-prevention-dashboard",
+      "slot": "patient-chart-cancer-prevention-dashboard-slot",
+      "component": "cancerPrevention"
+    },
+    {
+      "name": "cancer-prevention-dashboard-link",
+      "component": "cancerPreventionLink",
+      "slot": "maternal-and-child-health-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-cancer-prevention-dashboard-slot",
+        "path": "cancer-prevention-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "maternal-history-chart",
+      "component": "maternalHistoryTable",
+      "slot": "prenatal-maternal-history-slot",
+      "order": 1
+    },
+    {
+      "name": "obstetric-history-chart",
+      "component": "obstetricHistoryChart",
+      "slot": "prenatal-maternal-history-slot",
+      "order": 2
+    },
+    {
+      "name": "postnatal-care-dashboard",
+      "slot": "patient-chart-postnatal-care-dashboard-slot",
+      "component": "postnatalCare"
+    },
+    {
+      "name": "postnatal-care-dashboard-link",
+      "component": "postnatalCareLink",
+      "slot": "maternal-and-child-health-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-postnatal-care-dashboard-slot",
+        "path": "postnatal-care-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "immediatePostpartum-chart",
+      "component": "immediatePostpartumTable",
+      "slot": "postnatal-care-immediate-slot",
+      "order": 1
+    },
+    {
+      "name": "postnatalControls-chart",
+      "component": "postpartumControlTable",
+      "slot": "postnatal-care-controls-slot",
+      "order": 1
+    },
+    {
+      "name": "postpartum-tracking-widget",
+      "component": "postpartumTracking",
+      "slot": "postnatal-care-controls-slot",
+      "order": 2
+    },
+    {
+      "name": "prenatal-care-dashboard",
+      "slot": "patient-chart-prenatal-care-dashboard-slot",
+      "component": "prenatalCare"
+    },
+    {
+      "name": "prenatal-care-dashboard-link",
+      "component": "prenatalCareLink",
+      "slot": "maternal-and-child-health-slot",
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-prenatal-care-dashboard-slot",
+        "path": "prenatal-care-dashboard",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "alturaUterina-chart",
+      "component": "alturaUterinaChart",
+      "slot": "prenatal-current-pregnancy-slot",
+      "order": 4
+    },
+    {
+      "name": "current-pregnancy-chart",
+      "component": "currentPregnancyTable",
+      "slot": "prenatal-current-pregnancy-slot",
+      "order": 1
+    },
+    {
+      "name": "prenatal-care-chart",
+      "component": "prenatalCareChart",
+      "slot": "prenatal-care-chart-slot",
+      "order": 1
+    },
+    {
+      "name": "birth-plan-widget",
+      "component": "birthPlan",
+      "slot": "prenatal-care-chart-slot",
+      "order": 2
+    },
+    {
+      "name": "risk-classification-widget",
+      "component": "riskClassification",
+      "slot": "prenatal-current-pregnancy-slot",
+      "order": 5
+    },
+    {
+      "name": "psychoprophylaxis-widget",
+      "component": "psychoprophylaxis",
+      "slot": "prenatal-care-chart-slot",
+      "order": 3
+    },
+    {
+      "name": "prenatal-supplementation-widget",
+      "component": "prenatalSupplementation",
+      "slot": "prenatal-care-chart-slot",
+      "order": 4
+    },
+    {
+      "name": "contraceptive-methods-widget",
+      "component": "contraceptiveMethods",
+      "slot": "family-planning-methods-slot",
+      "order": 1
+    },
+    {
+      "name": "fp-counseling-widget",
+      "component": "fpCounseling",
+      "slot": "family-planning-counseling-slot",
+      "order": 1
+    },
+    {
+      "name": "fp-followup-widget",
+      "component": "fpFollowup",
+      "slot": "family-planning-followup-slot",
+      "order": 1
+    },
+    {
+      "name": "cervical-screening-widget",
+      "component": "cervicalScreening",
+      "slot": "cancer-prevention-cervical-slot",
+      "order": 1
+    },
+    {
+      "name": "breast-screening-widget",
+      "component": "breastScreening",
+      "slot": "cancer-prevention-breast-slot",
+      "order": 1
+    },
+    {
+      "name": "cancer-followup-widget",
+      "component": "cancerFollowup",
+      "slot": "cancer-prevention-followup-slot",
+      "order": 1
+    },
+    {
+      "name": "prenatal-care-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-prenatal-care-dashboard-slot",
+        "path": "prenatal-care-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "labour-and-delivery-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-labour-and-delivery-dashboard-slot",
+        "path": "labour-and-delivery-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "postnatal-care-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-postnatal-care-dashboard-slot",
+        "path": "postnatal-care-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "family-planning-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-family-planning-dashboard-slot",
+        "path": "family-planning-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    },
+    {
+      "name": "cancer-prevention-dashboard-route",
+      "component": "hiddenDashboardMarker",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "patient-chart-cancer-prevention-dashboard-slot",
+        "path": "cancer-prevention-dashboard",
+        "columns": 1,
+        "columnSpan": 1,
+        "layoutMode": "anchored"
+      },
+      "order": 100
+    }
+  ],
+  "modals": [
+    {
+      "name": "condition-delete-confirmation-dialog",
+      "component": "conditionFilterDeleteConfirmationDialog"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "conditions-filter-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "title": "Agregar Condición",
+      "type": "form"
+    },
+    {
+      "name": "maternal-conditions-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "title": "Agregar Condición",
+      "type": "form"
+    }
+  ]
+}

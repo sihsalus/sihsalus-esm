@@ -104,8 +104,14 @@ function mergeImportmaps(
     let addedCount = 0;
     for (const [name, url] of Object.entries(backendImportmap.imports)) {
       const baseName = name.replace(/^@[^/]+\//, '');
-      if (localBaseNames.has(baseName)) { skippedCount++; continue; }
-      if (localImportmap.imports[name]) { addedCount++; continue; }
+      if (localBaseNames.has(baseName)) {
+        skippedCount++;
+        continue;
+      }
+      if (localImportmap.imports[name]) {
+        addedCount++;
+        continue;
+      }
       const cleanRelUrl = url.replace(/^\.\//, '');
       const localPath = resolve(spaDist, cleanRelUrl);
       if (existsSync(localPath)) {
@@ -265,7 +271,6 @@ export async function runStart(args: StartArgs) {
     logInfo(`SPA available at ${pageUrl}`);
 
     if (open) {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const open = require('open');
 
       open(pageUrl, { wait: false }).catch(() => {

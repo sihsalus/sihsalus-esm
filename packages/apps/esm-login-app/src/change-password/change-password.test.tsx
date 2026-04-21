@@ -16,8 +16,7 @@ vi.mock('./change-password.resource', () => ({
 
 describe('ChangePasswordModal', () => {
   beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mockChangeUserPassword.mockResolvedValue({} as FetchResponse<any>);
+    mockChangeUserPassword.mockResolvedValue({} as FetchResponse<unknown>);
   });
 
   it('validates the form before submitting', async () => {

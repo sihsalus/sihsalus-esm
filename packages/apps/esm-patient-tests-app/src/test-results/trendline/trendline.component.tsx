@@ -6,7 +6,6 @@ import { EmptyState, type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patien
 import React, { type ComponentProps, useState, useCallback, useMemo, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { testResultsBasePath } from '../helpers';
 import CommonDataTable from '../overview/common-datatable.component';
 

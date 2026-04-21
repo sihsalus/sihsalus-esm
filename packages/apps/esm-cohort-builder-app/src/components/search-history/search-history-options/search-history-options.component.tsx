@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useTranslation, type TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { showModal, showSnackbar } from '@openmrs/esm-framework';
 import { downloadCSV } from '../../../cohort-builder.utils';
@@ -16,7 +17,7 @@ const Option = {
 
 type OptionType = (typeof Option)[keyof typeof Option];
 
-interface SearchHistoryOptions {
+interface SearchHistoryOptionsProps {
   searchItem: SearchHistoryItem;
   updateSearchHistory: (selectedSearchItem: SearchHistoryItem) => void;
 }
@@ -56,10 +57,11 @@ const createCohortFromSearchItem = async (
   }
 };
 
-const SearchHistoryOptions: React.FC<SearchHistoryOptions> = ({ searchItem, updateSearchHistory }) => {
+const SearchHistoryOptions: React.FC<SearchHistoryOptionsProps> = ({ searchItem, updateSearchHistory }) => {
   const { t } = useTranslation();
-  const [cohortName, setCohortName] = useState('');
-  const [cohortDescription, setCohortDescription] = useState('');
+  // Pre-fill en progreso: modal de save-cohort tomará name/description desde estos estados.
+  const [_cohortName, _setCohortName] = useState('');
+  const [_cohortDescription, setCohortDescription] = useState('');
   const [queryName, setQueryName] = useState('');
   const [queryDescription, setQueryDescription] = useState('');
 

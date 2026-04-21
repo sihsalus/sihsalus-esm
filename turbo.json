@@ -1,12 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
-  "concurrency": "100%",
+  "concurrency": "50%",
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "inputs": [
         "src/**",
         "!src/**/*.test.*",
@@ -21,35 +19,14 @@
         "translations/**",
         "dependencies.json"
       ],
-      "outputs": [
-        "dist/**"
-      ],
-      "env": [
-        "NODE_ENV",
-        "NODE_OPTIONS",
-        "SIHSALUS_AUTH_MODE",
-        "SIHSALUS_FHIR_BASE"
-      ]
+      "outputs": ["dist/**"],
+      "env": ["NODE_ENV", "NODE_OPTIONS", "SIHSALUS_AUTH_MODE", "SIHSALUS_FHIR_BASE"]
     },
     "build:development": {
-      "dependsOn": [
-        "^build:development"
-      ],
-      "inputs": [
-        "src/**",
-        "!src/**/*.test.*",
-        "tsconfig.json",
-        "rspack.config.js",
-        "translations/**"
-      ],
-      "outputs": [
-        "dist/**"
-      ],
-      "env": [
-        "NODE_ENV",
-        "SIHSALUS_AUTH_MODE",
-        "SIHSALUS_FHIR_BASE"
-      ]
+      "dependsOn": ["^build:development"],
+      "inputs": ["src/**", "!src/**/*.test.*", "tsconfig.json", "rspack.config.js", "translations/**"],
+      "outputs": ["dist/**"],
+      "env": ["NODE_ENV", "SIHSALUS_AUTH_MODE", "SIHSALUS_FHIR_BASE"]
     },
     "dev": {
       "cache": false,
@@ -64,54 +41,30 @@
         "mock-jest.tsx",
         "vitest.config.ts",
         "setup-tests.ts"
-      ]
+      ],
+      "env": ["TZ"]
     },
     "test:watch": {
       "cache": false,
       "persistent": true
     },
     "coverage": {
-      "inputs": [
-        "src/**",
-        "__mocks__/**",
-        "vitest.config.ts",
-        "setup-tests.ts"
-      ],
-      "outputs": [
-        "coverage/**"
-      ]
+      "inputs": ["src/**", "__mocks__/**", "vitest.config.ts", "setup-tests.ts"],
+      "outputs": ["coverage/**"]
     },
     "lint": {
-      "inputs": [
-        "src/**/*.{ts,tsx}",
-        "$TURBO_ROOT$/eslint.config.js"
-      ]
+      "inputs": ["src/**/*.{ts,tsx}", "$TURBO_ROOT$/biome.json"]
     },
     "typescript": {
-      "dependsOn": [
-        "^typescript"
-      ],
-      "inputs": [
-        "src/**",
-        "tsconfig.json",
-        "tsconfig.build.json"
-      ]
+      "dependsOn": ["^typescript"],
+      "inputs": ["src/**", "tsconfig.json", "tsconfig.build.json"]
     },
     "extract-translations": {
-      "inputs": [
-        "src/**/*.component.tsx",
-        "src/**/*.extension.tsx",
-        "src/**/*.modal.tsx",
-        "src/**/*.resource.ts"
-      ]
+      "cache": false
     },
     "e2e": {
-      "dependsOn": [
-        "build"
-      ],
-      "outputs": [
-        "e2e/results/**"
-      ],
+      "dependsOn": ["build"],
+      "outputs": ["e2e/results/**"],
       "cache": false
     },
     "clean": {

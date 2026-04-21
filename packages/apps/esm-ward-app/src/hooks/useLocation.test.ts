@@ -17,7 +17,7 @@ const useSWRImmutableMock = useSWRImmutable as jest.Mock;
 
 describe('useLocation hook', () => {
   it('should call useLocation', () => {
-    const { result } = renderHook(() => useLocation('testUUID'));
+    renderHook(() => useLocation('testUUID'));
     expect(useSWRImmutableMock).toHaveBeenCalledWith(
       `${restBaseUrl}/location/testUUID?v=custom:(display,uuid)`,
       expect.any(Function),
@@ -25,7 +25,7 @@ describe('useLocation hook', () => {
   });
 
   it('should call useLocation with the given custom representation', () => {
-    const { result } = renderHook(() => useLocation('testUUID', 'custom:(display,uuid,links)'));
+    renderHook(() => useLocation('testUUID', 'custom:(display,uuid,links)'));
     expect(useSWRImmutableMock).toHaveBeenCalledWith(
       `${restBaseUrl}/location/testUUID?v=custom:(display,uuid,links)`,
       expect.any(Function),
@@ -33,7 +33,7 @@ describe('useLocation hook', () => {
   });
 
   it('should call useSWR with key=null', () => {
-    const { result } = renderHook(() => useLocation(null, 'custom:(display,uuid,links)'));
+    renderHook(() => useLocation(null, 'custom:(display,uuid,links)'));
     expect(useSWRImmutableMock).toHaveBeenCalledWith(null, expect.any(Function));
   });
 });

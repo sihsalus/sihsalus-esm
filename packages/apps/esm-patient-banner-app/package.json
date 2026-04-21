@@ -12,8 +12,8 @@
     "debug": "npm run serve",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
-    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
+    "test": "jest --config jest.config.js --verbose false --passWithNoTests --color",
     "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
     "coverage": "yarn test --coverage",
     "typescript": "tsc",
@@ -39,7 +39,9 @@
   "dependencies": {
     "@carbon/react": "^1.83.0",
     "@openmrs/esm-patient-common-lib": "*",
-    "lodash-es": "^4.17.23"
+    "lodash-es": "^4.17.23",
+    "react-barcode": "^1.5.3",
+    "react-to-print": "^3.1.1"
   },
   "peerDependencies": {
     "@openmrs/esm-framework": "9.0.2",

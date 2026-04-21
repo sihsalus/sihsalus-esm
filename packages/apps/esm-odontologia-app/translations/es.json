@@ -1,0 +1,19 @@
+{
+  "addAttention": "Nueva atención",
+  "attentionLabel": "Atención",
+  "attentionOdontogramTooltip": "Odontograma de atención: registra las soluciones o intervenciones realizadas durante esta consulta.",
+  "baseLabel": "Base",
+  "baseOdontogramTooltip": "Odontograma base: registra los hallazgos clínicos detectados. Se mantiene como referencia y no se modifica con cada atención.",
+  "cancel": "Cancelar",
+  "odontogram": "Odontograma",
+  "odontogramAttentionSavedSubtitle": "El odontograma de atención se guardó exitosamente.",
+  "odontogramBase": "base odontogram",
+  "odontogramBaseSavedSubtitle": "El odontograma base se guardó exitosamente.",
+  "odontogramInfo": "Información del odontograma",
+  "odontogramSaved": "Odontograma guardado",
+  "odontogramSaveError": "Error al guardar odontograma",
+  "odontogramSaveErrorSubtitle": "No se pudieron guardar los hallazgos. Intente nuevamente.",
+  "saveAttention": "Guardar atención",
+  "saveBase": "Guardar base",
+  "saving": "Guardando..."
+}

@@ -1,0 +1,17 @@
+{
+  "frameworkVitestStubAliases": {
+    "@openmrs/esm-framework/src/internal": "../../test-utils/stubs/esm-framework-internal.mock.tsx",
+    "@openmrs/esm-framework": "../../test-utils/stubs/esm-framework.mock.tsx"
+  },
+  "frameworkVitestMockAliases": {
+    "@openmrs/esm-framework": "@openmrs/esm-framework/mock"
+  },
+  "lodashEsAliases": {
+    "lodash-es": "lodash",
+    "lodash-es/*": "lodash/*"
+  },
+  "sharedWorkspaceTestUtilsAliases": {
+    "test-utils": "../../test-utils/index.tsx",
+    "test-utils/*": "../../test-utils/*"
+  }
+}

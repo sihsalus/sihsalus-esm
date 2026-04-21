@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { showSnackbar, showNotification, type Order } from '@openmrs/esm-framework';
+import { showSnackbar, showNotification, type FetchResponse, type Order } from '@openmrs/esm-framework';
 import { rejectLabOrder, useInvalidateLabOrders } from '../../laboratory.resource';
 import RejectLabRequestModal from './reject-lab-request-modal.component';
 
@@ -56,7 +56,7 @@ describe('RejectLabRequestModal', () => {
   });
 
   it('should call rejectLabOrder with comment and show success snackbar when rejection succeeds', async () => {
-    mockRejectLabOrder.mockResolvedValue({} as any);
+    mockRejectLabOrder.mockResolvedValue({} as FetchResponse<unknown>);
 
     render(<RejectLabRequestModal order={mockOrder as Order} closeModal={mockCloseModal} />);
 
@@ -126,7 +126,7 @@ describe('RejectLabRequestModal', () => {
 
     expect(submitButton).toBeDisabled();
 
-    resolvePromise!({});
+    resolvePromise?.({});
 
     await waitFor(() => {
       expect(mockCloseModal).toHaveBeenCalled();
@@ -134,7 +134,7 @@ describe('RejectLabRequestModal', () => {
   });
 
   it('should allow submitting with empty comment', async () => {
-    mockRejectLabOrder.mockResolvedValue({} as any);
+    mockRejectLabOrder.mockResolvedValue({} as FetchResponse<unknown>);
 
     render(<RejectLabRequestModal order={mockOrder as Order} closeModal={mockCloseModal} />);
 

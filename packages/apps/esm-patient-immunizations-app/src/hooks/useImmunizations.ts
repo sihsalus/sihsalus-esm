@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { fhirBaseUrl, openmrsFetch, useFhirFetchAll } from '@openmrs/esm-framework';
 import { type FHIRImmunizationResource } from '../types/fhir-immunization-domain';
 import { mapFromFHIRImmunizationBundle } from '../immunizations/immunization-mapper';

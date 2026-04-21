@@ -38,6 +38,8 @@ import {
   type RelationshipValue,
 } from './patient-registration.types';
 
+const familyName2ExtensionUrl = 'http://openmrs.org/fhir/StructureDefinition/patient-family-name2';
+
 export type SavePatientForm = (
   isNewPatient: boolean,
   values: FormValues,
@@ -248,9 +250,7 @@ export class FormManager {
         const identifier =
           !autoGeneration || autoGenerationManualEntry
             ? identifierValue
-            : await (
-                await generateIdentifier(selectedSource.uuid)
-              ).data.identifier;
+            : await (await generateIdentifier(selectedSource.uuid)).data.identifier;
 
         const identifierToCreate = {
           uuid: identifierUuid,
@@ -430,6 +430,10 @@ export class FormManager {
       name: patient.person?.names?.map((name) => ({
         given: [name.givenName, name.middleName].filter(Boolean),
         family: name.familyName,
+        text: [name.familyName, name.familyName2, name.givenName, name.middleName].filter(Boolean).join(' '),
+        ...(name.familyName2
+          ? { extension: [{ url: familyName2ExtensionUrl, valueString: name.familyName2 }] }
+          : {}),
       })),
       address: patient.person?.addresses.map((address) => ({
         city: address.cityVillage,

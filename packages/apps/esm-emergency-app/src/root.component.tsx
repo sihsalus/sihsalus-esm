@@ -6,7 +6,7 @@
  * and provides access to the emergency workflow.
  */
 
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmergencyDashboard from './emergency-dashboard/emergency-dashboard.component';

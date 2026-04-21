@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable no-undef */
+
 'use strict';
 
 require('dotenv').config({ quiet: true });
@@ -13,8 +13,7 @@ const logInfo = (msg) => console.log(`${chalk.green.bold('[start-dev]')} ${msg}`
 const logWarn = (msg) => console.warn(`${chalk.yellow.bold('[start-dev]')} ${chalk.yellow(msg)}`);
 const logFail = (msg) => console.error(`${chalk.red.bold('[start-dev]')} ${chalk.red(msg)}`);
 
-const backend =
-  process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
+const backend = process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
 
 if (!process.env.SIHSALUS_BACKEND_URL) {
   logWarn(`SIHSALUS_BACKEND_URL not set, using default: ${backend}`);
@@ -71,14 +70,7 @@ function withSharedDependencies(args) {
 
 function ensureOpenmrsCli() {
   const workspaceRoot = resolve(__dirname, '..', '..', '..');
-  const rspackConfigEntry = resolve(
-    workspaceRoot,
-    'node_modules',
-    '@openmrs',
-    'rspack-config',
-    'dist',
-    'index.js',
-  );
+  const rspackConfigEntry = resolve(workspaceRoot, 'node_modules', '@openmrs', 'rspack-config', 'dist', 'index.js');
   const openmrsBin = resolve(workspaceRoot, 'node_modules', 'openmrs', 'dist', 'cli.js');
 
   if (!existsSync(rspackConfigEntry)) {
@@ -128,7 +120,8 @@ async function startWithProxy(cliArgs) {
   const { createProxyMiddleware } = require('http-proxy-middleware');
 
   const configuredCliPort = Number(process.env.SIHSALUS_INTERNAL_CLI_PORT);
-  const cliPort = Number.isFinite(configuredCliPort) && configuredCliPort > 0 ? configuredCliPort : await findFreePort();
+  const cliPort =
+    Number.isFinite(configuredCliPort) && configuredCliPort > 0 ? configuredCliPort : await findFreePort();
 
   // Files managed by the openmrs CLI — always proxy these to the CLI
   const cliManagedPaths = new Set(['/importmap.json', '/routes.registry.json', '/routes.json']);
@@ -164,7 +157,10 @@ async function startWithProxy(cliArgs) {
 }
 
 if (devAppsEnv) {
-  const apps = devAppsEnv.split(',').map((a) => a.trim()).filter(Boolean);
+  const apps = devAppsEnv
+    .split(',')
+    .map((a) => a.trim())
+    .filter(Boolean);
   const sourcesArgs = apps.flatMap((app) => {
     const dir = resolve(__dirname, '..', '..', 'apps', app);
     if (!existsSync(dir)) {
@@ -217,10 +213,11 @@ if (devAppsEnv) {
     process.exit(1);
   }
   logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
-  // The OpenMRS CLI still requires at least one source project in develop mode.
-  // Use a neutral app that is not part of the form-entry flows so assembled mode
-  // can start without forcing the login app to be served from a source dev server.
-  const shimSource = resolve(__dirname, '..', '..', 'apps', 'esm-home-app');
+  // The OpenMRS CLI still requires at least one --sources workspace even when
+  // the proxy serves a fully assembled importmap. Use a neutral tooling
+  // workspace so we don't inject app-specific dev-server clients into the SPA.
+  const cliShimSource = resolve(__dirname, '..', 'openmrs');
+
   startWithProxy(
     withSharedDependencies([
       '--importmap',
@@ -230,7 +227,7 @@ if (devAppsEnv) {
       '--config-file',
       frontendConfig,
       '--sources',
-      shimSource,
+      cliShimSource,
     ]),
   );
 }

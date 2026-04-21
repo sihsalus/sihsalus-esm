@@ -49,8 +49,8 @@ const EncounterData: React.FC<{
   if (error || lastEncounter == undefined) {
     return (
       <div className={styles.tileBox}>
-        {columns.map((column, ind) => (
-          <div key={ind}>
+        {columns.map((column) => (
+          <div key={column.key}>
             <span className={styles.tileTitle}>{t(column.title)}</span>
             <span className={styles.tileValue}>{error?.message}</span>
           </div>
@@ -61,9 +61,9 @@ const EncounterData: React.FC<{
 
   return (
     <div className={styles.tileBox}>
-      {columns.map((column, ind) => {
+      {columns.map((column) => {
         return (
-          <div key={ind}>
+          <div key={column.key}>
             <span className={styles.tileTitle}>{column.header}</span>
             <span className={styles.tileValue}>
               <p>{column.getObsValue(lastEncounter)}</p>

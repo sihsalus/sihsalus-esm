@@ -1,4 +1,4 @@
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { BillingDashboard } from './billing-dashboard/billing-dashboard.component';

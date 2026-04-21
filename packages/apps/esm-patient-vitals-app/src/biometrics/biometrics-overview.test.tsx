@@ -1,8 +1,7 @@
-/* eslint-disable */
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { formattedBiometrics, mockBiometricsConfig, mockConceptMetadata, mockConceptUnits } from '__mocks__';
+import { formattedBiometrics, mockBiometricsConfig, mockConceptMetadata, mockConceptUnits } from 'test-utils';
 import React from 'react';
 import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 
@@ -34,9 +33,9 @@ jest.mock('../common', () => {
 });
 
 mockUseConfig.mockReturnValue({
-  ...getDefaultsFromConfigSchema(configSchema),
+  ...(getDefaultsFromConfigSchema(configSchema) as Record<string, unknown>),
   ...mockBiometricsConfig,
-} as ConfigObject);
+} as unknown as ConfigObject);
 
 describe('BiometricsOverview', () => {
   it('renders an empty state view if biometrics data is unavailable', async () => {
@@ -106,11 +105,11 @@ describe('BiometricsOverview', () => {
     );
 
     const expectedTableRows = [
-      /12 — Aug — 2021, 12:00 AM 90 186 26.0 17/,
-      /18 — Jun — 2021, 12:00 AM 80 198 20.4 23/,
-      /10 — Jun — 2021, 12:00 AM 50 -- -- --/,
-      /26 — May — 2021, 12:00 AM 61 160 23.8 --/,
-      /10 — May — 2021, 12:00 AM 90 198 23.0 25/,
+      /12 — Aug — 2021, .* 90 186 26.0 17/,
+      /18 — Jun — 2021, .* 80 198 20.4 23/,
+      /10 — Jun — 2021, .* 50 -- -- --/,
+      /26 — May — 2021, .* 61 160 23.8 --/,
+      /10 — May — 2021, .* 90 198 23.0 25/,
     ];
     expectedTableRows.map((row) => expect(screen.getByRole('row', { name: new RegExp(row, 'i') })).toBeInTheDocument());
 

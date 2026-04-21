@@ -1,4 +1,3 @@
- 
 import { type Concept, type OpenmrsResource } from '@openmrs/esm-framework';
 
 export interface RESTPatientNote extends OpenmrsResource {
@@ -32,10 +31,10 @@ export interface UsePatientNotes {
 
 export interface ObsData {
   concept: Concept;
-  value?: string | any;
+  value?: string | number | boolean | OpenmrsResource;
   groupMembers?: Array<{
     concept: Concept;
-    value?: string | any;
+    value?: string | number | boolean | OpenmrsResource;
   }>;
   obsDatetime: string;
 }

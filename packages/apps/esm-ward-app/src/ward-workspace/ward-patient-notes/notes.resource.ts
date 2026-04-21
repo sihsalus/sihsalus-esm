@@ -40,12 +40,18 @@ export function usePatientNotes(
         ? data
             .map((encounter) => {
               const noteObs = encounter.obs.find((obs) => obs.concept.uuid === conceptUuid);
+              const encounterNote =
+                noteObs == null
+                  ? ''
+                  : typeof noteObs.value === 'object' && noteObs.value !== null
+                    ? ((noteObs.value as { display?: string }).display ?? '')
+                    : String(noteObs.value ?? '');
 
               return {
                 id: encounter.uuid,
                 diagnoses: encounter.diagnoses.map((d) => d.display).join(', '),
                 encounterDate: encounter.encounterDatetime,
-                encounterNote: noteObs ? noteObs.value : '',
+                encounterNote,
                 encounterNoteRecordedAt: noteObs ? noteObs.obsDatetime : '',
                 encounterProvider: encounter.encounterProviders.map((ep) => ep.provider.person.display).join(', '),
                 encounterProviderRole: encounter.encounterProviders.map((ep) => ep.encounterRole.display).join(', '),

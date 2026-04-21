@@ -11,8 +11,8 @@
     "serve": "rspack serve --mode=development",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx}\" --list-different",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
+    "prettier": "node ../../tooling/scripts/run-biome.js format --write src",
     "typescript": "tsc",
     "test": "jest --config jest.config.js --passWithNoTests",
     "coverage": "yarn test --coverage",
@@ -40,7 +40,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@sihsalus/rbac": "workspace:*",
+    "@sihsalus/esm-rbac": "workspace:*",
     "swr": "^2.3.6"
   },
   "peerDependencies": {

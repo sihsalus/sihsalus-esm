@@ -2,7 +2,7 @@
   "name": "@sihsalus/sihsalus-esm",
   "version": "1.0.0",
   "private": true,
-  "license": "MIT",
+  "license": "MPL-2.0",
   "workspaces": [
     "packages/tooling/*",
     "packages/apps/*",
@@ -17,19 +17,24 @@
     "start": "node packages/tooling/scripts/start-dev.js",
     "serve": "turbo run build --filter=openmrs --filter='./packages/apps/*' && openmrs start",
     "serve:prod": "turbo run build && node packages/tooling/scripts/assemble-importmap.js && openmrs start",
-    "test": "turbo run test",
+    "test": "cross-env TZ=UTC turbo run test --concurrency=1",
     "test:coverage": "turbo run test -- --coverage",
     "test:watch": "turbo run test:watch",
     "test:e2e": "playwright test",
     "test:e2e:a11y": "playwright test -g \"@accessibility\"",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
     "lint": "turbo run lint",
     "typecheck": "turbo run typescript",
-    "verify": "turbo run lint typescript test",
-    "clean": "turbo run clean && rm -rf dist/spa",
+    "verify": "cross-env TZ=UTC turbo run lint typescript test",
+    "extract-translations": "turbo run extract-translations",
+    "clean": "node packages/tooling/scripts/clean-monorepo.js",
+    "clean:dry-run": "node packages/tooling/scripts/clean-monorepo.js --dry-run",
     "setup": "yarn install && turbo run build",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@changesets/cli": "^2.30.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
@@ -68,20 +73,12 @@
     "typescript-eslint": "^8.58.0"
   },
   "lint-staged": {
-    "*.{ts,tsx}": "eslint --cache --fix --max-warnings 0 --no-warn-ignored --ignore-pattern '**/*.test.ts' --ignore-pattern '**/*.test.tsx' --ignore-pattern '**/*.spec.ts' --ignore-pattern '**/*.spec.tsx'",
-    "*.{css,scss,ts,tsx}": "prettier --write --list-different"
+    "*.{css,js,json,scss,ts,tsx}": "biome check --write"
   },
   "packageManager": "yarn@4.13.0",
   "resolutions": {
     "@rspack/core": "1.7.11",
     "@rspack/cli": "1.7.11",
-    "eslint": "10.2.0",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-testing-library": "^7.1.1",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
-    "eslint/ajv": "6.12.6",
-    "@eslint/eslintrc/ajv": "6.12.6",
     "sass": "1.98.0",
     "zustand": "^4.5.5",
     "html-webpack-plugin": "^5.5.0",

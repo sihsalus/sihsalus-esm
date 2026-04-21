@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unused-vars */
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -38,7 +37,7 @@ interface ProgramsOverviewProps {
   patientUuid: string;
 }
 
-const ProgramsOverview: React.FC<ProgramsOverviewProps> = ({ basePath, patientUuid }) => {
+const ProgramsOverview: React.FC<ProgramsOverviewProps> = ({ basePath: _basePath, patientUuid }) => {
   const programsCount = 5;
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
@@ -48,10 +47,17 @@ const ProgramsOverview: React.FC<ProgramsOverviewProps> = ({ basePath, patientUu
   const pageUrl = `\${openmrsSpaBase}/patient/${patientUuid}/chart/Programs`;
   const layout = useLayoutType();
   const isTablet = layout === 'tablet';
-  const isDesktop = desktopLayout(layout);
+  const _isDesktop = desktopLayout(layout);
 
-  const { activeEnrollments, availablePrograms, eligiblePrograms, enrollments, error, isLoading, isValidating } =
-    usePrograms(patientUuid);
+  const {
+    activeEnrollments: _activeEnrollments,
+    availablePrograms,
+    eligiblePrograms,
+    enrollments,
+    error,
+    isLoading,
+    isValidating,
+  } = usePrograms(patientUuid);
 
   const { results: paginatedEnrollments, goTo, currentPage } = usePagination(enrollments ?? [], programsCount);
 

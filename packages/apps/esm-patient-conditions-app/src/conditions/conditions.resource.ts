@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { type DataTableSortState } from '@carbon/react';
@@ -133,6 +132,7 @@ export function useConditions(patientUuid: string) {
     patientUuid ? conditionsUrl : null,
     openmrsFetch,
   );
+  const hasLoadedConditions = typeof data !== 'undefined';
 
   const formattedConditions =
     data?.data?.total > 0
@@ -140,12 +140,12 @@ export function useConditions(patientUuid: string) {
           .map((entry) => entry.resource ?? [])
           .map(mapConditionProperties)
           .sort((a, b) => (b.onsetDateTime > a.onsetDateTime ? 1 : -1))
-      : null;
+      : [];
 
   return {
-    conditions: data ? formattedConditions : null,
+    conditions: hasLoadedConditions ? formattedConditions : null,
     error: error,
-    isLoading,
+    isLoading: isLoading || (!hasLoadedConditions && !error),
     isValidating,
     mutate,
   };

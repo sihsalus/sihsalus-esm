@@ -3,8 +3,7 @@ import { createGunzip } from 'zlib';
 
 import * as tar from 'tar';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- tar.Parse constructor not typed as newable in @types/tar
-const TarParser = tar.Parse as any;
+const TarParser = tar.Parse as unknown as new () => NodeJS.ReadWriteStream;
 
 interface ReadEntry extends EventEmitter {
   path: string;
@@ -31,7 +30,9 @@ export function untar(stream: NodeJS.ReadableStream): Promise<PackageFiles> {
 
         e.on('error', reject);
         e.on('data', (c: Buffer) => content.push(c));
-        e.on('end', () => (files[p] = Buffer.concat(content)));
+        e.on('end', () => {
+          files[p] = Buffer.concat(content);
+        });
       })
       .on('end', () => resolve(files));
   });

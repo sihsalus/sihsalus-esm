@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { openmrsFetch, isVersionSatisfied } from '@openmrs/esm-framework';
 import { vi, describe, expect, it, beforeEach } from 'vitest';
 

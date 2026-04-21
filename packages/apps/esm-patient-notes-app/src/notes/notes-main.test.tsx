@@ -1,5 +1,5 @@
 import { screen, within } from '@testing-library/react';
-import { mockVisitNotes } from '__mocks__';
+import { mockVisitNotes } from 'test-utils';
 import React from 'react';
 import { mockPatient, patientChartBasePath, renderWithSwr } from 'test-utils';
 

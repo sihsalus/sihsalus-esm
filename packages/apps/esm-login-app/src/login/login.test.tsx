@@ -11,7 +11,7 @@ import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { mockConfig } from '../../__mocks__/config.mock';
+import { mockConfig } from '../../../../test-utils/mocks/login-config.mock';
 import renderWithRouter from '../test-helpers/render-with-router';
 
 import Login from './login.component';
@@ -125,8 +125,7 @@ describe('Login', () => {
 
   // TODO: Complete the test
   it('sends the user to the location select page on login if there is more than one location', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let refreshUser = (_user: any) => {};
+    let refreshUser = (_user: unknown) => {};
     mockLogin.mockImplementation(() => {
       refreshUser({
         display: 'my name',

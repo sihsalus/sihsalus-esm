@@ -1,5 +1,5 @@
 import { Tab, Tabs, TabList, TabPanels, TabPanel } from '@carbon/react';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ const Root: React.FC = () => {
   const { t } = useTranslation();
   return (
     <AppErrorBoundary appName="esm-openconceptlab-app">
-        <main className={classNames('omrs-main-content', styles.main)}>
+      <main className={classNames('omrs-main-content', styles.main)}>
         <h3 className={styles.moduleHeader}>{t('moduleTitle', 'OCL Subscription Module')}</h3>
         <Tabs>
           <TabList aria-label="OCL tabs" className={styles.tabList} contained>

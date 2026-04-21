@@ -1,9 +1,3 @@
-import { defineConfig } from 'vitest/config';
+import { defineAppVitestConfig } from '../../tooling/configs/vitest-config';
 
-export default defineConfig({
-  test: {
-    environment: 'happy-dom',
-    mockReset: true,
-    setupFiles: ['./setup-tests.ts'],
-  },
-});
+export default defineAppVitestConfig(__dirname);

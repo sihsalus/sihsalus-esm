@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockPastVisit } from '__mocks__';
+import { mockPastVisit } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr } from 'test-utils';
 

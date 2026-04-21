@@ -1,5 +1,5 @@
 {
-  "activeVisit": "Visita activa",
+  "activeVisit": "Consulta activa",
   "address1": "Línea de Dirección 1",
   "address2": "Línea de Dirección 2",
   "city": "Ciudad",
@@ -8,9 +8,17 @@
   "countyDistrict": "Distrito",
   "deceased": "Fallecido",
   "district": "Distrito",
-  "from_lower": "De",
+  "from_lower": "de",
+  "implementationLogo": "Logotipo de implementación",
+  "patientAge": "Edad:",
+  "patientDateOfBirthWithSeparator": "Fecha de nacimiento:",
+  "patientGenderWithSeparator": "Género:",
+  "patientIdentifierSticker": "Etiqueta identificadora del paciente",
+  "patientNameWithSeparator": "Nombre del paciente:",
   "postalCode": "Código postal",
+  "printIdentifierSticker": "Imprimir etiqueta identificadora",
   "started": "Iniciado",
   "state": "Estado",
-  "stateProvince": "Estado"
+  "stateProvince": "Estado",
+  "telephoneNumberWithSeparator": "Número de teléfono:"
 }

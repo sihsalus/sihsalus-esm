@@ -1,12 +1,5 @@
-import type { ImportMapOverridesApi } from './devtools/import-map-overrides.types';
-
-declare global {
-	interface Window {
-		importMapOverrides: ImportMapOverridesApi;
-		spaEnv?: string;
-	}
-
-	var importMapOverrides: ImportMapOverridesApi;
+declare module '*.scss' {
+  const styles: { [className: string]: string };
+  export default styles;
 }
 
-export {};

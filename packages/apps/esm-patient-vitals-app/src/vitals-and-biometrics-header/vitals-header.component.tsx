@@ -1,8 +1,7 @@
 import { Button, InlineLoading, Tag } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
-import { ConfigurableLink, formatDate, parseDate, useConfig, useWorkspaces } from '@openmrs/esm-framework';
-import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
-import classNames from 'classnames';
+import { ConfigurableLink, formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
+import { ErrorState, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import isToday from 'dayjs/plugin/isToday';
@@ -37,15 +36,12 @@ interface VitalsHeaderProps {
 const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = false }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { data: conceptUnits, conceptMetadata } = useVitalsConceptMetadata();
-  const { data: vitals, isLoading, isValidating } = useVitalsAndBiometrics(patientUuid, 'both');
+  const { data: conceptUnits, conceptMetadata, error: conceptsError } = useVitalsConceptMetadata();
+  const { data: vitals, isLoading, isValidating, error: vitalsError } = useVitalsAndBiometrics(patientUuid, 'both');
   const latestVitals = vitals?.[0];
   const [showDetailsPanel, setShowDetailsPanel] = useState(false);
   const toggleDetailsPanel = () => setShowDetailsPanel(!showDetailsPanel);
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
-  const { workspaces } = useWorkspaces();
-
-  const isWorkspaceOpen = useCallback(() => Boolean(workspaces?.length), [workspaces]);
 
   const launchVitalsAndBiometricsForm = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,6 +54,15 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
   if (isLoading) {
     return (
       <InlineLoading role="progressbar" className={styles.loading} description={`${t('loading', 'Loading')} ...`} />
+    );
+  }
+
+  if (vitalsError || conceptsError) {
+    return (
+      <ErrorState
+        error={(vitalsError ?? conceptsError) as Error}
+        headerTitle={t('vitalsAndBiometrics', 'Vitals and biometrics')}
+      />
     );
   }
 
@@ -138,11 +143,7 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
             </div>
           )}
         </div>
-        <div
-          className={classNames(styles.rowContainer, {
-            [styles.workspaceOpen]: isWorkspaceOpen(),
-          })}
-        >
+        <div className={styles.rowContainer}>
           <div className={styles.row}>
             <VitalsHeaderItem
               interpretation={interpretBloodPressure(

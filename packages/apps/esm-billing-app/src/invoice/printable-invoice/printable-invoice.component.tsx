@@ -95,7 +95,9 @@ const PrintableInvoice: React.FC<PrintableInvoiceProps> = ({ bill, patient, comp
     const formattedAddress = addressParts.join(', ');
 
     return {
-      name: `${patient?.name?.[0]?.given?.join(' ')} ${patient?.name?.[0].family}`,
+      name:
+        patient?.name?.[0]?.text ??
+        [patient?.name?.[0]?.family, ...(patient?.name?.[0]?.given ?? [])].filter(Boolean).join(' '),
       birthDate: patient?.birthDate,
       gender: getGender(patient?.gender, t),
       address: formattedAddress,

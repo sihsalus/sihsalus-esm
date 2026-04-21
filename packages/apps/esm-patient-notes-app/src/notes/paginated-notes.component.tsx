@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import {
   DataTable,
-  type DataTableCell,
-  type DataTableSortState,
   Table,
   TableCell,
   TableContainer,
@@ -23,14 +21,14 @@ import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import type { PatientNote } from '../types';
 import styles from './notes-overview.scss';
 
-interface PaginatedNotes {
+interface PaginatedNotesProps {
   notes: Array<PatientNote>;
   pageSize: number;
   pageUrl: string;
   urlLabel: string;
 }
 
-const PaginatedNotes: React.FC<PaginatedNotes> = ({ notes, pageSize, pageUrl, urlLabel }) => {
+const PaginatedNotes: React.FC<PaginatedNotesProps> = ({ notes, pageSize, pageUrl, urlLabel }) => {
   const { t } = useTranslation();
   const layout = useLayoutType();
   const isTablet = layout === 'tablet';

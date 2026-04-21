@@ -7,7 +7,7 @@ import {
 } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockedAddressTemplate } from '__mocks__';
+import { mockedAddressTemplate } from 'test-utils';
 import React from 'react';
 import { BrowserRouter as Router, useParams } from 'react-router-dom';
 import { mockPatient } from 'test-utils';
@@ -144,8 +144,10 @@ const mockOpenmrsConfig: RegistrationConfig = {
       allowUnidentifiedPatients: true,
       defaultUnknownGivenName: 'UNKNOWN',
       defaultUnknownFamilyName: 'UNKNOWN',
+      defaultUnknownFamilyName2: 'UNKNOWN',
       displayReverseFieldOrder: false,
       displayCapturePhoto: true,
+      requireFamilyName2: false,
     },
     gender: [
       {
@@ -227,24 +229,12 @@ const fillRequiredFields = async () => {
   const demographicsSection = await screen.findByLabelText('Demographics Section');
   const givenNameInput = within(demographicsSection).getByLabelText(/first/i) as HTMLInputElement;
   const familyNameInput = within(demographicsSection).getByLabelText(/family/i) as HTMLInputElement;
-  const dateInput = within(demographicsSection).getByRole('spinbutton', {
-    name: /day, date of birth/i,
-  }) as HTMLInputElement;
-  const monthInput = within(demographicsSection).getByRole('spinbutton', {
-    name: /month, date of birth/i,
-  }) as HTMLInputElement;
-  const yearInput = within(demographicsSection).getByRole('spinbutton', {
-    name: /year, date of birth/i,
-  }) as HTMLInputElement;
+  const dateInput = within(demographicsSection).getByRole('textbox', { name: /date of birth/i }) as HTMLInputElement;
   const genderInput = within(demographicsSection).getByLabelText(/Male/) as HTMLSelectElement;
   await user.type(givenNameInput, 'Paul');
   await user.type(familyNameInput, 'Gaihre');
   await user.clear(dateInput);
-  await user.type(dateInput, '02');
-  await user.clear(monthInput);
-  await user.type(monthInput, '08');
-  await user.clear(yearInput);
-  await user.type(yearInput, '1993');
+  await user.type(dateInput, '1993-08-02');
   await user.click(genderInput);
 };
 
@@ -276,23 +266,8 @@ describe('Registering a new patient', () => {
     expect(screen.getByText(/jump to/i)).toBeInTheDocument();
     expect(within(demographicSection).getByLabelText(/first name/i)).toBeInTheDocument();
     expect(within(demographicSection).getByLabelText(/middle name \(optional\)/i)).toBeInTheDocument();
-    expect(within(demographicSection).getByLabelText(/family name/i)).toBeInTheDocument();
-    expect(within(demographicSection).getByRole('group', { name: /date of birth/i })).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /day, date of birth/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /month, date of birth/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /year, date of birth/i,
-      }),
-    ).toBeInTheDocument();
+    expect(within(demographicSection).getByLabelText(/^family name$/i)).toBeInTheDocument();
+    expect(within(demographicSection).getByRole('textbox', { name: /date of birth/i })).toBeInTheDocument();
     expect(within(demographicSection).getByRole('radio', { name: /^male$/i })).toBeInTheDocument();
     expect(within(demographicSection).getByRole('radio', { name: /^female$/i })).toBeInTheDocument();
     expect(within(demographicSection).getByText(/date of birth known\?/i)).toBeInTheDocument();
@@ -315,14 +290,23 @@ describe('Registering a new patient', () => {
     await user.click(await screen.findByText(/Register Patient/i));
     expect(mockSavePatient).toHaveBeenCalledWith(
       expect.objectContaining({
-        identifiers: [], //TODO when the identifer story is finished: { identifier: '', identifierType: '05a29f94-c0ed-11e2-94be-8c13b969e334', location: '' },
+        identifiers: [], // TODO (P1.1): assert identifier payload once the Register Patient button rendering is fixed.
         person: {
           addresses: expect.arrayContaining([expect.any(Object)]),
           attributes: [],
           birthdate: '1993-8-2',
           birthdateEstimated: false,
           gender: expect.stringMatching(/^M$/),
-          names: [{ givenName: 'Paul', middleName: '', familyName: 'Gaihre', preferred: true, uuid: undefined }],
+          names: [
+            {
+              givenName: 'Paul',
+              middleName: '',
+              familyName: 'Gaihre',
+              familyName2: '',
+              preferred: true,
+              uuid: undefined,
+            },
+          ],
           dead: false,
           uuid: expect.anything(),
         },
@@ -405,8 +389,8 @@ describe('Registering a new patient', () => {
     expect(mockSavePatient).toHaveBeenCalledTimes(1);
     expect(mockSaveEncounter).toHaveBeenCalledTimes(1);
 
-    (expect(mockShowSnackbar).toHaveBeenCalledWith(expect.objectContaining({ subtitle: 'an error message' })),
-      mockSaveEncounter.mockResolvedValue({} as FetchResponse));
+    expect(mockShowSnackbar).toHaveBeenCalledWith(expect.objectContaining({ subtitle: 'an error message' })),
+      mockSaveEncounter.mockResolvedValue({} as FetchResponse);
 
     await user.click(registerPatientButton);
     expect(mockSavePatient).toHaveBeenCalledTimes(2);
@@ -427,11 +411,11 @@ describe('Updating an existing patient record', () => {
         error: null,
         isLoading: false,
         patient: mockPatient,
-        patientUuid: mockPatient.id,
-      };
+        patientUuid: mockPatient.uuid,
+      } as unknown as ReturnType<typeof usePatient>;
     });
     mockSavePatient.mockReturnValue({ data: { uuid: 'new-pt-uuid' }, ok: true });
-    mockUseParams.mockReturnValue({ patientUuid: mockPatient.id });
+    mockUseParams.mockReturnValue({ patientUuid: mockPatient.uuid });
   });
 
   it('edits patient demographics', async () => {
@@ -441,19 +425,21 @@ describe('Updating an existing patient record', () => {
     mockUseInitialFormValues.mockReturnValue([
       {
         additionalFamilyName: '',
+        additionalFamilyName2: '',
         additionalGivenName: '',
         additionalMiddleName: '',
         addNameInLocalLanguage: false,
         address: {},
-        birthdate: mockPatient.birthDate,
+        birthdate: new Date(1972, 3, 4),
         birthdateEstimated: false,
         deathCause: '',
         deathDate: undefined,
         deathTime: undefined,
         deathTimeFormat: 'AM',
-        familyName: mockPatient.name[0].family,
-        gender: mockPatient.gender,
-        givenName: mockPatient.name[0].given[0],
+        familyName: mockPatient.name.split(' ')[1],
+        familyName2: '',
+        gender: 'male',
+        givenName: mockPatient.name.split(' ')[0],
         identifiers: {
           openMrsId: {
             autoGeneration: false,
@@ -482,7 +468,7 @@ describe('Updating an existing patient record', () => {
         middleName: '',
         monthsEstimated: 0,
         nonCodedCauseOfDeath: '',
-        patientUuid: mockPatient.id,
+        patientUuid: mockPatient.uuid,
         relationships: [],
         telephoneNumber: '',
         yearsEstimated: 0,
@@ -498,23 +484,9 @@ describe('Updating an existing patient record', () => {
     expect(screen.getByRole('button', { name: /update patient/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /cancel/i })).toBeInTheDocument();
 
-    expect(screen.getByLabelText(/first name/i)).toHaveValue(mockPatient.name[0].given[0]);
-    expect(screen.getByLabelText(/family name/i)).toHaveValue(mockPatient.name[0].family);
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /day, date of birth/i,
-      }),
-    ).toHaveTextContent('04');
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /month, date of birth/i,
-      }),
-    ).toHaveTextContent('04');
-    expect(
-      screen.getByRole('spinbutton', {
-        name: /year, date of birth/i,
-      }),
-    ).toHaveTextContent('1972');
+    expect(screen.getByLabelText(/first name/i)).toHaveValue(mockPatient.name.split(' ')[0]);
+    expect(screen.getByLabelText(/^family name$/i)).toHaveValue(mockPatient.name.split(' ')[1]);
+    expect((screen.getByRole('textbox', { name: /date of birth/i }) as HTMLInputElement).value).toContain('04/04/1972');
     expect(
       screen.getByRole('radio', {
         name: /^male$/i,
@@ -531,15 +503,16 @@ describe('Updating an existing patient record', () => {
 
     expect(mockSavePatientForm).toHaveBeenCalledWith(
       false,
-      {
+      expect.objectContaining({
         addNameInLocalLanguage: false,
         additionalFamilyName: '',
+        additionalFamilyName2: '',
         additionalGivenName: '',
         additionalMiddleName: '',
         address: {
           country: 'កម្ពុជា (Cambodia)',
         },
-        birthdate: '1972-04-04',
+        birthdate: new Date(1972, 3, 4),
         birthdateEstimated: false,
         deathCause: '',
         nonCodedCauseOfDeath: '',
@@ -547,6 +520,7 @@ describe('Updating an existing patient record', () => {
         deathTime: undefined,
         deathTimeFormat: 'AM',
         familyName: 'Wilson',
+        familyName2: '',
         gender: 'male',
         givenName: 'John',
         identifiers: {
@@ -579,9 +553,8 @@ describe('Updating an existing patient record', () => {
         patientUuid: '8673ee4f-e2ab-4077-ba55-4980f408773e',
         relationships: [],
         telephoneNumber: '',
-        unidentifiedPatient: undefined,
         yearsEstimated: 0,
-      },
+      }),
       expect.anything(),
       expect.anything(),
       null,

@@ -4,6 +4,7 @@ import {
   type ConceptUuid,
   type ObsUuid,
   type ObsMetaInfo,
+  type ConceptRecord,
 } from '@openmrs/esm-patient-common-lib';
 import { uniq } from 'lodash-es';
 
@@ -15,6 +16,9 @@ import {
   extractMetaInformation,
   addUserDataToCache,
 } from './helpers';
+
+const isTestConcept = (concept: ConceptRecord): boolean =>
+  concept.conceptClass?.name === 'Test' || concept.conceptClass?.name === 'LabSet';
 
 function parseSingleObsData(
   testConceptNameMap: Record<ConceptUuid, string>,
@@ -36,12 +40,12 @@ function parseSingleObsData(
     }
 
     if (entry.valueQuantity) {
-      entry.value = entry.valueQuantity.value;
+      entry.value = `${entry.valueQuantity.value}`;
       delete entry.valueQuantity;
     }
 
     if (entry.valueCodeableConcept) {
-      entry.value = entry?.valueCodeableConcept.coding[0].display;
+      entry.value = entry.valueCodeableConcept.coding[0]?.display ?? entry.valueCodeableConcept.text ?? '';
       delete entry.valueCodeableConcept;
     }
 
@@ -53,10 +57,10 @@ async function reloadData(patientUuid: string) {
   const entries = await loadObsEntries(patientUuid);
   const allConcepts = await loadPresentConcepts(entries);
 
-  const testConcepts = allConcepts.filter((x) => x.conceptClass.name === 'Test' || x.conceptClass.name === 'LabSet');
+  const testConcepts = allConcepts.filter(isTestConcept);
   const testConceptUuids: ConceptUuid[] = testConcepts.map((x) => x.uuid);
   const testConceptNameMap: Record<ConceptUuid, string> = Object.fromEntries(
-    testConcepts.map(({ uuid, display }) => [uuid, display]),
+    testConcepts.map(({ uuid, display }) => [uuid, display ?? uuid]),
   );
   const obsByClass: Record<ConceptUuid, ObsRecord[]> = Object.fromEntries(testConceptUuids.map((x) => [x, []]));
   const metaInfomation = extractMetaInformation(testConcepts);
@@ -126,10 +130,9 @@ async function reloadData(patientUuid: string) {
       .filter((x) => x[1].length)
       // replace the uuid key with the display name and sort the observations by date
       .map(([uuid, val]) => {
-        const {
-          display,
-          conceptClass: { display: type },
-        } = testConcepts.find((x) => x.uuid === uuid);
+        const concept = testConcepts.find((item) => item.uuid === uuid);
+        const display = concept?.display ?? uuid;
+        const type = concept?.conceptClass?.display === 'LabSet' ? 'LabSet' : 'Test';
         return [
           display,
           {

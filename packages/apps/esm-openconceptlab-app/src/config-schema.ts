@@ -1,2 +1,2 @@
 export const configSchema = {};
-export type Config = {};
+export type Config = object;

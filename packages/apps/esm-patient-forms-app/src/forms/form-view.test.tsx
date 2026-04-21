@@ -6,7 +6,7 @@ import {
 } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockForms } from '__mocks__';
+import { mockCurrentVisit, mockForms } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 
@@ -90,12 +90,21 @@ describe('FormView', () => {
 
     await user.click(pocForm);
 
-    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('patient-form-entry-workspace', {
-      workspaceTitle: mockForms[0].form.display,
-      form: mockForms[0].form,
-      encounterUuid: undefined,
-      handlePostResponse: expect.any(Function),
-    });
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith(
+      'patient-form-entry-workspace',
+      expect.objectContaining({
+        workspaceTitle: mockForms[0].form.display,
+        formInfo: {
+          encounterUuid: undefined,
+          formUuid: mockForms[0].form.uuid,
+          patientUuid: mockPatient.uuid,
+          visitUuid: mockCurrentVisit.uuid,
+          visitTypeUuid: mockCurrentVisit.visitType.uuid,
+          visitStartDatetime: mockCurrentVisit.startDatetime,
+          visitStopDatetime: mockCurrentVisit.stopDatetime,
+        },
+      }),
+    );
   });
 
   test('should open edit mode without requiring a current visit from the last completed column', async () => {

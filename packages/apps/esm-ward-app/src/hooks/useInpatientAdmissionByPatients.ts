@@ -14,7 +14,7 @@ export function useInpatientAdmissionByPatients(patientUuids: string[]) {
     'encounterAssigningToCurrentInpatientLocation:(encounterDatetime),' +
     'currentInpatientRequest:(dispositionLocation,dispositionType,disposition:(uuid,display),dispositionEncounter:(uuid,display),dispositionObsGroup:(uuid,display),visit:(uuid),patient:(uuid)),' +
     'firstAdmissionOrTransferEncounter:(encounterDatetime),' +
-    'currentInpatientLocation,' + 
+    'currentInpatientLocation,' +
     ')';
 
   const hasPatients = patientUuids?.length > 0;

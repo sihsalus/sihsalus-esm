@@ -5,7 +5,9 @@ module.exports = {
   ...rootConfig,
   moduleNameMapper: {
     ...rootConfig.moduleNameMapper,
-    '^@mocks$': path.resolve(__dirname, '__mocks__'),
-    '^@mocks/(.*)$': path.resolve(__dirname, '__mocks__', '$1'),
+    '^@mocks$': path.resolve(__dirname, 'test-utils/mocks'),
+    '^@mocks/(.*)$': path.resolve(__dirname, 'test-utils/mocks', '$1'),
+    '^@tools$': path.resolve(__dirname, 'tools'),
+    '^@tools/(.*)$': path.resolve(__dirname, 'tools', '$1'),
   },
 };

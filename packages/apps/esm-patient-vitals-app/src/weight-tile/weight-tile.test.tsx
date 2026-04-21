@@ -1,6 +1,6 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { formattedBiometrics, mockBiometricsConfig, mockConceptMetadata, mockVitalsSignsConcepts } from '__mocks__';
+import { formattedBiometrics, mockBiometricsConfig, mockConceptMetadata, mockVitalsSignsConcepts } from 'test-utils';
 import React from 'react';
 import { getByTextWithMarkup, mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 
@@ -29,9 +29,9 @@ jest.mock('../common', () => {
 });
 
 mockUseConfig.mockReturnValue({
-  ...getDefaultsFromConfigSchema(configSchema),
-  mockBiometricsConfig,
-} as ConfigObject);
+  ...(getDefaultsFromConfigSchema(configSchema) as Record<string, unknown>),
+  ...mockBiometricsConfig,
+} as unknown as ConfigObject);
 
 describe('WeightTile', () => {
   it('renders an empty state when weight data is not available', async () => {

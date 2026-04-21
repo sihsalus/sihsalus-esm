@@ -52,7 +52,6 @@ const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentifier, fi
       selectedSource,
       autoGeneration,
     } as PatientIdentifierValue);
-     
   }, [initialValue, setHideInputField]);
 
   const handleEdit = () => {

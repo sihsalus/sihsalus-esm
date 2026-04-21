@@ -10,14 +10,14 @@
     "start": "openmrs develop",
     "serve": "rspack serve --mode=development",
     "debug": "npm run serve",
-    "test": "cross-env TZ=UTC vitest run --passWithNoTests",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "cross-env TZ=UTC vitest watch",
     "coverage": "cross-env TZ=UTC vitest run --coverage --passWithNoTests",
     "build": "rspack --mode=production",
     "build:development": "rspack --mode=development",
     "analyze": "rspack --mode=production --env analyze=true",
     "typescript": "tsc",
-    "lint": "eslint .",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "extract-translations": "i18next 'src/**/*.tsx' 'src/**/*.ts' '!src/**/*.test.tsx' '!src/**/*.test.ts' --config='../../tooling/scripts/i18next-parser.config.js'"
   },
   "keywords": [

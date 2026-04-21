@@ -1,7 +1,15 @@
-import { type FetchResponse, showSnackbar, useConfig, getDefaultsFromConfigSchema } from '@openmrs/esm-framework';
+import {
+  type FetchResponse,
+  showSnackbar,
+  useConfig,
+  getDefaultsFromConfigSchema,
+  usePatient,
+  useSession,
+  useVisit,
+} from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockConceptMetadata, mockConceptRanges, mockConceptUnits, mockVitalsConfig } from '__mocks__';
+import { mockConceptMetadata, mockConceptRanges, mockConceptUnits, mockVitalsConfig } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 
@@ -31,6 +39,9 @@ const testProps = {
 const mockShowSnackbar = jest.mocked(showSnackbar);
 const mockSavePatientVitals = jest.mocked(saveVitalsAndBiometrics);
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
+const mockUsePatient = jest.mocked(usePatient);
+const mockUseSession = jest.mocked(useSession);
+const mockUseVisit = jest.mocked(useVisit);
 
 jest.mock('../common', () => ({
   assessValue: jest.fn(),
@@ -51,6 +62,22 @@ mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
   ...mockVitalsConfig,
 });
+
+mockUseSession.mockReturnValue({
+  sessionLocation: {
+    uuid: 'test-session-location',
+  },
+} as ReturnType<typeof useSession>);
+
+mockUsePatient.mockReturnValue({
+  patient: {
+    birthDate: mockPatient.birthdate,
+  },
+} as ReturnType<typeof usePatient>);
+
+mockUseVisit.mockReturnValue({
+  currentVisit: null,
+} as ReturnType<typeof useVisit>);
 
 describe('VitalsBiometricsForm', () => {
   it('renders the vitals and biometrics form', async () => {
@@ -159,7 +186,7 @@ describe('VitalsBiometricsForm', () => {
         weight: weightValue,
       }),
       new AbortController(),
-      undefined,
+      'test-session-location',
     );
 
     expect(mockShowSnackbar).toHaveBeenCalledTimes(1);

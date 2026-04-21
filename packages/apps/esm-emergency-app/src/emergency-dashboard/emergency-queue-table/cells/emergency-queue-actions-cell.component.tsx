@@ -35,19 +35,15 @@ export const EmergencyQueueActionsCell: React.FC<EmergencyQueueTableCellProps> =
   const config = useConfig<Config>();
   const { queueStatuses, emergencyTriageQueueUuid } = useEmergencyConfig();
 
-  if (!queueEntry?.uuid) {
-    return null;
-  }
-
-  const isWaiting = queueEntry.status?.uuid === queueStatuses.waiting;
-  const isInService = queueEntry.status?.uuid === queueStatuses.inService;
-  const isInTriageQueue = queueEntry.queue?.uuid === emergencyTriageQueueUuid;
-  const hasPreviousEntry = queueEntry.previousQueueEntry != null;
+  const isWaiting = queueEntry?.status?.uuid === queueStatuses.waiting;
+  const isInService = queueEntry?.status?.uuid === queueStatuses.inService;
+  const isInTriageQueue = queueEntry?.queue?.uuid === emergencyTriageQueueUuid;
+  const hasPreviousEntry = queueEntry?.previousQueueEntry != null;
 
   // Check if patient has a triage encounter in their visit
   const triageEncounterTypeUuid = config.triageEncounter.encounterTypeUuid;
   const hasTriageEncounter =
-    queueEntry.visit?.encounters?.some((enc) => enc.encounterType?.uuid === triageEncounterTypeUuid && !enc.voided) ??
+    queueEntry?.visit?.encounters?.some((enc) => enc.encounterType?.uuid === triageEncounterTypeUuid && !enc.voided) ??
     false;
   const isTriagePending = !isInTriageQueue && !hasTriageEncounter;
 

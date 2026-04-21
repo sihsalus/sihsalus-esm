@@ -52,6 +52,7 @@ export interface RegistrationConfig {
       defaultUnknownFamilyName2: string;
       displayCapturePhoto: boolean;
       displayReverseFieldOrder: boolean;
+      requireFamilyName2: boolean;
     };
     gender: Array<Gender>;
     address: {
@@ -272,6 +273,11 @@ export const esmPatientRegistrationSchema = {
         _type: Type.Boolean,
         _default: false,
         _description: "Whether to display the name fields in the order 'Family name' -> 'Middle name' -> 'First name'",
+      },
+      requireFamilyName2: {
+        _type: Type.Boolean,
+        _default: false,
+        _description: 'Whether the second family name (e.g. Apellido Materno in Peru) is required.',
       },
     },
     gender: {

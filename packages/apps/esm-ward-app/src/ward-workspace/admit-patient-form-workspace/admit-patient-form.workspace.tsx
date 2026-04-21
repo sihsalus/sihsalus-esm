@@ -1,4 +1,3 @@
- 
 import { Button, ButtonSet, Column, Form, InlineNotification, Row } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSnackbar, useAppContext } from '@openmrs/esm-framework';
@@ -138,7 +137,7 @@ const AdmitPatientFormWorkspace: React.FC<WardPatientWorkspaceProps> = ({
       });
   };
 
-  const onError = useCallback((values) => {
+  const onError = useCallback((_values) => {
     setShowErrorNotifications(true);
     setIsSubmitting(false);
   }, []);
@@ -148,7 +147,7 @@ const AdmitPatientFormWorkspace: React.FC<WardPatientWorkspaceProps> = ({
   return (
     <div className={styles.flexWrapper}>
       <WardPatientWorkspaceBanner {...{ wardPatient }} />
-      <Form control={control} className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
+      <Form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className={styles.formContent}>
           <Row>
             <Column>
@@ -165,7 +164,6 @@ const AdmitPatientFormWorkspace: React.FC<WardPatientWorkspaceProps> = ({
                         currentPatient={patient}
                         selectedBedId={value}
                         error={error}
-                        control={control}
                         onChange={onChange}
                       />
                     );

@@ -202,7 +202,9 @@ function getPatientName({ item, patient }: SyncItemWithPatient) {
   }
 
   const patientName = patient?.name?.[0];
-  return patientName ? `${patientName.given.join(' ')} ${patientName.family}` : item.descriptor.patientUuid;
+  return patientName
+    ? (patientName.text ?? [patientName.family, ...(patientName.given ?? [])].filter(Boolean).join(' '))
+    : item.descriptor.patientUuid;
 }
 
 function ActionNameLink({ syncItem }: { syncItem: SyncItem }) {

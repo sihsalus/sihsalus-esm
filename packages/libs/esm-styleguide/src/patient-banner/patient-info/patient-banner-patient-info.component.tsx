@@ -61,6 +61,7 @@ const getGender = (gender: string) => {
 export function PatientBannerPatientInfo({ patient, renderedFrom }: PatientBannerPatientInfoProps) {
   const name = getPatientName(patient);
   const genderInfo = patient?.gender && getGender(patient.gender);
+  const showExtensionSlots = renderedFrom !== 'patient-search';
 
   const extensionState = useMemo(
     () => ({ patientUuid: patient.id, patient, renderedFrom }),
@@ -80,7 +81,9 @@ export function PatientBannerPatientInfo({ patient, renderedFrom }: PatientBanne
             </div>
           )}
 
-          <ExtensionSlot className={styles.tagsSlot} name="patient-banner-tags-slot" state={extensionState} />
+          {showExtensionSlots ? (
+            <ExtensionSlot className={styles.tagsSlot} name="patient-banner-tags-slot" state={extensionState} />
+          ) : null}
         </div>
       </div>
       <div className={styles.demographics}>
@@ -93,7 +96,9 @@ export function PatientBannerPatientInfo({ patient, renderedFrom }: PatientBanne
           </>
         )}
         <PatientBannerPatientIdentifiers identifiers={patient.identifier} showIdentifierLabel />
-        <ExtensionSlot className={styles.extensionSlot} name="patient-banner-bottom-slot" state={extensionState} />
+        {showExtensionSlots ? (
+          <ExtensionSlot className={styles.extensionSlot} name="patient-banner-bottom-slot" state={extensionState} />
+        ) : null}
       </div>
     </div>
   );

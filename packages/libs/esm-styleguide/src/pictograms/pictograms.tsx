@@ -263,7 +263,8 @@ export type SvgPictogramProps = {
  */
 export const Pictogram = memo(
   forwardRef<SVGSVGElement, SvgPictogramProps>(function Pictogram({ pictogram, pictogramProps }, ref) {
-    let { className, size } = Object.assign({}, { size: 92 }, pictogramProps);
+    const { className } = Object.assign({}, { size: 92 }, pictogramProps);
+    let { size } = Object.assign({}, { size: 92 }, pictogramProps);
     if (size <= 26 || size > 144) {
       console.error(`Invalid size '${size}' specified for ${pictogram}. Defaulting to 92.`);
       size = 92;

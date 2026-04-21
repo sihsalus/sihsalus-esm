@@ -37,7 +37,10 @@ const AppointmentsActions: React.FC<AppointmentsActionsProps> = ({ appointment }
 
   const handleCheckout = () => {
     if (checkOutButton.customUrl) {
-      navigate({ to: checkOutButton.customUrl, templateParams: { patientUuid, appointmentUuid: appointment.uuid } });
+      navigate({
+        to: checkOutButton.customUrl,
+        templateParams: { patientUuid, appointmentUuid: appointment.uuid },
+      });
     } else {
       const dispose = showModal('end-appointment-modal', {
         closeModal: () => {
@@ -78,11 +81,7 @@ const AppointmentsActions: React.FC<AppointmentsActionsProps> = ({ appointment }
     }
   };
 
-  return (
-    <div className={styles.container}>
-      <>{renderVisitStatus()}</>
-    </div>
-  );
+  return <div className={styles.container}>{renderVisitStatus()}</div>;
 };
 
 export default AppointmentsActions;

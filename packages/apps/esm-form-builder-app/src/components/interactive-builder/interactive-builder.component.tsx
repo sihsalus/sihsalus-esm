@@ -353,8 +353,8 @@ const InteractiveBuilder: React.FC<InteractiveBuilderProps> = ({
     setActiveQuestion(null);
   };
 
-  const getAnswerErrors = (answers: Array<Record<string, string>>) => {
-    const answerLabels = answers?.map((answer) => answer.label) || [];
+  const getAnswerErrors = (answers?: Array<{ label?: string }>) => {
+    const answerLabels = answers?.map((answer) => answer.label).filter((label): label is string => !!label) || [];
     const errors: Array<ValidationError> = validationResponse.filter((error) =>
       answerLabels?.includes(error.field.label),
     );

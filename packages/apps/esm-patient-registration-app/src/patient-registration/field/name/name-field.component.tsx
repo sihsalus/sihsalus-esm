@@ -33,6 +33,7 @@ export const NameField = () => {
         defaultUnknownFamilyName2,
         displayMiddleName,
         displayReverseFieldOrder,
+        requireFamilyName2,
       },
     },
   } = useConfig<RegistrationConfig>();
@@ -112,6 +113,7 @@ export const NameField = () => {
       name="familyName2"
       labelText={t('familyName2LabelText', 'Second Family Name')}
       checkWarning={checkNumber}
+      required={requireFamilyName2}
     />
   );
 

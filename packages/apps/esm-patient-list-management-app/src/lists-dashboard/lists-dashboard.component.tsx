@@ -39,7 +39,7 @@ function usePatientListFilterForCurrentTab(selectedTab: number) {
 
 const ListsDashboard: React.FC = () => {
   const { t } = useTranslation();
-  const [selectedTab, setSelectedTab] = useState(TabIndices.STARRED_LISTS);
+  const [selectedTab, setSelectedTab] = useState<number>(TabIndices.STARRED_LISTS);
   const patientListFilter = usePatientListFilterForCurrentTab(selectedTab);
   const { patientLists, isLoading, error, mutate } = useAllPatientLists(patientListFilter);
   const { search } = useLocation();
@@ -64,21 +64,21 @@ const ListsDashboard: React.FC = () => {
       <section className={styles.dashboard}>
         <Header handleShowNewListOverlay={handleShowNewListOverlay} />
         <div className={styles.tabsContainer}>
-          <Tabs
-            className={styles.tabs}
-            onChange={({ selectedIndex }) => {
-              setSelectedTab(selectedIndex);
-            }}
-            selectedIndex={selectedTab}
-            tabContentClassName={styles.hiddenTabsContent}
-          >
-            <TabList className={styles.tablist} aria-label="List tabs" contained>
-              <Tab className={styles.tab}>{t('starredLists', 'Starred lists')}</Tab>
-              <Tab className={styles.tab}>{t('systemLists', 'System lists')}</Tab>
-              <Tab className={styles.tab}>{t('myLists', 'My lists')}</Tab>
-              <Tab className={styles.tab}>{t('allLists', 'All lists')}</Tab>
-            </TabList>
-          </Tabs>
+          <div className={styles.tabs}>
+            <Tabs
+              onChange={({ selectedIndex }) => {
+                setSelectedTab(selectedIndex);
+              }}
+              selectedIndex={selectedTab}
+            >
+              <TabList className={styles.tablist} aria-label="List tabs" contained>
+                <Tab className={styles.tab}>{t('starredLists', 'Starred lists')}</Tab>
+                <Tab className={styles.tab}>{t('systemLists', 'System lists')}</Tab>
+                <Tab className={styles.tab}>{t('myLists', 'My lists')}</Tab>
+                <Tab className={styles.tab}>{t('allLists', 'All lists')}</Tab>
+              </TabList>
+            </Tabs>
+          </div>
           <div className={styles.listsTableContainer}>
             <ListsTable
               error={error}

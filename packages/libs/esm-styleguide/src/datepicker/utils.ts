@@ -63,7 +63,7 @@ export function internationalizedDateToDate(date: DateValue): Date | undefined {
 /** Removes any data attributes from an object */
 export function removeDataAttributes<T>(props: T): T {
   const prefix = /^(data-.*)$/;
-  let filteredProps = {} as T;
+  const filteredProps = {} as T;
 
   for (const prop in props) {
     if (!prefix.test(prop)) {

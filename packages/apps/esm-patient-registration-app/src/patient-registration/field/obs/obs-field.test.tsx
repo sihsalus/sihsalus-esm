@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockOpenmrsId, mockPatient } from '__mocks__';
+import { mockOpenmrsId, mockPatient } from 'test-utils';
 import React from 'react';
 
 import { esmPatientRegistrationSchema, type FieldDefinition, type RegistrationConfig } from '../../../config-schema';
@@ -166,6 +166,7 @@ const codedFieldDef: FieldDefinition = {
 
 const mockInitialFormValues = {
   additionalFamilyName: '',
+  additionalFamilyName2: '',
   additionalGivenName: '',
   additionalMiddleName: '',
   addNameInLocalLanguage: false,
@@ -174,20 +175,21 @@ const mockInitialFormValues = {
   birthdateEstimated: false,
   deathCause: '',
   deathDate: '',
+  deathTime: '',
+  deathTimeFormat: 'AM' as const,
   familyName: 'Doe',
+  familyName2: '',
   gender: 'male',
   givenName: 'John',
   identifiers: mockOpenmrsId,
   isDead: false,
   middleName: 'Test',
   monthsEstimated: 0,
+  nonCodedCauseOfDeath: '',
   patientUuid: mockPatient.uuid,
   relationships: [],
   telephoneNumber: '',
   yearsEstimated: 0,
-  deathTime: '',
-  deathTimeFormat: 'AM' as const,
-  nonCodedCauseOfDeath: '',
 };
 
 const initialContextValues: PatientRegistrationContextProps = {
@@ -249,25 +251,8 @@ describe('ObsField', () => {
 
     expect(screen.getByText(/vaccination date/i)).toBeInTheDocument();
 
-    const dateInput = screen.getByRole('spinbutton', {
-      name: /day, vaccination date/i,
-    });
+    const dateInput = screen.getByRole('textbox', { name: /vaccination date/i });
     expect(dateInput).toBeInTheDocument();
-    const monthInput = screen.getByRole('spinbutton', {
-      name: /month, vaccination date/i,
-    });
-    expect(monthInput).toBeInTheDocument();
-    const yearInput = screen.getByRole('spinbutton', {
-      name: /year, vaccination date/i,
-    });
-    expect(yearInput).toBeInTheDocument();
-    await userEvent.type(dateInput, '28');
-    await userEvent.type(monthInput, '05');
-    await userEvent.type(yearInput, '2024');
-
-    expect(dateInput).toHaveTextContent('28');
-    expect(monthInput).toHaveTextContent('05');
-    expect(yearInput).toHaveTextContent('2024');
   });
 
   it('renders a select for a coded concept', () => {

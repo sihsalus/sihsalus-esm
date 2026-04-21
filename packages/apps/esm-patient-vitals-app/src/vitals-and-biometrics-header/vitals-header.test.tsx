@@ -2,7 +2,7 @@ import { type WorkspacesInfo, getDefaultsFromConfigSchema, useConfig, useWorkspa
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockVitalsConfig, mockCurrentVisit, mockConceptUnits, mockConceptMetadata, formattedVitals } from '__mocks__';
+import { mockVitalsConfig, mockCurrentVisit, mockConceptUnits, mockConceptMetadata, formattedVitals } from 'test-utils';
 import dayjs from 'dayjs';
 import React from 'react';
 import { mockPatient, getByTextWithMarkup, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
@@ -51,7 +51,7 @@ jest.mock('../common', () => {
 
 mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
-  mockVitalsConfig,
+  ...mockVitalsConfig,
 } as ConfigObject);
 
 describe('VitalsHeader', () => {
@@ -132,8 +132,22 @@ describe('VitalsHeader', () => {
   });
 
   it('does not flag normal values that lie within the provided reference ranges', async () => {
+    const normalVitals = [
+      {
+        id: 'normal-vitals',
+        date: '2022-05-19T00:00:00.000Z',
+        systolic: 120,
+        diastolic: 80,
+        bloodPressureRenderInterpretation: 'normal',
+        pulse: 76,
+        spo2: 98,
+        temperature: 37,
+        respiratoryRate: 16,
+      },
+    ];
+
     mockUseVitalsAndBiometrics.mockReturnValue({
-      data: formattedVitals,
+      data: normalVitals,
     } as ReturnType<typeof useVitalsAndBiometrics>);
 
     renderWithSwr(<VitalsHeader {...testProps} />);
@@ -173,9 +187,9 @@ describe('VitalsHeader', () => {
     const user = userEvent.setup();
 
     mockUseConfig.mockReturnValue({
-      ...getDefaultsFromConfigSchema(configSchema),
+      ...(getDefaultsFromConfigSchema(configSchema) as Record<string, unknown>),
       vitals: { ...mockVitalsConfig.vitals, useFormEngine: true, formName: 'Triage' },
-    } as ConfigObject);
+    } as unknown as ConfigObject);
 
     renderWithSwr(<VitalsHeader {...testProps} />);
 

@@ -14,7 +14,7 @@ const QueueScreen: React.FC<QueueScreenProps> = () => {
   const { activeTickets, isLoading, error } = useActiveTickets();
 
   if (isLoading) {
-    return <DataTableSkeleton row={5} className={styles.queueScreen} role="progressbar" />;
+    return <DataTableSkeleton rowCount={5} className={styles.queueScreen} role="progressbar" />;
   }
 
   if (error) {

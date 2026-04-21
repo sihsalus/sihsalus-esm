@@ -14,16 +14,17 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 ### Key Design Decisions
 
 - **Framework as dependency**: The OpenMRS framework (`@openmrs/esm-framework`) and app shell (`@openmrs/esm-app-shell`) are consumed as npm packages, not vendored. This simplifies upgrades and reduces maintenance burden.
-- **Yarn Berry with node-modules linker**: PnP is disabled (`nodeLinker: node-modules`) for compatibility with the OpenMRS toolchain and Webpack Module Federation.
+- **Yarn Berry with node-modules linker**: PnP is disabled (`nodeLinker: node-modules`) for compatibility with the OpenMRS toolchain and Rspack Module Federation.
 - **Import map overrides**: SIH Salus modules (`@sihsalus/*`) override their upstream OpenMRS counterparts at runtime via the import map, allowing customization without forking.
-- **Offline-first**: Service worker caching and a sync queue ensure the app works in low-connectivity environments (satellite link, 3G).
+- **Offline-first**: Service worker caching and a sync queue (`esm-dyaku-app`) ensure the app works in low-connectivity environments (satellite link, 3G).
+- **Rspack over Webpack**: All app bundles use Rspack for faster build times; the shared config lives in `packages/tooling/rspack-config/`.
 
 ### Package Organization
 
 | Directory                    | Contents                                                                                           |
 | ---------------------------- | -------------------------------------------------------------------------------------------------- |
-| `packages/apps/`             | 41 frontend ESM modules (upstream + custom)                                                        |
-| `packages/libs/`             | 6 shared libraries (RBAC, FHIR client, audit logger, Keycloak auth, constants, patient-common-lib) |
+| `packages/apps/`             | 57 frontend ESM modules (upstream forks + SIH Salus custom)                                        |
+| `packages/libs/`             | 5 shared libraries (RBAC, audit logger, shared UI, patient-common-lib, styleguide)                 |
 | `packages/tooling/`          | Build scripts and local dev tooling (import map assembly, dev server, i18n parser)                 |
 | `packages/__mocks__/`        | Shared Jest mocks                                                                                  |
 | `packages/declarations.d.ts` | Global TypeScript declarations                                                                     |
@@ -40,13 +41,18 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 - `esm-vacunacion-app` (MINSA vaccination schedule, replaces upstream `esm-patient-immunizations-app`)
 
 **SIH Salus custom** — modules with no upstream equivalent:
-- `esm-coststructure-app` — Cost structure management
-- `esm-dyaku-app` — FHIR sync for remote communities
-- `esm-fua-app` — FUA (Formato Unico de Atención) integration
-- `esm-indicadores-app` — MINSA reporting indicators
-- `esm-maternal-and-child-health` — CRED (child growth and development)
-- `esm-consulta-externa-app` — Outpatient consultation
-- `esm-vacunacion-app` — Vaccination management
+- `esm-atencion-ambulatoria-app` — Outpatient consultation (consulta externa)
+- `esm-coststructure-app` — Cost structure management (MINSA tariff tables)
+- `esm-cred-app` — CRED (control de crecimiento y desarrollo del niño, neonatal care, immunization)
+- `esm-dyaku-app` — FHIR sync queue for low-connectivity remote communities
+- `esm-emergency-app` — Emergency queue and triage
+- `esm-ficha-familiar-app` — Family health record (Ficha Familiar)
+- `esm-fua-app` — FUA (Formato Único de Atención) SIS insurance integration
+- `esm-indicadores-app` — MINSA reporting indicators dashboard
+- `esm-odontogram-app` — Dental chart (odontogram)
+- `esm-reports-app` — Clinical and administrative reports
+- `esm-salud-materna-app` — Maternal health (prenatal, parto, puerperio, planificación familiar, prevención de cáncer)
+- `esm-vih-app` — HIV/AIDS care and follow-up
 
 ### Data Access Strategy
 
@@ -56,9 +62,8 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 
 ### Security (HIPAA)
 
-- `@sihsalus/rbac` — Role-based access control with `<RequirePrivilege>` component and `useRequirePrivilege()` hook
-- `@sihsalus/audit-logger` — Client-side PHI access audit trail with offline fallback
-- `@sihsalus/keycloak-auth` — Optional Keycloak OIDC integration (toggle via `SIHSALUS_AUTH_MODE`)
+- `@sihsalus/esm-rbac` — Role-based access control with `<RequirePrivilege>` component and `useRequirePrivilege()` hook
+- `@sihsalus/esm-audit-logger` — Client-side PHI access audit trail with offline fallback
 - 15-minute session timeout with warning dialog
 - Break-the-glass emergency access with clinical justification
 

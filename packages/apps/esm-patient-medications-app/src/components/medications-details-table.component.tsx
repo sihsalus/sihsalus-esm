@@ -214,13 +214,15 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    contentRef: contentToPrintRef,
+    content: () => contentToPrintRef.current,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
     onBeforePrint: () =>
-      new Promise((resolve) => {
+      new Promise<void>((resolve) => {
         if (patient && title) {
           onBeforeGetContentResolve.current = () => resolve();
           setIsPrinting(true);
+        } else {
+          resolve();
         }
       }),
     onAfterPrint: () => {

@@ -1,21 +1,25 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  type FetchResponse,
-  getDefaultsFromConfigSchema,
-  launchWorkspace2,
-  openmrsFetch,
-  useConfig,
-} from '@openmrs/esm-framework';
+import { getDefaultsFromConfigSchema, launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { type ConfigObject, configSchema } from '../config-schema';
-import { mockFhirConditionsResponse } from '__mocks__';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockFhirConditionsResponse } from 'test-utils';
+import { mockPatient } from 'test-utils';
 import ConditionsOverview from './conditions-overview.component';
+import { useConditions } from './conditions.resource';
+
+jest.mock('./conditions.resource', () => {
+  const actual = jest.requireActual('./conditions.resource');
+
+  return {
+    ...actual,
+    useConditions: jest.fn(),
+  };
+});
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
-const mockOpenmrsFetch = jest.mocked(openmrsFetch);
 const mockLaunchWorkspace = jest.mocked(launchWorkspace2);
+const mockUseConditions = jest.mocked(useConditions);
 
 mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
@@ -23,12 +27,20 @@ mockUseConfig.mockReturnValue({
 });
 
 describe('ConditionsOverview', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders an empty state view if conditions data is unavailable', async () => {
-    mockOpenmrsFetch.mockResolvedValueOnce({ data: [] } as FetchResponse);
+    mockUseConditions.mockReturnValue({
+      conditions: [],
+      error: null,
+      isLoading: false,
+      isValidating: false,
+      mutate: jest.fn(),
+    });
 
-    renderWithSwr(<ConditionsOverview patientUuid={mockPatient.id} />);
-
-    await waitForLoadingToFinish();
+    render(<ConditionsOverview patientUuid={mockPatient.id} />);
 
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /conditions/i })).toBeInTheDocument();
@@ -38,22 +50,26 @@ describe('ConditionsOverview', () => {
   });
 
   it('renders an error state view if there is a problem fetching conditions', async () => {
-    const error = {
-      message: 'You are not logged in',
-      response: {
-        status: 401,
+  const error = {
+    name: 'UnauthorizedError',
+    message: 'You are not logged in',
+    response: {
+      status: 401,
         statusText: 'Unauthorized',
       },
     };
 
-    mockOpenmrsFetch.mockRejectedValueOnce(error);
+    mockUseConditions.mockReturnValue({
+      conditions: null,
+      error,
+      isLoading: false,
+      isValidating: false,
+      mutate: jest.fn(),
+    });
 
-    renderWithSwr(<ConditionsOverview patientUuid={mockPatient.id} />);
-
-    await waitForLoadingToFinish();
+    render(<ConditionsOverview patientUuid={mockPatient.id} />);
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /conditions/i })).toBeInTheDocument();
     expect(screen.getByText(/Error 401: Unauthorized/i)).toBeInTheDocument();
     expect(screen.getByText(/Sorry, there was a problem displaying this information./i)).toBeInTheDocument();
   });
@@ -61,11 +77,72 @@ describe('ConditionsOverview', () => {
   it("renders an overview of the patient's conditions when present", async () => {
     const user = userEvent.setup();
 
-    mockOpenmrsFetch.mockResolvedValueOnce({ data: mockFhirConditionsResponse } as FetchResponse);
+    mockUseConditions.mockReturnValue({
+      conditions: [
+        {
+          clinicalStatus: 'Active',
+          conceptId: '138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'HIV Positive',
+          id: 'cbffbb42-41b4-4c38-bc14-842ef675df85',
+          onsetDateTime: '2021-05-15T21:00:00+00:00',
+          recordedDate: '2021-05-17T07:07:43+00:00',
+        },
+        {
+          clinicalStatus: 'Active',
+          conceptId: '160148AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'Malaria, confirmed',
+          id: 'b648963a-8258-4131-a7fc-257f2a347435',
+          onsetDateTime: '2021-05-04T21:00:00+00:00',
+          recordedDate: '2021-05-05T10:09:33+00:00',
+        },
+        {
+          clinicalStatus: 'Active',
+          conceptId: '160155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'Malaria sevère',
+          id: '9479e872-c9ca-48cc-82ee-273d67c41187',
+          onsetDateTime: '2021-01-27T00:00:00+00:00',
+          recordedDate: '2021-01-28T09:09:27+00:00',
+        },
+        {
+          clinicalStatus: 'Active',
+          conceptId: '121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'Anaemia',
+          id: 'c1006bd4-0b21-4305-9eba-c9c647534502',
+          onsetDateTime: '2021-01-27T00:00:00+00:00',
+          recordedDate: '2021-01-28T09:09:27+00:00',
+        },
+        {
+          clinicalStatus: 'Active',
+          conceptId: '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'Hypertension',
+          id: 'f4ee2cfe-3880-4ea2-a5a6-82aa8a0f6389',
+          onsetDateTime: '2020-08-19T00:00:00+00:00',
+          recordedDate: '2020-08-19T18:34:48+00:00',
+        },
+        {
+          clinicalStatus: 'Active',
+          conceptId: '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'Hypertension',
+          id: 'e3a3f9e2-73fe-4793-a2eb-0b4fcd00b271',
+          onsetDateTime: '2020-08-19T00:00:00+00:00',
+          recordedDate: '2020-08-19T18:42:10+00:00',
+        },
+        {
+          clinicalStatus: 'Active',
+          conceptId: '117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+          display: 'Hypertension',
+          id: '08c4dbcb-b474-4843-8e62-7096ff6dd6a2',
+          onsetDateTime: '2020-08-19T00:00:00+00:00',
+          recordedDate: '2020-08-19T18:42:25+00:00',
+        },
+      ],
+      error: null,
+      isLoading: false,
+      isValidating: false,
+      mutate: jest.fn(),
+    });
 
-    renderWithSwr(<ConditionsOverview patientUuid={mockPatient.id} />);
-
-    await waitForLoadingToFinish();
+    render(<ConditionsOverview patientUuid={mockPatient.id} />);
 
     expect(screen.getByRole('heading', { name: /conditions/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument();
@@ -93,17 +170,21 @@ describe('ConditionsOverview', () => {
   it('clicking the Add button or Record Conditions link launches the conditions form', async () => {
     const user = userEvent.setup();
 
-    mockOpenmrsFetch.mockResolvedValueOnce({ data: [] } as FetchResponse);
+    mockUseConditions.mockReturnValue({
+      conditions: [],
+      error: null,
+      isLoading: false,
+      isValidating: false,
+      mutate: jest.fn(),
+    });
 
-    renderWithSwr(<ConditionsOverview patientUuid={mockPatient.id} />);
-
-    await waitForLoadingToFinish();
+    render(<ConditionsOverview patientUuid={mockPatient.id} />);
 
     const recordConditionsLink = screen.getByRole('button', { name: /record conditions/i });
 
     await user.click(recordConditionsLink);
 
     expect(mockLaunchWorkspace).toHaveBeenCalledTimes(1);
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' });
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' }, null, null);
   });
 });

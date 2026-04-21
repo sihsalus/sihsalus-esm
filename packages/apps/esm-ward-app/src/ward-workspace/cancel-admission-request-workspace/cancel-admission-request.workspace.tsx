@@ -1,14 +1,12 @@
- 
 import { Button, ButtonSet, Form, InlineNotification, TextArea } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ResponsiveWrapper, showSnackbar, useAppContext, useSession } from '@openmrs/esm-framework';
+import { ResponsiveWrapper, showSnackbar, useAppContext } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import useWardLocation from '../../hooks/useWardLocation';
 import type { ObsPayload, WardPatientWorkspaceProps, WardViewContext } from '../../types';
 import { useCreateEncounter } from '../../ward.resource';
 import WardPatientWorkspaceBanner from '../patient-banner/patient-banner.component';
@@ -26,8 +24,6 @@ export default function CancelAdmissionRequestWorkspace({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { createEncounter, emrConfiguration, isLoadingEmrConfiguration, errorFetchingEmrConfiguration } =
     useCreateEncounter();
-  const { currentProvider } = useSession();
-  const { location } = useWardLocation();
   const { wardPatientGroupDetails } = useAppContext<WardViewContext>('ward-view-context') ?? {};
 
   const zodSchema = useMemo(
@@ -146,7 +142,7 @@ export default function CancelAdmissionRequestWorkspace({
             <Controller
               name="note"
               control={control}
-              render={({ field, fieldState: { error } }) => (
+              render={({ field }) => (
                 <ResponsiveWrapper>
                   <TextArea {...field} labelText={''} />
                 </ResponsiveWrapper>
@@ -162,7 +158,7 @@ export default function CancelAdmissionRequestWorkspace({
           )}
         </div>
         <ButtonSet className={styles.buttonSet}>
-          <Button size="xl" kind="secondary" onClick={closeWorkspaceWithSavedChanges}>
+          <Button size="xl" kind="secondary" onClick={() => closeWorkspaceWithSavedChanges()}>
             {t('cancel', 'Cancel')}
           </Button>
           <Button

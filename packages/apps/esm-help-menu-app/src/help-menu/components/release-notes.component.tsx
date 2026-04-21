@@ -7,7 +7,6 @@ import styles from './styles.scss';
 
 const ReleaseNotes = () => {
   const { t } = useTranslation();
-
   return (
     <Link
       className={styles.helpButton}

@@ -5,7 +5,6 @@ import { type GroupedObservation } from '../../types';
 
 import IndividualResultsTable from './individual-results-table.component';
 
-
 describe('IndividualResultsTable', () => {
   const mockSubRows = {
     key: 'HIV viral load',

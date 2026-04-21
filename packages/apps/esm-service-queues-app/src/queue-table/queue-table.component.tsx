@@ -53,6 +53,8 @@ interface QueueTableProps {
   isLoading?: boolean;
 }
 
+type QueueTableRowData = { id: string } & Record<string, JSX.Element | string>;
+
 function QueueTable({
   queueEntries,
   isValidating,
@@ -78,9 +80,9 @@ function QueueTable({
     goTo(1);
   }, [goTo, queueEntries]);
 
-  const rows =
+  const rows: QueueTableRowData[] =
     paginatedQueueEntries?.map((queueEntry) => {
-      const row: Record<string, JSX.Element | string> = { id: queueEntry.uuid };
+      const row: QueueTableRowData = { id: queueEntry.uuid };
       columns.forEach(({ key, CellComponent }) => {
         row[key] = <CellComponent key={key} queueEntry={queueEntry} />;
       });

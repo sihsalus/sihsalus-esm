@@ -134,7 +134,7 @@ const SchemaEditor: React.FC<SchemaEditorProps> = ({
       const jsonLines = content.split('\n');
 
       const traverse = (schemaPath: string): number => {
-        const pathSegments = schemaPath.split('/').filter((segment) => segment !== '' || segment !== 'type');
+        const pathSegments = schemaPath.split('/').filter((segment) => segment !== '' && segment !== 'type');
         let lineNumber = -1;
 
         for (const segment of pathSegments) {

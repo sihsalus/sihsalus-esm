@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Column, FlexGrid, Row, TextInput, Toggle } from '@carbon/react';
 import type { Config } from '@openmrs/esm-framework/src/internal';
 import {

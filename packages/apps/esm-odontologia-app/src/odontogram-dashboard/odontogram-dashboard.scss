@@ -1,0 +1,61 @@
+// Dashboard wrapper
+.dashboardWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.canvasWrapper {
+  overflow-x: auto;
+  padding: 0 1rem 1rem;
+}
+
+.embeddedToolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 1rem 0.5rem;
+}
+
+// Skeleton
+.skeletonWrapper {
+  padding: 1rem;
+}
+
+.skeletonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.skeletonCanvas {
+  width: 100%;
+  height: 340px;
+  border-radius: 4px;
+}
+
+// Record selector row (shown in the CardHeader actions slot)
+.selectorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.recordSelect {
+  min-width: 220px;
+}
+
+// Plain button wrapper for the info tooltip trigger
+.infoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--cds-icon-secondary, #525252);
+
+  &:hover {
+    color: var(--cds-icon-primary, #161616);
+  }
+}

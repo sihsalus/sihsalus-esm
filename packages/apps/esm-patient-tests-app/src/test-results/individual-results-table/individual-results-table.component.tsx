@@ -17,7 +17,6 @@ import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { type GroupedObservation } from '../../types';
 
 import styles from './individual-results-table.scss';
@@ -91,7 +90,7 @@ const IndividualResultsTable: React.FC<IndividualResultsTableProps> = ({ isLoadi
       subRows?.entries.length &&
       subRows.entries.map((row, i) => {
         const { units = '', range = '' } = row;
-        const isString = isNaN(parseFloat(row.value));
+        const isString = Number.isNaN(Number.parseFloat(row.value));
 
         return {
           ...row,

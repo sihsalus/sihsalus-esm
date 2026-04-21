@@ -38,7 +38,12 @@ const RefineSearch: React.FC<RefineSearchProps> = ({ setFilters, inTabletOrOverl
   const isTablet = useLayoutType() === 'tablet';
   const config = useConfig<PatientSearchConfig>();
 
-  const { control, handleSubmit, reset, formState } = useForm<AdvancedPatientSearchState>({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: _formState,
+  } = useForm<AdvancedPatientSearchState>({
     defaultValues: {
       gender: 'any',
       dateOfBirth: 0,

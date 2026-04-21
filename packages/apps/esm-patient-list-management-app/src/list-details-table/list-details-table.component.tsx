@@ -1,7 +1,6 @@
 import {
   Button,
   DataTable,
-  type DataTableRow,
   DataTableSkeleton,
   InlineLoading,
   Layer,
@@ -20,7 +19,7 @@ import {
 import { ArrowLeft, TrashCan } from '@carbon/react/icons';
 import { ConfigurableLink, useLayoutType, isDesktop, showSnackbar, useDebounce } from '@openmrs/esm-framework';
 import fuzzy from 'fuzzy';
-import React, { type CSSProperties, type HTMLAttributes, useCallback, useId, useMemo, useState } from 'react';
+import React, { type CSSProperties, useCallback, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { removePatientFromList } from '../api/api-remote';
@@ -28,98 +27,14 @@ import { EmptyDataIllustration } from '../empty-state/empty-data-illustration.co
 
 import styles from './list-details-table.scss';
 
-// FIXME Temporarily included types from Carbon
-type InputPropsBase = Omit<HTMLAttributes<HTMLInputElement>, 'onChange'>;
-
-interface SearchProps extends InputPropsBase {
-  /**
-   * Specify an optional value for the `autocomplete` property on the underlying
-   * `<input>`, defaults to "off"
-   */
-  autoComplete?: string;
-
-  /**
-   * Specify an optional className to be applied to the container node
-   */
-  className?: string;
-
-  /**
-   * Specify a label to be read by screen readers on the "close" button
-   */
-  closeButtonLabelText?: string;
-
-  /**
-   * Optionally provide the default value of the `<input>`
-   */
-  defaultValue?: string | number;
-
-  /**
-   * Specify whether the `<input>` should be disabled
-   */
-  disabled?: boolean;
-
-  /**
-   * Specify whether or not ExpandableSearch should render expanded or not
-   */
-  isExpanded?: boolean;
-
-  /**
-   * Specify a custom `id` for the input
-   */
-  id?: string;
-
-  /**
-   * Provide the label text for the Search icon
-   */
-  labelText: React.ReactNode;
-
-  /**
-   * Optional callback called when the search value changes.
-   */
-  onChange?(e: { target: HTMLInputElement; type: 'change' }): void;
-
-  /**
-   * Optional callback called when the search value is cleared.
-   */
-  onClear?(): void;
-
-  /**
-   * Optional callback called when the magnifier icon is clicked in ExpandableSearch.
-   */
-  onExpand?(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
-
-  /**
-   * Provide an optional placeholder text for the Search.
-   * Note: if the label and placeholder differ,
-   * VoiceOver on Mac will read both
-   */
-  placeholder?: string;
-
-  /**
-   * Rendered icon for the Search.
-   * Can be a React component class
-   */
-  renderIcon?: React.ComponentType | React.FunctionComponent;
-
-  /**
-   * Specify the role for the underlying `<input>`, defaults to `searchbox`
-   */
-  role?: string;
-
-  /**
-   * Specify the size of the Search
-   */
-  size?: 'sm' | 'md' | 'lg';
-
-  /**
-   * Optional prop to specify the type of the `<input>`
-   */
-  type?: string;
-
-  /**
-   * Specify the value of the `<input>`
-   */
-  value?: string | number;
+export interface PatientRow {
+  identifier?: string | null;
+  membershipUuid?: string;
+  mobile?: string | null;
+  name?: string;
+  sex?: string;
+  startDate?: string | null;
+  uuid?: string;
 }
 
 interface ListDetailsTableProps {
@@ -132,22 +47,22 @@ interface ListDetailsTableProps {
   pagination: {
     usePagination: boolean;
     currentPage: number;
-    onChange(props: any): any;
+    onChange(params: { page: number; pageSize: number }): void;
     pageSize: number;
     totalItems: number;
     pagesUnknown?: boolean;
     lastPage?: boolean;
   };
-  patients;
+  patients: Array<PatientRow>;
   style?: CSSProperties;
 }
 
 interface PatientTableColumn {
   key: string;
   header: string;
-  getValue?(patient: any): any;
+  getValue?(patient: PatientRow): unknown;
   link?: {
-    getUrl(patient: any): string;
+    getUrl(patient: PatientRow): string;
   };
 }
 
@@ -181,14 +96,22 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
     return debouncedSearchTerm
       ? fuzzy
           .filter(debouncedSearchTerm, patients, {
-            extract: (patient: any) => `${patient.name} ${patient.identifier} ${patient.sex}`,
+            extract: (patient: PatientRow) => `${patient.name} ${patient.identifier} ${patient.sex}`,
           })
           .sort((r1, r2) => r1.score - r2.score)
           .map((result) => result.original)
       : patients;
   }, [debouncedSearchTerm, patients]);
 
-  const tableRows: Array<typeof DataTableRow> = useMemo(
+  const renderCellValue = (value: React.ReactNode) => {
+    if (value && typeof value === 'object' && 'content' in value) {
+      return value.content as React.ReactNode;
+    }
+
+    return value;
+  };
+
+  const tableRows = useMemo(
     () =>
       filteredPatients?.map((patient) => ({
         id: patient.identifier,
@@ -301,7 +224,7 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
                           })}
                           className={isDesktop(layout) ? styles.desktopHeader : styles.tabletHeader}
                         >
-                          {header.header?.content ?? header.header}
+                          {header.header}
                         </TableHeader>
                       ))}
                     </TableRow>
@@ -317,7 +240,7 @@ const ListDetailsTable: React.FC<ListDetailsTableProps> = ({
                           key={row.id}
                         >
                           {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                            <TableCell key={cell.id}>{renderCellValue(cell.value)}</TableCell>
                           ))}
                           <TableCell className="cds--table-column-menu">
                             <Button

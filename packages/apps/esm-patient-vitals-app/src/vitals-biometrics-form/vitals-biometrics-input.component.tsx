@@ -77,9 +77,10 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
   const hasAbnormalValue = !isFocused && interpretation && abnormalValues.includes(interpretation as AbnormalValue);
 
   function checkValidity(value, onChange) {
-    setInvalid(!(Number(value) || value === ''));
+    const isInvalid = !(Number(value) || value === '');
+    setInvalid(isInvalid);
 
-    if (!invalid) {
+    if (!isInvalid) {
       onChange(value === '' ? undefined : Number(value));
     }
   }
@@ -142,7 +143,6 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
                             <NumberInput
                               allowEmpty
                               className={numberInputClasses}
-                              defaultValue={''}
                               disableWheel
                               hideSteppers
                               id={`${fieldId}-${fieldProperty.id}`}
@@ -150,17 +150,15 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
                               min={fieldProperty.min ?? undefined}
                               name={fieldProperty.name}
                               onBlur={() => handleFocusChange(false)}
-                              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                checkValidity(event.target.value, onChange)
-                              }
+                              onChange={(_event, { value }) => checkValidity(String(value ?? ''), onChange)}
                               onFocus={() => handleFocusChange(true)}
                               placeholder={generatePlaceholder(fieldProperty.name)}
                               readOnly={readOnly}
                               ref={ref}
                               style={{ ...fieldStyles }}
                               title={fieldProperty.name}
-                              type={fieldProperty.type}
-                              value={value}
+                              type="number"
+                              value={value ?? ''}
                             />
                           );
                         }}
@@ -181,7 +179,7 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
                         <TextArea
                           className={styles.textarea}
                           id={`${fieldId}-${fieldProperty.id}`}
-                          labelText={''}
+                          labelText={fieldProperty.name}
                           maxCount={100}
                           name={fieldProperty.name}
                           onBlur={() => handleFocusChange(false)}
@@ -192,7 +190,7 @@ const VitalsAndBiometricsInput: React.FC<VitalsAndBiometricsInputProps> = ({
                           rows={2}
                           style={{ ...fieldStyles }}
                           title={fieldProperty.name}
-                          value={value}
+                          value={value ?? ''}
                         />
                       )}
                     />

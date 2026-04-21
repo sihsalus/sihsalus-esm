@@ -1,7 +1,7 @@
 import { useLayoutType, useVisitTypes } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockVisitTypes } from '__mocks__';
+import { mockVisitTypes } from 'test-utils';
 import React from 'react';
 
 import QueueLinelistFilter from './queue-linelist-filter.workspace';
@@ -29,7 +29,7 @@ describe('QueueLinelistFilter', () => {
     expect(screen.getByLabelText('Age')).toBeInTheDocument();
     expect(screen.getByLabelText('Between')).toBeInTheDocument();
     expect(screen.getByLabelText('And')).toBeInTheDocument();
-    expect(screen.getByTestId('returnDate')).toBeInTheDocument();
+    expect(screen.getByLabelText('Date')).toBeInTheDocument();
     expect(screen.getByText("Use today's date")).toBeInTheDocument();
     expect(screen.getByRole('combobox', { name: /Select visit type/i })).toBeInTheDocument();
     expect(screen.getByText('Cancel')).toBeInTheDocument();

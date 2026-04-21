@@ -21,7 +21,10 @@ export function startupApp() {
       // t('patientRegistrationBreadcrumb', 'Patient Registration')
       title: () =>
         Promise.resolve(
-          globalThis.i18next.t('patientRegistrationBreadcrumb', { defaultValue: 'Patient Registration', ns: moduleName }),
+          globalThis.i18next.t('patientRegistrationBreadcrumb', {
+            defaultValue: 'Patient Registration',
+            ns: moduleName,
+          }),
         ),
       parent: `${globalThis.spaBase}/home`,
     },
@@ -30,7 +33,10 @@ export function startupApp() {
       // t('editPatientDetailsBreadcrumb', 'Edit patient details')
       title: () =>
         Promise.resolve(
-          globalThis.i18next.t('editPatientDetailsBreadcrumb', { defaultValue: 'Edit patient details', ns: moduleName }),
+          globalThis.i18next.t('editPatientDetailsBreadcrumb', {
+            defaultValue: 'Edit patient details',
+            ns: moduleName,
+          }),
         ),
       parent: `${globalThis.spaBase}/patient/:patientUuid/chart`,
     },

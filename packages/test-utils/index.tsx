@@ -1,7 +1,7 @@
 /**
  * Shared test utilities for all microfrontends.
  *
- * Resolved as the bare `'tools'` module via jest's `moduleDirectories: ['node_modules', 'packages/']`
+ * Resolved as the bare `test-utils` module via the shared TypeScript and Jest config.
  * in the root jest.config.js.
  */
 import React from 'react';
@@ -10,9 +10,9 @@ import { render, screen, waitForElementToBeRemoved, waitFor, type RenderOptions 
 import { SWRConfig } from 'swr';
 
 // ─── Re-export all shared mocks ──────────────────────────────────────────────
-export * from '../__mocks__';
+export * from './mocks';
 
-// ─── Additional patient mock not in __mocks__ ─────────────────────────────────
+// ─── Additional patient mock not in shared fixtures ───────────────────────────
 export const mockPatientWithLongName = {
   uuid: 'bfa09dac-ec9e-47c1-9ad3-e3ebdd5d722d',
   name: 'Some very long given name family name',

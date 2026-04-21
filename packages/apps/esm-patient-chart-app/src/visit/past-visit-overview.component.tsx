@@ -37,11 +37,15 @@ const PastVisitOverview: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid
   const rowData = useMemo(() => {
     return pastVisits?.map((visit) => ({
       id: `${visit.uuid}`,
-      startDate: new Date(visit.startDatetime).toLocaleDateString(locale, { dateStyle: 'medium' }),
+      startDate: new Date(visit.startDatetime).toLocaleDateString(locale, {
+        dateStyle: 'medium',
+      }),
       visitType: visit.visitType.display,
       location: visit.location?.display,
       endDate: visit.stopDatetime
-        ? new Date(visit.startDatetime).toLocaleDateString(locale, { dateStyle: 'medium' })
+        ? new Date(visit.startDatetime).toLocaleDateString(locale, {
+            dateStyle: 'medium',
+          })
         : '',
       visit: visit,
     }));
@@ -72,6 +76,7 @@ const PastVisitOverview: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid
                   <TableRow>
                     {headers.map((header) => (
                       <TableHeader
+                        key={String(header.key ?? header.header)}
                         {...getHeaderProps({
                           header,
                           isSortable: header.isSortable,
@@ -85,7 +90,7 @@ const PastVisitOverview: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow {...getRowProps({ row })}>
+                    <TableRow key={row.id} {...getRowProps({ row })}>
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
                       ))}

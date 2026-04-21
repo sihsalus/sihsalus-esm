@@ -81,6 +81,8 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ encounters, patientUuid }) 
     return [diagnoses, notes, medications];
   }, [encounters]);
 
+  const verticalTabsProps = { className: styles.verticalTabs } as unknown as React.ComponentProps<typeof Tabs>;
+
   return (
     <div className={styles.summaryContainer}>
       <p className={styles.diagnosisLabel}>{t('diagnoses', 'Diagnoses')}</p>
@@ -98,7 +100,7 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ encounters, patientUuid }) 
           </p>
         )}
       </div>
-      <Tabs className={styles.verticalTabs}>
+      <Tabs {...verticalTabsProps}>
         <TabList aria-label="Visit summary tabs" className={styles.tablist}>
           <Tab className={classNames(styles.tab, styles.bodyLong01)} onClick={() => setSelectedTab(0)} id="notes-tab">
             {t('notes', 'Notes')}

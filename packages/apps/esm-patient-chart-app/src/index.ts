@@ -5,6 +5,7 @@ import {
   getSyncLifecycle,
   registerFeatureFlag,
 } from '@openmrs/esm-framework';
+import * as Framework from '@openmrs/esm-framework';
 import * as PatientCommonLib from '@openmrs/esm-patient-common-lib';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 
@@ -17,7 +18,7 @@ import stopVisitActionButtonComponent from './actions-buttons/stop-visit.compone
 import { esmPatientChartSchema } from './config-schema';
 import { moduleName } from './constants';
 import { summaryDashboardMeta, encountersDashboardMeta } from './dashboard.meta';
-import { setupCacheableRoutes } from './offline';
+import { setupCacheableRoutes, setupOfflineVisitsSync } from './offline';
 import visitAttributeTagsComponent from './patient-banner-tags/visit-attribute-tags.component';
 import patientDetailsTileComponent from './patient-details-tile/patient-details-tile.component';
 import patientChartPageComponent from './root.component';
@@ -35,6 +36,7 @@ const patientChartDashboardExtensionName = 'patient-chart-dashboard';
 // This allows @openmrs/esm-patient-common-lib to be accessed by modules that are not
 // using webpack. This is used for ngx-formentry.
 window['_openmrs_esm_patient_common_lib'] = PatientCommonLib;
+window['_openmrs_esm_framework'] = Framework;
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
@@ -45,7 +47,7 @@ export function startupApp() {
   }
 
   globalScope[startupKey] = true;
-
+  setupOfflineVisitsSync();
   setupCacheableRoutes();
 
   defineConfigSchema(moduleName, esmPatientChartSchema);

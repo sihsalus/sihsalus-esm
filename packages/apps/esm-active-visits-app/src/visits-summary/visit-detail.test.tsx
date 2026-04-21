@@ -84,7 +84,7 @@ describe('VisitDetail', () => {
     expect(screen.getByRole('columnheader', { name: /time/i })).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: /encounter type/i })).toBeInTheDocument();
     expect(screen.getByRole('columnheader', { name: /provider/i })).toBeInTheDocument();
-    expect(screen.getByRole('row', { name: /12:34 pm encounter type/i })).toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: /^encounter type$/i })).toBeInTheDocument();
   });
 
   it('renders the Visit Summaries view when the "Visit Summary" tab is clicked', async () => {

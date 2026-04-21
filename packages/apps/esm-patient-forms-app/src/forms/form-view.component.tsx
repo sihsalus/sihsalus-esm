@@ -13,12 +13,11 @@ import {
   Tile,
   Button,
 } from '@carbon/react';
-import { EditIcon, formatDatetime, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { EditIcon, formatDatetime, useConfig, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import {
   EmptyDataIllustration,
   PatientChartPagination,
   launchPatientWorkspace,
-  launchStartVisitPrompt,
   useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
@@ -27,6 +26,8 @@ import first from 'lodash-es/first';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { type ConfigObject } from '../config-schema';
+import { launchFormEntryOrHtmlForms } from '../form-entry-interop';
 import { type CompletedFormInfo } from '../types';
 
 import styles from './form-view.scss';
@@ -48,13 +49,14 @@ const FormView: React.FC<FormViewProps> = ({
   category,
   forms,
   patientUuid,
-  patient: _patient,
+  patient,
   pageSize,
   pageUrl,
   urlLabel,
   mutateForms,
 }) => {
   const { t } = useTranslation();
+  const { htmlFormEntryForms } = useConfig<ConfigObject>();
   const isTablet = useLayoutType() === 'tablet';
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
   const [searchTerm, setSearchTerm] = useState('');
@@ -103,19 +105,27 @@ const FormView: React.FC<FormViewProps> = ({
 
   const launchFormWorkspace = React.useCallback(
     (formInfo: CompletedFormInfo, encounterUuid?: string) => {
-      if (!encounterUuid && !currentVisit) {
-        launchStartVisitPrompt();
+      if (encounterUuid) {
+        launchPatientWorkspace('patient-form-entry-workspace', {
+          workspaceTitle: formInfo.form.display ?? formInfo.form.name,
+          form: formInfo.form,
+          encounterUuid,
+          handlePostResponse: () => mutateForms?.(),
+        });
         return;
       }
 
-      launchPatientWorkspace('patient-form-entry-workspace', {
-        workspaceTitle: formInfo.form.display ?? formInfo.form.name,
-        form: formInfo.form,
-        encounterUuid,
-        handlePostResponse: () => mutateForms?.(),
-      });
+      launchFormEntryOrHtmlForms(
+        currentVisit ?? undefined,
+        formInfo.form.uuid,
+        patient,
+        htmlFormEntryForms,
+        undefined,
+        formInfo.form.display ?? formInfo.form.name,
+        mutateForms,
+      );
     },
-    [currentVisit, mutateForms],
+    [currentVisit, htmlFormEntryForms, mutateForms, patient],
   );
 
   if (!forms?.length) {
@@ -192,9 +202,7 @@ const FormView: React.FC<FormViewProps> = ({
                           <TableCell>
                             <button
                               type="button"
-                              onClick={() =>
-                                launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)
-                              }
+                              onClick={() => launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)}
                               className={styles.formNameButton}
                             >
                               {row.cells[1].value}
@@ -207,9 +215,7 @@ const FormView: React.FC<FormViewProps> = ({
                                 renderIcon={EditIcon}
                                 aria-label={t('editForm', 'Edit form')}
                                 iconDescription={t('editForm', 'Edit form')}
-                                onClick={() =>
-                                  launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)
-                                }
+                                onClick={() => launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)}
                                 size={isTablet ? 'lg' : 'sm'}
                                 kind="ghost"
                                 tooltipPosition="left"

@@ -1,15 +1,13 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { type AssignedExtension, useAssignedExtensions, Extension, useConfig } from '@openmrs/esm-framework';
 // ComponentContext is not part of the public API but is needed here to render extensions
 // in a custom layout (CSS grid tiles) without the wrapper div that ExtensionSlot adds.
- 
+
 import { ComponentContext } from '@openmrs/esm-framework/src/internal';
 import styles from './laboratory-summary-tiles.scss';
 import { type Config } from '../config-schema';
 
 const LaboratorySummaryTiles: React.FC = () => {
-  const { t } = useTranslation();
   const { enableReviewingLabResultsBeforeApproval } = useConfig<Config>();
   const labTileSlot = 'lab-tiles-slot';
   const tilesExtensions = useAssignedExtensions(labTileSlot) as AssignedExtension[];
@@ -27,7 +25,7 @@ const LaboratorySummaryTiles: React.FC = () => {
 
   return (
     <div className={styles.cardContainer}>
-      {filteredExtensions.map((extension, index) => {
+      {filteredExtensions.map((extension) => {
         return (
           <ComponentContext.Provider
             key={extension.id}

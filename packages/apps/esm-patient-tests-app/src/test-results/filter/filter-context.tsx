@@ -11,6 +11,7 @@ import {
   type ReducerState,
   ReducerActionType,
   type TimelineData,
+  type RowData,
 } from './filter-types';
 
 const initialState: ReducerState = {
@@ -39,7 +40,7 @@ const initialContext = {
 const FilterContext = createContext<FilterContextProps>(initialContext);
 
 export interface FilterProviderProps {
-  roots: any[];
+  roots: Array<TreeNode>;
   children: React.ReactNode;
 }
 
@@ -80,12 +81,12 @@ const FilterProvider = ({ roots, children }: FilterProviderProps) => {
     const allTimes = [
       ...new Set(
         Object.values(tests)
-          .map((test: ReducerState['tests']) => test?.obs?.map((entry) => entry.obsDatetime))
+          .map((test) => test?.obs?.map((entry) => entry.obsDatetime) ?? [])
           .flat(),
       ),
     ];
     allTimes.sort((a, b) => (new Date(a) < new Date(b) ? 1 : -1));
-    const rows = [];
+    const rows: Array<RowData> = [];
     Object.values(tests).forEach((testData) => {
       const newEntries = allTimes.map((time) => testData.obs.find((entry) => entry.obsDatetime === time));
       rows.push({ ...testData, entries: newEntries });

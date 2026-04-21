@@ -164,7 +164,11 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ visit, patientUuid }) => {
               {t('encounters_title', 'Encounters')}
             </Tab>
             {extensions?.map((extension, index) => (
-              <Tab key={index} className={styles.tab} id={`${extension.meta.title || index}-tab`}>
+              <Tab
+                key={`${extension.moduleName}-${extension.meta.title || index}`}
+                className={styles.tab}
+                id={`${extension.meta.title || index}-tab`}
+              >
                 {t(extension.meta.title, {
                   ns: extension.moduleName,
                   defaultValue: extension.meta.title,

@@ -234,4 +234,53 @@ describe('useStickerPdfPrinter', () => {
 
     expect(resolved).toBe(true);
   });
+
+  it('should complete printing using polling fallback when afterprint listener fails', async () => {
+    jest.useFakeTimers();
+
+    mockContentWindow.addEventListener.mockImplementationOnce(() => {
+      throw new Error('cross-origin access denied');
+    });
+
+    const hasFocusMock = jest
+      .fn<boolean, []>()
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValue(true);
+    document.hasFocus = hasFocusMock;
+
+    const { result } = renderHook(() => useStickerPdfPrinter());
+
+    act(() => {
+      void result.current.printPdf('http://example.com/fallback.pdf');
+    });
+
+    await act(async () => {
+      await jest.runOnlyPendingTimersAsync();
+    });
+
+    await act(async () => {
+      await jest.advanceTimersByTimeAsync(600);
+    });
+
+    expect(result.current.isPrinting).toBe(false);
+    expect(mockContentWindow.focus).toHaveBeenCalled();
+    expect(mockContentWindow.print).toHaveBeenCalled();
+  });
+
+  it('should remove the print iframe on unmount', () => {
+    const { result, unmount } = renderHook(() => useStickerPdfPrinter());
+
+    act(() => {
+      void result.current.printPdf('http://example.com/cleanup.pdf');
+    });
+
+    const iframeBeforeUnmount = document.querySelector('iframe[name="pdfPrinterFrame"]');
+    expect(iframeBeforeUnmount).toBeInTheDocument();
+
+    unmount();
+
+    const iframeAfterUnmount = document.querySelector('iframe[name="pdfPrinterFrame"]');
+    expect(iframeAfterUnmount).not.toBeInTheDocument();
+  });
 });

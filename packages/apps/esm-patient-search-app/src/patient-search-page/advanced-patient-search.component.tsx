@@ -29,7 +29,7 @@ const AdvancedPatientSearchComponent: React.FC<AdvancedPatientSearchProps> = ({
       }
     });
 
-    const attributesWithValues = Object.entries(filters.attributes || {}).filter(([key, value]) => value !== '');
+    const attributesWithValues = Object.entries(filters.attributes || {}).filter(([_key, value]) => value !== '');
 
     count += attributesWithValues.length;
     return count;

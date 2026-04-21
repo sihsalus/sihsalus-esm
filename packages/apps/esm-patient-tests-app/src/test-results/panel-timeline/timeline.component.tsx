@@ -99,7 +99,7 @@ const DataRows: React.FC<DataRowsProps> = ({ timeColumns, rowData, sortedTimes, 
               title,
               shadow: showShadow,
               testUuid,
-              isString: isNaN(parseFloat(obs?.[0]?.value)),
+              isString: Number.isNaN(Number.parseFloat(obs?.[0]?.value)),
             }}
           />
           <GridItems {...{ sortedTimes, obs, zebra: !!(rowCount % 2) }} />

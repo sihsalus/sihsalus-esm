@@ -118,7 +118,7 @@ describe('ActionMenuButton', () => {
     expect(button).toBeInTheDocument();
 
     // toHaveAttribute() cannot do either partial or regex matches
-    // eslint-disable-next-line jest-dom/prefer-to-have-attribute
+
     expect(button.getAttribute('class')).toContain('active');
   });
 
@@ -231,7 +231,7 @@ describe('ActionMenuButton', () => {
     expect(button).toBeInTheDocument();
 
     // toHaveAttribute() cannot do either partial or regex matches
-    // eslint-disable-next-line jest-dom/prefer-to-have-attribute
+
     expect(button.getAttribute('class')).toContain('active');
   });
 

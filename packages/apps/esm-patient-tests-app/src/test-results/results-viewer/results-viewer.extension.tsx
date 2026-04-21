@@ -146,7 +146,7 @@ const ResultsViewer: React.FC<ResultsViewerProps> = ({ patientUuid, basePath, lo
           <TabletOverlay
             headerText={t('trendline', 'Trendline')}
             close={navigateBackFromTrendlineView}
-            buttonsGroup={<></>}
+            buttonsGroup={null}
           >
             <Trendline patientUuid={patientUuid} conceptUuid={testUuid} basePath={basePath} />
           </TabletOverlay>

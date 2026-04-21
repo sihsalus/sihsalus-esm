@@ -1,4 +1,5 @@
 import { getGlobalStore, useStore } from '@openmrs/esm-framework';
+import type { StoreApi } from 'zustand/vanilla';
 
 /**
  * Service Queues Integration Utilities
@@ -25,7 +26,7 @@ interface ServiceQueuesStore {
  *
  * @returns The store instance, or null if not available
  */
-function getServiceQueuesStore() {
+function getServiceQueuesStore(): StoreApi<ServiceQueuesStore> | null {
   try {
     return getGlobalStore<ServiceQueuesStore>('serviceQueues', {
       selectedQueueLocationUuid: undefined,
@@ -34,7 +35,7 @@ function getServiceQueuesStore() {
       selectedServiceDisplay: undefined,
       selectedQueueStatusUuid: undefined,
       selectedQueueStatusDisplay: '',
-    });
+    }) as StoreApi<ServiceQueuesStore>;
   } catch {
     // Store not available, return null
     // This is expected when emergency-app is used standalone
@@ -51,11 +52,13 @@ function getServiceQueuesStore() {
  * @returns The selected location UUID, or undefined
  */
 export function useServiceQueuesLocation(): string | undefined {
-  const store = getServiceQueuesStore();
-
-  if (!store) {
-    return undefined;
-  }
+  const store: StoreApi<Pick<ServiceQueuesStore, 'selectedQueueLocationUuid'>> = getServiceQueuesStore() ?? {
+    getState: () => ({ selectedQueueLocationUuid: undefined }),
+    setState: () => undefined,
+    getInitialState: () => ({ selectedQueueLocationUuid: undefined }),
+    subscribe: () => () => undefined,
+    destroy: () => undefined,
+  };
 
   const { selectedQueueLocationUuid } = useStore(store);
   return selectedQueueLocationUuid || undefined;
@@ -73,11 +76,20 @@ export function useServiceQueuesLocationAndName(): {
   locationUuid?: string;
   locationName?: string;
 } {
-  const store = getServiceQueuesStore();
-
-  if (!store) {
-    return { locationUuid: undefined, locationName: undefined };
-  }
+  const store: StoreApi<Pick<ServiceQueuesStore, 'selectedQueueLocationUuid' | 'selectedQueueLocationName'>> =
+    getServiceQueuesStore() ?? {
+      getState: () => ({
+        selectedQueueLocationUuid: undefined,
+        selectedQueueLocationName: undefined,
+      }),
+      setState: () => undefined,
+      getInitialState: () => ({
+        selectedQueueLocationUuid: undefined,
+        selectedQueueLocationName: undefined,
+      }),
+      subscribe: () => () => undefined,
+      destroy: () => undefined,
+    };
 
   const { selectedQueueLocationUuid, selectedQueueLocationName } = useStore(store);
   return {

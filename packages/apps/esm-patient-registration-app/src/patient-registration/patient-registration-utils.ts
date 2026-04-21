@@ -11,6 +11,13 @@ import {
   type PatientUuidMapType,
 } from './patient-registration.types';
 
+const familyName2ExtensionUrl = 'http://openmrs.org/fhir/StructureDefinition/patient-family-name2';
+
+function getFamilyName2(name?: fhir.HumanName): string | undefined {
+  const matchingExtension = name?.extension?.find((extension) => extension.url === familyName2ExtensionUrl);
+  return matchingExtension?.valueString ?? name?.extension?.[0]?.extension?.[0]?.valueString;
+}
+
 export function parseAddressTemplateXml(addressTemplate: string) {
   const templateXmlDoc = new DOMParser().parseFromString(addressTemplate, 'text/xml');
   const nameMappings = templateXmlDoc.querySelector('nameMappings');
@@ -116,12 +123,12 @@ export function getFormValuesFromFhirPatient(patient: fhir.Patient) {
   result.givenName = patientName?.given[0];
   result.middleName = patientName?.given[1];
   result.familyName = patientName?.family;
-  result.familyName2 = patientName?.extension[0].extension[0].valueString;
+  result.familyName2 = getFamilyName2(patientName);
   result.addNameInLocalLanguage = additionalPatientName ? true : undefined;
   result.additionalGivenName = additionalPatientName?.given[0];
   result.additionalMiddleName = additionalPatientName?.given[1];
   result.additionalFamilyName = additionalPatientName?.family;
-  result.additionalFamilyName2 = additionalPatientName?.family2;
+  result.additionalFamilyName2 = getFamilyName2(additionalPatientName);
 
   result.gender = patient.gender;
   result.birthdate = patient.birthDate ? parseDate(patient.birthDate) : undefined;

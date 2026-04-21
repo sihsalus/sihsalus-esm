@@ -43,7 +43,7 @@ export function getPatientField(field: AllowedPatientFields): React.FC<PatientDe
     case 'address':
       return PatientAddress;
     default:
-      console.error(`Invalid patient field: ${field}`);
-      return null;
+      console.error(`Invalid patient field: ${String(field)}`);
+      return null as unknown as React.FC<PatientDetailProps>;
   }
 }

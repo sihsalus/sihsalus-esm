@@ -16,10 +16,11 @@ import {
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getCoreTranslation, type Location } from '@openmrs/esm-framework';
+import { type TFunction } from 'i18next';
 import capitalize from 'lodash-es/capitalize';
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { type TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import styles from '../modals.scss';
@@ -93,7 +94,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
   showModal,
 }) => {
   const { t } = useTranslation();
-  const [occupancyStatus, setOccupancyStatus] = useState(capitalize(initialData.status));
+  const [occupancyStatus, setOccupancyStatus] = useState<string>(capitalize(initialData.status));
   const [selectedBedType] = useState(initialData.bedType?.name ?? '');
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [formStateError, setFormStateError] = useState('');
@@ -156,7 +157,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup legendText="">
               <Controller
                 name="bedRow"
                 control={control}
@@ -166,14 +167,13 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                     id="bedRow"
                     invalidText={fieldState?.error?.message}
                     label={t('bedRow', 'Bed row')}
-                    labelText={t('bedRow', 'Bed row')}
                     {...field}
                   />
                 )}
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup legendText="">
               <Controller
                 name="bedColumn"
                 control={control}
@@ -182,7 +182,6 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                     hideSteppers
                     id="bedColumn"
                     label={t('bedColumn', 'Bed column')}
-                    labelText={t('bedColumn', 'Bed column')}
                     invalidText={fieldState.error?.message}
                     {...field}
                   />
@@ -190,7 +189,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup legendText="">
               <Controller
                 name="location"
                 control={control}
@@ -201,7 +200,6 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                     invalidText={fieldState?.error?.message}
                     items={allLocations}
                     itemToString={(location) => location?.display ?? ''}
-                    label={t('location', 'Location')}
                     /*
                       TODO: onBlur shall be refactored to onBlur={onBlur} if esm-core has @carbon/react version 1.72+
                       (ComboBox bug does not trigger onChange below mentioned version in production build - see https://github.com/carbon-design-system/carbon/issues/18145#issuecomment-2521936772)
@@ -224,7 +222,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup legendText="">
               <Controller
                 name="occupancyStatus"
                 control={control}
@@ -251,7 +249,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
               />
             </FormGroup>
 
-            <FormGroup>
+            <FormGroup legendText="">
               <Controller
                 name="bedType"
                 control={control}
@@ -263,7 +261,7 @@ const BedAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                     labelText={t('bedTypes', 'Bed types')}
                     {...field}
                   >
-                    <SelectItem text={t('chooseBedtype', 'Choose a bed type')} />
+                    <SelectItem text={t('chooseBedtype', 'Choose a bed type')} value="" />
                     {availableBedTypes.map((bedType, index) => (
                       <SelectItem text={bedType.name} value={bedType.name} key={`bedType-${index}`}>
                         {bedType.name}

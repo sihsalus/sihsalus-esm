@@ -28,6 +28,14 @@ import type { BedTypeData } from '../types';
 import EditBedTypeForm from './edit-bed-type.component';
 import BedTypeForm from './new-bed-type-form.component';
 
+const renderCellValue = (value: React.ReactNode) => {
+  if (value && typeof value === 'object' && 'content' in value) {
+    return value.content as React.ReactNode;
+  }
+
+  return value;
+};
+
 const BedTypeAdministrationTable: React.FC = () => {
   const { t } = useTranslation();
   const headerTitle = t('bedTypes', 'Bed types');
@@ -73,7 +81,6 @@ const BedTypeAdministrationTable: React.FC = () => {
         actions: (
           <IconButton
             align="top-start"
-            enterDelayMs={300}
             kind="ghost"
             label={t('editBedType', 'Edit bed type')}
             onClick={(e) => {
@@ -96,7 +103,7 @@ const BedTypeAdministrationTable: React.FC = () => {
       <>
         <Header title={t('bedTypes', 'Bed types')} />
         <div className={styles.widgetCard}>
-          <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />
+          <DataTableSkeleton role="progressbar" size={isDesktop ? 'sm' : 'lg'} zebra />
         </div>
       </>
     );
@@ -150,7 +157,7 @@ const BedTypeAdministrationTable: React.FC = () => {
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
-                      <TableHeader key={header.key}>{header.header?.content ?? header.header}</TableHeader>
+                      <TableHeader key={header.key}>{header.header}</TableHeader>
                     ))}
                   </TableRow>
                 </TableHead>
@@ -158,7 +165,7 @@ const BedTypeAdministrationTable: React.FC = () => {
                   {rows.map((row) => (
                     <TableRow key={row.id}>
                       {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                        <TableCell key={cell.id}>{renderCellValue(cell.value)}</TableCell>
                       ))}
                     </TableRow>
                   ))}

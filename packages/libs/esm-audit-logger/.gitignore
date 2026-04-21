@@ -1,0 +1,15 @@
+dist/
+.turbo/
+node_modules/
+setup-tests.js
+setup-tests.js.map
+setup-tests.d.ts
+setup-tests.d.ts.map
+vitest.config.js
+vitest.config.js.map
+vitest.config.d.ts
+vitest.config.d.ts.map
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+src/**/*.d.ts.map

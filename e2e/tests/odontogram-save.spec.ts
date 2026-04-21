@@ -10,7 +10,10 @@ async function openOdontogramSection(page: Page) {
   await page.goto(`/patient/${patientUuid}/chart`);
   await page.waitForLoadState('networkidle').catch(() => null);
 
-  const odontogramNav = page.locator('a, button').filter({ hasText: /Odontograma/i }).first();
+  const odontogramNav = page
+    .locator('a, button')
+    .filter({ hasText: /Odontograma/i })
+    .first();
   if (await odontogramNav.isVisible().catch(() => false)) {
     await odontogramNav.click();
     await page.waitForLoadState('networkidle').catch(() => null);
@@ -59,7 +62,9 @@ test.describe('Odontograma - guardado básico en patient chart', () => {
 
     // Caso ideal: se emite POST /encounter con payload de odontograma.
     const postRequest = await page
-      .waitForRequest((req) => req.method() === 'POST' && req.url().includes('/ws/rest/v1/encounter'), { timeout: 8_000 })
+      .waitForRequest((req) => req.method() === 'POST' && req.url().includes('/ws/rest/v1/encounter'), {
+        timeout: 8_000,
+      })
       .catch(() => null);
 
     if (postRequest) {

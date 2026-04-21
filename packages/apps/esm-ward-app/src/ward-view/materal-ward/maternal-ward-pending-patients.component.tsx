@@ -25,7 +25,7 @@ function MaternalWardPendingPatients() {
     <ErrorState headerTitle={t('admissionRequests', 'Admission requests')} error={errorFetchingInpatientRequests} />
   ) : (
     <>
-      {inpatientRequests?.map((request: InpatientRequest, i) => {
+      {inpatientRequests?.map((request: InpatientRequest) => {
         const wardPatient = {
           patient: request.patient,
           visit: request.visit,
@@ -35,7 +35,7 @@ function MaternalWardPendingPatients() {
         };
 
         return (
-          <AdmissionRequestCard key={`admission-request-card-${i}`} wardPatient={wardPatient}>
+          <AdmissionRequestCard key={`admission-request-card-${request.visit.uuid}`} wardPatient={wardPatient}>
             <CodedObsTagsRow id="pregnancy-complications" {...wardPatient} />
             <MotherChildRow wardPatient={wardPatient} childrenOfWardPatientInSameBed={[]} />
             <AdmissionRequestNoteRow id={'admission-request-note'} wardPatient={wardPatient} />

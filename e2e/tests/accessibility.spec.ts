@@ -9,9 +9,7 @@ test.describe('Accessibility checks @accessibility', () => {
     const headingCount = await page.locator('h1, h2, [role="heading"]').count();
     expect(headingCount).toBeGreaterThan(0);
 
-    const interactiveCount = await page
-      .locator('button, input, select, textarea, a[href], [role="button"]')
-      .count();
+    const interactiveCount = await page.locator('button, input, select, textarea, a[href], [role="button"]').count();
     expect(interactiveCount).toBeGreaterThan(0);
   });
 

@@ -269,11 +269,14 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
                             return <Switch name={uuid} text={display} key={uuid} value={uuid} />;
                           })
                         ) : (
-                          <Switch
-                            name={t('noPriorityFound', 'No priority found')}
-                            text={t('noPriorityFound', 'No priority found')}
-                            value={null}
-                          />
+                          [
+                            <Switch
+                              key="no-priority-found"
+                              name={t('noPriorityFound', 'No priority found')}
+                              text={t('noPriorityFound', 'No priority found')}
+                              value={null}
+                            />,
+                          ]
                         )}
                       </ContentSwitcher>
                       {errors.priority && <div className={styles.error}>{errors.priority.message}</div>}
@@ -288,19 +291,17 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ queueEntry, close
               {t('cancel', 'Cancel')}
             </Button>
             <Button disabled={isSubmitting} type="submit">
-              <>
-                {isSubmitting ? (
-                  <div className={styles.inline}>
-                    <InlineLoading
-                      status="active"
-                      iconDescription={t('submitting', 'Submitting')}
-                      description={t('submitting', 'Submitting')}
-                    />
-                  </div>
-                ) : (
-                  t('moveToNextService', 'Move to next service')
-                )}
-              </>
+              {isSubmitting ? (
+                <div className={styles.inline}>
+                  <InlineLoading
+                    status="active"
+                    iconDescription={t('submitting', 'Submitting')}
+                    description={t('submitting', 'Submitting')}
+                  />
+                </div>
+              ) : (
+                t('moveToNextService', 'Move to next service')
+              )}
             </Button>
           </ModalFooter>
         </Form>

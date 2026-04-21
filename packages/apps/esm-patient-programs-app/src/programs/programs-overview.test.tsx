@@ -1,22 +1,58 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, within } from '@testing-library/react';
-import { launchWorkspace2, openmrsFetch } from '@openmrs/esm-framework';
-import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from '__mocks__';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from 'test-utils';
+import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import ProgramsOverview from './programs-overview.component';
+import { usePrograms } from './programs.resource';
 
-const mockOpenmrsFetch = openmrsFetch as jest.Mock;
-const mockLaunchWorkspace = jest.mocked(launchWorkspace2);
+const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);
+const mockUsePrograms = jest.mocked(usePrograms);
+
+jest.mock('@openmrs/esm-patient-common-lib', () => {
+  const originalModule = jest.requireActual('@openmrs/esm-patient-common-lib');
+
+  return {
+    ...originalModule,
+    launchPatientWorkspace: jest.fn(),
+  };
+});
+
+jest.mock('./programs.resource', () => {
+  const originalModule = jest.requireActual('./programs.resource');
+
+  return {
+    ...originalModule,
+    usePrograms: jest.fn(),
+  };
+});
 
 const testProps = {
   basePath: `/patient/${mockPatient.id}/chart`,
   patientUuid: mockPatient.id,
 };
 
+const mockProgramsState = ({
+  enrollments = [],
+  availablePrograms = mockCareProgramsResponse,
+  eligiblePrograms = mockCareProgramsResponse,
+  error = null,
+} = {}) => {
+  mockUsePrograms.mockReturnValue({
+    enrollments,
+    error,
+    isLoading: false,
+    isValidating: false,
+    activeEnrollments: enrollments.filter((enrollment) => !enrollment.dateCompleted),
+    availablePrograms,
+    eligiblePrograms,
+  });
+};
+
 describe('ProgramsOverview', () => {
   it('renders an empty state view when the patient is not enrolled into any programs', async () => {
-    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: [] } });
+    mockProgramsState({ enrollments: [] });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
 
@@ -35,7 +71,7 @@ describe('ProgramsOverview', () => {
         statusText: 'Unauthorized',
       },
     };
-    mockOpenmrsFetch.mockRejectedValueOnce(error);
+    mockProgramsState({ error, availablePrograms: [] });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
 
@@ -48,7 +84,7 @@ describe('ProgramsOverview', () => {
   it("renders a tabular overview of the patient's active program enrollments when available", async () => {
     const user = userEvent.setup();
 
-    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockEnrolledProgramsResponse } });
+    mockProgramsState({ enrollments: mockEnrolledProgramsResponse });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
 
@@ -76,20 +112,23 @@ describe('ProgramsOverview', () => {
     expect(addButton).toBeEnabled();
     await user.click(addButton);
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('programs-form-workspace');
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('programs-form-workspace');
 
     await user.click(actionMenuButton);
     await user.click(screen.getByText('Edit'));
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('programs-form-workspace', {
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('programs-form-workspace', {
       programEnrollmentId: mockEnrolledProgramsResponse[0].uuid,
       workspaceTitle: 'Edit program enrollment',
     });
   });
 
   it('renders a notification if the patient is already enrolled in all available programs', async () => {
-    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockEnrolledInAllProgramsResponse } });
-    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockCareProgramsResponse } });
+    mockProgramsState({
+      enrollments: mockEnrolledInAllProgramsResponse,
+      availablePrograms: mockCareProgramsResponse,
+      eligiblePrograms: [],
+    });
 
     renderWithSwr(<ProgramsOverview {...testProps} />);
 

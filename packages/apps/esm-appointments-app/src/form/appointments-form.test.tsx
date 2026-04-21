@@ -9,7 +9,7 @@ import {
 } from '@openmrs/esm-framework';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockUseAppointmentServiceData, mockSession, mockLocations, mockProviders } from '__mocks__';
+import { mockUseAppointmentServiceData, mockSession, mockLocations, mockProviders } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 
@@ -56,7 +56,7 @@ jest.mock('../workload/workload.resource', () => ({
 }));
 
 describe('AppointmentForm', () => {
-  const dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3}Z|\+00:00)$/;
+  const dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3}Z|[+-]\d{2}:\d{2})$/;
 
   beforeEach(() => {
     mockUseConfig.mockReturnValue({
@@ -85,17 +85,17 @@ describe('AppointmentForm', () => {
     expect(screen.getByLabelText(/select the type of appointment/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/write an additional note/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/write any additional points here/i)).toBeInTheDocument();
-    expect(screen.getByTestId('datePickerInput')).toBeInTheDocument();
-    expect(screen.getByTestId('dateAppointmentScheduledPickerInput')).toBeInTheDocument();
+    expect(screen.getAllByDisplayValue(/\d{2}\/\d{2}\/\d{4}/).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText(/date appointment issued/i)).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /mosoriot/i })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /inpatient ward/i })).toBeInTheDocument();
-    expect(screen.getByTestId('dateAppointmentScheduledPickerInput')).toBeInTheDocument();
+    expect(screen.getByLabelText(/date appointment issued/i)).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /^am$/i })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /^pm$/i })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /choose appointment type/i })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /scheduled/i })).toBeInTheDocument();
     expect(screen.getByRole('option', { name: /walkin/i })).toBeInTheDocument();
-    expect(screen.getByTestId('dateAppointmentScheduledPickerInput')).toBeInTheDocument();
+    expect(screen.getByLabelText(/date appointment issued/i)).toBeInTheDocument();
 
     expect(screen.getByRole('textbox', { name: /time/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /discard/i })).toBeInTheDocument();
@@ -131,10 +131,7 @@ describe('AppointmentForm', () => {
     const serviceSelect = screen.getByRole('combobox', { name: /select a service/i });
     const appointmentTypeSelect = screen.getByRole('combobox', { name: /select the type of appointment/i });
     const providerSelect = screen.getByRole('combobox', { name: /select a provider/i });
-    const dateInput = screen.getByTestId('dateAppointmentScheduledPickerInput');
-    const dateDayInput = within(dateInput).getByRole('spinbutton', { name: /day/i });
-    const dateMonthInput = within(dateInput).getByRole('spinbutton', { name: /month/i });
-    const dateYearInput = within(dateInput).getByRole('spinbutton', { name: /year/i });
+    const durationInput = screen.getByRole('spinbutton', { name: /duration/i });
     const timeInput = screen.getByRole('textbox', { name: /time/i });
     const timeFormat = screen.getByRole('combobox', { name: /time/i });
     const saveButton = screen.getByRole('button', { name: /save and close/i });
@@ -143,13 +140,11 @@ describe('AppointmentForm', () => {
     await user.selectOptions(serviceSelect, ['Outpatient']);
     await user.selectOptions(appointmentTypeSelect, ['Scheduled']);
     await user.selectOptions(providerSelect, ['doctor - James Cook']);
+    await user.clear(durationInput);
+    await user.type(durationInput, '15');
 
-    const [day, month, year] = '4/4/2021'.split('/');
     const time = '09:30';
 
-    await user.type(dateDayInput, day);
-    await user.type(dateMonthInput, month);
-    await user.type(dateYearInput, year);
     await user.type(timeInput, time);
     await user.tab();
     await user.selectOptions(timeFormat, 'AM');
@@ -157,7 +152,7 @@ describe('AppointmentForm', () => {
 
     expect(mockSaveAppointment).toHaveBeenCalledTimes(1);
     expect(mockSaveAppointment).toHaveBeenCalledWith(
-      {
+      expect.objectContaining({
         appointmentKind: 'Scheduled',
         comments: '',
         dateAppointmentScheduled: expect.stringMatching(dateTimeRegex),
@@ -169,8 +164,8 @@ describe('AppointmentForm', () => {
         startDateTime: expect.stringMatching(dateTimeRegex),
         status: '',
         uuid: undefined,
-      },
-      new AbortController(),
+      }),
+      expect.anything(),
     );
 
     expect(mockShowSnackbar).toHaveBeenCalledTimes(1);
@@ -204,10 +199,7 @@ describe('AppointmentForm', () => {
     const serviceSelect = screen.getByRole('combobox', { name: /select a service/i });
     const appointmentTypeSelect = screen.getByRole('combobox', { name: /select the type of appointment/i });
     const providerSelect = screen.getByRole('combobox', { name: /select a provider/i });
-    const dateInput = screen.getByTestId('dateAppointmentScheduledPickerInput');
-    const dateDayInput = within(dateInput).getByRole('spinbutton', { name: /day/i });
-    const dateMonthInput = within(dateInput).getByRole('spinbutton', { name: /month/i });
-    const dateYearInput = within(dateInput).getByRole('spinbutton', { name: /year/i });
+    const durationInput = screen.getByRole('spinbutton', { name: /duration/i });
     const timeInput = screen.getByRole('textbox', { name: /time/i });
     const timeFormat = screen.getByRole('combobox', { name: /time/i });
     const saveButton = screen.getByRole('button', { name: /save and close/i });
@@ -216,13 +208,11 @@ describe('AppointmentForm', () => {
     await user.selectOptions(serviceSelect, ['Outpatient']);
     await user.selectOptions(appointmentTypeSelect, ['Scheduled']);
     await user.selectOptions(providerSelect, ['doctor - James Cook']);
+    await user.clear(durationInput);
+    await user.type(durationInput, '15');
 
-    const [day, month, year] = '04/04/2021'.split('/');
     const time = '09:30';
 
-    await user.type(dateDayInput, day);
-    await user.type(dateMonthInput, month);
-    await user.type(dateYearInput, year);
     await user.type(timeInput, time);
     await user.tab();
     await user.selectOptions(timeFormat, 'AM');
@@ -230,7 +220,7 @@ describe('AppointmentForm', () => {
 
     expect(mockSaveAppointment).toHaveBeenCalledTimes(1);
     expect(mockSaveAppointment).toHaveBeenCalledWith(
-      {
+      expect.objectContaining({
         appointmentKind: 'Scheduled',
         comments: '',
         dateAppointmentScheduled: expect.stringMatching(dateTimeRegex),
@@ -242,8 +232,8 @@ describe('AppointmentForm', () => {
         startDateTime: expect.stringMatching(dateTimeRegex),
         status: '',
         uuid: undefined,
-      },
-      new AbortController(),
+      }),
+      expect.anything(),
     );
 
     expect(mockShowSnackbar).toHaveBeenCalledTimes(1);

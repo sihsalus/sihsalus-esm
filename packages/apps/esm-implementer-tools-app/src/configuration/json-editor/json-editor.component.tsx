@@ -40,7 +40,6 @@ export default function JsonEditor({ height }: JsonEditorProps) {
     setError('');
     clearConfigErrors();
     temporaryConfigStore.setState({ config });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorValue]);
 
   useEffect(() => {

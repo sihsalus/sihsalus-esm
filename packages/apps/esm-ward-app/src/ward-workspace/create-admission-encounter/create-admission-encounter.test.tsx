@@ -1,4 +1,3 @@
- 
 import { useAppContext, useVisit } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -8,10 +7,10 @@ import {
   mockLocationInpatientWard,
   mockLocationMosoriot,
   mockPatientAlice,
-} from '__mocks__';
+} from 'test-utils';
 import React from 'react';
 
-import { renderWithSwr } from '../../../../../tools';
+import { renderWithSwr } from 'test-utils';
 import { mockWardViewContext } from '../../../mock';
 import { useAssignedBedByPatient } from '../../hooks/useAssignedBedByPatient';
 import useEmrConfiguration from '../../hooks/useEmrConfiguration';
@@ -26,7 +25,7 @@ import CreateAdmissionEncounterWorkspace from './create-admission-encounter.work
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);
 
-const mockUseVisit = jest.mocked(useVisit).mockReturnValue({
+jest.mocked(useVisit).mockReturnValue({
   activeVisit: {
     encounters: [],
     startDatetime: new Date().toISOString(),
@@ -51,7 +50,7 @@ mockedUseWardLocation.mockReturnValue({
 });
 
 jest.mock('../../hooks/useRestPatient', () => jest.fn());
-const mockUseRestPatient = jest.mocked(useRestPatient).mockReturnValue({
+jest.mocked(useRestPatient).mockReturnValue({
   patient: mockPatientAlice,
   isLoading: false,
   error: null,

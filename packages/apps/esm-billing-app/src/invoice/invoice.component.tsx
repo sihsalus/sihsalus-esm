@@ -54,7 +54,7 @@ const Invoice: React.FC = () => {
 
   const handlePrint = useReactToPrint({
     contentRef: componentRef,
-    documentTitle: `Invoice ${bill?.receiptNumber} - ${patient?.name?.[0]?.given?.join(' ')} ${patient?.name?.[0].family}`,
+    documentTitle: `Invoice ${bill?.receiptNumber} - ${patient?.name?.[0]?.text ?? [patient?.name?.[0]?.family, ...(patient?.name?.[0]?.given ?? [])].filter(Boolean).join(' ')}`,
     onBeforePrint: handleOnBeforeGetContent,
     onAfterPrint: handleAfterPrint,
     preserveAfterPrint: false,

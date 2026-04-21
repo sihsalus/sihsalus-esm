@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
@@ -44,10 +43,11 @@ fs.mkdirSync(outDir, { recursive: true });
 
 // ── Phase 1: Copy locally-built app bundles (@sihsalus/* and @openmrs/* overrides) ──
 logInfo('Phase 1: Local modules');
-const appDirs = fs.readdirSync('packages/apps', { withFileTypes: true })
-  .filter(d => d.isDirectory() && d.name.startsWith('esm-'))
-  .map(d => path.join('packages/apps', d.name, 'dist'))
-  .filter(d => fs.existsSync(d));
+const appDirs = fs
+  .readdirSync('packages/apps', { withFileTypes: true })
+  .filter((d) => d.isDirectory() && d.name.startsWith('esm-'))
+  .map((d) => path.join('packages/apps', d.name, 'dist'))
+  .filter((d) => fs.existsSync(d));
 const localBaseNames = new Set();
 
 // Track packages found locally but without a built dist, for a summary warning
@@ -107,7 +107,11 @@ for (const distDir of appDirs) {
   // Collect routes — prefer src/routes.json (source of truth), fall back to dist/routes.json
   const routesPathSrc = path.join(distDir, '..', 'src', 'routes.json');
   const routesPathDist = path.join(distDir, 'routes.json');
-  const routesPath = fs.existsSync(routesPathSrc) ? routesPathSrc : fs.existsSync(routesPathDist) ? routesPathDist : null;
+  const routesPath = fs.existsSync(routesPathSrc)
+    ? routesPathSrc
+    : fs.existsSync(routesPathDist)
+      ? routesPathDist
+      : null;
   if (routesPath) {
     routesRegistry[pkg.name] = {
       ...JSON.parse(fs.readFileSync(routesPath, 'utf8')),
@@ -200,7 +204,10 @@ async function downloadNpmModules() {
         fs.cpSync(pkgDistDir, versionedDir, { recursive: true, force: true });
       } else {
         // browserField is at the package root (no subdirectory)
-        copyFileReplacingIfNeeded(path.join(tmpDir, browserField), path.join(versionedDir, path.basename(browserField)));
+        copyFileReplacingIfNeeded(
+          path.join(tmpDir, browserField),
+          path.join(versionedDir, path.basename(browserField)),
+        );
       }
 
       const entryFileName = path.basename(browserField);
@@ -272,11 +279,111 @@ function writeOutputs() {
   logInfo(`Routes: ${Object.keys(routesRegistry).length} modules`);
 }
 
+// ── Phase 5: Copy config files into outDir ────────────────────────────
+function copyConfigFiles() {
+  logInfo('Phase 5: Config files');
+  const configDir = path.resolve('config');
+  if (!fs.existsSync(configDir)) {
+    logWarn('config/ directory not found — skipping');
+    return;
+  }
+  for (const file of fs.readdirSync(configDir)) {
+    if (file === 'spa-assemble-config.json') continue; // build-time only
+    const src = path.join(configDir, file);
+    if (!fs.statSync(src).isFile()) continue;
+    const dest = path.join(outDir, file);
+    copyFileReplacingIfNeeded(src, dest);
+    logInfo(`OK config/${file} -> ${outDir}/`);
+  }
+}
+
+// ── Phase 6: Copy brand assets (logos, favicon) into outDir ──────────
+function copyAssets() {
+  logInfo('Phase 6: Brand assets');
+  const assetsDir = path.resolve('assets/resources');
+  if (!fs.existsSync(assetsDir)) {
+    logWarn('assets/resources/ not found — skipping brand assets');
+    return;
+  }
+  for (const file of fs.readdirSync(assetsDir)) {
+    const src = path.join(assetsDir, file);
+    if (!fs.statSync(src).isFile()) continue;
+    copyFileReplacingIfNeeded(src, path.join(outDir, file));
+    logInfo(`OK assets/resources/${file} -> ${outDir}/`);
+  }
+}
+
+// ── Phase 7: Patch index.html — port of startup.sh envsubst logic ─────
+// Injects SPA_PATH, API_URL, SPA_CONFIG_URLS, SPA_DEFAULT_LOCALE, IMPORTMAP_URL
+// so nginx serves a fully-resolved index.html with no runtime substitution needed.
+function patchIndexHtml() {
+  const indexPath = path.join(outDir, 'index.html');
+  if (!fs.existsSync(indexPath)) {
+    logWarn('Phase 6: index.html not found — skipping');
+    return;
+  }
+
+  logInfo('Phase 6: Patching index.html');
+
+  const importmapUrl = process.env.IMPORTMAP_URL || '';
+  const spaPath = process.env.SPA_PATH || '';
+  const apiUrl = process.env.API_URL || '';
+  const defaultLocale = process.env.SPA_DEFAULT_LOCALE || 'es';
+  const rawConfigUrls = (process.env.SPA_CONFIG_URLS || '').trim();
+
+  let html = fs.readFileSync(indexPath, 'utf8');
+
+  // 1. IMPORTMAP_URL — replace "$SPA_PATH/importmap.json" with the override URL
+  if (importmapUrl && spaPath) {
+    html = html.replace(/(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g, `$1${importmapUrl}$1`);
+  }
+
+  // 2. SPA_CONFIG_URLS — convert comma-separated list to JS array elements
+  //    e.g. "/spa/a.json,/spa/b.json" → "/spa/a.json","/spa/b.json"
+  if (!rawConfigUrls) {
+    html = html.replace('"$SPA_CONFIG_URLS"', '');
+  } else {
+    const configUrlsJs = rawConfigUrls
+      .split(',')
+      .map((u) => u.trim())
+      .filter(Boolean)
+      .map((u) => `"${u}"`)
+      .join(',');
+    html = html.replace('"$SPA_CONFIG_URLS"', configUrlsJs);
+  }
+
+  // 3. General substitution — $VAR and ${VAR} forms
+  //    Process longest names first to avoid partial matches (e.g. $SPA_PATH vs $SPA_PATH_X)
+  const envsubst = (str) =>
+    str
+      .replace(/\$\{SPA_DEFAULT_LOCALE\}|\$SPA_DEFAULT_LOCALE(?![A-Za-z0-9_])/g, defaultLocale)
+      .replace(/\$\{IMPORTMAP_URL\}|\$IMPORTMAP_URL(?![A-Za-z0-9_])/g, importmapUrl)
+      .replace(/\$\{API_URL\}|\$API_URL(?![A-Za-z0-9_])/g, apiUrl)
+      .replace(/\$\{SPA_PATH\}|\$SPA_PATH(?![A-Za-z0-9_])/g, spaPath);
+
+  fs.writeFileSync(indexPath, envsubst(html));
+  logInfo('OK index.html patched');
+
+  // 4. service-worker.js
+  const swPath = path.join(outDir, 'service-worker.js');
+  if (fs.existsSync(swPath)) {
+    let sw = fs.readFileSync(swPath, 'utf8');
+    if (importmapUrl && spaPath) {
+      sw = sw.replace(/(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g, `$1${importmapUrl}$1`);
+    }
+    fs.writeFileSync(swPath, envsubst(sw));
+    logInfo('OK service-worker.js patched');
+  }
+}
+
 // ── Main ──────────────────────────────────────────────────────────────
 (async () => {
   await downloadNpmModules();
   copyAppShell();
   writeOutputs();
+  copyConfigFiles();
+  copyAssets();
+  patchIndexHtml();
   logInfo('Done! dist/spa/ is self-contained.');
 })().catch((err) => {
   logFail(err.message);

@@ -33,9 +33,18 @@ import {
   ResponsiveWrapper,
 } from '@openmrs/esm-framework';
 
+import type { ObsRecord } from '../../types';
 import usePanelData from '../panel-view/usePanelData';
 
 import styles from './print-modal.scss';
+
+interface PrintablePanelRow {
+  id: string;
+  testType: string;
+  date: string;
+  result: string | number | undefined;
+  normalRange: string;
+}
 
 function PrintModal({ patientUuid, closeDialog }) {
   const { t } = useTranslation();
@@ -64,7 +73,7 @@ function PrintModal({ patientUuid, closeDialog }) {
   ];
 
   const handlePrint = useReactToPrint({
-    contentRef: printContainerRef,
+    content: () => printContainerRef.current,
   });
 
   const patient = usePatient(patientUuid);
@@ -187,41 +196,41 @@ function PrintModal({ patientUuid, closeDialog }) {
             <div className={styles.table}>
               <DataTable
                 rows={testResults}
-              headers={tableHeaders}
-              isSortable
-              size={isTablet ? 'lg' : 'sm'}
-              useZebraStyles
-            >
-              {({ rows, headers, getHeaderProps, getTableProps }) => (
-                <TableContainer>
-                  <Table {...getTableProps()}>
-                    <TableHead>
-                      <TableRow>
-                        {headers.map((header) => (
-                          <TableHeader
-                            className={styles.heading}
-                            {...getHeaderProps({
-                              header,
-                              isSortable: header.isSortable,
-                            })}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow key={row.id}>
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                headers={tableHeaders}
+                isSortable
+                size={isTablet ? 'lg' : 'sm'}
+                useZebraStyles
+              >
+                {({ rows, headers, getHeaderProps, getTableProps }) => (
+                  <TableContainer>
+                    <Table {...getTableProps()}>
+                      <TableHead>
+                        <TableRow>
+                          {headers.map((header) => (
+                            <TableHeader
+                              className={styles.heading}
+                              {...getHeaderProps({
+                                header,
+                                isSortable: header.isSortable,
+                              })}
+                            >
+                              {header.header}
+                            </TableHeader>
                           ))}
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row) => (
+                          <TableRow key={row.id}>
+                            {row.cells.map((cell) => (
+                              <TableCell key={cell.id}>{cell.value}</TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
               </DataTable>
             </div>
           )}
@@ -252,7 +261,7 @@ function PrintModal({ patientUuid, closeDialog }) {
   );
 }
 
-const formatPanelForDisplay = (panel) => {
+const formatPanelForDisplay = (panel: ObsRecord): PrintablePanelRow => {
   return {
     id: panel.id,
     testType: panel.name,

@@ -26,6 +26,7 @@ import {
 import {
   EditIcon,
   formatDatetime,
+  getConfig,
   isDesktop,
   parseDate,
   showModal,
@@ -36,8 +37,13 @@ import {
   useSession,
   userHasAccess,
 } from '@openmrs/esm-framework';
-import { EmptyState, PatientChartPagination, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import React, { type ComponentProps, useMemo, useState, useCallback } from 'react';
+import {
+  type HtmlFormEntryForm,
+  EmptyState,
+  PatientChartPagination,
+  launchFormEntryOrHtmlForms,
+} from '@openmrs/esm-patient-common-lib';
+import React, { type ComponentProps, useMemo, useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import EncounterObservations from '../../encounter-observations';
@@ -65,11 +71,19 @@ interface VisitTableRow extends MappedEncounter {
   formName: string;
 }
 
-const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, mutateVisits }) => {
+const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, patientUuid, mutateVisits }) => {
   const visitCount = 20;
   const { t } = useTranslation();
   const desktopLayout = isDesktop(useLayoutType());
   const session = useSession();
+
+  const [htmlFormEntryFormsConfig, setHtmlFormEntryFormsConfig] = useState<Array<HtmlFormEntryForm> | undefined>();
+
+  useEffect(() => {
+    getConfig('@sihsalus/esm-patient-forms-app').then((config) => {
+      setHtmlFormEntryFormsConfig(config.htmlFormEntryForms as HtmlFormEntryForm[]);
+    });
+  }, []);
 
   const encounterTypes = [...new Set(visits.map((encounter) => encounter.encounterType))].sort();
 
@@ -163,27 +177,6 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, muta
     [t, mutateVisits],
   );
 
-  const handleEditEncounter = useCallback(
-    (encounter: MappedEncounter | undefined) => {
-      if (!encounter?.form?.uuid) {
-        return;
-      }
-
-      launchPatientWorkspace('patient-form-entry-workspace', {
-        workspaceTitle: encounter.form.display ?? encounter.form.name,
-        form: encounter.form,
-        encounterUuid: encounter.id,
-        handlePostResponse: () => mutateVisits?.(),
-        additionalProps: {
-          mode: 'edit',
-          formSessionIntent: '*',
-          openClinicalFormsWorkspaceOnFormClose: false,
-        },
-      });
-    },
-    [mutateVisits],
-  );
-
   const handleFilter = useCallback(
     ({ rowIds, headers, cellsById, inputValue, getCellId }: FilterProps): Array<string> => {
       return rowIds.filter((rowId) =>
@@ -217,7 +210,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, muta
         rows={tableRows}
         overflowMenuOnHover={desktopLayout}
         size={desktopLayout ? 'sm' : 'lg'}
-        useZebraStyles={visits?.length > 1 ? true : false}
+        useZebraStyles={visits?.length > 1}
       >
         {({
           rows,
@@ -257,8 +250,12 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, muta
                 <TableHead>
                   <TableRow>
                     <TableExpandHeader enableToggle {...getExpandHeaderProps()} />
-                    {headers.map((header, i) => (
-                      <TableHeader className={styles.tableHeader} key={i} {...getHeaderProps({ header })}>
+                    {headers.map((header) => (
+                      <TableHeader
+                        className={styles.tableHeader}
+                        key={String(header.key ?? header.header)}
+                        {...getHeaderProps({ header })}
+                      >
                         {header.header}
                       </TableHeader>
                     ))}
@@ -294,7 +291,19 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, muta
                                       <OverflowMenuItem
                                         className={styles.menuItem}
                                         itemText={t('editThisEncounter', 'Edit this encounter')}
-                                        onClick={() => handleEditEncounter(selectedVisit)}
+                                        onClick={() => {
+                                          launchFormEntryOrHtmlForms(
+                                            htmlFormEntryFormsConfig,
+                                            patientUuid,
+                                            selectedVisit?.form?.uuid,
+                                            selectedVisit?.visitUuid,
+                                            selectedVisit?.id,
+                                            selectedVisit?.form?.display,
+                                            selectedVisit?.visitTypeUuid,
+                                            selectedVisit?.visitStartDatetime,
+                                            selectedVisit?.visitStopDatetime,
+                                          );
+                                        }}
                                       />
                                     )}
                                   {userHasAccess(selectedVisit?.editPrivilege, session?.user) && (
@@ -322,7 +331,19 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, muta
                                   {selectedVisit?.form?.uuid && (
                                     <Button
                                       kind="ghost"
-                                      onClick={() => handleEditEncounter(selectedVisit)}
+                                      onClick={() => {
+                                        launchFormEntryOrHtmlForms(
+                                          htmlFormEntryFormsConfig,
+                                          patientUuid,
+                                          selectedVisit?.form?.uuid,
+                                          selectedVisit?.visitUuid,
+                                          selectedVisit?.id,
+                                          selectedVisit?.form?.display,
+                                          selectedVisit?.visitTypeUuid,
+                                          selectedVisit?.visitStartDatetime,
+                                          selectedVisit?.visitStopDatetime,
+                                        );
+                                      }}
                                       renderIcon={(props: ComponentProps<typeof EditIcon>) => (
                                         <EditIcon size={16} {...props} />
                                       )}

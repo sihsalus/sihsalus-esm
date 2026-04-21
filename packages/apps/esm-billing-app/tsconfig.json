@@ -1,26 +1,16 @@
 {
+  "extends": "../../tooling/tsconfig.app.json",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "jsx": "react",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "module": "esnext",
+    "baseUrl": ".",
     "moduleResolution": "node",
-    "noEmit": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
-      "mocks/*": [
-        "./__mocks__/*"
-      ],
-      "tools/*": [
-        "./tools/*"
-      ]
-    },
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "target": "esnext"
+      "@openmrs/*": ["../../../node_modules/@openmrs/*"],
+      "mocks/*": ["./test-utils/mocks/*"],
+      "test-utils": ["../../test-utils/index.tsx"],
+      "test-utils/*": ["../../test-utils/*"],
+      "tools/*": ["./tools/*"]
+    }
   },
+  "include": ["src/**/*", "e2e/**/*", "test-utils/**/*", "../../tools/setup-tests.ts"]
 }

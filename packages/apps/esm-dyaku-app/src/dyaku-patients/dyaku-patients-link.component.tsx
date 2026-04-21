@@ -5,13 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 const DyakuPatientsLink: React.FC = () => {
   const { t } = useTranslation();
+  const href = `${globalThis.spaBase ?? '/openmrs/spa'}/dyaku-patients`;
 
   return (
     <Layer>
       <ClickableTile
-        href={`${globalThis.spaBase ?? '/openmrs/spa'}/dyaku-patients`}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={href}
+        onClick={(event) => {
+          event.preventDefault();
+          globalThis.open(href, '_blank', 'noopener,noreferrer');
+        }}
       >
         <div>
           <div className="heading">{t('dyakuPatients', 'Pacientes Dyaku MINSA')}</div>

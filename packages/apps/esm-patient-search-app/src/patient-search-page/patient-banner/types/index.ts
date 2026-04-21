@@ -12,10 +12,19 @@ export interface VisitType {
   name?: string;
 }
 
+export interface PatientIdentifier {
+  uuid?: string;
+  display?: string;
+  identifier: string;
+  identifierType?: OpenmrsResource;
+  location?: OpenmrsResource;
+  preferred?: boolean;
+}
+
 export interface Patient {
   uuid: string;
   display: string;
-  identifiers: Array<any>;
+  identifiers: Array<PatientIdentifier>;
   person: Person;
 }
 

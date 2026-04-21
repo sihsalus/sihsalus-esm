@@ -29,8 +29,15 @@ const PaginatedBiometrics: React.FC<PaginatedBiometricsProps> = ({
   pageUrl,
   urlLabel,
   tableHeaders,
-}) => {
-  const isTablet = useLayoutType() === 'tablet';
+	}) => {
+	  const isTablet = useLayoutType() === 'tablet';
+  const renderHeader = (header: React.ReactNode | { content?: React.ReactNode }): React.ReactNode => {
+    if (typeof header === 'object' && header !== null && 'content' in header) {
+      return header.content ?? null;
+    }
+
+    return header as React.ReactNode;
+  };
 
   const [sortParams, setSortParams] = useState<{ key: string; sortDirection: 'ASC' | 'DESC' | 'NONE' }>({
     key: '',
@@ -47,6 +54,7 @@ const PaginatedBiometrics: React.FC<PaginatedBiometricsProps> = ({
     } else {
       setSortParams({ key, sortDirection });
     }
+    return 0;
   };
 
   const sortedData: Array<BiometricsTableRow> = useMemo(() => {
@@ -85,16 +93,16 @@ const PaginatedBiometrics: React.FC<PaginatedBiometricsProps> = ({
             <Table aria-label="biometrics" className={styles.table} {...getTableProps()}>
               <TableHead>
                 <TableRow>
-                  {headers.map((header) => (
-                    <TableHeader
-                      {...getHeaderProps({
-                        header,
-                        isSortable: header.isSortable,
-                      })}
-                    >
-                      {header.header?.content ?? header.header}
-                    </TableHeader>
-                  ))}
+	                  {headers.map((header) => (
+	                    <TableHeader
+	                      {...getHeaderProps({
+	                        header,
+	                        isSortable: header.isSortable,
+	                      })}
+	                    >
+	                      {renderHeader(header.header)}
+	                    </TableHeader>
+	                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>

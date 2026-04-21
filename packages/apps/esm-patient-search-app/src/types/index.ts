@@ -13,8 +13,9 @@ export interface SearchedPatient {
     personName: {
       display: string;
       givenName: string;
-      familyName: string;
       middleName: string;
+      familyName: string;
+      familyName2: string;
     };
   };
   attributes: Array<{
@@ -87,7 +88,7 @@ export interface FHIRPatientSearchResponse {
 export interface PatientSearchResponse {
   currentPage: number;
   data?: Array<SearchedPatient>;
-  fetchError: Error;
+  fetchError: Error | null;
   hasMore: boolean;
   isLoading: boolean;
   isValidating: boolean;

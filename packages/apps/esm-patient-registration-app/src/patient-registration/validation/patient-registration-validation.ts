@@ -13,6 +13,9 @@ export function getValidationSchema(config: RegistrationConfig) {
   return Yup.object({
     givenName: Yup.string().required(t('givenNameRequired', 'Given name is required')),
     familyName: Yup.string().required(t('familyNameRequired', 'Family name is required')),
+    familyName2: config.fieldConfigurations.name.requireFamilyName2
+      ? Yup.string().required(t('familyName2Required', 'Second family name is required'))
+      : Yup.string().notRequired(),
     additionalGivenName: Yup.string().when('addNameInLocalLanguage', {
       is: true,
       then: Yup.string().required(t('givenNameRequired', 'Given name is required')),

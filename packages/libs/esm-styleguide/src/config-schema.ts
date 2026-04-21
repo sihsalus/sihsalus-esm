@@ -1,4 +1,4 @@
-import { type ConfigSchema, Type, validators } from '@openmrs/esm-framework/src/internal';
+import { type ConfigSchema, Type, validators } from '@openmrs/esm-config';
 import { type CarbonTagColor, carbonTagColors } from './utils';
 export interface StyleguideConfigObject {
   'Brand color #1': string;

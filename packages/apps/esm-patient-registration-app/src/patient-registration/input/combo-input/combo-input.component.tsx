@@ -15,14 +15,14 @@ interface ComboInputProps {
     [x: string]: any;
   };
   handleInputChange: (newValue: string) => void;
-  handleSelection: (newSelection) => void;
+  handleSelection: (newSelection: string) => void;
 }
 
 const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInputChange, handleSelection }) => {
   const [highlightedEntry, setHighlightedEntry] = useState(-1);
   const { value = '' } = fieldProps;
   const [showEntries, setShowEntries] = useState(false);
-  const comboInputRef = useRef(null);
+  const comboInputRef = useRef<HTMLDivElement>(null);
 
   const handleFocus = useCallback(() => {
     setShowEntries(true);
@@ -40,8 +40,8 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
   }, [entries, value]);
 
   const handleOptionClick = useCallback(
-    (newSelection: string, e: KeyboardEvent = null) => {
-      e?.preventDefault();
+    (newSelection: string, event?: React.KeyboardEvent<HTMLInputElement>) => {
+      event?.preventDefault();
       handleSelection(newSelection);
       setShowEntries(false);
     },
@@ -49,28 +49,28 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
   );
 
   const handleKeyPress = useCallback(
-    (e: KeyboardEvent) => {
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
       const totalResults = filteredEntries.length ?? 0;
 
-      if (e.key === 'Tab') {
+      if (event.key === 'Tab') {
         setShowEntries(false);
         setHighlightedEntry(-1);
       }
 
-      if (e.key === 'ArrowUp') {
+      if (event.key === 'ArrowUp') {
         setHighlightedEntry((prev) => Math.max(-1, prev - 1));
-      } else if (e.key === 'ArrowDown') {
+      } else if (event.key === 'ArrowDown') {
         setHighlightedEntry((prev) => Math.min(totalResults - 1, prev + 1));
-      } else if (e.key === 'Enter' && highlightedEntry > -1) {
-        handleOptionClick(filteredEntries[highlightedEntry], e);
+      } else if (event.key === 'Enter' && highlightedEntry > -1) {
+        handleOptionClick(filteredEntries[highlightedEntry], event);
       }
     },
     [highlightedEntry, handleOptionClick, filteredEntries, setHighlightedEntry, setShowEntries],
   );
 
   useEffect(() => {
-    const listener = (e) => {
-      if (!comboInputRef.current.contains(e.target as Node)) {
+    const listener = (event: MouseEvent) => {
+      if (comboInputRef.current && !comboInputRef.current.contains(event.target as Node)) {
         setShowEntries(false);
         setHighlightedEntry(-1);
       }
@@ -86,6 +86,7 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
       <Layer>
         <TextInput
           {...fieldProps}
+          id={fieldProps.id ?? fieldProps.name ?? 'combo-input'}
           onChange={(e) => {
             setHighlightedEntry(-1);
             handleInputChange(e.target.value);

@@ -87,7 +87,7 @@ export function PatientPhoto({ patientUuid, patientName, alt }: PatientPhotoProp
         style={
           !validImageSrc
             ? {
-                backgroundImage: pattern.toDataUrl(),
+                backgroundImage: pattern.toDataUri(),
                 backgroundRepeat: 'round',
               }
             : undefined

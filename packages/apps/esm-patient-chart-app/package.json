@@ -12,7 +12,7 @@
     "debug": "npm run serve",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "test": "TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
     "test:watch": "TZ=UTC jest --watch --config jest.config.js --color",
     "coverage": "yarn test --coverage",
@@ -39,7 +39,7 @@
     "url": "https://github.com/PROYECTO-SANTACLOTILDE/openmrs-esm-patient-chart/issues"
   },
   "dependencies": {
-    "@sihsalus/rbac": "workspace:*",
+    "@sihsalus/esm-rbac": "workspace:*",
     "lodash-es": "^4.17.21",
     "uuid": "^8.3.2"
   },

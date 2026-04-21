@@ -5,14 +5,22 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './error-state.scss';
 
+interface ErrorResponse {
+  response?: {
+    status?: number | string;
+    statusText?: string;
+  };
+}
+
 export interface ErrorStateProps {
-  error: any;
+  error?: ErrorResponse | Error | null;
   headerTitle: string;
 }
 
 export const ErrorState: React.FC<ErrorStateProps> = ({ error, headerTitle }) => {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
+  const response = error && 'response' in error ? error.response : undefined;
 
   return (
     <Layer>
@@ -21,8 +29,8 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ error, headerTitle }) =>
           <h4>{headerTitle}</h4>
         </div>
         <p className={styles.errorMessage}>
-          {t('error', 'Error')} {`${error?.response?.status}: `}
-          {error?.response?.statusText}
+          {t('error', 'Error')} {`${response?.status}: `}
+          {response?.statusText}
         </p>
         <p className={styles.errorCopy}>
           {t(

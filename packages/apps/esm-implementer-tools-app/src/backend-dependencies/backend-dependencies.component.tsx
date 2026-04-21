@@ -15,12 +15,12 @@ import { useTranslation } from 'react-i18next';
 import styles from './backend-dependencies.styles.scss';
 import type { ResolvedDependenciesModule } from './openmrs-backend-dependencies';
 
-export interface BackendDependencies {
+export interface BackendDependenciesProps {
   backendDependencies: Array<ResolvedDependenciesModule>;
   error?: string | null;
 }
 
-export const BackendDependencies: React.FC<BackendDependencies> = ({ backendDependencies, error }) => {
+export const BackendDependencies: React.FC<BackendDependenciesProps> = ({ backendDependencies, error }) => {
   const { t } = useTranslation();
 
   const headers = useMemo(

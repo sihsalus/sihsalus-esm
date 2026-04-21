@@ -1,12 +1,11 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockResults } from '__mocks__';
+import { mockResults } from 'test-utils';
 import React from 'react';
 
 import { type ConfigObject, configSchema } from '../../config-schema';
 import TreeViewWrapper from '../tree-view/tree-view-wrapper.component';
-
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
 const mockUseGetManyObstreeData = jest.fn();
@@ -50,7 +49,7 @@ global.IntersectionObserver = jest.fn(function (callback, options) {
   this.disconnect = jest.fn();
   this.trigger = (entries) => callback(entries, this);
   this.options = options;
-}) as any;
+}) as unknown as typeof IntersectionObserver;
 
 describe('ResultsViewer', () => {
   it('should return an empty state when there is no data', async () => {

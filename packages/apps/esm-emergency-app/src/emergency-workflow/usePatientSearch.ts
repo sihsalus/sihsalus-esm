@@ -139,7 +139,7 @@ export interface PatientSearchResponse {
   fetchError: Error | undefined;
   hasMore: boolean;
   isValidating: boolean;
-  setPage: (size: number | ((size: number) => number)) => Promise<any>;
+  setPage: (size: number | ((size: number) => number)) => Promise<InfinitePatientSearchResponse[] | undefined>;
   currentPage: number;
   totalResults: number;
 }

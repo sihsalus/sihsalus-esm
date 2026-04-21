@@ -4,7 +4,7 @@ import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
 import type { Schema } from '@types';
 
-interface DeleteSectionModal {
+interface DeleteSectionModalProps {
   closeModal: () => void;
   onSchemaChange: (schema: Schema) => void;
   pageIndex: number;
@@ -12,7 +12,7 @@ interface DeleteSectionModal {
   schema: Schema;
 }
 
-const DeleteSectionModal: React.FC<DeleteSectionModal> = ({
+const DeleteSectionModal: React.FC<DeleteSectionModalProps> = ({
   closeModal,
   onSchemaChange,
   pageIndex,

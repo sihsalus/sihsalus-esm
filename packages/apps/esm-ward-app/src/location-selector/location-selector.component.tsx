@@ -67,6 +67,7 @@ export default function LocationSelector({ paginationSize = 15, ...props }: Loca
         <Search
           onChange={handleSearch}
           value={searchTerm}
+          labelText={t('searchLocations', 'Search locations')}
           placeholder={t('searchLocations', 'Search locations')}
           size={isTablet ? 'lg' : 'md'}
         />

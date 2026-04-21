@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { closeWorkspace, useSession } from '@openmrs/esm-framework';
 import { type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
@@ -9,7 +8,7 @@ import {
   mockDrugOrderTemplateApiData,
   mockPatientDrugOrdersApiData,
   mockSessionDataResponse,
-} from '__mocks__';
+} from 'test-utils';
 import React from 'react';
 import { getByTextWithMarkup } from 'test-utils';
 
@@ -143,10 +142,8 @@ describe('AddDrugOrderWorkspace drug search', () => {
     renderAddDrugOrderWorkspace();
 
     await user.type(screen.getByRole('searchbox'), 'Aspirin');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { result: hookResult } = renderHook(() =>
-      useOrderBasket('medications', ((x) => x) as unknown as PostDataPrepFunction),
-    );
+
+    renderHook(() => useOrderBasket('medications', ((x) => x) as unknown as PostDataPrepFunction));
     const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('div').parentElement;
     const aspirin81OpenFormButton = within(aspirin81Div).getByText(/Order form/i);
     await user.click(aspirin81OpenFormButton);

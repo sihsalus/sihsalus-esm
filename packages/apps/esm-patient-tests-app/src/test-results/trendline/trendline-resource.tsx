@@ -11,7 +11,7 @@ function computeTrendlineData(treeNode: TreeNode): Array<TreeNode> {
     return tests;
   }
   treeNode?.subSets.forEach((subNode) => {
-    if ((subNode)?.obs) {
+    if (subNode?.obs) {
       const TreeNode = subNode;
       const assess = assessValue(TreeNode);
       tests.push({

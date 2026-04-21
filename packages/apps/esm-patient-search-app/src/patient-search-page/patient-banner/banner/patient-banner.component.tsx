@@ -99,7 +99,9 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
       })),
       name: [
         {
-          family: patient.person.personName.familyName,
+          family: [patient.person.personName.familyName, patient.person.personName.familyName2]
+            .filter(Boolean)
+            .join(' '),
           given: [patient.person.personName.givenName, patient.person.personName.middleName],
           id: nameId,
           text: patient.person.personName.display,
@@ -122,7 +124,7 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
           <div className={styles.patientAvatar} role="img">
             <PatientPhoto patientUuid={patientUuid} patientName={patientName} />
           </div>
-          <PatientBannerPatientInfo patient={fhirMappedPatient} />
+          <PatientBannerPatientInfo patient={fhirMappedPatient} renderedFrom="patient-search" />
         </ClickablePatientContainer>
         <div className={styles.actionButtons}>
           <PatientBannerToggleContactDetailsButton
@@ -138,7 +140,6 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
                   selectPatientAction: nonNavigationSelectPatientAction,
                   launchPatientChart: true,
                 }}
-                isDeceased={patient.person.dead}
                 patient={fhirMappedPatient}
                 patientUuid={patientUuid}
               />

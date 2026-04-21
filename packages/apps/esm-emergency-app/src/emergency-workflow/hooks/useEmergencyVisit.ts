@@ -106,7 +106,7 @@ export function useEmergencyVisit() {
         setIsCreatingVisit(false);
       }
     },
-    [config, session],
+    [config, session, t],
   );
 
   /**
@@ -131,7 +131,7 @@ export function useEmergencyVisit() {
       // 2. Si no existe, crear nueva visita
       return await createEmergencyVisit(patientUuid);
     },
-    [checkActiveEmergencyVisit, createEmergencyVisit],
+    [checkActiveEmergencyVisit, createEmergencyVisit, t],
   );
 
   return {

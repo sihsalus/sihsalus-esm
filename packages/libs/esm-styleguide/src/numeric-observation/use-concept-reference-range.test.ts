@@ -25,7 +25,6 @@ const renderUseConceptReferenceRange = (conceptUuid?: string, patientUuid?: stri
 };
 
 describe('useConceptReferenceRange', () => {
-
   it('does not fetch when conceptUuid is undefined', () => {
     const { result } = renderUseConceptReferenceRange();
 
@@ -68,7 +67,7 @@ describe('useConceptReferenceRange', () => {
   });
 
   it('returns loading state correctly', async () => {
-    mockOpenmrsFetch.mockImplementation(() => new Promise(() => { }));
+    mockOpenmrsFetch.mockImplementation(() => new Promise(() => {}));
 
     const { result } = renderUseConceptReferenceRange('test-concept-uuid');
 

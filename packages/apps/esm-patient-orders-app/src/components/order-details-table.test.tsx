@@ -8,7 +8,7 @@ import {
 import { useOrderTypes, usePatientOrders } from '@openmrs/esm-patient-common-lib';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockOrders, mockSessionDataResponse } from '__mocks__';
+import { mockOrders, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
 import { useReactToPrint } from 'react-to-print';
 
@@ -134,7 +134,7 @@ describe('OrderDetailsTable', () => {
     await screen.findByRole('table');
 
     Object.values(columns).forEach((headerText) => {
-      expect(screen.getByRole('button', { name: new RegExp(headerText, 'i') })).toBeInTheDocument();
+      expect(screen.getAllByText(new RegExp(headerText, 'i')).length).toBeGreaterThan(0);
     });
 
     const expectedOrder = {
@@ -176,7 +176,7 @@ describe('OrderDetailsTable', () => {
 
     expect(
       screen.getByRole('cell', {
-        name: /\(NEW\) Permethrin\: 1\.0 Ampule\(s\) Oral Once daily 1 Days take after eating/i,
+        name: /\(NEW\) Permethrin: 1\.0 Ampule\(s\) Oral Once daily 1 Days take after eating/i,
       }),
     ).toBeInTheDocument();
     expect(

@@ -4,8 +4,12 @@ import type {} from '@openmrs/esm-framework';
 
 vi.mock('@openmrs/esm-framework', () => import('@openmrs/esm-framework/mock'));
 
-(window.importMapOverrides as any) = {
+(window as unknown as { importMapOverrides: unknown }).importMapOverrides = {
   getOverrideMap: vi.fn().mockReturnValue({ imports: {} }),
 };
 
 afterEach(cleanup);
+
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));

@@ -31,7 +31,7 @@ const BiometricsBase: React.FC<BiometricsBaseProps> = ({ patientUuid, pageSize, 
   const config = useConfig<ConfigObject>();
   const { bmiUnit } = config.biometrics;
   const { data: biometrics, isLoading, error, isValidating } = useVitalsAndBiometrics(patientUuid, 'biometrics');
-  const { data: conceptUnits } = useVitalsConceptMetadata();
+  const { data: conceptUnits, error: conceptsError } = useVitalsConceptMetadata();
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
 
   const launchBiometricsForm = useCallback(
@@ -89,7 +89,7 @@ const BiometricsBase: React.FC<BiometricsBaseProps> = ({ patientUuid, pageSize, 
   );
 
   if (isLoading) return <DataTableSkeleton role="progressbar" />;
-  if (error) return <ErrorState error={error} headerTitle={headerTitle} />;
+  if (error || conceptsError) return <ErrorState error={(error ?? conceptsError) as Error} headerTitle={headerTitle} />;
   if (biometrics?.length) {
     return (
       <div className={styles.widgetCard}>

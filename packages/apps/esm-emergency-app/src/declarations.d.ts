@@ -1,5 +1,5 @@
-declare module '*.css';
-declare module '*.scss';
-declare module '*.png';
+declare module '*.scss' {
+  const styles: { [className: string]: string };
+  export default styles;
+}
 
-declare type SideNavProps = object;

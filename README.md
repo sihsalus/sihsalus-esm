@@ -39,21 +39,21 @@ El dev server hace proxy de las peticiones de API al backend definido en `SIHSAL
 
 ```
 packages/
-  __mocks__/                            # Shared Jest mocks
   declarations.d.ts                     # Global declarations for TS
   jest.config.js                        # Root Jest configuration
   tsconfig.json                         # Root TypeScript configuration
+  test-utils/                           # Shared fixtures, test wrappers and stubs
   tooling/
+    configs/                            # Shared Jest/Vitest/TS config helpers
     openmrs/                            # CLI (openmrs develop, build, assemble)
     rspack-config/                      # Shared Rspack configuration
-  apps/                                 # 41 frontend modules (esm-*-app)
+  apps/                                 # 57 frontend modules (esm-*-app)
   libs/
-    rbac/                               # @sihsalus/rbac — HIPAA role-based access control
-    fhir-client/                        # @sihsalus/fhir-client — Typed FHIR R4 client
-    audit-logger/                       # @sihsalus/audit-logger — Client-side audit logging
-    keycloak-auth/                      # @sihsalus/keycloak-auth — Keycloak OIDC adapter
-    constants/                          # @sihsalus/constants — Centralized UUIDs and constants
+    esm-rbac/                           # @sihsalus/esm-rbac — HIPAA role-based access control
+    esm-audit-logger/                   # @sihsalus/esm-audit-logger — Client-side PHI audit logging
+    esm-sihsalus-shared/                # @sihsalus/esm-sihsalus-shared — Shared UI components and hooks
     esm-patient-common-lib/             # @openmrs/esm-patient-common-lib — Shared patient utilities
+    esm-styleguide/                     # @openmrs/esm-styleguide — Carbon-based component library
 packages/tooling/
   assemble-importmap.js                 # Import map assembly for SPA build
   start-dev.js                          # Local dev server entrypoint
@@ -110,6 +110,17 @@ yarn typecheck                              # TypeScript check all packages
 yarn verify                                 # lint + typecheck + test
 ```
 
+### Cleaning
+
+```bash
+yarn clean                                  # Remove generated monorepo artifacts
+yarn clean:dry-run                          # Preview what would be removed
+```
+
+`yarn clean` is a repo-wide clean for generated artifacts only. It removes workspace outputs such as `dist/`, `coverage/`, `.turbo/`, `storybook-static/`, Playwright reports, and TypeScript build info files without touching `node_modules/` or source directories.
+
+Use `yarn clean:dry-run` first when you want to inspect what will be deleted.
+
 ### Concurrency
 
 This monorepo has 50+ packages. Avoid high concurrency on resource-constrained machines:
@@ -132,7 +143,7 @@ Nginx / reverse proxy configuration is managed in the infra repo (`sihsalus-dist
 - **Turborepo** orchestrates builds across ~50 packages with caching
 - **Yarn 4 (Berry)** manages dependencies with `node-modules` linker
 - **single-spa** orchestrates microfrontend modules at runtime via import maps
-- **Webpack Module Federation** enables shared dependencies across modules
+- **Rspack** (Webpack-compatible) is the bundler; Module Federation enables shared deps
 - **Carbon Design System** (v11) is the primary UI framework
 - **FHIR R4** preferred for data access (`/ws/fhir2/R4/`)
 - **Service worker** enables offline-first operation
@@ -146,7 +157,7 @@ Nginx / reverse proxy configuration is managed in the infra repo (`sihsalus-dist
 | `esm-billing-app`                | `@openmrs/esm-billing-app`               |
 | `esm-vacunacion-app`             | `@openmrs/esm-patient-immunizations-app` |
 
-Custom modules with no upstream equivalent: `esm-coststructure-app`, `esm-dyaku-app`, `esm-fua-app`, `esm-indicadores-app`, `esm-maternal-and-child-health`, `esm-consulta-externa-app`.
+Custom modules with no upstream equivalent: `esm-atencion-ambulatoria-app`, `esm-coststructure-app`, `esm-cred-app`, `esm-dyaku-app`, `esm-emergency-app`, `esm-ficha-familiar-app`, `esm-fua-app`, `esm-indicadores-app`, `esm-odontogram-app`, `esm-reports-app`, `esm-salud-materna-app`, `esm-vih-app`.
 
 ## Environment Variables
 
@@ -162,8 +173,8 @@ Crea un archivo `.env` en la raíz del repo (ver [.env.example](.env.example)):
 
 ## HIPAA Compliance
 
-- **RBAC** (`@sihsalus/rbac`): Role-based access control at component and route level
-- **Audit logging** (`@sihsalus/audit-logger`): PHI access event logging with offline fallback
+- **RBAC** (`@sihsalus/esm-rbac`): Role-based access control at component and route level
+- **Audit logging** (`@sihsalus/esm-audit-logger`): PHI access event logging with offline fallback
 - **Session timeout**: 15-minute idle timeout with warning
 - **Break the glass**: Emergency access with mandatory clinical justification
 - **TLS 1.2+**: Enforced at the infrastructure layer

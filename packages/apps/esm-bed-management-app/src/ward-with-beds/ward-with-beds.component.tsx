@@ -27,6 +27,14 @@ import styles from './ward-with-beds.scss';
 
 type RouteParams = { location: string };
 
+const renderCellValue = (value: React.ReactNode) => {
+  if (value && typeof value === 'object' && 'content' in value) {
+    return value.content as React.ReactNode;
+  }
+
+  return value;
+};
+
 const WardWithBeds: React.FC = () => {
   const { t } = useTranslation();
   const { location } = useParams<RouteParams>();
@@ -84,7 +92,7 @@ const WardWithBeds: React.FC = () => {
 
   const tableRows = useMemo(() => {
     return paginatedData?.map((bed) => ({
-      id: bed.id,
+      id: bed.uuid,
       number: bed.number,
       type: bed.type,
       occupied: <CustomTag condition={bed?.status === 'OCCUPIED'} />,
@@ -152,7 +160,7 @@ const WardWithBeds: React.FC = () => {
                       {rows.map((row) => (
                         <TableRow key={row.id} {...getRowProps({ row })}>
                           {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                            <TableCell key={cell.id}>{renderCellValue(cell.value)}</TableCell>
                           ))}
                         </TableRow>
                       ))}

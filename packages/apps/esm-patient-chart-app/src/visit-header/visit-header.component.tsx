@@ -120,7 +120,9 @@ const PatientInfo: React.FC<PatientInfoProps> = ({ patient }) => {
 };
 
 function launchStartVisitForm() {
-  launchPatientWorkspace('start-visit-workspace-form', { openedFrom: 'patient-chart-start-visit' });
+  launchPatientWorkspace('start-visit-workspace-form', {
+    openedFrom: 'patient-chart-start-visit',
+  });
 }
 
 const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
@@ -174,7 +176,7 @@ const VisitHeader: React.FC<{ patient: fhir.Patient }> = ({ patient }) => {
           ) : logo?.name ? (
             logo.name
           ) : (
-            <svg role="img" width={110} height={40}>
+            <svg role="img" aria-label="OpenMRS logo" width={110} height={40}>
               <use xlinkHref="#omrs-logo-white"></use>
             </svg>
           )}

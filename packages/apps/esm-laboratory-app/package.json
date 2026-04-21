@@ -11,13 +11,13 @@
     "serve": "rspack serve --mode=development",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
-    "prettier": "prettier --write \"src/**/*.{css,scss,ts,tsx}\" --list-different",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
+    "prettier": "node ../../tooling/scripts/run-biome.js format --write src",
     "typescript": "tsc",
     "test": "jest --config jest.config.js --passWithNoTests --color",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js",
     "coverage": "yarn test -- --coverage",
-    "test-e2e": "playwright test"
+    "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/laboratory/playwright.config.ts"
   },
   "browserslist": [
     "extends browserslist-config-openmrs"
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@carbon/react": "^1.83.0",
-    "@sihsalus/rbac": "workspace:*",
+    "@sihsalus/esm-rbac": "workspace:*",
     "lodash-es": "^4.17.21",
     "react-hook-form": "^7.52.1"
   },
@@ -64,11 +64,7 @@
     "@types/jest": "^28.1.8",
     "@types/react": "^18.3.21",
     "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.45.0",
-    "@typescript-eslint/parser": "^8.45.0",
     "dayjs": "^1.11.11",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
     "file-saver": "^2.0.5",
     "i18next-parser": "^9.3.0",
     "identity-obj-proxy": "^3.0.0",

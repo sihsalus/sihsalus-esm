@@ -19,8 +19,8 @@ const CardContainer = ({ onClick = () => undefined, active, children }) => {
 
 const PatientCard = ({ patientUuid, activePatientUuid, editEncounter, encounters }) => {
   const patient = useGetPatient(patientUuid);
-  const givenName = patient?.name?.[0]?.given?.[0];
-  const familyName = patient?.name?.[0]?.family;
+  const nameObj = patient?.name?.[0];
+  const displayName = nameObj?.text || [nameObj?.family, ...(nameObj?.given ?? [])].filter(Boolean).join(' ');
   const identifier = patient?.identifier?.[0]?.value;
 
   if (!patient) {
@@ -37,9 +37,7 @@ const PatientCard = ({ patientUuid, activePatientUuid, editEncounter, encounters
     <CardContainer onClick={active ? () => undefined : () => editEncounter(patientUuid)} active={active}>
       <div className={styles.patientInfo}>
         <div className={styles.identifier}>{identifier}</div>
-        <div className={`${styles.displayName} ${active && styles.activeDisplayName}`}>
-          {givenName} {familyName}
-        </div>
+        <div className={`${styles.displayName} ${active && styles.activeDisplayName}`}>{displayName}</div>
       </div>
       <div>
         {patientUuid in encounters ? (

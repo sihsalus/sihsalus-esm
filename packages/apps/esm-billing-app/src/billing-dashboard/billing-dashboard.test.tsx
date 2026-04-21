@@ -2,10 +2,10 @@ import React from 'react';
 import { screen, render } from '@testing-library/react';
 import { BillingDashboard } from './billing-dashboard.component';
 
-test('renders an empty state when there are no billing records', () => {
+test('renders the billing dashboard', () => {
   renderBillingDashboard();
 
-  expect(screen.getByTitle(/billing module illustration/i)).toBeInTheDocument();
+  expect(screen.getByTestId('billing-header')).toBeInTheDocument();
 });
 
 function renderBillingDashboard() {

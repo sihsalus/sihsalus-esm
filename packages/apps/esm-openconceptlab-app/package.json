@@ -11,8 +11,8 @@
     "serve": "rspack serve --mode=development",
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
-    "lint": "eslint .",
-    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests --color",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
+    "test": "jest --config jest.config.js --verbose false --passWithNoTests --color",
     "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
     "typescript": "tsc",
     "extract-translations": "i18next 'src/**/*.component.tsx' --config ../../tooling/scripts/i18next-parser.config.js"
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@carbon/react": "^1.83.0",
-    "@sihsalus/rbac": "workspace:*",
+    "@sihsalus/esm-rbac": "workspace:*",
     "lodash-es": "^4.17.21",
     "swr": "^2.2.5"
   },
@@ -54,6 +54,7 @@
     "swr": "2.x"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "openmrs": "*",
     "typescript": "^5.8.3"
   }

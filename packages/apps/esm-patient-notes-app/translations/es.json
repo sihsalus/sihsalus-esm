@@ -1,7 +1,7 @@
 {
   "add": "Agregar",
   "addImage": "Agregar imagen",
-  "addVisitNote": "Agregar una nota de visita",
+  "addVisitNote": "Agregar un resumen de consulta",
   "clinicalNoteLabel": "Escribe tus notas",
   "clinicalNotePlaceholder": "Escribe cualquier nota adicional aquí",
   "date": "Fecha",
@@ -18,7 +18,7 @@
   "imageUploadHelperText": "Subir una imagen o utilizar la cámara de este dispositivo para capturar una imagen",
   "noMatchingDiagnoses": "No se encontraron diagnósticos coincidentes",
   "note": "Nota",
-  "noVisitNoteToDisplay": "No hay notas de visita para mostrar",
+  "noVisitNoteToDisplay": "No hay resúmenes de consulta para mostrar",
   "primaryDiagnosis": "Diagnóstico principal",
   "primaryDiagnosisInputPlaceholder": "Elija un diagnóstico principal",
   "primaryDiagnosisRequired": "Elija al menos un diagnóstico principal",
@@ -29,11 +29,11 @@
   "secondaryDiagnosis": "Diagnóstico secundario",
   "secondaryDiagnosisInputPlaceholder": "Elija un diagnóstico secundario",
   "seeAll": "Ver todo",
-  "visitDate": "Fecha de visita",
-  "visitNote": "Nota de visita",
-  "visitNoteNowVisible": "Ahora es visible en la página de Encuentros",
-  "visitNotes": "Notas de visita",
-  "visitNoteSaved": "Nota de visita guardada",
-  "visitNoteSaveError": "Error al guardar la nota de visita",
-  "visitNoteWorkspaceTitle": "Nota de la Visita"
+  "visitDate": "Fecha de consulta",
+  "visitNote": "Resumen de consulta",
+  "visitNoteNowVisible": "Ahora es visible en la página de Atenciones",
+  "visitNotes": "Resúmenes de consulta",
+  "visitNoteSaved": "Resumen de consulta guardado",
+  "visitNoteSaveError": "Error al guardar el resumen de consulta",
+  "visitNoteWorkspaceTitle": "Resumen de consulta"
 }

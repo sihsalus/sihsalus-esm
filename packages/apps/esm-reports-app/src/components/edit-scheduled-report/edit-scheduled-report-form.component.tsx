@@ -11,13 +11,15 @@ import SimpleCronEditor from '../simple-cron-editor/simple-cron-editor.component
 
 import styles from './edit-scheduled-report-form.scss';
 
-interface EditScheduledReportForm {
+type ReportParameterValue = string | number | boolean | null;
+
+interface EditScheduledReportFormProps {
   reportDefinitionUuid: string;
   reportRequestUuid: string;
   closePanel: () => void;
 }
 
-const EditScheduledReportForm: React.FC<EditScheduledReportForm> = ({
+const EditScheduledReportForm: React.FC<EditScheduledReportFormProps> = ({
   reportDefinitionUuid,
   reportRequestUuid,
   closePanel,
@@ -29,7 +31,9 @@ const EditScheduledReportForm: React.FC<EditScheduledReportForm> = ({
   const { reportDesigns } = useReportDesigns(reportDefinitionUuid);
   const { reportRequest } = useReportRequest(reportRequestUuid);
 
-  const [reportParameters, setReportParameters] = useState(reportRequest?.parameterMappings || {});
+  const [reportParameters, setReportParameters] = useState<Record<string, ReportParameterValue>>(
+    (reportRequest?.parameterMappings as Record<string, ReportParameterValue>) || {},
+  );
   const [renderModeUuid, setRenderModeUuid] = useState<string>();
   const [initialCron, setInitialCron] = useState<string | undefined>(undefined);
   const [schedule, setSchedule] = useState('');
@@ -43,7 +47,7 @@ const EditScheduledReportForm: React.FC<EditScheduledReportForm> = ({
     setRenderModeUuid(reportRequest?.renderingMode?.argument);
 
     if (reportRequest?.parameterMappings) {
-      setReportParameters(reportRequest.parameterMappings);
+      setReportParameters(reportRequest.parameterMappings as Record<string, ReportParameterValue>);
     }
   }, [reportRequest]);
 
@@ -116,7 +120,7 @@ const EditScheduledReportForm: React.FC<EditScheduledReportForm> = ({
             onChange={(parameterValue) => {
               setReportParameters((state) => ({
                 ...state,
-                [parameter.name]: parameterValue,
+                [parameter.name]: parameterValue as ReportParameterValue,
               }));
             }}
             value={reportRequest?.parameterMappings[parameter.name]}

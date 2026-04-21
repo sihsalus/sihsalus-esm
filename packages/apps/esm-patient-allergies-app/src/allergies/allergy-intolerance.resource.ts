@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import useSWR from 'swr';
 import { map } from 'rxjs/operators';
 import {

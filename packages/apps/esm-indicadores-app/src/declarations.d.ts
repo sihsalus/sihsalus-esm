@@ -1,3 +1,5 @@
-declare module '*.css';
-declare module '*.scss';
-declare type SWRResponse = import('swr').SWRResponse;
+declare module '*.scss' {
+  const styles: { [className: string]: string };
+  export default styles;
+}
+

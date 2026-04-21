@@ -151,8 +151,8 @@ export function useCompletedLabResults(order: Order) {
 export async function updateOrderResult(
   orderUuid: string,
   encounterUuid: string,
-  obsPayload: any,
-  fulfillerPayload: any,
+  obsPayload: unknown,
+  fulfillerPayload: unknown,
   orderPayload: OrderDiscontinuationPayload,
   abortController: AbortController,
 ) {
@@ -215,7 +215,7 @@ export function createObservationPayload(
   }
 }
 
-export function updateObservation(observationUuid: string, payload: Record<string, any>) {
+export function updateObservation(observationUuid: string, payload: Record<string, unknown>) {
   return openmrsFetch(`${restBaseUrl}/obs/${observationUuid}`, {
     method: 'POST',
     headers: {

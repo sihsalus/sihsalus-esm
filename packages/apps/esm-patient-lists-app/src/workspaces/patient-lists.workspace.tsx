@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/unbound-method, @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo, useState } from 'react';
 import fuzzy from 'fuzzy';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +19,7 @@ import {
   Tile,
 } from '@carbon/react';
 import { EmptyDataIllustration, type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
-import { launchWorkspace, useLayoutType, Workspace2 } from '@openmrs/esm-framework';
+import { useLayoutType, Workspace2 } from '@openmrs/esm-framework';
 import { usePatientLists } from '../patient-lists.resource';
 import styles from './patient-lists.scss';
 

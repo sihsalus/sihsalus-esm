@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "build:development": "tsc",
-    "lint": "eslint ."
+    "lint": "node ../scripts/run-biome.js lint ."
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,4 @@
-const rootConfig = require('../../jest.config.js');
-
-module.exports = rootConfig;
+module.exports = {
+  ...require('../../jest.config.js'),
+  maxWorkers: 1,
+};

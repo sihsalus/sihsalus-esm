@@ -1,3 +1,5 @@
+import { type Encounter, EncounterPropertyType } from '../types';
+
 import { getEncounterProperty, getObsFromEncounter } from './helpers';
 
 const config = {
@@ -19,7 +21,7 @@ describe('clinical view helpers', () => {
           },
         },
       ],
-    } as any;
+    } as unknown as Encounter;
 
     expect(
       getObsFromEncounter({
@@ -33,8 +35,8 @@ describe('clinical view helpers', () => {
   it('returns only defined provider names when encounter providers are partially populated', () => {
     const encounter = {
       encounterProviders: [{ provider: { name: 'Dr Cook' } }, { provider: {} }],
-    } as any;
+    } as unknown as Encounter;
 
-    expect(getEncounterProperty(encounter, 'provider')).toBe('Dr Cook');
+    expect(getEncounterProperty(encounter, EncounterPropertyType.provider)).toBe('Dr Cook');
   });
 });

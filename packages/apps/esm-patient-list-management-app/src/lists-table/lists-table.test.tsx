@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig, useSession } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockSession } from '__mocks__';
+import { mockSession } from 'test-utils';
 import React from 'react';
 
 import type { PatientList } from '../api/types';
@@ -174,7 +174,6 @@ describe('ListsTable', () => {
 
   it('clicking the "Star list" button toggles the starred status of a patient list', async () => {
     const user = userEvent.setup();
-    const pageSize = 5;
 
     render(<ListsTable patientLists={patientLists} listType={''} headers={tableHeaders} isLoading={false} />);
 

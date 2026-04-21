@@ -17,7 +17,9 @@ interface FUAFormTemplate {
 }
 
 function useFUATemplate(templateUuid: string) {
-  const url = templateUuid ? `${restBaseUrl}/form/${templateUuid}?v=custom:(uuid,name,description,encounterType)` : null;
+  const url = templateUuid
+    ? `${restBaseUrl}/form/${templateUuid}?v=custom:(uuid,name,description,encounterType)`
+    : null;
   const { data, error, isLoading } = useSWR<{ data: FUAFormTemplate }, Error>(url, openmrsFetch);
   return {
     data: data?.data ?? null,
@@ -75,10 +77,10 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
 
       const abortController = new AbortController();
 
-      updateVisit(activeVisit.uuid, endVisitPayload, abortController)
+      void updateVisit(activeVisit.uuid, endVisitPayload, abortController)
         .then((response) => {
-          mutate();
-          mutateInfiniteVisits();
+          void mutate();
+          void mutateInfiniteVisits();
           closeModal();
 
           showSnackbar({
@@ -88,7 +90,7 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
             title: t('visitEnded', 'Visit ended'),
           });
         })
-        .catch((error) => {
+        .catch((error: { message?: string }) => {
           showSnackbar({
             title: t('errorEndingVisit', 'Error ending visit'),
             kind: 'error',
@@ -113,8 +115,8 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
     const abortController = new AbortController();
     try {
       await updateVisit(activeVisit.uuid, { stopDatetime: new Date() }, abortController);
-      mutate();
-      mutateInfiniteVisits();
+      void mutate();
+      void mutateInfiniteVisits();
       closeModal();
 
       showSnackbar({
@@ -127,12 +129,13 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
       if (fuaGeneratorEndpoint) {
         await downloadFuaDocument(fuaGeneratorEndpoint, activeVisit.uuid, t);
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : t('unknownError', 'Unknown error');
       showSnackbar({
         title: t('errorEndingVisitOrGeneratingFUA', 'Error ending visit or generating FUA'),
         kind: 'error',
         isLowContrast: false,
-        subtitle: error?.message ?? t('unknownError', 'Unknown error'),
+        subtitle: message,
       });
     }
   };
@@ -152,7 +155,11 @@ const EndVisitDialog: React.FC<EndVisitDialogProps> = ({ patientUuid, closeModal
         <Button kind="secondary" onClick={closeModal}>
           {t('cancel', 'Cancel')}
         </Button>
-        <Button kind="danger" onClick={handleEndVisitAndGenerateFUA} disabled={isLoading || !!templateError}>
+        <Button
+          kind="danger"
+          onClick={() => void handleEndVisitAndGenerateFUA()}
+          disabled={isLoading || !!templateError}
+        >
           {t('endVisitAndGenerateFua_title', 'End Visit and Generate FUA')}
         </Button>
         <Button kind="danger--tertiary" onClick={handleEndVisit}>

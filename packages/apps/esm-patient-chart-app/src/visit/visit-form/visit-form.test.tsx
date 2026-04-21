@@ -13,7 +13,7 @@ import {
 } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockLocations, mockVisitTypes, mockVisitWithAttributes } from '__mocks__';
+import { mockLocations, mockVisitTypes, mockVisitWithAttributes } from 'test-utils';
 import dayjs from 'dayjs';
 import React from 'react';
 import { mockPatient } from 'test-utils';

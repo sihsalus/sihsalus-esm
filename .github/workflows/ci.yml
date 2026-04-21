@@ -13,7 +13,7 @@ concurrency:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,7 +21,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Enable Corepack
         run: corepack enable
@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: HUSKY=0 yarn install --immutable
 
+      - name: Clean generated artifacts
+        run: yarn clean
+
       - name: Turbo Cache
         uses: actions/cache@v4
         with:
@@ -46,29 +49,14 @@ jobs:
           key: turbo-${{ runner.os }}-${{ github.sha }}
           restore-keys: turbo-${{ runner.os }}-
 
-      - name: Lint
-        run: yarn lint
-
-      - name: Typecheck
-        run: yarn typecheck
-
-      - name: Test
-        run: yarn test
-
-      - name: Generate Coverage Report
-        run: yarn test:coverage
-        continue-on-error: true
-
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage/coverage-final.json
-          flags: unittests
-          fail_ci_if_error: false
-          verbose: true
+      - name: Verify
+        run: yarn verify
 
       - name: Build
         run: yarn build
+
+      - name: Assemble
+        run: yarn assemble
 
       - name: Security Audit
         run: yarn npm audit --severity high

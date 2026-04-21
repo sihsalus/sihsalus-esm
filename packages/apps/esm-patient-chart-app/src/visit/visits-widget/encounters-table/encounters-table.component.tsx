@@ -46,7 +46,11 @@ interface EncountersTableProps {
 
 const transformEncounters = (inData?: Array<Encounter>) => {
   if (!inData) return [];
-  return inData.map((item) => ({ ...item, id: item.uuid, datetime: formatDatetime(parseDate(item?.datetime)) }));
+  return inData.map((item) => ({
+    ...item,
+    id: item.uuid,
+    datetime: formatDatetime(parseDate(item?.datetime)),
+  }));
 };
 
 const EncountersTable: React.FC<EncountersTableProps> = ({ showAllEncounters, encounters }) => {
@@ -105,8 +109,12 @@ const EncountersTable: React.FC<EncountersTableProps> = ({ showAllEncounters, en
               <TableHead>
                 <TableRow>
                   <TableExpandHeader />
-                  {headers.map((header, i) => (
-                    <TableHeader className={styles.tableHeader} key={i} {...getHeaderProps({ header })}>
+                  {headers.map((header) => (
+                    <TableHeader
+                      className={styles.tableHeader}
+                      key={String(header.key ?? header.header)}
+                      {...getHeaderProps({ header })}
+                    >
                       {header.header}
                     </TableHeader>
                   ))}

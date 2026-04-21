@@ -344,7 +344,7 @@ export function launchWorkspace<
   function updateStoreWithNewWorkspace(workspaceToBeAdded: OpenWorkspace, restOfTheWorkspaces?: Array<OpenWorkspace>) {
     store.setState((state) => {
       const openWorkspaces = [workspaceToBeAdded, ...(restOfTheWorkspaces ?? state.openWorkspaces)];
-      let workspaceWindowState = getUpdatedWorkspaceWindowState(workspaceToBeAdded);
+      const workspaceWindowState = getUpdatedWorkspaceWindowState(workspaceToBeAdded);
 
       return {
         ...state,

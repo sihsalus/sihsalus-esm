@@ -6,7 +6,7 @@ import { type RegistrationConfig } from '../config-schema';
 import { type CapturePhotoProps, type FormValues } from './patient-registration.types';
 
 export interface PatientRegistrationContextProps {
-  currentPhoto: string;
+  currentPhoto: string | null;
   identifierTypes: Array<any>;
   inEditMode: boolean;
   initialFormValues: FormValues;

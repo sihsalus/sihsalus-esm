@@ -27,6 +27,14 @@ import type { BedTagData } from '../types';
 import EditBedTagForm from './edit-tag-form.component';
 import BedTagForm from './new-tag-form.component';
 
+const renderCellValue = (value: React.ReactNode) => {
+  if (value && typeof value === 'object' && 'content' in value) {
+    return value.content as React.ReactNode;
+  }
+
+  return value;
+};
+
 const BedTagAdministrationTable: React.FC = () => {
   const { t } = useTranslation();
   const headerTitle = t('bedTags', 'Bed tags');
@@ -65,7 +73,6 @@ const BedTagAdministrationTable: React.FC = () => {
       actions: (
         <>
           <Button
-            enterDelayMs={300}
             renderIcon={Edit}
             onClick={(e) => {
               e.preventDefault();
@@ -89,7 +96,7 @@ const BedTagAdministrationTable: React.FC = () => {
       <>
         <Header title={t('bedTags', 'Bed tags')} />
         <div className={styles.widgetCard}>
-          <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />
+          <DataTableSkeleton role="progressbar" size={isDesktop ? 'sm' : 'lg'} zebra />
         </div>
       </>
     );
@@ -143,7 +150,7 @@ const BedTagAdministrationTable: React.FC = () => {
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
-                      <TableHeader>{header.header?.content ?? header.header}</TableHeader>
+                      <TableHeader key={header.key}>{header.header}</TableHeader>
                     ))}
                   </TableRow>
                 </TableHead>
@@ -151,7 +158,7 @@ const BedTagAdministrationTable: React.FC = () => {
                   {rows.map((row) => (
                     <TableRow key={row.id}>
                       {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                        <TableCell key={cell.id}>{renderCellValue(cell.value)}</TableCell>
                       ))}
                     </TableRow>
                   ))}

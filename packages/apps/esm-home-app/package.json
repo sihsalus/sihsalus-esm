@@ -12,11 +12,11 @@
     "debug": "npm run serve",
     "build": "rspack --mode production",
     "analyze": "rspack --mode=production --env.analyze=true",
-    "lint": "eslint .",
+    "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "typescript": "tsc",
     "verify": "turbo lint typescript test --color",
     "extract-translations": "i18next 'src/**/*.{component.tsx,tsx}' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js",
-    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests",
+    "test": "jest --config jest.config.js --verbose false --passWithNoTests",
     "coverage": "yarn test --coverage"
   },
   "browserslist": [
@@ -43,6 +43,7 @@
     "swr": "2.x"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "openmrs": "*",
     "typescript": "^5.8.3"
   }

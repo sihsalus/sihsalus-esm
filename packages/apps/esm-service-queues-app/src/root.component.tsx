@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from './home.component';
@@ -13,7 +13,7 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-service-queues-app">
-        <main>
+      <main>
         <BrowserRouter basename={serviceQueuesBasename}>
           <Routes>
             <Route path="/" element={<Home />} />

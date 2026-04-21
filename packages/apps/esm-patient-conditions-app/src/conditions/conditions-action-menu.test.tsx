@@ -72,11 +72,16 @@ describe('ConditionsActionMenu', () => {
     await user.click(screen.getByRole('button'));
     await user.click(screen.getByText('Edit'));
 
-    expect(mockLaunchWorkspace2).toHaveBeenCalledWith('conditions-form-workspace', {
-      workspaceTitle: 'Edit a Condition',
-      condition: specificCondition,
-      formContext: 'editing',
-    });
+    expect(mockLaunchWorkspace2).toHaveBeenCalledWith(
+      'conditions-form-workspace',
+      {
+        workspaceTitle: 'Edit a Condition',
+        condition: specificCondition,
+        formContext: 'editing',
+      },
+      null,
+      null,
+    );
   });
 
   it('opens delete confirmation modal with condition ID when Delete button is clicked', async () => {

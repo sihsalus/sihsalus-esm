@@ -1,4 +1,5 @@
-import { ActionMenuButton, DocumentIcon } from '@openmrs/esm-framework';
+import { Receipt } from '@carbon/react/icons';
+import { ActionMenuButton } from '@openmrs/esm-framework';
 import { useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +10,7 @@ const FuaEncounterAction: React.FC = () => {
 
   return (
     <ActionMenuButton
-      getIcon={(props: ComponentProps<typeof DocumentIcon>) => <DocumentIcon {...props} />}
+      getIcon={(props: ComponentProps<typeof Receipt>) => <Receipt {...props} />}
       label={t('createFua', 'Crear FUA')}
       iconDescription={t('createFua', 'Crear FUA')}
       handler={launchFuaEncounterWorkspace}

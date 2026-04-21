@@ -75,8 +75,6 @@ function DeathTimeField() {
           {...deathTimeFormatField}
           id="time-format-picker"
           aria-label={t('timeFormat', 'Time Format')}
-          invalid={!!deathTimeFormatMeta.touched && deathTimeFormatMeta.error}
-          invalidText={t(deathTimeFormatMeta.error)}
         >
           <SelectItem value="AM" text="AM" />
           <SelectItem value="PM" text="PM" />

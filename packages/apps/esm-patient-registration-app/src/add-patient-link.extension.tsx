@@ -14,8 +14,6 @@ export default function Root() {
     <HeaderGlobalAction
       aria-label={t('addPatient', 'Add patient')}
       aria-labelledby={t('addPatient', 'Add patient')}
-      enterDelayMs={500}
-      name="AddPatientIcon"
       onClick={addPatient}
       className={styles.slotStyles}
     >

@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, type OpenmrsResource, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockSession } from '__mocks__';
+import { mockSession } from 'test-utils';
 import React from 'react';
 
 import { type ActiveVisitsConfigSchema, configSchema } from '../config-schema';
@@ -106,7 +106,7 @@ describe('ActiveVisitsTable', () => {
 
     render(<ActiveVisitsTable />);
 
-    const standardColumnHeaders = [/Visit Time/, /ID Number/, /Name/, /Gender/, /Age/, /Visit Type/];
+    const standardColumnHeaders = [/Visit Time/, /DNI/, /N° Historia Clínica/, /Name/, /Gender/, /Age/, /Visit Type/];
     standardColumnHeaders.forEach((header) => {
       expect(screen.getByRole('columnheader', { name: header })).toBeInTheDocument();
     });

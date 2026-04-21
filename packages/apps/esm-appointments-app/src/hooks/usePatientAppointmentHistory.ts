@@ -39,7 +39,8 @@ export function usePatientAppointmentHistory(patientUuid: string) {
     ? data.data.filter((appointment) => appointment.status === 'Cancelled').length
     : 0;
   const upcomingAppointments = data?.data?.length
-    ? data.data?.filter((appointment: Appointment) => dayjs(new Date(appointment.startDateTime)).isAfter(dayjs())).length
+    ? data.data?.filter((appointment: Appointment) => dayjs(new Date(appointment.startDateTime)).isAfter(dayjs()))
+        .length
     : 0;
 
   return {

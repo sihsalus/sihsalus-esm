@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "backendDependencies": {
+    "webservices.rest": ">=2.2.0"
+  },
+  "extensions": [
+    {
+      "name": "clinical-view-section",
+      "component": "clinicalViewPatientDashboard",
+      "slot": "patient-chart-dashboard-slot",
+      "meta": {
+        "slot": "clinical-view-section",
+        "isFolder": true
+      }
+    },
+    {
+      "name": "clinical-encounter",
+      "slot": "patient-chart-clinical-encounter-slot",
+      "component": "inPatientClinicalEncounter",
+      "order": 0,
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "consulta-externa-dashboard-link",
+      "component": "consultaExternaDashboardLink",
+      "slot": "patient-chart-dashboard-slot",
+      "order": 10,
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-consulta-externa-slot",
+        "path": "consulta-externa",
+        "layoutMode": "anchored"
+      }
+    },
+    {
+      "name": "consulta-externa-dashboard",
+      "slot": "patient-chart-consulta-externa-slot",
+      "component": "consultaExternaDashboard",
+      "order": 0,
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "social-history-dashboard",
+      "slot": "patient-chart-social-history-dashboard-slot",
+      "component": "inPatientClinicalEncounter",
+      "order": 0,
+      "online": true,
+      "offline": false
+    },
+    {
+      "name": "social-history-dashboard-link",
+      "component": "socialHistoryDashboardLink",
+      "slot": "patient-chart-dashboard-slot",
+      "order": 16,
+      "meta": {
+        "columns": 1,
+        "columnSpan": 1,
+        "slot": "patient-chart-social-history-dashboard-slot",
+        "path": "social-history-dashboard",
+        "layoutMode": "anchored"
+      }
+    }
+  ],
+  "modals": [
+    {
+      "name": "condition-delete-confirmation-dialog",
+      "component": "conditionFilterDeleteConfirmationDialog"
+    }
+  ],
+  "workspaces": [
+    {
+      "name": "conditions-filter-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "title": "Antecedentes",
+      "type": "form"
+    },
+    {
+      "name": "forms-selector-workspace",
+      "component": "formsSelectorWorkspace",
+      "title": "Selección de Formularios",
+      "type": "form"
+    }
+  ]
+}

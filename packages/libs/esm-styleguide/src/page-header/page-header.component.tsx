@@ -1,9 +1,10 @@
 /** @module @category UI */
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { getConfig } from '@openmrs/esm-framework/src/internal';
+import { getConfig } from '@openmrs/esm-config';
 import { type StyleguideConfigObject } from '../config-schema';
 import styles from './page-header.module.scss';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 
 export interface PageHeaderContentProps {
   title: string | JSX.Element;
@@ -88,9 +89,15 @@ export const PageHeader: React.FC<PageHeaderProps> = (props) => {
  */
 export const PageHeaderContent: React.FC<PageHeaderContentProps> = ({ title, illustration, className }) => {
   const [config, setConfig] = useState<StyleguideConfigObject | null>(null);
+  const implementationName = config?.implementationName;
+  const implementationLabel = implementationName
+    ? implementationName === 'Clinic'
+      ? getCoreTranslation('Clinic')
+      : implementationName
+    : null;
 
   useEffect(() => {
-    getConfig('@openmrs/esm-styleguide').then((fetchedConfig: StyleguideConfigObject) => {
+    getConfig<StyleguideConfigObject>('@openmrs/esm-styleguide').then((fetchedConfig) => {
       setConfig(fetchedConfig);
     });
   }, []);
@@ -99,7 +106,7 @@ export const PageHeaderContent: React.FC<PageHeaderContentProps> = ({ title, ill
     <div className={classNames(styles.pageHeaderContent, className)}>
       {illustration}
       <div className={styles.pageLabels}>
-        {config?.implementationName && <p>{config.implementationName}</p>}
+        {implementationLabel && <p>{implementationLabel}</p>}
         <p className={styles.pageName}>{title}</p>
       </div>
     </div>

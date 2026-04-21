@@ -17,7 +17,7 @@ jest.mock('@carbon/react', () => {
 import { showModal, useVisit } from '@openmrs/esm-framework';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit } from '__mocks__';
+import { mockCurrentVisit } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 

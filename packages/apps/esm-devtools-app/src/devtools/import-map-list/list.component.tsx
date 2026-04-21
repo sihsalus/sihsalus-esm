@@ -124,7 +124,9 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
 
   useEffect(() => {
     // load initial values from importMapOverrides
-    void importMapOverrides.getDefaultMap().then((notOverriddenMap) => dispatch({ type: 'set_default_map', notOverriddenMap }));
+    void importMapOverrides
+      .getDefaultMap()
+      .then((notOverriddenMap) => dispatch({ type: 'set_default_map', notOverriddenMap }));
     void importMapOverrides
       .getCurrentPageMap()
       .then((currentPageMap) => dispatch({ type: 'set_current_map', currentPageMap }));

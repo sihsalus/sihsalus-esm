@@ -13,17 +13,14 @@ const mockUser = {
   },
 };
 
-const mockUpdateUserProperties = vi.fn((...args) => Promise.resolve());
-const mockUpdateSessionLocale = vi.fn((...args) => Promise.resolve());
+const mockUpdateUserProperties = vi.fn((..._args) => Promise.resolve());
+const mockUpdateSessionLocale = vi.fn((..._args) => Promise.resolve());
 
-vi.mock('@openmrs/esm-framework', async (importOriginal) => {
-   
-  const actual = await importOriginal<typeof import('@openmrs/esm-framework')>();
-  return {
-    ...actual,
-    useSession: vi.fn(),
-  };
-});
+vi.mock('@openmrs/esm-framework', () => ({
+  __esModule: true,
+  useSession: vi.fn(),
+  useAbortController: vi.fn(() => new AbortController()),
+}));
 
 vi.mock('./change-language.resource', () => ({
   updateUserProperties: (...args) => mockUpdateUserProperties(...args),

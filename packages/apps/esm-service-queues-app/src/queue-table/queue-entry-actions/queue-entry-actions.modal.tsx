@@ -256,7 +256,7 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                   name="status"
                   valueSelected={formState.selectedStatus}
                   onChange={(uuid) => {
-                    setSelectedStatusUuid(uuid);
+                    setSelectedStatusUuid(String(uuid));
                   }}
                 >
                   {statuses?.map(({ uuid, display }) => (
@@ -293,7 +293,7 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                   size="sm"
                   selectedIndex={selectedPriorityIndex}
                   onChange={(event) => {
-                    setSelectedPriorityUuid(event.name as string);
+                    setSelectedPriorityUuid(String(event.name));
                   }}
                 >
                   {priorities?.map(({ uuid, display }) => (
@@ -348,6 +348,7 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                 />
 
                 <TimePicker
+                  id="transitionTime"
                   labelText={t('time', 'Time')}
                   onChange={(event) => setTransitionTime(event.target.value)}
                   pattern={time12HourFormatRegexPattern}
@@ -360,7 +361,6 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                     id="visitStartTimeSelect"
                     onChange={(event) => setTransitionTimeFormat(event.target.value as amPm)}
                     value={formState.transitionTimeFormat}
-                    labelText={t('time', 'Time')}
                     aria-label={t('time', 'Time')}
                   >
                     <SelectItem value="AM" text="AM" />

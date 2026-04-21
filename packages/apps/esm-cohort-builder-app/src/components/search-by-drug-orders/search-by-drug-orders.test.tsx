@@ -5,6 +5,16 @@ import { render, screen } from '@testing-library/react';
 import { useCareSettings, useDrugs } from './search-by-drug-orders.resources';
 import SearchByDrugOrder from './search-by-drug-orders.component';
 
+jest.mock('@carbon/react', () => {
+  const actual = jest.requireActual('@carbon/react');
+
+  return {
+    ...actual,
+    DatePicker: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    DatePickerInput: ({ id, labelText }: { id: string; labelText: string }) => <input id={id} aria-label={labelText} />,
+  };
+});
+
 const mockCareSettings = [
   {
     id: 0,

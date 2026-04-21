@@ -13,7 +13,7 @@ export interface LinkCardProps extends TileProps {
 export const LinkCard: React.FC<LinkCardProps> = ({ header, viewLink, children }) => {
   return (
     <Layer>
-      <a className={styles.cardLink} href={viewLink} target="_blank" rel="norefferer">
+      <a className={styles.cardLink} href={viewLink} target="_blank" rel="noreferrer">
         <ClickableTile className={styles.overviewCard}>
           <div>
             <div className={styles.heading}>{header}</div>

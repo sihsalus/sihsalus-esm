@@ -36,7 +36,7 @@ const Import: React.FC = () => {
   }, [isLoading, error, subscription]);
 
   const onAddFiles = useCallback(
-    (evt: React.DragEvent<HTMLInputElement>, { addedFiles }) => {
+    (evt: React.DragEvent<HTMLInputElement>, { addedFiles }: { addedFiles: File[] }) => {
       const fileToUpload: File = addedFiles[0];
       if (!allowedMimeTypes.includes(fileToUpload.type)) {
         showSnackbar({
@@ -180,7 +180,7 @@ const Import: React.FC = () => {
   return (
     <Grid className={styles.grid}>
       <Column sm={4} md={8} lg={10}>
-        <Form onSubmit={handleImportWithSubscription}>
+        <Form onSubmit={(evt) => void handleImportWithSubscription(evt)}>
           <h3 className={styles.productiveHeading03}>{t('importConcepts', 'Import Concepts')}</h3>
           <p className={styles.formText}>
             {t(
@@ -193,7 +193,7 @@ const Import: React.FC = () => {
           </Button>
         </Form>
 
-        <Form className={styles.form} onSubmit={handleImportWithFile}>
+        <Form className={styles.form} onSubmit={(evt) => void handleImportWithFile(evt)}>
           <h3 className={styles.productiveHeading03}>{t('importFromFileHeading', 'Import from file (Offline)')}</h3>
           <p className={styles.formText}>
             {t('importFromFileInfo', 'You can import data without setting up a subscription by using this option.')}

@@ -8,9 +8,8 @@ import {
 } from '@openmrs/esm-framework';
 import { type ObsRecord } from '@openmrs/esm-patient-common-lib';
 import { useCallback, useEffect, useMemo } from 'react';
-import { type KeyedMutator } from 'swr';
 import useSWRImmutable from 'swr/immutable';
-import useSWRInfinite from 'swr/infinite';
+import useSWRInfinite, { type SWRInfiniteKeyedMutator } from 'swr/infinite';
 
 import { type ConfigObject } from '../config-schema';
 import { type VitalsBiometricsFormData } from '../vitals-biometrics-form/vitals-biometrics-form.workspace';
@@ -107,7 +106,7 @@ export const withUnit = (label: string, unit: string | null | undefined) => {
 // Each mutator is stored in the vitalsHooksMutates map and removed (via a useEffect hook) when the
 // hook is unmounted.
 let vitalsHooksCounter = 0;
-const vitalsHooksMutates = new Map<number, KeyedMutator<VitalsFetchResponse[]>>();
+const vitalsHooksMutates = new Map<number, SWRInfiniteKeyedMutator<VitalsFetchResponse[]>>();
 
 /**
  * Hook to get the vitals and / or biometrics for a patient
@@ -207,7 +206,7 @@ export function useVitalsAndBiometrics(patientUuid: string, mode: VitalsAndBiome
       .filter(Boolean)
       .map(vitalsProperties(conceptMetadata))
       ?.reduce((vitalsHashTable, vitalSign) => {
-        const recordedDate = new Date(new Date(vitalSign.recordedDate)).toISOString();
+        const recordedDate = new Date(vitalSign.recordedDate).toISOString();
 
         if (vitalsHashTable.has(recordedDate) && vitalsHashTable.get(recordedDate)) {
           vitalsHashTable.set(recordedDate, {

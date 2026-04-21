@@ -1,8 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig, useLayoutType, usePatient } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import { mockGroupedResults, mockResults } from '__mocks__';
 import React from 'react';
-import { mockPatient } from 'test-utils';
+import { mockGroupedResults, mockPatient, mockResults } from 'test-utils';
 
 import { type ConfigObject, configSchema } from '../../config-schema';
 import FilterContext from '../filter/filter-context';
@@ -135,7 +134,7 @@ describe('TreeViewWrapper', () => {
 
     renderTreeViewWrapperWithMockContext();
 
-    expect(screen.getByRole('table')).toBeInTheDocument();
+    expect(screen.getAllByRole('table').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Complete blood count').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Haemoglobin').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Hematocrit').length).toBeGreaterThan(0);

@@ -26,6 +26,11 @@ dayjs.extend(utc);
 
 const pageSize = 10;
 
+const renderHeaderLabel = (header: React.ReactNode): React.ReactNode =>
+  typeof header === 'object' && header !== null && 'content' in header
+    ? (header as { content: React.ReactNode }).content
+    : header;
+
 interface AppointmentTableProps {
   patientAppointments: Array<Appointment>;
   switchedView: boolean;
@@ -49,7 +54,7 @@ const PatientAppointmentsTable: React.FC<AppointmentTableProps> = ({
     }
   }, [switchedView, goTo, currentPage]);
 
-  const tableHeaders: Array<typeof DataTableHeader> = useMemo(
+  const tableHeaders: DataTableHeader[] = useMemo(
     () => [
       { key: 'date', header: t('date', 'Date') },
       { key: 'location', header: t('location', 'Location') },
@@ -66,7 +71,7 @@ const PatientAppointmentsTable: React.FC<AppointmentTableProps> = ({
       paginatedAppointments?.map((appointment) => {
         return {
           id: appointment.uuid,
-          date: formatDatetime(parseDate(appointment.startDateTime), { mode: 'wide' }),
+          date: formatDatetime(new Date(appointment.startDateTime), { mode: 'wide' }),
           location: appointment?.location?.name ? appointment?.location?.name : '——',
           service: appointment.service.name,
           status: appointment.status,
@@ -93,7 +98,7 @@ const PatientAppointmentsTable: React.FC<AppointmentTableProps> = ({
                         isSortable: header.isSortable,
                       })}
                     >
-                      {header.header?.content ?? header.header}
+                      {renderHeaderLabel(header.header)}
                     </TableHeader>
                   ))}
                   <TableHeader />

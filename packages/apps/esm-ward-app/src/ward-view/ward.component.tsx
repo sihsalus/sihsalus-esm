@@ -10,7 +10,13 @@ import { type WardViewContext } from '../types';
 
 import styles from './ward-view.scss';
 
-const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardUnassignedPatients: ReactNode }) => {
+const Ward = ({
+  wardBeds,
+  wardUnassignedPatients,
+}: {
+  wardBeds: ReactNode;
+  wardUnassignedPatients: ReactNode;
+}) => {
   const { location } = useWardLocation();
   const { t } = useTranslation();
 
@@ -29,6 +35,7 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
   const scrollToLoadMoreTrigger = useRef<HTMLDivElement>(null);
   useEffect(
     function scrollToLoadMore() {
+      const triggerElement = scrollToLoadMoreTrigger.current;
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -42,15 +49,13 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
         { threshold: 1 },
       );
 
-      if (scrollToLoadMoreTrigger.current) {
-        observer.observe(scrollToLoadMoreTrigger.current);
+      if (triggerElement) {
+        observer.observe(triggerElement);
       }
 
       return () => {
-        if (scrollToLoadMoreTrigger.current) {
-          // TODO: Fix this more meaningfully
-           
-          observer.unobserve(scrollToLoadMoreTrigger.current);
+        if (triggerElement) {
+          observer.unobserve(triggerElement);
         }
       };
     },
@@ -84,7 +89,9 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
           title={t('errorLoadingWardLocation', 'Error loading ward location')}
           subtitle={
             errorLoadingAdmissionLocation?.message ??
-            t('invalidWardLocation', 'Invalid ward location: {{location}}', { location: location.display })
+            t('invalidWardLocation', 'Invalid ward location: {{location}}', {
+              location: location.display,
+            })
           }
         />
       )}
@@ -101,14 +108,14 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
   );
 };
 
+const emptyBedSkeletonKeys = Array.from({ length: 20 }, (_, index) => `empty-bed-${index}`);
+
 const EmptyBeds = () => {
   return (
     <>
-      {Array(20)
-        .fill(0)
-        .map((_, i) => (
-          <EmptyBedSkeleton key={i} />
-        ))}
+      {emptyBedSkeletonKeys.map((key) => (
+        <EmptyBedSkeleton key={key} />
+      ))}
     </>
   );
 };

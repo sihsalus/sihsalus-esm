@@ -1,13 +1,13 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import { useFhirFetchAll } from '@openmrs/esm-framework';
-import { mockImmunizationData } from '__mocks__';
-import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'tools';
+import { mockImmunizationData } from 'test-utils';
+import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 import ImmunizationsOverview from './immunizations-overview.component';
 
 const testProps = {
   basePath: patientChartBasePath,
-  patient: mockPatient,
+  patient: mockPatient as unknown as fhir.Patient,
   patientUuid: mockPatient.id,
 };
 

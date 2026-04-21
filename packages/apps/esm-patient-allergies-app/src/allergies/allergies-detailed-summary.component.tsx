@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -30,7 +29,7 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
   const layout = useLayoutType();
   const { allergies, error, isLoading, isValidating } = useAllergies(patient.id);
   const isTablet = layout === 'tablet';
-  const isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
+  const _isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
   const displayText = t('allergyIntolerances', 'allergy intolerances');
   const headerTitle = t('allergies', 'Allergies');
 

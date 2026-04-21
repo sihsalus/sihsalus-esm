@@ -1,6 +1,5 @@
 import { useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { vi, describe, it, expect } from 'vitest';
 
@@ -8,14 +7,11 @@ import { type ConfigSchema } from '../../config-schema';
 
 import Logo from './logo.component';
 
-vi.mock('@openmrs/esm-framework', async (importOriginal) => {
-   
-  const actual = await importOriginal<typeof import('@openmrs/esm-framework')>();
-  return {
-    ...actual,
-    useConfig: vi.fn(),
-  };
-});
+vi.mock('@openmrs/esm-framework', () => ({
+  __esModule: true,
+  useConfig: vi.fn(),
+  interpolateUrl: vi.fn((url: string) => url),
+}));
 
 const mockUseConfig = vi.mocked(useConfig);
 
@@ -65,7 +61,6 @@ describe('Logo', () => {
   });
 
   it('should handle image load errors', () => {
-    const user = userEvent.setup();
     const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const mockConfig = {
       logo: {

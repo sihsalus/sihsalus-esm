@@ -7,7 +7,7 @@ import {
 } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockLocationsResponse, mockSessionDataResponse } from '__mocks__';
+import { mockLocationsResponse, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 

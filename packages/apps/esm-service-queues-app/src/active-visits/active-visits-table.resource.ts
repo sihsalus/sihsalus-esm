@@ -40,26 +40,33 @@ export interface MappedVisitQueueEntry {
 }
 
 interface ObsData {
-  concept: {
-    display: string;
-    uuid: string;
+  concept?: {
+    display?: string;
+    uuid?: string;
   };
   value?: string | any;
   groupMembers?: Array<{
-    concept: { uuid: string; display: string };
+    concept?: { uuid?: string; display?: string };
     value?: string | any;
   }>;
-  obsDatetime: string;
+  obsDatetime?: string;
 }
 
 interface Encounter {
-  diagnoses: Array<any>;
-  encounterDatetime: string;
-  encounterProviders?: Array<{ provider: { person: { display: string } } }>;
-  encounterType: { display: string; uuid: string };
-  obs: Array<ObsData>;
-  uuid: string;
-  voided: boolean;
+  diagnoses?: Array<any>;
+  encounterDatetime?: string;
+  encounterProviders?: Array<{
+    provider?: {
+      display?: string;
+      person?: {
+        display?: string;
+      };
+    };
+  }>;
+  encounterType?: { display?: string; uuid?: string };
+  obs?: Array<ObsData>;
+  uuid?: string;
+  voided?: boolean;
 }
 
 interface MappedEncounter extends Omit<Encounter, 'encounterType' | 'provider'> {
@@ -68,13 +75,13 @@ interface MappedEncounter extends Omit<Encounter, 'encounterType' | 'provider'> 
 }
 
 const mapEncounterProperties = (encounter: Encounter): MappedEncounter => ({
-  diagnoses: encounter.diagnoses,
-  encounterDatetime: encounter.encounterDatetime,
-  encounterType: encounter.encounterType.display,
-  obs: encounter.obs,
-  provider: encounter.encounterProviders[0]?.provider?.person?.display,
-  uuid: encounter.uuid,
-  voided: encounter.voided,
+  diagnoses: encounter.diagnoses ?? [],
+  encounterDatetime: encounter.encounterDatetime ?? '',
+  encounterType: encounter.encounterType?.display ?? '',
+  obs: encounter.obs ?? [],
+  provider: encounter.encounterProviders[0]?.provider?.person?.display ?? encounter.encounterProviders[0]?.provider?.display,
+  uuid: encounter.uuid ?? '',
+  voided: Boolean(encounter.voided),
 });
 
 export const mapVisitQueueEntryProperties = (

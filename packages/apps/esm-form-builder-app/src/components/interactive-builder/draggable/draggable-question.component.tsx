@@ -129,7 +129,7 @@ const DraggableQuestion: React.FC<DraggableQuestionProps> = ({
           </div>
           <p className={styles.questionLabel}>
             {question.questionOptions.rendering === 'markdown' ? (
-              <MarkdownWrapper markdown={question.value} />
+              <MarkdownWrapper markdown={typeof question.value === 'string' ? question.value : ''} />
             ) : (
               question.label
             )}

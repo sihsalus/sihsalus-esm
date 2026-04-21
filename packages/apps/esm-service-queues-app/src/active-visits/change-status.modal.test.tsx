@@ -8,7 +8,7 @@ import {
 } from '@openmrs/esm-framework';
 import { screen, render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockServices, mockSession, mockLocations, mockMappedQueueEntry } from '__mocks__';
+import { mockServices, mockSession, mockLocations, mockMappedQueueEntry } from 'test-utils';
 import React from 'react';
 
 import { configSchema, type ConfigObject } from '../config-schema';
@@ -21,6 +21,14 @@ const mockUpdateQueueEntry = jest.mocked(updateQueueEntry);
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
 const mockUseLocations = jest.mocked(useLocations);
 const mockUseSession = jest.mocked(useSession);
+const mockMappedVisitQueueEntry = {
+  ...mockMappedQueueEntry,
+  priority: mockMappedQueueEntry.priority.display as 'Emergency' | 'Not Urgent' | 'Priority',
+  priorityUuid: mockMappedQueueEntry.priority.uuid,
+  service: mockMappedQueueEntry.queue.display,
+  status: mockMappedQueueEntry.status.display as 'Finished Service' | 'In Service' | 'Waiting',
+  statusUuid: mockMappedQueueEntry.status.uuid,
+};
 
 jest.mock('./active-visits-table.resource', () => ({
   ...jest.requireActual('./active-visits-table.resource'),
@@ -63,7 +71,7 @@ describe('ChangeStatusModal', () => {
     const user = userEvent.setup();
 
     mockUpdateQueueEntry.mockResolvedValueOnce({
-      data: mockMappedQueueEntry,
+      data: mockMappedVisitQueueEntry,
       status: 201,
       statusText: 'Updated',
     } as FetchResponse);
@@ -150,7 +158,7 @@ describe('ChangeStatusModal', () => {
   test('should show error message when user tries to update queue entry without selecting required fields', async () => {
     const user = userEvent.setup();
     mockUpdateQueueEntry.mockResolvedValueOnce({
-      data: mockMappedQueueEntry,
+      data: mockMappedVisitQueueEntry,
       status: 201,
       statusText: 'Updated',
     } as FetchResponse);
@@ -165,5 +173,5 @@ describe('ChangeStatusModal', () => {
 });
 
 const renderChangeStatusModal = () => {
-  render(<ChangeStatusModal closeModal={() => false} queueEntry={mockMappedQueueEntry} />);
+  render(<ChangeStatusModal closeModal={() => false} queueEntry={mockMappedVisitQueueEntry} />);
 };

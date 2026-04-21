@@ -58,13 +58,19 @@ const Subscription: React.FC = () => {
     setToken(event.target.value);
   }, []);
 
-  const handleChangeValidationType = useCallback((_event, { checked, id: _id }) => {
-    setValidationType(checked ? 'NONE' : 'FULL');
-  }, []);
+  const handleChangeValidationType = useCallback(
+    (_event: React.ChangeEvent<HTMLInputElement>, { checked }: { checked: boolean; id: string }) => {
+      setValidationType(checked ? 'NONE' : 'FULL');
+    },
+    [],
+  );
 
-  const handleChangeSubscriptionType = useCallback((_event, { checked, id: _id }) => {
-    setIsSubscribedToSnapshot(checked);
-  }, []);
+  const handleChangeSubscriptionType = useCallback(
+    (_event: React.ChangeEvent<HTMLInputElement>, { checked }: { checked: boolean; id: string }) => {
+      setIsSubscribedToSnapshot(checked);
+    },
+    [],
+  );
 
   const handleSubmit = useCallback(
     async (evt: React.FormEvent<HTMLFormElement>) => {
@@ -93,10 +99,10 @@ const Subscription: React.FC = () => {
           validationType: validationType,
           subscribedToSnapshot: isSubscribedToSnapshot,
         };
-        mutate('/ws/rest/v1/openconceptlab/subscription?v=full', updatedSubscription, false);
+        void mutate('/ws/rest/v1/openconceptlab/subscription?v=full', updatedSubscription, false);
 
         const response = await updateSubscription(updatedSubscription, abortController);
-        mutate('/ws/rest/v1/openconceptlab/subscription?v=full');
+        void mutate('/ws/rest/v1/openconceptlab/subscription?v=full');
 
         if (response.ok) {
           showSnackbar({
@@ -151,7 +157,7 @@ const Subscription: React.FC = () => {
 
       try {
         const response = await deleteSubscription(subscription, abortController);
-        mutate('/ws/rest/v1/openconceptlab/subscription?v=full');
+        void mutate('/ws/rest/v1/openconceptlab/subscription?v=full');
 
         if (response.status === 204) {
           setSubscriptionUrl('');
@@ -220,7 +226,7 @@ const Subscription: React.FC = () => {
   return (
     <Grid className={styles.grid}>
       <Column sm={4} md={8} lg={10}>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={(evt) => void handleSubmit(evt)}>
           <h3 className={styles.productiveHeading03}>{t('setupSubscription', 'Setup Subscription')}</h3>
           <Stack gap={5}>
             <Layer>
@@ -271,7 +277,7 @@ const Subscription: React.FC = () => {
             {t('subscribeButton', 'Save changes')}
           </Button>
         </Form>
-        <Form onSubmit={handleUnsubscribe} className={styles.unsubscribeForm}>
+        <Form onSubmit={(evt) => void handleUnsubscribe(evt)} className={styles.unsubscribeForm}>
           <h3 className={styles.productiveHeading03}>{t('unsubscribe', 'Unsubscribe')}</h3>
           <p className={styles.unsubscribeText}>
             {t(

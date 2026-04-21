@@ -24,7 +24,7 @@ const PrintIdentifierSticker: React.FC<PrintIdentifierStickerProps> = ({ closeMo
   const { t } = useTranslation();
   const { printPatientSticker } = useConfig<ConfigObject>();
   const { pageSize, printScale = '1' } = printPatientSticker ?? {};
-  const contentToPrintRef = useRef(null);
+  const contentToPrintRef = useRef<HTMLDivElement>(null);
   const onBeforeGetContentResolve = useRef<() => void | null>(null);
   const [isPrinting, setIsPrinting] = useState(false);
   const headerTitle = t('patientIdentifierSticker', 'Patient identifier sticker');

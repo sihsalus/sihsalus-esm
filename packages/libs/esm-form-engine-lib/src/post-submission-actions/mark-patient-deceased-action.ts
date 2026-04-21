@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { showSnackbar, translateFrom } from '@openmrs/esm-framework/src/internal';
+import { showSnackbar, translateFrom } from '@openmrs/esm-framework';
 import { markPatientAsDeceased } from '../api';
 import { extractErrorMessagesFromResponse } from '../utils/error-utils';
 import type { PostSubmissionAction, PatientDeathPayload } from '../types';

@@ -95,8 +95,8 @@ export function WorkspaceWindowsAndMenu({
   return (
     <div
       className={classNames(workspaceStyles.workspaceWindowsAndMenuContainer, {
-        [workspaceStyles.overlay]: group.overlay,
-        [workspaceStyles.hasMaximizedWindow]: hasMaximizedWindow,
+        [workspaceStyles.overlay as string]: group.overlay,
+        [workspaceStyles.hasMaximizedWindow as string]: hasMaximizedWindow,
       })}
     >
       <div className={workspaceStyles.workspaceWindowsContainer}>

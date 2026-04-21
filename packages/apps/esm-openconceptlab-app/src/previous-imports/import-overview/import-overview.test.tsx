@@ -1,5 +1,6 @@
 import { mockPreviousImports } from '@mocks/openconceptlab.mock';
 import { formatDatetime } from '@openmrs/esm-framework';
+import type { Import } from '../../types';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithSwr } from '@tools/test-helpers';
 import React from 'react';
@@ -68,7 +69,7 @@ describe('Import Overview component', () => {
   });
 });
 
-function renderImportOverviewComponent(importObject) {
+function renderImportOverviewComponent(importObject: Import) {
   renderWithSwr(<ImportOverview selectedImportObject={importObject} />);
 }
 

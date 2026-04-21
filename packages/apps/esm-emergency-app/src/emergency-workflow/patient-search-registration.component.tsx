@@ -47,8 +47,9 @@ import styles from './patient-search-registration.component.scss';
 
 const quickRegistrationSchema = z.object({
   // Identificación
-  givenName: z.string().min(1, 'Nombres es requerido'),
-  familyName: z.string().min(1, 'Apellidos es requerido'),
+  givenName: z.string().min(1, 'Primer nombre es requerido'),
+  familyName: z.string().min(1, 'Apellido paterno es requerido'),
+  familyName2: z.string().optional(),
   gender: z.enum(['M', 'F'], { required_error: 'Sexo es requerido' }),
   yearsEstimated: z.number().min(0).optional(),
   birthdate: z.string().optional(),
@@ -205,11 +206,13 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
         setValue('isUnknown', false);
         setValue('givenName', '');
         setValue('familyName', '');
+        setValue('familyName2', '');
       } else {
         setIsPatientUnknown(true);
         setValue('isUnknown', true);
         setValue('givenName', 'DESCONOCIDO');
         setValue('familyName', 'DESCONOCIDO');
+        setValue('familyName2', '');
       }
     },
     [setValue],
@@ -231,9 +234,11 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
         // For unknown patients, append OpenMRS ID to differentiate: "DESCONOCIDO (10045)"
         let givenName = data.givenName;
         let familyName = data.familyName;
+        let familyName2 = data.familyName2 ?? '';
         if (data.isUnknown) {
           givenName = 'DESCONOCIDO';
           familyName = `(${openmrsId})`;
+          familyName2 = '';
         }
 
         // 3. Calcular birthdate
@@ -323,7 +328,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
 
         // 7. Construir payload del paciente
         const personPayload: Record<string, unknown> = {
-          names: [{ givenName, familyName, preferred: true }],
+          names: [{ givenName, familyName, ...(familyName2 ? { familyName2 } : {}), preferred: true }],
           gender: data.gender,
           birthdateEstimated,
           attributes,
@@ -344,7 +349,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
         const savedPatient = response.data;
 
         // 8. Mapear respuesta al formato SearchedPatient
-        const displayName = `${givenName} ${familyName}`;
+        const displayName = [familyName, familyName2, givenName].filter(Boolean).join(' ');
         const newPatient = {
           uuid: savedPatient.uuid,
           display: savedPatient.display || displayName,
@@ -375,6 +380,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
             personName: {
               givenName,
               familyName,
+              familyName2: familyName2 || undefined,
               display: displayName,
             },
           },
@@ -573,23 +579,30 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                             <div className={styles.fieldRow}>
                               <TextInput
                                 id="familyName"
-                                labelText={t('lastName', 'Apellidos') + ' *'}
-                                placeholder={t('enterLastName', 'Ingrese apellidos')}
+                                labelText={t('paternalLastName', 'Apellido Paterno') + ' *'}
+                                placeholder={t('enterPaternalLastName', 'Apellido paterno')}
                                 invalid={!!errors.familyName}
                                 invalidText={errors.familyName?.message}
                                 disabled={isRegistering}
                                 {...register('familyName')}
                               />
                               <TextInput
-                                id="givenName"
-                                labelText={t('firstName', 'Nombres') + ' *'}
-                                placeholder={t('enterFirstName', 'Ingrese nombres')}
-                                invalid={!!errors.givenName}
-                                invalidText={errors.givenName?.message}
+                                id="familyName2"
+                                labelText={t('maternalLastName', 'Apellido Materno')}
+                                placeholder={t('enterMaternalLastName', 'Apellido materno')}
                                 disabled={isRegistering}
-                                {...register('givenName')}
+                                {...register('familyName2')}
                               />
                             </div>
+                            <TextInput
+                              id="givenName"
+                              labelText={t('firstName', 'Primer Nombre') + ' *'}
+                              placeholder={t('enterFirstName', 'Primer nombre')}
+                              invalid={!!errors.givenName}
+                              invalidText={errors.givenName?.message}
+                              disabled={isRegistering}
+                              {...register('givenName')}
+                            />
                             <div className={styles.fieldRowDateGender}>
                               <Controller
                                 name="birthdate"

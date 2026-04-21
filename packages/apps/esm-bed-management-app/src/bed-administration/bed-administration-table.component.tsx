@@ -29,6 +29,14 @@ import styles from './bed-administration-table.scss';
 import EditBedForm from './edit-bed-form.component';
 import NewBedForm from './new-bed-form.component';
 
+const renderCellValue = (value: React.ReactNode) => {
+  if (value && typeof value === 'object' && 'content' in value) {
+    return value.content as React.ReactNode;
+  }
+
+  return value;
+};
+
 const BedAdministrationTable: React.FC = () => {
   const { t } = useTranslation();
   const headerTitle = t('wardAllocation', 'Ward allocation');
@@ -109,7 +117,6 @@ const BedAdministrationTable: React.FC = () => {
       actions: (
         <>
           <Button
-            enterDelayMs={300}
             renderIcon={Edit}
             onClick={(e) => {
               e.preventDefault();
@@ -133,7 +140,7 @@ const BedAdministrationTable: React.FC = () => {
       <>
         <Header title={t('wardAllocation', 'Ward allocation')} />
         <div className={styles.widgetCard}>
-          <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />
+          <DataTableSkeleton role="progressbar" size={isDesktop ? 'sm' : 'lg'} zebra />
         </div>
       </>
     );
@@ -205,7 +212,7 @@ const BedAdministrationTable: React.FC = () => {
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
-                      <TableHeader>{header.header?.content ?? header.header}</TableHeader>
+                      <TableHeader key={header.key}>{header.header}</TableHeader>
                     ))}
                   </TableRow>
                 </TableHead>
@@ -213,7 +220,7 @@ const BedAdministrationTable: React.FC = () => {
                   {rows.map((row) => (
                     <TableRow key={row.id}>
                       {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                        <TableCell key={cell.id}>{renderCellValue(cell.value)}</TableCell>
                       ))}
                     </TableRow>
                   ))}

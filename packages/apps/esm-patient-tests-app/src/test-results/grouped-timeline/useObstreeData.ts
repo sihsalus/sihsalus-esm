@@ -1,29 +1,34 @@
-import { usePatient, openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
 import { usePatientChartStore } from '@openmrs/esm-patient-common-lib';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 
+import { type TreeNode, type ObservationData } from '../filter/filter-types';
 import { assessValue, exist } from '../loadPatientTestData/helpers';
-
 
 export const getName = (prefix: string | undefined, name: string) => {
   return prefix ? `${prefix}-${name}` : name;
 };
 
-interface ObsTreeNode {
-  flatName?: string;
+interface ObsTreeNode extends Omit<TreeNode, 'subSets' | 'obs'> {
+  flatName: string;
   display: string;
   hasData: boolean;
-  hiNormal?: number;
-  lowNormal?: number;
-  range?: string;
   subSets: Array<ObsTreeNode>;
-  obs: Array<{ value: string }>;
+  obs: Array<ObservationData>;
 }
 
-const augmentObstreeData = (node: ObsTreeNode, prefix: string | undefined) => {
-  const outData: Partial<ObsTreeNode> = JSON.parse(JSON.stringify(node));
+const emptyObsTree: ObsTreeNode = {
+  display: '',
+  flatName: '',
+  hasData: false,
+  subSets: [],
+  obs: [],
+};
+
+const augmentObstreeData = (node: ObsTreeNode, prefix: string | undefined): ObsTreeNode => {
+  const outData: ObsTreeNode = JSON.parse(JSON.stringify(node));
   outData.flatName = getName(prefix, node.display);
   outData.hasData = false;
 
@@ -42,7 +47,7 @@ const augmentObstreeData = (node: ObsTreeNode, prefix: string | undefined) => {
     outData.hasData = true;
   }
 
-  return { ...outData } as ObsTreeNode;
+  return outData;
 };
 
 const useGetObstreeData = (conceptUuid: string) => {
@@ -54,11 +59,11 @@ const useGetObstreeData = (conceptUuid: string) => {
   const result = useMemo(() => {
     if (response.data) {
       const { data, ...rest } = response;
-      const newData = augmentObstreeData(data?.data, '');
+      const newData = augmentObstreeData(data?.data ?? emptyObsTree, '');
       return { ...rest, loading: false, data: newData };
     } else {
       return {
-        data: {},
+        data: emptyObsTree,
         error: false,
         loading: true,
       };
@@ -86,18 +91,18 @@ const useGetManyObstreeData = (uuidArray: Array<string>) => {
       data?.map((resp) => {
         if (resp?.data) {
           const { data, ...rest } = resp;
-          const newData = augmentObstreeData(data, '');
+          const newData = augmentObstreeData(data ?? emptyObsTree, '');
           return { ...rest, loading: false, data: newData };
         } else {
           return {
-            data: {},
+            data: emptyObsTree,
             error: false,
             loading: true,
           };
         }
       }) || [
         {
-          data: {},
+          data: emptyObsTree,
           error: false,
           loading: true,
         },

@@ -10,12 +10,12 @@ vi.mock('./usePatientPhoto', () => ({
   usePatientPhoto: vi.fn(),
 }));
 
-const mockToDataUrl = vi.fn().mockReturnValue('data:image/svg+xml;base64,mockpattern');
+const mockToDataUri = vi.fn().mockReturnValue('data:image/svg+xml;base64,mockpattern');
 
 vi.mock('geopattern', () => ({
   default: {
     generate: vi.fn(() => ({
-      toDataUrl: mockToDataUrl,
+      toDataUri: mockToDataUri,
     })),
   },
 }));

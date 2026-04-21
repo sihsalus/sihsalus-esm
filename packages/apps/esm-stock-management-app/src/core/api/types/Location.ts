@@ -1,5 +1,5 @@
 export interface OpenMRSLocation {
-  parentLocation: any;
+  parentLocation: OpenMRSLocation | null;
   id: number;
   uuid: string;
   name: string;

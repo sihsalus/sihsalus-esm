@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { mockPastVisit } from '__mocks__';
+import { mockPastVisit } from 'test-utils';
 import React from 'react';
 
 import CurrentVisit from './current-visit-summary.component';

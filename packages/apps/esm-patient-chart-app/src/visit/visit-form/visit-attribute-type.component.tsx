@@ -42,7 +42,9 @@ const VisitAttributeTypeFields: React.FC<VisitAttributeTypeFieldsProps> = ({ set
           const { visitAttributes } = getValues();
 
           const showAttributeType = attributeType?.showWhenExpression
-            ? safeEvaluateExpression(attributeType.showWhenExpression, { visitAttributes })
+            ? safeEvaluateExpression(attributeType.showWhenExpression, {
+                visitAttributes,
+              })
             : true;
 
           return (
@@ -141,8 +143,8 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
             value={fieldProps.value ?? ''}
           >
             <SelectItem text={t('selectAnOption', 'Select an option')} value={''} />
-            {answers.map((ans, indx) => (
-              <SelectItem key={indx} text={ans.display} value={ans.uuid} />
+            {answers.map((ans) => (
+              <SelectItem key={ans.uuid} text={ans.display} value={ans.uuid} />
             ))}
           </Select>
         );

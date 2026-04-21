@@ -12,7 +12,19 @@ interface TranslationPage {
 
 interface TranslationSchemaLike {
   pages?: Array<TranslationPage>;
-  translations?: Record<string, Record<string, string>>;
+  translations?: Record<string, string> | Record<string, Record<string, string>>;
+}
+
+function getLanguageTranslations(
+  translations: TranslationSchemaLike['translations'],
+  langCode: string,
+): Record<string, string> | null {
+  if (!translations) {
+    return null;
+  }
+
+  const languageTranslations = translations[langCode];
+  return languageTranslations && typeof languageTranslations === 'object' ? languageTranslations : null;
 }
 
 export function extractTranslatableStrings(form: TranslationSchemaLike | null | undefined): Record<string, string> {
@@ -36,7 +48,7 @@ export function extractTranslatableStrings(form: TranslationSchemaLike | null | 
 }
 
 export function mergeTranslatedSchema<T extends TranslationSchemaLike>(schema: T, langCode: string): T {
-  const translations = schema.translations?.[langCode];
+  const translations = getLanguageTranslations(schema.translations, langCode);
   if (!translations) {
     return schema;
   }

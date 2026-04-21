@@ -1,5 +1,4 @@
-import { WorkspaceContainer } from '@openmrs/esm-framework';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ const Root: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-ward-app">
-        <main>
+      <main>
         <BrowserRouter basename={wardViewBasename}>
           <Routes>
             <Route path="/" element={<WardView />} />

@@ -1,6 +1,6 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import { mockedAddressTemplate, mockedOrderedFields, mockOpenmrsId, mockPatient, mockSession } from '__mocks__';
+import { mockedAddressTemplate, mockedOrderedFields, mockOpenmrsId, mockPatient, mockSession } from 'test-utils';
 import { Formik, Form } from 'formik';
 import React from 'react';
 
@@ -26,6 +26,7 @@ const mockResourcesContextValue = {
 
 const mockInitialFormValues = {
   additionalFamilyName: '',
+  additionalFamilyName2: '',
   additionalGivenName: '',
   additionalMiddleName: '',
   addNameInLocalLanguage: false,
@@ -34,13 +35,17 @@ const mockInitialFormValues = {
   birthdateEstimated: false,
   deathCause: '',
   deathDate: '',
+  deathTime: '',
+  deathTimeFormat: 'AM' as const,
   familyName: 'Doe',
+  familyName2: '',
   gender: 'male',
   givenName: 'John',
   identifiers: mockOpenmrsId,
   isDead: false,
   middleName: 'Test',
   monthsEstimated: 0,
+  nonCodedCauseOfDeath: '',
   patientUuid: mockPatient.uuid,
   relationships: [],
   telephoneNumber: '',
@@ -55,6 +60,7 @@ const initialContextValues: PatientRegistrationContextProps = {
   isOffline: false,
   setCapturePhotoProps: jest.fn(),
   setFieldValue: jest.fn(),
+  setFieldTouched: jest.fn(),
   setInitialFormValues: jest.fn(),
   validationSchema: null,
   values: mockInitialFormValues,

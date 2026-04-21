@@ -7,7 +7,7 @@
   "main": "src/index.ts",
   "source": true,
   "scripts": {
-    "lint": "cross-env eslint src --ext tsx,ts --fix --max-warnings=0",
+    "lint": "node ../../tooling/scripts/run-biome.js lint src",
     "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests",
     "typescript": "tsc"
   },
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@carbon/react": "^1.83.0",
+    "jsep": "^1.4.0",
     "lodash-es": "^4.17.23",
     "uuid": "^8.3.2"
   },

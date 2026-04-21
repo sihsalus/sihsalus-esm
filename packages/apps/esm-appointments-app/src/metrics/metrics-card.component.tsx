@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next';
 dayjs.extend(isSameOrBefore);
 
 import SelectedDateContext from '../hooks/selectedDateContext';
+import { type Appointment } from '../types';
 
 import styles from './metrics-card.scss';
 
 interface MetricsCardProps {
   label: string;
-  value: number;
+  value: number | string;
   headerLabel: string;
   count?: { pendingAppointments: Array<Appointment>; arrivedAppointments: Array<Appointment> };
 }

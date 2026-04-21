@@ -153,12 +153,13 @@ const RelationshipView: React.FC<RelationshipViewProps> = ({
     <InlineNotification
       kind="info"
       title={t('relationshipRemovedText', 'Relationship removed')}
-      actions={
+    >
+      {
         <NotificationActionButton onClick={restoreRelationship}>
           {t('restoreRelationshipActionButton', 'Undo')}
         </NotificationActionButton>
       }
-    />
+    </InlineNotification>
   );
 };
 
@@ -194,7 +195,9 @@ export const RelationshipsSection = () => {
   if (!relationshipTypes) {
     return (
       <section aria-label="Loading relationships section">
-        <SkeletonText role="progressbar" />
+        <div role="progressbar">
+          <SkeletonText />
+        </div>
       </section>
     );
   }

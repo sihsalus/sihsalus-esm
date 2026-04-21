@@ -19,10 +19,8 @@ mockUseConfig.mockReturnValue({
 
 describe('Home Component', () => {
   it('renders PatientQueueHeader, ClinicMetrics when activeTicketScreen is not "screen"', () => {
-    // Mock window.location.pathname
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = { pathname: '/some-path' } as Location;
+    const originalPathname = window.location.pathname;
+    window.history.pushState({}, '', '/some-path');
 
     render(<Home />);
 
@@ -30,18 +28,16 @@ describe('Home Component', () => {
     expect(screen.getByTestId('patient-queue-header')).toBeInTheDocument();
     expect(screen.getByTestId('clinic-metrics')).toBeInTheDocument();
 
-    // Clean up the mock
-    window.location = originalLocation;
+    window.history.pushState({}, '', originalPathname || '/');
   });
 
   it('renders QueueScreen when activeTicketScreen is "screen"', () => {
-    const originalLocation = window.location;
-    delete window.location;
-    window.location = { pathname: '/some-path/screen' } as Location;
+    const originalPathname = window.location.pathname;
+    window.history.pushState({}, '', '/some-path/screen');
 
     render(<Home />);
     expect(screen.getByText(/patients currently in queue/i)).toBeInTheDocument();
 
-    window.location = originalLocation;
+    window.history.pushState({}, '', originalPathname || '/');
   });
 });

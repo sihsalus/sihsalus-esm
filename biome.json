@@ -1,0 +1,143 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "ignoreUnknown": true,
+    "ignore": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/*.d.ts",
+      "**/.rspack/**",
+      "**/.cache/**",
+      "**/.turbo/**",
+      "**/coverage/**",
+      "**/form-engine-lib-runtime.js"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "lineEnding": "lf"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noInteractiveElementToNoninteractiveRole": "off",
+        "noNoninteractiveElementToInteractiveRole": "off",
+        "noLabelWithoutControl": "off",
+        "noSvgWithoutTitle": "off",
+        "useAltText": "off",
+        "useAriaPropsForRole": "off",
+        "useButtonType": "off",
+        "useFocusableInteractive": "off",
+        "useHeadingContent": "off",
+        "useIframeTitle": "off",
+        "useKeyWithClickEvents": "off",
+        "useSemanticElements": "off",
+        "useValidAnchor": "off",
+        "useValidAriaRole": "off"
+      },
+      "complexity": {
+        "noBannedTypes": "off",
+        "noForEach": "off",
+        "noStaticOnlyClass": "off",
+        "noUselessFragments": "off",
+        "noUselessRename": "off",
+        "noUselessTernary": "off",
+        "noUselessSwitchCase": "off",
+        "useArrowFunction": "off",
+        "useRegexLiterals": "off",
+        "useFlatMap": "off",
+        "useLiteralKeys": "off",
+        "useOptionalChain": "off"
+      },
+      "correctness": {
+        "noChildrenProp": "off",
+        "useExhaustiveDependencies": "off",
+        "useJsxKeyInIterable": "off"
+      },
+      "performance": {
+        "noAccumulatingSpread": "off",
+        "noDelete": "off"
+      },
+      "security": {
+        "noGlobalEval": "off"
+      },
+      "style": {
+        "noCommaOperator": "off",
+        "noInferrableTypes": "off",
+        "noNonNullAssertion": "off",
+        "noParameterAssign": "off",
+        "useSingleVarDeclarator": "off",
+        "noUnusedTemplateLiteral": "off",
+        "noUselessElse": "off",
+        "useDefaultParameterLast": "off",
+        "useEnumInitializers": "off",
+        "useExportType": "off",
+        "useImportType": "off",
+        "useNodejsImportProtocol": "off",
+        "useNumberNamespace": "off",
+        "useShorthandFunctionType": "off",
+        "useSelfClosingElements": "off",
+        "useTemplate": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noConfusingVoidType": "off",
+        "noEmptyInterface": "off",
+        "noExplicitAny": "off",
+        "noGlobalIsNan": "off",
+        "noImplicitAnyLet": "off",
+        "noMisleadingCharacterClass": "off",
+        "noShorthandPropertyOverrides": "off",
+        "noShadowRestrictedNames": "off",
+        "noThenProperty": "off",
+        "noDoubleEquals": "off"
+      }
+    }
+  },
+  "javascript": {
+    "globals": [
+      "CustomEvent",
+      "URL",
+      "afterAll",
+      "afterEach",
+      "atob",
+      "beforeAll",
+      "beforeEach",
+      "btoa",
+      "console",
+      "crypto",
+      "describe",
+      "document",
+      "expect",
+      "indexedDB",
+      "it",
+      "jest",
+      "module",
+      "navigator",
+      "process",
+      "require",
+      "test",
+      "TextDecoder",
+      "TextEncoder",
+      "vi",
+      "window",
+      "__dirname"
+    ],
+    "formatter": {
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  }
+}

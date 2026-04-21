@@ -1,14 +1,24 @@
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { getConfig } from '@openmrs/esm-framework/src/internal';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/react';
+import { getConfig } from '@openmrs/esm-config';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import { PageHeaderContent } from './page-header.component';
 
 const mockGetConfig = vi.mocked(getConfig);
+const mockGetCoreTranslation = vi.mocked(getCoreTranslation);
 
 vi.mock('@openmrs/esm-config', () => ({
   getConfig: vi.fn(),
 }));
+
+vi.mock('@openmrs/esm-translations', () => ({
+  getCoreTranslation: vi.fn((key: string) => key),
+}));
+
+afterEach(() => {
+  cleanup();
+});
 
 describe('PageHeaderContent', () => {
   const mockIllustration = <svg data-testid="mock-illustration" />;
@@ -19,7 +29,7 @@ describe('PageHeaderContent', () => {
     render(<PageHeaderContent title="Test Title" illustration={mockIllustration} />);
 
     await screen.findByText(/test title/i);
-    expect(screen.getByTestId('mock-illustration')).toBeInTheDocument();
+    expect(screen.getByTestId('mock-illustration')).toBeTruthy();
   });
 
   it('renders implementation name when provided in config', async () => {
@@ -28,6 +38,17 @@ describe('PageHeaderContent', () => {
     render(<PageHeaderContent title="Test Title" illustration={mockIllustration} />);
 
     await screen.findByText('Test Clinic');
+    expect(mockGetCoreTranslation).not.toHaveBeenCalled();
+  });
+
+  it('translates the default implementation name', async () => {
+    mockGetCoreTranslation.mockReturnValueOnce('Cl\u00ednica');
+    mockGetConfig.mockResolvedValue({ implementationName: 'Clinic' });
+
+    render(<PageHeaderContent title="Test Title" illustration={mockIllustration} />);
+
+    await screen.findByText('Cl\u00ednica');
+    expect(mockGetCoreTranslation).toHaveBeenCalledWith('Clinic');
   });
 
   it('does not render implementation name when not provided in config', async () => {
@@ -36,7 +57,7 @@ describe('PageHeaderContent', () => {
     render(<PageHeaderContent title="Test Title" illustration={mockIllustration} />);
 
     await screen.findByText(/test title/i);
-    expect(screen.queryByText('Test Clinic')).not.toBeInTheDocument();
+    expect(screen.queryByText('Test Clinic')).toBeNull();
   });
 
   it('applies custom className when provided', async () => {
@@ -48,7 +69,7 @@ describe('PageHeaderContent', () => {
 
     await screen.findByText(/test title/i);
     // eslint-disable-next-line testing-library/no-node-access
-    expect(container.firstChild).toHaveClass('custom-class');
+    expect((container.firstChild as HTMLElement)?.className).toContain('custom-class');
   });
 
   it('calls getConfig with correct module name', async () => {

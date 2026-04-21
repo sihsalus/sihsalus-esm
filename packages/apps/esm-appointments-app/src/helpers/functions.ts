@@ -1,15 +1,10 @@
 import dayjs, { type Dayjs } from 'dayjs';
 
-import { type AppointmentSummary } from '../types';
+import { type AppointmentCountMap, type AppointmentSummary } from '../types';
 
 type AppointmentServiceLoadSummary = {
   serviceName: string;
-  countMap: Array<{ allAppointmentsCount: number }>;
-};
-
-type AppointmentSummarySource = {
-  appointmentService: { name: string };
-  appointmentCountMap: Record<string, Array<number>>;
+  countMap: Array<AppointmentCountMap>;
 };
 
 export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<AppointmentServiceLoadSummary> = []) => {
@@ -20,30 +15,30 @@ export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<Appoi
   return groupedAppointments.find((summary) => summary.count === Math.max(...groupedAppointments.map((x) => x.count)));
 };
 
-export const flattenAppointmentSummary = (appointmentToTransfrom: Array<AppointmentSummarySource>) =>
-  appointmentToTransfrom.flatMap((el: AppointmentSummarySource) => ({
-    serviceName: el.appointmentService.name,
-    countMap: Object.entries(el.appointmentCountMap).flatMap((el) => el[1]),
+export const flattenAppointmentSummary = (appointmentToTransfrom: Array<AppointmentSummary>) =>
+  appointmentToTransfrom.flatMap((el) => ({
+    serviceName: el.appointmentService.name ?? el.appointmentService.display,
+    countMap: Object.values(el.appointmentCountMap),
   }));
 
 export const getServiceCountByAppointmentType = (
   appointmentSummary: Array<AppointmentSummary>,
-  appointmentType: string,
+  appointmentType: keyof AppointmentCountMap,
 ) => {
   return appointmentSummary
-    .map((el) => Object.entries(el.appointmentCountMap).flatMap((el) => el[1][appointmentType]))
+    .map((el) => Object.values(el.appointmentCountMap).flatMap((entry) => entry[appointmentType] as number))
     .flat(1)
     .reduce((count, val) => count + val, 0);
 };
 
 export const formatAMPM = (date: Date) => {
   let hours = date.getHours();
-  let minutes = date.getMinutes();
+  const minutes = date.getMinutes();
   const ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  const strTime = hours + ':' + minutes + ' ' + ampm;
+  const minutesText = minutes < 10 ? `0${minutes}` : `${minutes}`;
+  const strTime = hours + ':' + minutesText + ' ' + ampm;
   return strTime;
 };
 

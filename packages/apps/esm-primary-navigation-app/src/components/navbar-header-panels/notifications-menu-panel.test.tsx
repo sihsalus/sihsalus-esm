@@ -5,14 +5,10 @@ import { screen, render } from '@testing-library/react';
 
 import NotificationsMenuPanel from './notifications-menu-panel.component';
 
-vi.mock('@openmrs/esm-framework', async (importOriginal) => {
-   
-  const actual = await importOriginal<typeof import('@openmrs/esm-framework')>();
-  return {
-    ...actual,
-    ExtensionSlot: vi.fn(({ children }) => <>{children}</>),
-  };
-});
+vi.mock('@openmrs/esm-framework', () => ({
+  __esModule: true,
+  ExtensionSlot: vi.fn(({ children }) => <>{children}</>),
+}));
 
 test('renders the notifications menu panel scaffold', () => {
   render(<NotificationsMenuPanel expanded />);

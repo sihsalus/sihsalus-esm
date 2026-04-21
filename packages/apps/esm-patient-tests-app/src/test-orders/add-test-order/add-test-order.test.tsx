@@ -10,9 +10,9 @@ import { type PostDataPrepFunction, useOrderBasket, useOrderType } from '@openmr
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockSessionDataResponse } from '__mocks__';
+import { mockSessionDataResponse } from 'test-utils';
 import React from 'react';
-import { mockPatient } from 'test-utils';
+import { mockFhirPatient } from 'test-utils';
 
 import { configSchema, type ConfigObject } from '../../config-schema';
 import { type PostDataPrepLabOrderFunction } from '../api';
@@ -107,7 +107,7 @@ mockUseConfig.mockReturnValue({
 
 mockUseSession.mockReturnValue(mockSessionDataResponse.data);
 
-mockUsePatient.mockReturnValue({ patient: mockPatient, patientUuid: mockPatient.id, isLoading: false, error: null });
+mockUsePatient.mockReturnValue({ patient: mockFhirPatient, patientUuid: mockFhirPatient.id, isLoading: false, error: null });
 
 mockUseOrderType.mockReturnValue({
   orderType: {
@@ -146,10 +146,6 @@ describe('AddLabOrder', () => {
     expect(testTypeLabel).toBeInTheDocument();
     expect(testTypeValue).toBeInTheDocument();
 
-    const labReferenceNumber = screen.getByRole('textbox', { name: 'Reference number' });
-    expect(labReferenceNumber).toBeInTheDocument();
-    await user.type(labReferenceNumber, 'lba-000124');
-
     const priority = screen.getByRole('combobox', { name: 'Priority' });
     expect(priority).toBeInTheDocument();
     await user.click(priority);
@@ -170,7 +166,6 @@ describe('AddLabOrder', () => {
           display: 'CD4 COUNT',
           urgency: 'STAT',
           instructions: 'plz do it thx',
-          accessionNumber: 'lba-000124',
           testType: { label: 'CD4 COUNT', conceptUuid: 'test-lab-uuid-2' },
           orderer: mockSessionDataResponse.data.currentProvider.uuid,
         }),
@@ -222,10 +217,10 @@ describe('AddLabOrder', () => {
   test('should display a patient header on tablet', () => {
     mockUseLayoutType.mockReturnValue('tablet');
     renderAddLabOrderWorkspace();
-    expect(screen.getByText(/john wilson/i)).toBeInTheDocument();
+    expect(screen.getByText(/joshua johnson/i)).toBeInTheDocument();
     expect(screen.getByText(/male/i)).toBeInTheDocument();
-    expect(screen.getByText(/52 yrs/i)).toBeInTheDocument();
-    expect(screen.getByText('04 — Apr — 1972')).toBeInTheDocument();
+    expect(screen.getByText(/6 yrs, 6 mths/i)).toBeInTheDocument();
+    expect(screen.getByText('25 — Sept — 2019')).toBeInTheDocument();
   });
 
   test('should display an error message if test types fail to load', () => {

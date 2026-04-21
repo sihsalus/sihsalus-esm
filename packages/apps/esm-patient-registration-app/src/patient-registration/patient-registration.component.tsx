@@ -103,7 +103,9 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
         isLowContrast: true,
       });
 
-      const afterUrl = new URLSearchParams(search).get('afterUrl');
+      const rawAfterUrl = new URLSearchParams(search).get('afterUrl');
+      // Only allow relative paths (must start with /) to prevent open redirect
+      const afterUrl = rawAfterUrl && rawAfterUrl.startsWith('/') ? rawAfterUrl : null;
       const redirectUrl = interpolateUrl(afterUrl || config.links.submitButton, { patientUuid: values.patientUuid });
 
       setTarget(redirectUrl);

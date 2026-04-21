@@ -12,7 +12,8 @@ export interface PatientNameTableCellProps {
 
 const PatientNameTableCell: React.FC<PatientNameTableCellProps> = ({ patient, isNewlyRegistered = false }) => {
   const { t } = useTranslation();
-  const name = `${[patient.name?.[0]?.given, patient.name?.[0]?.family].filter(Boolean).join(' ')}`;
+  const nameObj = patient.name?.[0];
+  const name = nameObj?.text ?? [nameObj?.family, ...(nameObj?.given ?? [])].filter(Boolean).join(' ');
 
   return (
     <div className={styles.cellContainer}>

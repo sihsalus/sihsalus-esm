@@ -5,4 +5,5 @@ export const dashboardMeta: DashboardLinkConfig & { slot: string } = {
   slot: 'patient-chart-encounters-dashboard-slot',
   title: 'Encounters',
   path: 'Encounters',
+  icon: 'omrs-icon-calendar-heat-map',
 };

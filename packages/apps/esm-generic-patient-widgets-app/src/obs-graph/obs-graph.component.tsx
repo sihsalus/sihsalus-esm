@@ -77,14 +77,16 @@ const ObsGraph: React.FC<ObsGraphProps> = ({ patientUuid }) => {
     height: '400px',
   };
 
+  const verticalTabsProps = { className: styles.verticalTabs } as unknown as React.ComponentProps<typeof Tabs>;
+
   return (
     <>
       <div className={styles.graphContainer}>
         <div className={styles.conceptPickerTabs}>
-          <label className={styles.conceptLabel} htmlFor="concept-tab-group">
+          <span className={styles.conceptLabel}>
             {t('displaying', 'Displaying')}
-          </label>
-          <Tabs id="concept-tab-group" className={styles.verticalTabs} type="default">
+          </span>
+          <Tabs {...verticalTabsProps}>
             <TabList className={styles.tablist} aria-label="Obs tabs">
               {config.data.map(({ concept, label }) => {
                 const tabClasses = classNames(styles.tab, styles.bodyLong01, {

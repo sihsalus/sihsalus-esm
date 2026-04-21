@@ -4,7 +4,6 @@ import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 
-
 import { navigateToResults, navigateToTimeline, navigateToTrendline } from '../helpers';
 
 import CommonOverview from './common-overview.component';

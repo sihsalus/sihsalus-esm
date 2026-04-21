@@ -118,7 +118,7 @@ const BedTypeAdministrationForm: React.FC<BedAdministrationFormProps> = ({
                 )}
               />
             </FormGroup>
-            <FormGroup>
+            <FormGroup legendText="">
               <Controller
                 name="description"
                 control={control}

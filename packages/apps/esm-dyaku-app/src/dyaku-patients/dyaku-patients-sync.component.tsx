@@ -20,7 +20,7 @@ const DyakuPatientsSync: React.FC<DyakuPatientsSyncProps> = ({ onSyncComplete })
 
   const progress = total > 0 ? Math.round((processed / total) * 100) : 0;
 
-  const handleStartSync = async () => {
+  const handleStartSync = () => {
     if (!isEnabled) return;
 
     setIsSyncing(true);
@@ -28,33 +28,35 @@ const DyakuPatientsSync: React.FC<DyakuPatientsSyncProps> = ({ onSyncComplete })
     setTotal(0);
     setSyncResult(null);
 
-    try {
-      const result = await syncPatients((done, outOf) => {
-        setProcessed(done);
-        setTotal(outOf);
-      });
+    void (async () => {
+      try {
+        const result = await syncPatients((done, outOf) => {
+          setProcessed(done);
+          setTotal(outOf);
+        });
 
-      setSyncResult(result);
-      onSyncComplete?.(result);
+        setSyncResult(result);
+        onSyncComplete?.(result);
 
-      if (result.success) {
-        setTimeout(() => {
-          setIsModalOpen(false);
-          setIsSyncing(false);
-          setProcessed(0);
-          setTotal(0);
-        }, 2000);
+        if (result.success) {
+          setTimeout(() => {
+            setIsModalOpen(false);
+            setIsSyncing(false);
+            setProcessed(0);
+            setTotal(0);
+          }, 2000);
+        }
+      } catch (error) {
+        setSyncResult({
+          success: false,
+          synchronized: 0,
+          failed: 0,
+          errors: [error instanceof Error ? error.message : String(error)],
+        });
+      } finally {
+        setIsSyncing(false);
       }
-    } catch (error) {
-      setSyncResult({
-        success: false,
-        synchronized: 0,
-        failed: 0,
-        errors: [error instanceof Error ? error.message : String(error)],
-      });
-    } finally {
-      setIsSyncing(false);
-    }
+    })();
   };
 
   const handleCloseModal = () => {
@@ -81,7 +83,6 @@ const DyakuPatientsSync: React.FC<DyakuPatientsSyncProps> = ({ onSyncComplete })
         onRequestSubmit={handleStartSync}
         onSecondarySubmit={handleCloseModal}
         primaryButtonDisabled={isSyncing || !isEnabled}
-        secondaryButtonDisabled={isSyncing}
         size="md"
       >
         <div className={styles.syncContent}>
@@ -116,7 +117,12 @@ const DyakuPatientsSync: React.FC<DyakuPatientsSyncProps> = ({ onSyncComplete })
           {isSyncing && (
             <div className={styles.syncProgress}>
               <InlineLoading description={t('syncingPatients', 'Sincronizando pacientes...')} />
-              <ProgressBar value={progress} max={100} className={styles.progressBar} />
+              <ProgressBar
+                value={progress}
+                max={100}
+                label={t('syncProgressLabel', 'Progreso de sincronización')}
+                className={styles.progressBar}
+              />
               <p className={styles.progressText}>
                 {total > 0
                   ? t('syncProgressOf', '{{processed}} / {{total}} pacientes procesados', { processed, total })

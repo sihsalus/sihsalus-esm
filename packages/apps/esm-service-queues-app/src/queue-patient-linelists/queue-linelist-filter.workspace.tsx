@@ -20,7 +20,7 @@ import {
   useVisitTypes,
 } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { datePickerFormat, datePickerPlaceHolder } from '../constants';
@@ -32,31 +32,26 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
   const allVisitTypes = useVisitTypes();
   const isTablet = useLayoutType() === 'tablet';
 
-  const [endAge, setEndAge] = useState<number | undefined>(undefined);
-  const [gender, setGender] = useState('');
+  const [endAge, setEndAge] = useState<number | ''>('');
+  const [, setGender] = useState('');
   const [returnDate, setReturnDate] = useState(new Date());
-  const [startAge, setStartAge] = useState<number | undefined>(undefined);
-  const [visitType, setVisitType] = useState('');
+  const [startAge, setStartAge] = useState<number | ''>('');
+  const [, setVisitType] = useState('');
 
-  const handleFilter = useCallback(
-    (event) => {
-      event.preventDefault();
-
-      const payload = {
-        gender: gender,
-        startAge: startAge,
-        endAge: endAge,
-        returnDate: toDateObjectStrict(
-          toOmrsIsoString(new Date(dayjs(returnDate).year(), dayjs(returnDate).month(), dayjs(returnDate).date())),
-        ),
-        visitType: visitType,
-      };
-    },
-    [gender, startAge, endAge, returnDate, visitType],
-  );
+  const handleFilter = (event) => {
+    event.preventDefault();
+  };
 
   const handleTodaysDate = () => {
     setReturnDate(new Date());
+  };
+
+  const handleStartAgeChange = (event) => {
+    setStartAge(event.currentTarget.value === '' ? '' : Number(event.currentTarget.value));
+  };
+
+  const handleEndAgeChange = (event) => {
+    setEndAge(event.currentTarget.value === '' ? '' : Number(event.currentTarget.value));
   };
 
   return (
@@ -105,7 +100,7 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
                     label={t('between', 'Between')}
                     max={100}
                     min={0}
-                    onChange={(event) => setStartAge(event.target.value)}
+                    onChange={handleStartAgeChange}
                     size="md"
                     value={startAge}
                   />
@@ -117,7 +112,7 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
                     label={t('and', 'And')}
                     max={100}
                     min={0}
-                    onChange={(event) => setEndAge(event.target.value)}
+                    onChange={handleEndAgeChange}
                     size="md"
                     value={endAge}
                   />
@@ -168,7 +163,7 @@ const QueueLinelistFilter: React.FC<DefaultWorkspaceProps> = ({ closeWorkspace }
         </div>
 
         <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
-          <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+          <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
             {t('cancel', 'Cancel')}
           </Button>
           <Button className={styles.button} kind="primary" type="submit">

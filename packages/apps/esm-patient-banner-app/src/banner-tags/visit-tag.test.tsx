@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { formatDatetime, parseDate, useVisit } from '@openmrs/esm-framework';
-import { mockCurrentVisit } from '__mocks__';
-import { mockPatient } from 'tools';
+import { mockCurrentVisit } from 'test-utils';
+import { mockPatient } from 'test-utils';
 import VisitTag from './visit-tag.extension';
 
 const mockUseVisit = jest.mocked(useVisit);
@@ -19,7 +19,7 @@ describe('VisitBannerTag', () => {
       mutate: jest.fn(),
     });
 
-    const patient = { ...mockPatient, deceasedDateTime: null };
+    const patient = { ...mockPatient, deceasedDateTime: null } as unknown as fhir.Patient;
     render(<VisitTag patientUuid={mockPatient.id} patient={patient} />);
 
     const visitMetadata =
@@ -47,7 +47,7 @@ describe('VisitBannerTag', () => {
       mutate: jest.fn(),
     });
 
-    const patient = { ...mockPatient, deceasedDateTime: '2002-04-04' };
+    const patient = { ...mockPatient, deceasedDateTime: '2002-04-04' } as unknown as fhir.Patient;
 
     render(<VisitTag patientUuid={mockPatient.id} patient={patient} />);
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import ReactJoyride, { ACTIONS, type CallBackProps, EVENTS } from 'react-joyride';
 import { useDefineAppContext } from '@openmrs/esm-framework';
 import { type TutorialContext, type ExtendedStep } from './types';
@@ -104,7 +104,7 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-user-onboarding-app">
-        <div
+      <div
         onMouseDown={(e) => {
           e.stopPropagation();
         }}

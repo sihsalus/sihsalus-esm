@@ -21,11 +21,19 @@ const RetrospectiveVisitLabel: React.FC<RetrospectiveVisitLabelProps> = ({ curre
           <h6 className={styles.heading}>{currentVisit?.visitType?.display}</h6>
           <div>
             <span className={styles.tooltipSmallText}>{t('startDate', 'Start date')}: </span>
-            <span>{formatDatetime(parseDate(currentVisit?.startDatetime), { mode: 'wide' })}</span>
+            <span>
+              {formatDatetime(parseDate(currentVisit?.startDatetime), {
+                mode: 'wide',
+              })}
+            </span>
           </div>
           <div>
             <span className={styles.tooltipSmallText}>{t('endDate', 'End date')}: </span>
-            <span>{formatDatetime(parseDate(currentVisit?.stopDatetime), { mode: 'wide' })}</span>
+            <span>
+              {formatDatetime(parseDate(currentVisit?.stopDatetime), {
+                mode: 'wide',
+              })}
+            </span>
           </div>
         </div>
       </ToggletipContent>
@@ -33,5 +41,5 @@ const RetrospectiveVisitLabel: React.FC<RetrospectiveVisitLabelProps> = ({ curre
   );
 };
 
-export { RetrospectiveVisitLabelProps };
+export type { RetrospectiveVisitLabelProps };
 export default RetrospectiveVisitLabel;

@@ -1,4 +1,4 @@
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import React from 'react';
 
 import HelpMenu from './help-menu/help.component';

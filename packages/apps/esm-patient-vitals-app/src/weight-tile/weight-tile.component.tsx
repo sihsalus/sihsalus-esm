@@ -15,13 +15,23 @@ interface WeightTileInterface {
 const WeightTile: React.FC<WeightTileInterface> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { data: conceptUnits } = useVitalsConceptMetadata();
-  const { data: biometrics, isLoading } = useVitalsAndBiometrics(patientUuid, 'biometrics');
+  const { data: conceptUnits, error: conceptsError } = useVitalsConceptMetadata();
+  const { data: biometrics, isLoading, error } = useVitalsAndBiometrics(patientUuid, 'biometrics');
   const weightData = biometrics?.filter((result) => result.weight);
 
   if (isLoading) {
     return <InlineLoading role="progressbar" description={`${t('loading', 'Loading')} ...`} />;
   }
+
+  if (error || conceptsError) {
+    return (
+      <div>
+        <p className={styles.label}>{t('weight', 'Weight')}</p>
+        <p className={styles.content}>{t('errorFetchingWeight', 'Error loading weight')}</p>
+      </div>
+    );
+  }
+
   if (weightData?.length) {
     return (
       <div>

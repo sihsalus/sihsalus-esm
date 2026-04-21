@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-argument */
 import React, { useCallback, useMemo } from 'react';
 import { Dropdown, NumberInput } from '@carbon/react';
 import { useController, type Control } from 'react-hook-form';

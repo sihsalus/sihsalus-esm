@@ -341,24 +341,30 @@ describe('LabResultsForm', () => {
 
     // Normal input range
     const setMember1Input = screen.getByLabelText('Set Member (50 - 150 mg/dL)');
+    await user.clear(setMember1Input);
     await user.type(setMember1Input, '50');
     expect(screen.queryByText('Set Member must be between 50 and 150')).not.toBeInTheDocument();
 
     const setMember2Input = screen.getByLabelText('Set Member 2 (5 - 30 mg/dL)');
+    await user.clear(setMember2Input);
     await user.type(setMember2Input, '10');
     expect(screen.queryByText('Set Member must be between 5 and 30')).not.toBeInTheDocument();
 
     // Out of range input, upper limit
+    await user.clear(setMember1Input);
     await user.type(setMember1Input, '151');
     expect(await screen.findByText('Set Member must be between 50 and 150')).toBeInTheDocument();
 
+    await user.clear(setMember2Input);
     await user.type(setMember2Input, '31');
     expect(await screen.findByText('Set Member 2 must be between 5 and 30')).toBeInTheDocument();
 
     // Out of range input, lower limit
+    await user.clear(setMember1Input);
     await user.type(setMember1Input, '49');
     expect(await screen.findByText('Set Member must be between 50 and 150')).toBeInTheDocument();
 
+    await user.clear(setMember2Input);
     await user.type(setMember2Input, '4');
     expect(await screen.findByText('Set Member 2 must be between 5 and 30')).toBeInTheDocument();
   });
@@ -387,6 +393,7 @@ describe('LabResultsForm', () => {
 
     render(<LabResultsForm {...testProps} />);
     const input = await screen.findByRole('textbox', { name: /Test Concept/i });
+    await user.clear(input);
     await user.type(input, '100');
     const submitButton = screen.getByRole('button', { name: 'Save and close' });
     await user.click(submitButton);

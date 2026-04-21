@@ -1,11 +1,27 @@
 import { launchWorkspace, openmrsFetch, useSession } from '@openmrs/esm-framework';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockPatientDrugOrdersApiData, mockSessionDataResponse } from '__mocks__';
+import { mockPatientDrugOrdersApiData, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
 import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 
 import ActiveMedications from './active-medications.component';
+
+const mockFhirPatient = {
+  id: mockPatient.uuid ?? 'test-patient-id',
+  birthDate: '2000-01-01',
+  gender: 'male',
+  name: [{ given: ['John'], family: 'Doe' }],
+  address: [{ city: 'Nairobi' }],
+  identifier: [
+    {
+      value: '1003Y2M',
+      type: {
+        coding: [{ code: 'test-identifier' }],
+      },
+    },
+  ],
+} as unknown as fhir.Patient;
 
 const mockUseSession = jest.mocked(useSession);
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
@@ -33,10 +49,15 @@ jest.mock('@openmrs/esm-patient-common-lib', () => {
 });
 
 describe('ActiveMedications', () => {
-  test('renders an empty state view when there are no active medications to display', async () => {
-    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: [] } });
+  beforeEach(() => {
+    mockOpenmrsFetch.mockReset();
+    mockLaunchWorkspace.mockReset();
+  });
 
-    renderWithSwr(<ActiveMedications patient={mockPatient} />);
+  test('renders an empty state view when there are no active medications to display', async () => {
+    mockOpenmrsFetch.mockResolvedValue({ data: { results: [] } });
+
+    renderWithSwr(<ActiveMedications patient={mockFhirPatient} />);
 
     await waitForLoadingToFinish();
 
@@ -55,22 +76,22 @@ describe('ActiveMedications', () => {
       },
     };
 
-    mockOpenmrsFetch.mockRejectedValueOnce(error);
+    mockOpenmrsFetch.mockRejectedValue(error);
 
-    renderWithSwr(<ActiveMedications patient={mockPatient} />);
+    renderWithSwr(<ActiveMedications patient={mockFhirPatient} />);
 
     await waitForLoadingToFinish();
 
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /medications/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /active medications/i })).toBeInTheDocument();
     expect(screen.getByText(/Error 401: Unauthorized/i)).toBeInTheDocument();
     expect(screen.getByText(/Sorry, there was a problem displaying this information/i)).toBeInTheDocument();
   });
 
   test('renders a tabular overview of the active medications recorded for a patient', async () => {
-    mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockPatientDrugOrdersApiData } });
+    mockOpenmrsFetch.mockResolvedValue({ data: { results: mockPatientDrugOrdersApiData } });
 
-    renderWithSwr(<ActiveMedications patient={mockPatient} />);
+    renderWithSwr(<ActiveMedications patient={mockFhirPatient} />);
 
     await waitForLoadingToFinish();
 
@@ -104,9 +125,9 @@ describe('ActiveMedications', () => {
 
 test('clicking the Record active medications link opens the order basket form', async () => {
   const user = userEvent.setup();
-  mockOpenmrsFetch.mockReturnValueOnce({ data: { results: [] } });
+  mockOpenmrsFetch.mockResolvedValue({ data: { results: [] } });
 
-  renderWithSwr(<ActiveMedications patient={mockPatient} />);
+  renderWithSwr(<ActiveMedications patient={mockFhirPatient} />);
 
   await waitForLoadingToFinish();
   const orderLink = screen.getByText('Record active medications');
@@ -116,9 +137,9 @@ test('clicking the Record active medications link opens the order basket form', 
 
 test('clicking the Add button opens the order basket form', async () => {
   const user = userEvent.setup();
-  mockOpenmrsFetch.mockReturnValueOnce({ data: { results: mockPatientDrugOrdersApiData } });
+  mockOpenmrsFetch.mockResolvedValue({ data: { results: mockPatientDrugOrdersApiData } });
 
-  renderWithSwr(<ActiveMedications patient={mockPatient} />);
+  renderWithSwr(<ActiveMedications patient={mockFhirPatient} />);
 
   await waitForLoadingToFinish();
   const button = screen.getByRole('button', { name: /Add/i });

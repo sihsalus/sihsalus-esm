@@ -129,7 +129,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
       const patientAge = extractNumbers(age(patientBirthDate));
       getMuacColorCode(patientAge, midUpperArmCircumference, setMuacColorCode);
     }
-  }, [watch, patient.patient?.birthDate, midUpperArmCircumference]);
+  }, [patient.patient?.birthDate, midUpperArmCircumference]);
 
   useEffect(() => {
     if (height && weight) {
@@ -138,7 +138,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
     }
   }, [weight, height, setValue]);
 
-  function onError(err) {
+  function onError(err: Record<string, { message?: string }>) {
     if (err?.oneFieldRequired) {
       setShowErrorNotification(true);
     }
@@ -172,13 +172,9 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
 
   const savePatientVitalsAndBiometrics = useCallback(
     (data: VitalsBiometricsFormData) => {
-      const formData = data;
+      const { computedBodyMassIndex: _bmi, ...formData } = data;
       setShowErrorMessage(true);
       setShowErrorNotification(false);
-
-      if (data?.computedBodyMassIndex) {
-        delete data.computedBodyMassIndex;
-      }
 
       const allFieldsAreValid = Object.entries(formData)
         .filter(([, value]) => Boolean(value))
@@ -186,6 +182,18 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
 
       if (allFieldsAreValid) {
         setShowErrorMessage(false);
+
+        const locationUuid = session?.sessionLocation?.uuid;
+        if (!locationUuid) {
+          showSnackbar({
+            title: t('vitalsAndBiometricsSaveError', 'Error saving vitals and biometrics'),
+            kind: 'error',
+            isLowContrast: false,
+            subtitle: t('noSessionLocation', 'Could not determine session location. Please log in again.'),
+          });
+          return;
+        }
+
         const abortController = new AbortController();
 
         savePatientVitals(
@@ -195,10 +203,10 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
           patientUuid,
           formData,
           abortController,
-          session?.sessionLocation?.uuid,
+          locationUuid,
         )
           .then((response) => {
-            if (response.status === 201) {
+            if (response.status === 201 || response.status === 200) {
               invalidateCachedVitalsAndBiometrics();
               closeWorkspaceWithSavedChanges();
               showSnackbar({
@@ -212,17 +220,14 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
               });
             }
           })
-          .catch(() => {
-            createErrorHandler();
+          .catch((error) => {
+            createErrorHandler()(error);
             showSnackbar({
               title: t('vitalsAndBiometricsSaveError', 'Error saving vitals and biometrics'),
               kind: 'error',
               isLowContrast: false,
-              subtitle: t('checkForValidity', 'Some of the values entered are invalid'),
+              subtitle: error?.message ?? t('unexpectedError', 'An unexpected error occurred. Please try again.'),
             });
-          })
-          .finally(() => {
-            abortController.abort();
           });
       } else {
         setHasInvalidVitals(true);
@@ -284,7 +289,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
         </div>
         <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
           <ButtonSkeleton className={styles.button} />
-          <ButtonSkeleton className={styles.button} type="submit" />
+          <ButtonSkeleton className={styles.button} />
         </ButtonSet>
       </Form>
     );
@@ -501,7 +506,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   assessValue(weight, getReferenceRangesForConcept(config.concepts.weightUuid, conceptMetadata))
                 }
                 isValueWithinReferenceRange={
-                  height && isValueWithinReferenceRange(conceptMetadata, config.concepts['weightUuid'], weight)
+                  weight ? isValueWithinReferenceRange(conceptMetadata, config.concepts['weightUuid'], weight) : true
                 }
                 showErrorMessage={showErrorMessage}
                 label={t('weight', 'Weight')}
@@ -525,7 +530,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   assessValue(height, getReferenceRangesForConcept(config.concepts.heightUuid, conceptMetadata))
                 }
                 isValueWithinReferenceRange={
-                  weight && isValueWithinReferenceRange(conceptMetadata, config.concepts['heightUuid'], height)
+                  height ? isValueWithinReferenceRange(conceptMetadata, config.concepts['heightUuid'], height) : true
                 }
                 showErrorMessage={showErrorMessage}
                 label={t('height', 'Height')}
@@ -561,13 +566,13 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                 ]}
                 muacColorCode={muacColorCode}
                 isValueWithinReferenceRange={
-                  height &&
-                  weight &&
-                  isValueWithinReferenceRange(
-                    conceptMetadata,
-                    config.concepts['midUpperArmCircumferenceUuid'],
-                    midUpperArmCircumference,
-                  )
+                  midUpperArmCircumference
+                    ? isValueWithinReferenceRange(
+                        conceptMetadata,
+                        config.concepts['midUpperArmCircumferenceUuid'],
+                        midUpperArmCircumference,
+                      )
+                    : true
                 }
                 showErrorMessage={showErrorMessage}
                 label={t('muac', 'MUAC')}
@@ -603,7 +608,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
       )}
 
       <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
-        <Button className={styles.button} kind="secondary" onClick={closeWorkspace}>
+        <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
           {t('discard', 'Discard')}
         </Button>
         <Button

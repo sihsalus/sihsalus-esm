@@ -14,7 +14,7 @@ const mockDeleteSubscription = jest.mocked(deleteSubscription);
 const mockShowNotification = jest.mocked(showNotification);
 
 jest.mock('./subscription.resource', () => {
-  const originalModule = jest.requireActual('./subscription.resource');
+  const originalModule = jest.requireActual<Record<string, unknown>>('./subscription.resource');
 
   return {
     ...originalModule,

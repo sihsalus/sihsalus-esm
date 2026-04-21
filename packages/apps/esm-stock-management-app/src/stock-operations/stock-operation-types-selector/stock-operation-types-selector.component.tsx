@@ -55,7 +55,8 @@ const StockOperationTypesSelector = () => {
       }}
     >
       {operationTypes
-        .slice().sort((a, b) => a.name.localeCompare(b.name))
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name))
         .map((operation) => (
           <OverflowMenuItem
             key={operation.uuid}

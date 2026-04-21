@@ -12,8 +12,8 @@ import {
   useLeftNavStore,
 } from '@openmrs/esm-framework';
 
-import { mockSession } from '../__mocks__/mock-session';
-import { mockUser } from '../__mocks__/mock-user';
+import { mockSession } from '../test-utils/mocks/mock-session';
+import { mockUser } from '../test-utils/mocks/mock-user';
 
 import Root from './root.component';
 import { isDesktop } from './utils';

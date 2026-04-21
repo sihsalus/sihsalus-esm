@@ -39,3 +39,7 @@ window.importMapOverrides = {
 } as unknown as ImportMapOverridesApi;
 
 afterEach(cleanup);
+
+vi.mock('workbox-window', () => ({
+  Workbox: vi.fn(),
+}));

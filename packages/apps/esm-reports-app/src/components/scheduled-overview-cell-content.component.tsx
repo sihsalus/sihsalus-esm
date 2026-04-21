@@ -22,6 +22,9 @@ const ScheduledOverviewCellContent: React.FC<ScheduledOverviewCellContentProps> 
   const { t } = useTranslation();
   const session = useSession();
 
+  const stringValue = typeof cell.value === 'string' ? cell.value : '';
+  const booleanValue = typeof cell.value === 'boolean' ? cell.value : false;
+
   const renderContent = () => {
     switch (cell.info.header) {
       case 'name': {
@@ -29,11 +32,11 @@ const ScheduledOverviewCellContent: React.FC<ScheduledOverviewCellContentProps> 
         return <div>{(v?.content ?? cell.value) as React.ReactNode}</div>;
       }
       case 'status':
-        return <ScheduledReportStatus hasSchedule={cell.value as boolean} />;
+        return <ScheduledReportStatus hasSchedule={booleanValue} />;
       case 'schedule':
-        return <ReportScheduleDescription schedule={cell.value as string} />;
+        return <ReportScheduleDescription schedule={stringValue} />;
       case 'nextRun':
-        return <NextReportExecution schedule={cell.value as string} currentDate={new Date()} />;
+        return <NextReportExecution schedule={stringValue} currentDate={new Date()} />;
       case 'actions': {
         const actions = cell.value as { reportDefinitionUuid: string; reportRequestUuid: string };
         return (

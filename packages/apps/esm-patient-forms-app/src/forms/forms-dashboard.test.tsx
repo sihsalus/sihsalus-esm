@@ -1,6 +1,6 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import { mockCurrentVisit } from '__mocks__';
+import { mockCurrentVisit } from 'test-utils';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 

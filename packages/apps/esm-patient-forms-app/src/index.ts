@@ -43,7 +43,7 @@ export function startupApp() {
       width: 'extra-wide',
       component: 'patientFormEntryWorkspace',
       moduleName,
-      load: () => Promise.resolve(patientFormEntryWorkspace),
+      load: patientFormEntryWorkspace,
     });
 
     registerWorkspace({
@@ -55,7 +55,7 @@ export function startupApp() {
       width: 'extra-wide',
       component: 'clinicalFormsWorkspace',
       moduleName,
-      load: () => Promise.resolve(clinicalFormsWorkspace),
+      load: clinicalFormsWorkspace,
     });
   }
 

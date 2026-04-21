@@ -76,7 +76,7 @@ module.exports = (env, argv = {}) => ({
   },
   watch: false,
   externalsType: 'module',
-  externals: [...Object.keys(peerDependencies || {}),],
+  externals: [...Object.keys(peerDependencies || {})],
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },

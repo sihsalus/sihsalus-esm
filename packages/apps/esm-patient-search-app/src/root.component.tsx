@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import PatientSearchPageComponent from './patient-search-page/patient-search-page.component';
@@ -7,7 +7,7 @@ import PatientSearchPageComponent from './patient-search-page/patient-search-pag
 const PatientSearchRootComponent: React.FC = () => {
   return (
     <AppErrorBoundary appName="esm-patient-search-app">
-        <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
+      <BrowserRouter basename={globalThis.getOpenmrsSpaBase()}>
         <Routes>
           <Route path="search" element={<PatientSearchPageComponent />} />
         </Routes>

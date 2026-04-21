@@ -14,9 +14,10 @@ import {
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
+import type { TFunction } from 'i18next';
 import React, { useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { type TFunction, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
@@ -61,7 +62,7 @@ const createProviderQueueRoomSchema = (t: TFunction) =>
       })
       .trim()
       .min(1, t('queueRoomIsRequired', 'Queue room is required')),
-    currentIsPermanentProviderQueueRoom: z.boolean().or(z.string()),
+    currentIsPermanentProviderQueueRoom: z.boolean(),
   });
 
 type ProviderQueueRoomData = z.infer<ReturnType<typeof createProviderQueueRoomSchema>>;
@@ -86,7 +87,7 @@ const AddProviderQueueRoomModal: React.FC<AddProviderQueueRoomModalProps> = ({ c
       queueLocationUuid: currentLocationUuid ?? '',
       queueProviderMapUuid: providerRoom?.[0]?.uuid ?? '',
       queueRoomUuid: providerRoom?.[0]?.queueRoom?.uuid ?? '',
-      currentIsPermanentProviderQueueRoom: isPermanentProviderQueueRoom ?? false,
+      currentIsPermanentProviderQueueRoom: Boolean(isPermanentProviderQueueRoom),
     },
   });
 
@@ -234,7 +235,7 @@ const AddProviderQueueRoomModal: React.FC<AddProviderQueueRoomModalProps> = ({ c
                 render={({ field }) => (
                   <Select
                     {...field}
-                    disabled={errorFetchingQueueRooms}
+                    disabled={Boolean(errorFetchingQueueRooms)}
                     id="queueRoom"
                     invalid={!!errors.queueRoomUuid}
                     invalidText={errors.queueRoomUuid?.message}

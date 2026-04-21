@@ -14,7 +14,7 @@ interface UserMenuPanelProps extends HeaderPanelProps {
  * Extensions attaching to `user-panel-slot` or `user-panel-bottom-slot` should in
  * general be wrapped in the `SwitcherItem` Carbon component.
  */
-const UserMenuPanel: React.FC<UserMenuPanelProps> = ({ expanded, hidePanel }) => {
+const UserMenuPanel: React.FC<UserMenuPanelProps> = ({ expanded, hidePanel: _hidePanel }) => {
   const { t } = useTranslation();
 
   return (

@@ -11,6 +11,7 @@ export interface EmergencyPatientPayload {
         names: Array<{
           givenName: string;
           familyName: string;
+          familyName2?: string;
           preferred: boolean;
         }>;
         gender: string;

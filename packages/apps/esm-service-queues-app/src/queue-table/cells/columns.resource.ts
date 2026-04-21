@@ -1,6 +1,7 @@
 import { showToast, useConfig } from '@openmrs/esm-framework';
+import type { TFunction } from 'i18next';
 import { useMemo } from 'react';
-import { useTranslation, type TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import {
   builtInColumns,
@@ -84,7 +85,7 @@ export function useColumns(queue: string, status: string): QueueTableColumn[] {
     }
     return column;
   });
-  return columns;
+  return columns.filter(Boolean) as QueueTableColumn[];
 }
 
 function getColumnFromDefinition(t: TFunction, columnDef: ColumnDefinition): QueueTableColumn {

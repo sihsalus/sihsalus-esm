@@ -24,7 +24,7 @@ describe('normalizeInterpretation', () => {
     expect(normalizeInterpretation('HIGH')).toBe('high');
     expect(normalizeInterpretation('LOW')).toBe('low');
     expect(normalizeInterpretation('NORMAL')).toBe('normal');
-  })
+  });
 
   it('converts -- to normal', () => {
     expect(normalizeInterpretation('--')).toBe('normal');

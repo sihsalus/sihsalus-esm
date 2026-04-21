@@ -32,7 +32,7 @@ export const getClass = (interpretation: OBSERVATION_INTERPRETATION) => {
   }
 };
 
-export function exist(...args: any[]): boolean {
+export function exist(...args: unknown[]): boolean {
   for (const y of args) {
     if (y === null || y === undefined) {
       return false;
@@ -45,8 +45,8 @@ export function exist(...args: any[]): boolean {
 export const assessValue: (any) => (value: string) => OBSERVATION_INTERPRETATION =
   (meta) =>
   (value: string): observationInterpretation => {
-    const valueQuantity = parseFloat(value);
-    if (isNaN(valueQuantity)) {
+    const valueQuantity = Number.parseFloat(value);
+    if (Number.isNaN(valueQuantity)) {
       return observationInterpretation.NORMAL;
     }
     if (exist(meta.hiAbsolute) && valueQuantity > meta.hiAbsolute) {

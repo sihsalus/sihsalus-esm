@@ -17,7 +17,7 @@ const patientProperties = [
   'identifiers',
   'display',
   'patientIdentifier:(uuid,identifier)',
-  'person:(gender,age,birthdate,birthdateEstimated,personName,addresses,display,dead,deathDate)',
+  'person:(gender,age,birthdate,birthdateEstimated,personName:(display,givenName,middleName,familyName,familyName2),addresses,display,dead,deathDate)',
   'attributes:(value,attributeType:(uuid,display))',
 ];
 

@@ -1,0 +1,19 @@
+{
+  "addModule": "Agregar módulo",
+  "addNewModule": "Agregar nuevo módulo",
+  "apply": "Aplicar",
+  "cancel": "Cancelar",
+  "default": "Predeterminado",
+  "defaultUrl": "URL predeterminada",
+  "domain": "Dominio",
+  "editModule": "Editar módulo {{- moduleName}}",
+  "externalOverride": "Sobrescritura externa",
+  "filename": "Nombre del archivo",
+  "inlineOverride": "Sobrescritura en línea",
+  "moduleName": "Nombre del módulo",
+  "moduleStatus": "Estado del módulo",
+  "overrideDisabled": "Sobrescritura deshabilitada",
+  "overrideUrl": "URL de sobrescritura",
+  "resetOverrides": "Restablecer todas las sobrescrituras",
+  "searchModules": "Buscar módulos"
+}

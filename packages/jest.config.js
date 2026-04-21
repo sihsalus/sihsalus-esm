@@ -3,6 +3,11 @@
  */
 
 const path = require('path');
+const sharedTestAliases = require('./tooling/configs/shared-test-aliases.json');
+
+const resolvedSharedTestAliases = Object.fromEntries(
+  Object.entries(sharedTestAliases).map(([pattern, relativeTarget]) => [pattern, path.resolve(__dirname, relativeTarget)]),
+);
 
 module.exports = {
   clearMocks: true,
@@ -13,14 +18,12 @@ module.exports = {
   moduleDirectories: ['node_modules', __dirname],
   moduleNameMapper: {
     '\\.(s?css)$': 'identity-obj-proxy',
-    '@openmrs/esm-framework': '@openmrs/esm-framework/mock',
+    '^@openmrs/esm-framework$': path.resolve(__dirname, 'tooling', 'scripts', 'esm-framework-jest-mock.tsx'),
     '@openmrs/esm-translations': '@openmrs/esm-translations/mock',
     '^dexie$': require.resolve('dexie'),
     '^lodash-es/(.*)$': 'lodash/$1',
     'lodash-es': 'lodash',
-    '^react-i18next$': path.resolve(__dirname, '__mocks__', 'react-i18next.js'),
-    '^react-markdown$': path.resolve(__dirname, '__mocks__', 'react-markdown.tsx'),
-    '\\.(png|jpg|jpeg|gif|svg)$': path.resolve(__dirname, '__mocks__', 'fileMock.js'),
+    ...resolvedSharedTestAliases,
     '^uuid$': require.resolve('uuid'),
     '^react$': require.resolve('react'),
     '^react-dom$': require.resolve('react-dom'),

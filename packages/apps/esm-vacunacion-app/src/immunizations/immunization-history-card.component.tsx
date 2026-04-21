@@ -36,9 +36,9 @@ const ImmunizationHistoryCard: React.FC<ImmunizationHistoryCardProps> = ({ error
   const sortedImmunizations = useMemo(() => {
     return (immunizations || []).map((immunization) => ({
       ...immunization,
-      existingDoses: (immunization?.existingDoses || []).slice().sort(
-        (a, b) => new Date(a?.occurrenceDateTime).getTime() - new Date(b?.occurrenceDateTime).getTime(),
-      ),
+      existingDoses: (immunization?.existingDoses || [])
+        .slice()
+        .sort((a, b) => new Date(a?.occurrenceDateTime).getTime() - new Date(b?.occurrenceDateTime).getTime()),
     }));
   }, [immunizations]);
 

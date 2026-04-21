@@ -113,7 +113,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
     [resetErrorMessage],
   );
 
-  const updateSchema = useCallback((updatedSchema: FormSchema) => {
+  const updateSchema = useCallback((updatedSchema: Schema) => {
     setSchema(updatedSchema);
     localStorage.setItem('formJSON', JSON.stringify(updatedSchema));
   }, []);
@@ -227,15 +227,13 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
 
   const renderSchemaChanges = useCallback(() => {
     resetErrorMessage();
-    {
-      try {
-        const parsedJson = parseSchemaJson(stringifiedSchema);
-        updateSchema(parsedJson);
-        setStringifiedSchema(JSON.stringify(parsedJson, null, 2));
-      } catch (e) {
-        if (e instanceof Error) {
-          setInvalidJsonErrorMessage(e.message);
-        }
+    try {
+      const parsedJson = parseSchemaJson(stringifiedSchema);
+      updateSchema(parsedJson);
+      setStringifiedSchema(JSON.stringify(parsedJson, null, 2));
+    } catch (e) {
+      if (e instanceof Error) {
+        setInvalidJsonErrorMessage(e.message);
       }
     }
   }, [stringifiedSchema, updateSchema, resetErrorMessage]);
@@ -245,6 +243,23 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
     if (!shouldMergeTranslation) return schema;
     return mergeTranslatedSchema(schema, langCodeForPreview);
   }, [schema, shouldMergeTranslation, langCodeForPreview]);
+
+  const previewSchema = useMemo<FormSchema | null>(() => {
+    if (!translatedSchema) {
+      return null;
+    }
+
+    const translations = translatedSchema.translations;
+    if (
+      !translations ||
+      Object.values(translations).every((value) => typeof value === 'string')
+    ) {
+      return translatedSchema as FormSchema;
+    }
+
+    const { translations: _translations, ...rest } = translatedSchema;
+    return rest as FormSchema;
+  }, [translatedSchema]);
 
   const handleRenderSchemaChanges = useCallback(() => {
     if (errors.length && blockRenderingWithErrors) {
@@ -440,7 +455,7 @@ const FormEditorContent: React.FC<TranslationFnProps> = ({ t }) => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <FormRenderer schema={translatedSchema} isLoading={isLoadingFormOrSchema} />
+                <FormRenderer schema={previewSchema} isLoading={isLoadingFormOrSchema} />
               </TabPanel>
               <TabPanel>
                 <InteractiveBuilder

@@ -7,15 +7,12 @@ import PatientListsWorkspace from './patient-lists.workspace';
 const mockUsePatientLists = jest.mocked(usePatientLists);
 
 jest.mock('../patient-lists.resource', () => {
-  const original = jest.requireActual('../patient-lists.resource');
-
   return {
-    ...original,
     usePatientLists: jest.fn(),
   };
 });
 
-it('renders an empty state if patient list data is unavailable', async () => {
+it('renders an empty state if patient list data is unavailable', () => {
   mockUsePatientLists.mockReturnValue({
     isLoading: false,
     error: null,

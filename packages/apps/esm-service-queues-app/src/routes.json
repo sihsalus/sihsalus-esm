@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.openmrs.org/routes.schema.json",
   "backendDependencies": {
-    "webservices.rest": "^2.2.0",
-    "queue": "^2.4.0-0"
+    "webservices.rest": ">=2.2.0",
+    "queue": ">=2.4.0"
   },
   "extensions": [
     {
@@ -62,7 +62,7 @@
     {
       "name": "visit-form-queue-fields",
       "component": "visitFormQueueFields",
-      "slot":"visit-form-bottom-slot"
+      "slot": "visit-form-bottom-slot"
     },
     {
       "name": "queue-patient-info-queue-entry-status",

@@ -1,29 +1,82 @@
 export type ConceptUuid = string;
 export type ObsUuid = string;
 
+export interface ObservationCoding {
+  code?: string;
+  display?: string;
+}
+
+export interface ObservationCodeableConcept {
+  coding: Array<ObservationCoding>;
+  text?: string;
+}
+
+export interface ObservationReference {
+  reference: string;
+}
+
 export interface ObsRecord {
+  id: ObsUuid;
   members?: Array<ObsRecord>;
+  hasMember?: Array<ObservationReference>;
   conceptClass: ConceptUuid;
+  code?: {
+    coding: Array<ObservationCoding>;
+  };
   meta?: ObsMetaInfo;
+  name?: string;
+  value?: string | number;
+  issued?: string;
+  valueCodeableConcept?: ObservationCodeableConcept;
+  valueQuantity?: {
+    value: number;
+    unit?: string;
+    system?: string;
+    code?: string;
+  };
   effectiveDateTime: string;
-  encounter: {
+  encounter?: {
     reference: string;
     type: string;
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [_: string]: any;
+  [_: string]: unknown;
 }
 
 export interface ObsMetaInfo {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [_: string]: any;
+  hiAbsolute?: number;
+  hiCritical?: number;
+  hiNormal?: number;
+  lowAbsolute?: number;
+  lowCritical?: number;
+  lowNormal?: number;
+  units?: string;
+  datatype?: string;
+  range?: string;
   assessValue?: (value: string) => OBSERVATION_INTERPRETATION;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [_: string]: unknown;
 }
 
 export interface ConceptRecord {
   uuid: ConceptUuid;
+  display?: string;
+  conceptClass?: {
+    name?: string;
+    display?: string;
+  };
+  hiAbsolute?: number;
+  hiCritical?: number;
+  hiNormal?: number;
+  lowAbsolute?: number;
+  lowCritical?: number;
+  lowNormal?: number;
+  units?: string;
+  datatype?: {
+    display?: string;
+  };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [_: string]: any;
+  [_: string]: unknown;
 }
 
 export interface PatientData {

@@ -240,7 +240,7 @@ describe('WorkspaceContainer in overlay mode', () => {
     await user.click(closeButton);
 
     // toHaveAttribute() cannot do either partial or regex matches
-    // eslint-disable-next-line jest-dom/prefer-to-have-attribute
+
     expect(screen.getByRole('complementary').getAttribute('class')).toContain('hiddenRelative');
   });
 });

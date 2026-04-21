@@ -5,8 +5,8 @@ import { createContext } from 'react';
  * (we need to know this to determine if we open the appointments form as part of the patient chart workspace or as an overlay in the appointments app)
  */
 export enum PatientAppointmentContextTypes {
-  PATIENT_CHART,
-  APPOINTMENTS_APP,
+  PATIENT_CHART = 0,
+  APPOINTMENTS_APP = 1,
 }
 const PatientAppointmentContext = createContext<PatientAppointmentContextTypes>(
   PatientAppointmentContextTypes.PATIENT_CHART,

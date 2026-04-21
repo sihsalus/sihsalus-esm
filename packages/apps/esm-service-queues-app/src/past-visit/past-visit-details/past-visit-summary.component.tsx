@@ -144,7 +144,8 @@ const PastVisitSummary: React.FC<PastVisitSummaryProps> = ({ encounters, patient
   return (
     <div className={styles.wrapper}>
       <div className={styles.visitContainer}>
-        <Tabs className={tabsClasses}>
+        <div className={tabsClasses}>
+          <Tabs>
           <TabList className={styles.verticalTabList} aria-label="Past visits tabs">
             <Tab className={tabClasses(0)} id="vitals-tab" onClick={() => setSelectedTabIndex(0)}>
               {t('vitals', 'Vitals')}
@@ -174,7 +175,8 @@ const PastVisitSummary: React.FC<PastVisitSummaryProps> = ({ encounters, patient
               <EncounterList encounters={encountersToDisplay} />
             </TabPanel>
           </TabPanels>
-        </Tabs>
+          </Tabs>
+        </div>
       </div>
     </div>
   );

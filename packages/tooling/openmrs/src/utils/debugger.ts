@@ -19,7 +19,6 @@ function getWebpackEnv() {
 }
 
 function loadConfig(configPath: string): RspackConfiguration {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const content: RspackConfiguration | ((env: Record<string, unknown>) => RspackConfiguration) = require(configPath);
   if (typeof content === 'function') {
     return content(getWebpackEnv());

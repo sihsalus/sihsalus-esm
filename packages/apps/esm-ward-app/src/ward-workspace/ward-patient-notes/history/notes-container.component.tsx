@@ -34,7 +34,7 @@ const PatientNotesHistory: React.FC<PatientNotesHistoryProps> = ({ patientUuid, 
       <div className={styles.notesContainerHeader}>
         <div className={styles.notesContainerTitle}>History</div>
       </div>
-      {isLoading ? [1, 2, 3, 4].map((item, index) => <InPatientNoteSkeleton key={index} />) : null}
+      {isLoading ? [1, 2, 3, 4].map((item) => <InPatientNoteSkeleton key={item} />) : null}
       {patientNotes.map((patientNote) => (
         <InPatientNote key={patientNote.id} note={patientNote} />
       ))}

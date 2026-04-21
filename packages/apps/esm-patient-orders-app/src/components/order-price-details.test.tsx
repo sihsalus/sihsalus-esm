@@ -1,6 +1,6 @@
 import { getLocale } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { mockOrderPriceData } from '__mocks__';
+import { mockOrderPriceData } from 'test-utils';
 import React from 'react';
 import { renderWithSwr } from 'test-utils';
 
@@ -30,8 +30,8 @@ describe('OrderPriceDetailsComponent', () => {
       error: null,
     });
 
-    renderWithSwr(<OrderPriceDetailsComponent orderItemUuid={mockOrderItemUuid} />);
-    expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    const { container } = renderWithSwr(<OrderPriceDetailsComponent orderItemUuid={mockOrderItemUuid} />);
+    expect(container.querySelector('.cds--skeleton__text')).toBeInTheDocument();
   });
 
   it('renders nothing when amount is null', () => {

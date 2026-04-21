@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppErrorBoundary } from '@sihsalus/rbac';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import ListDetails from './list-details/list-details.component';
@@ -10,7 +10,7 @@ const RootComponent: React.FC = () => {
 
   return (
     <AppErrorBoundary appName="esm-patient-list-management-app">
-        <BrowserRouter basename={patientListsBasename}>
+      <BrowserRouter basename={patientListsBasename}>
         <Routes>
           <Route path="/" element={<ListsDashboard />} />
           <Route path="/:patientListUuid" element={<ListDetails />} />

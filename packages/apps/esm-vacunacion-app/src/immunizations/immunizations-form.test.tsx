@@ -9,7 +9,7 @@ import {
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockSessionDataResponse } from '__mocks__';
+import { mockCurrentVisit, mockSessionDataResponse } from 'test-utils';
 import dayjs from 'dayjs';
 import React from 'react';
 import { mockPatient } from 'test-utils';
@@ -67,8 +67,8 @@ jest.mock('./immunizations.resource', () => ({
 const testProps: PatientWorkspace2DefinitionProps<Record<string, never>, Record<string, never>> = {
   closeWorkspace: mockCloseWorkspace,
   groupProps: {
-    patientUuid: mockPatient.id,
-    patient: mockPatient,
+    patientUuid: mockPatient.uuid,
+    patient: mockPatient as unknown as fhir.Patient,
     visitContext: mockCurrentVisit,
     mutateVisitContext: null,
   },
@@ -104,6 +104,8 @@ mockUseSession.mockReturnValue(mockSessionDataResponse.data);
 describe('Immunizations Form', () => {
   const isoFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
   const mockVaccinationDate = new Date('2024-01-03');
+  const toStoredDateTime = (calendarDate: string) => dayjs(calendarDate).startOf('day').toDate().toISOString();
+  const toDisplayedDate = (calendarDate: string) => dayjs(calendarDate).format('DD/MM/YYYY');
 
   beforeEach(() => {
     mockToOmrsIsoString.mockReturnValue(mockVaccinationDate.toISOString());
@@ -227,10 +229,10 @@ describe('Immunizations Form', () => {
     const immunizationToEdit = {
       vaccineUuid: '886AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
       immunizationId: '0a6ca2bb-a317-49d8-bd6b-dabb658840d2',
-      vaccinationDate: new Date('2024-01-03').toISOString(),
+      vaccinationDate: toStoredDateTime('2024-01-03'),
       doseNumber: 2,
-      expirationDate: new Date('2024-05-19').toISOString(),
-      nextDoseDate: new Date('2024-01-03').toISOString(),
+      expirationDate: '2024-05-19',
+      nextDoseDate: toStoredDateTime('2024-01-03'),
       note: 'Given as part of routine schedule.',
       lotNumber: 'A123456',
       manufacturer: 'Merck & Co., Inc.',
@@ -256,18 +258,18 @@ describe('Immunizations Form', () => {
     const saveButton = screen.getByRole('button', { name: /Save/i });
 
     // verify the form values
-    expect(vaccinationDateField).toHaveDisplayValue(/03\/01\/2024/i);
+    expect(vaccinationDateField).toHaveDisplayValue(toDisplayedDate('2024-01-03'));
 
     expect(vaccineField).toBeDisabled();
     expect(vaccineField).toHaveAttribute('title', 'Bacillus Calmette–Guérin vaccine');
     expect(doseField).toHaveValue(2);
     expect(lotField).toHaveValue('A123456');
     expect(manufacturerField).toHaveValue('Merck & Co., Inc.');
-    expect(expirationDateField).toHaveValue('19/05/2024');
+    expect(expirationDateField).toHaveValue(toDisplayedDate('2024-05-19'));
 
     // Check next dose date field
     const nextDoseDateField = screen.getByRole('textbox', { name: /Next dose date/i });
-    expect(nextDoseDateField).toHaveValue('03/01/2024');
+    expect(nextDoseDateField).toHaveValue(toDisplayedDate('2024-01-03'));
 
     // edit the form
     await user.clear(doseField);
@@ -283,14 +285,14 @@ describe('Immunizations Form', () => {
         extension: [
           {
             url: FHIR_NEXT_DOSE_DATE_EXTENSION_URL,
-            valueDateTime: dayjs(new Date('2024-01-03')).startOf('day').toDate().toISOString(),
+            valueDateTime: toStoredDateTime('2024-01-03'),
           },
         ],
         note: [{ text: immunizationToEdit.note }],
         location: { reference: 'Location/b1a8b05e-3542-4037-bbd3-998ee9c40574', type: 'Location' },
         lotNumber: 'A123456',
         manufacturer: { display: 'Merck & Co., Inc.' },
-        occurrenceDateTime: dayjs(new Date('2024-01-03')).startOf('day').toDate().toISOString(),
+        occurrenceDateTime: toStoredDateTime('2024-01-03'),
         patient: { reference: 'Patient/8673ee4f-e2ab-4077-ba55-4980f408773e', type: 'Patient' },
         performer: [
           { actor: { reference: 'Practitioner/b1a8b05e-3542-4037-bbd3-998ee9c4057z', type: 'Practitioner' } },
@@ -303,7 +305,7 @@ describe('Immunizations Form', () => {
         },
       }),
       '0a6ca2bb-a317-49d8-bd6b-dabb658840d2',
-      new AbortController(),
+      expect.anything(),
     );
     expect(showSnackbar).toHaveBeenCalledTimes(1);
     expect(showSnackbar).toHaveBeenCalledWith({
@@ -319,9 +321,9 @@ describe('Immunizations Form', () => {
     // Pre-populate form with expiration date using the form subscription (same pattern as edit tests)
     const immunizationWithExpiration = {
       vaccineUuid: '782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-      vaccinationDate: new Date('2024-06-15').toISOString(),
+      vaccinationDate: toStoredDateTime('2024-06-15'),
       doseNumber: 1,
-      expirationDate: new Date('2025-12-31').toISOString(),
+      expirationDate: '2025-12-31',
       manufacturer: 'Pfizer',
       lotNumber: 'LOT123',
       note: '',
@@ -342,7 +344,7 @@ describe('Immunizations Form', () => {
 
     // Verify the form is populated
     const expirationDateField = screen.getByRole('textbox', { name: /Expiration date/i });
-    expect(expirationDateField).toHaveValue('31/12/2025');
+    expect(expirationDateField).toHaveValue(toDisplayedDate('2025-12-31'));
 
     // Submit without making changes
     const saveButton = screen.getByRole('button', { name: /Save/i });
@@ -351,12 +353,12 @@ describe('Immunizations Form', () => {
     // Verify that expirationDate is formatted as YYYY-MM-DD without timezone
     expect(mockSavePatientImmunization).toHaveBeenCalledWith(
       expect.objectContaining({
-        expirationDate: '2025-12-31', // Date-only format, not ISO string with time/timezone
+        expirationDate: '2025-12-31',
         lotNumber: 'LOT123',
         manufacturer: { display: 'Pfizer' },
       }),
       undefined,
-      expect.any(AbortController),
+      expect.anything(),
     );
   });
 
@@ -364,17 +366,16 @@ describe('Immunizations Form', () => {
     const user = userEvent.setup();
 
     // Regression test for O3-4970:
-    // Previously, expiration dates were converted to ISO strings with timezone (e.g., "2025-12-31T00:00:00.000Z"),
-    // causing a one-day shift for users in timezones ahead of UTC. This test ensures dates are sent as
-    // date-only strings (e.g., "2025-12-31") per FHIR date type specification, preventing timezone conversion.
+    // FHIR expirationDate is a date-only field. When editing, the form should hydrate that field without
+    // introducing timezone shifts and should submit it back as YYYY-MM-DD, not an ISO datetime.
 
     // Setup immunization with expiration date
     const immunizationWithExpiration = {
       vaccineUuid: '782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
       immunizationId: 'test-immunization-with-expiration',
-      vaccinationDate: new Date('2024-12-25').toISOString(),
+      vaccinationDate: toStoredDateTime('2024-12-25'),
       doseNumber: 1,
-      expirationDate: new Date('2025-12-31').toISOString(),
+      expirationDate: '2025-12-31',
       manufacturer: 'Test Manufacturer',
       lotNumber: 'LOT123',
       note: 'Test note',
@@ -395,7 +396,7 @@ describe('Immunizations Form', () => {
 
     // Verify the expiration date is displayed correctly
     const expirationDateField = screen.getByRole('textbox', { name: /Expiration date/i });
-    expect(expirationDateField).toHaveValue('31/12/2025');
+    expect(expirationDateField).toHaveValue(toDisplayedDate('2025-12-31'));
 
     // Submit the form without changes to verify the date format is preserved
     const saveButton = screen.getByRole('button', { name: /Save/i });
@@ -404,10 +405,10 @@ describe('Immunizations Form', () => {
     // Verify that expirationDate is formatted as YYYY-MM-DD without timezone (not ISO string)
     expect(mockSavePatientImmunization).toHaveBeenCalledWith(
       expect.objectContaining({
-        expirationDate: '2025-12-31', // Date-only format, not ISO string with time/timezone
+        expirationDate: '2025-12-31',
       }),
       immunizationWithExpiration.immunizationId,
-      expect.any(AbortController),
+      expect.anything(),
     );
   });
 
@@ -418,9 +419,9 @@ describe('Immunizations Form', () => {
     const immunizationToEdit = {
       vaccineUuid: '782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
       immunizationId: 'existing-immunization-id',
-      vaccinationDate: new Date('2024-06-15').toISOString(),
+      vaccinationDate: toStoredDateTime('2024-06-15'),
       doseNumber: 1,
-      expirationDate: new Date('2026-06-15').toISOString(),
+      expirationDate: '2026-06-15',
       manufacturer: 'Moderna',
       lotNumber: 'ABC123',
       note: 'Initial note',
@@ -441,7 +442,7 @@ describe('Immunizations Form', () => {
 
     // Verify expiration date is displayed
     const expirationDateField = screen.getByRole('textbox', { name: /Expiration date/i });
-    expect(expirationDateField).toHaveValue('15/06/2026');
+    expect(expirationDateField).toHaveValue(toDisplayedDate('2026-06-15'));
 
     // Submit the form
     const saveButton = screen.getByRole('button', { name: /Save/i });
@@ -450,10 +451,10 @@ describe('Immunizations Form', () => {
     // Verify the date is sent in correct format (YYYY-MM-DD, not ISO string)
     expect(mockSavePatientImmunization).toHaveBeenCalledWith(
       expect.objectContaining({
-        expirationDate: '2026-06-15', // Date-only format, not ISO string with time/timezone
+        expirationDate: '2026-06-15',
       }),
       immunizationToEdit.immunizationId,
-      expect.any(AbortController),
+      expect.anything(),
     );
   });
 });

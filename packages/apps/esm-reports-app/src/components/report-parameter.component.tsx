@@ -24,6 +24,22 @@ interface ReportParameterPropsBase {
   locations: Array<{ uuid: string; display: string }>;
 }
 
+function getStringNumberValue(value: unknown): string | number {
+  return typeof value === 'string' || typeof value === 'number' ? value : '';
+}
+
+function getDateValue(value: unknown): Date | undefined {
+  if (value instanceof Date) {
+    return value;
+  }
+
+  if (typeof value === 'string' || typeof value === 'number') {
+    return new Date(value);
+  }
+
+  return undefined;
+}
+
 type ReportParameterProps = ReportParameterPropsBase &
   (
     | {
@@ -69,7 +85,7 @@ const ReportParameter: React.FC<ReportParameterProps> = ({
                 handleOnDateChange(parameter.name, date);
               }
             }}
-            value={reportParameters[parameter.name]}
+            value={getDateValue(reportParameters[parameter.name])}
           />
         </div>
       );
@@ -82,7 +98,7 @@ const ReportParameter: React.FC<ReportParameterProps> = ({
             name={parameter.name}
             labelText={parameter.label}
             onChange={handleOnChange}
-            value={reportParameters[parameter.name] ?? ''}
+            value={getStringNumberValue(reportParameters[parameter.name])}
           />
         </div>
       );
@@ -94,7 +110,7 @@ const ReportParameter: React.FC<ReportParameterProps> = ({
             name={parameter.name}
             labelText={parameter.label}
             onChange={handleOnChange}
-            value={reportParameters[parameter.name] ?? ''}
+            value={getStringNumberValue(reportParameters[parameter.name])}
           >
             <SelectItem text="" value="" />
             {locations?.map((location) => (

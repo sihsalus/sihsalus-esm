@@ -14,7 +14,7 @@ export interface WardPatientTransferProps {
 const WardPatientPendingTransfer: React.FC<WardPatientTransferProps> = ({ wardPatient }) => {
   const { t } = useTranslation();
 
-  const { dispositionType, dispositionLocation } = wardPatient?.inpatientRequest;
+  const { dispositionType, dispositionLocation } = wardPatient?.inpatientRequest ?? {};
   const message = useMemo(() => {
     if (dispositionType === 'TRANSFER') {
       if (dispositionLocation) {

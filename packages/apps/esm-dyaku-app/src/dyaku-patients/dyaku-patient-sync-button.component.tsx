@@ -19,43 +19,45 @@ const DyakuPatientSyncButton: React.FC<DyakuPatientSyncButtonProps> = ({ patient
   const [syncResult, setSyncResult] = useState<SyncResult | null>(null);
   const [showResult, setShowResult] = useState(false);
 
-  const handleSync = async () => {
+  const handleSync = () => {
     if (!isEnabled || isSyncing) return;
 
     setIsSyncing(true);
     setSyncResult(null);
     setShowResult(false);
 
-    try {
-      const result = await syncSinglePatient(patient);
-      setSyncResult(result);
-      setShowResult(true);
+    void (async () => {
+      try {
+        const result = await syncSinglePatient(patient);
+        setSyncResult(result);
+        setShowResult(true);
 
-      if (onSyncComplete) {
-        onSyncComplete(result);
+        if (onSyncComplete) {
+          onSyncComplete(result);
+        }
+
+        // Auto-hide result after 3 seconds
+        setTimeout(() => {
+          setShowResult(false);
+          setSyncResult(null);
+        }, 3000);
+      } catch (error) {
+        setSyncResult({
+          success: false,
+          synchronized: 0,
+          failed: 1,
+          errors: [error instanceof Error ? error.message : String(error)],
+        });
+        setShowResult(true);
+
+        setTimeout(() => {
+          setShowResult(false);
+          setSyncResult(null);
+        }, 5000);
+      } finally {
+        setIsSyncing(false);
       }
-
-      // Auto-hide result after 3 seconds
-      setTimeout(() => {
-        setShowResult(false);
-        setSyncResult(null);
-      }, 3000);
-    } catch (error) {
-      setSyncResult({
-        success: false,
-        synchronized: 0,
-        failed: 1,
-        errors: [error instanceof Error ? error.message : String(error)],
-      });
-      setShowResult(true);
-
-      setTimeout(() => {
-        setShowResult(false);
-        setSyncResult(null);
-      }, 5000);
-    } finally {
-      setIsSyncing(false);
-    }
+    })();
   };
 
   if (isSyncing) {

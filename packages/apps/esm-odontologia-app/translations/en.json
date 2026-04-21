@@ -1,0 +1,19 @@
+{
+  "addAttention": "New attention",
+  "attentionLabel": "Attention",
+  "attentionOdontogramTooltip": "Attention odontogram: records solutions or interventions performed during this consultation.",
+  "baseLabel": "Base",
+  "baseOdontogramTooltip": "Base odontogram: records clinical findings. Kept as reference and not modified with each consultation.",
+  "cancel": "Cancel",
+  "odontogram": "Odontogram",
+  "odontogramAttentionSavedSubtitle": "Attention odontogram solutions have been saved.",
+  "odontogramBase": "base odontogram",
+  "odontogramBaseSavedSubtitle": "Base odontogram findings have been saved.",
+  "odontogramInfo": "Odontogram info",
+  "odontogramSaved": "Odontogram saved",
+  "odontogramSaveError": "Error saving odontogram",
+  "odontogramSaveErrorSubtitle": "Could not save odontogram findings. Please try again.",
+  "saveAttention": "Save attention",
+  "saveBase": "Save base",
+  "saving": "Saving..."
+}

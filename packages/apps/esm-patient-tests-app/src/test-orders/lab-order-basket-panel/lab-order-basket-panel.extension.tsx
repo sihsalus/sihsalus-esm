@@ -44,7 +44,7 @@ export default function LabOrderBasketPanelExtension() {
   return (
     <>
       {allOrderTypes.map((orderTypeConfig) => (
-        <LabOrderBasketPanel {...orderTypeConfig} />
+        <LabOrderBasketPanel key={orderTypeConfig.orderTypeUuid} {...orderTypeConfig} />
       ))}
     </>
   );
@@ -177,75 +177,53 @@ function LabOrderBasketPanel({ orderTypeUuid, label, icon }: LabOrderBasketPanel
           </Button>
         </div>
       </div>
-      {isExpanded && (
+      {isExpanded && orders.length > 0 && (
         <>
-          {orders.length > 0 && (
-            <>
-              {incompleteOrderBasketItems.length > 0 && (
-                <>
-                  {incompleteOrderBasketItems.map((order) => (
-                    <LabOrderBasketItemTile
-                      key={order.uuid}
-                      onItemClick={() => openEditLabForm(order)}
-                      onRemoveClick={() => removeLabOrder(order)}
-                      orderBasketItem={order}
-                    />
-                  ))}
-                </>
-              )}
-              {newOrderBasketItems.length > 0 && (
-                <>
-                  {newOrderBasketItems.map((order) => (
-                    <LabOrderBasketItemTile
-                      key={order.uuid}
-                      onItemClick={() => openEditLabForm(order)}
-                      onRemoveClick={() => removeLabOrder(order)}
-                      orderBasketItem={order}
-                    />
-                  ))}
-                </>
-              )}
-
-              {renewedOrderBasketItems.length > 0 && (
-                <>
-                  {renewedOrderBasketItems.map((order) => (
-                    <LabOrderBasketItemTile
-                      key={order.uuid}
-                      onItemClick={() => openEditLabForm(order)}
-                      onRemoveClick={() => removeLabOrder(order)}
-                      orderBasketItem={order}
-                    />
-                  ))}
-                </>
-              )}
-
-              {revisedOrderBasketItems.length > 0 && (
-                <>
-                  {revisedOrderBasketItems.map((order) => (
-                    <LabOrderBasketItemTile
-                      key={order.uuid}
-                      onItemClick={() => openEditLabForm(order)}
-                      onRemoveClick={() => removeLabOrder(order)}
-                      orderBasketItem={order}
-                    />
-                  ))}
-                </>
-              )}
-
-              {discontinuedOrderBasketItems.length > 0 && (
-                <>
-                  {discontinuedOrderBasketItems.map((order) => (
-                    <LabOrderBasketItemTile
-                      key={order.uuid}
-                      onItemClick={() => openEditLabForm(order)}
-                      onRemoveClick={() => removeLabOrder(order)}
-                      orderBasketItem={order}
-                    />
-                  ))}
-                </>
-              )}
-            </>
-          )}
+          {incompleteOrderBasketItems.length > 0 &&
+            incompleteOrderBasketItems.map((order) => (
+              <LabOrderBasketItemTile
+                key={order.uuid}
+                onItemClick={() => openEditLabForm(order)}
+                onRemoveClick={() => removeLabOrder(order)}
+                orderBasketItem={order}
+              />
+            ))}
+          {newOrderBasketItems.length > 0 &&
+            newOrderBasketItems.map((order) => (
+              <LabOrderBasketItemTile
+                key={order.uuid}
+                onItemClick={() => openEditLabForm(order)}
+                onRemoveClick={() => removeLabOrder(order)}
+                orderBasketItem={order}
+              />
+            ))}
+          {renewedOrderBasketItems.length > 0 &&
+            renewedOrderBasketItems.map((order) => (
+              <LabOrderBasketItemTile
+                key={order.uuid}
+                onItemClick={() => openEditLabForm(order)}
+                onRemoveClick={() => removeLabOrder(order)}
+                orderBasketItem={order}
+              />
+            ))}
+          {revisedOrderBasketItems.length > 0 &&
+            revisedOrderBasketItems.map((order) => (
+              <LabOrderBasketItemTile
+                key={order.uuid}
+                onItemClick={() => openEditLabForm(order)}
+                onRemoveClick={() => removeLabOrder(order)}
+                orderBasketItem={order}
+              />
+            ))}
+          {discontinuedOrderBasketItems.length > 0 &&
+            discontinuedOrderBasketItems.map((order) => (
+              <LabOrderBasketItemTile
+                key={order.uuid}
+                onItemClick={() => openEditLabForm(order)}
+                onRemoveClick={() => removeLabOrder(order)}
+                orderBasketItem={order}
+              />
+            ))}
         </>
       )}
     </Tile>

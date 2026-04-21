@@ -1,7 +1,7 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
-import { mockPatient } from 'tools';
+import { mockPatient } from 'test-utils';
 import { deleteCondition } from './conditions.resource';
 import { showSnackbar, type FetchResponse } from '@openmrs/esm-framework';
 import DeleteConditionModal from './delete-condition.modal';

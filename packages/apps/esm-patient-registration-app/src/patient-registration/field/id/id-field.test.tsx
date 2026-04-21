@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockIdentifierTypes, mockOpenmrsId, mockPatient, mockSession } from '__mocks__';
+import { mockIdentifierTypes, mockOpenmrsId, mockPatient, mockSession } from 'test-utils';
 import { Form, Formik } from 'formik';
 import React from 'react';
 

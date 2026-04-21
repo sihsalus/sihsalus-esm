@@ -18,7 +18,7 @@ export function useInpatientAdmission() {
     'encounterAssigningToCurrentInpatientLocation:(encounterDatetime),' +
     'currentInpatientRequest:(dispositionLocation,dispositionType,disposition:(uuid,display),dispositionEncounter:(uuid,display),dispositionObsGroup:(uuid,display),visit:(uuid),patient:(uuid)),' +
     'firstAdmissionOrTransferEncounter:(encounterDatetime),' +
-    'currentInpatientLocation,' + 
+    'currentInpatientLocation,' +
     ')';
 
   return useOpenmrsFetchAll<InpatientAdmission>(

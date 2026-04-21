@@ -75,7 +75,9 @@ export const AddressComponent: React.FC = () => {
   if (addressTemplate && !Object.keys(addressTemplate)?.length) {
     return (
       <AddressComponentContainer>
-        <SkeletonText role="progressbar" />
+        <div role="progressbar">
+          <SkeletonText />
+        </div>
       </AddressComponentContainer>
     );
   }
@@ -139,7 +141,7 @@ export const AddressComponent: React.FC = () => {
   );
 };
 
-const AddressComponentContainer = ({ children }) => {
+const AddressComponentContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { t } = useTranslation();
   return (
     <div>

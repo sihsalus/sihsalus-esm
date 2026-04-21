@@ -33,7 +33,7 @@ export interface AddLabOrderWorkspaceAdditionalProps {
   orderTypeUuid: string;
 }
 
-export interface AddLabOrderWorkspace extends DefaultPatientWorkspaceProps, AddLabOrderWorkspaceAdditionalProps {}
+export interface AddLabOrderWorkspaceProps extends DefaultPatientWorkspaceProps, AddLabOrderWorkspaceAdditionalProps {}
 
 // Design: https://app.zeplin.io/project/60d5947dd636aebbd63dce4c/screen/640b06c440ee3f7af8747620
 export default function AddLabOrderWorkspace({
@@ -43,7 +43,7 @@ export default function AddLabOrderWorkspace({
   closeWorkspaceWithSavedChanges,
   promptBeforeClosing,
   setTitle,
-}: AddLabOrderWorkspace) {
+}: AddLabOrderWorkspaceProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { patientUuid } = usePatientChartStore();

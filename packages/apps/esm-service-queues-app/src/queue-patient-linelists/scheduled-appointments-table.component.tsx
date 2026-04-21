@@ -42,14 +42,15 @@ import { useAppointments } from './queue-linelist.resource';
 /**
  * FIXME Temporarily moved here
  */
-interface DataTableHeader {
+interface ScheduledAppointmentsDataTableHeader {
   key: string;
   header: React.ReactNode;
 }
 
 type FilterProps = {
   rowIds: Array<string>;
-  headers: Array<DataTableHeader>;
+  headers: Array<ScheduledAppointmentsDataTableHeader>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cellsById: any;
   inputValue: string;
   getCellId: (row, key) => string;
@@ -73,7 +74,7 @@ const AppointmentsTable: React.FC = () => {
         if (typeof filterableValue === 'boolean') {
           return false;
         }
-        if (filterableValue.hasOwnProperty('content')) {
+        if (Object.prototype.hasOwnProperty.call(filterableValue, 'content')) {
           if (Array.isArray(filterableValue.content.props.children)) {
             return ('' + filterableValue.content.props.children[1].props.children).toLowerCase().includes(filterTerm);
           }

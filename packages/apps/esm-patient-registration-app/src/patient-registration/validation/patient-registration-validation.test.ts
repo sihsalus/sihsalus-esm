@@ -11,6 +11,9 @@ describe('Patient registration validation', () => {
   beforeEach(() => {
     mockGetConfig.mockResolvedValue({
       fieldConfigurations: {
+        name: {
+          requireFamilyName2: false,
+        },
         gender: [
           {
             label: 'M',
@@ -35,6 +38,7 @@ describe('Patient registration validation', () => {
 
   const validFormValues = {
     additionalFamilyName: '',
+    additionalFamilyName2: '',
     additionalGivenName: '',
     birthdate: new Date('1990-01-01'),
     birthdateEstimated: false,
@@ -43,6 +47,7 @@ describe('Patient registration validation', () => {
     deathDate: null,
     email: 'john.doe@example.com',
     familyName: 'Doe',
+    familyName2: '',
     gender: 'male',
     givenName: 'John',
     identifiers: {
@@ -109,6 +114,29 @@ describe('Patient registration validation', () => {
     };
     const validationError = await validateFormValues(invalidFormValues);
     expect(validationError.errors).toContain('familyNameRequired');
+  });
+
+  it('should require familyName2 when requireFamilyName2 is true', async () => {
+    mockGetConfig.mockResolvedValue({
+      fieldConfigurations: {
+        name: { requireFamilyName2: true },
+        gender: [
+          { label: 'M', value: 'male' },
+          { label: 'F', value: 'female' },
+          { label: 'O', value: 'other' },
+          { label: 'U', value: 'unknown' },
+        ],
+      },
+    });
+    const invalidFormValues = { ...validFormValues, familyName2: '' };
+    const validationError = await validateFormValues(invalidFormValues);
+    expect(validationError.errors).toContain('familyName2Required');
+  });
+
+  it('should not require familyName2 when requireFamilyName2 is false', async () => {
+    const validWithoutFamilyName2 = { ...validFormValues, familyName2: '' };
+    const validationError = await validateFormValues(validWithoutFamilyName2);
+    expect(validationError).toBeFalsy();
   });
 
   it('should require gender', async () => {

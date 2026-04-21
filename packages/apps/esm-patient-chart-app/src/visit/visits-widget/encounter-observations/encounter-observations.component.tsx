@@ -36,14 +36,14 @@ const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observati
       : observations;
     return (
       <div className={styles.observation}>
-        {filteredObservations?.map((obs, index) => {
+        {filteredObservations?.map((obs) => {
           if (obs.groupMembers) {
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={obs.uuid}>
                 <span className={styles.parentConcept}>{obs.concept.display}</span>
                 <span />
                 {obs.groupMembers.map((member) => (
-                  <React.Fragment key={index}>
+                  <React.Fragment key={member.uuid}>
                     <span className={styles.childConcept}>{member.concept.display}</span>
                     <span>{getAnswerFromDisplay(member.display)}</span>
                   </React.Fragment>
@@ -52,7 +52,7 @@ const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observati
             );
           } else {
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={obs.uuid}>
                 <span>{obs.concept.display}</span>
                 <span>{getAnswerFromDisplay(obs.display)}</span>
               </React.Fragment>

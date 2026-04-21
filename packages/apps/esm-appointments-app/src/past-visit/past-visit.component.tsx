@@ -32,7 +32,7 @@ const PastVisit: React.FC<PastVisitProps> = ({ patientUuid }) => {
   const isTablet = useLayoutType() === 'tablet';
 
   if (isLoading) {
-    return <StructuredListSkeleton role="progressbar" />;
+    return <StructuredListSkeleton />;
   }
 
   if (pastVisits?.length) {
@@ -57,37 +57,42 @@ const PastVisit: React.FC<PastVisitProps> = ({ patientUuid }) => {
           </p>
         </div>
         <div className={styles.visitContainer}>
-          <Tabs className={tabsClasses}>
+          <div className={tabsClasses}>
+            <Tabs>
             <Tab
-              className={tabClass[0]}
+              className={tabClass(0)}
               id="vitals-tab"
               onClick={() => setSelectedTabIndex(0)}
-              label={t('vitals', 'Vitals')}
-            ></Tab>
+            >
+              {t('vitals', 'Vitals')}
+            </Tab>
 
             <Tab
-              className={tabClass[1]}
+              className={tabClass(1)}
               id="notes-tab"
               onClick={() => setSelectedTabIndex(1)}
-              label={t('notes', 'Notes')}
-            ></Tab>
+            >
+              {t('notes', 'Notes')}
+            </Tab>
 
             <Tab
-              className={tabClass[2]}
+              className={tabClass(2)}
               id="medications-tab"
               onClick={() => setSelectedTabIndex(2)}
-              label={t('medications', 'Medications')}
-            ></Tab>
+            >
+              {t('medications', 'Medications')}
+            </Tab>
 
             <Tab
-              className={tabClass[3]}
+              className={tabClass(3)}
               id="encounters-tab"
               onClick={() => setSelectedTabIndex(3)}
-              label={t('encounters', 'Encounters')}
             >
+              {t('encounters', 'Encounters')}
               <EncounterList encounters={encounters} />
             </Tab>
-          </Tabs>
+            </Tabs>
+          </div>
         </div>
       </div>
     );
