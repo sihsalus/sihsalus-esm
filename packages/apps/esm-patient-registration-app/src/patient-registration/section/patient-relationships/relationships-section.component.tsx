@@ -150,10 +150,7 @@ const RelationshipView: React.FC<RelationshipViewProps> = ({
       </div>
     </div>
   ) : (
-    <InlineNotification
-      kind="info"
-      title={t('relationshipRemovedText', 'Relationship removed')}
-    >
+    <InlineNotification kind="info" title={t('relationshipRemovedText', 'Relationship removed')}>
       {
         <NotificationActionButton onClick={restoreRelationship}>
           {t('restoreRelationshipActionButton', 'Undo')}

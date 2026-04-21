@@ -1,4 +1,10 @@
-import { fhirBaseUrl, messageOmrsServiceWorker, restBaseUrl, saveVisit, setupOfflineSync } from '@openmrs/esm-framework';
+import {
+  fhirBaseUrl,
+  messageOmrsServiceWorker,
+  restBaseUrl,
+  saveVisit,
+  setupOfflineSync,
+} from '@openmrs/esm-framework';
 import { type OfflineVisit, visitSyncType } from '@openmrs/esm-patient-common-lib';
 
 export function setupCacheableRoutes() {

@@ -33,7 +33,9 @@ function toComparableDateValue(value: unknown): string | number | Date {
 
 function getInitialValue(parameter: ReportParameter, value: unknown) {
   if (parameter.type === 'java.util.Date') {
-    return typeof value === 'string' || typeof value === 'number' || value instanceof Date ? new Date(value) : new Date('');
+    return typeof value === 'string' || typeof value === 'number' || value instanceof Date
+      ? new Date(value)
+      : new Date('');
   } else if (parameter.type === 'org.openmrs.Location') {
     return isLocationValue(value) ? value.uuid : '';
   } else {
@@ -72,10 +74,10 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
       setValueInternal(eventValue);
 
       if (parameter.type === 'java.util.Date') {
-          onChange(new Date(eventValue).toLocaleDateString());
-        } else {
-          onChange(eventValue);
-        }
+        onChange(new Date(eventValue).toLocaleDateString());
+      } else {
+        onChange(eventValue);
+      }
     },
     [onChange, parameter.type],
   );
@@ -122,7 +124,8 @@ const ReportParameterInput: React.FC<ReportParameterInputProps> = ({ parameter, 
   useEffect(() => {
     const newInternalValue = getInitialValue(parameter, value);
     setValueInternal((prevValue) => {
-      const normalizedValue = typeof newInternalValue === 'string' || typeof newInternalValue === 'number' ? newInternalValue : '';
+      const normalizedValue =
+        typeof newInternalValue === 'string' || typeof newInternalValue === 'number' ? newInternalValue : '';
       if (!isValueEqual(normalizedValue, prevValue)) {
         return normalizedValue;
       }

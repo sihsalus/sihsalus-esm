@@ -29,8 +29,8 @@ const PaginatedBiometrics: React.FC<PaginatedBiometricsProps> = ({
   pageUrl,
   urlLabel,
   tableHeaders,
-	}) => {
-	  const isTablet = useLayoutType() === 'tablet';
+}) => {
+  const isTablet = useLayoutType() === 'tablet';
   const renderHeader = (header: React.ReactNode | { content?: React.ReactNode }): React.ReactNode => {
     if (typeof header === 'object' && header !== null && 'content' in header) {
       return header.content ?? null;
@@ -93,16 +93,16 @@ const PaginatedBiometrics: React.FC<PaginatedBiometricsProps> = ({
             <Table aria-label="biometrics" className={styles.table} {...getTableProps()}>
               <TableHead>
                 <TableRow>
-	                  {headers.map((header) => (
-	                    <TableHeader
-	                      {...getHeaderProps({
-	                        header,
-	                        isSortable: header.isSortable,
-	                      })}
-	                    >
-	                      {renderHeader(header.header)}
-	                    </TableHeader>
-	                  ))}
+                  {headers.map((header) => (
+                    <TableHeader
+                      {...getHeaderProps({
+                        header,
+                        isSortable: header.isSortable,
+                      })}
+                    >
+                      {renderHeader(header.header)}
+                    </TableHeader>
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>

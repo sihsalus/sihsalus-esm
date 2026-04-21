@@ -21,15 +21,8 @@
     "coverage": "yarn test --coverage",
     "extract-translations": "i18next 'src/**/*.component.tsx' --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs",
-    "microfrontends",
-    "Imaging",
-    "Worklist"
-  ],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs", "microfrontends", "Imaging", "Worklist"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sadrezhao/openmrs-esm-patient-imaging-app.git"

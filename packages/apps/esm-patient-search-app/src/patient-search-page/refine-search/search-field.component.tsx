@@ -73,7 +73,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
                 value={value || ''}
                 onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 className={styles.dobField}
-                 type="number"
+                type="number"
                 label={t('dayOfBirth', 'Day of Birth')}
                 min={1}
                 max={31}
@@ -93,7 +93,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
                 value={value || ''}
                 onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 className={styles.dobField}
-                 type="number"
+                type="number"
                 label={t('monthOfBirth', 'Month of Birth')}
                 min={1}
                 max={12}
@@ -113,7 +113,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
                 value={value || ''}
                 onChange={(_event, { value }) => onChange(getNumberInputValue(value))}
                 className={styles.dobField}
-                 type="number"
+                type="number"
                 label={t('yearOfBirth', 'Year of Birth')}
                 allowEmpty
                 hideSteppers
@@ -158,11 +158,11 @@ export const SearchField: React.FC<SearchFieldProps> = ({ field, control, inTabl
             name="postcode"
             control={control}
             render={({ field: { onChange, value } }) => (
-                <TextInput
-                  id={field.name}
-                  labelText={t('postcode', 'Postcode')}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}
-                  value={value}
+              <TextInput
+                id={field.name}
+                labelText={t('postcode', 'Postcode')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}
+                value={value}
                 size={isTablet ? 'lg' : 'md'}
                 placeholder={field.placeholder}
               />

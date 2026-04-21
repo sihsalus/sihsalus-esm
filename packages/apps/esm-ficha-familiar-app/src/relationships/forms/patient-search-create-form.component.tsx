@@ -83,7 +83,7 @@ const PatientSearchCreate: React.FC<PatientSearchCreateProps> = () => {
             control={form.control}
             name="personB"
             render={({ field, fieldState: { error } }) => (
-                <Autosuggest
+              <Autosuggest
                 className={styles.input}
                 labelText={t('patient', 'Patient')}
                 placeholder={t('patientPlaceHolder', 'Search patient')}

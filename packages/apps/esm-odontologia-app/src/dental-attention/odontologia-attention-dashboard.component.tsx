@@ -1,4 +1,14 @@
-import { Button, DataTableSkeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableHeader, TableRow } from '@carbon/react';
+import {
+  Button,
+  DataTableSkeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@carbon/react';
 import {
   ErrorState,
   formatDate,
@@ -32,7 +42,10 @@ function getVisitType(encounter: Encounter) {
   return encounter.visit?.visitType?.display ?? '--';
 }
 
-const OdontologiaAttentionDashboard: React.FC<OdontologiaAttentionDashboardProps> = ({ patientUuid, embedded = false }) => {
+const OdontologiaAttentionDashboard: React.FC<OdontologiaAttentionDashboardProps> = ({
+  patientUuid,
+  embedded = false,
+}) => {
   const { t } = useTranslation();
   const { dentalEncounterTypeUuid, dentalFormUuid } = useConfig<OdontogramConfig>();
 
@@ -96,7 +109,12 @@ const OdontologiaAttentionDashboard: React.FC<OdontologiaAttentionDashboardProps
   };
 
   if (!dentalEncounterTypeUuid || !dentalFormUuid) {
-    return <ErrorState error={new Error(t('dentalConfigMissing', 'Falta configurar odontología.'))} headerTitle={t('dentalAttention', 'Atención odontológica')} />;
+    return (
+      <ErrorState
+        error={new Error(t('dentalConfigMissing', 'Falta configurar odontología.'))}
+        headerTitle={t('dentalAttention', 'Atención odontológica')}
+      />
+    );
   }
 
   if (isLoading) {

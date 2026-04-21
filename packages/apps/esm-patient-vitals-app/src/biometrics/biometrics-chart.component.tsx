@@ -60,7 +60,7 @@ const BiometricsChart: React.FC<BiometricsChartProps> = ({ patientBiometrics, co
     [patientBiometrics, selectedBiometrics.groupName, selectedBiometrics.value],
   );
 
-	  const chartOptions = useMemo(() => {
+  const chartOptions = useMemo(() => {
     return {
       title: selectedBiometrics.title,
       axes: {
@@ -91,19 +91,19 @@ const BiometricsChart: React.FC<BiometricsChartProps> = ({ patientBiometrics, co
           <span style="color: #c6c6c6; font-size: 1rem; font-weight:400">${value}</span></div>`,
       },
       height: '400px',
-	    };
-	  }, [selectedBiometrics, t]);
+    };
+  }, [selectedBiometrics, t]);
 
-	  const verticalTabsProps = { className: styles.verticalTabs } as unknown as React.ComponentProps<typeof Tabs>;
+  const verticalTabsProps = { className: styles.verticalTabs } as unknown as React.ComponentProps<typeof Tabs>;
 
-	  return (
+  return (
     <div className={styles.biometricChartContainer}>
       <div className={styles.biometricsArea}>
         <label className={styles.biometricLabel} htmlFor="biometrics-chart-radio-group">
           {t('biometricDisplayed', 'Biometric displayed')}
         </label>
-	        <Tabs {...verticalTabsProps}>
-	          <TabList className={styles.tablist} aria-label="Biometrics tabs">
+        <Tabs {...verticalTabsProps}>
+          <TabList className={styles.tablist} aria-label="Biometrics tabs">
             {[
               {
                 id: 'weight',

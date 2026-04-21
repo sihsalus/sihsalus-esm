@@ -29,8 +29,8 @@ export const ClinicalViewSection: React.FC<ClinicalViewSectionProps> = ({ basePa
           align="top"
           label={t(
             'customViews',
-              'En esta sección encontrará los módulos y programas MINSA disponibles para la atención del paciente.',
-            )}
+            'En esta sección encontrará los módulos y programas MINSA disponibles para la atención del paciente.',
+          )}
         >
           <button className={styles.tooltipButton} type="button">
             <InformationIcon className={styles.icon} size={20} />

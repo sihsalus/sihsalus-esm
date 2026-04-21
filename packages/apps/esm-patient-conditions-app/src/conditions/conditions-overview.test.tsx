@@ -50,11 +50,11 @@ describe('ConditionsOverview', () => {
   });
 
   it('renders an error state view if there is a problem fetching conditions', async () => {
-  const error = {
-    name: 'UnauthorizedError',
-    message: 'You are not logged in',
-    response: {
-      status: 401,
+    const error = {
+      name: 'UnauthorizedError',
+      message: 'You are not logged in',
+      response: {
+        status: 401,
         statusText: 'Unauthorized',
       },
     };
@@ -185,6 +185,11 @@ describe('ConditionsOverview', () => {
     await user.click(recordConditionsLink);
 
     expect(mockLaunchWorkspace).toHaveBeenCalledTimes(1);
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' }, null, null);
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith(
+      'conditions-form-workspace',
+      { formContext: 'creating' },
+      null,
+      null,
+    );
   });
 });

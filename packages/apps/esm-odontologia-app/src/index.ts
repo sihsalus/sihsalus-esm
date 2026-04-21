@@ -26,10 +26,13 @@ export const root = getAsyncLifecycle(() => import('./root.component'), {
   moduleName,
 });
 
-export const odontologiaDashboardLink = getSyncLifecycle(createDashboardLink({ ...odontologiaDashboardMeta, moduleName }), {
-  featureName: 'odontologia-dashboard-link',
-  moduleName,
-});
+export const odontologiaDashboardLink = getSyncLifecycle(
+  createDashboardLink({ ...odontologiaDashboardMeta, moduleName }),
+  {
+    featureName: 'odontologia-dashboard-link',
+    moduleName,
+  },
+);
 
 export const odontologiaDashboard = getAsyncLifecycle(
   () => import('./odontologia-dashboard/odontologia-dashboard.component'),

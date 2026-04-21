@@ -31,11 +31,7 @@ jest.mock('./programs.resource', () => {
   };
 });
 
-const mockProgramsState = ({
-  enrollments = [],
-  availablePrograms = mockCareProgramsResponse,
-  error = null,
-} = {}) => {
+const mockProgramsState = ({ enrollments = [], availablePrograms = mockCareProgramsResponse, error = null } = {}) => {
   mockUsePrograms.mockReturnValue({
     enrollments,
     error,
@@ -44,7 +40,8 @@ const mockProgramsState = ({
     activeEnrollments: enrollments.filter((enrollment) => !enrollment.dateCompleted),
     availablePrograms,
     eligiblePrograms: availablePrograms.filter(
-      (program) => !enrollments.some((enrollment) => enrollment.program.uuid === program.uuid && !enrollment.dateCompleted),
+      (program) =>
+        !enrollments.some((enrollment) => enrollment.program.uuid === program.uuid && !enrollment.dateCompleted),
     ),
   });
 };

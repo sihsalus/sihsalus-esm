@@ -61,65 +61,65 @@ const FormsTable = ({ tableHeaders, tableRows, isTablet, handleSearch, handleFor
               </TableToolbar>
             </div>
             {rows.length > 0 && (
-                <Table aria-label="forms" {...getTableProps()} className={styles.table}>
-                  <TableHead>
-                    <TableRow>
-                      {headers.map((header) => (
-                        <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
-                      ))}
-                      <TableHeader />
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => {
-                      const tableRow = rowsById.get(row.id);
+              <Table aria-label="forms" {...getTableProps()} className={styles.table}>
+                <TableHead>
+                  <TableRow>
+                    {headers.map((header) => (
+                      <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
+                    ))}
+                    <TableHeader />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => {
+                    const tableRow = rowsById.get(row.id);
 
-                      if (!tableRow) {
-                        return null;
-                      }
+                    if (!tableRow) {
+                      return null;
+                    }
 
-                      return (
-                        <TableRow {...getRowProps({ row })}>
-                          <TableCell key={row.cells[0].id}>
+                    return (
+                      <TableRow {...getRowProps({ row })}>
+                        <TableCell key={row.cells[0].id}>
+                          <button
+                            type="button"
+                            onClick={() => handleFormOpen(tableRow.form, undefined)}
+                            className={styles.formNameButton}
+                          >
+                            {tableRow.formName}
+                          </button>
+                        </TableCell>
+                        <TableCell className={styles.editCell}>
+                          {tableRow.encounterUuid ? (
                             <button
                               type="button"
-                              onClick={() => handleFormOpen(tableRow.form, undefined)}
+                              onClick={() => handleFormOpen(tableRow.form, tableRow.encounterUuid)}
                               className={styles.formNameButton}
                             >
-                              {tableRow.formName}
+                              {row.cells[1].value ?? t('never', 'Never')}
                             </button>
-                          </TableCell>
-                          <TableCell className={styles.editCell}>
-                            {tableRow.encounterUuid ? (
-                              <button
-                                type="button"
-                                onClick={() => handleFormOpen(tableRow.form, tableRow.encounterUuid)}
-                                className={styles.formNameButton}
-                              >
-                                {row.cells[1].value ?? t('never', 'Never')}
-                              </button>
-                            ) : (
-                              <span>{row.cells[1].value ?? t('never', 'Never')}</span>
-                            )}
-                          </TableCell>
-                          <TableCell className="cds--table-column-menu">
-                            {tableRow.encounterUuid ? (
-                              <Button
-                                hasIconOnly
-                                renderIcon={EditIcon}
-                                aria-label={t('editForm', 'Edit form')}
-                                iconDescription={t('editForm', 'Edit form')}
-                                onClick={() => handleFormOpen(tableRow.form, tableRow.encounterUuid)}
-                                size="sm"
-                                kind="ghost"
-                                tooltipPosition="left"
-                              />
-                            ) : null}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
+                          ) : (
+                            <span>{row.cells[1].value ?? t('never', 'Never')}</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="cds--table-column-menu">
+                          {tableRow.encounterUuid ? (
+                            <Button
+                              hasIconOnly
+                              renderIcon={EditIcon}
+                              aria-label={t('editForm', 'Edit form')}
+                              iconDescription={t('editForm', 'Edit form')}
+                              onClick={() => handleFormOpen(tableRow.form, tableRow.encounterUuid)}
+                              size="sm"
+                              kind="ghost"
+                              tooltipPosition="left"
+                            />
+                          ) : null}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
               </Table>
             )}
           </TableContainer>

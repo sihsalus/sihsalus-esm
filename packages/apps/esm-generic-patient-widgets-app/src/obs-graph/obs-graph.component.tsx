@@ -83,9 +83,7 @@ const ObsGraph: React.FC<ObsGraphProps> = ({ patientUuid }) => {
     <>
       <div className={styles.graphContainer}>
         <div className={styles.conceptPickerTabs}>
-          <span className={styles.conceptLabel}>
-            {t('displaying', 'Displaying')}
-          </span>
+          <span className={styles.conceptLabel}>{t('displaying', 'Displaying')}</span>
           <Tabs {...verticalTabsProps}>
             <TabList className={styles.tablist} aria-label="Obs tabs">
               {config.data.map(({ concept, label }) => {

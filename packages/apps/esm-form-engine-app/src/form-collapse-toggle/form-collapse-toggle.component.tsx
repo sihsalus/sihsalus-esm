@@ -7,7 +7,9 @@ import styles from './form-collapse-toggle.scss';
 const formViewEmbeddedStateKey = '__openmrsFormViewEmbedded';
 
 function getFormViewEmbeddedState() {
-  return Boolean((globalThis as typeof globalThis & { [formViewEmbeddedStateKey]?: boolean })[formViewEmbeddedStateKey]);
+  return Boolean(
+    (globalThis as typeof globalThis & { [formViewEmbeddedStateKey]?: boolean })[formViewEmbeddedStateKey],
+  );
 }
 
 const FormCollapseToggle = () => {

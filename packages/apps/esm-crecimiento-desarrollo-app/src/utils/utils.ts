@@ -1,6 +1,6 @@
-import { getPatientName, makeUrl, parseDate } from "@openmrs/esm-framework";
-import dayjs from "dayjs";
-import type { Dayjs } from "dayjs";
+import { getPatientName, makeUrl, parseDate } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
 /**
  * Generates a URL based on the given path and the current location.
@@ -17,23 +17,21 @@ export function makeUrlUrl(path: string): URL {
  * @returns Formatted name string
  */
 export function formatDeceasedName(patient: fhir.Patient): string {
-  if (!patient?.name?.[0]) return "";
+  if (!patient?.name?.[0]) return '';
 
   const nameObj = patient.name[0];
   if (nameObj.text) {
     return nameObj.text;
   }
 
-  const givenNames = nameObj.given?.join(" ") || "";
-  const familyName = nameObj.family || "";
+  const givenNames = nameObj.given?.join(' ') || '';
+  const familyName = nameObj.family || '';
 
   return `${familyName} ${givenNames}`.trim();
 }
 
-export function getSafePatientName(
-  patient: fhir.Patient | null | undefined,
-): string {
-  return patient ? getPatientName(patient) : "";
+export function getSafePatientName(patient: fhir.Patient | null | undefined): string {
+  return patient ? getPatientName(patient) : '';
 }
 
 /**
@@ -44,7 +42,7 @@ export function getSafePatientName(
 export function convertDateToDays(startDate: string | Date): number {
   const today = dayjs();
   const start = dayjs(startDate);
-  return today.diff(start, "day");
+  return today.diff(start, 'day');
 }
 
 /**
@@ -53,7 +51,7 @@ export function convertDateToDays(startDate: string | Date): number {
  * @returns Formatted date string or "--" for invalid dates
  */
 export function formatDateTime(date: string | Date | undefined): string {
-  return date ? dayjs(date).format("DD-MMM-YYYY, hh:mm A") : "--";
+  return date ? dayjs(date).format('DD-MMM-YYYY, hh:mm A') : '--';
 }
 
 /**
@@ -63,8 +61,8 @@ export function formatDateTime(date: string | Date | undefined): string {
 export function getCurrentTime(): { time: string; period: string } {
   const now = new Date();
   const hours = now.getHours() % 12 || 12;
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const period = now.getHours() >= 12 ? "PM" : "AM";
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const period = now.getHours() >= 12 ? 'PM' : 'AM';
 
   return {
     time: `${hours}:${minutes}`,
@@ -73,18 +71,14 @@ export function getCurrentTime(): { time: string; period: string } {
 }
 
 export const monthDays = (currentDate: Dayjs) => {
-  const monthStart = dayjs(currentDate).startOf("month");
-  const monthEnd = dayjs(currentDate).endOf("month");
+  const monthStart = dayjs(currentDate).startOf('month');
+  const monthEnd = dayjs(currentDate).endOf('month');
   const monthDays = dayjs(currentDate).daysInMonth();
-  const lastMonth = dayjs(currentDate).subtract(1, "month");
-  const nextMonth = dayjs(currentDate).add(1, "month");
+  const lastMonth = dayjs(currentDate).subtract(1, 'month');
+  const nextMonth = dayjs(currentDate).add(1, 'month');
   const days: Dayjs[] = [];
 
-  for (
-    let i = lastMonth.daysInMonth() - monthStart.day() + 1;
-    i <= lastMonth.daysInMonth();
-    i++
-  ) {
+  for (let i = lastMonth.daysInMonth() - monthStart.day() + 1; i <= lastMonth.daysInMonth(); i++) {
     days.push(dayjs().month(lastMonth.month()).date(i));
   }
 
@@ -101,7 +95,7 @@ export const monthDays = (currentDate: Dayjs) => {
 };
 
 export const isSameMonth = (cellDate: Dayjs, currentDate: Dayjs) => {
-  return cellDate.isSame(currentDate, "month");
+  return cellDate.isSame(currentDate, 'month');
 };
 
 export function compare<T extends string>(x?: T, y?: T) {

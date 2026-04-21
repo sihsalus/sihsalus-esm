@@ -115,14 +115,17 @@ const FormEntry: React.FC<FormEntryProps> = ({
     return closeWorkspaceRef.current({ discardUnsavedChanges: true });
   }, [closeWorkspaceWithSavedChanges, globalMutate, patientUuid]);
 
-  const handlePromptBeforeClosing = useCallback((fn: () => boolean) => {
-    if (promptBeforeClosing) {
-      promptBeforeClosing(fn);
-      return;
-    }
+  const handlePromptBeforeClosing = useCallback(
+    (fn: () => boolean) => {
+      if (promptBeforeClosing) {
+        promptBeforeClosing(fn);
+        return;
+      }
 
-    setHasUnsavedChanges(fn());
-  }, [promptBeforeClosing]);
+      setHasUnsavedChanges(fn());
+    },
+    [promptBeforeClosing],
+  );
 
   const handleSetHasUnsavedChanges = useCallback((value: boolean) => {
     setHasUnsavedChanges(value);
@@ -211,7 +214,10 @@ const FormEntry: React.FC<FormEntryProps> = ({
       <ExtensionSlot name="visit-context-header-slot" state={{ patientUuid }} />
       {showFormAndLoadedData &&
         (isHtmlForm ? (
-          <HtmlFormEntryWrapper src={htmlFormEntryUrl} closeWorkspaceWithSavedChanges={state.closeWorkspaceWithSavedChanges} />
+          <HtmlFormEntryWrapper
+            src={htmlFormEntryUrl}
+            closeWorkspaceWithSavedChanges={state.closeWorkspaceWithSavedChanges}
+          />
         ) : (
           <ExtensionSlot key={state.formUuid} name="form-widget-slot" state={state} />
         ))}

@@ -136,7 +136,9 @@ describe('normalizeSchema', () => {
       '162169AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     );
 
-    expect(schema.pages[0].sections[0].questions[0].questionOptions.concept).toBe('5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+    expect(schema.pages[0].sections[0].questions[0].questionOptions.concept).toBe(
+      '5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    );
     expect(schema.pages[0].sections[0].questions[1].questions?.[0].questionOptions.concept).toBe(
       '160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     );

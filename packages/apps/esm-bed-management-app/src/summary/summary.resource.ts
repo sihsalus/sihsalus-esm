@@ -199,10 +199,7 @@ export const useAdmissionLocationBedLayout = (locationUuid: string) => {
 
 export const useBedTypes = () => {
   const url = `${restBaseUrl}/bedtype/`;
-  const { data, error, isLoading, isValidating, mutate } = useSWR<
-    FetchResponse<{ results: Array<BedType> }>,
-    Error
-  >(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<FetchResponse<{ results: Array<BedType> }>, Error>(
     url,
     openmrsFetch,
   );
@@ -223,10 +220,7 @@ export const useBedTypes = () => {
 
 export const useBedTags = () => {
   const url = `${restBaseUrl}/bedTag/`;
-  const { data, error, isLoading, isValidating, mutate } = useSWR<
-    FetchResponse<{ results: Array<BedTagData> }>,
-    Error
-  >(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<FetchResponse<{ results: Array<BedTagData> }>, Error>(
     url,
     openmrsFetch,
   );

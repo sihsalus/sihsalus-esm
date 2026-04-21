@@ -191,13 +191,7 @@ const TableSkeleton: React.FC<{ showHeader: boolean }> = ({ showHeader }) => {
   );
 };
 
-function filterTableRows({
-  rowIds,
-  headers,
-  cellsById,
-  inputValue,
-  getCellId,
-}) {
+function filterTableRows({ rowIds, headers, cellsById, inputValue, getCellId }) {
   return rowIds.filter((rowId) =>
     headers.some(({ key }) => {
       const cellId = getCellId(rowId, key);

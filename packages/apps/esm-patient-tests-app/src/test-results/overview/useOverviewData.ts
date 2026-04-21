@@ -79,14 +79,16 @@ function useOverviewData(patientUuid: string) {
             return [];
           }
 
-          return [[
-            panelName,
-            type,
-            parseSingleEntry(newestEntry, type, panelName),
-            new Date(newestEntry.effectiveDateTime),
-            new Date(newestEntry.issued ?? newestEntry.effectiveDateTime),
-            uuid,
-          ]];
+          return [
+            [
+              panelName,
+              type,
+              parseSingleEntry(newestEntry, type, panelName),
+              new Date(newestEntry.effectiveDateTime),
+              new Date(newestEntry.issued ?? newestEntry.effectiveDateTime),
+              uuid,
+            ],
+          ];
         })
         .sort(([, , , date1], [, , , date2]) => date2.getTime() - date1.getTime()),
     );

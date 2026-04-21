@@ -20,12 +20,8 @@
     "typescript": "tsc",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.extension.tsx' 'src/**/*modal.tsx' 'src/**/*.workspace.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js"
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs"
-  ],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs"],
   "publishConfig": {
     "access": "public"
   },

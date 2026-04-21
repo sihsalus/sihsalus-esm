@@ -133,7 +133,7 @@ const RecordSelector: React.FC<RecordSelectorProps> = ({ groups, selectedEncount
               <SelectItem
                 key={a.encounterUuid}
                 value={a.encounterUuid}
-            text={`${t('attentionLabel', 'Atención')} ${aIdx + 1}`}
+                text={`${t('attentionLabel', 'Atención')} ${aIdx + 1}`}
               />
             ))}
           </SelectItemGroup>

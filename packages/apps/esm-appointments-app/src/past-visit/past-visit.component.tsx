@@ -59,38 +59,22 @@ const PastVisit: React.FC<PastVisitProps> = ({ patientUuid }) => {
         <div className={styles.visitContainer}>
           <div className={tabsClasses}>
             <Tabs>
-            <Tab
-              className={tabClass(0)}
-              id="vitals-tab"
-              onClick={() => setSelectedTabIndex(0)}
-            >
-              {t('vitals', 'Vitals')}
-            </Tab>
+              <Tab className={tabClass(0)} id="vitals-tab" onClick={() => setSelectedTabIndex(0)}>
+                {t('vitals', 'Vitals')}
+              </Tab>
 
-            <Tab
-              className={tabClass(1)}
-              id="notes-tab"
-              onClick={() => setSelectedTabIndex(1)}
-            >
-              {t('notes', 'Notes')}
-            </Tab>
+              <Tab className={tabClass(1)} id="notes-tab" onClick={() => setSelectedTabIndex(1)}>
+                {t('notes', 'Notes')}
+              </Tab>
 
-            <Tab
-              className={tabClass(2)}
-              id="medications-tab"
-              onClick={() => setSelectedTabIndex(2)}
-            >
-              {t('medications', 'Medications')}
-            </Tab>
+              <Tab className={tabClass(2)} id="medications-tab" onClick={() => setSelectedTabIndex(2)}>
+                {t('medications', 'Medications')}
+              </Tab>
 
-            <Tab
-              className={tabClass(3)}
-              id="encounters-tab"
-              onClick={() => setSelectedTabIndex(3)}
-            >
-              {t('encounters', 'Encounters')}
-              <EncounterList encounters={encounters} />
-            </Tab>
+              <Tab className={tabClass(3)} id="encounters-tab" onClick={() => setSelectedTabIndex(3)}>
+                {t('encounters', 'Encounters')}
+                <EncounterList encounters={encounters} />
+              </Tab>
             </Tabs>
           </div>
         </div>

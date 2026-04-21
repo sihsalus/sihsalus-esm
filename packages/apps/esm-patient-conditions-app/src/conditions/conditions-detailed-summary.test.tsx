@@ -167,8 +167,13 @@ it('clicking the Add button or Record Conditions link launches the conditions fo
 
   const recordConditionsLink = screen.getByText(/record conditions/i);
 
-    await user.click(recordConditionsLink);
+  await user.click(recordConditionsLink);
 
   expect(mockLaunchWorkspace).toHaveBeenCalledTimes(1);
-  expect(mockLaunchWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' }, null, null);
+  expect(mockLaunchWorkspace).toHaveBeenCalledWith(
+    'conditions-form-workspace',
+    { formContext: 'creating' },
+    null,
+    null,
+  );
 });

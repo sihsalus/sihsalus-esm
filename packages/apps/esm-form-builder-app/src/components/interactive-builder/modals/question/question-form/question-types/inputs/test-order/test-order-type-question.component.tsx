@@ -17,7 +17,7 @@ const TestOrderTypeQuestion: React.FC = () => {
   const { formField, setFormField } = useFormField();
 
   const selectableOrders = useMemo(
-    () => ((((formField.questionOptions?.selectableOrders as unknown) as Array<SelectableOrder> | undefined) ?? [])),
+    () => (formField.questionOptions?.selectableOrders as unknown as Array<SelectableOrder> | undefined) ?? [],
     [formField.questionOptions?.selectableOrders],
   );
 
@@ -40,7 +40,7 @@ const TestOrderTypeQuestion: React.FC = () => {
       ...prevField,
       questionOptions: {
         ...prevField.questionOptions,
-          selectableOrders: [...selectableOrders, newOrder] as Array<QuestionAnswerOption>,
+        selectableOrders: [...selectableOrders, newOrder] as Array<QuestionAnswerOption>,
       },
     }));
   }, [selectableOrders, setFormField]);

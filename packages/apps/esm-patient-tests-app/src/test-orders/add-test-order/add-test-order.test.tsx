@@ -107,7 +107,12 @@ mockUseConfig.mockReturnValue({
 
 mockUseSession.mockReturnValue(mockSessionDataResponse.data);
 
-mockUsePatient.mockReturnValue({ patient: mockFhirPatient, patientUuid: mockFhirPatient.id, isLoading: false, error: null });
+mockUsePatient.mockReturnValue({
+  patient: mockFhirPatient,
+  patientUuid: mockFhirPatient.id,
+  isLoading: false,
+  error: null,
+});
 
 mockUseOrderType.mockReturnValue({
   orderType: {

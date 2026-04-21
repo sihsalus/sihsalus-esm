@@ -97,7 +97,12 @@ describe('LabSetPanel', () => {
 
   it('renders the panel header, columns, and observations when provided', () => {
     render(
-      <LabSetPanel activePanel={null} observations={mockObservations} panel={basePanel} setActivePanel={mockSetActivePanel} />,
+      <LabSetPanel
+        activePanel={null}
+        observations={mockObservations}
+        panel={basePanel}
+        setActivePanel={mockSetActivePanel}
+      />,
     );
 
     expect(screen.getByRole('table')).toBeInTheDocument();
@@ -113,7 +118,12 @@ describe('LabSetPanel', () => {
 
   it('clicking on the panel header sets the active panel', async () => {
     render(
-      <LabSetPanel activePanel={null} observations={mockObservations} panel={basePanel} setActivePanel={mockSetActivePanel} />,
+      <LabSetPanel
+        activePanel={null}
+        observations={mockObservations}
+        panel={basePanel}
+        setActivePanel={mockSetActivePanel}
+      />,
     );
 
     const buttonElement = screen.getByRole('button');
@@ -186,7 +196,12 @@ describe('LabSetPanel', () => {
 
   it('adjusts the table size based on the layout', () => {
     const { rerender } = render(
-      <LabSetPanel activePanel={null} observations={mockObservations} panel={basePanel} setActivePanel={mockSetActivePanel} />,
+      <LabSetPanel
+        activePanel={null}
+        observations={mockObservations}
+        panel={basePanel}
+        setActivePanel={mockSetActivePanel}
+      />,
     );
 
     expect(screen.getByRole('table')).toHaveClass('cds--data-table--sm');
@@ -195,7 +210,12 @@ describe('LabSetPanel', () => {
     mockIsDesktop.mockReturnValue(false);
 
     rerender(
-      <LabSetPanel activePanel={null} observations={mockObservations} panel={basePanel} setActivePanel={mockSetActivePanel} />,
+      <LabSetPanel
+        activePanel={null}
+        observations={mockObservations}
+        panel={basePanel}
+        setActivePanel={mockSetActivePanel}
+      />,
     );
 
     expect(screen.getByRole('table')).toHaveClass('cds--data-table--md');

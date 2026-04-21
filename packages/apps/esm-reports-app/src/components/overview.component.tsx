@@ -451,19 +451,19 @@ const OverviewComponent: React.FC = () => {
       ) : null}
     </div>
   );
-  };
+};
 
-  function isDownloadableFile(value: unknown): value is { fileContent: string; fileName: string; mimeType: string } {
-    return (
-      typeof value === 'object' &&
-      value !== null &&
-      'fileContent' in value &&
-      typeof value.fileContent === 'string' &&
-      'fileName' in value &&
-      typeof value.fileName === 'string' &&
-      'mimeType' in value &&
-      typeof value.mimeType === 'string'
-    );
-  }
+function isDownloadableFile(value: unknown): value is { fileContent: string; fileName: string; mimeType: string } {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'fileContent' in value &&
+    typeof value.fileContent === 'string' &&
+    'fileName' in value &&
+    typeof value.fileName === 'string' &&
+    'mimeType' in value &&
+    typeof value.mimeType === 'string'
+  );
+}
 
 export default OverviewComponent;

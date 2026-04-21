@@ -24,7 +24,11 @@ export function isFormJsonSchema(formResource: FormEncounterResource) {
 }
 
 export async function getDynamicFormDataEntriesFor(userId: string): Promise<Array<DynamicOfflineData>> {
-  return await getOfflineDb().dynamicOfflineData.where('users').equals(userId).and((entry) => entry.type === 'form').toArray();
+  return await getOfflineDb()
+    .dynamicOfflineData.where('users')
+    .equals(userId)
+    .and((entry) => entry.type === 'form')
+    .toArray();
 }
 
 export async function putDynamicFormDataEntryFor(userId: string, formUuid: string): Promise<void> {

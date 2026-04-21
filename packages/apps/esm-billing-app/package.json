@@ -23,12 +23,8 @@
     "typescript": "tsc",
     "verify": "turbo lint && turbo typescript && turbo test --color --concurrency=5"
   },
-  "browserslist": [
-    "extends browserslist-config-openmrs"
-  ],
-  "keywords": [
-    "openmrs"
-  ],
+  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": ["openmrs"],
   "publishConfig": {
     "access": "public"
   },

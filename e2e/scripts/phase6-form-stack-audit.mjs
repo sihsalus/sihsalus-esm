@@ -133,7 +133,10 @@ async function captureState(page, label, extra = {}) {
   if (page.accessibility?.snapshot) {
     a11y = await page.accessibility.snapshot({ interestingOnly: false }).catch(() => null);
   } else if (page.locator('body').ariaSnapshot) {
-    a11y = await page.locator('body').ariaSnapshot().catch(() => null);
+    a11y = await page
+      .locator('body')
+      .ariaSnapshot()
+      .catch(() => null);
   }
   await writeJson(accessibilityPath, a11y);
 
@@ -145,7 +148,10 @@ async function captureState(page, label, extra = {}) {
     headings: await visibleTexts(page.locator('h1, h2, h3'), 12),
     buttons: await visibleTexts(page.locator('button'), 20),
     links: await visibleTexts(page.locator('a'), 20),
-    workspaceTitles: await visibleTexts(page.locator('[data-workspace-name] h1, [data-workspace-name] h2, aside h1, aside h2'), 8),
+    workspaceTitles: await visibleTexts(
+      page.locator('[data-workspace-name] h1, [data-workspace-name] h2, aside h1, aside h2'),
+      8,
+    ),
     extra,
   };
 
@@ -168,9 +174,7 @@ async function gotoAndWait(page, url, reason) {
 
 async function firstVisibleLocator(page, selectors) {
   for (const selector of selectors) {
-    const locator = selector.startsWith('role=')
-      ? null
-      : page.locator(selector).first();
+    const locator = selector.startsWith('role=') ? null : page.locator(selector).first();
 
     if (locator && (await locator.isVisible().catch(() => false))) {
       return locator;
@@ -319,7 +323,11 @@ async function summarizePatientContext(api, patientUuid) {
 
 async function openPatientChart(page, patientUuid, dashboard = 'Patient Summary') {
   const encodedDashboard = encodeURIComponent(dashboard);
-  await gotoAndWait(page, `${spaBase}/patient/${patientUuid}/chart/${encodedDashboard}`, `open-patient-chart-${dashboard}`);
+  await gotoAndWait(
+    page,
+    `${spaBase}/patient/${patientUuid}/chart/${encodedDashboard}`,
+    `open-patient-chart-${dashboard}`,
+  );
   if (page.url().includes('/login')) {
     throw new Error(`Patient chart navigation for "${dashboard}" redirected to login`);
   }
@@ -357,14 +365,26 @@ async function collectFormsTable(page) {
   for (let index = 0; index < rowCount; index += 1) {
     const row = rowLocator.nth(index);
     const cells = row.locator('td');
-    const formName = await cells.nth(0).textContent().then((value) => value?.trim()).catch(() => null);
-    const lastCompleted = await cells.nth(1).textContent().then((value) => value?.trim()).catch(() => null);
+    const formName = await cells
+      .nth(0)
+      .textContent()
+      .then((value) => value?.trim())
+      .catch(() => null);
+    const lastCompleted = await cells
+      .nth(1)
+      .textContent()
+      .then((value) => value?.trim())
+      .catch(() => null);
 
     rows.push({
       index,
       formName,
       lastCompleted,
-      hasEditButton: await row.locator('button').count().then((count) => count > 0).catch(() => false),
+      hasEditButton: await row
+        .locator('button')
+        .count()
+        .then((count) => count > 0)
+        .catch(() => false),
     });
   }
 
@@ -433,7 +453,10 @@ async function interactWithForm(page) {
     }
 
     if (tagName === 'select') {
-      const optionCount = await field.locator('option').count().catch(() => 0);
+      const optionCount = await field
+        .locator('option')
+        .count()
+        .catch(() => 0);
       if (optionCount > 1) {
         const secondValue = await field.locator('option').nth(1).getAttribute('value');
         await field.selectOption(secondValue ?? { index: 1 });
@@ -619,10 +642,17 @@ async function main() {
         const formsTable = await collectFormsTable(page);
         flow.observations.push(`Forms rows discovered: ${formsTable.length}`);
         if (formsTable.length > 0) {
-          flow.observations.push(`Sample forms: ${formsTable.slice(0, 5).map((row) => row.formName).join(', ')}`);
+          flow.observations.push(
+            `Sample forms: ${formsTable
+              .slice(0, 5)
+              .map((row) => row.formName)
+              .join(', ')}`,
+          );
         }
 
-        const searchInput = page.locator('input[placeholder*="Search for a form"], input[placeholder*="Search"]').first();
+        const searchInput = page
+          .locator('input[placeholder*="Search for a form"], input[placeholder*="Search"]')
+          .first();
         if (formsTable[0]?.formName && (await searchInput.isVisible().catch(() => false))) {
           await searchInput.fill(formsTable[0].formName.slice(0, Math.min(6, formsTable[0].formName.length)));
           await page.waitForTimeout(1000);
@@ -649,12 +679,18 @@ async function main() {
           return;
         }
 
-        const formLabel = await firstFormCell.textContent().then((value) => value?.trim()).catch(() => 'unknown-form');
+        const formLabel = await firstFormCell
+          .textContent()
+          .then((value) => value?.trim())
+          .catch(() => 'unknown-form');
         await robustClick(firstFormCell, page);
         await page.waitForTimeout(1000);
         await captureState(page, 'patient-form-entry-workspace-create-open', { formLabel });
 
-        const iframeCount = await page.locator('iframe').count().catch(() => 0);
+        const iframeCount = await page
+          .locator('iframe')
+          .count()
+          .catch(() => 0);
         if (iframeCount > 0) {
           flow.observations.push(`Opened HTML form path for ${formLabel}`);
           await closeWorkspace(page, false);
@@ -684,7 +720,12 @@ async function main() {
 
         for (let index = 0; index < rowCount; index += 1) {
           const row = rowLocator.nth(index);
-          const lastCompleted = await row.locator('td').nth(1).textContent().then((value) => value?.trim()).catch(() => '');
+          const lastCompleted = await row
+            .locator('td')
+            .nth(1)
+            .textContent()
+            .then((value) => value?.trim())
+            .catch(() => '');
           const editButton = row.locator('button').first();
           if (lastCompleted && (await editButton.isVisible().catch(() => false))) {
             editRow = { row, editButton, lastCompleted };
@@ -720,7 +761,10 @@ async function main() {
           return;
         }
 
-        const buttonText = await vitalsLauncher.textContent().then((value) => value?.trim()).catch(() => null);
+        const buttonText = await vitalsLauncher
+          .textContent()
+          .then((value) => value?.trim())
+          .catch(() => null);
         await robustClick(vitalsLauncher, page);
         await page.waitForTimeout(1000);
         await captureState(page, 'vitals-legacy-form-entry-open', { buttonText });
@@ -766,10 +810,15 @@ async function main() {
   report.artifacts.networkLog = path.relative(process.cwd(), path.join(artifactRoot, 'logs', 'network-events.json'));
   report.artifacts.consoleLog = path.relative(process.cwd(), path.join(artifactRoot, 'logs', 'console-events.json'));
   report.artifacts.pageErrors = path.relative(process.cwd(), path.join(artifactRoot, 'logs', 'page-errors.json'));
-  report.artifacts.requestFailures = path.relative(process.cwd(), path.join(artifactRoot, 'logs', 'request-failures.json'));
+  report.artifacts.requestFailures = path.relative(
+    process.cwd(),
+    path.join(artifactRoot, 'logs', 'request-failures.json'),
+  );
 
   if (!report.flows.some((flow) => flow.name === 'Offline Forms Page' && flow.status === 'passed')) {
-    report.limitations.push('Offline queue edit and retry flows were not exercised because no queued patient-form sync item was available in the local dataset.');
+    report.limitations.push(
+      'Offline queue edit and retry flows were not exercised because no queued patient-form sync item was available in the local dataset.',
+    );
   }
 
   report.limitations.push(

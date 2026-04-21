@@ -202,7 +202,9 @@ const FormView: React.FC<FormViewProps> = ({
                           <TableCell>
                             <button
                               type="button"
-                              onClick={() => launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)}
+                              onClick={() =>
+                                launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)
+                              }
                               className={styles.formNameButton}
                             >
                               {row.cells[1].value}
@@ -215,7 +217,9 @@ const FormView: React.FC<FormViewProps> = ({
                                 renderIcon={EditIcon}
                                 aria-label={t('editForm', 'Edit form')}
                                 iconDescription={t('editForm', 'Edit form')}
-                                onClick={() => launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)}
+                                onClick={() =>
+                                  launchFormWorkspace(results[index], first(results[index].associatedEncounters)?.uuid)
+                                }
                                 size={isTablet ? 'lg' : 'sm'}
                                 kind="ghost"
                                 tooltipPosition="left"

@@ -31,8 +31,8 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
   tableHeaders,
   tableRows,
   urlLabel,
-	}) => {
-	  const isTablet = useLayoutType() === 'tablet';
+}) => {
+  const isTablet = useLayoutType() === 'tablet';
   const renderHeader = (header: React.ReactNode | { content?: React.ReactNode }): React.ReactNode => {
     if (typeof header === 'object' && header !== null && 'content' in header) {
       return header.content ?? null;
@@ -112,11 +112,11 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
             <Table className={styles.table} aria-label="vitals" {...getTableProps()}>
               <TableHead>
                 <TableRow>
-	                  {headers.map((header) => (
-	                    <TableHeader {...getHeaderProps({ header, isSortable: header.isSortable })} key={header.key}>
-	                      {renderHeader(header.header)}
-	                    </TableHeader>
-	                  ))}
+                  {headers.map((header) => (
+                    <TableHeader {...getHeaderProps({ header, isSortable: header.isSortable })} key={header.key}>
+                      {renderHeader(header.header)}
+                    </TableHeader>
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>

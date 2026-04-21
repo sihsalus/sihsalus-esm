@@ -1,13 +1,14 @@
 {
-  "AppMenuTooltip": "Menú de la Aplicación",
+  "AppMenuTooltip": "MenÃº de la AplicaciÃ³n",
   "cancel": "Cancelar",
   "change": "Cambiar",
-  "changeDefaultLocale": "Actualice su configuración regional predeterminada",
-  "changeDefaultLocaleExplanation": "Deje esta opción sin marcar para cambiar el idioma únicamente de esta sesión",
+  "changeDefaultLocale": "Actualice su configuraciÃ³n regional predeterminada",
+  "changeDefaultLocaleExplanation": "Deje esta opciÃ³n sin marcar para cambiar el idioma Ãºnicamente de esta sesiÃ³n",
   "changeLanguage": "Cambiar idioma",
   "changingLanguage": "Cambiando idioma",
+  "noPathInDashboardExtension": "No se puede renderizar la extensiÃ³n del panel sin que la propiedad \"path\" estÃ© configurada en el esquema de configuraciÃ³n",
   "notifications": "Notificaciones",
-  "userMenu": "Menú de usuario",
-  "userMenuOptions": " Opciones del menú de usuario",
+  "userMenu": "MenÃº de usuario",
+  "userMenuOptions": " Opciones del menÃº de usuario",
   "userMenuTooltip": "Mi Cuenta"
 }

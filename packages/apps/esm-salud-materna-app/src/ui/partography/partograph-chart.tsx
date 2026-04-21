@@ -138,26 +138,26 @@ const PartographChart: React.FC<PartographChartProps> = ({ partograpyComponents 
         </label>
         <div className={styles.verticalTabs}>
           <Tabs>
-          <TabList className={styles.tablist} aria-label="Partography  Data">
-            {partographSigns.map(({ id, title, value }) => {
-              return (
-                <Tab
-                  key={id}
-                  className={`${styles.tab} ${styles.bodyLong01} ${
-                    selectedPartographSign.title === title && styles.selectedTab
-                  }`}
-                  onClick={() =>
-                    setSelectedPartographSign({
-                      title: title,
-                      value: value,
-                    })
-                  }
-                >
-                  {title}-
-                </Tab>
-              );
-            })}
-          </TabList>
+            <TabList className={styles.tablist} aria-label="Partography  Data">
+              {partographSigns.map(({ id, title, value }) => {
+                return (
+                  <Tab
+                    key={id}
+                    className={`${styles.tab} ${styles.bodyLong01} ${
+                      selectedPartographSign.title === title && styles.selectedTab
+                    }`}
+                    onClick={() =>
+                      setSelectedPartographSign({
+                        title: title,
+                        value: value,
+                      })
+                    }
+                  >
+                    {title}-
+                  </Tab>
+                );
+              })}
+            </TabList>
           </Tabs>
         </div>
       </div>

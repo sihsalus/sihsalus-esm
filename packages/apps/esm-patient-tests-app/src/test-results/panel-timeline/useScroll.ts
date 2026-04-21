@@ -11,10 +11,10 @@ const useScrollIndicator = (xThreshold: number, yThreshold: number): [boolean, b
     if (!element) {
       return;
     }
-      const scrollHandler = makeThrottled(() => {
-        setXIsScrolled(element.scrollLeft > xThreshold);
-        setYIsScrolled(element.scrollTop > yThreshold);
-      }, 200);
+    const scrollHandler = makeThrottled(() => {
+      setXIsScrolled(element.scrollLeft > xThreshold);
+      setYIsScrolled(element.scrollTop > yThreshold);
+    }, 200);
 
     element.addEventListener('scroll', scrollHandler);
     return () => element.removeEventListener('scroll', scrollHandler);

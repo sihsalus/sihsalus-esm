@@ -431,9 +431,7 @@ export class FormManager {
         given: [name.givenName, name.middleName].filter(Boolean),
         family: name.familyName,
         text: [name.familyName, name.familyName2, name.givenName, name.middleName].filter(Boolean).join(' '),
-        ...(name.familyName2
-          ? { extension: [{ url: familyName2ExtensionUrl, valueString: name.familyName2 }] }
-          : {}),
+        ...(name.familyName2 ? { extension: [{ url: familyName2ExtensionUrl, valueString: name.familyName2 }] } : {}),
       })),
       address: patient.person?.addresses.map((address) => ({
         city: address.cityVillage,

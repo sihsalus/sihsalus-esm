@@ -99,7 +99,7 @@ const VitalsChart: React.FC<VitalsChartProps> = ({ patientVitals, conceptUnits, 
       });
   }, [patientVitals, selectedVitalSign]);
 
-	  const chartOptions = {
+  const chartOptions = {
     title: selectedVitalSign.title,
     axes: {
       bottom: {
@@ -129,19 +129,19 @@ const VitalsChart: React.FC<VitalsChartProps> = ({ patientVitals, conceptUnits, 
         ).toUpperCase()}
         <span style="color: #c6c6c6; font-size: 1rem; font-weight:600">${key}</span></div>`,
     },
-	    height: '400px',
-	  };
+    height: '400px',
+  };
 
-	  const verticalTabsProps = { className: styles.verticalTabs } as unknown as React.ComponentProps<typeof Tabs>;
+  const verticalTabsProps = { className: styles.verticalTabs } as unknown as React.ComponentProps<typeof Tabs>;
 
-	  return (
+  return (
     <div className={styles.vitalsChartContainer}>
       <div className={styles.vitalSignsArea}>
         <label className={styles.vitalsSignLabel} htmlFor={`${id}-tab`}>
           {t('vitalSignDisplayed', 'Vital sign displayed')}
         </label>
-	        <Tabs {...verticalTabsProps}>
-	          <TabList className={styles.tablist} aria-label="Vitals tabs">
+        <Tabs {...verticalTabsProps}>
+          <TabList className={styles.tablist} aria-label="Vitals tabs">
             {vitalSigns.map(({ id, title, value }) => {
               return (
                 <Tab
