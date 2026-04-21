@@ -20,8 +20,13 @@
     "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "extract-translations": "i18next 'src/**/*.tsx' --config='../../tooling/scripts/i18next-parser.config.js'"
   },
-  "keywords": ["openmrs", "microfrontends"],
-  "browserslist": ["extends browserslist-config-openmrs"],
+  "keywords": [
+    "openmrs",
+    "microfrontends"
+  ],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-core.git"

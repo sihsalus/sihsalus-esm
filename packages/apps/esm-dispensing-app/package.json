@@ -21,8 +21,16 @@
     "coverage": "yarn test --coverage",
     "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/dispensing/playwright.config.ts"
   },
-  "browserslist": ["extends browserslist-config-openmrs"],
-  "keywords": ["openmrs", "microfrontends", "medication", "dispensing", "pharmacy"],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs",
+    "microfrontends",
+    "medication",
+    "dispensing",
+    "pharmacy"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-dispensing.git"

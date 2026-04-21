@@ -20,8 +20,14 @@
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.tsx' --config ../../tooling/scripts/i18next-parser.config.js",
     "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/stock-management/playwright.config.ts"
   },
-  "browserslist": ["extends browserslist-config-openmrs"],
-  "keywords": ["openmrs", "stock-management", "microfrontends"],
+  "browserslist": [
+    "extends browserslist-config-openmrs"
+  ],
+  "keywords": [
+    "openmrs",
+    "stock-management",
+    "microfrontends"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/openmrs/openmrs-esm-stock-management-app.git"
