@@ -10226,6 +10226,8 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
+    react-barcode: "npm:^1.5.3"
+    react-to-print: "npm:^3.1.1"
     typescript: "npm:^5.8.3"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
@@ -23934,6 +23936,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsbarcode@npm:^3.8.0":
+  version: 3.12.3
+  resolution: "jsbarcode@npm:3.12.3"
+  checksum: 10c0/da6683fe036eb288b92159d4f46b96cc376bcd0b7048715aaa7dc47f20e3d6d505b59e645818ed9685c399ed79c513197e30cf0540c94627d9dee19d0a67ddaa
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:~0.1.0":
   version: 0.1.1
   resolution: "jsbn@npm:0.1.1"
@@ -29064,6 +29073,18 @@ __metadata:
     prop-types: ^15.0.0 || ^16.0.0
     react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/16e3fec8f4ec1998b808c16b4564221dcecb32a7b88177116b5d6be61ad86d31f1926f5624a765d8482190391125e1ecc29db95ef93edcd134834cdf543b9283
+  languageName: node
+  linkType: hard
+
+"react-barcode@npm:^1.5.3":
+  version: 1.6.1
+  resolution: "react-barcode@npm:1.6.1"
+  dependencies:
+    jsbarcode: "npm:^3.8.0"
+    prop-types: "npm:^15.6.2"
+  peerDependencies:
+    react: 16 - 19
+  checksum: 10c0/2d20114e631b2a0c4f93f7e95ec4b517d0db9705e303977684ff3f102331574a4c700db857003394e679a42a4afac1bff992a48dd37a4964ff0f95506942c71d
   languageName: node
   linkType: hard
 
