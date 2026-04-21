@@ -35,6 +35,8 @@ export * from './medication.mock';
 export * from './mockBasePanel.mock';
 export * from './mockDeceasedPatient';
 export * from './mockOrders.mock';
+export * from './openconceptlab.mock';
+export * from './operation-type.mock';
 export * from './order-price-data.mock';
 export * from './order-stock-data.mock';
 export * from './patient-flags.mock';
