@@ -1,6 +1,7 @@
-import { DataTableSkeleton, Tag, Tile, Button } from '@carbon/react';
+import { Button, DataTableSkeleton, Tag, Tile } from '@carbon/react';
 import { View } from '@carbon/react/icons';
-import { formatDate, launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -64,7 +65,7 @@ const FuaPatientWidget: React.FC<FuaPatientWidgetProps> = ({ patientUuid }) => {
                 renderIcon={View}
                 iconDescription={t('viewFua', 'Ver FUA')}
                 hasIconOnly
-                onClick={() => launchWorkspace('fua-viewer-workspace', { fuaId: fua.uuid })}
+                onClick={() => launchPatientWorkspace('fua-viewer-workspace', { fuaId: fua.uuid })}
               />
             </div>
             {fua.observacionesSetiSis && (

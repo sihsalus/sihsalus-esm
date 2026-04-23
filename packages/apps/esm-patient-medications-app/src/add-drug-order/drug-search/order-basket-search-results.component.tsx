@@ -2,18 +2,12 @@ import { Button, ButtonSkeleton, SkeletonText, Tile } from '@carbon/react';
 import { ShoppingCartArrowUp } from '@carbon/react/icons';
 import {
   ArrowRightIcon,
-  closeWorkspace,
   ShoppingCartArrowDownIcon,
+  UserHasAccess,
   useConfig,
   useLayoutType,
-  UserHasAccess,
 } from '@openmrs/esm-framework';
-import {
-  launchPatientWorkspace,
-  type Order,
-  useOrderBasket,
-  usePatientChartStore,
-} from '@openmrs/esm-patient-common-lib';
+import { type Order, useOrderBasket, usePatientChartStore } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -34,17 +28,20 @@ export interface OrderBasketSearchResultsProps {
   searchTerm: string;
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;
   focusAndClearSearchInput: () => void;
+  returnToOrderBasket: () => void;
 }
 
 interface DrugSearchResultItemProps {
   drug: DrugSearchResult;
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;
+  returnToOrderBasket: () => void;
 }
 
 export default function OrderBasketSearchResults({
   searchTerm,
   openOrderForm,
   focusAndClearSearchInput,
+  returnToOrderBasket,
 }: OrderBasketSearchResultsProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -111,14 +108,19 @@ export default function OrderBasketSearchResults({
       </div>
       <div className={styles.resultsContainer}>
         {drugs?.map((drug) => (
-          <DrugSearchResultItem key={drug.uuid} drug={drug} openOrderForm={openOrderForm} />
+          <DrugSearchResultItem
+            key={drug.uuid}
+            drug={drug}
+            openOrderForm={openOrderForm}
+            returnToOrderBasket={returnToOrderBasket}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openOrderForm }) => {
+const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openOrderForm, returnToOrderBasket }) => {
   const isTablet = useLayoutType() === 'tablet';
   const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications', prepMedicationOrderPostData);
   const { patientUuid } = usePatientChartStore();
@@ -154,12 +156,9 @@ const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openO
       // Directly adding the order to basket should be marked as incomplete
       searchResult.isOrderIncomplete = true;
       setOrders([...orders, searchResult]);
-      closeWorkspace('add-drug-order', {
-        ignoreChanges: true,
-        onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-      });
+      returnToOrderBasket();
     },
-    [orders, setOrders],
+    [orders, setOrders, returnToOrderBasket],
   );
 
   const removeFromBasket = useCallback(

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access */
 import {
-  DataTable,
   Button,
+  DataTable,
   InlineLoading,
   OverflowMenu,
   OverflowMenuItem,
@@ -17,20 +17,20 @@ import {
 } from '@carbon/react';
 import {
   AddIcon,
-  age,
-  getPatientName,
-  formatDate,
   PrinterIcon,
+  UserIcon,
+  age,
+  formatDate,
+  getPatientName,
   useConfig,
   useLayoutType,
   usePagination,
-  UserIcon,
 } from '@openmrs/esm-framework';
 import {
   CardHeader,
-  compare,
-  PatientChartPagination,
   type Order,
+  PatientChartPagination,
+  compare,
   useLaunchWorkspaceRequiringVisit,
   useOrderBasket,
 } from '@openmrs/esm-patient-common-lib';
@@ -214,7 +214,7 @@ const MedicationsDetailsTable: React.FC<MedicationsDetailsTableProps> = ({
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    content: () => contentToPrintRef.current,
+    contentRef: contentToPrintRef,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
     onBeforePrint: () =>
       new Promise<void>((resolve) => {

@@ -24,7 +24,7 @@
     {
       "name": "order-basket-action-menu",
       "component": "orderBasketActionMenu",
-      "slots": ["action-menu-patient-chart-items-slot", "action-menu-ward-patient-items-slot"]
+      "slot": "action-menu-ward-patient-items-slot"
     },
     {
       "name": "lab-result",
@@ -52,6 +52,26 @@
       "meta": {
         "fullWidth": false
       }
+    }
+  ],
+  "workspaces2": [
+    {
+      "name": "order-basket",
+      "component": "orderBasketWorkspace",
+      "window": "patient-chart-orders"
+    },
+    {
+      "name": "orderable-concept-workspace",
+      "component": "orderableConceptSearch",
+      "window": "patient-chart-orders"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "patient-chart-orders",
+      "group": "patient-chart",
+      "icon": "orderBasketActionButton",
+      "order": 3
     }
   ],
   "workspaces": [

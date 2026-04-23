@@ -1,9 +1,9 @@
 import {
   Button,
   DataTable,
-  DataTableSkeleton,
   type DataTableHeader,
   type DataTableRow,
+  DataTableSkeleton,
   DatePicker,
   DatePickerInput,
   Dropdown,
@@ -16,9 +16,9 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableExpandedRow,
   TableExpandHeader,
   TableExpandRow,
+  TableExpandedRow,
   TableHead,
   TableHeader,
   TableRow,
@@ -27,12 +27,13 @@ import {
 } from '@carbon/react';
 import {
   AddIcon,
-  age,
   ExtensionSlot,
+  PrinterIcon,
+  age,
   formatDate,
   getCoreTranslation,
+  getLocale,
   getPatientName,
-  PrinterIcon,
   useConfig,
   useLayoutType,
   usePagination,
@@ -42,12 +43,12 @@ import {
   CardHeader,
   EmptyState,
   ErrorState,
-  getDrugOrderByUuid,
-  launchPatientWorkspace,
-  PatientChartPagination,
   type Order,
   type OrderBasketItem,
   type OrderType,
+  PatientChartPagination,
+  getDrugOrderByUuid,
+  launchPatientWorkspace,
   useLaunchWorkspaceRequiringVisit,
   useOrderBasket,
   useOrderTypes,
@@ -99,6 +100,7 @@ function getCellContent(value: ReactNode) {
 
 const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddButton, showPrintButton, title }) => {
   const { t } = useTranslation();
+  const locale = getLocale() ?? 'en';
   const defaultPageSize = 10;
   const headerTitle = t('orders', 'Orders');
   const isTablet = useLayoutType() === 'tablet';
@@ -285,7 +287,7 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
   }, [isPrinting]);
 
   const handlePrint = useReactToPrint({
-    content: () => contentToPrintRef.current,
+    contentRef: contentToPrintRef,
     documentTitle: `OpenMRS - ${patientDetails.name} - ${title}`,
     onBeforePrint: () =>
       new Promise<void>((resolve) => {
@@ -361,6 +363,7 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
         <DatePicker
           datePickerType="range"
           dateFormat={'d/m/Y'}
+          locale={locale}
           value={''}
           onChange={(dates) => {
             handleDateFilterChange(dates);

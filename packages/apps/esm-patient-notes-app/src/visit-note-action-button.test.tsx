@@ -1,10 +1,13 @@
+import { ActionMenuButton2, type LayoutType, useLayoutType } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import { type LayoutType, useLayoutType } from '@openmrs/esm-framework';
-import VisitNoteActionButton from './visit-note-action-button.extension';
 import { mockPatient } from 'test-utils';
+import VisitNoteActionButton from './visit-note-action-button.extension';
 
+const mockActionMenuButton2 = jest.mocked(ActionMenuButton2);
 const mockUseLayoutType = jest.mocked(useLayoutType);
+
+mockActionMenuButton2.mockImplementation(({ label }) => <button>{label}</button>);
 
 jest.mock('@openmrs/esm-patient-common-lib', () => {
   const originalModule = jest.requireActual('@openmrs/esm-patient-common-lib');

@@ -1,16 +1,17 @@
 import {
   type ConfigObject,
   getDefaultsFromConfigSchema,
+  getLocale,
   openmrsFetch,
   useConfig,
   useSession,
 } from '@openmrs/esm-framework';
 import { useOrderTypes, usePatientOrders } from '@openmrs/esm-patient-common-lib';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockOrders, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
 import { useReactToPrint } from 'react-to-print';
+import { mockOrders, mockSessionDataResponse } from 'test-utils';
 
 import { configSchema } from '../config-schema';
 
@@ -19,17 +20,29 @@ import OrderDetailsTable from './orders-details-table.component';
 const mockUsePatientOrders = usePatientOrders as jest.Mock;
 const mockUseOrderTypes = useOrderTypes as jest.Mock;
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;
+const mockGetLocale = jest.mocked(getLocale);
 const mockSession = jest.mocked(useSession);
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
 const mockUseReactToPrint = jest.mocked(useReactToPrint);
 
 mockSession.mockReturnValue(mockSessionDataResponse.data);
+mockGetLocale.mockReturnValue('en');
 mockOpenmrsFetch.mockImplementation(jest.fn());
 
 jest.mock('react-to-print', () => ({
   ...jest.requireActual('react-to-print'),
   useReactToPrint: jest.fn(),
 }));
+
+jest.mock('@carbon/react', () => {
+  const originalModule = jest.requireActual('@carbon/react');
+
+  return {
+    ...originalModule,
+    DatePicker: ({ children }) => <div>{children}</div>,
+    DatePickerInput: ({ labelText, ...props }) => <input aria-label={labelText ?? ''} {...props} />,
+  };
+});
 
 jest.mock('@openmrs/esm-patient-common-lib', () => {
   const originalModule = jest.requireActual('@openmrs/esm-patient-common-lib');

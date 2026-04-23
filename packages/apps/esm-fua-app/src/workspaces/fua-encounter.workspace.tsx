@@ -1,16 +1,33 @@
 import { Button, InlineLoading } from '@carbon/react';
-import { navigate, openmrsFetch, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
+import { Workspace2, navigate, openmrsFetch, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import {
+  type DefaultPatientWorkspaceProps,
+  type PatientWorkspace2DefinitionProps,
+  useVisitOrOfflineVisit,
+} from '@openmrs/esm-patient-common-lib';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { Config } from '../config-schema';
 import FuaHtmlViewer from '../components/fua-html-viewer.component';
+import type { Config } from '../config-schema';
 
-interface FuaEncounterWorkspaceProps {
-  patientUuid: string;
+interface LegacyFuaEncounterWorkspaceProps extends DefaultPatientWorkspaceProps {
   encounterUuid?: string;
   visitUuid?: string;
+}
+
+type Workspace2FuaEncounterWorkspaceProps = PatientWorkspace2DefinitionProps<
+  {
+    encounterUuid?: string;
+    visitUuid?: string;
+  },
+  object
+>;
+
+type FuaEncounterWorkspaceProps = LegacyFuaEncounterWorkspaceProps | Workspace2FuaEncounterWorkspaceProps;
+
+function isWorkspace2Props(props: FuaEncounterWorkspaceProps): props is Workspace2FuaEncounterWorkspaceProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
 }
 
 interface FuaPatientOrder {
@@ -18,9 +35,12 @@ interface FuaPatientOrder {
   visitUuid?: string | null;
 }
 
-const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUuid, encounterUuid, visitUuid }) => {
+const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = (props) => {
   const { t } = useTranslation();
   const config = useConfig<Config>();
+  const patientUuid = isWorkspace2Props(props) ? props.groupProps.patientUuid : props.patientUuid;
+  const encounterUuid = isWorkspace2Props(props) ? props.workspaceProps?.encounterUuid : props.encounterUuid;
+  const visitUuid = isWorkspace2Props(props) ? props.workspaceProps?.visitUuid : props.visitUuid;
   const { currentVisit, activeVisit, isLoading: isLoadingVisit } = useVisitOrOfflineVisit(patientUuid);
   const [isInitializing, setIsInitializing] = useState(true);
   const [fuaId, setFuaId] = useState<string | undefined>(undefined);
@@ -92,56 +112,50 @@ const FuaEncounterWorkspace: React.FC<FuaEncounterWorkspaceProps> = ({ patientUu
     visitUuid,
   ]);
 
-  if (isInitializing) {
-    return (
-      <div style={{ padding: '1rem' }}>
-        <InlineLoading description={t('creatingFua', 'Creando FUA...')} />
+  const content = isInitializing ? (
+    <div style={{ padding: '1rem' }}>
+      <InlineLoading description={t('creatingFua', 'Creando FUA...')} />
+    </div>
+  ) : errorMessage ? (
+    <div style={{ padding: '1rem', display: 'grid', gap: '1rem' }}>
+      <p>{errorMessage}</p>
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
+          {t('retry', 'Reintentar')}
+        </Button>
+        <Button kind="secondary" onClick={() => navigate({ to: '${openmrsSpaBase}/fua-request' })}>
+          {t('openFuaManagement', 'Abrir gestión FUA')}
+        </Button>
       </div>
-    );
-  }
-
-  if (errorMessage) {
-    return (
-      <div style={{ padding: '1rem', display: 'grid', gap: '1rem' }}>
-        <p>{errorMessage}</p>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
-            {t('retry', 'Reintentar')}
-          </Button>
-          <Button kind="secondary" onClick={() => navigate({ to: '${openmrsSpaBase}/fua-request' })}>
-            {t('openFuaManagement', 'Abrir gestión FUA')}
-          </Button>
-        </div>
+    </div>
+  ) : !fuaId ? (
+    <div style={{ padding: '1rem', display: 'grid', gap: '1rem' }}>
+      <p>
+        {t(
+          'noFuaForCurrentVisit',
+          'No hay un FUA registrado para la visita actual. Abra la gestión FUA para revisar o generar el documento en el backend.',
+        )}
+      </p>
+      <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <Button kind="secondary" onClick={() => navigate({ to: '${openmrsSpaBase}/fua-request' })}>
+          {t('openFuaManagement', 'Abrir gestión FUA')}
+        </Button>
+        <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
+          {t('retry', 'Reintentar')}
+        </Button>
       </div>
-    );
-  }
-
-  if (!fuaId) {
-    return (
-      <div style={{ padding: '1rem', display: 'grid', gap: '1rem' }}>
-        <p>
-          {t(
-            'noFuaForCurrentVisit',
-            'No hay un FUA registrado para la visita actual. Abra la gestión FUA para revisar o generar el documento en el backend.',
-          )}
-        </p>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-          <Button kind="secondary" onClick={() => navigate({ to: '${openmrsSpaBase}/fua-request' })}>
-            {t('openFuaManagement', 'Abrir gestión FUA')}
-          </Button>
-          <Button kind="primary" onClick={() => setRetrySeed((seed) => seed + 1)}>
-            {t('retry', 'Reintentar')}
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
+    </div>
+  ) : (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <FuaHtmlViewer fuaId={fuaId} />
     </div>
   );
+
+  if (isWorkspace2Props(props)) {
+    return <Workspace2 title={t('createFuaWorkspaceTitle', 'Crear FUA')}>{content}</Workspace2>;
+  }
+
+  return content;
 };
 
 export default FuaEncounterWorkspace;

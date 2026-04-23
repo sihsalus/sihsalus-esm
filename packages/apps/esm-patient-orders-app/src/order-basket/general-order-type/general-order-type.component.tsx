@@ -7,12 +7,7 @@ import {
   MaybeIcon,
   useLayoutType,
 } from '@openmrs/esm-framework';
-import {
-  type OrderBasketItem,
-  launchPatientWorkspace,
-  useOrderBasket,
-  useOrderType,
-} from '@openmrs/esm-patient-common-lib';
+import { type OrderBasketItem, useOrderBasket, useOrderType } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,10 +19,15 @@ import OrderBasketItemTile from './order-basket-item-tile.component';
 import { prepOrderPostData } from './resources';
 
 interface GeneralOrderTypeProps extends OrderTypeDefinition {
-  closeWorkspace: DefaultWorkspaceProps['closeWorkspace'];
+  launchOrderableConceptWorkspace: (orderTypeUuid: string, order?: OrderBasketItem) => void;
 }
 
-const GeneralOrderType: React.FC<GeneralOrderTypeProps> = ({ orderTypeUuid, closeWorkspace, label, icon }) => {
+const GeneralOrderType: React.FC<GeneralOrderTypeProps> = ({
+  orderTypeUuid,
+  label,
+  icon,
+  launchOrderableConceptWorkspace,
+}) => {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { orderType, isLoadingOrderType } = useOrderType(orderTypeUuid);
@@ -71,26 +71,11 @@ const GeneralOrderType: React.FC<GeneralOrderTypeProps> = ({ orderTypeUuid, clos
   }, [orders]);
 
   const openConceptSearch = () => {
-    closeWorkspace({
-      ignoreChanges: true,
-      onWorkspaceClose: () =>
-        launchPatientWorkspace('orderable-concept-workspace', {
-          orderTypeUuid,
-        }),
-      closeWorkspaceGroup: false,
-    });
+    launchOrderableConceptWorkspace(orderTypeUuid);
   };
 
   const openOrderForm = (order: OrderBasketItem) => {
-    closeWorkspace({
-      ignoreChanges: true,
-      onWorkspaceClose: () =>
-        launchPatientWorkspace('orderable-concept-workspace', {
-          order,
-          orderTypeUuid,
-        }),
-      closeWorkspaceGroup: false,
-    });
+    launchOrderableConceptWorkspace(orderTypeUuid, order);
   };
 
   const removeOrder = useCallback(

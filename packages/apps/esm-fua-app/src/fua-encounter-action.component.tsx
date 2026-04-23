@@ -1,20 +1,21 @@
 import { Receipt } from '@carbon/react/icons';
-import { ActionMenuButton } from '@openmrs/esm-framework';
-import { useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
+import { ActionMenuButton2 } from '@openmrs/esm-framework';
+import { type PatientChartWorkspaceActionButtonProps, useStartVisitIfNeeded } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const FuaEncounterAction: React.FC = () => {
+const FuaEncounterAction: React.FC<PatientChartWorkspaceActionButtonProps> = ({ groupProps: { patientUuid } }) => {
   const { t } = useTranslation();
-  const launchFuaEncounterWorkspace = useLaunchWorkspaceRequiringVisit('fua-encounter-workspace');
+  const startVisitIfNeeded = useStartVisitIfNeeded(patientUuid);
 
   return (
-    <ActionMenuButton
-      getIcon={(props: ComponentProps<typeof Receipt>) => <Receipt {...props} />}
+    <ActionMenuButton2
+      icon={(props: ComponentProps<typeof Receipt>) => <Receipt {...props} />}
       label={t('createFua', 'Crear FUA')}
-      iconDescription={t('createFua', 'Crear FUA')}
-      handler={launchFuaEncounterWorkspace}
-      type="fua-encounter"
+      workspaceToLaunch={{
+        workspaceName: 'fua-encounter-workspace',
+      }}
+      onBeforeWorkspaceLaunch={startVisitIfNeeded}
     />
   );
 };

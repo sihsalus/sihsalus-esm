@@ -1,17 +1,27 @@
 /* eslint-disable @typescript-eslint/no-misused-promises, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/unbound-method */
 import { ActionableNotification, Button, ButtonSet, InlineLoading, InlineNotification } from '@carbon/react';
-import { ExtensionSlot, showModal, showSnackbar, useConfig, useLayoutType, useSession } from '@openmrs/esm-framework';
+import {
+  ExtensionSlot,
+  Workspace2,
+  showModal,
+  showSnackbar,
+  useConfig,
+  useLayoutType,
+  useSession,
+} from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
   type OrderBasketItem,
+  type PatientWorkspace2DefinitionProps,
+  launchPatientWorkspace,
   postOrders,
   postOrdersOnNewEncounter,
   useOrderBasket,
   useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
 import type { TFunction } from 'i18next';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useMutatePatientOrders, useOrderEncounter } from '../api/api';
@@ -20,12 +30,15 @@ import { type ConfigObject } from '../config-schema';
 import GeneralOrderType from './general-order-type/general-order-type.component';
 import styles from './order-basket.scss';
 
-const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
-  patientUuid,
-  closeWorkspace,
-  closeWorkspaceWithSavedChanges,
-  promptBeforeClosing,
-}) => {
+type Workspace2OrderBasketProps = PatientWorkspace2DefinitionProps<object, object>;
+type OrderBasketProps = DefaultPatientWorkspaceProps | Workspace2OrderBasketProps;
+
+function isWorkspace2Props(props: OrderBasketProps): props is Workspace2OrderBasketProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
+}
+
+const OrderBasket: React.FC<OrderBasketProps> = (props) => {
+  const patientUuid = isWorkspace2Props(props) ? props.groupProps.patientUuid : props.patientUuid;
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const config = useConfig<ConfigObject>();
@@ -43,10 +56,64 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
   const [isSavingOrders, setIsSavingOrders] = useState(false);
   const [creatingEncounterError, setCreatingEncounterError] = useState('');
   const { mutate: mutateOrders } = useMutatePatientOrders(patientUuid);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  const closeCurrentWorkspace = useCallback(
+    async (
+      options?: Parameters<DefaultPatientWorkspaceProps['closeWorkspace']>[0] & {
+        discardUnsavedChanges?: boolean;
+      },
+    ) => {
+      if (isWorkspace2Props(props)) {
+        const didClose = await props.closeWorkspace({
+          discardUnsavedChanges: options?.ignoreChanges || options?.discardUnsavedChanges,
+        });
+        if (didClose) {
+          options?.onWorkspaceClose?.();
+        }
+        return didClose;
+      }
+
+      props.closeWorkspace(options);
+      return true;
+    },
+    [props],
+  );
+
+  const closeWorkspaceWithSavedChanges = useCallback(async () => {
+    if (isWorkspace2Props(props)) {
+      return props.closeWorkspace({ discardUnsavedChanges: true });
+    }
+
+    props.closeWorkspaceWithSavedChanges();
+    return true;
+  }, [props]);
+
+  const openOrderWorkspace = useCallback(
+    async (workspaceName: string, workspaceProps?: object) => {
+      if (isWorkspace2Props(props)) {
+        await props.launchChildWorkspace(workspaceName, workspaceProps);
+        return;
+      }
+
+      props.closeWorkspace({
+        ignoreChanges: true,
+        onWorkspaceClose: () => launchPatientWorkspace(workspaceName, workspaceProps),
+        closeWorkspaceGroup: false,
+      });
+    },
+    [props],
+  );
 
   useEffect(() => {
-    promptBeforeClosing(() => !!orders.length);
-  }, [orders, promptBeforeClosing]);
+    const basketHasChanges = !!orders.length;
+
+    if (isWorkspace2Props(props)) {
+      setHasUnsavedChanges(basketHasChanges);
+    } else {
+      props.promptBeforeClosing(() => basketHasChanges);
+    }
+  }, [orders.length, props]);
 
   const openStartVisitDialog = useCallback(() => {
     const dispose = showModal('start-visit-dialog', {
@@ -73,7 +140,7 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
         mutateEncounterUuid();
         clearOrders();
         await mutateOrders();
-        closeWorkspaceWithSavedChanges();
+        await closeWorkspaceWithSavedChanges();
         showOrderSuccessToast(t, orders);
       } catch (e) {
         console.error(e);
@@ -87,7 +154,7 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
       clearOrders({ exceptThoseMatching: (item) => erroredItems.map((e) => e.display).includes(item.display) });
       await mutateOrders();
       if (erroredItems.length == 0) {
-        closeWorkspaceWithSavedChanges();
+        await closeWorkspaceWithSavedChanges();
         showOrderSuccessToast(t, orders);
       } else {
         setOrdersWithErrors(erroredItems);
@@ -108,13 +175,14 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
     patientUuid,
     session,
     t,
+    closeWorkspaceWithSavedChanges,
   ]);
 
   const handleCancel = useCallback(() => {
-    closeWorkspace({ onWorkspaceClose: clearOrders });
-  }, [clearOrders, closeWorkspace]);
+    void closeCurrentWorkspace({ onWorkspaceClose: clearOrders });
+  }, [clearOrders, closeCurrentWorkspace]);
 
-  return (
+  const content = (
     <>
       <div className={styles.container}>
         <div className={styles.orderBasketContainer}>
@@ -123,6 +191,15 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
               [styles.orderBasketSlotTablet]: isTablet,
             })}
             name="order-basket-slot"
+            state={{
+              launchAddDrugOrder: (order?: OrderBasketItem) =>
+                openOrderWorkspace('add-drug-order', order ? { order } : {}),
+              launchAddLabOrder: (orderTypeUuid: string, order?: OrderBasketItem) =>
+                openOrderWorkspace('add-lab-order', {
+                  orderTypeUuid,
+                  ...(order ? { order } : {}),
+                }),
+            }}
           />
           {config?.orderTypes?.length > 0 &&
             config.orderTypes.map((orderType) => (
@@ -132,7 +209,12 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
                   orderTypeUuid={orderType.orderTypeUuid}
                   label={orderType.label}
                   orderableConceptSets={orderType.orderableConceptSets}
-                  closeWorkspace={closeWorkspace}
+                  launchOrderableConceptWorkspace={(orderTypeUuid, order) =>
+                    void openOrderWorkspace('orderable-concept-workspace', {
+                      orderTypeUuid,
+                      ...(order ? { order } : {}),
+                    })
+                  }
                 />
               </div>
             ))}
@@ -197,6 +279,16 @@ const OrderBasket: React.FC<DefaultPatientWorkspaceProps> = ({
       )}
     </>
   );
+
+  if (isWorkspace2Props(props)) {
+    return (
+      <Workspace2 title={t('orderBasketWorkspaceTitle', 'Order Basket')} hasUnsavedChanges={hasUnsavedChanges}>
+        {content}
+      </Workspace2>
+    );
+  }
+
+  return content;
 };
 
 function showOrderSuccessToast(t: TFunction, patientOrderItems: OrderBasketItem[]) {

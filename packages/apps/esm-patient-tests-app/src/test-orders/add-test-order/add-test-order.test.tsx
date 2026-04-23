@@ -10,11 +10,11 @@ import { type PostDataPrepFunction, useOrderBasket, useOrderType } from '@openmr
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockSessionDataResponse } from 'test-utils';
 import React from 'react';
+import { mockSessionDataResponse } from 'test-utils';
 import { mockFhirPatient } from 'test-utils';
 
-import { configSchema, type ConfigObject } from '../../config-schema';
+import { type ConfigObject, configSchema } from '../../config-schema';
 import { type PostDataPrepLabOrderFunction } from '../api';
 
 import AddLabOrderWorkspace from './add-test-order.workspace';
@@ -186,7 +186,7 @@ describe('AddLabOrder', () => {
     const { result: hookResult } = renderHook(() =>
       useOrderBasket('test-lab-order-type-uuid', ((x) => x) as unknown as PostDataPrepFunction),
     );
-    renderAddLabOrderWorkspace();
+    const { mockCloseWorkspace } = renderAddLabOrderWorkspace();
     await user.type(screen.getByRole('searchbox'), 'cd4');
     await screen.findByText('CD4 COUNT');
 
@@ -203,10 +203,7 @@ describe('AddLabOrder', () => {
     });
 
     expect(mockCloseWorkspace).toHaveBeenCalled();
-    expect(mockCloseWorkspace).toHaveBeenCalledWith('add-lab-order', {
-      ignoreChanges: true,
-      onWorkspaceClose: expect.any(Function),
-    });
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('order-basket');
   });
 
   test('back to order basket', async () => {

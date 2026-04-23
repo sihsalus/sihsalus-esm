@@ -1,15 +1,14 @@
 import {
   ExtensionSlot,
   WorkspaceContainer,
+  launchWorkspaceGroup2,
   setCurrentVisit,
   setLeftNav,
   unsetLeftNav,
   usePatient,
-  useVisit,
   useWorkspaces,
 } from '@openmrs/esm-framework';
-import { getPatientChartStore } from '@openmrs/esm-patient-common-lib';
-import * as Styleguide from '@openmrs/esm-styleguide';
+import { getPatientChartStore, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -23,22 +22,27 @@ import VisitHeader from '../visit-header/visit-header.component';
 import { type LayoutMode } from './chart-review/dashboard-view.component';
 import styles from './patient-chart.scss';
 
-const WorkspaceWindowsAndMenu =
-  'WorkspaceWindowsAndMenu' in Styleguide
-    ? (Styleguide.WorkspaceWindowsAndMenu as React.ComponentType<{
-        showActionMenu?: boolean;
-      }>)
-    : null;
-
 const PatientChart: React.FC = () => {
   const { patientUuid, view: encodedView } = useParams();
   const view = encodedView ? decodeURIComponent(encodedView) : undefined;
   const { isLoading: isLoadingPatient, patient } = usePatient(patientUuid);
-  const { currentVisit, mutate: mutateVisitContext } = useVisit(patientUuid);
+  const { currentVisit, mutate: mutateVisitContext } = useVisitOrOfflineVisit(patientUuid);
   const state = useMemo(() => ({ patient, patientUuid }), [patient, patientUuid]);
   const { workspaceWindowState, active } = useWorkspaces();
   const [layoutMode, setLayoutMode] = useState<LayoutMode>();
   const hasVisibleLegacyWorkspace = workspaceWindowState === 'normal' && active;
+  const patientChartGroupProps = useMemo(
+    () =>
+      patientUuid
+        ? {
+            patient: patient ?? null,
+            patientUuid,
+            visitContext: currentVisit,
+            mutateVisitContext,
+          }
+        : null,
+    [mutateVisitContext, patient, patientUuid, currentVisit],
+  );
 
   // We are responsible for creating a new offline visit while in offline mode.
   // The patient chart widgets assume that this is handled by the chart itself.
@@ -59,7 +63,7 @@ const PatientChart: React.FC = () => {
     getPatientChartStore().setState({
       patientUuid: patientUuid ?? null,
       patient,
-      visitContext: currentVisit ?? null,
+      visitContext: currentVisit,
       mutateVisitContext,
     });
     return () => {
@@ -80,6 +84,14 @@ const PatientChart: React.FC = () => {
     });
     return () => unsetLeftNav('patient-chart-dashboard-slot');
   }, [leftNavBasePath]);
+
+  useEffect(() => {
+    if (!patientUuid || hasVisibleLegacyWorkspace) {
+      return;
+    }
+
+    void launchWorkspaceGroup2('patient-chart', patientChartGroupProps);
+  }, [hasVisibleLegacyWorkspace, patientChartGroupProps, patientUuid]);
 
   return (
     <>
@@ -114,8 +126,7 @@ const PatientChart: React.FC = () => {
           )}
         </div>
       </main>
-      <WorkspaceContainer showSiderailAndBottomNav contextKey={`patient/${patientUuid}`} />
-      {WorkspaceWindowsAndMenu ? <WorkspaceWindowsAndMenu showActionMenu={false} /> : null}
+      <WorkspaceContainer showSiderailAndBottomNav={false} contextKey={`patient/${patientUuid}`} />
     </>
   );
 };

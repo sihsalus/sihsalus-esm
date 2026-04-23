@@ -23,14 +23,14 @@ import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
 dayjs.extend(isBetween);
 import {
+  ResponsiveWrapper,
   age,
-  getPatientName,
   formatDate,
+  getPatientName,
   useConfig,
   useLayoutType,
   usePatient,
   useSession,
-  ResponsiveWrapper,
 } from '@openmrs/esm-framework';
 
 import type { ObsRecord } from '../../types';
@@ -73,7 +73,7 @@ function PrintModal({ patientUuid, closeDialog }) {
   ];
 
   const handlePrint = useReactToPrint({
-    content: () => printContainerRef.current,
+    contentRef: printContainerRef,
   });
 
   const patient = usePatient(patientUuid);

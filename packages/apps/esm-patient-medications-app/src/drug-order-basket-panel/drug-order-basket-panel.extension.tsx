@@ -1,6 +1,6 @@
 import { Button, Tile } from '@carbon/react';
-import { AddIcon, ChevronDownIcon, ChevronUpIcon, closeWorkspace, useLayoutType } from '@openmrs/esm-framework';
-import { launchPatientWorkspace, useOrderBasket } from '@openmrs/esm-patient-common-lib';
+import { AddIcon, ChevronDownIcon, ChevronUpIcon, useLayoutType } from '@openmrs/esm-framework';
+import { useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,11 @@ import RxIcon from './rx-icon.component';
 /**
  * Designs: https://app.zeplin.io/project/60d59321e8100b0324762e05/screen/62c6bb9500e7671a618efa56
  */
-export default function DrugOrderBasketPanelExtension() {
+interface DrugOrderBasketPanelExtensionProps {
+  launchAddDrugOrder?: (order?: DrugOrderBasketItem) => void;
+}
+
+export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: DrugOrderBasketPanelExtensionProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications', prepMedicationOrderPostData);
@@ -57,19 +61,11 @@ export default function DrugOrderBasketPanelExtension() {
   }, [orders]);
 
   const openDrugSearch = () => {
-    closeWorkspace('order-basket', {
-      ignoreChanges: true,
-      onWorkspaceClose: () => launchPatientWorkspace('add-drug-order'),
-      closeWorkspaceGroup: false,
-    });
+    launchAddDrugOrder?.();
   };
 
   const openDrugForm = (order: DrugOrderBasketItem) => {
-    closeWorkspace('order-basket', {
-      ignoreChanges: true,
-      onWorkspaceClose: () => launchPatientWorkspace('add-drug-order', { order }),
-      closeWorkspaceGroup: false,
-    });
+    launchAddDrugOrder?.(order);
   };
 
   const removeMedication = useCallback(

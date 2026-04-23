@@ -1,28 +1,27 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
-import { act, renderHook } from '@testing-library/react';
+import { renderHook, waitFor } from '@testing-library/react';
 
 import { mockOrderStockData } from 'test-utils';
 import { type OrderStockData } from '../types/order';
 
+import { useAreBackendModuleInstalled } from './useAreBackendModuleInstalled';
 import { useOrderStockInfo } from './useOrderStockInfo';
 
 const mockedOpenmrsFetch = jest.mocked(openmrsFetch);
+const mockUseAreBackendModuleInstalled = jest.mocked(useAreBackendModuleInstalled);
+
+jest.mock('./useAreBackendModuleInstalled', () => ({
+  useAreBackendModuleInstalled: jest.fn(),
+}));
 
 describe('useOrderStockInfo', () => {
   beforeEach(() => {
-    mockedOpenmrsFetch.mockImplementation((url) => {
-      if (url.includes('/ws/rest/v1/module')) {
-        return Promise.resolve({
-          data: {
-            results: [
-              { uuid: 'fhirproxy', display: 'FHIR Proxy' },
-              { uuid: 'stockmanagement', display: 'Stock Management' },
-            ],
-          },
-        } as FetchResponse);
-      }
-      return Promise.resolve({ data: null } as FetchResponse<OrderStockData>);
+    mockUseAreBackendModuleInstalled.mockReturnValue({
+      areModulesInstalled: true,
+      isCheckingModules: false,
+      moduleCheckError: undefined,
     });
+    mockedOpenmrsFetch.mockResolvedValue({ data: null } as FetchResponse<OrderStockData>);
   });
 
   it('returns null data when orderItemUuid is not provided', () => {
@@ -37,66 +36,42 @@ describe('useOrderStockInfo', () => {
       data: mockOrderStockData,
     } as FetchResponse<OrderStockData>);
 
-    mockedOpenmrsFetch.mockImplementation((url) => {
-      if (url.includes('/ws/rest/v1/module')) {
-        return Promise.resolve({
-          data: {
-            results: [
-              { uuid: 'fhirproxy', display: 'FHIR Proxy' },
-              { uuid: 'stockmanagement', display: 'Stock Management' },
-            ],
-          },
-        } as FetchResponse);
-      }
-      return mockStockPromise;
-    });
+    mockedOpenmrsFetch.mockResolvedValue(mockStockPromise as unknown as FetchResponse<OrderStockData>);
 
     const { result } = renderHook(() => useOrderStockInfo('test-uuid'));
 
     expect(result.current.data).toBeNull();
     expect(result.current.isLoading).toBeTruthy();
 
-    await act(async () => {
-      await mockStockPromise;
-    });
+    await waitFor(() => expect(result.current.isLoading).toBeFalsy());
 
     expect(result.current.data).toEqual(mockOrderStockData);
     expect(result.current.isLoading).toBeFalsy();
   });
 
   it('does not fetch stock data when required modules are not installed', async () => {
-    mockedOpenmrsFetch.mockImplementation((url) => {
-      if (url.includes('/ws/rest/v1/module')) {
-        return Promise.resolve({
-          data: {
-            results: [
-              { uuid: 'fhirproxy', display: 'FHIR Proxy' },
-              // stockmanagement module missing
-            ],
-          },
-        } as FetchResponse);
-      }
-      return Promise.resolve({ data: null } as FetchResponse<OrderStockData>);
+    mockUseAreBackendModuleInstalled.mockReturnValue({
+      areModulesInstalled: false,
+      isCheckingModules: false,
+      moduleCheckError: undefined,
     });
 
     const { result } = renderHook(() => useOrderStockInfo('test-uuid-2'));
 
-    await act(async () => {
-      await Promise.resolve();
-    });
-
     expect(result.current.data).toBeNull();
+    expect(mockedOpenmrsFetch).not.toHaveBeenCalled();
   });
 
   it('handles module check error gracefully', async () => {
-    mockedOpenmrsFetch.mockRejectedValueOnce(new Error('Failed to fetch modules'));
+    mockUseAreBackendModuleInstalled.mockReturnValue({
+      areModulesInstalled: false,
+      isCheckingModules: false,
+      moduleCheckError: new Error('Failed to fetch modules'),
+    });
 
     const { result } = renderHook(() => useOrderStockInfo('test-uuid-2'));
 
-    await act(async () => {
-      await Promise.resolve();
-    });
-
     expect(result.current.data).toBeNull();
+    expect(mockedOpenmrsFetch).not.toHaveBeenCalled();
   });
 });

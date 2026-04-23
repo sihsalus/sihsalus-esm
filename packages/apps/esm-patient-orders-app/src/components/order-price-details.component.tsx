@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SkeletonText, Tooltip } from '@carbon/react';
-import { getLocale, InformationIcon } from '@openmrs/esm-framework';
+import { InformationIcon, getLocale } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -61,7 +61,7 @@ const OrderPriceDetailsComponent: React.FC<OrderPriceDetailsComponentProps> = ({
       <span className={styles.priceLabel}>{t('price', 'Price')}:</span>
       {formattedPrice}
       <Tooltip
-        align="bottom-left"
+        align="bottom-start"
         className={styles.priceToolTip}
         label={t(
           'priceDisclaimer',

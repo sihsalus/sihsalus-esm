@@ -44,6 +44,14 @@
       "component": "printModal"
     }
   ],
+  "workspaces2": [
+    {
+      "name": "add-lab-order",
+      "type": "order",
+      "component": "addLabOrderWorkspace",
+      "window": "patient-chart-orders"
+    }
+  ],
   "workspaces": [
     {
       "name": "add-lab-order",

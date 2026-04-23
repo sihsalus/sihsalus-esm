@@ -1,17 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import classnames from 'classnames';
-import dayjs from 'dayjs';
-import { debounce } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
-import { useSWRConfig } from 'swr';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm, type Control } from 'react-hook-form';
-import type { TFunction } from 'i18next';
 import {
   Button,
   ButtonSet,
   Column,
+  DismissibleTag,
   Form,
   FormGroup,
   InlineLoading,
@@ -20,34 +11,44 @@ import {
   Search,
   SkeletonText,
   Stack,
-  Tag,
   TextArea,
   Tile,
 } from '@carbon/react';
 import { Add, CloseFilled, WarningFilled } from '@carbon/react/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  createAttachment,
-  createErrorHandler,
+  type Encounter,
   ExtensionSlot,
   OpenmrsDatePicker,
   ResponsiveWrapper,
+  type UploadedFile,
+  Workspace2,
+  createAttachment,
+  createErrorHandler,
   restBaseUrl,
   showModal,
   showSnackbar,
   useConfig,
   useLayoutType,
   useSession,
-  Workspace2,
-  type Encounter,
-  type UploadedFile,
 } from '@openmrs/esm-framework';
 import {
-  invalidateVisitAndEncounterData,
   type PatientWorkspace2DefinitionProps,
+  invalidateVisitAndEncounterData,
   useAllowedFileExtensions,
 } from '@openmrs/esm-patient-common-lib';
+import classnames from 'classnames';
+import dayjs from 'dayjs';
+import type { TFunction } from 'i18next';
+import { debounce } from 'lodash-es';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type Control, Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useSWRConfig } from 'swr';
+import { z } from 'zod';
 import type { ConfigObject } from '../config-schema';
 import type { Concept, Diagnosis, DiagnosisPayload, VisitNotePayload } from '../types';
+import styles from './visit-notes-form.scss';
 import {
   deletePatientDiagnosis,
   fetchDiagnosisConceptsByName,
@@ -56,7 +57,6 @@ import {
   updateVisitNote,
   useVisitNotes,
 } from './visit-notes.resource';
-import styles from './visit-notes-form.scss';
 
 type VisitNotesFormData = Omit<z.infer<ReturnType<typeof createSchema>>, 'images'> & {
   images?: UploadedFile[];
@@ -495,7 +495,7 @@ const VisitNotesForm: React.FC<PatientWorkspace2DefinitionProps<VisitNotesFormPr
     ],
   );
 
-  const onError = (errors) => console.error(errors);
+  const onError = () => undefined;
 
   const hasUserUnsavedChanges = Object.keys(dirtyFields).length > 0;
 
@@ -542,30 +542,32 @@ const VisitNotesForm: React.FC<PatientWorkspace2DefinitionProps<VisitNotesFormPr
               {selectedPrimaryDiagnoses && selectedPrimaryDiagnoses.length ? (
                 <>
                   {selectedPrimaryDiagnoses.map((diagnosis, index) => (
-                    <Tag
+                    <DismissibleTag
                       className={styles.tag}
-                      filter
                       key={index}
+                      dismissTooltipLabel={t('clearFilter', 'Clear filter')}
                       onClose={() => handleRemoveDiagnosis(diagnosis, 'primaryInputSearch')}
+                      tagTitle={diagnosis.display}
+                      text={diagnosis.display}
+                      title={t('clearFilter', 'Clear filter')}
                       type="red"
-                    >
-                      {diagnosis.display}
-                    </Tag>
+                    />
                   ))}
                 </>
               ) : null}
               {selectedSecondaryDiagnoses && selectedSecondaryDiagnoses.length ? (
                 <>
                   {selectedSecondaryDiagnoses.map((diagnosis, index) => (
-                    <Tag
+                    <DismissibleTag
                       className={styles.tag}
-                      filter
                       key={index}
+                      dismissTooltipLabel={t('clearFilter', 'Clear filter')}
                       onClose={() => handleRemoveDiagnosis(diagnosis, 'secondaryInputSearch')}
+                      tagTitle={diagnosis.display}
+                      text={diagnosis.display}
+                      title={t('clearFilter', 'Clear filter')}
                       type="blue"
-                    >
-                      {diagnosis.display}
-                    </Tag>
+                    />
                   ))}
                 </>
               ) : null}

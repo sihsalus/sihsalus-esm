@@ -2,14 +2,13 @@ import { Button, ButtonSkeleton, Search, SkeletonText, Tile } from '@carbon/reac
 import { ShoppingCartArrowUp } from '@carbon/react/icons';
 import {
   ArrowRightIcon,
-  closeWorkspace,
   ResponsiveWrapper,
   ShoppingCartArrowDownIcon,
   useDebounce,
   useLayoutType,
   useSession,
 } from '@openmrs/esm-framework';
-import { launchPatientWorkspace, useOrderBasket } from '@openmrs/esm-patient-common-lib';
+import { useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,12 +18,13 @@ import { prepTestOrderPostData } from '../api';
 
 import { createEmptyLabOrder } from './test-order';
 import styles from './test-type-search.scss';
-import { useTestTypes, type TestType } from './useTestTypes';
+import { type TestType, useTestTypes } from './useTestTypes';
 
 export interface TestTypeSearchProps {
   openLabForm: (searchResult: TestOrderBasketItem) => void;
   orderTypeUuid: string;
   orderableConceptSets: Array<string>;
+  returnToOrderBasket: () => void;
 }
 
 interface TestTypeSearchResultsProps extends TestTypeSearchProps {
@@ -37,9 +37,15 @@ interface TestTypeSearchResultItemProps {
   orderTypeUuid: string;
   testType: TestType;
   openOrderForm: (searchResult: TestOrderBasketItem) => void;
+  returnToOrderBasket: () => void;
 }
 
-export function TestTypeSearch({ openLabForm, orderTypeUuid, orderableConceptSets }: TestTypeSearchProps) {
+export function TestTypeSearch({
+  openLabForm,
+  orderTypeUuid,
+  orderableConceptSets,
+  returnToOrderBasket,
+}: TestTypeSearchProps) {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm);
@@ -49,13 +55,6 @@ export function TestTypeSearch({ openLabForm, orderTypeUuid, orderableConceptSet
     setSearchTerm('');
     searchInputRef.current?.focus();
   };
-
-  const cancelOrder = useCallback(() => {
-    closeWorkspace('add-lab-order', {
-      ignoreChanges: true,
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-    });
-  }, []);
 
   const handleSearchTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value ?? '');
@@ -75,12 +74,13 @@ export function TestTypeSearch({ openLabForm, orderTypeUuid, orderableConceptSet
         />
       </ResponsiveWrapper>
       <TestTypeSearchResults
-        cancelOrder={cancelOrder}
+        cancelOrder={returnToOrderBasket}
         orderTypeUuid={orderTypeUuid}
         orderableConceptSets={orderableConceptSets}
         focusAndClearSearchInput={focusAndClearSearchInput}
         openLabForm={openLabForm}
         searchTerm={debouncedSearchTerm}
+        returnToOrderBasket={returnToOrderBasket}
       />
     </>
   );
@@ -143,6 +143,7 @@ function TestTypeSearchResults({
                 orderTypeUuid={orderTypeUuid}
                 openOrderForm={openLabForm}
                 testType={testType}
+                returnToOrderBasket={cancelOrder}
               />
             ))}
           </div>
@@ -183,6 +184,7 @@ const TestTypeSearchResultItem: React.FC<TestTypeSearchResultItemProps> = ({
   testType,
   openOrderForm,
   orderTypeUuid,
+  returnToOrderBasket,
 }) => {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -205,11 +207,8 @@ const TestTypeSearchResultItem: React.FC<TestTypeSearchResultItemProps> = ({
     const labOrder = createLabOrder(testType);
     labOrder.isOrderIncomplete = true;
     setOrders([...orders, labOrder]);
-    closeWorkspace('add-lab-order', {
-      ignoreChanges: true,
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-    });
-  }, [orders, setOrders, createLabOrder, testType]);
+    returnToOrderBasket();
+  }, [orders, setOrders, createLabOrder, returnToOrderBasket, testType]);
 
   const removeFromBasket = useCallback(() => {
     setOrders(orders.filter((order) => order.testType.conceptUuid !== testType.conceptUuid));

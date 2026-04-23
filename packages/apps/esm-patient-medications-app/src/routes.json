@@ -38,6 +38,13 @@
       "order": 1
     }
   ],
+  "workspaces2": [
+    {
+      "name": "add-drug-order",
+      "component": "addDrugOrderWorkspace",
+      "window": "patient-chart-orders"
+    }
+  ],
   "workspaces": [
     {
       "name": "add-drug-order",

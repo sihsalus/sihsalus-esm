@@ -12,12 +12,6 @@
         "fullWidth": false
       },
       "order": 5
-    },
-    {
-      "name": "visit-note-nav-button",
-      "component": "visitNoteNavButton",
-      "slot": "action-menu-patient-chart-items-slot",
-      "order": 1
     }
   ],
   "workspaces2": [
@@ -32,7 +26,7 @@
       "name": "visit-note",
       "icon": "visitNotesActionButton",
       "group": "patient-chart",
-      "order": 2
+      "order": 1
     }
   ]
 }

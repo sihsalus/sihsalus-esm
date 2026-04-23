@@ -1,15 +1,17 @@
 import { Button, Search } from '@carbon/react';
 import {
   ArrowLeftIcon,
+  type DefaultWorkspaceProps,
   ResponsiveWrapper,
+  Workspace2,
   useConfig,
   useDebounce,
   useLayoutType,
-  type DefaultWorkspaceProps,
 } from '@openmrs/esm-framework';
 import {
-  launchPatientWorkspace,
   type OrderBasketItem,
+  type PatientWorkspace2DefinitionProps,
+  launchPatientWorkspace,
   useOrderBasket,
   useOrderType,
   usePatientChartStore,
@@ -24,11 +26,31 @@ import { prepOrderPostData } from '../resources';
 import styles from './orderable-concept-search.scss';
 import OrderableConceptSearchResults from './search-results.component';
 
-interface OrderableConceptSearchWorkspaceProps extends DefaultWorkspaceProps {
+interface LegacyOrderableConceptSearchWorkspaceProps extends DefaultWorkspaceProps {
   order: OrderBasketItem;
   orderTypeUuid: string;
   orderableConceptClasses: Array<string>;
   orderableConceptSets: Array<string>;
+}
+
+type Workspace2OrderableConceptSearchWorkspaceProps = PatientWorkspace2DefinitionProps<
+  {
+    order: OrderBasketItem;
+    orderTypeUuid: string;
+    orderableConceptClasses: Array<string>;
+    orderableConceptSets: Array<string>;
+  },
+  object
+>;
+
+type OrderableConceptSearchWorkspaceProps =
+  | LegacyOrderableConceptSearchWorkspaceProps
+  | Workspace2OrderableConceptSearchWorkspaceProps;
+
+function isWorkspace2Props(
+  props: OrderableConceptSearchWorkspaceProps,
+): props is Workspace2OrderableConceptSearchWorkspaceProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
 }
 
 export const careSettingUuid = '6f0c9a92-6f24-11e3-af88-005056821db0';
@@ -41,47 +63,67 @@ export function ordersEqual(order1: DrugsOrOrders, order2: DrugsOrOrders) {
 
 const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceProps> = (props) => {
   const { t } = useTranslation();
-  const { order: initialOrder, orderTypeUuid } = props;
+  const { order: initialOrder, orderTypeUuid } = isWorkspace2Props(props) ? props.workspaceProps : props;
   const isTablet = useLayoutType() === 'tablet';
   const { orders } = useOrderBasket<OrderBasketItem>(orderTypeUuid, prepOrderPostData);
-  const { patientUuid } = usePatientChartStore();
+  const { patientUuid } = usePatientChartStore(isWorkspace2Props(props) ? props.groupProps.patientUuid : undefined);
   const { orderTypes } = useConfig<ConfigObject>();
   const [currentOrder, setCurrentOrder] = useState(initialOrder);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [workspaceTitle, setWorkspaceTitle] = useState(t('searchOrderables', 'Search orderables'));
   const { orderType } = useOrderType(orderTypeUuid);
   const handleSetTitle = useCallback(
     (value: string) => {
-      props.setTitle(value);
+      if (isWorkspace2Props(props)) {
+        setWorkspaceTitle(value);
+      } else {
+        props.setTitle(value);
+      }
     },
     [props],
   );
 
   const handleCloseWorkspace = useCallback(
     (options?: Parameters<DefaultWorkspaceProps['closeWorkspace']>[0]) => {
-      props.closeWorkspace(options);
+      if (isWorkspace2Props(props)) {
+        void props.closeWorkspace({ discardUnsavedChanges: options?.ignoreChanges });
+        options?.onWorkspaceClose?.();
+      } else {
+        props.closeWorkspace(options);
+      }
     },
     [props],
   );
 
   const handleCloseWorkspaceWithSavedChanges = useCallback(() => {
-    props.closeWorkspaceWithSavedChanges();
+    if (isWorkspace2Props(props)) {
+      setHasUnsavedChanges(false);
+      void props.closeWorkspace({ discardUnsavedChanges: true });
+    } else {
+      props.closeWorkspaceWithSavedChanges();
+    }
   }, [props]);
 
   const handlePromptBeforeClosing = useCallback(
     (callback: () => boolean) => {
-      props.promptBeforeClosing(callback);
+      if (isWorkspace2Props(props)) {
+        setHasUnsavedChanges(callback());
+      } else {
+        props.promptBeforeClosing(callback);
+      }
     },
     [props],
   );
 
   useEffect(() => {
     if (orderType) {
-      props.setTitle(
+      handleSetTitle(
         t(`addOrderableForOrderType`, 'Add {{orderTypeDisplay}}', {
           orderTypeDisplay: orderType.display.toLocaleLowerCase(),
         }),
       );
     }
-  }, [orderType, props, t]);
+  }, [handleSetTitle, orderType, t]);
 
   const orderableConceptSets = useMemo(
     () => orderTypes.find((orderType) => orderType.orderTypeUuid === orderTypeUuid).orderableConceptSets,
@@ -89,11 +131,11 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
   );
 
   const cancelDrugOrder = useCallback(() => {
-    props.closeWorkspace({
+    handleCloseWorkspace({
       onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
       closeWorkspaceGroup: false,
     });
-  }, [props]);
+  }, [handleCloseWorkspace]);
 
   const openOrderForm = useCallback(
     (order: OrderBasketItem) => {
@@ -107,7 +149,7 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
     [orders],
   );
 
-  return (
+  const content = (
     <div className={styles.workspaceWrapper}>
       {!isTablet && (
         <div className={styles.backButton}>
@@ -143,6 +185,16 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
       )}
     </div>
   );
+
+  if (isWorkspace2Props(props)) {
+    return (
+      <Workspace2 title={workspaceTitle} hasUnsavedChanges={hasUnsavedChanges}>
+        {content}
+      </Workspace2>
+    );
+  }
+
+  return content;
 };
 
 interface ConceptSearchProps {

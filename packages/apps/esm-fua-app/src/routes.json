@@ -117,11 +117,26 @@
         "name": "declinedPanel",
         "title": "Rechazadas"
       }
+    }
+  ],
+  "workspaces2": [
+    {
+      "name": "fua-encounter-workspace",
+      "component": "fuaEncounterWorkspace",
+      "window": "patient-chart-fua"
     },
     {
-      "name": "fua-encounter-action-menu",
-      "component": "fuaEncounterActionMenu",
-      "slot": "action-menu-patient-chart-items-slot",
+      "name": "fua-viewer-workspace",
+      "component": "fuaViewerWorkspace",
+      "window": "patient-chart-fua"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "patient-chart-fua",
+      "group": "patient-chart",
+      "icon": "fuaEncounterActionButton",
+      "width": "extra-wide",
       "order": 4
     }
   ],

@@ -1,11 +1,11 @@
-import { Button, Link, OverflowMenu, OverflowMenuItem, DataTableSkeleton, Pagination } from '@carbon/react';
-import { AddIcon, launchWorkspace, navigate, showModal, showSnackbar, type Visit } from '@openmrs/esm-framework';
-import { EmptyState } from '@openmrs/esm-patient-common-lib';
+import { Button, DataTableSkeleton, Link, OverflowMenu, OverflowMenuItem, Pagination } from '@carbon/react';
+import { AddIcon, type Visit, navigate, showModal, showSnackbar } from '@openmrs/esm-framework';
+import { EmptyState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useEncounterRows, useFormsJson } from '../hooks';
-import type { TableRow, Encounter, Mode, ColumnValue, FormattedColumn, NamedColumn, FormColumn } from '../types';
+import type { ColumnValue, Encounter, FormColumn, FormattedColumn, Mode, NamedColumn, TableRow } from '../types';
 import { deleteEncounter } from '../utils/encounter-list.resource';
 import { launchEncounterForm } from '../utils/helpers';
 
@@ -276,8 +276,7 @@ export const EncounterList: React.FC<EncounterListProps> = ({
             itemText={t('createFua', 'Crear FUA')}
             onClick={(e) => {
               e.preventDefault();
-              launchWorkspace('fua-encounter-workspace', {
-                patientUuid,
+              launchPatientWorkspace('fua-encounter-workspace', {
                 encounterUuid: encounter.uuid,
                 workspaceTitle: t('createFuaWorkspaceTitle', 'Crear FUA'),
               });

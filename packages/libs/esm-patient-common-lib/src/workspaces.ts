@@ -1,4 +1,7 @@
 import {
+  type DefaultWorkspaceProps,
+  type Visit,
+  type Workspace2DefinitionProps,
   closeWorkspace,
   closeWorkspaceGroup2,
   getGlobalStore,
@@ -9,15 +12,13 @@ import {
   navigateAndLaunchWorkspace,
   showModal,
   useFeatureFlag,
-  type DefaultWorkspaceProps,
-  type Visit,
-  type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
+import { getGroupByWindowName, getWindowByWorkspaceName, workspace2Store } from '@openmrs/esm-framework/src/internal';
 import { useCallback } from 'react';
 
 import { launchStartVisitPrompt } from './launchStartVisitPrompt';
 import { useVisitOrOfflineVisit } from './offline/visit';
-import { getPatientUuidFromStore, usePatientChartStore } from './store/patient-chart-store';
+import { getPatientChartStore, getPatientUuidFromStore, usePatientChartStore } from './store/patient-chart-store';
 import { useSystemVisitSetting } from './useSystemVisitSetting';
 
 export interface DefaultPatientWorkspaceProps extends DefaultWorkspaceProps {
@@ -40,7 +41,7 @@ export type PatientWorkspace2DefinitionProps<
   WindowProps extends object,
 > = Workspace2DefinitionProps<WorkspaceProps, WindowProps, PatientWorkspaceGroupProps>;
 
-const legacyFirstPatientChartWorkspaces = new Set(['clinical-forms-workspace', 'patient-form-entry-workspace']);
+const legacyFirstPatientChartWorkspaces = new Set(['patient-form-entry-workspace']);
 
 const patientChartLegacyWorkspaceGroups = new Map<string, string>([
   ['clinical-forms-workspace', 'clinical-forms'],
@@ -61,18 +62,32 @@ function isWorkspace2Registered(workspaceName: string): boolean {
 }
 
 function getPatientWorkspaceGroupProps(): PatientWorkspaceGroupProps | null {
-  const patientUuid = getPatientUuidFromStore();
+  const workspace2State = workspace2Store.getState();
+  if (workspace2State.openedGroup?.groupName === 'patient-chart') {
+    return workspace2State.openedGroup.props as PatientWorkspaceGroupProps | null;
+  }
+
+  const { patientUuid, patient, visitContext, mutateVisitContext } = getPatientChartStore().getState();
 
   if (!patientUuid) {
     return null;
   }
 
   return {
-    patient: null,
+    patient,
     patientUuid,
-    visitContext: null,
-    mutateVisitContext: null,
+    visitContext,
+    mutateVisitContext,
   };
+}
+
+function isPatientChartWorkspace2(workspaceName: string): boolean {
+  const windowDefinition = getWindowByWorkspaceName(workspaceName);
+  if (!windowDefinition) {
+    return false;
+  }
+
+  return getGroupByWindowName(windowDefinition.name)?.name === 'patient-chart';
 }
 
 interface LegacyWorkspaceStoreState {
@@ -125,7 +140,11 @@ export function launchPatientWorkspace(workspaceName: string, additionalProps?: 
   const patientUuid = getPatientUuidFromStore();
   const shouldPreferLegacyWorkspace = legacyFirstPatientChartWorkspaces.has(workspaceName);
 
-  if (!shouldPreferLegacyWorkspace && isWorkspace2Registered(workspaceName)) {
+  if (
+    !shouldPreferLegacyWorkspace &&
+    isWorkspace2Registered(workspaceName) &&
+    isPatientChartWorkspace2(workspaceName)
+  ) {
     if (closeOpenLegacyWorkspaces()) {
       void launchWorkspace2(workspaceName, additionalProps ?? null, null, getPatientWorkspaceGroupProps());
     }

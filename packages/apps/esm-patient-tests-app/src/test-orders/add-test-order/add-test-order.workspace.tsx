@@ -1,17 +1,19 @@
 import { Button } from '@carbon/react';
 import {
-  age,
   ArrowLeftIcon,
-  getPatientName,
+  Workspace2,
+  age,
   formatDate,
+  getPatientName,
   parseDate,
+  useConfig,
   useLayoutType,
   usePatient,
-  useConfig,
 } from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
   type OrderBasketItem,
+  type PatientWorkspace2DefinitionProps,
   launchPatientWorkspace,
   useOrderType,
   usePatientChartStore,
@@ -35,32 +37,43 @@ export interface AddLabOrderWorkspaceAdditionalProps {
 
 export interface AddLabOrderWorkspaceProps extends DefaultPatientWorkspaceProps, AddLabOrderWorkspaceAdditionalProps {}
 
+type Workspace2AddLabOrderWorkspaceProps = PatientWorkspace2DefinitionProps<
+  AddLabOrderWorkspaceAdditionalProps,
+  object
+>;
+type AddLabOrderWorkspaceComponentProps = AddLabOrderWorkspaceProps | Workspace2AddLabOrderWorkspaceProps;
+
+function isWorkspace2Props(props: AddLabOrderWorkspaceComponentProps): props is Workspace2AddLabOrderWorkspaceProps {
+  return 'groupProps' in props && 'workspaceProps' in props;
+}
+
 // Design: https://app.zeplin.io/project/60d5947dd636aebbd63dce4c/screen/640b06c440ee3f7af8747620
-export default function AddLabOrderWorkspace({
-  order: initialOrder,
-  orderTypeUuid,
-  closeWorkspace,
-  closeWorkspaceWithSavedChanges,
-  promptBeforeClosing,
-  setTitle,
-}: AddLabOrderWorkspaceProps) {
+export default function AddLabOrderWorkspace(props: AddLabOrderWorkspaceComponentProps) {
+  const initialOrder = isWorkspace2Props(props) ? props.workspaceProps?.order : props.order;
+  const orderTypeUuid = isWorkspace2Props(props) ? props.workspaceProps.orderTypeUuid : props.orderTypeUuid;
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
-  const { patientUuid } = usePatientChartStore();
+  const { patientUuid } = usePatientChartStore(isWorkspace2Props(props) ? props.groupProps.patientUuid : undefined);
   const { patient, isLoading: isLoadingPatient } = usePatient(patientUuid);
   const [currentLabOrder, setCurrentLabOrder] = useState(initialOrder as TestOrderBasketItem);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [workspaceTitle, setWorkspaceTitle] = useState(t('addLabOrderWorkspaceTitle', 'Add lab order'));
   const { additionalTestOrderTypes, orders } = useConfig<ConfigObject>();
   const { orderType } = useOrderType(orderTypeUuid);
 
   useEffect(() => {
     if (orderType) {
-      setTitle(
-        t(`addOrderableForOrderType`, 'Add {{orderTypeDisplay}}', {
-          orderTypeDisplay: orderType.display.toLocaleLowerCase(),
-        }),
-      );
+      const title = t(`addOrderableForOrderType`, 'Add {{orderTypeDisplay}}', {
+        orderTypeDisplay: orderType.display.toLocaleLowerCase(),
+      });
+
+      if (isWorkspace2Props(props)) {
+        setWorkspaceTitle(title);
+      } else {
+        props.setTitle(title);
+      }
     }
-  }, [orderType, t, setTitle]);
+  }, [orderType, props, t]);
 
   const orderableConceptSets = useMemo(() => {
     const allOrderTypes: ConfigObject['additionalTestOrderTypes'] = [
@@ -77,14 +90,20 @@ export default function AddLabOrderWorkspace({
   const patientName = patient ? getPatientName(patient) : '';
 
   const cancelOrder = useCallback(() => {
-    closeWorkspace({
+    if (isWorkspace2Props(props)) {
+      setHasUnsavedChanges(false);
+      void props.closeWorkspace({ discardUnsavedChanges: true });
+      return;
+    }
+
+    props.closeWorkspace({
       ignoreChanges: true,
       onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
       closeWorkspaceGroup: false,
     });
-  }, [closeWorkspace]);
+  }, [props]);
 
-  return (
+  const content = (
     <div className={styles.container}>
       {isTablet && !isLoadingPatient && (
         <div className={styles.patientHeader}>
@@ -112,9 +131,26 @@ export default function AddLabOrderWorkspace({
         <LabOrderForm
           initialOrder={currentLabOrder}
           patientUuid={patientUuid}
-          closeWorkspace={closeWorkspace}
-          closeWorkspaceWithSavedChanges={closeWorkspaceWithSavedChanges}
-          promptBeforeClosing={promptBeforeClosing}
+          closeWorkspace={
+            isWorkspace2Props(props)
+              ? (options) => {
+                  void props.closeWorkspace({ discardUnsavedChanges: options?.ignoreChanges });
+                  options?.onWorkspaceClose?.();
+                }
+              : props.closeWorkspace
+          }
+          closeWorkspaceWithSavedChanges={
+            isWorkspace2Props(props)
+              ? (options) => {
+                  setHasUnsavedChanges(false);
+                  void props.closeWorkspace({ discardUnsavedChanges: true });
+                  options?.onWorkspaceClose?.();
+                }
+              : props.closeWorkspaceWithSavedChanges
+          }
+          promptBeforeClosing={
+            isWorkspace2Props(props) ? (testFcn) => setHasUnsavedChanges(testFcn()) : props.promptBeforeClosing
+          }
           setTitle={() => {}}
           orderTypeUuid={orderTypeUuid}
           orderableConceptSets={orderableConceptSets}
@@ -124,8 +160,19 @@ export default function AddLabOrderWorkspace({
           orderTypeUuid={orderTypeUuid}
           orderableConceptSets={orderableConceptSets}
           openLabForm={setCurrentLabOrder}
+          returnToOrderBasket={cancelOrder}
         />
       )}
     </div>
   );
+
+  if (isWorkspace2Props(props)) {
+    return (
+      <Workspace2 title={workspaceTitle} hasUnsavedChanges={hasUnsavedChanges}>
+        {content}
+      </Workspace2>
+    );
+  }
+
+  return content;
 }

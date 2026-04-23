@@ -1,5 +1,5 @@
-import { type Placement } from 'react-joyride';
 import { Type } from '@openmrs/esm-framework';
+import { type Placement } from 'react-joyride';
 
 export const configSchema = {
   showTutorial: {
@@ -105,7 +105,7 @@ export const configSchema = {
             hideNextButton: true,
             hideBackButton: true,
             data: {
-              autoNextOn: '[data-extension-slot-name="action-menu-patient-chart-items-slot"]',
+              autoNextOn: '[data-extension-slot-name="patient-chart"]',
             },
           },
           {
@@ -140,7 +140,7 @@ export const configSchema = {
               'Patient Summary is a personalized view made up of widgets that show essential features and information for quick access.',
           },
           {
-            target: '[data-extension-slot-name="action-menu-patient-chart-items-slot"]',
+            target: '[data-extension-slot-name="patient-chart"]',
             title: 'Siderail',
             content:
               'The siderail contains a series of links that take users to different tabs in the Workspace, such as the order basket, visit notes, and clinical forms. Once open, the Workspace is persistent across pages (for example, all pages within the patient chart).',
@@ -319,7 +319,7 @@ export const configSchema = {
             hideNextButton: true,
             hideBackButton: true,
             data: {
-              autoNextOn: '[data-extension-slot-name="action-menu-patient-chart-items-slot"]',
+              autoNextOn: '[data-extension-slot-name="patient-chart"]',
             },
           },
           {
@@ -380,7 +380,7 @@ export const configSchema = {
             hideBackButton: true,
             hideNextButton: true,
             data: {
-              autoNextOn: '[data-extension-slot-name="action-menu-patient-chart-items-slot"]',
+              autoNextOn: '[data-extension-slot-name="patient-chart"]',
             },
           },
           {
@@ -477,7 +477,7 @@ export const configSchema = {
             hideNextButton: true,
             hideBackButton: true,
             data: {
-              autoNextOn: '[data-extension-slot-name="action-menu-patient-chart-items-slot"]',
+              autoNextOn: '[data-extension-slot-name="patient-chart"]',
             },
           },
           {

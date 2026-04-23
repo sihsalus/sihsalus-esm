@@ -1,6 +1,5 @@
 import { Button, Search } from '@carbon/react';
-import { useConfig, useDebounce, ResponsiveWrapper, closeWorkspace, useLayoutType } from '@openmrs/esm-framework';
-import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import { ResponsiveWrapper, useConfig, useDebounce, useLayoutType } from '@openmrs/esm-framework';
 import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,21 +11,16 @@ import styles from './order-basket-search.scss';
 
 export interface DrugSearchProps {
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;
+  returnToOrderBasket: () => void;
 }
 
-export default function DrugSearch({ openOrderForm }: DrugSearchProps) {
+export default function DrugSearch({ openOrderForm, returnToOrderBasket }: DrugSearchProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const [searchTerm, setSearchTerm] = useState('');
   const { debounceDelayInMs } = useConfig<ConfigObject>();
   const debouncedSearchTerm = useDebounce(searchTerm, debounceDelayInMs ?? 300);
   const searchInputRef = useRef(null);
-
-  const cancelDrugOrder = useCallback(() => {
-    closeWorkspace('add-drug-order', {
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-    });
-  }, []);
 
   const focusAndClearSearchInput = () => {
     setSearchTerm('');
@@ -53,11 +47,12 @@ export default function DrugSearch({ openOrderForm }: DrugSearchProps) {
         searchTerm={debouncedSearchTerm}
         openOrderForm={openOrderForm}
         focusAndClearSearchInput={focusAndClearSearchInput}
+        returnToOrderBasket={returnToOrderBasket}
       />
       {isTablet && (
         <div className={styles.separatorContainer}>
           <p className={styles.separator}>{t('or', 'or')}</p>
-          <Button iconDescription="Return to order basket" kind="ghost" onClick={cancelDrugOrder}>
+          <Button iconDescription="Return to order basket" kind="ghost" onClick={returnToOrderBasket}>
             {t('returnToOrderBasket', 'Return to order basket')}
           </Button>
         </div>

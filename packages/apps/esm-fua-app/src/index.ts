@@ -99,7 +99,7 @@ export const fuaEncounterWorkspace = getAsyncLifecycle(() => import('./workspace
 // ================================================================================
 // PATIENT CHART ACTION MENU
 // ================================================================================
-export const fuaEncounterActionMenu = getSyncLifecycle(fuaEncounterActionComponent, options);
+export const fuaEncounterActionButton = getSyncLifecycle(fuaEncounterActionComponent, options);
 
 // ================================================================================
 // FUA VIEWER PAGE
