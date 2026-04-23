@@ -1,4 +1,6 @@
-# esm-odontogram-app
+# esm-odontologia-app
+
+Este microfrontend vive en la carpeta `packages/apps/esm-odontologia-app` y se publica como `@sihsalus/esm-odontologia-app`.
 
 App para el registro y consulta odontológica.
 

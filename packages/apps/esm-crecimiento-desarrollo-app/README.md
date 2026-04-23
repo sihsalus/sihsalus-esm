@@ -1,5 +1,7 @@
 # esm-cred-app
 
+Este microfrontend vive en la carpeta `packages/apps/esm-crecimiento-desarrollo-app` y se publica como `@sihsalus/esm-cred-app`.
+
 App orientada al seguimiento de CRED y control preventivo infantil.
 
 Terminología de dominio: visita = consulta, encounter = atención, appointment = cita.

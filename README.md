@@ -157,7 +157,7 @@ Nginx / reverse proxy configuration is managed in the infra repo (`sihsalus-dist
 | `esm-billing-app`                | `@openmrs/esm-billing-app`               |
 | `esm-vacunacion-app`             | `@openmrs/esm-patient-immunizations-app` |
 
-Custom modules with no upstream equivalent: `esm-atencion-ambulatoria-app`, `esm-coststructure-app`, `esm-cred-app`, `esm-dyaku-app`, `esm-emergency-app`, `esm-ficha-familiar-app`, `esm-fua-app`, `esm-indicadores-app`, `esm-odontogram-app`, `esm-reports-app`, `esm-salud-materna-app`, `esm-vih-app`.
+Custom modules with no upstream equivalent: `esm-atencion-ambulatoria-app`, `esm-coststructure-app`, `esm-cred-app` (`packages/apps/esm-crecimiento-desarrollo-app`), `esm-dyaku-app`, `esm-emergency-app`, `esm-ficha-familiar-app`, `esm-fua-app`, `esm-indicadores-app`, `esm-odontologia-app` (`packages/apps/esm-odontologia-app`), `esm-reports-app`, `esm-salud-materna-app`, `esm-vih-app`.
 
 ## Environment Variables
 

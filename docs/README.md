@@ -45,13 +45,13 @@ SIH Salus is a Hospital Information System built as a **Turborepo monorepo** wit
 **SIH Salus custom** — modules with no upstream equivalent:
 - `esm-atencion-ambulatoria-app` — Outpatient consultation (consulta externa)
 - `esm-coststructure-app` — Cost structure management (MINSA tariff tables)
-- `esm-cred-app` — CRED (control de crecimiento y desarrollo del niño, neonatal care, immunization)
+- `esm-cred-app` (`packages/apps/esm-crecimiento-desarrollo-app`) — CRED (control de crecimiento y desarrollo del niño, neonatal care, immunization)
 - `esm-dyaku-app` — FHIR sync queue for low-connectivity remote communities
 - `esm-emergency-app` — Emergency queue and triage
 - `esm-ficha-familiar-app` — Family health record (Ficha Familiar)
 - `esm-fua-app` — FUA (Formato Único de Atención) SIS insurance integration
 - `esm-indicadores-app` — MINSA reporting indicators dashboard
-- `esm-odontogram-app` — Dental chart (odontogram)
+- `esm-odontologia-app` (`packages/apps/esm-odontologia-app`) — Dental chart (odontogram)
 - `esm-reports-app` — Clinical and administrative reports
 - `esm-salud-materna-app` — Maternal health (prenatal, parto, puerperio, planificación familiar, prevención de cáncer)
 - `esm-vih-app` — HIV/AIDS care and follow-up
