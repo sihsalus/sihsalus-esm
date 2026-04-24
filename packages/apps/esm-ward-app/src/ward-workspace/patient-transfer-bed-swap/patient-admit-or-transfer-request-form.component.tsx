@@ -116,7 +116,7 @@ export default function PatientAdmitOrTransferForm({
         });
       }
 
-      createEncounter(patient, emrConfiguration.transferRequestEncounterType, [
+      createEncounter(patient, emrConfiguration.transferRequestEncounterType, visit.uuid, [
         {
           concept: emrConfiguration.dispositionDescriptor.dispositionSetConcept.uuid,
           groupMembers: obs,
@@ -147,6 +147,7 @@ export default function PatientAdmitOrTransferForm({
       dispositionsWithTypeTransfer,
       emrConfiguration,
       patient,
+      visit,
       t,
       wardPatientGroupDetails,
     ],

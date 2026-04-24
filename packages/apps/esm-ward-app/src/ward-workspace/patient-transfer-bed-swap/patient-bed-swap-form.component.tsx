@@ -18,7 +18,7 @@ export default function PatientBedSwapForm({
   closeWorkspaceWithSavedChanges,
   wardPatient,
 }: WardPatientWorkspaceProps) {
-  const { patient } = wardPatient;
+  const { patient, visit } = wardPatient;
   const { t } = useTranslation();
   const [showErrorNotifications, setShowErrorNotifications] = useState(false);
   const { createEncounter, emrConfiguration, isLoadingEmrConfiguration, errorFetchingEmrConfiguration } =
@@ -57,7 +57,7 @@ export default function PatientBedSwapForm({
       const bedSelected = beds.find((bed) => bed.bedId === values.bedId);
       setIsSubmitting(true);
       setShowErrorNotifications(false);
-      createEncounter(patient, emrConfiguration.bedAssignmentEncounterType)
+      createEncounter(patient, emrConfiguration.bedAssignmentEncounterType, visit.uuid)
         .then(async (response) => {
           if (response.ok) {
             if (bedSelected) {
@@ -111,7 +111,7 @@ export default function PatientBedSwapForm({
           closeWorkspaceWithSavedChanges();
         });
     },
-    [beds, createEncounter, patient, emrConfiguration, t, wardPatientGroupDetails, closeWorkspaceWithSavedChanges],
+    [beds, createEncounter, patient, visit, emrConfiguration, t, wardPatientGroupDetails, closeWorkspaceWithSavedChanges],
   );
 
   const onError = useCallback(() => {

@@ -18,7 +18,7 @@ export default function CancelAdmissionRequestWorkspace({
   wardPatient,
   promptBeforeClosing,
 }: WardPatientWorkspaceProps) {
-  const { patient } = wardPatient ?? {};
+  const { patient, visit } = wardPatient ?? {};
   const { t } = useTranslation();
   const [showErrorNotifications, setShowErrorNotifications] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,7 +76,7 @@ export default function CancelAdmissionRequestWorkspace({
         },
       ];
 
-      createEncounter(patient, emrConfiguration?.cancelADTRequestEncounterType, obs)
+      createEncounter(patient, emrConfiguration?.cancelADTRequestEncounterType, visit.uuid, obs)
         .then(() => {
           showSnackbar({
             title: t('admissionRequestCancelled', 'Admission request cancelled.'),
@@ -103,6 +103,7 @@ export default function CancelAdmissionRequestWorkspace({
       emrConfiguration?.cancelADTRequestEncounterType,
       createEncounter,
       patient,
+      visit,
       t,
       closeWorkspaceWithSavedChanges,
       wardPatientGroupDetails,
