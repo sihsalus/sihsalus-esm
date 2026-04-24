@@ -1,10 +1,9 @@
 import { Button } from '@carbon/react';
 import { launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
-import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { WardPatientCardType, WardPatientWorkspaceProps } from '../../types';
-import { AdmissionRequestsWorkspaceContext } from '../admission-request-workspace/admission-requests.workspace';
+import { useAdmissionRequestsWorkspaceContext } from '../admission-request-workspace/admission-requests-context';
 import AdmitPatientButton from '../admit-patient-button.component';
 
 import styles from './admission-request-card.scss';
@@ -12,7 +11,7 @@ import styles from './admission-request-card.scss';
 const AdmissionRequestCardActions: WardPatientCardType = ({ wardPatient }) => {
   const { t } = useTranslation();
   const responsiveSize = useLayoutType() === 'tablet' ? 'lg' : 'md';
-  const { closeWorkspaceWithSavedChanges } = useContext(AdmissionRequestsWorkspaceContext);
+  const { closeWorkspaceWithSavedChanges } = useAdmissionRequestsWorkspaceContext();
 
   const launchPatientTransferForm = () => {
     launchWorkspace<WardPatientWorkspaceProps>('patient-transfer-request-workspace', {
@@ -26,7 +25,7 @@ const AdmissionRequestCardActions: WardPatientCardType = ({ wardPatient }) => {
     });
   };
 
-  const isTransfer = wardPatient.inpatientRequest.dispositionType == 'TRANSFER';
+  const isTransfer = wardPatient.inpatientRequest.dispositionType === 'TRANSFER';
 
   return (
     <div className={styles.admissionRequestActionBar}>

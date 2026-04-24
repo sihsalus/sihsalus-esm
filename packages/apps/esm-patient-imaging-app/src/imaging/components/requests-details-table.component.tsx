@@ -249,7 +249,7 @@ const RequestProcedureTable: React.FC<RequestProcedureTableProps> = ({ isValidat
                         {isExpanded && (
                           <TableRow className={styles.expandedRow}>
                             <TableCell colSpan={headers.length}>
-                              <div className={styles.procedureStepTableDiv} aria-label="procedureStep">
+                              <div className={styles.procedureStepTableDiv} role="region" aria-label="procedureStep">
                                 <ProcedureStepTable requestProcedure={results[rowIndex]} />
                               </div>
                             </TableCell>

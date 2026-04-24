@@ -4,6 +4,10 @@ Turborepo-powered monorepo for the **SIH Salus Hospital Information System** —
 
 Built on [OpenMRS 3.x](https://openmrs.org/) with the single-spa microfrontend architecture.
 
+This repository was developed by the **Pontificia Universidad Catolica del Peru (PUCP)** through the **Grupo de Investigacion y Desarrollo de Ingenieria de Software (GIDIS)**.
+
+Contact: `gonzalo.galvezc@pucp.edu.pe`
+
 ## Prerequisites
 
 - **Node.js** 24 LTS
@@ -188,3 +192,5 @@ Crea un archivo `.env` en la raíz del repo (ver [.env.example](.env.example)):
 ## License
 
 [MPL-2.0](https://www.mozilla.org/en-US/MPL/2.0/)
+
+Copyright (c) Pontificia Universidad Catolica del Peru (PUCP), Grupo de Investigacion y Desarrollo de Ingenieria de Software (GIDIS).

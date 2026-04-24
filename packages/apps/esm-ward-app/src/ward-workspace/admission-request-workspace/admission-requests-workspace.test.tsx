@@ -7,15 +7,16 @@ import { mockWardViewContext } from '../../../mock';
 import useEmrConfiguration from '../../hooks/useEmrConfiguration';
 import { type WardViewContext } from '../../types';
 import DefaultWardPendingPatients from '../../ward-view/default-ward/default-ward-pending-patients.component';
+import { type AdmissionRequestsWorkspaceContextProps } from './admission-requests-context';
 
-import AdmissionRequestsWorkspace, { type AdmissionRequestsWorkspaceProps } from './admission-requests.workspace';
+import AdmissionRequestsWorkspace from './admission-requests.workspace';
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);
 
 jest.mock('../../hooks/useEmrConfiguration', () => jest.fn());
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
 
-const workspaceProps: AdmissionRequestsWorkspaceProps = {
+const workspaceProps: AdmissionRequestsWorkspaceContextProps = {
   closeWorkspace: jest.fn(),
   promptBeforeClosing: jest.fn(),
   closeWorkspaceWithSavedChanges: jest.fn(),

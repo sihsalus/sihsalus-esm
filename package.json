@@ -2,6 +2,10 @@
   "name": "@sihsalus/sihsalus-esm",
   "version": "1.0.0",
   "private": true,
+  "author": {
+    "name": "Pontificia Universidad Catolica del Peru (PUCP) - Grupo de Investigacion y Desarrollo de Ingenieria de Software (GIDIS)",
+    "email": "gonzalo.galvezc@pucp.edu.pe"
+  },
   "license": "MPL-2.0",
   "workspaces": [
     "packages/tooling/*",
