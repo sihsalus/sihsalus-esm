@@ -1,6 +1,6 @@
+import { Button, ModalBody, ModalFooter, ModalHeader, TextInput } from '@carbon/react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalBody, ModalHeader, ModalFooter, TextInput } from '@carbon/react';
 
 interface EditTranslationModalProps {
   onClose: () => void;

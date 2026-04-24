@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { reportError } from '../utils/error-utils';
 import { useTranslation } from 'react-i18next';
+import { reportError } from '../utils/error-utils';
 
 interface SubmitEventDetail {
   formUuid: string;

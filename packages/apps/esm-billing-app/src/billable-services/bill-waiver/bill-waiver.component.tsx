@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { ExtensionSlot, UserHasAccess } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
 import { useBills } from '../../billing.resource';
-import PatientBills from './patient-bills.component';
 import styles from './bill-waiver.scss';
+import PatientBills from './patient-bills.component';
 
 const BillWaiver: React.FC = () => {
   const [patientUuid, setPatientUuid] = useState<string>('');

@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Checkbox, CheckboxGroup, FilterableMultiSelect, Layer, Tag } from '@carbon/react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFormProviderContext } from '../../../provider/form-provider';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { isTrue } from '../../../utils/boolean-utils';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
-import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
-import { useFormProviderContext } from '../../../provider/form-provider';
-import { ValueEmpty } from '../../value/value.component';
 import FieldLabel from '../../field-label/field-label.component';
+import { ValueEmpty } from '../../value/value.component';
 import FieldValueView from '../../value/view/field-value-view.component';
 import styles from './multi-select.scss';
 

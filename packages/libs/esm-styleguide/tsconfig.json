@@ -46,5 +46,6 @@
       "@openmrs/esm-utils": ["../../../node_modules/@openmrs/esm-utils/dist/index"]
     }
   },
-  "include": ["src/**/*.ts*", "src/**/*.d.ts"]
+  "include": ["src/**/*.ts*", "src/**/*.d.ts"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx", "setup-tests.ts"]
 }

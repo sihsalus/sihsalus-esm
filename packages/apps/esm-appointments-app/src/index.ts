@@ -8,7 +8,7 @@ import {
 
 import { configSchema } from './config-schema';
 import { createDashboardLink } from './createDashboardLink.component';
-import { dashboardMeta, appointmentCalendarDashboardMeta, patientChartDashboardMeta } from './dashboard.meta';
+import { appointmentCalendarDashboardMeta, dashboardMeta, patientChartDashboardMeta } from './dashboard.meta';
 import {
   cancelledAppointmentsPanelConfigSchema,
   checkedInAppointmentsPanelConfigSchema,

@@ -16,7 +16,7 @@ jest.mock('@carbon/react', () => {
 
 import { getDefaultsFromConfigSchema, useConfig, useVisit, type VisitReturnType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { mockPatient } from 'test-utils';
@@ -27,6 +27,7 @@ import StartVisitOverflowMenuItem from './start-visit.component';
 
 const mockUseConfig = jest.mocked(useConfig<ChartConfig>);
 const mockUseVisit = jest.mocked(useVisit);
+const mockFhirPatient = mockPatient as unknown as fhir.Patient;
 
 jest.mock('@openmrs/esm-patient-common-lib', () => {
   const originalModule = jest.requireActual('@openmrs/esm-patient-common-lib');
@@ -49,7 +50,7 @@ describe('StartVisitOverflowMenuItem', () => {
   it('should launch the start visit form', async () => {
     const user = userEvent.setup();
 
-    render(React.createElement(StartVisitOverflowMenuItem, { patient: mockPatient }));
+    render(React.createElement(StartVisitOverflowMenuItem, { patient: mockFhirPatient }));
 
     const startVisitButton = screen.getByRole('menuitem', { name: /start visit/i });
     expect(startVisitButton).toBeInTheDocument();
@@ -65,7 +66,7 @@ describe('StartVisitOverflowMenuItem', () => {
     render(
       React.createElement(StartVisitOverflowMenuItem, {
         patient: {
-          ...mockPatient,
+          ...mockFhirPatient,
           deceasedDateTime: '2023-05-07T10:20:30Z',
         },
       }),

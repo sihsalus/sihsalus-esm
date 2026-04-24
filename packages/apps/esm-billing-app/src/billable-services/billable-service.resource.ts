@@ -1,5 +1,6 @@
+import { type OpenmrsResource, openmrsFetch, restBaseUrl, useConfig, useOpenmrsFetchAll } from '@openmrs/esm-framework';
 import useSWR, { mutate } from 'swr';
-import { type OpenmrsResource, openmrsFetch, restBaseUrl, useOpenmrsFetchAll, useConfig } from '@openmrs/esm-framework';
+import type { BillingConfig } from '../config-schema';
 import { apiBasePath } from '../constants';
 import type {
   BillableService,
@@ -8,7 +9,6 @@ import type {
   PaymentModePayload,
   UpdateBillableServicePayload,
 } from '../types';
-import type { BillingConfig } from '../config-schema';
 
 const BILLABLE_SERVICES_URL = `billableService?v=custom:(uuid,name,shortName,serviceStatus,concept:(uuid,display,name:(name)),serviceType:(display,uuid),servicePrices:(uuid,name,price,paymentMode:(uuid,name)))`;
 

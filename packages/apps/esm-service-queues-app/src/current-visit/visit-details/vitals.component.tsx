@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { type ConfigObject } from '../../config-schema';
 import { type PatientVitals } from '../../types/index';
-import { calculateBMI, assessValue, getReferenceRangesForConcept } from '../current-visit.resource';
+import { assessValue, calculateBMI, getReferenceRangesForConcept } from '../current-visit.resource';
 import { useVitalsConceptMetadata } from '../hooks/useVitalsConceptMetadata';
 
 import styles from './triage-note.scss';

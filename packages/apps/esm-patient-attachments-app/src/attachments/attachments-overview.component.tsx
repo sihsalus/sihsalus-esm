@@ -1,25 +1,25 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, Loading } from '@carbon/react';
 import { List, Thumbnail_2 } from '@carbon/react/icons';
 import {
   AddIcon,
+  type Attachment,
   createAttachment,
   deleteAttachmentPermanently,
   showModal,
   showSnackbar,
-  type Attachment,
   type UploadedFile,
+  UserHasAccess,
   useAttachments,
   useLayoutType,
-  UserHasAccess,
 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { createGalleryEntry } from '../utils';
 import AttachmentPreview from './attachment-preview.component';
 import AttachmentsGridOverview from './attachments-grid-overview.component';
-import AttachmentsTableOverview from './attachments-table-overview.component';
 import styles from './attachments-overview.scss';
+import AttachmentsTableOverview from './attachments-table-overview.component';
 
 interface AttachmentsOverviewProps {
   patientUuid: string;

@@ -1,7 +1,3 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import {
   Button,
   ButtonSet,
@@ -20,18 +16,29 @@ import {
   TextArea,
   TextInput,
 } from '@carbon/react';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm, useWatch } from 'react-hook-form';
 import {
   ExtensionSlot,
+  ResponsiveWrapper,
   showSnackbar,
-  usePatient,
   useConfig,
   useLayoutType,
-  ResponsiveWrapper,
+  usePatient,
   Workspace2,
 } from '@openmrs/esm-framework';
+import {
+  type DefaultPatientWorkspaceProps,
+  type PatientWorkspace2DefinitionProps,
+} from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import type { TFunction } from 'i18next';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+import { type AllergiesConfigObject } from '../../config-schema';
+import { ALLERGEN_TYPES, type Allergy } from '../../types';
+import { useAllergies } from '../allergy-intolerance.resource';
 import {
   type Allergen,
   type NewAllergy,
@@ -40,14 +47,7 @@ import {
   useAllergens,
   useAllergicReactions,
 } from './allergy-form.resource';
-import { useAllergies } from '../allergy-intolerance.resource';
-import { type AllergiesConfigObject } from '../../config-schema';
-import { ALLERGEN_TYPES, type Allergy } from '../../types';
 import styles from './allergy-form.scss';
-import {
-  type DefaultPatientWorkspaceProps,
-  type PatientWorkspace2DefinitionProps,
-} from '@openmrs/esm-patient-common-lib';
 
 interface AllergyFormData {
   allergen: Allergen;

@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { useConceptReferenceRange } from './use-concept-reference-range';
+import { describe, expect, it, vi } from 'vitest';
 import { swrWrapper } from '../test-utils';
+import { useConceptReferenceRange } from './use-concept-reference-range';
 
 const mockOpenmrsFetch = vi.fn();
 vi.mock('@openmrs/esm-api', () => ({

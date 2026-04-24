@@ -1,5 +1,5 @@
 import { OverflowMenuItem } from '@carbon/react';
-import { useVisit, showModal } from '@openmrs/esm-framework';
+import { showModal, useVisit } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 

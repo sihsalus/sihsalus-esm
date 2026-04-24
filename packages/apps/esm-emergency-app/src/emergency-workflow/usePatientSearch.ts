@@ -3,9 +3,9 @@
  * Based on OpenMRS patient search patterns
  */
 
-import { useCallback, useMemo, useState, useEffect } from 'react';
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
 import type { SearchedPatient } from './types';
 
 // Development mode flag - set to true to use hardcoded data without backend

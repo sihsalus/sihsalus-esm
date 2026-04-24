@@ -2,7 +2,9 @@ import {
   Button,
   DataTable,
   type DataTableHeader,
+  DataTableSkeleton,
   Layer,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -15,8 +17,6 @@ import {
   TableToolbarSearch,
   Tag,
   Tile,
-  DataTableSkeleton,
-  Pagination,
 } from '@carbon/react';
 import { Filter, OverflowMenuVertical } from '@carbon/react/icons';
 import {
@@ -83,7 +83,7 @@ const QueuePatientBaseTable: React.FC<QueuePatientTableProps> = ({
         if (typeof filterableValue === 'boolean') {
           return false;
         }
-        if (Object.prototype.hasOwnProperty.call(filterableValue, 'content')) {
+        if (Object.hasOwn(filterableValue, 'content')) {
           if (Array.isArray(filterableValue.content.props.children)) {
             return ('' + filterableValue.content.props.children[1].props.children).toLowerCase().includes(filterTerm);
           }

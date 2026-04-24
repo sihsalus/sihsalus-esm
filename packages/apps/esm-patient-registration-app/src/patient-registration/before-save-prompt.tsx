@@ -1,4 +1,4 @@
-import { showModal, navigate } from '@openmrs/esm-framework';
+import { navigate, showModal } from '@openmrs/esm-framework';
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';

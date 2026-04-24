@@ -1,6 +1,6 @@
 import { InlineLoading } from '@carbon/react';
-import { useConfig, showSnackbar } from '@openmrs/esm-framework';
-import React, { useState, useEffect } from 'react';
+import { showSnackbar, useConfig } from '@openmrs/esm-framework';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Config } from '../config-schema';

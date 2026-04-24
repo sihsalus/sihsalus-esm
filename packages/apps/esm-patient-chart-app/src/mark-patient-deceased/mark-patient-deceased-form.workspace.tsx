@@ -16,12 +16,12 @@ import {
 } from '@carbon/react';
 import { WarningFilled } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ExtensionSlot, useLayoutType, showSnackbar, ResponsiveWrapper, useConfig } from '@openmrs/esm-framework';
-import { EmptyState, type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
+import { ExtensionSlot, ResponsiveWrapper, showSnackbar, useConfig, useLayoutType } from '@openmrs/esm-framework';
+import { type DefaultPatientWorkspaceProps, EmptyState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import fuzzy from 'fuzzy';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 

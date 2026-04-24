@@ -1,6 +1,6 @@
-import React, { act } from 'react';
-import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React, { act } from 'react';
 import PrintReceipt from './print-receipt.component';
 
 describe('PrintReceipt', () => {

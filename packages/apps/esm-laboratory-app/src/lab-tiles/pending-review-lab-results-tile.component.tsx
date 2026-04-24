@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLabOrders } from '../laboratory.resource';
 import LabSummaryTile from '../components/summary-tile/lab-summary-tile.component';
+import { useLabOrders } from '../laboratory.resource';
 
 const PendingReviewLabRequestsTile = () => {
   const { t } = useTranslation();

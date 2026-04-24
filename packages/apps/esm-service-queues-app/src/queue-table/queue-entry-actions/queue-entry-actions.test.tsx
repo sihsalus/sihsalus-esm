@@ -1,9 +1,8 @@
 import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockQueues, mockQueueEntryAlice } from 'test-utils';
 import React from 'react';
-import { renderWithSwr } from 'test-utils';
+import { mockQueueEntryAlice, mockQueues, renderWithSwr } from 'test-utils';
 
 import UndoTransitionQueueEntryModal from './undo-transition-queue-entry.modal';
 import VoidQueueEntryModal from './void-queue-entry.modal';

@@ -3,9 +3,8 @@ import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import capitalize from 'lodash-es/capitalize';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from '../visit-detail-overview.scss';
 import type { OrderItem } from '../visit.resource';
+import styles from '../visit-detail-overview.scss';
 
 interface MedicationSummaryProps {
   medications: Array<OrderItem>;

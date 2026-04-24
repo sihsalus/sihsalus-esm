@@ -28,18 +28,17 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../config-schema';
 import { type DefaultPatientWorkspaceProps } from '../../types';
-
-import styles from './conditions-form.scss';
-import { type ConditionsFormSchema } from './conditions-form.workspace';
 import {
   type CodedCondition,
   type ConditionDataTableRow,
-  type FormFields,
   createCondition,
+  type FormFields,
   updateCondition,
   useConditions,
   useConditionsSearchFromConceptSet,
 } from './conditions.resource';
+import styles from './conditions-form.scss';
+import { type ConditionsFormSchema } from './conditions-form.workspace';
 
 interface ConditionsWidgetProps {
   closeWorkspace?: DefaultPatientWorkspaceProps['closeWorkspace'];

@@ -1,9 +1,8 @@
 import 'fake-indexeddb/auto';
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { clearKeyCache } from './crypto';
 import { auditLogger } from './AuditLogger';
+import { clearKeyCache } from './crypto';
 
 // ---------------------------------------------------------------------------
 // Mocks
@@ -14,6 +13,7 @@ vi.mock('@openmrs/esm-framework', () => ({
 }));
 
 import { openmrsFetch } from '@openmrs/esm-framework';
+
 const mockFetch = vi.mocked(openmrsFetch);
 
 function okResponse(): Promise<{ ok: boolean; status: number }> {

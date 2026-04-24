@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -14,12 +13,13 @@ import {
   TimePicker,
   TimePickerSelect,
 } from '@carbon/react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
 import { OpenmrsDatePicker, showSnackbar } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
 import { useEmergencyConfig, usePriorityConfig } from '../hooks/usePriorityConfig';
-import { transitionEmergencyQueueEntry, type EmergencyQueueEntry } from '../resources/emergency.resource';
+import { type EmergencyQueueEntry, transitionEmergencyQueueEntry } from '../resources/emergency.resource';
 import styles from './transition-queue-entry.modal.scss';
 
 type AmPm = 'AM' | 'PM';

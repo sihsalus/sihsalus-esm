@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import type { Encounter, ColumnDefinition, ConfigConcepts, EncounterTileColumn, MenuCardProps } from '../types';
+import type { ColumnDefinition, ConfigConcepts, Encounter, EncounterTileColumn, MenuCardProps } from '../types';
 
 import { getConceptFromMappings, getObsFromEncounter } from './helpers';
 

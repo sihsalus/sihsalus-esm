@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import AssignStudiesWorkspace from './assign-studies.workspace';
-import * as api from '../../api';
 import { type CloseWorkspaceOptions, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import * as api from '../../api';
+import AssignStudiesWorkspace from './assign-studies.workspace';
 
 jest.mock('@openmrs/esm-framework', () => ({
   useLayoutType: jest.fn(() => 'desktop'),

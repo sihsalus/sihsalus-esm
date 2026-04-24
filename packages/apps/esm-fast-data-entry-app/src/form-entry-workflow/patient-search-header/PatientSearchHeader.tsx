@@ -1,13 +1,13 @@
-import { Add, Close } from '@carbon/react/icons';
-import { ExtensionSlot, interpolateUrl, navigate, useConfig, useSession, showSnackbar } from '@openmrs/esm-framework';
 import { Button } from '@carbon/react';
+import { Add, Close } from '@carbon/react/icons';
+import { ExtensionSlot, interpolateUrl, navigate, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import FormWorkflowContext from '../../context/FormWorkflowContext';
-import styles from './styles.scss';
-import { useTranslation } from 'react-i18next';
 import { useHsuIdIdentifier } from '../../hooks/location-tag.resource';
 import PatientLocationMismatchModal from './PatienMismatchedLocationModal';
+import styles from './styles.scss';
 
 const PatientSearchHeader = () => {
   const [patientLocationMismatchModalOpen, setPatientLocationMismatchModalOpen] = useState(false);

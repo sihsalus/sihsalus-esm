@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
-import type { AppointmentSummary, ObsReferenceRanges, ObservationInterpretation } from '../types';
+import type { AppointmentSummary, ObservationInterpretation, ObsReferenceRanges } from '../types';
 
 export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<Record<string, any>> = []) => {
   const groupedAppointments = appointmentSummary?.map(({ countMap, serviceName }) => ({

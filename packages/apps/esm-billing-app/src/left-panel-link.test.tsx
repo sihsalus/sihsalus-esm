@@ -1,8 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { LinkExtension, createLeftPanelLink } from './left-panel-link.component';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { createLeftPanelLink, LinkExtension } from './left-panel-link.component';
 
 window.getOpenmrsSpaBase = () => '/openmrs/spa/';
 

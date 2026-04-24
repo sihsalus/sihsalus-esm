@@ -6,7 +6,7 @@ import { differenceInMonths, differenceInWeeks } from 'date-fns';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DataSetLabels, GenderCodes, MeasurementTypeCodes, type CategoryCodes } from './data-sets';
+import { type CategoryCodes, DataSetLabels, GenderCodes, MeasurementTypeCodes } from './data-sets';
 import { chartData as rawChartData } from './data-sets/WhoStandardDataSets/ChartData';
 import styles from './growth-chart.scss';
 import { useAppropriateChartData } from './hooks/useAppropriateChartData';

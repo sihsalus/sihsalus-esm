@@ -1,9 +1,14 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockAppointmentsData } from 'test-utils';
 import React from 'react';
-import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import {
+  mockAppointmentsData,
+  mockPatient,
+  patientChartBasePath,
+  renderWithSwr,
+  waitForLoadingToFinish,
+} from 'test-utils';
 
 import { type AppointmentsFetchResponse } from '../types';
 

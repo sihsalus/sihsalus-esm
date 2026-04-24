@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useReducer } from 'react';
 import { useForm } from 'react-hook-form';
-import PageRenderer from '../page/page.renderer.component';
-import FormProcessorFactory from '../../processor-factory/form-processor-factory.component';
-import { formStateReducer, initialState } from './state';
 import { useEvaluateFormFieldExpressions } from '../../../hooks/useEvaluateFormFieldExpressions';
-import { useFormFactory } from '../../../provider/form-factory-provider';
-import { FormProvider, type FormContextProps } from '../../../provider/form-provider';
-import { type FormProcessorContextProps } from '../../../types';
 import { useFormStateHelpers } from '../../../hooks/useFormStateHelpers';
-import { pageObserver } from '../../sidebar/page-observer';
+import { useFormFactory } from '../../../provider/form-factory-provider';
+import { type FormContextProps, FormProvider, type FormValues } from '../../../provider/form-provider';
+import { type FormProcessorContextProps } from '../../../types';
 import { isPageContentVisible } from '../../../utils/form-helper';
-import { type FormValues } from '../../../provider/form-provider';
+import FormProcessorFactory from '../../processor-factory/form-processor-factory.component';
+import { pageObserver } from '../../sidebar/page-observer';
+import PageRenderer from '../page/page.renderer.component';
+import { formStateReducer, initialState } from './state';
 
 export type FormRendererProps = {
   processorContext: FormProcessorContextProps;

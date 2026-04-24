@@ -1,4 +1,4 @@
-import { omrsOfflineCachingStrategyHttpHeaderName, type OmrsOfflineHttpHeaders } from '@openmrs/esm-framework';
+import { type OmrsOfflineHttpHeaders, omrsOfflineCachingStrategyHttpHeaderName } from '@openmrs/esm-framework';
 
 export const personRelationshipRepresentation =
   'custom:(display,uuid,' +

@@ -1,8 +1,8 @@
-import { openmrsFetch, restBaseUrl, useConfig, getLocale } from '@openmrs/esm-framework';
-import useSWR from 'swr';
-import useSWRImmutable from 'swr/immutable';
+import { getLocale, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
+import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import { type Config } from '../config-schema';
 import { omrsDateFormat } from '../constants';
 import { useServiceQueuesLocationAndName } from '../utils/service-queues-integration';

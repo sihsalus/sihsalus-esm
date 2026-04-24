@@ -1,5 +1,3 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
 import {
   getPatientName,
   PatientBannerActionsMenu,
@@ -8,6 +6,8 @@ import {
   PatientBannerToggleContactDetailsButton,
   PatientPhoto,
 } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './patient-banner.scss';
 
 interface PatientBannerProps {

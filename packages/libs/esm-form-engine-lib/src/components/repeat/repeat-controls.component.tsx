@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { type FormField } from '../../types';
 import { disableRepeatAddButton } from './helpers';
 import styles from './repeat-controls.scss';
+
 interface RepeatingControlsProps {
   rows: FormField[];
   question: FormField;

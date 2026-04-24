@@ -2,9 +2,8 @@ import { Button } from '@carbon/react';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { type AppProps } from 'single-spa';
-
-import DevToolsPopup from './devtools-popup.component';
 import styles from './devtools.styles.scss';
+import DevToolsPopup from './devtools-popup.component';
 import { importMapOverridden } from './import-map.component';
 
 const showDevTools = () => globalThis.spaEnv === 'development' || Boolean(localStorage.getItem('openmrs:devtools'));

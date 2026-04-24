@@ -1,4 +1,4 @@
-import { Tile, Tag, InlineLoading, type TagProps } from '@carbon/react';
+import { InlineLoading, Tag, type TagProps, Tile } from '@carbon/react';
 import { ErrorState, useConfig } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -34,16 +34,16 @@ import {
   TrashCanIcon,
   useLayoutType,
   usePagination,
-  useSession,
   userHasAccess,
+  useSession,
 } from '@openmrs/esm-framework';
 import {
-  type HtmlFormEntryForm,
   EmptyState,
-  PatientChartPagination,
+  type HtmlFormEntryForm,
   launchFormEntryOrHtmlForms,
+  PatientChartPagination,
 } from '@openmrs/esm-patient-common-lib';
-import React, { type ComponentProps, useMemo, useState, useEffect, useCallback } from 'react';
+import React, { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import EncounterObservations from '../../encounter-observations';

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, TextInput } from '@carbon/react';
 import { Close, Save } from '@carbon/react/icons';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './value-editor.scss';
 
 interface ValueEditorProps {

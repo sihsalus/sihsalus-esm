@@ -1,5 +1,5 @@
-import { type ObsRecord, type OBSERVATION_INTERPRETATION, type PatientData } from '@openmrs/esm-patient-common-lib';
-import { useState, useEffect } from 'react';
+import { type OBSERVATION_INTERPRETATION, type ObsRecord, type PatientData } from '@openmrs/esm-patient-common-lib';
+import { useEffect, useState } from 'react';
 
 import usePatientResultsData from '../loadPatientTestData/usePatientResultsData';
 

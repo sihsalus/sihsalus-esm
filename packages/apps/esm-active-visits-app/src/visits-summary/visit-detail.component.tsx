@@ -5,9 +5,8 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type Encounter } from '../types';
-
-import styles from './visit-detail-overview.scss';
 import { useVisit } from './visit.resource';
+import styles from './visit-detail-overview.scss';
 import EncounterList from './visits-components/encounter-list.component';
 import VisitSummary from './visits-components/visit-summary.component';
 

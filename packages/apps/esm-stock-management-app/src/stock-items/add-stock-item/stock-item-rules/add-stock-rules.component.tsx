@@ -1,6 +1,3 @@
-import React, { type ChangeEvent, useCallback, useEffect, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -13,12 +10,15 @@ import {
   TextInput,
 } from '@carbon/react';
 import { type DefaultWorkspaceProps, getCoreTranslation, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
-import { createOrUpdateStockRule } from './stock-rules.resource';
+import classNames from 'classnames';
+import React, { type ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ResourceRepresentation } from '../../../core/api/api';
-import { type StockItemInventoryFilter, useStockItemPackagingUOMs } from '../../stock-items.resource';
 import { type StockRule } from '../../../core/api/types/stockItem/StockRule';
 import { useRoles, useStockTagLocations } from '../../../stock-lookups/stock-lookups.resource';
+import { type StockItemInventoryFilter, useStockItemPackagingUOMs } from '../../stock-items.resource';
 import styles from './add-stock-rules.scss';
+import { createOrUpdateStockRule } from './stock-rules.resource';
 
 interface AddStockRuleProps extends Partial<DefaultWorkspaceProps> {
   model?: StockRule;

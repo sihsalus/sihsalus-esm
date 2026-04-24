@@ -1,5 +1,5 @@
 import { Location, UserFollow } from '@carbon/react/icons';
-import { useSession, PageHeader } from '@openmrs/esm-framework';
+import { PageHeader, useSession } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

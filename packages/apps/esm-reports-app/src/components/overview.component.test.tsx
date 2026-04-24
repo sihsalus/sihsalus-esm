@@ -1,6 +1,6 @@
-import React from 'react';
 import { useConfig, useSession } from '@openmrs/esm-framework';
 import { screen, waitFor } from '@testing-library/react';
+import React from 'react';
 import { mockSession, renderWithSwr } from 'test-utils';
 
 import OverviewComponent from './overview.component';

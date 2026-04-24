@@ -1,4 +1,4 @@
-import { DataTableSkeleton, Tag, Button, ProgressBar } from '@carbon/react';
+import { Button, DataTableSkeleton, ProgressBar, Tag } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';

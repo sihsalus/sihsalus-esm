@@ -12,7 +12,7 @@
  * Color: taken from the finding's applied color.
  */
 
-import type { ToothFinding, ToothAnnotation, FindingOptionConfig } from '../types/odontogram';
+import type { FindingOptionConfig, ToothAnnotation, ToothFinding } from '../types/odontogram';
 
 /**
  * Recompute annotations for a tooth given its current findings array

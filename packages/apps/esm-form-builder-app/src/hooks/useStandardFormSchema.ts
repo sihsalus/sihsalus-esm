@@ -1,5 +1,5 @@
-import useSWRImmutable from 'swr/immutable';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import useSWRImmutable from 'swr/immutable';
 
 interface StandardFormSchemaResponse {
   data?: {

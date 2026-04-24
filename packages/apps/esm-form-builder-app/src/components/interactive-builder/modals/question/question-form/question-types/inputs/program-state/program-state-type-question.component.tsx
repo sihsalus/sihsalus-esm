@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { SelectSkeleton, Stack, ComboBox, InlineNotification, MultiSelect, Tag, FormLabel } from '@carbon/react';
+import { ComboBox, FormLabel, InlineNotification, MultiSelect, SelectSkeleton, Stack, Tag } from '@carbon/react';
 import { usePrograms, useProgramWorkStates } from '@hooks/useProgramStates';
-import { useFormField } from '../../../../form-field-context';
-import type { ProgramWorkflow, Program } from '@types';
 import type { ProgramState } from '@sihsalus/esm-form-engine-lib';
+import type { Program, ProgramWorkflow } from '@types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormField } from '../../../../form-field-context';
 import styles from './program-state-type-question.scss';
 
 interface ProgramStateData {

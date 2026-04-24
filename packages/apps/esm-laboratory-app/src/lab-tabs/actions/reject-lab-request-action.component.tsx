@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
 import { Button } from '@carbon/react';
+import { type Order, showModal } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showModal, type Order } from '@openmrs/esm-framework';
 import styles from './actions.scss';
 
 interface RejectLabRequestActionProps {

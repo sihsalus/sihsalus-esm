@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './dyaku-patient-sync-button.scss';
-import { useDyakuSync, type DyakuPatient, type SyncResult } from './dyaku-patients.resource';
+import { type DyakuPatient, type SyncResult, useDyakuSync } from './dyaku-patients.resource';
 
 interface DyakuPatientSyncButtonProps {
   patient: DyakuPatient;

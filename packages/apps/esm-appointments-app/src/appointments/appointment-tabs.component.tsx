@@ -1,4 +1,4 @@
-import { Tab, TabList, Tabs, TabPanel, TabPanels } from '@carbon/react';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

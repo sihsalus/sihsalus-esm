@@ -1,12 +1,12 @@
 import {
   ExtensionSlot,
-  WorkspaceContainer,
   launchWorkspaceGroup2,
   setCurrentVisit,
   setLeftNav,
   unsetLeftNav,
   usePatient,
   useWorkspaces,
+  WorkspaceContainer,
 } from '@openmrs/esm-framework';
 import { getPatientChartStore, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';

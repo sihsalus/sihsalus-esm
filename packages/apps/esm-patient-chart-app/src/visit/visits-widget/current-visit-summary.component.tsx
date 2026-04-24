@@ -1,11 +1,12 @@
 import { InlineLoading } from '@carbon/react';
 import { ErrorState, useVisit } from '@openmrs/esm-framework';
-import { launchPatientWorkspace, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './current-visit-summary.scss';
 import VisitSummary from './past-visits-components/visit-summary.component';
+
 interface CurrentVisitSummaryProps {
   patientUuid: string;
 }

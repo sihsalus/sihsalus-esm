@@ -1,27 +1,27 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useForm, Controller } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, ButtonSet, Dropdown, Form, InlineNotification, NumberInput, TextArea, TextInput } from '@carbon/react';
-import { showSnackbar, useConfig, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type DefaultWorkspaceProps, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
-import { useEmergencyConfig, usePriorityConfig } from '../hooks/usePriorityConfig';
+import type { Config } from '../config-schema';
+import PrioritySelector from '../emergency-workflow/components/priority-selector.component';
 import { useConceptReferenceRanges } from '../hooks/useConceptReferenceRanges';
+import { useEmergencyConfig, usePriorityConfig } from '../hooks/usePriorityConfig';
 import {
   createTriageEncounter,
-  transitionToAttentionQueue,
   type EmergencyQueueEntry,
+  transitionToAttentionQueue,
 } from '../resources/emergency.resource';
-import PrioritySelector from '../emergency-workflow/components/priority-selector.component';
-import type { Config } from '../config-schema';
 import {
-  triageFormSchema,
-  validateVitalsAgainstRanges,
   type TriageFormData,
+  triageFormSchema,
   type VitalFieldName,
+  validateVitalsAgainstRanges,
 } from './triage-form.validation';
-import VitalInput from './vital-input.component';
 import styles from './triage-form.workspace.scss';
+import VitalInput from './vital-input.component';
 
 interface TriageFormWorkspaceProps extends DefaultWorkspaceProps {
   queueEntry: EmergencyQueueEntry;

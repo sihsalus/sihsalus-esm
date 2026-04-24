@@ -5,7 +5,7 @@
  * with all findings for that tooth, allowing viewing details and removing findings.
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
 import ToothInfoModal from './ToothInfoModal';
 import './ToothInfoModal.css';

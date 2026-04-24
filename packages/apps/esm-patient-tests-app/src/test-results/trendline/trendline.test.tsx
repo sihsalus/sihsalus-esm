@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-
-import { useObstreeData } from './trendline-resource';
 import Trendline from './trendline.component';
+import { useObstreeData } from './trendline-resource';
 
 const mockUseObstreeData = jest.mocked(useObstreeData);
 

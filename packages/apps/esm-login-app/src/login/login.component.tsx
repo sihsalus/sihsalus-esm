@@ -2,13 +2,13 @@ import { Button, InlineLoading, InlineNotification, PasswordInput, TextInput, Ti
 import {
   ArrowRightIcon,
   getCoreTranslation,
-  refetchCurrentUser,
   navigate as openmrsNavigate,
+  refetchCurrentUser,
   useConfig,
   useConnectivity,
   useSession,
 } from '@openmrs/esm-framework';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 

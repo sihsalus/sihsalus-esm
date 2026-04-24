@@ -2,7 +2,10 @@ import {
   Button,
   DataTable,
   type DataTableHeader,
+  DataTableSkeleton,
+  Dropdown,
   Layer,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -15,19 +18,16 @@ import {
   TableToolbarSearch,
   Tag,
   Tile,
-  DataTableSkeleton,
-  Dropdown,
-  Pagination,
 } from '@carbon/react';
 import { Filter, OverflowMenuVertical } from '@carbon/react/icons';
 import {
+  ConfigurableLink,
   ExtensionSlot,
+  formatDate,
   formatDatetime,
+  launchWorkspace,
   useConfig,
   usePagination,
-  ConfigurableLink,
-  formatDate,
-  launchWorkspace,
 } from '@openmrs/esm-framework';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,9 +35,8 @@ import { useTranslation } from 'react-i18next';
 import { type ConfigObject } from '../config-schema';
 import { getGender } from '../helpers/functions';
 import { updateSelectedAppointmentStatus, useSelectedAppointmentStatus } from '../helpers/helpers';
-
-import styles from './queue-linelist-base-table.scss';
 import { useAppointments } from './queue-linelist.resource';
+import styles from './queue-linelist-base-table.scss';
 
 /**
  * FIXME Temporarily moved here
@@ -74,7 +73,7 @@ const AppointmentsTable: React.FC = () => {
         if (typeof filterableValue === 'boolean') {
           return false;
         }
-        if (Object.prototype.hasOwnProperty.call(filterableValue, 'content')) {
+        if (Object.hasOwn(filterableValue, 'content')) {
           if (Array.isArray(filterableValue.content.props.children)) {
             return ('' + filterableValue.content.props.children[1].props.children).toLowerCase().includes(filterTerm);
           }

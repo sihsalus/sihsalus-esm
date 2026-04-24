@@ -2,7 +2,7 @@ import { Tag, type TagProps } from '@carbon/react';
 import React from 'react';
 
 import { type ConfigConcepts, type Encounter } from '../types';
-import { getObsFromEncounter, findObs } from '../utils/helpers';
+import { findObs, getObsFromEncounter } from '../utils/helpers';
 
 const getTagText = (value: unknown) => {
   if (typeof value === 'string') {

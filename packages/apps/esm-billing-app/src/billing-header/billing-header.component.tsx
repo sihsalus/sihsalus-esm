@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import dayjs from 'dayjs';
-import { DatePickerInput, DatePicker } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { DatePicker, DatePickerInput } from '@carbon/react';
 import { Location, UserFollow } from '@carbon/react/icons';
-import { useSession, PageHeader, PageHeaderContent, PaymentsDeskPictogram } from '@openmrs/esm-framework';
+import { PageHeader, PageHeaderContent, PaymentsDeskPictogram, useSession } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { omrsDateFormat } from '../constants';
 import SelectedDateContext from '../hooks/selectedDateContext';
 import styles from './billing-header.scss';

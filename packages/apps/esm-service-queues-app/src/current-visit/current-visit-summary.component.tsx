@@ -1,4 +1,4 @@
-import { Tag, DataTableSkeleton } from '@carbon/react';
+import { DataTableSkeleton, Tag } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

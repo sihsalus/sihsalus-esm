@@ -1,10 +1,9 @@
 import { Button } from '@carbon/react';
 import { Help } from '@carbon/react/icons';
 import { useAssignedExtensions, useSession } from '@openmrs/esm-framework';
-import React, { useState, useEffect, useRef } from 'react';
-
-import HelpMenuPopup from './help-popup.component';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './help.styles.scss';
+import HelpMenuPopup from './help-popup.component';
 
 export default function HelpMenu() {
   const { user } = useSession();

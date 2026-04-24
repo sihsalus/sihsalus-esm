@@ -7,9 +7,9 @@
  */
 
 import React from 'react';
-import { useOdontogramContext } from '../../providers/OdontogramProvider';
 import { getSpacingDesignComponentByPosition } from '../../config/designMapping';
 import { isRowFinding } from '../../logic/findingDesignLogic';
+import { useOdontogramContext } from '../../providers/OdontogramProvider';
 import './SpaceBetweenStyles.css';
 
 // Findings that should NOT show gray highlighting in spacing cells

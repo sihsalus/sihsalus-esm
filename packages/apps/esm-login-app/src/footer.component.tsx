@@ -1,5 +1,5 @@
 import { Link, Tile } from '@carbon/react';
-import { useConfig, ArrowRightIcon } from '@openmrs/esm-framework';
+import { ArrowRightIcon, useConfig } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 

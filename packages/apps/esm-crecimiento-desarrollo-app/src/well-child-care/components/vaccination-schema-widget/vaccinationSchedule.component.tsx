@@ -2,21 +2,21 @@ import {
   Button,
   DataTable,
   DataTableSkeleton,
-  TableContainer,
+  InlineLoading,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
   Tag,
   type TagProps,
-  InlineLoading,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace2, showSnackbar, useConfig, usePatient } from '@openmrs/esm-framework';
-import { ErrorState, CardHeader } from '@openmrs/esm-patient-common-lib';
-import React, { useMemo, useCallback } from 'react';
+import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type ConfigObject } from '../../../config-schema';

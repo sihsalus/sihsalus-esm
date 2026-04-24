@@ -1,9 +1,9 @@
 import { dirname } from 'node:path';
 
 import {
-  rspack,
   type Configuration as RspackConfiguration,
   type DevServer as RspackDevServerConfiguration,
+  rspack,
 } from '@rspack/core';
 import { RspackDevServer } from '@rspack/dev-server';
 

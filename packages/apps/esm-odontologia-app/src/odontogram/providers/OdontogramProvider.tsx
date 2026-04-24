@@ -13,36 +13,36 @@
  * vive dentro del Provider y NO se persiste.
  */
 
-import React, { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from 'react';
-import type {
-  OdontogramData,
-  OdontogramConfig,
-  FindingColor,
-  FindingSuboption,
-  FindingDesign,
-  SpaceData,
-  ToothFinding,
-  SpaceFinding,
-  LegendSpaceData,
-  ToothConfig,
-  FindingOptionConfig,
-  ToothPosition,
-} from '../types/odontogram';
-import type { OdontogramContextValue, FormSelectionState } from '../types/context';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  calculateLegendDesign,
+  getFixedDesignNumber,
+  getPositionBasedDesign,
+  isMultiDesignFinding,
+  isRowFinding,
+  recalculateLegendDesigns,
   recalculateSpacingDesigns,
   recalculateToothDesigns,
   recalculateToothDesignsFromLegendSpaces,
-  getFixedDesignNumber,
   usesAdjacencyLogic,
-  usesToothAdjacencyLogic,
   usesPositionLogic,
-  isRowFinding,
-  isMultiDesignFinding,
-  getPositionBasedDesign,
-  calculateLegendDesign,
-  recalculateLegendDesigns,
+  usesToothAdjacencyLogic,
 } from '../logic/findingDesignLogic';
+import type { FormSelectionState, OdontogramContextValue } from '../types/context';
+import type {
+  FindingColor,
+  FindingDesign,
+  FindingOptionConfig,
+  FindingSuboption,
+  LegendSpaceData,
+  OdontogramConfig,
+  OdontogramData,
+  SpaceData,
+  SpaceFinding,
+  ToothConfig,
+  ToothFinding,
+  ToothPosition,
+} from '../types/odontogram';
 import { computeToothAnnotations } from '../utils/computeToothAnnotations';
 
 // =============================================================================

@@ -1,10 +1,10 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
 
-import { type RegistrationConfig, esmPatientRegistrationSchema } from '../../../config-schema';
+import { esmPatientRegistrationSchema, type RegistrationConfig } from '../../../config-schema';
 
 import { GenderField } from './gender-field.component';
 

@@ -2,8 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import dayjs from 'dayjs';
 import { type Concept } from '../../types';
-import { getConcepts } from './search-concept/search-concept.resource';
 import SearchByConcepts from './search-by-concepts.component';
+import { getConcepts } from './search-concept/search-concept.resource';
 
 const mockGetConcepts = jest.mocked(getConcepts);
 

@@ -1,5 +1,5 @@
-import { ResourceRepresentation } from '../../../core/api/api';
 import { useEffect, useState } from 'react';
+import { ResourceRepresentation } from '../../../core/api/api';
 import { type StockItemInventoryFilter, useStockItemInventory } from '../../stock-items.resource';
 
 export function useStockItemQuantitiesHook(v?: ResourceRepresentation) {

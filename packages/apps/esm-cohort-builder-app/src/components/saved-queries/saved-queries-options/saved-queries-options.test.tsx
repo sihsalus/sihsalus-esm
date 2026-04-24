@@ -1,6 +1,6 @@
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { showModal } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type DefinitionDataRow } from '../../../types';
 import SavedQueriesOptions from './saved-queries-options.component';
 

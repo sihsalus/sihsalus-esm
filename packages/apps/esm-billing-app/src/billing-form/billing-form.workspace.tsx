@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -11,17 +9,19 @@ import {
   NumberInput,
 } from '@carbon/react';
 import {
+  getCoreTranslation,
+  showSnackbar,
+  TrashCanIcon,
   useConfig,
   useLayoutType,
-  showSnackbar,
-  getCoreTranslation,
-  TrashCanIcon,
-  type Workspace2DefinitionProps,
   Workspace2,
+  type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { processBillItems, useBillableServices } from '../billing.resource';
-import { calculateTotalAmount, convertToCurrency } from '../helpers/functions';
 import type { BillingConfig } from '../config-schema';
+import { calculateTotalAmount, convertToCurrency } from '../helpers/functions';
 import type { BillableItem, LineItem, ServicePrice } from '../types';
 import styles from './billing-form.scss';
 

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { resolve, dirname, basename } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import { Readable } from 'node:stream';
 
 import axios from 'axios';

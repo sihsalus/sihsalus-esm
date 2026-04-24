@@ -1,11 +1,11 @@
+import { Toggle as ToggleInput } from '@carbon/react';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Toggle as ToggleInput } from '@carbon/react';
+import { useFormProviderContext } from '../../../provider/form-provider';
 import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { isTrue } from '../../../utils/boolean-utils';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
 import { isEmpty } from '../../../validators/form-validator';
-import { useFormProviderContext } from '../../../provider/form-provider';
 import FieldValueView from '../../value/view/field-value-view.component';
 import styles from './toggle.scss';
 

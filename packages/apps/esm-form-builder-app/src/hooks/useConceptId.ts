@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import type { Concept } from '@types';
+import useSWR from 'swr';
 
 interface UseConceptNameReturnType {
   concept: Concept | null;

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import { ConfigurableLink, MaybeIcon } from '@openmrs/esm-framework/src/internal';
 import classNames from 'classnames';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, useLocation } from 'react-router-dom';
-import { ConfigurableLink, MaybeIcon } from '@openmrs/esm-framework/src/internal';
 import { type IconId } from '../icons';
 import styles from './dashboard.module.scss';
 

@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 import { type FieldDefinition, type RegistrationConfig } from '../../../config-schema';
 import { Input } from '../../input/basic-input/input/input.component';
-import { PatientRegistrationContext } from '../../patient-registration-context';
 import { type ConceptResponse } from '../../patient-registration.types';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 import { useConcept, useConceptAnswers } from '../field.resource';
 
 import styles from './../field.scss';

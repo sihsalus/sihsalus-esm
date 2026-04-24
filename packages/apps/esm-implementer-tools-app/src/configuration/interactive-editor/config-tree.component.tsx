@@ -4,9 +4,8 @@ import React from 'react';
 import { useStore } from 'zustand';
 
 import { implementerToolsStore } from '../../store';
-
-import { ConfigTreeForModule } from './config-tree-for-module.component';
 import styles from './config-tree.styles.scss';
+import { ConfigTreeForModule } from './config-tree-for-module.component';
 
 export interface ConfigTreeProps {
   config: Record<string, any>;

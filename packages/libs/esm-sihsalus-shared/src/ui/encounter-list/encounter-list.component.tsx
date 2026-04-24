@@ -1,4 +1,4 @@
-import { Link, OverflowMenu, OverflowMenuItem, Pagination, DataTableSkeleton, Layer } from '@carbon/react';
+import { DataTableSkeleton, Layer, Link, OverflowMenu, OverflowMenuItem, Pagination } from '@carbon/react';
 import { ErrorState, isDesktop, navigate, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';

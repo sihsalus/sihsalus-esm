@@ -1,4 +1,4 @@
-import { TextInput, Select, SelectItem } from '@carbon/react';
+import { Select, SelectItem, TextInput } from '@carbon/react';
 import { OpenmrsDatePicker } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

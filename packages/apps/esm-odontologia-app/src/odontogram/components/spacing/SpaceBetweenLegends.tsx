@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { useOdontogramContext } from '../../providers/OdontogramProvider';
 import { EllipseDesignCenter, EllipseDesignLeftCenter, EllipseDesignRightCenter } from '../../designs/figuras';
+import { useOdontogramContext } from '../../providers/OdontogramProvider';
 import './SpaceBetweenStyles.css';
 
 interface SpaceBetweenLegendsProps {

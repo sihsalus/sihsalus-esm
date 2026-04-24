@@ -2,9 +2,8 @@ import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from './patient-appointments-cancel.scss';
 import { changeAppointmentStatus, usePatientAppointments } from './patient-appointments.resource';
+import styles from './patient-appointments-cancel.scss';
 
 interface PatientCancelAppointmentModalProps {
   closeCancelModal: () => void;

@@ -2,7 +2,7 @@ import { getDefaultsFromConfigSchema, isDesktop, useConfig } from '@openmrs/esm-
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { type PatientSearchConfig, configSchema } from '../config-schema';
+import { configSchema, type PatientSearchConfig } from '../config-schema';
 
 import PatientSearchLaunch from './patient-search-icon.component';
 

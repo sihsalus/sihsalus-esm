@@ -1,7 +1,8 @@
 /** @category Pictograms */
-import React, { forwardRef, memo, useEffect, useRef } from 'react';
-import classNames, { type Argument } from 'classnames';
+
 import { RenderIfValueIsTruthy } from '@openmrs/esm-framework/src/internal';
+import classNames, { type Argument } from 'classnames';
+import React, { forwardRef, memo, useEffect, useRef } from 'react';
 import style from './pictograms.module.scss';
 
 /** Array of all available OpenMRS pictogram IDs that can be used with the Pictogram component. */

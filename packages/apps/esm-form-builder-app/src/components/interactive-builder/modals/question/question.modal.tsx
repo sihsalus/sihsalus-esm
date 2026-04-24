@@ -1,22 +1,22 @@
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import flattenDeep from 'lodash-es/flattenDeep';
 import {
-  ModalHeader,
-  Form,
-  ModalBody,
-  FormGroup,
-  Button,
-  Stack,
-  ModalFooter,
   Accordion,
   AccordionItem,
+  Button,
+  Form,
+  FormGroup,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Stack,
 } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import Question from './question-form/question/question.component';
-import { FormFieldProvider, useFormField } from './form-field-context';
 import type { FormField, FormSchema } from '@sihsalus/esm-form-engine-lib';
+import flattenDeep from 'lodash-es/flattenDeep';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { FormFieldProvider, useFormField } from './form-field-context';
 import styles from './question.scss';
+import Question from './question-form/question/question.component';
 
 interface QuestionModalProps {
   schema: FormSchema;

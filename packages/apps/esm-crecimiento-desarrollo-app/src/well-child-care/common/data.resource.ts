@@ -1,5 +1,5 @@
-import { fhirBaseUrl, restBaseUrl, openmrsFetch, useConfig } from '@openmrs/esm-framework';
-import type { FHIRResource, FetchResponse } from '@openmrs/esm-framework';
+import type { FetchResponse, FHIRResource } from '@openmrs/esm-framework';
+import { fhirBaseUrl, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import type { ObsRecord } from '@openmrs/esm-patient-common-lib';
 import { useCallback, useEffect, useMemo } from 'react';
 import type { KeyedMutator } from 'swr';

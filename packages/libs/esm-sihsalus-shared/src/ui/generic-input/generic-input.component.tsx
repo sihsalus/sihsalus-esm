@@ -1,6 +1,6 @@
 import { FormLabel, NumberInput, TextArea } from '@carbon/react';
 import { Warning } from '@carbon/react/icons';
-import { useLayoutType, ResponsiveWrapper } from '@openmrs/esm-framework';
+import { ResponsiveWrapper, useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React, { Fragment, useId, useState } from 'react';
 import type { Control, Path } from 'react-hook-form';

@@ -5,12 +5,12 @@ import { useMemo } from 'react';
 
 import type { ConfigObject } from '../config-schema';
 import {
+  type AgeGroup,
   calculateAgeInDays,
   calculateAgeInMonths,
   getAgeGroup,
   getAgeGroupFromBirthDate,
   getAgeGroupInDays,
-  type AgeGroup,
 } from '../utils/age-group-utils';
 
 /**

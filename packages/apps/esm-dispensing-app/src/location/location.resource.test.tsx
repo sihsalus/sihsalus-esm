@@ -1,8 +1,8 @@
-import useSWR from 'swr';
-import { renderHook } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { useLocations } from './location.resource';
+import { renderHook } from '@testing-library/react';
+import useSWR from 'swr';
 import { type PharmacyConfig } from '../config-schema';
+import { useLocations } from './location.resource';
 
 jest.mocked(openmrsFetch);
 jest.mock('swr');
@@ -64,7 +64,6 @@ describe('Location Resource tests', () => {
     );
   });
   test('useLoginLocations should parse into Login Locations Array', () => {
-    // @ts-expect-error
     const queryResultsBundle = {
       results: [
         {

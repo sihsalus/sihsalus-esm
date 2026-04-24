@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -23,13 +22,14 @@ import {
   Tile,
 } from '@carbon/react';
 import { ExtensionSlot, formatDate, parseDate, showModal, useConfig, usePagination } from '@openmrs/esm-framework';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type FulfillerStatus, type FlattenedOrder, type Order } from '../../types';
 import { type Config } from '../../config-schema';
 import { useLabOrders } from '../../laboratory.resource';
-import { OrdersDateRangePicker } from './orders-date-range-picker.component';
+import { type FlattenedOrder, type FulfillerStatus, type Order } from '../../types';
 import ListOrderDetails from './list-order-details.component';
 import styles from './orders-data-table.scss';
+import { OrdersDateRangePicker } from './orders-date-range-picker.component';
 
 const labTableColumnSpec = {
   name: {

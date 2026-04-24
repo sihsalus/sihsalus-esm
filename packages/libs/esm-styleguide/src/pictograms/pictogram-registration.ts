@@ -1,4 +1,5 @@
 import { addSvg } from '../svg-utils';
+import { type PictogramId } from './pictograms';
 import appointments from './svgs/appointments.svg';
 import assessment1 from './svgs/assessment-1.svg';
 import assessment2 from './svgs/assessment-2.svg';
@@ -25,7 +26,6 @@ import serviceQueues from './svgs/service-queues.svg';
 import transfer from './svgs/transfer.svg';
 import triage from './svgs/triage.svg';
 import xray from './svgs/x-ray.svg';
-import { type PictogramId } from './pictograms';
 
 export function setupPictograms() {
   addPictogramSvg('omrs-pict-appointments', appointments);

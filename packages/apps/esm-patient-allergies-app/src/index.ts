@@ -7,11 +7,11 @@ import {
   restBaseUrl,
 } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
+import allergiesDetailedSummaryComponent from './allergies/allergies-detailed-summary.component';
+import allergiesListExtension from './allergies/allergies-list.extension';
+import allergiesTileExtension from './allergies/allergies-tile.extension';
 import { configSchema } from './config-schema';
 import { dashboardMeta } from './dashboard.meta';
-import allergiesDetailedSummaryComponent from './allergies/allergies-detailed-summary.component';
-import allergiesTileExtension from './allergies/allergies-tile.extension';
-import allergiesListExtension from './allergies/allergies-list.extension';
 
 const moduleName = '@sihsalus/esm-patient-allergies-app';
 

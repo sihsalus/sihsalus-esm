@@ -1,8 +1,8 @@
+import { InlineLoading, Tile } from '@carbon/react';
+import { FormEngine, type FormSchema } from '@sihsalus/esm-form-engine-lib';
 import React, { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
-import { InlineLoading, Tile } from '@carbon/react';
-import { type FormSchema, FormEngine } from '@sihsalus/esm-form-engine-lib';
 import styles from './form-renderer.scss';
 
 interface ErrorFallbackProps {

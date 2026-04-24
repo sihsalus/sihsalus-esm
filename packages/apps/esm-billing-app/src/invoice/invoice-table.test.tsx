@@ -1,9 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, showModal, useConfig } from '@openmrs/esm-framework';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { type BillingConfig, configSchema } from '../config-schema';
 import { type MappedBill } from '../types';
-import { configSchema, type BillingConfig } from '../config-schema';
 import InvoiceTable from './invoice-table.component';
 
 const mockUseConfig = jest.mocked(useConfig<BillingConfig>);

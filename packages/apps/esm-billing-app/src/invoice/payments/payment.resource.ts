@@ -1,5 +1,5 @@
+import { openmrsFetch, restBaseUrl, type Visit } from '@openmrs/esm-framework';
 import useSWR from 'swr';
-import { type Visit, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { apiBasePath } from '../../constants';
 
 type PaymentMethod = {

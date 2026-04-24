@@ -1,7 +1,7 @@
 import {
   type FetchResponse,
-  type OpenmrsResource,
   getSynchronizationItems,
+  type OpenmrsResource,
   openmrsFetch,
   restBaseUrl,
   useConfig,
@@ -15,14 +15,6 @@ import { v4 } from 'uuid';
 
 import { type RegistrationConfig } from '../config-schema';
 import { patientRegistration } from '../constants';
-
-import {
-  getAddressFieldValuesFromFhirPatient,
-  getFormValuesFromFhirPatient,
-  getPatientUuidMapFromFhirPatient,
-  getPhonePersonAttributeValueFromFhirPatient,
-  latestFirstEncounter,
-} from './patient-registration-utils';
 import {
   type Encounter,
   type FormValues,
@@ -31,6 +23,13 @@ import {
   type PatientUuidMapType,
   type PersonAttributeResponse,
 } from './patient-registration.types';
+import {
+  getAddressFieldValuesFromFhirPatient,
+  getFormValuesFromFhirPatient,
+  getPatientUuidMapFromFhirPatient,
+  getPhonePersonAttributeValueFromFhirPatient,
+  latestFirstEncounter,
+} from './patient-registration-utils';
 import { useInitialPatientRelationships } from './section/patient-relationships/relationships.resource';
 
 interface DeathInfoResults {

@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
 import { InlineLoading } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { ErrorState, getCoreTranslation } from '@openmrs/esm-framework';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBills } from '../billing.resource';
-import { useBillMetrics } from './metrics.resource';
 import Card from './card.component';
+import { useBillMetrics } from './metrics.resource';
 import styles from './metrics-cards.scss';
 
 export default function MetricsCards() {

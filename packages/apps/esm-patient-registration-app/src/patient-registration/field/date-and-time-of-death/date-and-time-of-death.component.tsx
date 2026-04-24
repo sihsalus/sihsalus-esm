@@ -5,9 +5,8 @@ import dayjs from 'dayjs';
 import { useField } from 'formik';
 import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { PatientRegistrationContext } from '../../patient-registration-context';
 import type { FormValues } from '../../patient-registration.types';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 import styles from '../field.scss';
 
 export const DateAndTimeOfDeathField: React.FC = () => {

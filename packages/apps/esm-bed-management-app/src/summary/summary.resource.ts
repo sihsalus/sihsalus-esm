@@ -6,12 +6,12 @@ import { type BedManagementConfig } from '../config-schema';
 import type {
   AdmissionLocation,
   Bed,
-  BedWithLocation,
   BedFetchResponse,
   BedTagData,
   BedTagPayload,
   BedType,
   BedTypePayload,
+  BedWithLocation,
   LocationFetchResponse,
   MappedBedData,
 } from '../types';

@@ -1,8 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import useSWR from 'swr';
-
-import { usePatientAppointments } from './patient-appointments.resource';
 import { useAppointments } from '../form/appointments-form.resource';
+import { usePatientAppointments } from './patient-appointments.resource';
 
 jest.mock('@openmrs/esm-framework', () => ({
   openmrsFetch: jest.fn(),

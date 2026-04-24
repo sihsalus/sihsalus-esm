@@ -1,8 +1,8 @@
 import { showSnackbar, useSession } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { emrConfigurationMock, mockPatient, mockSession } from 'test-utils';
 import React from 'react';
+import { emrConfigurationMock, mockPatient, mockSession } from 'test-utils';
 
 import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
 import { savePatientNote } from '../notes.resource';

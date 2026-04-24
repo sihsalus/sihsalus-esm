@@ -1,4 +1,3 @@
-import React, { useCallback, useId, useMemo, useState } from 'react';
 import {
   InlineLoading,
   InlineNotification,
@@ -7,10 +6,10 @@ import {
   RadioButtonSkeleton,
   Search,
 } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import { useOnVisible } from '@openmrs/esm-framework/src/internal';
-import { useLocationByUuid, useLocations } from './location-picker.resource';
+import { getCoreTranslation, useOnVisible } from '@openmrs/esm-framework/src/internal';
+import React, { useCallback, useId, useMemo, useState } from 'react';
 import styles from './location-picker.module.scss';
+import { useLocationByUuid, useLocations } from './location-picker.resource';
 
 interface LocationPickerProps {
   selectedLocationUuid?: string;

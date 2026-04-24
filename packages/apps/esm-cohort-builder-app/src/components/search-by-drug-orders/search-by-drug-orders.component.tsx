@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import dayjs from 'dayjs';
 import { Column, DatePicker, DatePickerInput, Dropdown, MultiSelect } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { showSnackbar } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { DropdownValue, DrugOrderDetails, SearchByProps } from '../../types';
-import { getDescription, getQueryDetails } from './search-by-drug-orders.utils';
-import { useCareSettings, useDrugs } from './search-by-drug-orders.resources';
 import SearchButtonSet from '../search-button-set/search-button-set';
+import { useCareSettings, useDrugs } from './search-by-drug-orders.resources';
 import styles from './search-by-drug-orders.style.scss';
+import { getDescription, getQueryDetails } from './search-by-drug-orders.utils';
 
 const SearchByDrugOrder: React.FC<SearchByProps> = ({ onSubmit }) => {
   const { t } = useTranslation();

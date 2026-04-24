@@ -1,16 +1,18 @@
 /** @module @category Workspace */
-import { useMemo, type ReactNode } from 'react';
-import type { StoreApi } from 'zustand/vanilla';
+
 import {
+  createGlobalStore,
+  getCoreTranslation,
+  getGlobalStore,
   getWorkspaceGroupRegistration,
   getWorkspaceRegistration,
+  navigate,
+  useStore,
   type WorkspaceRegistration,
 } from '@openmrs/esm-framework/src/internal';
 import { type WorkspaceWindowState } from '@openmrs/esm-globals';
-import { navigate } from '@openmrs/esm-framework/src/internal';
-import { getGlobalStore, createGlobalStore } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import { useStore } from '@openmrs/esm-framework/src/internal';
+import { type ReactNode, useMemo } from 'react';
+import type { StoreApi } from 'zustand/vanilla';
 
 export interface CloseWorkspaceOptions {
   /**

@@ -1,6 +1,6 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import { screen, waitFor } from '@testing-library/react';
+import React from 'react';
 import { mockFhirAllergyIntoleranceResponse, mockFhirPatient, renderWithSwr } from 'test-utils';
 import AllergiesTile from './allergies-tile.extension';
 

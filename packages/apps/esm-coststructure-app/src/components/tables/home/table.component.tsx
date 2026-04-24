@@ -1,6 +1,6 @@
-import { DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from '@carbon/react';
 import type { DataTableHeader } from '@carbon/react';
-import { TrashCan, Edit } from '@carbon/react/icons';
+import { DataTable, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
+import { Edit, TrashCan } from '@carbon/react/icons';
 import React from 'react';
 
 import type { CostStructure, Procedure } from '../../../types';

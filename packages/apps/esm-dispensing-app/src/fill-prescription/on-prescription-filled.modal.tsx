@@ -1,11 +1,19 @@
-import React from 'react';
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { Trans, useTranslation } from 'react-i18next';
 import { getPatientName, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
+import React from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import MedicationEvent from '../components/medication-event.component';
+import { type PharmacyConfig } from '../config-schema';
+import {
+  initiateMedicationDispenseBody,
+  saveMedicationDispense,
+  useProviders,
+} from '../medication-dispense/medication-dispense.resource';
 import {
   updateMedicationRequestFulfillerStatus,
   usePrescriptionDetails,
 } from '../medication-request/medication-request.resource';
+import { MedicationDispenseStatus, MedicationRequestFulfillerStatus } from '../types';
 import {
   getMedicationDisplay,
   getMedicationReferenceOrCodeableConcept,
@@ -13,14 +21,6 @@ import {
   markEncounterAsStale,
   revalidate,
 } from '../utils';
-import {
-  initiateMedicationDispenseBody,
-  saveMedicationDispense,
-  useProviders,
-} from '../medication-dispense/medication-dispense.resource';
-import { type PharmacyConfig } from '../config-schema';
-import MedicationEvent from '../components/medication-event.component';
-import { MedicationDispenseStatus, MedicationRequestFulfillerStatus } from '../types';
 import styles from './on-prescription-filled.scss';
 
 interface OnPrescriptionFilledModalProps {

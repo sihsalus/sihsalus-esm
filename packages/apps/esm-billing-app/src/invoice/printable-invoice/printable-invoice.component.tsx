@@ -1,22 +1,22 @@
-import React, { useMemo } from 'react';
 import {
   DataTable,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  TableBody,
   TableHeader,
-  TableCell,
+  TableRow,
 } from '@carbon/react';
 import { formatDate, isDesktop, type SessionLocation, useConfig, useLayoutType } from '@openmrs/esm-framework';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { type BillingConfig } from '../../config-schema';
 import { getGender } from '../../helpers';
 import { type MappedBill } from '../../types';
-import { useTranslation } from 'react-i18next';
 import PrintableFooter from './printable-footer.component';
-import PrintableInvoiceHeader from './printable-invoice-header.component';
 import styles from './printable-invoice.scss';
-import { type BillingConfig } from '../../config-schema';
+import PrintableInvoiceHeader from './printable-invoice-header.component';
 
 type PrintableInvoiceProps = {
   bill: MappedBill;

@@ -1,26 +1,25 @@
 import '@testing-library/jest-dom/vitest';
-import { screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
+  type FetchResponse,
+  type LoggedInUser,
   openmrsFetch,
+  type Session,
   setSessionLocation,
   setUserProperties,
   showSnackbar,
   useConfig,
   useConnectivity,
   useSession,
-  type LoggedInUser,
-  type Session,
-  type FetchResponse,
 } from '@openmrs/esm-framework';
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { mockConfig } from '../../../../test-utils/mocks/login-config.mock';
 import {
   mockLoginLocations,
   validatingLocationFailureResponse,
   validatingLocationSuccessResponse,
 } from '../../../../test-utils/mocks/locations.mock';
+import { mockConfig } from '../../../../test-utils/mocks/login-config.mock';
 import renderWithRouter from '../test-helpers/render-with-router';
 
 import LocationPickerView from './location-picker-view.component';

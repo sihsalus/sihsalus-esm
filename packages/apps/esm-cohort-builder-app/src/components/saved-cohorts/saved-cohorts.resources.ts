@@ -1,6 +1,6 @@
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import type { Cohort, DefinitionDataRow } from '../../types';
 
 export function useCohorts() {

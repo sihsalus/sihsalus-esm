@@ -1,5 +1,5 @@
 /** @module @category UI */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { Subject } from 'rxjs';
 import type { SnackbarMeta } from './snackbar.component';
 import { Snackbar } from './snackbar.component';

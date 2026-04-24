@@ -1,4 +1,4 @@
-import { useConfig, useSession, showSnackbar, type ConfigSchema, type Session } from '@openmrs/esm-framework';
+import { type ConfigSchema, type Session, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
 import { useHsuIdIdentifier } from '../hooks/location-tag.resource';
 
 jest.mock('@openmrs/esm-framework');

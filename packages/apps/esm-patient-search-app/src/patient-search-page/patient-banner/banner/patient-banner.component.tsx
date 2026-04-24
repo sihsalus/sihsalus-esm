@@ -4,15 +4,15 @@ import {
   ExtensionSlot,
   PatientBannerActionsMenu,
   PatientBannerContactDetails,
-  PatientBannerToggleContactDetailsButton,
   PatientBannerPatientInfo,
+  PatientBannerToggleContactDetailsButton,
   PatientPhoto,
   useConfig,
   useLayoutType,
   useVisit,
 } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useContext, useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { type PatientSearchConfig } from '../../../config-schema';

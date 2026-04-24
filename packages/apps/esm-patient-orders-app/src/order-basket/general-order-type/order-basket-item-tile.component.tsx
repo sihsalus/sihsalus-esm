@@ -1,4 +1,4 @@
-import { Button, Tile, ClickableTile } from '@carbon/react';
+import { Button, ClickableTile, Tile } from '@carbon/react';
 import { TrashCanIcon, useLayoutType, WarningIcon } from '@openmrs/esm-framework';
 import { type OrderBasketItem } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';

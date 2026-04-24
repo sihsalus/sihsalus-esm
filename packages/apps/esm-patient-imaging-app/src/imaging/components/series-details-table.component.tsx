@@ -1,4 +1,3 @@
-import React, { useState, useRef } from 'react';
 import {
   DataTable,
   IconButton,
@@ -10,19 +9,19 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
+import { showModal, TrashCanIcon, useLayoutType, usePagination } from '@openmrs/esm-framework';
 
-import { compare, PatientChartPagination, EmptyState } from '@openmrs/esm-patient-common-lib';
-
+import { compare, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getBrowserUrl, type OrthancConfiguration, type Series } from '../../types';
-import stoneview from '../../assets/stoneViewer.png';
-import orthancExplorer from '../../assets/orthanc.png';
-import { useLayoutType, usePagination, TrashCanIcon, showModal } from '@openmrs/esm-framework';
 import { useStudySeries } from '../../api';
-import InstancesDetailsTable from './instances-details-table.component';
+import orthancExplorer from '../../assets/orthanc.png';
+import stoneview from '../../assets/stoneViewer.png';
+import { getBrowserUrl, type OrthancConfiguration, type Series } from '../../types';
 import { seriesCount, seriesDeleteConfirmationDialog } from '../constants';
-import styles from './details-table.scss';
 import { buildURL } from '../utils/help';
+import styles from './details-table.scss';
+import InstancesDetailsTable from './instances-details-table.component';
 
 export interface SeriesDetailsTableProps {
   studyId: number;

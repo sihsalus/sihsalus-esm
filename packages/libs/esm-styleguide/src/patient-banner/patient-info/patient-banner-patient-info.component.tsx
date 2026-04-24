@@ -1,9 +1,14 @@
 /** @module @category UI */
-import React, { useMemo } from 'react';
+
+import {
+  age,
+  ExtensionSlot,
+  formatPartialDate,
+  getCoreTranslation,
+  getPatientName,
+} from '@openmrs/esm-framework/src/internal';
 import classNames from 'classnames';
-import { ExtensionSlot } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import { age, formatPartialDate, getPatientName } from '@openmrs/esm-framework/src/internal';
+import React, { useMemo } from 'react';
 import { GenderFemaleIcon, GenderMaleIcon, GenderOtherIcon, GenderUnknownIcon } from '../../icons';
 import PatientBannerPatientIdentifiers from './patient-banner-patient-identifiers.component';
 import styles from './patient-banner-patient-info.module.scss';

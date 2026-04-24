@@ -1,8 +1,8 @@
-import { copyFileSync, existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { spawn } from 'node:child_process';
 import { basename, join, parse, resolve } from 'node:path';
+import { copyFileSync, existsSync, readdirSync, readFileSync, statSync } from 'fs';
 
-import { checkImportmapJson, checkRoutesJson, getImportMap, getRoutes, rspackBin, shellDir, logInfo } from '../utils';
+import { checkImportmapJson, checkRoutesJson, getImportMap, getRoutes, logInfo, rspackBin, shellDir } from '../utils';
 import { setShellEnvVars } from '../utils/config';
 
 export interface BuildArgs {

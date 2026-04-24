@@ -1,15 +1,14 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
 import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
-import { mockFhirConditionsResponse, searchedCondition } from 'test-utils';
-import { getByTextWithMarkup, mockPatient } from 'test-utils';
+import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import React from 'react';
+import { getByTextWithMarkup, mockFhirConditionsResponse, mockPatient, searchedCondition } from 'test-utils';
 import { createCondition, useConditionsSearch } from './conditions.resource';
 import ConditionsForm, { type ConditionFormProps } from './conditions-form.workspace';
-import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 
-import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
 
 const defaultProps: PatientWorkspace2DefinitionProps<ConditionFormProps, object> = {

@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { deleteSeries, useStudySeries } from '../../api';
 
 interface DeleteSeriesModalProps {

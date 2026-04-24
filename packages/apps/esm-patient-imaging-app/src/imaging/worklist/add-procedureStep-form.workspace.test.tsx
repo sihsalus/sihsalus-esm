@@ -1,11 +1,11 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import * as api from '../../api';
+import { type RequestProcedure } from '../../types';
 import AddNewProcedureStepWorkspace, {
   type AddNewProcedureStepWorkspaceProps,
 } from './add-procedureStep-form.workspace';
-import * as api from '../../api';
-import { type RequestProcedure } from '../../types';
-import userEvent from '@testing-library/user-event';
 
 jest.mock('../../api');
 jest.mock('@openmrs/esm-framework', () => ({

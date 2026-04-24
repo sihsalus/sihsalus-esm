@@ -2,8 +2,8 @@ import { Layer, RadioButton, RadioButtonGroup, Search, StructuredListSkeleton, T
 import { useDebounce, useLayoutType, usePagination, type VisitType } from '@openmrs/esm-framework';
 import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { useState, useMemo, useCallback } from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import styles from './base-visit-type.scss';

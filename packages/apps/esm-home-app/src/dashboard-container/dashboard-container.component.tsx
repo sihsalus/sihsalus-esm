@@ -1,10 +1,10 @@
 import {
-  useLayoutType,
-  isDesktop,
   ExtensionSlot,
-  WorkspaceContainer,
-  useConfig,
+  isDesktop,
   useAssignedExtensions,
+  useConfig,
+  useLayoutType,
+  WorkspaceContainer,
 } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React from 'react';

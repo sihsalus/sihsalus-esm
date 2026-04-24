@@ -1,12 +1,11 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, launchWorkspace2, navigate, useConfig } from '@openmrs/esm-framework';
-import { mockPatient } from 'test-utils';
-import { mockPatientFlags } from 'test-utils';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { mockPatient, mockPatientFlags } from 'test-utils';
 import { type ConfigObject, configSchema } from '../config-schema';
-import { usePatientFlags } from './hooks/usePatientFlags';
 import FlagsList from './flags-list.component';
+import { usePatientFlags } from './hooks/usePatientFlags';
 
 type FlagWithPriority = ReturnType<typeof usePatientFlags>['flags'][0];
 

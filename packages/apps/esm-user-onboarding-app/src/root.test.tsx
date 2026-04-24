@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, act } from '@testing-library/react';
-import { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import { useDefineAppContext } from '@openmrs/esm-framework';
+import { act, render } from '@testing-library/react';
+import React from 'react';
+import { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 import RootComponent from './root.component';
 
 const mockUseDefineAppContext = jest.mocked(useDefineAppContext);

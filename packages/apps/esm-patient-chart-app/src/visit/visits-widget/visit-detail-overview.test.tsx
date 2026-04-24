@@ -1,11 +1,10 @@
-import { openmrsFetch, getConfig, useConfig, getDefaultsFromConfigSchema } from '@openmrs/esm-framework';
+import { getConfig, getDefaultsFromConfigSchema, openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { visitOverviewDetailMockData } from 'test-utils';
 import React from 'react';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import { mockPatient, renderWithSwr, visitOverviewDetailMockData, waitForLoadingToFinish } from 'test-utils';
 
-import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
+import { type ChartConfig, esmPatientChartSchema } from '../../config-schema';
 
 import VisitDetailOverview from './visit-detail-overview.component';
 

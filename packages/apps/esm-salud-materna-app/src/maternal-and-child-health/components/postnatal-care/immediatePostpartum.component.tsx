@@ -1,10 +1,9 @@
 import { useConfig } from '@openmrs/esm-framework';
+import { CareSummaryTable } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { useInmmediatePostpartumPeriod } from '../../../hooks/useInmmediatePostpartum';
-import { CareSummaryTable } from '@sihsalus/esm-sihsalus-shared';
 
 const ImmediatePostpartumTable: React.FC<{ patientUuid: string }> = ({ patientUuid }) => {
   const { t } = useTranslation();

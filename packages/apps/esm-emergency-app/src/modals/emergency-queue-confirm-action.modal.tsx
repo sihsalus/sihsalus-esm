@@ -1,7 +1,7 @@
+import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
 import React, { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalHeader, ModalBody, ModalFooter } from '@carbon/react';
-import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
 import { useSWRConfig } from 'swr';
 import { type EmergencyQueueEntry } from '../resources/emergency.resource';
 

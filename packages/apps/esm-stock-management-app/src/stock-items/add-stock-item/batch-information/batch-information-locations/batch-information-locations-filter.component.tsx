@@ -1,5 +1,5 @@
-import React, { type ReactNode } from 'react';
 import { ComboBox } from '@carbon/react';
+import React, { type ReactNode } from 'react';
 import { type Control, Controller, type FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useStockTagLocations } from '../../../../stock-lookups/stock-lookups.resource';

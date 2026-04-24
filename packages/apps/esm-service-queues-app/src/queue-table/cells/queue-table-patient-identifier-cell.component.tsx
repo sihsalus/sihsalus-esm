@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { type PatientIdentifierColumnConfig } from '../../config-schema';
-import { type QueueEntry, type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
+import { type QueueEntry, type QueueTableCellComponentProps, type QueueTableColumnFunction } from '../../types';
 
 export const queueTablePatientIdentifierColumn: QueueTableColumnFunction = (
   key,

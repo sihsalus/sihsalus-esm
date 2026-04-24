@@ -1,15 +1,15 @@
 import {
   DataTable,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
-  TableBody,
+  TableExpandedRow,
+  TableExpandHeader,
+  TableExpandRow,
   TableHead,
   TableHeader,
   TableRow,
-  TableExpandHeader,
-  TableExpandRow,
-  TableExpandedRow,
 } from '@carbon/react';
 import React from 'react';
 

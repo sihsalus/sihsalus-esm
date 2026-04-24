@@ -1,5 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -13,6 +11,8 @@ import {
   TableRow,
 } from '@carbon/react';
 import { CardHeader, EmptyCard, ErrorState, usePagination } from '@openmrs/esm-framework';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { usePatientDiagnosis } from './diagnoses.resource';
 import styles from './diagnoses.scss';
 

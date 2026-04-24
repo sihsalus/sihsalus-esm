@@ -12,10 +12,9 @@ import { launchWorkspace } from '@openmrs/esm-framework';
 import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { useOdontogramHistory } from '../hooks/useOdontogramHistory';
 import OdontogramCanvas from '../odontogram/components/Odontogram';
 import { adultConfig } from '../odontogram/config/adultConfig';
-import { useOdontogramHistory } from '../hooks/useOdontogramHistory';
 import useOdontogramDataStore from '../store/odontogramDataStore';
 import type { OdontogramBaseGroup, OdontogramRecord } from '../types/odontogram-record';
 import DentalEmptyState from '../ui/dental-empty-state.component';

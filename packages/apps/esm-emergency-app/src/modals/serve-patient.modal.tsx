@@ -5,14 +5,15 @@
  * - If in Triage Queue → opens the triage form workspace
  * - If in Attention Queue → opens the attention form workspace
  */
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { Button, ModalBody, ModalFooter, ModalHeader, Tag } from '@carbon/react';
 import { launchWorkspace, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
-import { useEmergencyConfig } from '../hooks/usePriorityConfig';
-import { updateEmergencyQueueEntry, type EmergencyQueueEntry } from '../resources/emergency.resource';
 import { type Config } from '../config-schema';
+import { useEmergencyConfig } from '../hooks/usePriorityConfig';
+import { type EmergencyQueueEntry, updateEmergencyQueueEntry } from '../resources/emergency.resource';
 import styles from './serve-patient.modal.scss';
 
 interface ServePatientModalProps {

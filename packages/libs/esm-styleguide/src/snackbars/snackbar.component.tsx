@@ -1,8 +1,9 @@
 /** @module @category UI */
-import React, { useCallback, useState, useEffect } from 'react';
-import classnames from 'classnames';
+
 import { ActionableNotification } from '@carbon/react';
 import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import classnames from 'classnames';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './snackbar.module.scss';
 
 // Design documentation for Snackbars https://zeroheight.com/23a080e38/p/683580-notifications/t/468baf

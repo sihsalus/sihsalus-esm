@@ -1,4 +1,5 @@
 import {
+  type AssignedExtension,
   ExtensionSlot,
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -13,10 +14,9 @@ import {
 } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockLocations, mockVisitTypes, mockVisitWithAttributes } from 'test-utils';
 import dayjs from 'dayjs';
 import React from 'react';
-import { mockPatient } from 'test-utils';
+import { mockLocations, mockPatient, mockVisitTypes, mockVisitWithAttributes } from 'test-utils';
 
 import { type ChartConfig, esmPatientChartSchema } from '../../config-schema';
 import { useEmrConfiguration } from '../hooks/useEmrConfiguration';
@@ -151,6 +151,7 @@ const mockUseVisitTypes = jest.mocked(useVisitTypes);
 const mockUsePatient = jest.mocked(usePatient);
 const mockUseLocations = jest.mocked(useLocations);
 const mockUseEmrConfiguration = jest.mocked(useEmrConfiguration);
+const mockFhirPatient = mockPatient as unknown as fhir.Patient;
 
 // from ./visit-form.resource
 const mockOnVisitCreatedOrUpdatedCallback = jest.fn();
@@ -261,16 +262,22 @@ mockSaveVisit.mockResolvedValue({
 
 describe('Visit form', () => {
   beforeEach(() => {
-    mockExtensionSlot.mockImplementation(({ children }) => {
+    mockExtensionSlot.mockImplementation(({ children }): React.JSX.Element => {
       if (typeof children === 'function') {
-        return children({
-          id: 'test-extension-id',
-          meta: {},
-          moduleName: '@openmrs/esm-patient-chart-app',
-        });
+        return (
+          <>
+            {children({
+              id: 'test-extension-id',
+              meta: {},
+              moduleName: '@openmrs/esm-patient-chart-app',
+              name: 'test-extension-name',
+              config: {},
+            } as AssignedExtension)}
+          </>
+        );
       }
 
-      return children ?? null;
+      return <>{children ?? null}</>;
     });
     mockUseConfig.mockReturnValue({
       ...getDefaultsFromConfigSchema(esmPatientChartSchema),
@@ -290,7 +297,7 @@ describe('Visit form', () => {
     mockUsePatient.mockReturnValue({
       error: null,
       isLoading: false,
-      patient: mockPatient,
+      patient: mockFhirPatient,
       patientUuid: mockPatient.id,
     });
     mockUseVisitTypes.mockReturnValue(mockVisitTypes);

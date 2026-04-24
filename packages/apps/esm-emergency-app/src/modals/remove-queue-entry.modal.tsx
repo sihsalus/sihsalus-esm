@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { endEmergencyQueueEntry, type EmergencyQueueEntry } from '../resources/emergency.resource';
+import { type EmergencyQueueEntry, endEmergencyQueueEntry } from '../resources/emergency.resource';
 import EmergencyQueueConfirmActionModal from './emergency-queue-confirm-action.modal';
 
 interface RemoveQueueEntryModalProps {

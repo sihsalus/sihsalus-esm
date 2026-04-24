@@ -1,22 +1,22 @@
+import {
+  type Encounter,
+  ExtensionSlot,
+  type FetchResponse,
+  openmrsFetch,
+  useConfig,
+  useConnectivity,
+  type Visit,
+  Workspace2,
+  type Workspace2DefinitionProps,
+} from '@openmrs/esm-framework';
+import { type FormRendererProps, invalidateVisitAndEncounterData } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR, { useSWRConfig } from 'swr';
-import {
-  ExtensionSlot,
-  openmrsFetch,
-  type FetchResponse,
-  useConfig,
-  useConnectivity,
-  Workspace2,
-  type Workspace2DefinitionProps,
-  type Encounter,
-  type Visit,
-} from '@openmrs/esm-framework';
-import { type FormRendererProps, invalidateVisitAndEncounterData } from '@openmrs/esm-patient-common-lib';
 
 import { type ConfigObject } from '../config-schema';
-import { type Form } from '../types';
 import HtmlFormEntryWrapper from '../htmlformentry/html-form-entry-wrapper.component';
+import { type Form } from '../types';
 
 import { toHtmlForm } from './form-entry.resources';
 

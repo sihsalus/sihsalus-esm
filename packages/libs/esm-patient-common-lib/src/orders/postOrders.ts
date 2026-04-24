@@ -1,15 +1,15 @@
-import { openmrsFetch, type OpenmrsResource, parseDate, restBaseUrl, type Visit } from '@openmrs/esm-framework';
+import { type OpenmrsResource, openmrsFetch, parseDate, restBaseUrl, type Visit } from '@openmrs/esm-framework';
 
 import { getPatientUuidFromStore } from '../store/patient-chart-store';
 
 import { type OrderBasketStore, orderBasketStore } from './store';
 import type {
   DrugOrderPost,
-  TestOrderPost,
   ExtractedOrderErrorObject,
   OrderBasketItem,
   OrderErrorObject,
   OrderPost,
+  TestOrderPost,
 } from './types';
 
 export async function postOrdersOnNewEncounter(

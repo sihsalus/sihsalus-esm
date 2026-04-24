@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { type FormProcessorContextProps } from '../types';
 import { type FormProcessor } from '../processors/form-processor';
+import { type FormProcessorContextProps } from '../types';
 import { reportError } from '../utils/error-utils';
 
 const useProcessorDependencies = (

@@ -1,7 +1,7 @@
 import {
-  ReducerActionType,
   type LowestNode,
   type ReducerAction,
+  ReducerActionType,
   type ReducerState,
   type TreeNode,
   type TreeParents,

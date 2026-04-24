@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   DataTable,
@@ -14,9 +13,10 @@ import {
   TableRow,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import { CardHeader, ErrorState, getCoreTranslation, showModal } from '@openmrs/esm-framework';
-import { usePaymentModes, type PaymentMode } from '../billable-service.resource';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { type PaymentMode, usePaymentModes } from '../billable-service.resource';
 import styles from './payment-modes-config.scss';
 
 const PaymentModesConfig: React.FC = () => {

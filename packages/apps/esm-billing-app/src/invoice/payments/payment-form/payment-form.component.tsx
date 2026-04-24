@@ -1,10 +1,10 @@
+import { Dropdown, NumberInput, NumberInputSkeleton, TextInput } from '@carbon/react';
+import { ErrorState } from '@openmrs/esm-framework';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, NumberInput, NumberInputSkeleton, TextInput } from '@carbon/react';
-import { ErrorState } from '@openmrs/esm-framework';
-import { type PaymentFormValue } from '../payments.component';
 import { usePaymentModes } from '../payment.resource';
+import { type PaymentFormValue } from '../payments.component';
 import styles from './payment-form.scss';
 
 type PaymentFormProps = {

@@ -6,23 +6,23 @@
  * visit, and queue entry status.
  */
 
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   InlineNotification,
   ProgressIndicator,
   ProgressStep,
   Stack,
-  StructuredListWrapper,
+  StructuredListBody,
+  StructuredListCell,
   StructuredListHead,
   StructuredListRow,
-  StructuredListCell,
-  StructuredListBody,
+  StructuredListWrapper,
   Tag,
   Tile,
 } from '@carbon/react';
-import { CheckmarkFilled, User, Renew, Close } from '@carbon/react/icons';
+import { CheckmarkFilled, Close, Renew, User } from '@carbon/react/icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { type WorkflowState } from '../types';
 import styles from './confirmation-step.component.scss';
 

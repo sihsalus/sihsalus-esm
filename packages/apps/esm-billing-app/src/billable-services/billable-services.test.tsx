@@ -1,8 +1,8 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import BillableServices from './billable-services.component';
+import React from 'react';
 import { useBillableServices } from './billable-service.resource';
+import BillableServices from './billable-services.component';
 
 jest.mock('./billable-service.resource', () => ({
   useBillableServices: jest.fn(),

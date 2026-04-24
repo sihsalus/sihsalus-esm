@@ -1,8 +1,8 @@
-import React, { Children } from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import LinkStudiesWorkspace from './link-studies.workspace';
-import * as api from '../../api';
 import { launchWorkspace, showSnackbar } from '@openmrs/esm-framework';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React, { Children } from 'react';
+import * as api from '../../api';
+import LinkStudiesWorkspace from './link-studies.workspace';
 
 jest.mock('../../api');
 jest.mock('@openmrs/esm-framework', () => ({

@@ -1,5 +1,5 @@
 import { Button } from '@carbon/react';
-import { EditIcon, UserHasAccess, type Visit, useLayoutType } from '@openmrs/esm-framework';
+import { EditIcon, UserHasAccess, useLayoutType, type Visit } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

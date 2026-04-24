@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import { Button, Search, TabPanel } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { PatientSearchPictogram } from '@openmrs/esm-framework';
-import PrescriptionsTable from './prescriptions-table.component';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './patient-search-tab-panel.scss';
+import PrescriptionsTable from './prescriptions-table.component';
 
 const PatientSearchTabPanel: React.FC = () => {
   const { t } = useTranslation();

@@ -1,4 +1,4 @@
-import { type Visit, type Location } from '@openmrs/esm-framework';
+import { type Location, type Visit } from '@openmrs/esm-framework';
 import {
   type Concept,
   type MappedQueueEntry,

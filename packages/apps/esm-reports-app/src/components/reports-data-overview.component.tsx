@@ -1,13 +1,13 @@
-import { Select, SelectItem, Button } from '@carbon/react';
-import { ExtensionSlot, showSnackbar, getCoreTranslation } from '@openmrs/esm-framework';
+import { Button, Select, SelectItem } from '@carbon/react';
+import { ExtensionSlot, getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Overlay from './overlay.component';
 import ReportDataViewer from './report-data-viewer.component';
 import ReportParameter from './report-parameter.component';
-import { useReportDefinitions, useReportData, useLocations } from './reports.resource';
+import { useLocations, useReportData, useReportDefinitions } from './reports.resource';
 import styles from './reports.scss';
 
 const ReportsDataOverviewComponent: React.FC = () => {

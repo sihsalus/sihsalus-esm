@@ -1,6 +1,6 @@
-import React from 'react';
 import { Layer, Tile } from '@carbon/react';
 import { EmptyCardIllustration } from '@openmrs/esm-framework';
+import React from 'react';
 import styles from './empty-data.style.scss';
 
 export interface EmptyDataProps {

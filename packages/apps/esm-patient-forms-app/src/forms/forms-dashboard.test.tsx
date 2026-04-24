@@ -1,10 +1,9 @@
-import React from 'react';
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import { mockCurrentVisit } from 'test-utils';
-import { mockPatient } from 'test-utils';
+import React from 'react';
+import { mockCurrentVisit, mockPatient } from 'test-utils';
 
-import { configSchema, type ConfigObject } from '../config-schema';
+import { type ConfigObject, configSchema } from '../config-schema';
 
 import FormsDashboard from './forms-dashboard.component';
 

@@ -1,7 +1,7 @@
 import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 import { type SpecificQuestion, type SpecificQuestionConfig } from '../types';
-import { useMemo } from 'react';
 
 const formUrl = `${restBaseUrl}/o3/forms`;
 

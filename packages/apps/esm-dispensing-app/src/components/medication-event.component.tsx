@@ -1,8 +1,8 @@
-import React, { type ReactNode } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Tile } from '@carbon/react';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type MedicationDispense, type MedicationRequest, type Quantity } from '../types';
 import {
   calculateIsFreeTextDosage,

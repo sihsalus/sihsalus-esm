@@ -11,9 +11,8 @@ import {
   type PersonAttributeFieldConfig,
 } from '../../config-schema';
 import { type AdvancedPatientSearchState, type SearchFieldConfig, type SearchFieldType } from '../../types';
-
-import { RefineSearchTablet } from './refine-search-tablet.component';
 import styles from './refine-search.scss';
+import { RefineSearchTablet } from './refine-search-tablet.component';
 import { SearchField } from './search-field.component';
 
 export const initialFilters: AdvancedPatientSearchState = {

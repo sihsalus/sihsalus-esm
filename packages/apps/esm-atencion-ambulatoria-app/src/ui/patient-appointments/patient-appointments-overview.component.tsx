@@ -1,5 +1,5 @@
 import { DataTableSkeleton } from '@carbon/react';
-import { usePatient, useLayoutType, isDesktop, WorkspaceContainer } from '@openmrs/esm-framework';
+import { isDesktop, useLayoutType, usePatient, WorkspaceContainer } from '@openmrs/esm-framework';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 

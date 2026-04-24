@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { Column, Dropdown, TextInput } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type SearchByProps } from '../../types';

@@ -1,4 +1,4 @@
-import { ExtensionSlot, type Encounter, type Visit, usePatient } from '@openmrs/esm-framework';
+import { type Encounter, ExtensionSlot, usePatient, type Visit } from '@openmrs/esm-framework';
 import {
   clinicalFormsWorkspace,
   type DefaultPatientWorkspaceProps,
@@ -9,9 +9,8 @@ import {
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { type Form } from '../types';
-
-import { type LegacyFormEntryInfo } from './legacy-form-entry';
 import FormEntry from './form-entry.component';
+import { type LegacyFormEntryInfo } from './legacy-form-entry';
 
 interface LegacyWorkspaceAdapterProps {
   closeWorkspace: () => void;

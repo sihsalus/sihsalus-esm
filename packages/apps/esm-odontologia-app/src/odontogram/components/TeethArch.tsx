@@ -14,13 +14,13 @@
 
 import React, { useMemo } from 'react';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
+import MainSectionOnTheCanvas from './MainSectionOnTheCanvas';
+import SpaceBetweenLegends from './spacing/SpaceBetweenLegends';
+import SpaceBetweenTeeth from './spacing/SpaceBetweenTeeth';
+import SpacingFinding from './spacing/SpacingFinding';
+import ToothColumn from './ToothColumn';
 import ToothDetails from './ToothDetails';
 import ToothVisualization from './ToothVisualization';
-import ToothColumn from './ToothColumn';
-import SpaceBetweenTeeth from './spacing/SpaceBetweenTeeth';
-import SpaceBetweenLegends from './spacing/SpaceBetweenLegends';
-import SpacingFinding from './spacing/SpacingFinding';
-import MainSectionOnTheCanvas from './MainSectionOnTheCanvas';
 
 // ---------------------------------------------------------------------------
 // Types

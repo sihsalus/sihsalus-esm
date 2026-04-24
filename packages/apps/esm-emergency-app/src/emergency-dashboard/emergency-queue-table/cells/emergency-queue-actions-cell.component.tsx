@@ -9,25 +9,25 @@
  * Overflow menu includes secondary actions: move, transition, edit, print, remove.
  * Shows "Completar triaje" when patient is in Attention Queue without a triage encounter.
  */
-import React, { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import {
   isDesktop,
   launchWorkspace,
   navigate,
+  restBaseUrl,
   showModal,
   showSnackbar,
-  useLayoutType,
-  restBaseUrl,
   useConfig,
+  useLayoutType,
 } from '@openmrs/esm-framework';
-import { useEmergencyConfig } from '../../../hooks/usePriorityConfig';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type Config } from '../../../config-schema';
 import { MODALS, WORKSPACES } from '../../../constants';
-
-import { type EmergencyQueueTableCellProps } from './emergency-queue-name-cell.component';
+import { useEmergencyConfig } from '../../../hooks/usePriorityConfig';
 import styles from './emergency-queue-actions-cell.scss';
+import { type EmergencyQueueTableCellProps } from './emergency-queue-name-cell.component';
 
 export const EmergencyQueueActionsCell: React.FC<EmergencyQueueTableCellProps> = ({ queueEntry }) => {
   const { t } = useTranslation();

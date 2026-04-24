@@ -1,4 +1,3 @@
-import React, { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 import {
   Button,
   DataTable,
@@ -10,14 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import { type PaginationData, type SearchHistoryItem } from '../../types';
-import { getSearchHistory } from './search-history.utils';
-import EmptyData from '../empty-data/empty-data.component';
-import SearchHistoryOptions from './search-history-options/search-history-options.component';
-import mainStyles from '../../cohort-builder.scss';
-import styles from './search-history.style.scss';
 import { showModal } from '@openmrs/esm-framework';
+import React, { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import mainStyles from '../../cohort-builder.scss';
+import { type PaginationData, type SearchHistoryItem } from '../../types';
+import EmptyData from '../empty-data/empty-data.component';
+import styles from './search-history.style.scss';
+import { getSearchHistory } from './search-history.utils';
+import SearchHistoryOptions from './search-history-options/search-history-options.component';
 
 interface SearchHistoryProps {
   isHistoryUpdated: boolean;

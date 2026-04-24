@@ -1,10 +1,10 @@
+import { DataTableSkeleton } from '@carbon/react';
 import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ResourceRepresentation } from '../../../core/api/api';
-import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
-import { DataTableSkeleton } from '@carbon/react';
-import { useStockItemQuantitiesHook } from './quantities.resource';
 import DataList from '../../../core/components/table/table.component';
+import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
+import { useStockItemQuantitiesHook } from './quantities.resource';
 
 interface StockQuantitiesProps {
   onSubmit?: () => void;

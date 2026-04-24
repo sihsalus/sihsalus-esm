@@ -1,16 +1,16 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { DataTableSkeleton } from '@carbon/react';
 import { UserFollow } from '@carbon/react/icons';
 import { ErrorState } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useEmergencyConfig } from '../../../hooks/usePriorityConfig';
+import { useEmergencyMetrics } from '../../../resources/emergency.resource';
 import {
   MetricsCard,
-  MetricsCardHeader,
   MetricsCardBody,
+  MetricsCardHeader,
   MetricsCardItem,
 } from '../../emergency-metrics/metrics-cards/metrics-card.component';
-import { useEmergencyMetrics } from '../../../resources/emergency.resource';
-import { useEmergencyConfig } from '../../../hooks/usePriorityConfig';
 
 const WaitingTriageCard: React.FC<{ queueUuid?: string }> = ({ queueUuid }) => {
   const { t } = useTranslation();

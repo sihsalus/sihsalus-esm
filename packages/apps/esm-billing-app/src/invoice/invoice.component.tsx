@@ -1,9 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, InlineLoading } from '@carbon/react';
 import { Printer } from '@carbon/react/icons';
-import { useParams } from 'react-router-dom';
-import { useReactToPrint } from 'react-to-print';
-import { useTranslation } from 'react-i18next';
 import {
   ErrorState,
   ExtensionSlot,
@@ -13,14 +9,18 @@ import {
   useConfig,
   usePatient,
 } from '@openmrs/esm-framework';
-import { convertToCurrency } from '../helpers';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
 import { useBill, useDefaultFacility } from '../billing.resource';
 import type { BillingConfig } from '../config-schema';
+import { convertToCurrency } from '../helpers';
+import styles from './invoice.scss';
 import InvoiceTable from './invoice-table.component';
 import Payments from './payments/payments.component';
 import PrintReceipt from './printable-invoice/print-receipt.component';
 import PrintableInvoice from './printable-invoice/printable-invoice.component';
-import styles from './invoice.scss';
 
 interface InvoiceDetailsProps {
   label: string;

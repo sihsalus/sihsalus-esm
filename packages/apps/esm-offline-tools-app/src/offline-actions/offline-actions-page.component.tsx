@@ -13,9 +13,8 @@ import { useTranslation } from 'react-i18next';
 
 import SharedPageLayout from '../components/shared-page-layout.component';
 import { usePendingSyncItems } from '../hooks/offline-actions';
-
-import styles from './offline-actions-page.styles.scss';
 import OfflineActions from './offline-actions.component';
+import styles from './offline-actions-page.styles.scss';
 
 const OfflineActionsPage: React.FC = () => {
   const { t } = useTranslation();

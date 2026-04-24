@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   ModalBody,
   ModalHeader,
@@ -10,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface IssuingStockModalProps {

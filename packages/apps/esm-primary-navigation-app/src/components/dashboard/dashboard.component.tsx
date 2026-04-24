@@ -3,11 +3,11 @@ import {
   ComponentContext,
   DashboardExtension,
   getCoreTranslation,
-  useConfig,
-  openmrsComponentDecorator,
-  type OpenmrsReactComponentProps,
-  Type,
   type IconId,
+  type OpenmrsReactComponentProps,
+  openmrsComponentDecorator,
+  Type,
+  useConfig,
 } from '@openmrs/esm-framework/src/internal';
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

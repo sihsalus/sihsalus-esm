@@ -1,5 +1,5 @@
 import { ComboBox, DataTableSkeleton, Dropdown, Layer, Pagination, Tile } from '@carbon/react';
-import { formatDate, showModal, showSnackbar, useConfig, usePagination, launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate, launchWorkspace, showModal, showSnackbar, useConfig, usePagination } from '@openmrs/esm-framework';
 import { CardHeader, EmptyDataIllustration, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

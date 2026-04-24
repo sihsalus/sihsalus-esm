@@ -1,7 +1,7 @@
-import React from 'react';
-import { ExtensionSlot, Workspace2, useConfig, useConnectivity, usePatient } from '@openmrs/esm-framework';
+import { ExtensionSlot, useConfig, useConnectivity, usePatient, Workspace2 } from '@openmrs/esm-framework';
 import { useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import { render, waitFor } from '@testing-library/react';
+import React from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { mockPatient } from 'test-utils';
 
@@ -103,10 +103,12 @@ describe('FormEntryWorkspace', () => {
           visitContext: mockCurrentVisit,
           mutateVisitContext: jest.fn(),
         }}
-        workspaceProps={{
-          formInfo: { formUuid: 'some-form-uuid' },
-          mutateForm: jest.fn(),
-        } as any}
+        workspaceProps={
+          {
+            formInfo: { formUuid: 'some-form-uuid' },
+            mutateForm: jest.fn(),
+          } as any
+        }
       />,
     );
 
@@ -138,17 +140,19 @@ describe('FormEntryWorkspace', () => {
           visitContext: mockCurrentVisit,
           mutateVisitContext: jest.fn(),
         }}
-        workspaceProps={{
-          form: {
-            uuid: 'some-form-uuid',
-            name: 'Test form',
-            display: 'Test form',
-            version: '1',
-            published: true,
-            retired: false,
-            resources: [],
-          },
-        } as any}
+        workspaceProps={
+          {
+            form: {
+              uuid: 'some-form-uuid',
+              name: 'Test form',
+              display: 'Test form',
+              version: '1',
+              published: true,
+              retired: false,
+              resources: [],
+            },
+          } as any
+        }
       />,
     );
 
@@ -206,8 +210,9 @@ describe('FormEntryWorkspace', () => {
       ).toBeDefined(),
     );
 
-    const initialState = mockExtensionSlot.mock.calls.find(([props]: Array<any>) => props.name === 'form-widget-slot')?.[0]
-      ?.state;
+    const initialState = mockExtensionSlot.mock.calls.find(
+      ([props]: Array<any>) => props.name === 'form-widget-slot',
+    )?.[0]?.state;
 
     rerender(
       <FormEntryWorkspace

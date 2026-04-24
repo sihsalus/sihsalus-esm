@@ -1,6 +1,6 @@
+import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
-import { type FetchResponse } from '@openmrs/esm-framework';
-import { openmrsFetch } from '@openmrs/esm-framework';
+import { imagingUrl, worklistUrl } from '../imaging/constants';
 import type {
   CreateRequestProcedure,
   CreateRequestProcedureStep,
@@ -12,7 +12,6 @@ import type {
   Series,
   StudiesWithScores,
 } from '../types';
-import { imagingUrl, worklistUrl } from '../imaging/constants';
 
 /**
  *

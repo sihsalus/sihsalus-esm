@@ -1,5 +1,5 @@
+import { Select, SelectItem, TextInput } from '@carbon/react';
 import React from 'react';
-import { TextInput, Select, SelectItem } from '@carbon/react';
 import { type FieldValues, type UseFormRegister } from 'react-hook-form';
 import { type SpecificQuestion } from '../../types';
 

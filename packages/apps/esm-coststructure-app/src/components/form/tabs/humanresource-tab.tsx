@@ -1,6 +1,6 @@
 import { Button, NumberInput, Select, SelectItem } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
+import { Controller, type UseFormReturn, useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import useGetHumanResource from '../../../hooks/use-get-humanresource';

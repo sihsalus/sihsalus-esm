@@ -1,6 +1,6 @@
+import { ActionMenuButton2, EventsIcon } from '@openmrs/esm-framework';
 import { type ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
-import { EventsIcon, ActionMenuButton2 } from '@openmrs/esm-framework';
 
 function PatientListsActionButton() {
   const { t } = useTranslation();

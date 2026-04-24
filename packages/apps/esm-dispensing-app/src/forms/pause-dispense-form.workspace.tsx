@@ -1,5 +1,3 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ComboBox, Form, InlineLoading } from '@carbon/react';
 import {
   ExtensionSlot,
@@ -11,11 +9,13 @@ import {
   Workspace2,
   type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { type PharmacyConfig } from '../config-schema';
 import { saveMedicationDispense, useReasonForPauseValueSet } from '../medication-dispense/medication-dispense.resource';
 import { updateMedicationRequestFulfillerStatus } from '../medication-request/medication-request.resource';
-import { getUuidFromReference, markEncounterAsStale, revalidate } from '../utils';
 import { type MedicationDispense, MedicationDispenseStatus, MedicationRequestFulfillerStatus } from '../types';
-import { type PharmacyConfig } from '../config-schema';
+import { getUuidFromReference, markEncounterAsStale, revalidate } from '../utils';
 import styles from './forms.scss';
 
 type PauseDispenseFormProps = {

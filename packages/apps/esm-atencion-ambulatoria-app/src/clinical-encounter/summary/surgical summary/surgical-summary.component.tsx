@@ -1,14 +1,13 @@
-import { OverflowMenu, OverflowMenuItem, InlineLoading } from '@carbon/react';
-import { formatDate, parseDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
+import { InlineLoading, OverflowMenu, OverflowMenuItem } from '@carbon/react';
+import { formatDate, launchWorkspace, parseDate, useConfig } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
-
 import type { ConfigObject } from '../../../config-schema';
 import type { OpenmrsEncounter } from '../../../types';
-import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
-import { AdmissionDate_UUID, PriorityOfAdmission_UUID, AdmissionWard_UUID } from '../../../utils/constants';
+import { AdmissionDate_UUID, AdmissionWard_UUID, PriorityOfAdmission_UUID } from '../../../utils/constants';
 import styles from '../../dashboard/in-patient.scss';
 import SummaryCard from '../summary-card.component';
 

@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
 import { Dropdown, InlineLoading, InlineNotification } from '@carbon/react';
+import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showSnackbar, getCoreTranslation } from '@openmrs/esm-framework';
-import { useCashPoint, useBillableItems, createPatientBill } from './billing-form.resource';
-import VisitAttributesForm from './visit-attributes/visit-attributes-form.component';
 import styles from './billing-checkin-form.scss';
+import { createPatientBill, useBillableItems, useCashPoint } from './billing-form.resource';
+import VisitAttributesForm from './visit-attributes/visit-attributes-form.component';
 
 const PENDING_PAYMENT_STATUS = 'PENDING';
 

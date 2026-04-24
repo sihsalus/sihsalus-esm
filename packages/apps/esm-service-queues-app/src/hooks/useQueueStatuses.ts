@@ -1,10 +1,10 @@
 import {
   type FetchResponse,
+  getLocale,
   OpenmrsResource,
   openmrsFetch,
   restBaseUrl,
   useOpenmrsSWR,
-  getLocale,
 } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';

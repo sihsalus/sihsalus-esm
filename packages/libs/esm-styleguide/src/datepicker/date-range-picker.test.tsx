@@ -1,12 +1,12 @@
-import React from 'react';
 import type { i18n } from 'i18next';
+import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
+import { useConfig } from '@openmrs/esm-react-utils/mock';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useConfig } from '@openmrs/esm-react-utils/mock';
-import { OpenmrsDateRangePicker } from './index';
 import { DEFAULT_MIN_DATE_FLOOR } from './defaults';
+import { OpenmrsDateRangePicker } from './index';
 
 describe('OpenmrsDateRangePicker', () => {
   beforeEach(() => {

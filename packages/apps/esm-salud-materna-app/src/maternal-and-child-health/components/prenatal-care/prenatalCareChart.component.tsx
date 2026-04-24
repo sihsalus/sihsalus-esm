@@ -1,10 +1,9 @@
 import { useConfig } from '@openmrs/esm-framework';
+import { CareSummaryTable } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { usePrenatalCare } from '../../../hooks/usePrenatalCare';
-import { CareSummaryTable } from '@sihsalus/esm-sihsalus-shared';
 
 const PrenatalCareChart: React.FC<{ patientUuid: string }> = ({ patientUuid }) => {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
-import { CloseIcon, type ConfigSchema, type Config, getCoreTranslation, SaveIcon, Type } from '@openmrs/esm-framework';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { CloseIcon, type Config, type ConfigSchema, getCoreTranslation, SaveIcon, Type } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { ConfigValueDescriptor } from './editable-value.component';
 import { validateValue } from './validators.resource';
@@ -28,7 +28,7 @@ export function ValueEditor({ element, customType, path, handleSaveToConfigurati
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const validators = element._validators ?? [];
 
-  let elementSchema: ConfigValueDescriptor | Config | undefined = undefined;
+  let elementSchema: ConfigValueDescriptor | Config | undefined;
   if (valueType === Type.Object) {
     elementSchema = element;
   } else if (valueType === Type.Array) {

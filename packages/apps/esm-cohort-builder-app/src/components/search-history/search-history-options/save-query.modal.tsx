@@ -1,11 +1,11 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader, Stack, TextInput } from '@carbon/react';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { getCoreTranslation } from '@openmrs/esm-framework';
+import type { TFunction } from 'i18next';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import styles from './modals.scss';
 
 const createSaveQuerySchema = (t: TFunction) =>

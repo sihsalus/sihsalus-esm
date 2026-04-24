@@ -9,6 +9,7 @@ import { type OrderItem } from '../../types/index';
 import { getDosage } from '../past-visit.resource';
 
 import styles from './past-visit-summary.scss';
+
 interface MedicationProps {
   medications: Array<OrderItem>;
 }

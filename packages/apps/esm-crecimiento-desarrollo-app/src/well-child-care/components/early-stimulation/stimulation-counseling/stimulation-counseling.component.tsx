@@ -1,11 +1,11 @@
 import {
-  Tag,
   Button,
   DataTableSkeleton,
-  StructuredListWrapper,
   StructuredListBody,
-  StructuredListRow,
   StructuredListCell,
+  StructuredListRow,
+  StructuredListWrapper,
+  Tag,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';

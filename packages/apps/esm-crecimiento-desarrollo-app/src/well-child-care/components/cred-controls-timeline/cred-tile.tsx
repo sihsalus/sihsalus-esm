@@ -1,4 +1,4 @@
-import { CheckmarkFilled, WarningFilled, EventSchedule, Time, CircleDash } from '@carbon/react/icons';
+import { CheckmarkFilled, CircleDash, EventSchedule, Time, WarningFilled } from '@carbon/react/icons';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React from 'react';

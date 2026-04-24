@@ -1,6 +1,6 @@
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
 import { showModal } from '@openmrs/esm-framework';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type DefinitionDataRow } from '../../../types';
 import SavedCohortsOptions from './saved-cohorts-options.component';
 

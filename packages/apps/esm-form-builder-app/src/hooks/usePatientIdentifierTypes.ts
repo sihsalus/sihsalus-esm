@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import type { PatientIdentifierType } from '@types';
+import useSWR from 'swr';
 
 export function usePatientIdentifierTypes() {
   const customRepresentation = 'custom:(uuid,display,name,description)';

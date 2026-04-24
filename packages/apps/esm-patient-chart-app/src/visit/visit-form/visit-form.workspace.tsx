@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import classNames from 'classnames';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 dayjs.extend(isSameOrBefore);
+
 import {
   Button,
   ButtonSet,
@@ -17,16 +19,15 @@ import {
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  type AssignedExtension,
   Extension,
   ExtensionSlot,
   formatDatetime,
+  type NewVisitPayload,
   saveVisit,
   showSnackbar,
   toDateObjectStrict,
   toOmrsIsoString,
-  type AssignedExtension,
-  type NewVisitPayload,
-  type Visit,
   updateVisit,
   useConfig,
   useConnectivity,
@@ -35,6 +36,7 @@ import {
   usePatient,
   useSession,
   useVisit,
+  type Visit,
 } from '@openmrs/esm-framework';
 import {
   convertTime12to24,

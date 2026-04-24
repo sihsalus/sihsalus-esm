@@ -1,10 +1,10 @@
-import { openmrsFetch, isVersionSatisfied } from '@openmrs/esm-framework';
-import { vi, describe, expect, it, beforeEach } from 'vitest';
+import { isVersionSatisfied, openmrsFetch } from '@openmrs/esm-framework';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   checkModules,
-  hasInvalidDependencies,
   clearCache,
+  hasInvalidDependencies,
   type ResolvedBackendModuleType,
 } from './openmrs-backend-dependencies';
 

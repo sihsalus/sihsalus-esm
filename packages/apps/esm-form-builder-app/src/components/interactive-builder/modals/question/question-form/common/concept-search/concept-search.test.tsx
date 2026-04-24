@@ -1,11 +1,11 @@
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import type { Concept } from '@types';
 import React from 'react';
 import ConceptSearch from './concept-search.component';
-import type { FormField } from '@sihsalus/esm-form-engine-lib';
-import type { Concept } from '@types';
 
 void React;
 

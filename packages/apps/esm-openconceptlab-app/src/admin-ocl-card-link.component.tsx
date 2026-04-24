@@ -1,4 +1,4 @@
-import { Layer, ClickableTile } from '@carbon/react';
+import { ClickableTile, Layer } from '@carbon/react';
 import { ArrowRightIcon } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import { InlineNotification } from '@carbon/react';
-import { useAppContext, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+import { type DefaultWorkspaceProps, useAppContext } from '@openmrs/esm-framework';
 import React, { createContext, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 

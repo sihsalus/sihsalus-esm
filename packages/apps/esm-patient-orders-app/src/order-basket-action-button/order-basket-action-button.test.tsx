@@ -5,7 +5,7 @@ import {
   useOrderBasket,
 } from '@openmrs/esm-patient-common-lib';
 import { orderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
-import { screen, render, renderHook } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { mockPatient } from 'test-utils';
@@ -17,6 +17,7 @@ const mockUsePatient = jest.mocked(usePatient);
 const mockUseWorkspaces = useWorkspaces as jest.Mock;
 const MockActionMenuButton = jest.mocked(ActionMenuButton);
 const mockUseLaunchWorkspaceRequiringVisit = useLaunchWorkspaceRequiringVisit as jest.Mock;
+const mockFhirPatient = mockPatient as unknown as fhir.Patient;
 
 MockActionMenuButton.mockImplementation(({ handler, label, tagContent }) => (
   <button onClick={handler}>
@@ -79,7 +80,12 @@ jest.mock('@openmrs/esm-patient-common-lib/src/offline/visit', () => {
   return { useVisitOrOfflineVisit: () => mockUseVisitOrOfflineVisit() };
 });
 
-mockUsePatient.mockReturnValue({ patient: mockPatient, patientUuid: mockPatient.id, isLoading: false, error: null });
+mockUsePatient.mockReturnValue({
+  patient: mockFhirPatient,
+  patientUuid: mockPatient.id,
+  isLoading: false,
+  error: null,
+});
 mockUseSystemVisitSetting.mockReturnValue({ systemVisitEnabled: false });
 
 describe('<OrderBasketActionButton/>', () => {

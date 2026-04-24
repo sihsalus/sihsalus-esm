@@ -1,7 +1,7 @@
 import { type LoggedInUser, type Session, useSession } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { mockLoggedInUser } from '../../../test-utils/mocks/mock-user';
 

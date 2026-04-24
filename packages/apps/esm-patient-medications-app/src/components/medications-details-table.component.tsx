@@ -17,20 +17,20 @@ import {
 } from '@carbon/react';
 import {
   AddIcon,
-  PrinterIcon,
-  UserIcon,
   age,
   formatDate,
   getPatientName,
+  PrinterIcon,
+  UserIcon,
   useConfig,
   useLayoutType,
   usePagination,
 } from '@openmrs/esm-framework';
 import {
   CardHeader,
+  compare,
   type Order,
   PatientChartPagination,
-  compare,
   useLaunchWorkspaceRequiringVisit,
   useOrderBasket,
 } from '@openmrs/esm-patient-common-lib';

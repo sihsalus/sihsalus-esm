@@ -1,5 +1,5 @@
-import { conditionalAnsweredValidator } from '../../validators/conditional-answered-validator';
 import { type FormFieldValidator } from '../../types';
+import { conditionalAnsweredValidator } from '../../validators/conditional-answered-validator';
 import { DateValidator } from '../../validators/date-validator';
 import { DefaultValueValidator } from '../../validators/default-value-validator';
 import { FieldValidator } from '../../validators/form-validator';

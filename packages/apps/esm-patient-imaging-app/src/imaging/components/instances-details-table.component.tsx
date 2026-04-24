@@ -1,4 +1,3 @@
-import React, { useRef } from 'react';
 import {
   DataTable,
   IconButton,
@@ -10,18 +9,18 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-
-import { compare, PatientChartPagination, EmptyState } from '@openmrs/esm-patient-common-lib';
-
-import { useTranslation } from 'react-i18next';
 import { showModal, useLayoutType, usePagination } from '@openmrs/esm-framework';
+
+import { compare, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStudyInstances } from '../../api';
-import preview from '../../assets/preview.png';
 import orthancExplorer from '../../assets/orthanc.png';
-import styles from './details-table.scss';
+import preview from '../../assets/preview.png';
+import { getBrowserUrl, type OrthancConfiguration } from '../../types';
 import { instancePreviewDialog, instancesCount } from '../constants';
 import { buildURL } from '../utils/help';
-import { getBrowserUrl, type OrthancConfiguration } from '../../types';
+import styles from './details-table.scss';
 
 export interface InstancesDetailsTableProps {
   studyId: number;

@@ -1,8 +1,8 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockAppointmentsData } from 'test-utils';
 import React from 'react';
+import { mockAppointmentsData } from 'test-utils';
 
 import { type ConfigObject, configSchema } from '../config-schema';
 

@@ -1,7 +1,7 @@
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { showModal } from '@openmrs/esm-framework';
 import { type FormSchema } from '@sihsalus/esm-form-engine-lib';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { type Schema } from '../../types';
 import InteractiveBuilder from './interactive-builder.component';

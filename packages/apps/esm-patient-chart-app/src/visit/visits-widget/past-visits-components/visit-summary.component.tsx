@@ -16,9 +16,9 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
-  mapEncounters,
   type Diagnosis,
   type Encounter,
+  mapEncounters,
   type Note,
   type Observation,
   type Order,

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { take } from 'rxjs/operators';
 
 import ReportParameterInput from '../report-parameter-input.component';
-import { useReportDefinition, useReportDesigns, useReportRequest, runReportObservable } from '../reports.resource';
+import { runReportObservable, useReportDefinition, useReportDesigns, useReportRequest } from '../reports.resource';
 import SimpleCronEditor from '../simple-cron-editor/simple-cron-editor.component';
 
 import styles from './edit-scheduled-report-form.scss';

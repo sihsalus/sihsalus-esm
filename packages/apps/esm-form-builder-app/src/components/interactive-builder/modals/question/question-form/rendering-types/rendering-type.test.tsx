@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
-import RenderingTypeComponent from './rendering-type.component';
-import { FormFieldProvider } from '../../form-field-context';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
+import { render, screen } from '@testing-library/react';
+import { FormFieldProvider } from '../../form-field-context';
+import RenderingTypeComponent from './rendering-type.component';
 
 const mockSetFormField = jest.fn();
 const formField: FormField = {
@@ -97,6 +97,7 @@ function renderRenderingTypeComponent() {
     </FormFieldProvider>,
   );
 }
+
 import React from 'react';
 
 void React;

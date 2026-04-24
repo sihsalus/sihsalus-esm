@@ -1,5 +1,5 @@
-import { Button, Tile, Tag } from '@carbon/react';
-import { Growth, Education } from '@carbon/react/icons';
+import { Button, Tag, Tile } from '@carbon/react';
+import { Education, Growth } from '@carbon/react/icons';
 import { launchWorkspace2 } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

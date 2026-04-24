@@ -1,3 +1,4 @@
+import { createCalendar } from '@internationalized/date';
 import React, { cloneElement, forwardRef, useCallback, useContext, useRef } from 'react';
 import { useDateField } from 'react-aria';
 import {
@@ -14,7 +15,6 @@ import {
   useLocale,
 } from 'react-aria-components';
 import { useDateFieldState } from 'react-stately';
-import { createCalendar } from '@internationalized/date';
 
 interface OpenmrsDateInputProps {
   id?: string;

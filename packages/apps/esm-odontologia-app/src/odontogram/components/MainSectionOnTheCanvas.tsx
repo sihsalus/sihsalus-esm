@@ -3,9 +3,9 @@ import './ToothDetails.css';
 import './spacing/SpaceBetweenStyles.css';
 import { getDesignComponentByPosition } from '../config/designMapping';
 import { ODONTOGRAM_CONFIG } from '../config/odontogramConfig';
-import DesignSelector from './DesignSelector';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
 import type { FindingDesign } from '../types/odontogram';
+import DesignSelector from './DesignSelector';
 
 interface MainSectionOnTheCanvasProps {
   idTooth: number;

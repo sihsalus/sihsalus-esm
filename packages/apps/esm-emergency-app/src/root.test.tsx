@@ -21,9 +21,10 @@
  * Kent C. Dodds is the inventor of `@testing-library`:
  *   https://testing-library.com/docs/guiding-principles
  */
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import { useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 import type { Config } from './config-schema';
 import Root from './root.component';
 

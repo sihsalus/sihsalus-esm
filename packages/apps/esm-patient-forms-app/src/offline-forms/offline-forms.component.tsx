@@ -3,13 +3,13 @@ import {
   Layer,
   Search,
   SkeletonPlaceholder,
-  TableContainer,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
   Toggle,
 } from '@carbon/react';
 import {

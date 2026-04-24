@@ -1,4 +1,3 @@
-import React from 'react';
 import { getDefaultsFromConfigSchema, showModal, useConfig } from '@openmrs/esm-framework';
 import {
   launchPatientWorkspace,
@@ -7,10 +6,10 @@ import {
 } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockForms } from 'test-utils';
-import { mockPatient } from 'test-utils';
+import React from 'react';
+import { mockCurrentVisit, mockForms, mockPatient } from 'test-utils';
 
-import { configSchema, type ConfigObject } from '../config-schema';
+import { type ConfigObject, configSchema } from '../config-schema';
 
 import FormView from './form-view.component';
 

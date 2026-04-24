@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -16,12 +15,13 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { formatDatetime, parseDate, useConfig } from '@openmrs/esm-framework';
-import { usePrescriptionsTable } from '../medication-request/medication-request.resource';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type PharmacyConfig } from '../config-schema';
-import { type SimpleLocation } from '../types';
+import { usePrescriptionsTable } from '../medication-request/medication-request.resource';
 import PatientInfoCell from '../patient/patient-info-cell.component';
+import { type SimpleLocation } from '../types';
 import PrescriptionExpanded from './prescription-expanded.component';
 import styles from './prescriptions.scss';
 

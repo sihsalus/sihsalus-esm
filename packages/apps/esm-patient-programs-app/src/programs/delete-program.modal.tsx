@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
 import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showSnackbar, getCoreTranslation } from '@openmrs/esm-framework';
-import { deleteProgramEnrollment, useEnrollments } from './programs.resource';
 import styles from './delete-program.scss';
+import { deleteProgramEnrollment, useEnrollments } from './programs.resource';
 
 interface DeleteProgramProps {
   closeDeleteModal: () => void;

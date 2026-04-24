@@ -20,9 +20,8 @@ import {
 } from '../common';
 import { type ConfigObject } from '../config-schema';
 import { launchVitalsAndBiometricsForm as launchForm } from '../utils';
-
-import VitalsHeaderItem from './vitals-header-item.component';
 import styles from './vitals-header.scss';
+import VitalsHeaderItem from './vitals-header-item.component';
 
 interface VitalsHeaderProps {
   patientUuid: string;

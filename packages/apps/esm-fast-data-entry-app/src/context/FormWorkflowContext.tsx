@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo, useReducer } from 'react';
-import reducer from './FormWorkflowReducer';
-import { useParams, useLocation } from 'react-router-dom';
-import useGetSystemSetting from '../hooks/useGetSystemSetting';
 import { useSession } from '@openmrs/esm-framework';
+import React, { useEffect, useMemo, useReducer } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import useGetSystemSetting from '../hooks/useGetSystemSetting';
+import reducer from './FormWorkflowReducer';
+
 interface ParamTypes {
   formUuid?: string;
 }

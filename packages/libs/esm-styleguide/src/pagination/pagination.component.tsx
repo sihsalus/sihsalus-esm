@@ -1,8 +1,12 @@
-import React from 'react';
-import classNames from 'classnames';
 import { Pagination as CarbonPagination, type PaginationProps as CarbonPaginationProps } from '@carbon/react';
-import { ConfigurableLink, useLayoutType, usePaginationInfo } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import {
+  ConfigurableLink,
+  getCoreTranslation,
+  useLayoutType,
+  usePaginationInfo,
+} from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React from 'react';
 import styles from './pagination.module.scss';
 
 export interface PaginationProps {

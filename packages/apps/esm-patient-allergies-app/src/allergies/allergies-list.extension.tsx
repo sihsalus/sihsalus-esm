@@ -1,10 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
 import { Tag, TagSkeleton, Tooltip } from '@carbon/react';
 import { getCoreTranslation, translateFrom } from '@openmrs/esm-framework';
-import { useAllergies } from './allergy-intolerance.resource';
+import classNames from 'classnames';
+import React from 'react';
 import { severityOrder } from '../utils';
 import styles from './allergies-list.scss';
+import { useAllergies } from './allergy-intolerance.resource';
 
 const moduleName = '@sihsalus/esm-patient-allergies-app';
 

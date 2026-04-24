@@ -1,6 +1,6 @@
+import { InlineNotification } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { InlineNotification } from '@carbon/react';
 import { useEmergencyMetrics } from '../../resources/emergency.resource';
 import styles from './emergency-alerts.scss';
 

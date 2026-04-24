@@ -1,10 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { launchWorkspace2 } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { mockPatient } from 'test-utils';
-import ConditionsDetailedSummary from './conditions-detailed-summary.component';
 import { useConditions } from './conditions.resource';
+import ConditionsDetailedSummary from './conditions-detailed-summary.component';
 
 jest.mock('./conditions.resource', () => {
   const actual = jest.requireActual('./conditions.resource');

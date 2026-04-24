@@ -3,7 +3,7 @@ import useSWR from 'swr';
 
 import type { ConfigObject } from '../config-schema';
 import type { OpenmrsEncounter } from '../types';
-import { DeliveryForm_UUID, MchEncounterType_UUID, encounterRepresentation } from '../utils/constants';
+import { DeliveryForm_UUID, encounterRepresentation, MchEncounterType_UUID } from '../utils/constants';
 
 export function useNeonatalSummary(patientUuid: string, encounterType: string) {
   const config = useConfig() as ConfigObject;

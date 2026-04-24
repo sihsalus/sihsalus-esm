@@ -1,12 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import React from 'react';
-import ObsTypeQuestion from './obs-type-question.component';
-import { FormFieldProvider } from '../../../../form-field-context';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import type { Concept } from '@types';
+import React from 'react';
+import { FormFieldProvider } from '../../../../form-field-context';
+import ObsTypeQuestion from './obs-type-question.component';
 
 void React;
 

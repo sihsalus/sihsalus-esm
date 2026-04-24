@@ -1,10 +1,10 @@
 import {
-  updateVisit,
-  showSnackbar,
-  useVisit,
-  type VisitReturnType,
   type FetchResponse,
+  showSnackbar,
+  updateVisit,
+  useVisit,
   type Visit,
+  type VisitReturnType,
 } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

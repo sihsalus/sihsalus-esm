@@ -1,4 +1,4 @@
-import { type FetchResponse, openmrsFetch, usePatient, restBaseUrl } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl, usePatient } from '@openmrs/esm-framework';
 import { useCallback, useEffect, useMemo } from 'react';
 import useSWRInfinite from 'swr/infinite';
 

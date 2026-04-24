@@ -1,5 +1,5 @@
-import type { KeyedMutator } from 'swr';
 import { restBaseUrl } from '@openmrs/esm-framework';
+import type { KeyedMutator } from 'swr';
 
 export function invalidateVisitHistory(mutate: KeyedMutator<unknown>, patientUuid: string): void {
   void mutate((key) => {

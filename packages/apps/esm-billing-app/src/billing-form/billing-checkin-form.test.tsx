@@ -1,10 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import { useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { type BillingConfig } from '../config-schema';
-import { useBillableItems, useCashPoint, usePaymentMethods } from './billing-form.resource';
 import BillingCheckInForm from './billing-checkin-form.component';
+import { useBillableItems, useCashPoint, usePaymentMethods } from './billing-form.resource';
 
 const mockUseConfig = jest.mocked(useConfig<BillingConfig>);
 const mockUseCashPoint = jest.mocked(useCashPoint);

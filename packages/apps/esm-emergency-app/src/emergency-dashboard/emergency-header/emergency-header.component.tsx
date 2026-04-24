@@ -1,9 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { PageHeader, PageHeaderContent, launchWorkspace, useLayoutType, isDesktop } from '@openmrs/esm-framework';
-import { ServiceQueuesPictogram } from '@openmrs/esm-framework';
+import {
+  isDesktop,
+  launchWorkspace,
+  PageHeader,
+  PageHeaderContent,
+  ServiceQueuesPictogram,
+  useLayoutType,
+} from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { emergencyWorkflowWorkspace } from '../../emergency-workflow/constants';
 import styles from './emergency-header.scss';
 

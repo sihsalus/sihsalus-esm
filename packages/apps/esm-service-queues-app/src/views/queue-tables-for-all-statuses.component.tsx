@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { useQueueEntries } from '../hooks/useQueueEntries';
 import PatientQueueHeader from '../patient-queue-header/patient-queue-header.component';
 import { useColumns } from '../queue-table/cells/columns.resource';
-import { QueueTableByStatusSkeleton } from '../queue-table/queue-table-by-status-skeleton.component';
-import QueueTableMetrics from '../queue-table/queue-table-metrics.component';
 import QueueTable from '../queue-table/queue-table.component';
 import styles from '../queue-table/queue-table.scss';
+import { QueueTableByStatusSkeleton } from '../queue-table/queue-table-by-status-skeleton.component';
+import QueueTableMetrics from '../queue-table/queue-table-metrics.component';
 import type { Concept, Queue, QueueEntry } from '../types';
 
 interface QueueTablesForAllStatusesProps {

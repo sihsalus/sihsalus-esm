@@ -3,15 +3,15 @@ import {
   ArrowLeftIcon,
   type DefaultWorkspaceProps,
   ResponsiveWrapper,
-  Workspace2,
   useConfig,
   useDebounce,
   useLayoutType,
+  Workspace2,
 } from '@openmrs/esm-framework';
 import {
+  launchPatientWorkspace,
   type OrderBasketItem,
   type PatientWorkspace2DefinitionProps,
-  launchPatientWorkspace,
   useOrderBasket,
   useOrderType,
   usePatientChartStore,

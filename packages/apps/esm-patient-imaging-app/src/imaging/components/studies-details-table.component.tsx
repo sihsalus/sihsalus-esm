@@ -1,7 +1,7 @@
-import React, { useMemo, useRef, useState } from 'react';
 import {
   DataTable,
   IconButton,
+  InlineLoading,
   Table,
   TableBody,
   TableCell,
@@ -9,21 +9,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  InlineLoading,
 } from '@carbon/react';
-import { compare, PatientChartPagination, EmptyState, CardHeader } from '@openmrs/esm-patient-common-lib';
-
 import { showModal, TrashCanIcon, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { CardHeader, compare, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useMemo, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { getBrowserUrl, type DicomStudy } from '../../types';
-import stoneview from '../../assets/stoneViewer.png';
 import ohifview from '../../assets/ohifViewer.png';
 import orthancExplorer from '../../assets/orthanc.png';
-import SeriesDetailsTable from './series-details-table.component';
+import stoneview from '../../assets/stoneViewer.png';
+import { type DicomStudy, getBrowserUrl } from '../../types';
 import { studiesCount, studyDeleteConfirmationDialog } from '../constants';
-import styles from './details-table.scss';
 import { buildURL } from '../utils/help';
+import styles from './details-table.scss';
+import SeriesDetailsTable from './series-details-table.component';
 
 export interface StudyDetailsTableProps {
   isValidating?: boolean;

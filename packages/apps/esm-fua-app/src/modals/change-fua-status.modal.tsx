@@ -1,9 +1,9 @@
-import { ModalHeader, ModalBody, ModalFooter, Button, Select, SelectItem, InlineLoading } from '@carbon/react';
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader, Select, SelectItem } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { setFuaEstado, type FuaRequest } from '../hooks/useFuaRequests';
+import { type FuaRequest, setFuaEstado } from '../hooks/useFuaRequests';
 
 import styles from './fua-modals.scss';
 

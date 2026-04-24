@@ -1,10 +1,10 @@
-import { useTranslation } from 'react-i18next';
 import { InlineNotification } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
+import { useTranslation } from 'react-i18next';
 import { type PharmacyConfig } from '../config-schema';
+import FillPrescriptionButton from '../fill-prescription/fill-prescription-button.component';
 import { PharmacyHeader } from '../pharmacy-header/pharmacy-header.component';
 import PrescriptionTabLists from '../prescriptions/prescription-tab-lists.component';
-import FillPrescriptionButton from '../fill-prescription/fill-prescription-button.component';
 
 export default function DispensingDashboard() {
   const config = useConfig<PharmacyConfig>();

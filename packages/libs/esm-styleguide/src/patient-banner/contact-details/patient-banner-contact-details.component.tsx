@@ -1,14 +1,19 @@
 /** @module @category UI */
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
+
 import { InlineLoading } from '@carbon/react';
-import { type CoreTranslationKey, getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import { ConfigurableLink, usePatient } from '@openmrs/esm-framework/src/internal';
-import { parseDate } from '@openmrs/esm-framework/src/internal';
+import {
+  ConfigurableLink,
+  type CoreTranslationKey,
+  getCoreTranslation,
+  parseDate,
+  usePatient,
+} from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
+import styles from './patient-banner-contact-details.module.scss';
 import { usePatientContactAttributes } from './usePatientAttributes';
 import { usePatientListsForPatient } from './usePatientListsForPatient';
 import { useRelationships } from './useRelationships';
-import styles from './patient-banner-contact-details.module.scss';
 
 interface ContactDetailsProps {
   patientId: string;

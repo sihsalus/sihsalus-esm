@@ -1,9 +1,9 @@
+import { OverflowMenuItem } from '@carbon/react';
+import { getCoreTranslation, restBaseUrl, showSnackbar, UserHasAccess, useConfig } from '@openmrs/esm-framework';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { OverflowMenuItem } from '@carbon/react';
-import { showSnackbar, getCoreTranslation, useConfig, UserHasAccess, restBaseUrl } from '@openmrs/esm-framework';
-import { useStickerPdfPrinter } from '../hooks/useStickerPdfPrinter';
 import type { ConfigObject } from '../config-schema';
+import { useStickerPdfPrinter } from '../hooks/useStickerPdfPrinter';
 import styles from './print-identifier-sticker-action-button.scss';
 
 interface PrintIdentifierStickerOverflowMenuItemProps {

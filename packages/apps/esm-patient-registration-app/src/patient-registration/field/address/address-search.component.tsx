@@ -1,6 +1,6 @@
 import { Search } from '@carbon/react';
 import { useFormikContext } from 'formik';
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAddressHierarchy } from './address-hierarchy.resource';

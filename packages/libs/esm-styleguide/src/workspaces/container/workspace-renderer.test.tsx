@@ -3,8 +3,8 @@ import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { render, screen } from '@testing-library/react';
 import { mountRootParcel } from 'single-spa';
-import { WorkspaceRenderer } from './workspace-renderer.component';
 import { getWorkspaceGroupStore } from '../workspaces';
+import { WorkspaceRenderer } from './workspace-renderer.component';
 
 const mockFn = vi.fn();
 
@@ -30,7 +30,7 @@ describe('WorkspaceRenderer', () => {
     });
     render(
       <WorkspaceRenderer
-        // @ts-ignore The workspace is of type OpenWorkspace and not all properties are required
+        // @ts-expect-error The workspace is of type OpenWorkspace and not all properties are required
         workspace={{
           closeWorkspace: mockCloseWorkspace,
           name: 'workspace-name',

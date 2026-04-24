@@ -1,12 +1,13 @@
 /** @module @category UI */
+
+import isEmpty from 'lodash-es/isEmpty';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Subject } from 'rxjs';
-import type { ToastDescriptor, ToastNotificationMeta } from './toast.component';
 import ActiveToasts from './active-toasts.component';
-import isEmpty from 'lodash-es/isEmpty';
+import type { ToastDescriptor, ToastNotificationMeta } from './toast.component';
 
-export { type ToastDescriptor, type ToastType, type ToastNotificationMeta } from './toast.component';
+export { type ToastDescriptor, type ToastNotificationMeta, type ToastType } from './toast.component';
 
 const toastsSubject = new Subject<ToastNotificationMeta>();
 let toastId = 0;

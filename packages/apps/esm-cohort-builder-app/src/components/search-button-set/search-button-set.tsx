@@ -1,6 +1,6 @@
+import { Button, ButtonSet, Column, InlineLoading } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonSet, Column, InlineLoading } from '@carbon/react';
 import styles from './search-button-set.scss';
 
 interface SearchButtonSetProps {

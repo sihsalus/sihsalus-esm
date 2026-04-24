@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { InlineLoading, InlineNotification, IconButton, Tabs, Tab, TabList, Dropdown } from '@carbon/react';
-import { Download, Edit, ArrowRight, Upload } from '@carbon/react/icons';
-import { useParams } from 'react-router-dom';
-import { showModal, showSnackbar } from '@openmrs/esm-framework';
+import { Dropdown, IconButton, InlineLoading, InlineNotification, Tab, TabList, Tabs } from '@carbon/react';
+import { ArrowRight, Download, Edit, Upload } from '@carbon/react/icons';
 import { useLanguageOptions } from '@hooks/getLanguageOptionsFromSession';
 import { uploadBackendTranslations } from '@hooks/uploadBackendTranslations';
 import { fetchBackendTranslations } from '@hooks/useBackendTranslations';
+import { showModal, showSnackbar } from '@openmrs/esm-framework';
 import type { Schema } from '@types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import { extractTranslatableStrings } from '../../utils/translationSchemaUtils';
 import styles from './translation-builder.module.scss';

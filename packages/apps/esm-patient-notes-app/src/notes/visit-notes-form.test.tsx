@@ -1,6 +1,3 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, render } from '@testing-library/react';
 import {
   type Encounter,
   getDefaultsFromConfigSchema,
@@ -9,16 +6,20 @@ import {
   useSession,
 } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
-import { fetchDiagnosisConceptsByName, saveVisitNote, updateVisitNote } from './visit-notes.resource';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import {
   ConfigMock,
   diagnosisSearchResponse,
+  getByTextWithMarkup,
   mockFetchLocationByUuidResponse,
   mockFetchProviderByUuidResponse,
+  mockPatient,
   mockSessionDataResponse,
 } from 'test-utils';
-import { configSchema, type ConfigObject } from '../config-schema';
-import { mockPatient, getByTextWithMarkup } from 'test-utils';
+import { type ConfigObject, configSchema } from '../config-schema';
+import { fetchDiagnosisConceptsByName, saveVisitNote, updateVisitNote } from './visit-notes.resource';
 import VisitNotesForm, { type VisitNotesFormProps } from './visit-notes-form.workspace';
 
 const defaultProps: PatientWorkspace2DefinitionProps<VisitNotesFormProps, {}> = {

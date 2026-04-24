@@ -1,11 +1,11 @@
 import {
   type AssignedExtension,
-  type ExtensionSlotState,
   ExtensionSlot,
-  useExtensionStore,
+  type ExtensionSlotState,
   useExtensionSlotMeta,
+  useExtensionStore,
 } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { mockPatient } from 'test-utils';
@@ -15,6 +15,7 @@ import ChartReview from './chart-review.component';
 const mockUseExtensionStore = jest.mocked(useExtensionStore);
 const mockUseExtensionSlotMeta = jest.mocked(useExtensionSlotMeta);
 const mockExtensionSlot = jest.mocked(ExtensionSlot);
+const mockFhirPatient = mockPatient as unknown as fhir.Patient;
 
 jest.mock('@openmrs/esm-patient-common-lib', () => {
   return {
@@ -43,16 +44,22 @@ function slotMetaFromStore(store, slotName) {
 
 describe('ChartReview', () => {
   beforeEach(() => {
-    mockExtensionSlot.mockImplementation(({ children }) => {
+    mockExtensionSlot.mockImplementation(({ children }): React.JSX.Element => {
       if (typeof children === 'function') {
-        return children({
-          id: 'mocked-extension',
-          meta: {},
-          moduleName: '@openmrs/esm-patient-chart-app',
-        } as AssignedExtension);
+        return (
+          <>
+            {children({
+              id: 'mocked-extension',
+              meta: {},
+              moduleName: '@openmrs/esm-patient-chart-app',
+              name: 'mocked-extension',
+              config: {},
+            } as AssignedExtension)}
+          </>
+        );
       }
 
-      return children ?? null;
+      return <>{children ?? null}</>;
     });
   });
 
@@ -90,7 +97,7 @@ describe('ChartReview', () => {
 
     render(
       <MemoryRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
-        <ChartReview patient={mockPatient} patientUuid={mockPatient.id} view="Patient Summary" />
+        <ChartReview patient={mockFhirPatient} patientUuid={mockPatient.id} view="Patient Summary" />
       </MemoryRouter>,
     );
 

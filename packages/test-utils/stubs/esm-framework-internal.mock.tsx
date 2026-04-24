@@ -1,11 +1,11 @@
 import { vi } from 'vitest';
 
 import {
+  clearHistory,
   DownloadIcon,
+  getExtensionInternalStore,
   TrashCanIcon,
   Type,
-  clearHistory,
-  getExtensionInternalStore,
   useStore,
 } from './esm-framework.mock';
 
@@ -39,7 +39,7 @@ function createMockStore<T>(initialState: T) {
   };
 }
 
-export { DownloadIcon, TrashCanIcon, Type, clearHistory, getExtensionInternalStore, useStore };
+export { clearHistory, DownloadIcon, getExtensionInternalStore, TrashCanIcon, Type, useStore };
 
 export const implementerToolsConfigStore = createMockStore({ config: {} as Record<string, unknown> });
 export const temporaryConfigStore = createMockStore({ config: {} as Record<string, unknown> });

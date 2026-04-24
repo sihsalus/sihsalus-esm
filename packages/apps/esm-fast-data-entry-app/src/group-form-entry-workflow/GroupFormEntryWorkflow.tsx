@@ -1,11 +1,11 @@
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import React from 'react';
-import GroupDisplayHeader from './group-display-header';
-import styles from './styles.scss';
 import { GroupFormWorkflowProvider } from '../context/GroupFormWorkflowContext';
+import GroupSessionWorkspace from './GroupSessionWorkspace';
+import GroupDisplayHeader from './group-display-header';
 import GroupSearchHeader from './group-search-header';
 import SessionMetaWorkspace from './SessionMetaWorkspace';
-import GroupSessionWorkspace from './GroupSessionWorkspace';
+import styles from './styles.scss';
 
 const GroupFormEntryWorkflow = () => {
   return (

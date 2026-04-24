@@ -1,6 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import {
+  Button,
+  ButtonSet,
+  ComboBox,
+  Form,
+  FormGroup,
+  InlineLoading,
+  RadioButton,
+  RadioButtonGroup,
+  Row,
+  Stack,
+} from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   createErrorHandler,
   ExtensionSlot,
@@ -10,20 +20,15 @@ import {
   useLayoutType,
 } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
-
-import { Button, ComboBox, Form, InlineLoading, Stack } from '@carbon/react';
-import { type OrthancConfiguration } from '../../types';
-import { getLinkStudies, useOrthancConfigurations } from '../../api';
-import { Row } from '@carbon/react';
-import { FormGroup } from '@carbon/react';
-import { RadioButton } from '@carbon/react';
-import { RadioButtonGroup } from '@carbon/react';
-import { ButtonSet } from '@carbon/react';
-import { z } from 'zod';
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import styles from './studies.scss';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+import { getLinkStudies, useOrthancConfigurations } from '../../api';
+import { type OrthancConfiguration } from '../../types';
 import { assignStudiesFormWorkspace } from '../constants';
+import styles from './studies.scss';
 
 const LinkStudiesWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid, closeWorkspace }) => {
   const { t } = useTranslation();

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { type Attachment, CloseIcon, useLayoutType } from '@openmrs/esm-framework';
-import styles from './attachment-preview.scss';
 import Linkify from 'linkify-react';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import styles from './attachment-preview.scss';
 
 interface AttachmentPreviewProps {
   attachmentToPreview: Attachment;

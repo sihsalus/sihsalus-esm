@@ -1,7 +1,5 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { ComposedModal, Button, ModalHeader, ModalFooter, ModalBody, TextInput, FormLabel } from '@carbon/react';
+import { Button, ComposedModal, FormLabel, ModalBody, ModalFooter, ModalHeader, TextInput } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import {
   ExtensionSlot,
   fetchCurrentPatient,
@@ -10,10 +8,12 @@ import {
   usePatient,
   useSession,
 } from '@openmrs/esm-framework';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './styles.scss';
 import GroupFormWorkflowContext from '../context/GroupFormWorkflowContext';
-import { usePostCohort } from '../hooks';
 import PatientLocationMismatchModal from '../form-entry-workflow/patient-search-header/PatienMismatchedLocationModal';
+import { usePostCohort } from '../hooks';
 import { useHsuIdIdentifier } from '../hooks/location-tag.resource';
 
 interface PatientSummary {

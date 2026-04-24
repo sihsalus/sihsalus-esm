@@ -1,12 +1,12 @@
 import { Button, ButtonSet, Form } from '@carbon/react';
-import { ArrowLeftIcon, useLayoutType, launchWorkspace } from '@openmrs/esm-framework';
+import { ArrowLeftIcon, launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
 import { type ComponentProps, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FormsList from './forms-list.component';
 import styles from './forms-selector.scss';
-import type { Form as FormSchema, CompletedFormInfo } from './types';
+import type { CompletedFormInfo, Form as FormSchema } from './types';
 
 // Generic type for form launch function
 export type FormLaunchHandler = (form: FormSchema, encounterUuid: string) => void;

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 
-import type { AppointmentKind, AppointmentStatus, Appointment } from '../../types';
+import type { Appointment, AppointmentKind, AppointmentStatus } from '../../types';
 
 import AppointmentDetails from './appointment-details.component';
 

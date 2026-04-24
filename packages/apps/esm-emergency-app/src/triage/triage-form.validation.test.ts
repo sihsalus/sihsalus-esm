@@ -1,11 +1,11 @@
 import { type ConceptReferenceRange } from '../hooks/useConceptReferenceRanges';
 import {
-  triageFormSchema,
   assessValue,
+  type TriageFormData,
+  triageFormSchema,
+  type VitalFieldName,
   validateVitalsAgainstRanges,
   vitalSignRanges,
-  type TriageFormData,
-  type VitalFieldName,
 } from './triage-form.validation';
 
 // ============================================================================

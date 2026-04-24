@@ -1,15 +1,15 @@
+import { createErrorHandler } from '@openmrs/esm-framework/src/internal';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useFormFactory } from '../../provider/form-factory-provider';
+import { useFormProviderContext } from '../../provider/form-provider';
 import type { FormField, FormFieldInputProps, RenderType } from '../../types';
+import { clearSubmission, isViewMode } from '../../utils/common-utils';
 import { evaluateAsyncExpression, evaluateExpression } from '../../utils/expression-runner';
 import { isEmpty } from '../../validators/form-validator';
-import styles from './repeat.scss';
-import { cloneRepeatField } from './helpers';
-import { clearSubmission, isViewMode } from '../../utils/common-utils';
-import RepeatControls from './repeat-controls.component';
-import { createErrorHandler } from '@openmrs/esm-framework/src/internal';
-import { useFormProviderContext } from '../../provider/form-provider';
 import { FormFieldRenderer } from '../renderer/field/form-field-renderer.component';
-import { useFormFactory } from '../../provider/form-factory-provider';
+import { cloneRepeatField } from './helpers';
+import styles from './repeat.scss';
+import RepeatControls from './repeat-controls.component';
 
 const renderingByTypeMap: Record<string, RenderType> = {
   obsGroup: 'group',

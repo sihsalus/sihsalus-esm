@@ -1,10 +1,9 @@
 import { InlineLoading, Tag } from '@carbon/react';
 import { ArrowRightIcon } from '@openmrs/esm-framework';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from './flags-highlight-bar.scss';
 import Flags from './flags.component';
+import styles from './flags-highlight-bar.scss';
 import { useCurrentPath, usePatientFlags } from './hooks/usePatientFlags';
 
 interface FlagsHighlightBarProps {

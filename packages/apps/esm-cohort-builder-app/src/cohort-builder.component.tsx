@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
-import { Tab, Tabs, TabPanels, TabPanel, TabList } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getCohortMembers, getDataSet, search } from './cohort-builder.resources';
+import styles from './cohort-builder.scss';
 import { addToHistory } from './cohort-builder.utils';
-import type { Patient, SearchParams } from './types';
 import Composition from './components/composition/composition.component';
 import SavedCohorts from './components/saved-cohorts/saved-cohorts.component';
 import SavedQueries from './components/saved-queries/saved-queries.component';
@@ -18,7 +18,7 @@ import SearchByLocation from './components/search-by-location/search-by-location
 import SearchByPersonAttributes from './components/search-by-person-attributes/search-by-person-attributes.component';
 import SearchHistory from './components/search-history/search-history.component';
 import SearchResultsTable from './components/search-results-table/search-results-table.component';
-import styles from './cohort-builder.scss';
+import type { Patient, SearchParams } from './types';
 
 interface TabItem {
   name: string;

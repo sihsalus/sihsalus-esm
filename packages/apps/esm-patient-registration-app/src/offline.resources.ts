@@ -6,9 +6,9 @@ import React from 'react';
 
 import { cacheForOfflineHeaders, moduleName } from './constants';
 import type {
-  PatientIdentifierType,
-  FetchedPatientIdentifierType,
   AddressTemplate,
+  FetchedPatientIdentifierType,
+  PatientIdentifierType,
 } from './patient-registration/patient-registration.types';
 
 export interface Resources {
@@ -73,7 +73,7 @@ async function fetchFieldDefinitionType(fieldDefinition) {
 export async function fetchPatientIdentifierTypesWithSources(): Promise<Array<PatientIdentifierType>> {
   const patientIdentifierTypes = await fetchPatientIdentifierTypes();
 
-  // @ts-ignore Reason: The required props of the type are generated below.
+  // @ts-expect-error Reason: The required props of the type are generated below.
   const identifierTypes: Array<PatientIdentifierType> = patientIdentifierTypes.filter(Boolean);
 
   const [autoGenOptions, identifierSourcesResponse] = await Promise.all([

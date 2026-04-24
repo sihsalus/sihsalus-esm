@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { MultiSelect, Search, TabPanel } from '@carbon/react';
 import { useConfig, useDebounce, useSession } from '@openmrs/esm-framework';
+import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type PharmacyConfig } from '../config-schema';
-import PrescriptionsTable from './prescriptions-table.component';
-import styles from './prescriptions.scss';
 import { useLocations } from '../location/location.resource';
 import { type SimpleLocation } from '../types';
+import styles from './prescriptions.scss';
+import PrescriptionsTable from './prescriptions-table.component';
 
 interface PrescriptionTabPanelProps {
   isTabActive: boolean;

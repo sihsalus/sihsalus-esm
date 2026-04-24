@@ -1,9 +1,8 @@
-import { Friendship, Calendar, ReminderMedical, Growth } from '@carbon/react/icons';
+import { Calendar, Friendship, Growth, ReminderMedical } from '@carbon/react/icons';
 import { usePatient } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
-
 import type { TabConfig } from '@sihsalus/esm-sihsalus-shared';
 import { TabbedDashboard } from '@sihsalus/esm-sihsalus-shared';
+import React, { useMemo } from 'react';
 
 interface WellChildControlProps {
   patient?: fhir.Patient | null;

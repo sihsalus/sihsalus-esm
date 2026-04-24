@@ -1,4 +1,4 @@
-import { type FetchResponse, openmrsFetch, restBaseUrl, type Location } from '@openmrs/esm-framework';
+import { type FetchResponse, type Location, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
 import { type Concept, type QueueEntry } from '../../types';
 

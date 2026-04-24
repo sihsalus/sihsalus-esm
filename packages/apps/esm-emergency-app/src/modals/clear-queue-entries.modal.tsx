@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, ButtonSkeleton, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
-import { endEmergencyQueueEntry, type EmergencyQueueEntry } from '../resources/emergency.resource';
+import { type EmergencyQueueEntry, endEmergencyQueueEntry } from '../resources/emergency.resource';
 
 interface ClearQueueEntriesModalProps {
   queueEntries: Array<EmergencyQueueEntry>;

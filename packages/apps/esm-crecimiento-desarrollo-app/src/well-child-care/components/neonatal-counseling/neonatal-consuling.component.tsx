@@ -1,20 +1,19 @@
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter'; // Ajusta la ruta
-import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import {
-  EXAM_DATE_UUID,
-  BODY_POSITION_UUID,
-  RESPONSES_UUID,
   AFFECTIVE_BOND_UUID,
   ANATOMY_UUID,
-  SUCTION_COUNSEL_UUID,
-  TIME_UUID,
+  BODY_POSITION_UUID,
+  EXAM_DATE_UUID,
   FEEDING_TIME_UUID,
   OBSERVATION_UUID,
+  RESPONSES_UUID,
+  SUCTION_COUNSEL_UUID,
+  TIME_UUID,
 } from '../../concepts/neonatal-concepts';
 
 interface NeonatalCounselingProps {

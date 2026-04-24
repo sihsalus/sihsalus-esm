@@ -1,4 +1,4 @@
-import { openmrsFetch, type OpenmrsResource, type Patient, restBaseUrl, useSession } from '@openmrs/esm-framework';
+import { type OpenmrsResource, openmrsFetch, type Patient, restBaseUrl, useSession } from '@openmrs/esm-framework';
 
 import useEmrConfiguration from './hooks/useEmrConfiguration';
 import useWardLocation from './hooks/useWardLocation';

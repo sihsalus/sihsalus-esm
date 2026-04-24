@@ -1,12 +1,12 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockAdvancedSearchResults } from 'test-utils';
 import React from 'react';
+import { mockAdvancedSearchResults } from 'test-utils';
 
 import { configSchema, type PatientSearchConfig } from '../config-schema';
-import { PatientSearchContext } from '../patient-search-context';
 import { useInfinitePatientSearch } from '../patient-search.resource';
+import { PatientSearchContext } from '../patient-search-context';
 import { type PatientSearchResponse } from '../types';
 
 import AdvancedPatientSearchComponent from './advanced-patient-search.component';

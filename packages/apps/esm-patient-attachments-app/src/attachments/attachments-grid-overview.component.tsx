@@ -1,6 +1,6 @@
-import React from 'react';
 import { SkeletonPlaceholder } from '@carbon/react';
 import { type Attachment } from '@openmrs/esm-framework';
+import React from 'react';
 import AttachmentThumbnail from './attachment-thumbnail.component';
 import styles from './attachments-grid-overview.scss';
 

@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { type OpenmrsResource, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import useSWR from 'swr';
 import { apiBasePath } from '../constants';
 
 export const useBillableItems = () => {

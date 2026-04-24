@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
+import { type QueueTableCellComponentProps, type QueueTableColumnFunction } from '../../types';
 
 export const QueueTableComingFromCell = ({ queueEntry }: QueueTableCellComponentProps) => {
   return <>{queueEntry.queueComingFrom?.display ?? '--'}</>;

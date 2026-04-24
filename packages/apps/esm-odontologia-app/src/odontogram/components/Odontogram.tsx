@@ -13,8 +13,8 @@
 import React from 'react';
 import { OdontogramProvider } from '../providers/OdontogramProvider';
 import FormDentalClinicalFindings from './FormDentalClinicalFindings';
-import TeethArch from './TeethArch';
 import ResponsiveOdontogramWrapper from './ResponsiveOdontogramWrapper';
+import TeethArch from './TeethArch';
 import './AdultOdontogram.css';
 
 import type { OdontogramConfig, OdontogramData } from '../types/odontogram';

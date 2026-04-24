@@ -17,7 +17,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { navigate, showSnackbar, useConfig } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 

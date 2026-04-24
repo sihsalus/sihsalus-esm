@@ -12,17 +12,16 @@ import {
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type DefaultWorkspaceProps, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
 import { z } from 'zod';
 
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
-
-import styles from './queue-service-form.scss';
 import { saveQueue, useServiceConcepts } from './queue-service.resource';
+import styles from './queue-service-form.scss';
 
 const createQueueServiceSchema = (t: TFunction) =>
   z.object({

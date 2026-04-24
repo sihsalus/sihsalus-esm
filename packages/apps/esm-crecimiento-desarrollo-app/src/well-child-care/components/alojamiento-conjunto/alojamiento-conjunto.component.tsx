@@ -1,24 +1,23 @@
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter';
-import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared';
 import {
   ADMISSION_DATE_TIME_UUID,
+  DELIVERY_TYPE_AC_UUID,
   GESTATIONAL_AGE_UUID,
   HEMATOCRIT_UUID,
-  MOTHER_AGE_UUID,
-  NUMBER_OF_CHILDREN_UUID,
-  DELIVERY_TYPE_AC_UUID,
-  NIPPLES_AC_UUID,
-  MILK_PRODUCTION_UUID,
   LATCH_UUID,
-  SUCTION_AC_UUID,
-  SWALLOWING_UUID,
+  MILK_PRODUCTION_UUID,
+  MOTHER_AGE_UUID,
+  NIPPLES_AC_UUID,
+  NUMBER_OF_CHILDREN_UUID,
   NURSING_DIAGNOSIS_AC_UUID,
   NURSING_INTERVENTION_UUID,
+  SUCTION_AC_UUID,
+  SWALLOWING_UUID,
 } from '../../concepts/neonatal-concepts';
 
 interface AlojamientoConjuntoProps {

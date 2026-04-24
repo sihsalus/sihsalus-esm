@@ -1,8 +1,7 @@
 import { screen } from '@testing-library/react';
-import { mockOrderStockData } from 'test-utils';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { renderWithSwr } from 'test-utils';
+import { mockOrderStockData, renderWithSwr } from 'test-utils';
 
 import { useOrderStockInfo } from '../hooks/useOrderStockInfo';
 

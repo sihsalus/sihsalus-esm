@@ -1,4 +1,4 @@
-import { TextInput, Layer } from '@carbon/react';
+import { Layer, TextInput } from '@carbon/react';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 

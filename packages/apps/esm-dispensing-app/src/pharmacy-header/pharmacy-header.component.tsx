@@ -1,10 +1,10 @@
+import { Calendar, Location } from '@carbon/react/icons';
+import { formatDate, PageHeader, useConfig, useSession } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Location } from '@carbon/react/icons';
-import { useConfig, useSession, formatDate, PageHeader } from '@openmrs/esm-framework';
-import PharmacyIllustration from './pharmacy-illustration.component';
 import { type PharmacyConfig } from '../config-schema';
 import styles from './pharmacy-header.scss';
+import PharmacyIllustration from './pharmacy-illustration.component';
 
 export const PharmacyHeader: React.FC = () => {
   const { t } = useTranslation();

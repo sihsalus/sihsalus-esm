@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -11,8 +10,9 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { CardHeader, EmptyCard, ErrorState, usePagination } from '@openmrs/esm-framework';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { pageSizesOptions, usePatientConditions } from './conditions.resource';
 import styles from './conditions.scss';
 

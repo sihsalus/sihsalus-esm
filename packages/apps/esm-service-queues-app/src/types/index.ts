@@ -1,4 +1,4 @@
-import { type Visit, type OpenmrsResource, type Location, type Patient } from '@openmrs/esm-framework';
+import { type Location, type OpenmrsResource, type Patient, type Visit } from '@openmrs/esm-framework';
 import type React from 'react';
 
 import { type ColumnConfig } from '../config-schema';

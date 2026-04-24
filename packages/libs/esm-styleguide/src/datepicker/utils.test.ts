@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { CalendarDate, CalendarDateTime, EthiopicCalendar } from '@internationalized/date';
+import { describe, expect, it } from 'vitest';
 import { dateToInternationalizedDate, internationalizedDateToDate, removeDataAttributes } from './utils';
 
 describe('dateToInternationalizedDate', () => {

@@ -1,7 +1,7 @@
+import { Button, Form, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { type Schema } from '@types';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Form, ModalBody, ModalHeader, ModalFooter } from '@carbon/react';
-import { type Schema } from '@types';
 
 interface RestoreDraftSchemaModalProps {
   closeModal: () => void;

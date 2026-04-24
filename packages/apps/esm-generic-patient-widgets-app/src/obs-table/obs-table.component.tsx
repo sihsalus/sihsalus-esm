@@ -1,14 +1,14 @@
 import {
   DataTable,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
-  TableBody,
   TableHead,
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { usePagination, useConfig, formatDatetime, formatDate, formatTime } from '@openmrs/esm-framework';
+import { formatDate, formatDatetime, formatTime, useConfig, usePagination } from '@openmrs/esm-framework';
 import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

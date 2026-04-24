@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework/src/internal';
+import useSWR from 'swr';
 import type { FormSchema, ProgramsFetchResponse } from '../types';
 
 const useActiveProgramEnrollments = (

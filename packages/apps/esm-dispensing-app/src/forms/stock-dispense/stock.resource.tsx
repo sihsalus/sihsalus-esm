@@ -1,6 +1,6 @@
-import useSWR from 'swr';
 import { openmrsFetch, useSession } from '@openmrs/esm-framework';
-import { type StockDispenseRequest, type InventoryItem, type MedicationDispense } from '../../types';
+import useSWR from 'swr';
+import { type InventoryItem, type MedicationDispense, type StockDispenseRequest } from '../../types';
 import { getUuidFromReference } from '../../utils';
 
 //TODO: Add configuration to retrieve the stock dispense endpoint

@@ -1,8 +1,8 @@
-import { type Visit, type LayoutType, type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
+import { type LayoutType, type OpenmrsResource, type Visit } from '@openmrs/esm-framework/src/internal';
 import { type FormProcessor } from '../processors/form-processor';
 import { type FormContextProps } from '../provider/form-provider';
-import { type FormField, type FormFieldValue, type FormSchema } from './schema';
 import { type OpenmrsEncounter } from './domain';
+import { type FormField, type FormFieldValue, type FormSchema } from './schema';
 
 export type SessionMode = 'edit' | 'enter' | 'view' | 'embedded-view';
 
@@ -158,5 +158,5 @@ export interface ValidationResult {
 
 export type PreFilledQuestions = Record<string, FormFieldValue>;
 
-export * from './schema';
 export * from './domain';
+export * from './schema';

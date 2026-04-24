@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+
 import {
   DataTable,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
-  TableBody,
+  TableExpandedRow,
+  TableExpandHeader,
+  TableExpandRow,
   TableHead,
   TableHeader,
   TableRow,
-  TableExpandHeader,
-  TableExpandRow,
-  TableExpandedRow,
 } from '@carbon/react';
-import { orderBy } from 'lodash-es';
 import { formatDate, formatTime, parseDate, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import { orderBy } from 'lodash-es';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { PatientNote } from '../types';
 import styles from './notes-overview.scss';
 

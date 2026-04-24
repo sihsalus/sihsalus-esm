@@ -6,12 +6,13 @@
  * Interpretation is computed using patient-specific reference ranges from the backend
  * and fallback ranges from the Zod schema.
  */
-import React, { useState } from 'react';
-import classNames from 'classnames';
-import { Controller, useWatch, type Control, type FieldErrors } from 'react-hook-form';
+
 import { NumberInput } from '@carbon/react';
+import classNames from 'classnames';
+import React, { useState } from 'react';
+import { type Control, Controller, type FieldErrors, useWatch } from 'react-hook-form';
 import { type ConceptReferenceRange } from '../hooks/useConceptReferenceRanges';
-import { assessValue, vitalSignRanges, type TriageFormData, type VitalFieldName } from './triage-form.validation';
+import { assessValue, type TriageFormData, type VitalFieldName, vitalSignRanges } from './triage-form.validation';
 import styles from './vital-input.component.scss';
 
 /** Props for the VitalInput component. */

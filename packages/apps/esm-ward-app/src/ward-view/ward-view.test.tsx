@@ -46,7 +46,7 @@ jest.mock('react-router-dom', () => ({
 const mockUseParams = useParams as jest.Mock;
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);
-//@ts-ignore
+//@ts-expect-error
 jest.mocked(useObs).mockReturnValue({
   data: [],
 });

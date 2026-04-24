@@ -7,6 +7,7 @@ import NoContent from '../../ui/NoContent/NoContent';
 import { type CostStructureFormValues } from '../schema/costructure-schema';
 
 import styles from './tabs.styles.scss';
+
 interface Props {
   form: UseFormReturn<CostStructureFormValues>;
 }

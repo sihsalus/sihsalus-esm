@@ -7,11 +7,11 @@ import {
   ComboBox,
   DatePicker,
   DatePickerInput,
-  IconButton,
   Form,
   FormGroup,
   FormLabel,
   Grid,
+  IconButton,
   InlineNotification,
   Layer,
   NumberInput,
@@ -23,8 +23,8 @@ import { Subtract } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AddIcon,
-  age,
   ArrowLeftIcon,
+  age,
   ExtensionSlot,
   formatDate,
   getPatientName,

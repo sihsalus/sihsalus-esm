@@ -26,16 +26,16 @@ import {
   PARTNER_HIV_STATUS_CONCEPT_UUID,
   PNS_APROACH_CONCEPT_UUID,
 } from '../relationships/relationships-constants';
-
-import { contactListConceptMap } from './contact-list-concept-map';
-import styles from './contact-list-form.scss';
 import {
   BOOLEAN_NO,
   BOOLEAN_YES,
-  contactipvOutcomeOptions,
   ContactListFormSchema,
+  contactipvOutcomeOptions,
   saveContact,
 } from './contact-list.resource';
+import { contactListConceptMap } from './contact-list-concept-map';
+import styles from './contact-list-form.scss';
+
 interface ContactListFormProps extends DefaultWorkspaceProps {
   patientUuid: string;
   props: Record<string, unknown>;

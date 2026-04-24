@@ -1,14 +1,14 @@
+import { ContentSwitcher as CdsContentSwitcher, FormGroup, Switch } from '@carbon/react';
+import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
-import { FormGroup, ContentSwitcher as CdsContentSwitcher, Switch } from '@carbon/react';
-import { shouldUseInlineLayout } from '../../../utils/form-helper';
-import { isTrue } from '../../../utils/boolean-utils';
+import { useFormProviderContext } from '../../../provider/form-provider';
 import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
+import { isTrue } from '../../../utils/boolean-utils';
+import { shouldUseInlineLayout } from '../../../utils/form-helper';
+import FieldLabel from '../../field-label/field-label.component';
 import FieldValueView from '../../value/view/field-value-view.component';
 import styles from './content-switcher.scss';
-import { useFormProviderContext } from '../../../provider/form-provider';
-import FieldLabel from '../../field-label/field-label.component';
 
 const ContentSwitcher: React.FC<FormFieldInputProps<string | number | null | undefined>> = ({
   field,

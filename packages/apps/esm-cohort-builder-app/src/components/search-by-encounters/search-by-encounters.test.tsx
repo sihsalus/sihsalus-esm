@@ -1,9 +1,9 @@
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useLocations } from '../../cohort-builder.resources';
-import { useForms, useEncounterTypes } from './search-by-encounters.resources';
 import SearchByEncounters from './search-by-encounters.component';
+import { useEncounterTypes, useForms } from './search-by-encounters.resources';
 
 const mockUseEncounterTypes = jest.mocked(useEncounterTypes);
 const mockUseForms = jest.mocked(useForms);

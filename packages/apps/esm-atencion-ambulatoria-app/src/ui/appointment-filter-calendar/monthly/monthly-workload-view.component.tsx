@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import React, { useContext, useMemo } from 'react';
 
 import SelectedDateContext from '../../../hooks/selectedDateContext';

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { ActionableNotification } from '@carbon/react';
 import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import React, { useState } from 'react';
 /** @module @category UI */
 
 export interface ActionableNotificationProps {

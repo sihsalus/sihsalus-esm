@@ -2,31 +2,31 @@
 import {
   Button,
   ButtonSet,
-  Column,
-  Form,
-  InlineNotification,
-  Stack,
-  Select,
-  SelectItem,
   Checkbox,
+  Column,
   DatePicker,
   DatePickerInput,
-  Tile,
+  Form,
+  InlineNotification,
+  Select,
+  SelectItem,
+  Stack,
   Tag,
   TextArea,
+  Tile,
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  getPatientName,
   openmrsFetch,
   restBaseUrl,
   showSnackbar,
   useConfig,
   useLayoutType,
-  useSession,
   usePatient,
-  getPatientName,
+  useSession,
 } from '@openmrs/esm-framework';
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';

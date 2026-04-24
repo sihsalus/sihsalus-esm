@@ -1,4 +1,4 @@
-import { Tile, Tag, ProgressBar } from '@carbon/react';
+import { ProgressBar, Tag, Tile } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

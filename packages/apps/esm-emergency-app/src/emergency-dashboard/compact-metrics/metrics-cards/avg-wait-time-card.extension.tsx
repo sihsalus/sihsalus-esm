@@ -1,15 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { DataTableSkeleton } from '@carbon/react';
 import { Timer } from '@carbon/react/icons';
 import { ErrorState } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAverageWaitTimeByPriority } from '../../../resources/emergency.resource';
 import {
   MetricsCard,
-  MetricsCardHeader,
   MetricsCardBody,
+  MetricsCardHeader,
   MetricsCardItem,
 } from '../../emergency-metrics/metrics-cards/metrics-card.component';
-import { useAverageWaitTimeByPriority } from '../../../resources/emergency.resource';
 
 const AvgWaitTimeCard: React.FC<{ queueUuid?: string }> = ({ queueUuid }) => {
   const { t } = useTranslation();

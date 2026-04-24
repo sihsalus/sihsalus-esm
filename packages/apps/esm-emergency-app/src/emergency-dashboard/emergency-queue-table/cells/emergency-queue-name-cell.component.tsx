@@ -2,10 +2,11 @@
  * Queue table cell displaying patient name as a clickable link to their chart,
  * with the most relevant identifier (DNI preferred, OpenMRS ID fallback).
  */
-import React from 'react';
+
 import { ConfigurableLink, useConfig } from '@openmrs/esm-framework';
-import { type EmergencyQueueEntry } from '../../../resources/emergency.resource';
+import React from 'react';
 import { type Config } from '../../../config-schema';
+import { type EmergencyQueueEntry } from '../../../resources/emergency.resource';
 
 /** Shared props interface for all emergency queue table cell components. */
 export interface EmergencyQueueTableCellProps {

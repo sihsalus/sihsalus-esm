@@ -1,5 +1,5 @@
 import { SideNav, SideNavItems, SideNavLink } from '@carbon/react';
-import { Document, Report, DocumentAdd } from '@carbon/react/icons';
+import { Document, DocumentAdd, Report } from '@carbon/react/icons';
 import { navigate } from '@openmrs/esm-framework';
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';

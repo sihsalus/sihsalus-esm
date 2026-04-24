@@ -1,6 +1,3 @@
-import React, { type ChangeEvent, useId, useMemo, useState } from 'react';
-import fuzzy from 'fuzzy';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -15,8 +12,11 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { useLayoutType, isDesktop, ConfigurableLink } from '@openmrs/esm-framework';
+import { ConfigurableLink, isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import { EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
+import fuzzy from 'fuzzy';
+import React, { type ChangeEvent, useId, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type MappedListMembers } from '../patient-lists.resource';
 import styles from './patient-list-details-table.scss';
 

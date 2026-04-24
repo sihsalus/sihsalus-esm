@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -31,6 +29,8 @@ import {
   usePagination,
   usePaginationInfo,
 } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBills } from '../billing.resource';
 import { convertToCurrency } from '../helpers';
 import InvoiceTable from '../invoice/invoice-table.component';

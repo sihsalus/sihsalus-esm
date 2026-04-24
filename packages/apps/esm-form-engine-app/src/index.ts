@@ -1,7 +1,7 @@
 import { defineConfigSchema, getAsyncLifecycle, getConfig } from '@openmrs/esm-framework';
 import { registerExpressionHelper } from '@sihsalus/esm-form-engine-lib';
 
-import { configSchema, type ConfigObject } from './config-schema';
+import { type ConfigObject, configSchema } from './config-schema';
 
 const moduleName = '@openmrs/esm-form-engine-app';
 

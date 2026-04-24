@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { ContentSwitcher, Switch, Button } from '@carbon/react';
+import { Button, ContentSwitcher, Switch } from '@carbon/react';
 import { navigate, RenewIcon, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
+import type { TFunction } from 'i18next';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import { useParams } from 'react-router-dom';
 
 import { type ConfigObject } from '../../config-schema';

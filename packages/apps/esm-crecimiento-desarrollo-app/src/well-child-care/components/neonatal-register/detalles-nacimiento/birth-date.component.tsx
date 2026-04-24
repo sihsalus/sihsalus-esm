@@ -1,25 +1,24 @@
-import { useConfig, launchWorkspace2 } from '@openmrs/esm-framework';
+import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../../config-schema';
 import { useLatestValidEncounter } from '../../../../hooks/useLatestEncounter'; // Ajusta la ruta
-import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import {
-  GESTATIONAL_AGE_UUID,
-  BIRTH_WEIGHT_UUID,
-  BIRTH_HEIGHT_UUID,
-  HEAD_CIRCUMFERENCE_UUID,
-  CHEST_CIRCUMFERENCE_UUID,
-  WEIGHT_FOR_GESTATIONAL_AGE_UUID,
   APGAR_1_MIN_UUID,
   APGAR_5_MIN_UUID,
-  CONGENITAL_DISEASE_UUID,
-  SKIN_TO_SKIN_CONTACT_UUID,
-  ROOMING_IN_UUID,
+  BIRTH_HEIGHT_UUID,
+  BIRTH_WEIGHT_UUID,
   BREASTFEEDING_FIRST_HOUR_UUID,
-  REQUIRED_HOSPITALIZATION_UUID,
+  CHEST_CIRCUMFERENCE_UUID,
+  CONGENITAL_DISEASE_UUID,
+  GESTATIONAL_AGE_UUID,
+  HEAD_CIRCUMFERENCE_UUID,
   HOSPITALIZATION_TIME_UUID,
+  REQUIRED_HOSPITALIZATION_UUID,
+  ROOMING_IN_UUID,
+  SKIN_TO_SKIN_CONTACT_UUID,
+  WEIGHT_FOR_GESTATIONAL_AGE_UUID,
 } from '../../../concepts/neonatal-concepts';
 
 interface BirthDataProps {

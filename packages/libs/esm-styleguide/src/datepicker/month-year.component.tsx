@@ -1,3 +1,5 @@
+import { getLocalTimeZone } from '@internationalized/date';
+import { formatDate } from '@openmrs/esm-framework/src/internal';
 import React, { forwardRef, type HTMLAttributes, type PropsWithChildren, useCallback, useContext } from 'react';
 import {
   Button,
@@ -7,10 +9,8 @@ import {
   NumberField,
   RangeCalendarStateContext,
 } from 'react-aria-components';
-import { getLocalTimeZone } from '@internationalized/date';
-import { formatDate } from '@openmrs/esm-framework/src/internal';
-import { useIntlLocale } from './hooks';
 import { CaretDownIcon, CaretUpIcon } from '../icons';
+import { useIntlLocale } from './hooks';
 
 function getYearAsNumber(date: Date, intlLocale: Intl.Locale) {
   return Number.parseInt(

@@ -1,8 +1,8 @@
+import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { getCoreTranslation, openmrsFetch, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
-import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showSnackbar, openmrsFetch, restBaseUrl, getCoreTranslation } from '@openmrs/esm-framework';
 import { apiBasePath } from '../../constants';
 
 interface DeletePaymentModeModalProps {

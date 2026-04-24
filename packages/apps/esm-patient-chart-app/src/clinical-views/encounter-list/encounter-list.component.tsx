@@ -1,11 +1,11 @@
 import { Button, DataTableSkeleton, Link, OverflowMenu, OverflowMenuItem, Pagination } from '@carbon/react';
-import { AddIcon, type Visit, navigate, showModal, showSnackbar } from '@openmrs/esm-framework';
+import { AddIcon, navigate, showModal, showSnackbar, type Visit } from '@openmrs/esm-framework';
 import { EmptyState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useEncounterRows, useFormsJson } from '../hooks';
-import type { ColumnValue, Encounter, FormColumn, FormattedColumn, Mode, NamedColumn, TableRow } from '../types';
+import type { ColumnValue, Encounter, FormattedColumn, FormColumn, Mode, NamedColumn, TableRow } from '../types';
 import { deleteEncounter } from '../utils/encounter-list.resource';
 import { launchEncounterForm } from '../utils/helpers';
 

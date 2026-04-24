@@ -1,4 +1,4 @@
-import { fetchCurrentPatient, getSynchronizationItems, getDynamicOfflineDataEntries } from '@openmrs/esm-framework';
+import { fetchCurrentPatient, getDynamicOfflineDataEntries, getSynchronizationItems } from '@openmrs/esm-framework';
 import merge from 'lodash-es/merge';
 import { useMemo } from 'react';
 import useSWR, { type SWRResponse } from 'swr';

@@ -1,6 +1,6 @@
-import React from 'react';
 import { Tooltip } from '@carbon/react';
 import { Information } from '@carbon/react/icons';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { type FormField } from '../../types';
 import styles from './field-label.scss';

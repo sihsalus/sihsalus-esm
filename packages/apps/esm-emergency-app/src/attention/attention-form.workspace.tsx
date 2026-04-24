@@ -5,17 +5,18 @@
  * Captures diagnosis, treatment plan, and auxiliary exams as text observations
  * in an "Atención en Emergencia" encounter linked to the patient's emergency visit.
  */
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import { Button, Form, InlineLoading, Stack, TextArea } from '@carbon/react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { mutate } from 'swr';
 import { type DefaultWorkspaceProps, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import React, { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { mutate } from 'swr';
 import { type Config } from '../config-schema';
 import { type EmergencyQueueEntry, endEmergencyQueueEntry } from '../resources/emergency.resource';
-import { attentionFormSchema, type AttentionFormData } from './attention-form.validation';
 import { createAttentionEncounter } from './attention-form.resource';
+import { type AttentionFormData, attentionFormSchema } from './attention-form.validation';
 import styles from './attention-form.workspace.scss';
 
 /** Props for the attention form workspace, extending the default OpenMRS workspace props. */

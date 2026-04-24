@@ -1,6 +1,6 @@
+import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CardHeader } from '@openmrs/esm-patient-common-lib';
 import { useImmunizations } from '../hooks/useImmunizations';
 import ImmunizationHistoryCard from './immunization-history-card.component';
 import styles from './immunization-history-card.scss';

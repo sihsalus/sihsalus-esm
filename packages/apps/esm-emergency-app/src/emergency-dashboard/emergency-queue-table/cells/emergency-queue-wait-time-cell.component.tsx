@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type EmergencyQueueTableCellProps } from './emergency-queue-name-cell.component';
 

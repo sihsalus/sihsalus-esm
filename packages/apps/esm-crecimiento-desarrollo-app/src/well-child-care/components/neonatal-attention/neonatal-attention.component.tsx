@@ -1,32 +1,31 @@
-import { useConfig, launchWorkspace2 } from '@openmrs/esm-framework';
+import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter'; // Ajusta la ruta
-import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import {
-  IMMEDIATE_ASSESSMENT_UUID,
-  BIRTH_QUESTIONNAIRE_UUID,
-  NEWBORN_EVALUATION_UUID,
-  CORD_CLAMPING_UUID,
-  SKIN_TO_SKIN_CONTACT_UUID,
-  OXYGEN_SUPPORT_UUID,
-  VITAMIN_K_ADMIN_UUID,
-  HEART_RATE_UUID,
-  RESPIRATORY_RATE_UUID,
-  OXYGEN_SATURATION_UUID,
-  BODY_TEMPERATURE_UUID,
   APGAR_1_MIN_UUID,
   APGAR_5_MIN_UUID,
   APGAR_10_MIN_UUID,
-  WEIGHT_UUID,
-  HEIGHT_UUID,
-  HEAD_CIRCUMFERENCE_UUID,
+  BIRTH_QUESTIONNAIRE_UUID,
+  BODY_TEMPERATURE_UUID,
   CHEST_CIRCUMFERENCE_UUID,
-  GASTRIC_LAVAGE_UUID,
+  CORD_CLAMPING_UUID,
   GASTRIC_LAVAGE_COUNT_UUID,
+  GASTRIC_LAVAGE_UUID,
+  HEAD_CIRCUMFERENCE_UUID,
+  HEART_RATE_UUID,
+  HEIGHT_UUID,
+  IMMEDIATE_ASSESSMENT_UUID,
+  NEWBORN_EVALUATION_UUID,
   NURSING_DIAGNOSIS_UUID,
+  OXYGEN_SATURATION_UUID,
+  OXYGEN_SUPPORT_UUID,
+  RESPIRATORY_RATE_UUID,
+  SKIN_TO_SKIN_CONTACT_UUID,
+  VITAMIN_K_ADMIN_UUID,
+  WEIGHT_UUID,
 } from '../../concepts/neonatal-concepts';
 
 interface ImmediateNewbornAttentionProps {

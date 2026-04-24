@@ -1,12 +1,12 @@
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { screen, render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { Pen } from '@carbon/react/icons';
 import { useLayoutType } from '@openmrs/esm-framework/src/internal';
-import { ActionMenuButton } from './action-menu-button.component';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type OpenWorkspace, useWorkspaces, type WorkspacesInfo } from '../workspaces';
+import { ActionMenuButton } from './action-menu-button.component';
 
 const mockUseLayoutType = vi.mocked(useLayoutType);
 const mockUseWorkspaces = vi.mocked(useWorkspaces);

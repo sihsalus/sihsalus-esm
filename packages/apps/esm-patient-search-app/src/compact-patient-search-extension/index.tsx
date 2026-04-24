@@ -1,13 +1,13 @@
 import { Button, Search } from '@carbon/react';
-import { useConfig, navigate, interpolateString } from '@openmrs/esm-framework';
-import React, { useCallback, useState, useMemo, useRef, useEffect } from 'react';
+import { interpolateString, navigate, useConfig } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import PatientSearch from '../compact-patient-search/patient-search.component';
 import { type PatientSearchConfig } from '../config-schema';
 import useArrowNavigation from '../hooks/useArrowNavigation';
-import { PatientSearchContext } from '../patient-search-context';
 import { useInfinitePatientSearch } from '../patient-search.resource';
+import { PatientSearchContext } from '../patient-search-context';
 
 import styles from './compact-patient-search.scss';
 

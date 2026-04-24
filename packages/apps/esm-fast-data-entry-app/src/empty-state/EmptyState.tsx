@@ -1,8 +1,8 @@
-import React from 'react';
-import { Tile, Layer } from '@carbon/react';
-import styles from './styles.scss';
+import { Layer, Tile } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework';
+import React from 'react';
 import { EmptyDataIllustration } from './EmptyDataIllustration';
+import styles from './styles.scss';
 
 export interface EmptyStateProps {
   headerTitle: string;

@@ -15,10 +15,10 @@ jest.mock('@carbon/react', () => {
 });
 
 import { useVisit } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit } from 'test-utils';
 import React from 'react';
+import { mockCurrentVisit } from 'test-utils';
 
 import CancelVisitOverflowMenuItem from './cancel-visit.component';
 

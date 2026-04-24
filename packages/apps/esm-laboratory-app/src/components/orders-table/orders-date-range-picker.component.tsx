@@ -1,7 +1,7 @@
-import React from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
 import { OpenmrsDateRangePicker, useAppContext } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { type DateFilterContext } from '../../types';
 import styles from './orders-date-range-picker.scss';
 

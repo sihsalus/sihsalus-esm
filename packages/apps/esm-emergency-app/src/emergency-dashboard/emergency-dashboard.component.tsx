@@ -15,19 +15,19 @@
  * - Uses Carbon Design System components
  */
 
-import React, { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Dropdown } from '@carbon/react';
 import { WorkspaceContainer } from '@openmrs/esm-framework';
-import EmergencyHeader from './emergency-header/emergency-header.component';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ErrorBoundary from '../error-boundary.component';
+import { useEmergencyConfig } from '../hooks/usePriorityConfig';
+import CompactMetricsContainer from './compact-metrics/compact-metrics-container.component';
 import EmergencyAlerts from './emergency-alerts/emergency-alerts.component';
+import styles from './emergency-dashboard.scss';
+import EmergencyHeader from './emergency-header/emergency-header.component';
+import EmergencyQueueTable from './emergency-queue-table/emergency-queue-table.component';
 import PriorityLevelCardsContainer from './priority-level-cards/priority-level-cards-container.component';
 import TriageClassificationCards from './priority-level-cards/triage-classification-cards.component';
-import CompactMetricsContainer from './compact-metrics/compact-metrics-container.component';
-import EmergencyQueueTable from './emergency-queue-table/emergency-queue-table.component';
-import { useEmergencyConfig } from '../hooks/usePriorityConfig';
-import ErrorBoundary from '../error-boundary.component';
-import styles from './emergency-dashboard.scss';
 
 interface QueueFilterItem {
   id: string;

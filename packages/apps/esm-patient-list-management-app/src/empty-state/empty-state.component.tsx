@@ -1,4 +1,4 @@
-import { Layer, Button, Tile } from '@carbon/react';
+import { Button, Layer, Tile } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

@@ -17,11 +17,11 @@ import {
   AddIcon,
   formatDate,
   isDesktop as isDesktopLayout,
+  launchWorkspace2,
   parseDate,
   useConfig,
   useLayoutType,
   usePagination,
-  launchWorkspace2,
 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
@@ -29,10 +29,9 @@ import React, { type ComponentProps, useCallback, useMemo, useState } from 'reac
 import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../config-schema';
-
+import { type Condition, useConditionsFromConceptSet, useConditionsSorting } from './conditions.resource';
 import { ConditionsActionMenu } from './conditions-action-menu.component';
 import styles from './conditions-overview.scss';
-import { type Condition, useConditionsFromConceptSet, useConditionsSorting } from './conditions.resource';
 
 interface ConditionTableRow extends Condition {
   id: string;

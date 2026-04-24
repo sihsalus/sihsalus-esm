@@ -1,14 +1,14 @@
-import { getGlobalStore, useConfig, useSession, useStore } from '@openmrs/esm-framework';
 import { Button } from '@carbon/react';
+import { getGlobalStore, useConfig, useSession, useStore } from '@openmrs/esm-framework';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import PatientCard from '../patient-card/PatientCard';
-import styles from './styles.scss';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuid } from 'uuid';
+import CancelModal from '../CancelModal';
+import CompleteModal from '../CompleteModal';
 import GroupFormWorkflowContext from '../context/GroupFormWorkflowContext';
 import FormBootstrap from '../FormBootstrap';
-import CompleteModal from '../CompleteModal';
-import CancelModal from '../CancelModal';
+import PatientCard from '../patient-card/PatientCard';
+import styles from './styles.scss';
 
 const formStore = getGlobalStore('ampath-form-state');
 

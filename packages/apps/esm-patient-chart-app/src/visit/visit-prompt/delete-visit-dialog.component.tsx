@@ -1,4 +1,4 @@
-import { Button, ModalHeader, ModalBody, ModalFooter, InlineLoading } from '@carbon/react';
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { type Visit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

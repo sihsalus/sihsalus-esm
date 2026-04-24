@@ -1,8 +1,8 @@
 import { defineConfig, mergeConfig } from 'vitest/config';
 
 import aliasPresets from './alias-presets.json';
-import { createVitestAliases } from './vitest-aliases';
 import sharedTestAliases from './shared-test-aliases.json';
+import { createVitestAliases } from './vitest-aliases';
 
 type AliasMap = Record<string, string>;
 type VitestConfigLike = {

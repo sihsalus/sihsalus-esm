@@ -2,9 +2,8 @@ import { showSnackbar, useLayoutType } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-
-import QueueServiceForm from './queue-service-form.workspace';
 import { saveQueue } from './queue-service.resource';
+import QueueServiceForm from './queue-service-form.workspace';
 
 const defaultProps = {
   closeWorkspace: jest.fn(),

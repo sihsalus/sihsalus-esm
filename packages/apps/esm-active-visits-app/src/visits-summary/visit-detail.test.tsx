@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-
-import VisitDetailComponent from './visit-detail.component';
 import { useVisit } from './visit.resource';
+import VisitDetailComponent from './visit-detail.component';
 
 void React;
 

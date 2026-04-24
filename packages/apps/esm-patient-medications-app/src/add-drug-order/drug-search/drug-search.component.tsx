@@ -5,9 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import { type ConfigObject } from '../../config-schema';
 import { type DrugOrderBasketItem } from '../../types';
-
-import OrderBasketSearchResults from './order-basket-search-results.component';
 import styles from './order-basket-search.scss';
+import OrderBasketSearchResults from './order-basket-search-results.component';
 
 export interface DrugSearchProps {
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;

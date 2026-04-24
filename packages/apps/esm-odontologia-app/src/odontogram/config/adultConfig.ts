@@ -5,8 +5,8 @@
  * cuántas zonas tiene cada uno, y qué hallazgos de spacing mostrar.
  */
 
-import type { OdontogramConfig, ToothConfig, FindingOptionConfig } from '../types/odontogram';
 import optionsData from '../data/optionsData.json';
+import type { FindingOptionConfig, OdontogramConfig, ToothConfig } from '../types/odontogram';
 
 // =============================================================================
 // DIENTES SUPERIORES (18 → 11, 21 → 28)

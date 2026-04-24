@@ -1,7 +1,7 @@
-import useSWR from 'swr';
-import { filter, includes, map, uniqBy } from 'lodash-es';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import type { PatientProgram, Program, ProgramWorkflowState, ProgramsFetchResponse } from '../types';
+import { filter, includes, map, uniqBy } from 'lodash-es';
+import useSWR from 'swr';
+import type { PatientProgram, Program, ProgramsFetchResponse, ProgramWorkflowState } from '../types';
 
 export const customRepresentation = `custom:(uuid,display,program,dateEnrolled,dateCompleted,location:(uuid,display),states:(startDate,endDate,voided,state:(uuid,concept:(display))))`;
 

@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
 import { ComponentContext, Extension, useAssignedExtensions } from '@openmrs/esm-framework/src/internal';
+import React, { useContext } from 'react';
 import styles from './patient-banner.scss';
 
 interface PatientBannerProps {

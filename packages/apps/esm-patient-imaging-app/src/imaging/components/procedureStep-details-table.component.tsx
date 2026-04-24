@@ -1,4 +1,3 @@
-import React, { useMemo, useRef } from 'react';
 import {
   DataTable,
   IconButton,
@@ -10,14 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { compare, PatientChartPagination, EmptyState } from '@openmrs/esm-patient-common-lib';
-
-import { useLayoutType, usePagination, TrashCanIcon, showModal } from '@openmrs/esm-framework';
+import { showModal, TrashCanIcon, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { compare, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useMemo, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { useProcedureStep } from '../../api';
 import { type RequestProcedure } from '../../types';
 import { procedureStepCount, procedureSteptDeleteConfirmationDialog } from '../constants';
-import { useProcedureStep } from '../../api';
 import styles from './details-table.scss';
 
 export interface ProcedureStepTableProps {

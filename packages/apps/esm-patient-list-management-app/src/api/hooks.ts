@@ -1,4 +1,4 @@
-import { openmrsFetch, type FetchResponse, useConfig, useSession } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, useConfig, useSession } from '@openmrs/esm-framework';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';

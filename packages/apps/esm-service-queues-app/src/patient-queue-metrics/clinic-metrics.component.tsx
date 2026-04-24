@@ -3,7 +3,7 @@ import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { updateSelectedService, useSelectedService, useSelectedQueueLocationUuid } from '../helpers/helpers';
+import { updateSelectedService, useSelectedQueueLocationUuid, useSelectedService } from '../helpers/helpers';
 import { useQueueEntries } from '../hooks/useQueueEntries';
 import useQueueServices from '../hooks/useQueueService';
 import { type Concept } from '../types';

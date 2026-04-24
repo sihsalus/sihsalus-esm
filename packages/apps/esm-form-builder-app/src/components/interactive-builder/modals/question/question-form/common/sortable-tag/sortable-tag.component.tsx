@@ -1,10 +1,10 @@
-import React from 'react';
-import classNames from 'classnames';
+import { IconButton } from '@carbon/react';
+import { Draggable, TrashCan, WarningAltFilled } from '@carbon/react/icons';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import classNames from 'classnames';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@carbon/react';
-import { Draggable, WarningAltFilled, TrashCan } from '@carbon/react/icons';
 import styles from './sortable-tag.scss';
 
 interface SortableTagProps {

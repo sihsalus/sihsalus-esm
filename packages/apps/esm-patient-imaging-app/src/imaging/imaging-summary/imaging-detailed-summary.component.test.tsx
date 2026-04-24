@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import ImagingDetailedSummary from './imaging-detailed-summary.component';
-import * as api from '../../api';
 import { launchWorkspace } from '@openmrs/esm-framework';
+import { fireEvent, render, screen } from '@testing-library/react';
+import React from 'react';
+import * as api from '../../api';
+import ImagingDetailedSummary from './imaging-detailed-summary.component';
 
 jest.mock('@openmrs/esm-framework', () => ({
   useLayoutType: jest.fn(() => 'desktop'),

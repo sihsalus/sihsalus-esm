@@ -6,12 +6,12 @@ import {
   useLocations,
   useSession,
 } from '@openmrs/esm-framework';
-import { screen, render, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockServices, mockSession, mockLocations, mockMappedQueueEntry } from 'test-utils';
 import React from 'react';
+import { mockLocations, mockMappedQueueEntry, mockServices, mockSession } from 'test-utils';
 
-import { configSchema, type ConfigObject } from '../config-schema';
+import { type ConfigObject, configSchema } from '../config-schema';
 
 import { updateQueueEntry } from './active-visits-table.resource';
 import ChangeStatusModal from './change-status.modal';

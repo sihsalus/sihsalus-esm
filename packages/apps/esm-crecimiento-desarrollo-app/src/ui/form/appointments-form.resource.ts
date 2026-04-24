@@ -10,6 +10,7 @@ import type {
   AppointmentsFetchResponse,
   RecurringAppointmentsPayload,
 } from '../../types';
+
 dayjs.extend(isToday);
 
 const appointmentUrlMatcher = `${restBaseUrl}/appointment`;

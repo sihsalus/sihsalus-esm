@@ -1,6 +1,6 @@
 import { Button, Header } from '@carbon/react';
 import { ArrowLeft, Close } from '@carbon/react/icons';
-import { useLayoutType, isDesktop } from '@openmrs/esm-framework';
+import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

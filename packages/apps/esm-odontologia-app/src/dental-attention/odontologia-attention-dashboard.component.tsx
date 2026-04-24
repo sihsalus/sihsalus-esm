@@ -19,15 +19,14 @@ import {
   useConfig,
 } from '@openmrs/esm-framework';
 import { CardHeader } from '@openmrs/esm-patient-common-lib';
+import type { Encounter } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
-import type { Encounter } from '@sihsalus/esm-sihsalus-shared';
-
 import type { OdontogramConfig } from '../config-schema';
 import DentalEmptyState from '../ui/dental-empty-state.component';
-import { deleteEncounter, getDentalAttentionUrl, type EncountersResponse } from './odontologia-attention.resource';
+import { deleteEncounter, type EncountersResponse, getDentalAttentionUrl } from './odontologia-attention.resource';
 
 type OdontologiaAttentionDashboardProps = {
   patientUuid: string;

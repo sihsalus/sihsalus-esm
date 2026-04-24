@@ -3,11 +3,11 @@ import type { Config } from '@openmrs/esm-framework/src/internal';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
-  DownloadIcon,
-  TrashCanIcon,
   clearConfigErrors,
+  DownloadIcon,
   getExtensionInternalStore,
   implementerToolsConfigStore,
+  TrashCanIcon,
   temporaryConfigStore,
   useStore,
   useStoreWithActions,
@@ -16,7 +16,7 @@ import { cloneDeep, isEmpty } from 'lodash-es';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { implementerToolsStore, type ImplementerToolsStore } from '../store';
+import { type ImplementerToolsStore, implementerToolsStore } from '../store';
 
 import styles from './configuration.styles.scss';
 import { ConfigTree } from './interactive-editor/config-tree.component';
@@ -26,10 +26,10 @@ const JsonEditor = React.lazy(() => import('./json-editor/json-editor.component'
 
 function isLeaf(configNode: Config) {
   return (
-    Object.prototype.hasOwnProperty.call(configNode, '_default') ||
+    Object.hasOwn(configNode, '_default') ||
     configNode['_type'] ||
-    Object.prototype.hasOwnProperty.call(configNode, '_value') ||
-    Object.prototype.hasOwnProperty.call(configNode, '_source')
+    Object.hasOwn(configNode, '_value') ||
+    Object.hasOwn(configNode, '_source')
   );
 }
 

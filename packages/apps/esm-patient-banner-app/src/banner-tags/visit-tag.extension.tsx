@@ -1,7 +1,7 @@
+import { Tag, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
+import { formatDatetime, parseDate, useVisit, type Visit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tag, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
-import { type Visit, formatDatetime, parseDate, useVisit } from '@openmrs/esm-framework';
 import styles from './visit-tag.scss';
 
 interface VisitTagProps {

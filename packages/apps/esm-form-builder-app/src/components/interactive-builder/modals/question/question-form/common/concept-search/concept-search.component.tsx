@@ -1,13 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Search, InlineLoading, Layer, Tile, FormLabel, InlineNotification } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { FormLabel, InlineLoading, InlineNotification, Layer, Search, Tile } from '@carbon/react';
 import { ArrowUpRight } from '@carbon/react/icons';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
 import { useDebounce } from '@openmrs/esm-framework';
 import type { Concept } from '@types';
-import styles from './concept-search.scss';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFormField } from '../../../form-field-context';
+import styles from './concept-search.scss';
 
 interface ConceptSearchProps {
   label?: string;

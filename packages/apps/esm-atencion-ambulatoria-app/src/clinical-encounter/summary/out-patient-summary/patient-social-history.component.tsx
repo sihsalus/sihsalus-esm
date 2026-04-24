@@ -1,35 +1,35 @@
 import {
-  OverflowMenu,
-  OverflowMenuItem,
-  InlineLoading,
   Button,
   DataTable,
-  TableContainer,
+  InlineLoading,
+  OverflowMenu,
+  OverflowMenuItem,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { formatDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
-import { EmptyState, ErrorState, CardHeader } from '@openmrs/esm-patient-common-lib';
+import { formatDate, launchWorkspace, useConfig } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
 import { mutate } from 'swr';
-
 import type { ConfigObject } from '../../../config-schema';
 import type { OpenmrsEncounter } from '../../../types';
-import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import {
-  Alcohol_Use_UUID,
   Alcohol_Use_Duration_UUID,
-  Smoking_UUID,
-  Smoking_Duration_UUID,
+  Alcohol_Use_UUID,
   Other_Substance_Abuse_UUID,
+  Smoking_Duration_UUID,
+  Smoking_UUID,
 } from '../../../utils/constants';
+
 interface OutPatientSocialHistoryProps {
   patientUuid: string;
   encounters: OpenmrsEncounter[];

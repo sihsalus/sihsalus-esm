@@ -1,10 +1,10 @@
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import ProgramStateTypeQuestion from './program-state-type-question.component';
-import { FormFieldProvider } from '../../../../form-field-context';
 import { usePrograms, useProgramWorkStates } from '@hooks/useProgramStates';
 import type { FormField, ProgramState } from '@sihsalus/esm-form-engine-lib';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import type { Program } from '@types';
+import { FormFieldProvider } from '../../../../form-field-context';
+import ProgramStateTypeQuestion from './program-state-type-question.component';
 
 const mockSetFormField = jest.fn();
 const formField: FormField = {
@@ -194,6 +194,7 @@ function renderComponent() {
     </FormFieldProvider>,
   );
 }
+
 import React from 'react';
 
 void React;

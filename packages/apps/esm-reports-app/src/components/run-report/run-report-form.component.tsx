@@ -7,7 +7,7 @@ import { take } from 'rxjs/operators';
 
 import { closeOverlay } from '../../hooks/useOverlay';
 import ReportParameter from '../report-parameter.component';
-import { useLocations, useReportDefinitions, useReportDesigns, runReportObservable } from '../reports.resource';
+import { runReportObservable, useLocations, useReportDefinitions, useReportDesigns } from '../reports.resource';
 
 import styles from './run-report-form.scss';
 

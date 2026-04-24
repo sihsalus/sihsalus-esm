@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+
 import {
   DataTable,
   IconButton,
@@ -20,8 +19,10 @@ import {
   TrashCanIcon,
   useLayoutType,
 } from '@openmrs/esm-framework';
-import { immunizationFormSub } from '../utils';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type ImmunizationGrouped } from '../../types';
+import { immunizationFormSub } from '../utils';
 import styles from './immunizations-sequence-table.scss';
 
 interface SequenceTableProps {

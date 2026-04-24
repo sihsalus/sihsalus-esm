@@ -2,8 +2,8 @@ import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
 
 import type { ConfigObject } from '../config-schema';
-import { assessValue, getReferenceRangesForConcept } from '../utils';
 import type { ConceptMetadata } from '../utils';
+import { assessValue, getReferenceRangesForConcept } from '../utils';
 
 // Interfaces para las respuestas de la API
 interface ConceptResponse {

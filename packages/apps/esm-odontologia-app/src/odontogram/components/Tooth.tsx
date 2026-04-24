@@ -1,5 +1,5 @@
 import React from 'react';
-// @ts-ignore
+// @ts-expect-error
 import { getPolygonPoints } from '../poligonPoints/ToothPolygonDesigns';
 import './Tooth.css';
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { emrConfigurationMock } from 'test-utils';
 import React from 'react';
+import { emrConfigurationMock } from 'test-utils';
 
 import useEmrConfiguration from '../../../hooks/useEmrConfiguration';
 import { usePatientNotes } from '../notes.resource';

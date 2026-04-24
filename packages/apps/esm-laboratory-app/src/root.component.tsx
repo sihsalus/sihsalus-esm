@@ -1,5 +1,5 @@
-import React from 'react';
 import { AppErrorBoundary } from '@sihsalus/esm-rbac';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LaboratoryDashboard from './laboratory-dashboard.component';
 

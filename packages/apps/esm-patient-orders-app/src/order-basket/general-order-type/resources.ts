@@ -1,5 +1,5 @@
 import { toOmrsIsoString } from '@openmrs/esm-framework';
-import { type OrderBasketItem, type OrderPost, type OrderableConcept } from '@openmrs/esm-patient-common-lib';
+import { type OrderableConcept, type OrderBasketItem, type OrderPost } from '@openmrs/esm-patient-common-lib';
 
 export function createEmptyOrder(concept: OrderableConcept, orderer: string): OrderBasketItem {
   return {

@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import {
   builtInColumns,
-  defaultColumnConfig,
-  defaultQueueTable,
   type ColumnDefinition,
   type ConfigObject,
+  defaultColumnConfig,
+  defaultQueueTable,
 } from '../../config-schema';
 import { type QueueTableColumn } from '../../types';
 

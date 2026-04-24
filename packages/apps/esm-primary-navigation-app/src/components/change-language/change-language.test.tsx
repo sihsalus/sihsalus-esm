@@ -2,7 +2,7 @@ import { type LoggedInUser, type Session, useSession } from '@openmrs/esm-framew
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import ChangeLanguageModal from './change-language.modal';
 

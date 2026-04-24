@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { getCoreTranslation } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './delete-cohort.scss';
 
 interface DeleteCohortModalProps {

@@ -1,4 +1,5 @@
 import React from 'react';
+
 type ToothDesignProps = {
   design: 'default' | 'design2' | 'design3' | 'design4';
 };

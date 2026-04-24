@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { type FormSection } from '../../../types';
 import { useFormProviderContext } from '../../../provider/form-provider';
+import { type FormSection } from '../../../types';
 import { FormFieldRenderer } from '../field/form-field-renderer.component';
 import styles from './section-renderer.scss';
 

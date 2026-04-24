@@ -1,5 +1,5 @@
-import React from 'react';
 import { ActionableNotification } from '@carbon/react';
+import React from 'react';
 /** @module @category UI */
 
 export interface NotificationProps {

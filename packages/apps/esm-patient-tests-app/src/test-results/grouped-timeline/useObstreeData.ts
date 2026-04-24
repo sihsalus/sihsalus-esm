@@ -1,10 +1,10 @@
-import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { usePatientChartStore } from '@openmrs/esm-patient-common-lib';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 
-import { type TreeNode, type ObservationData } from '../filter/filter-types';
+import { type ObservationData, type TreeNode } from '../filter/filter-types';
 import { assessValue, exist } from '../loadPatientTestData/helpers';
 
 export const getName = (prefix: string | undefined, name: string) => {

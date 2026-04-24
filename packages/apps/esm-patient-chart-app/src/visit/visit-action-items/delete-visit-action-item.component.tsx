@@ -1,5 +1,5 @@
 import { Button } from '@carbon/react';
-import { TrashCanIcon, UserHasAccess, type Visit, showModal, useLayoutType } from '@openmrs/esm-framework';
+import { showModal, TrashCanIcon, UserHasAccess, useLayoutType, type Visit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

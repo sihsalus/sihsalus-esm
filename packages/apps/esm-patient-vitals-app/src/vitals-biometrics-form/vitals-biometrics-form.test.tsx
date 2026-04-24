@@ -1,16 +1,15 @@
 import {
   type FetchResponse,
+  getDefaultsFromConfigSchema,
   showSnackbar,
   useConfig,
-  getDefaultsFromConfigSchema,
   usePatient,
   useSession,
   useVisit,
 } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockConceptMetadata, mockConceptRanges, mockConceptUnits, mockVitalsConfig } from 'test-utils';
-import { mockPatient } from 'test-utils';
+import { mockConceptMetadata, mockConceptRanges, mockConceptUnits, mockPatient, mockVitalsConfig } from 'test-utils';
 
 import { saveVitalsAndBiometrics } from '../common';
 import { type ConfigObject, configSchema } from '../config-schema';

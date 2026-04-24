@@ -1,16 +1,16 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import {
-  useVisit,
-  useConfig,
-  navigate,
   getDefaultsFromConfigSchema,
+  navigate,
+  useConfig,
+  useVisit,
   type VisitReturnType,
 } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { useBillableServices } from '../../billable-services/billable-service.resource';
+import { type BillingConfig, configSchema } from '../../config-schema';
 import { type MappedBill } from '../../types';
-import { configSchema, type BillingConfig } from '../../config-schema';
 import { usePaymentModes } from './payment.resource';
 import Payments from './payments.component';
 

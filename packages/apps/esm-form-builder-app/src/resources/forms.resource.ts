@@ -1,4 +1,4 @@
-import { openmrsFetch, type FetchResponse, restBaseUrl } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import type { Form, Schema } from '@types';
 
 interface SavePayload {

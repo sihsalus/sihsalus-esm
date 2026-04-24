@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import FlagsHighlightBar from './flags-highlight-bar.component';
-import { usePatientFlags, type PatientFlag } from './hooks/usePatientFlags';
+import { type PatientFlag, usePatientFlags } from './hooks/usePatientFlags';
 
 const mockUsePatientFlags = jest.mocked(usePatientFlags);
 

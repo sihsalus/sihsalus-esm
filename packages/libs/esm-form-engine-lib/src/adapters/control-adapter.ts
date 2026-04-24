@@ -2,8 +2,8 @@ import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
 import { type FormContextProps } from '../provider/form-provider';
 import {
   type FormField,
-  type FormProcessorContextProps,
   type FormFieldValueAdapter,
+  type FormProcessorContextProps,
   type ValueAndDisplay,
 } from '../types';
 

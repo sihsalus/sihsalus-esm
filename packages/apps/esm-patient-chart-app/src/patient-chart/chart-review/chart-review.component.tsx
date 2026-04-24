@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 import { basePath } from '../../constants';
 
-import { DashboardView, type DashboardConfig, type LayoutMode } from './dashboard-view.component';
+import { type DashboardConfig, DashboardView, type LayoutMode } from './dashboard-view.component';
 
 function makePath(target: DashboardConfig, params: Record<string, string> = {}) {
   const parts = `${basePath}/${encodeURIComponent(target.path)}`.split('/');

@@ -1,4 +1,4 @@
-import { openmrsFetch, restBaseUrl, useConfig, type FetchResponse } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import useSWRInfinite from 'swr/infinite';
 
 import type { OpenmrsEncounter } from '../../types';

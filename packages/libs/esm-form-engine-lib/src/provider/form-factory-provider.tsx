@@ -1,22 +1,21 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
-  showSnackbar,
   type LayoutType,
   type OpenmrsResource,
   type SnackbarDescriptor,
-  type Visit,
+  showSnackbar,
   useLayoutType,
+  type Visit,
 } from '@openmrs/esm-framework/src/internal';
-
-import { EncounterFormProcessor } from '../processors/encounter/encounter-form-processor';
-import { processPostSubmissionActions, validateForm } from './form-factory-helper';
-import { type FormContextProps } from './form-provider';
-import { type FormField, type FormSchema, type OpenmrsEncounter, type SessionMode } from '../types';
-import { type FormProcessorConstructor } from '../processors/form-processor';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useExternalFormAction } from '../hooks/useExternalFormAction';
 import { usePostSubmissionActions } from '../hooks/usePostSubmissionActions';
+import { EncounterFormProcessor } from '../processors/encounter/encounter-form-processor';
+import { type FormProcessorConstructor } from '../processors/form-processor';
+import { type FormField, type FormSchema, type OpenmrsEncounter, type SessionMode } from '../types';
 import { FormSubmissionError } from '../utils/error-utils';
+import { processPostSubmissionActions, validateForm } from './form-factory-helper';
+import { type FormContextProps } from './form-provider';
 
 interface FormFactoryProviderContextProps {
   patient: fhir.Patient;

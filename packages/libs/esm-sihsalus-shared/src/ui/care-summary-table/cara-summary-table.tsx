@@ -1,5 +1,7 @@
 import {
+  Button,
   DataTable,
+  InlineLoading,
   Table,
   TableBody,
   TableCell,
@@ -7,8 +9,6 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  InlineLoading,
-  Button,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace } from '@openmrs/esm-framework';

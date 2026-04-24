@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
+import useSWR from 'swr';
 import { type ConfigObject } from '../config-schema';
 import type {
   Concept,

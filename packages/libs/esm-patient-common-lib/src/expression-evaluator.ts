@@ -66,7 +66,7 @@ function evalNode(node: JsepNode, context: Record<string, unknown>): unknown {
       if (name === 'null') return null;
       if (name === 'true') return true;
       if (name === 'false') return false;
-      if (Object.prototype.hasOwnProperty.call(context, name)) return context[name];
+      if (Object.hasOwn(context, name)) return context[name];
       return undefined;
     }
 

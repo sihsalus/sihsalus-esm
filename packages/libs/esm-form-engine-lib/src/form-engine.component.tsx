@@ -1,24 +1,24 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
 import { Button, ButtonSet, InlineLoading } from '@carbon/react';
+import { type OpenmrsResource, useSession, type Visit } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';
-import { useSession, type OpenmrsResource, type Visit } from '@openmrs/esm-framework/src/internal';
-import { FormFactoryProvider } from './provider/form-factory-provider';
-import { init, teardown } from './lifecycle';
 import { isEmpty, useFormJson } from '.';
+import MarkdownWrapper from './components/inputs/markdown/markdown-wrapper.component';
+import Loader from './components/loaders/loader.component';
+import PatientBanner from './components/patient-banner/patient-banner.component';
+import FormProcessorFactory from './components/processor-factory/form-processor-factory.component';
+import Sidebar from './components/sidebar/sidebar.component';
+import { usePageObserver } from './components/sidebar/usePageObserver';
+import styles from './form-engine.scss';
 import { formEngineAppName } from './globals';
-import { reportError } from './utils/error-utils';
 import { useFormCollapse } from './hooks/useFormCollapse';
 import { useFormWorkspaceSize } from './hooks/useFormWorkspaceSize';
-import { usePageObserver } from './components/sidebar/usePageObserver';
 import { usePatientData } from './hooks/usePatientData';
-import type { FormField, FormSchema, OpenmrsEncounter, SessionMode, PreFilledQuestions } from './types';
-import FormProcessorFactory from './components/processor-factory/form-processor-factory.component';
-import Loader from './components/loaders/loader.component';
-import MarkdownWrapper from './components/inputs/markdown/markdown-wrapper.component';
-import PatientBanner from './components/patient-banner/patient-banner.component';
-import Sidebar from './components/sidebar/sidebar.component';
-import styles from './form-engine.scss';
+import { init, teardown } from './lifecycle';
+import { FormFactoryProvider } from './provider/form-factory-provider';
+import type { FormField, FormSchema, OpenmrsEncounter, PreFilledQuestions, SessionMode } from './types';
+import { reportError } from './utils/error-utils';
 
 const getMarkdownString = (markdown: FormSchema['markdown']): string | null => {
   return typeof markdown === 'string' ? markdown : null;

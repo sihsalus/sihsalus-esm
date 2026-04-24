@@ -1,10 +1,10 @@
 import { ComboButton, MenuItem } from '@carbon/react';
 import {
-  UserHasAccess,
   isDesktop,
   launchWorkspace,
   navigate,
   showModal,
+  UserHasAccess,
   useLayoutType,
   useSession,
 } from '@openmrs/esm-framework';

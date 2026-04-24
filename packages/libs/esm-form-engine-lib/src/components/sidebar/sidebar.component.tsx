@@ -1,13 +1,13 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import { Button, InlineLoading } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { FormPage, SessionMode } from '../../types';
 import { isPageContentVisible } from '../../utils/form-helper';
+import styles from './sidebar.scss';
 import { useCurrentActivePage } from './useCurrentActivePage';
 import { usePageObserver } from './usePageObserver';
-import type { FormPage, SessionMode } from '../../types';
-import styles from './sidebar.scss';
 
 interface SidebarProps {
   defaultPage: string;

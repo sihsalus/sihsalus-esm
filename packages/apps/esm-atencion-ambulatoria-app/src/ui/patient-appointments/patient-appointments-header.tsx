@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
 import { ArrowLeft } from '@carbon/react/icons';
-import { PatientBannerPatientInfo, PatientPhoto, getPatientName } from '@openmrs/esm-framework';
+import { getPatientName, PatientBannerPatientInfo, PatientPhoto } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

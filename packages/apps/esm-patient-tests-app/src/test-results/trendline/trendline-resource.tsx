@@ -1,4 +1,4 @@
-import { type FetchResponse, openmrsFetch, showSnackbar, restBaseUrl } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 

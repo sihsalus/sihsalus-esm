@@ -1,10 +1,18 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { formattedBiometrics, mockBiometricsConfig, mockConceptMetadata, mockVitalsSignsConcepts } from 'test-utils';
-import { getByTextWithMarkup, mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import {
+  formattedBiometrics,
+  getByTextWithMarkup,
+  mockBiometricsConfig,
+  mockConceptMetadata,
+  mockPatient,
+  mockVitalsSignsConcepts,
+  renderWithSwr,
+  waitForLoadingToFinish,
+} from 'test-utils';
 
 import { useVitalsAndBiometrics } from '../common';
-import { configSchema, type ConfigObject } from '../config-schema';
+import { type ConfigObject, configSchema } from '../config-schema';
 
 import WeightTile from './weight-tile.component';
 

@@ -1,6 +1,6 @@
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
-import { openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
-import type { Patient, SearchParams, DropdownValue, Response } from './types';
+import type { DropdownValue, Patient, Response, SearchParams } from './types';
 
 /**
  * @param searchParams query details

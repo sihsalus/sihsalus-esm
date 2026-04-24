@@ -1,16 +1,16 @@
 import { closeWorkspace, useSession } from '@openmrs/esm-framework';
 import { type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
-import { screen, render, within, renderHook, waitFor } from '@testing-library/react';
+import { render, renderHook, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import {
-  mockDrugSearchResultApiData,
+  getByTextWithMarkup,
   mockDrugOrderTemplateApiData,
+  mockDrugSearchResultApiData,
   mockPatientDrugOrdersApiData,
   mockSessionDataResponse,
 } from 'test-utils';
-import React from 'react';
-import { getByTextWithMarkup } from 'test-utils';
 
 import AddDrugOrderWorkspace from './add-drug-order.workspace';
 import { getTemplateOrderBasketItem, useDrugSearch, useDrugTemplate } from './drug-search/drug-search.resource';

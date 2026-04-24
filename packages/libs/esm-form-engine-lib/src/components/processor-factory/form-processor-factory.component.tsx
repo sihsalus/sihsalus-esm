@@ -1,21 +1,21 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import useProcessorDependencies from '../../hooks/useProcessorDependencies';
-import useInitialValues from '../../hooks/useInitialValues';
-import { FormRenderer } from '../renderer/form/form-renderer.component';
-import { type FormProcessorContextProps, type FormSchema } from '../../types';
-import { CustomHooksRenderer } from '../renderer/custom-hooks-renderer.component';
-import { useFormFields } from '../../hooks/useFormFields';
-import { useConcepts } from '../../hooks/useConcepts';
-import { useFormFieldValidators } from '../../hooks/useFormFieldValidators';
-import { useFormFieldsMeta } from '../../hooks/useFormFieldsMeta';
-import { useFormFactory } from '../../provider/form-factory-provider';
-import { useFormFieldValueAdapters } from '../../hooks/useFormFieldValueAdapters';
-import { EncounterFormProcessor } from '../../processors/encounter/encounter-form-processor';
-import { reportError } from '../../utils/error-utils';
 import { useTranslation } from 'react-i18next';
-import Loader from '../loaders/loader.component';
+import { useConcepts } from '../../hooks/useConcepts';
+import { useFormFields } from '../../hooks/useFormFields';
+import { useFormFieldsMeta } from '../../hooks/useFormFieldsMeta';
+import { useFormFieldValidators } from '../../hooks/useFormFieldValidators';
+import { useFormFieldValueAdapters } from '../../hooks/useFormFieldValueAdapters';
+import useInitialValues from '../../hooks/useInitialValues';
+import useProcessorDependencies from '../../hooks/useProcessorDependencies';
 import { registerFormFieldAdaptersForCleanUp } from '../../lifecycle';
+import { EncounterFormProcessor } from '../../processors/encounter/encounter-form-processor';
 import { type FormProcessor, type FormProcessorConstructor } from '../../processors/form-processor';
+import { useFormFactory } from '../../provider/form-factory-provider';
+import { type FormProcessorContextProps, type FormSchema } from '../../types';
+import { reportError } from '../../utils/error-utils';
+import Loader from '../loaders/loader.component';
+import { CustomHooksRenderer } from '../renderer/custom-hooks-renderer.component';
+import { FormRenderer } from '../renderer/form/form-renderer.component';
 
 interface FormProcessorFactoryProps {
   formJson: FormSchema;

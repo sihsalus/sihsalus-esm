@@ -1,4 +1,4 @@
-import { useSession, userHasAccess } from '@openmrs/esm-framework';
+import { userHasAccess, useSession } from '@openmrs/esm-framework';
 
 export type UseRequirePrivilegeResult =
   | { status: 'authorized' }

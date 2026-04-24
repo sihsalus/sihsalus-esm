@@ -16,7 +16,7 @@
  * - Extensions: header, alerts, metrics, queue table, priority cards (standalone + integrated)
  * - Modals: serve, remove, transition, move, clear queue entries
  */
-import { getAsyncLifecycle, defineConfigSchema } from '@openmrs/esm-framework';
+import { defineConfigSchema, getAsyncLifecycle } from '@openmrs/esm-framework';
 import { configSchema } from './config-schema';
 
 const moduleName = '@sihsalus/esm-emergency-app';

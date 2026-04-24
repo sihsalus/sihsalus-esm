@@ -1,6 +1,6 @@
 import { type Visit } from '@openmrs/esm-framework';
-import { mockPatientAlice } from './patient.mock';
 import { mockLocationInpatientWard } from './locations.mock';
+import { mockPatientAlice } from './patient.mock';
 
 export const mockPastVisit = {
   data: {

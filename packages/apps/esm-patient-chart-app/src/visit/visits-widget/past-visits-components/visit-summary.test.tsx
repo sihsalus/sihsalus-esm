@@ -1,9 +1,8 @@
 import { ExtensionSlot, getConfig, getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { screen, render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { visitOverviewDetailMockData, visitOverviewDetailMockDataNotEmpty } from 'test-utils';
 import React from 'react';
-import { mockPatient } from 'test-utils';
+import { mockPatient, visitOverviewDetailMockData, visitOverviewDetailMockDataNotEmpty } from 'test-utils';
 
 import { type ChartConfig, esmPatientChartSchema } from '../../../config-schema';
 

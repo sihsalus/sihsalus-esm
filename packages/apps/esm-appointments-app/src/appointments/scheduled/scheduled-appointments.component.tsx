@@ -1,12 +1,12 @@
 import { ContentSwitcher, Switch } from '@carbon/react';
 import {
-  ExtensionSlot,
-  Extension,
-  useConnectedExtensions,
-  type ConnectedExtension,
   type ConfigObject,
-  useLayoutType,
+  type ConnectedExtension,
+  Extension,
+  ExtensionSlot,
   isDesktop,
+  useConnectedExtensions,
+  useLayoutType,
 } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';

@@ -5,17 +5,17 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 
 import { esmPatientRegistrationSchema, type RegistrationConfig } from '../../../../config-schema';
-import { ResourcesContext, type Resources } from '../../../../offline.resources';
-import {
-  PatientRegistrationContext,
-  type PatientRegistrationContextProps,
-} from '../../../patient-registration-context';
+import { type Resources, ResourcesContext } from '../../../../offline.resources';
 import type {
   AddressTemplate,
   FormValues,
   IdentifierSource,
   PatientIdentifierValue,
 } from '../../../patient-registration.types';
+import {
+  PatientRegistrationContext,
+  type PatientRegistrationContextProps,
+} from '../../../patient-registration-context';
 
 import IdentifierInput from './identifier-input.component';
 

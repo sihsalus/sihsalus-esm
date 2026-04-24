@@ -1,6 +1,6 @@
+import { TextInput } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextInput } from '@carbon/react';
 import { useFormField } from '../../../../form-field-context';
 
 const Number: React.FC = () => {

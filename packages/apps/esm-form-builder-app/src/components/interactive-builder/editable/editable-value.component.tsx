@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { IconButton } from '@carbon/react';
 import { Edit } from '@carbon/react/icons';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ValueEditor from '../value-editor/value-editor.component';
 import styles from './editable-value.scss';
 

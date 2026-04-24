@@ -3,9 +3,9 @@ import {
   type Location,
   type OpenmrsResource,
   useConfig,
-  useSession,
-  useLocations,
   useFeatureFlag,
+  useLocations,
+  useSession,
 } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';

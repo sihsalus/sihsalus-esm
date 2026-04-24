@@ -1,9 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import type { PaymentFormValue } from '../payments.component';
 import { usePaymentModes } from '../payment.resource';
+import type { PaymentFormValue } from '../payments.component';
 import PaymentForm from './payment-form.component';
 
 jest.mock('../payment.resource', () => ({

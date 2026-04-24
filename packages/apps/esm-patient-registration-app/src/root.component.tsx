@@ -1,16 +1,16 @@
 import { Grid, Row } from '@carbon/react';
-import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import { ExtensionSlot, useConnectivity, useSession } from '@openmrs/esm-framework';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import useSWRImmutable from 'swr/immutable';
 
 import {
-  ResourcesContext,
   fetchAddressTemplate,
   fetchAllRelationshipTypes,
   fetchPatientIdentifierTypesWithSources,
+  ResourcesContext,
 } from './offline.resources';
 import { FormManager } from './patient-registration/form-manager';
 import { PatientRegistration } from './patient-registration/patient-registration.component';

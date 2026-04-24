@@ -7,11 +7,11 @@ import {
 } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockLocationsResponse, mockSessionDataResponse } from 'test-utils';
 import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
+import { mockLocationsResponse, mockSessionDataResponse } from 'test-utils';
 
-import { esmPatientChartSchema, type ChartConfig } from '../../config-schema';
+import { type ChartConfig, esmPatientChartSchema } from '../../config-schema';
 
 import LocationSelector from './location-selector.component';
 import { type VisitFormData } from './visit-form.resource';

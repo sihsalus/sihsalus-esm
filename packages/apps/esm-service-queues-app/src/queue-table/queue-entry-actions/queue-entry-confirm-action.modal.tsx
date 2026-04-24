@@ -1,4 +1,4 @@
-import { Button, ModalHeader, ModalBody, ModalFooter, Stack } from '@carbon/react';
+import { Button, ModalBody, ModalFooter, ModalHeader, Stack } from '@carbon/react';
 import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
 import React, { type ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,5 +1,5 @@
 import { DataTableSkeleton } from '@carbon/react';
-import { formatDatetime, useLayoutType, ResponsiveWrapper } from '@openmrs/esm-framework';
+import { formatDatetime, ResponsiveWrapper, useLayoutType } from '@openmrs/esm-framework';
 import fuzzy from 'fuzzy';
 import { debounce } from 'lodash-es';
 import React, { useEffect, useMemo, useState } from 'react';

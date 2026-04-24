@@ -1,18 +1,17 @@
 import {
-  Button,
   Accordion,
   AccordionItem,
+  Button,
   InlineLoading,
-  Tag,
-  StructuredListWrapper,
+  StructuredListBody,
+  StructuredListCell,
   StructuredListHead,
   StructuredListRow,
-  StructuredListCell,
-  StructuredListBody,
+  StructuredListWrapper,
+  Tag,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { formatDate, useConfig } from '@openmrs/esm-framework';
-import { launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate, launchWorkspace, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

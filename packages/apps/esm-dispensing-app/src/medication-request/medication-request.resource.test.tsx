@@ -1,5 +1,8 @@
+import { openmrsFetch, parseDate } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
+import { JSON_MERGE_PATH_MIME_TYPE, OPENMRS_FHIR_EXT_REQUEST_FULFILLER_STATUS } from '../constants';
+import { MedicationRequestFulfillerStatus } from '../types';
 import {
   updateMedicationRequestFulfillerStatus,
   useMedicationRequest,
@@ -7,9 +10,6 @@ import {
   usePrescriptionDetails,
   usePrescriptionsTable,
 } from './medication-request.resource';
-import { openmrsFetch, parseDate } from '@openmrs/esm-framework';
-import { MedicationRequestFulfillerStatus } from '../types';
-import { JSON_MERGE_PATH_MIME_TYPE, OPENMRS_FHIR_EXT_REQUEST_FULFILLER_STATUS } from '../constants';
 
 jest.mocked(openmrsFetch);
 jest.mock('swr');

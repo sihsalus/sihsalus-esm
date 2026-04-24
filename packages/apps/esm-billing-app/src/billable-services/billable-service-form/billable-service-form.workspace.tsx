@@ -1,4 +1,3 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Button,
   ButtonSet,
@@ -14,11 +13,7 @@ import {
   TextInput,
   Tile,
 } from '@carbon/react';
-import { type TFunction } from 'i18next';
-import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { Add, TrashCan } from '@carbon/react/icons';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   getCoreTranslation,
@@ -29,6 +24,11 @@ import {
   Workspace2,
   type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
+import { type TFunction } from 'i18next';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import type { BillableService, ServicePrice } from '../../types';
 import {
   createBillableService,

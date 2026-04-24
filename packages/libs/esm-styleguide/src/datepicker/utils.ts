@@ -1,13 +1,13 @@
-import dayjs from 'dayjs';
 import {
+  type Calendar,
   CalendarDate,
   CalendarDateTime,
+  type DateValue,
   getLocalTimeZone,
   toCalendar,
   ZonedDateTime,
-  type Calendar,
-  type DateValue,
 } from '@internationalized/date';
+import dayjs from 'dayjs';
 import { type DateInputValue } from './types';
 
 /**

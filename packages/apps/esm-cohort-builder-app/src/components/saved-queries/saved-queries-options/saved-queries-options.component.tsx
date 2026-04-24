@@ -1,7 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { showModal, showSnackbar } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { type DefinitionDataRow } from '../../../types';
 import styles from './saved-queries-options.scss';
 

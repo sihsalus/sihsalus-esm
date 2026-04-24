@@ -9,10 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { useDebounce, type ImportMap, showModal, resetAllRoutesOverrides } from '@openmrs/esm-framework/src/internal';
+import { type ImportMap, resetAllRoutesOverrides, showModal, useDebounce } from '@openmrs/esm-framework/src/internal';
 import classNames from 'classnames';
 import fuzzy from 'fuzzy';
-import React, { useEffect, forwardRef, useReducer, type Dispatch, useState, useRef } from 'react';
+import React, { type Dispatch, forwardRef, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { ImportMapOverridesApi } from '../import-map-overrides.types';

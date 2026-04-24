@@ -1,4 +1,5 @@
 import {
+  Button,
   DataTable,
   DataTableSkeleton,
   Table,
@@ -9,9 +10,8 @@ import {
   TableHeader,
   TableRow,
   Tag,
-  Button,
 } from '@carbon/react';
-import { CheckmarkFilled, Time, Add } from '@carbon/react/icons';
+import { Add, CheckmarkFilled, Time } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';

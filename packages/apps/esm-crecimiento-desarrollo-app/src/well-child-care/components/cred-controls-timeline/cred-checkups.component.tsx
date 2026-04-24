@@ -1,8 +1,8 @@
 import { Button, InlineLoading, InlineNotification, Tag } from '@carbon/react';
-import { Calendar, Add } from '@carbon/react/icons';
-import { launchWorkspace2, useConfig, useSession, showSnackbar } from '@openmrs/esm-framework';
+import { Add, Calendar } from '@carbon/react/icons';
+import { launchWorkspace2, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../../config-schema';

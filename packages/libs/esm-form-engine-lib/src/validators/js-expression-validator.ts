@@ -1,6 +1,5 @@
-import { type FormFieldValidator, type FormField } from '../types';
-import { evaluateExpression, type ExpressionContext } from '../utils/expression-runner';
-import { type ValidationResult } from '../types';
+import { type FormField, type FormFieldValidator, type ValidationResult } from '../types';
+import { type ExpressionContext, evaluateExpression } from '../utils/expression-runner';
 
 interface ExpressionValidatorConfig {
   failsWhenExpression?: string;

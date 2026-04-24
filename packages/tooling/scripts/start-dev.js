@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
-
 require('dotenv').config({ quiet: true });
 const { spawn, spawnSync } = require('child_process');
 const { existsSync, statSync } = require('fs');

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { Column, ContentSwitcher, DatePicker, DatePickerInput, NumberInput, Switch } from '@carbon/react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { Column, ContentSwitcher, DatePicker, DatePickerInput, NumberInput, Switch } from '@carbon/react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type SearchByProps } from '../../types';
-import { getDescription, getQueryDetails } from './search-by-demographics.utils';
 import SearchButtonSet from '../search-button-set/search-button-set';
 import styles from './search-by-demographics.style.scss';
+import { getDescription, getQueryDetails } from './search-by-demographics.utils';
 
 const SearchByDemographics: React.FC<SearchByProps> = ({ onSubmit }) => {
   const { t } = useTranslation();

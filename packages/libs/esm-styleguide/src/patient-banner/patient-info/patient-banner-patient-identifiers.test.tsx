@@ -1,8 +1,8 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { render, screen } from '@testing-library/react';
 import { useConfig, usePrimaryIdentifierCode } from '@openmrs/esm-framework/src/internal';
+import { render, screen } from '@testing-library/react';
 import PatientBannerPatientIdentifiers from './patient-banner-patient-identifiers.component';
 
 const mockUsePrimaryIdentifierCode = vi.mocked(usePrimaryIdentifierCode);

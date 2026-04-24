@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { FormLabel, InlineNotification, FormGroup, Stack, Checkbox } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import ConceptSearch from '../../../common/concept-search/concept-search.component';
-import { useFormField } from '../../../../form-field-context';
+import { Checkbox, FormGroup, FormLabel, InlineNotification, Stack } from '@carbon/react';
 import type { Concept, ConceptMapping, DatePickerType } from '@types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormField } from '../../../../form-field-context';
+import ConceptSearch from '../../../common/concept-search/concept-search.component';
 import styles from './obs-type-question.scss';
 
 const ObsTypeQuestion: React.FC = () => {

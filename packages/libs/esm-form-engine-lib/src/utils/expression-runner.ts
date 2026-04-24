@@ -1,8 +1,3 @@
-import { getRegisteredExpressionHelpers } from '../registry/registry';
-import { isEmpty } from 'lodash-es';
-import { type OpenmrsEncounter, type FormField, type FormPage, type FormSection } from '../types';
-import { CommonExpressionHelpers, registerDependency, simpleHash } from './common-expression-helpers';
-import { HistoricalDataSourceService } from '../datasources/historical-data-source';
 import {
   compile,
   type DefaultEvaluateReturnType,
@@ -12,6 +7,11 @@ import {
   type VariablesMap,
   type Visit,
 } from '@openmrs/esm-framework/src/internal';
+import { isEmpty } from 'lodash-es';
+import { HistoricalDataSourceService } from '../datasources/historical-data-source';
+import { getRegisteredExpressionHelpers } from '../registry/registry';
+import { type FormField, type FormPage, type FormSection, type OpenmrsEncounter } from '../types';
+import { CommonExpressionHelpers, registerDependency, simpleHash } from './common-expression-helpers';
 
 export interface FormNode {
   value: FormPage | FormSection | FormField;

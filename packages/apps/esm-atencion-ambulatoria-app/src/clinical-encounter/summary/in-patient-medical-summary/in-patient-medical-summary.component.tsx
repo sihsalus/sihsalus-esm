@@ -1,4 +1,4 @@
-import { OverflowMenu, OverflowMenuItem, InlineLoading } from '@carbon/react';
+import { InlineLoading, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { launchWorkspace, useConfig } from '@openmrs/esm-framework';
 import { EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React from 'react';

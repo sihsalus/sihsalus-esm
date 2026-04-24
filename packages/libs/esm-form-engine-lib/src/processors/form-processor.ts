@@ -1,6 +1,6 @@
 import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
 import { type FormContextProps } from '../provider/form-provider';
-import { type ValueAndDisplay, type FormField, type FormSchema, type FormProcessorContextProps } from '../types';
+import { type FormField, type FormProcessorContextProps, type FormSchema, type ValueAndDisplay } from '../types';
 
 export type FormProcessorConstructor = new (...args: ConstructorParameters<typeof FormProcessor>) => FormProcessor;
 

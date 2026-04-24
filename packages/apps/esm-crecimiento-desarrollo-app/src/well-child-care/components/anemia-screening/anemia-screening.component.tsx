@@ -1,13 +1,13 @@
 import {
-  DataTableSkeleton,
-  Tag,
   Button,
-  StructuredListWrapper,
+  DataTableSkeleton,
   StructuredListBody,
-  StructuredListRow,
   StructuredListCell,
+  StructuredListRow,
+  StructuredListWrapper,
+  Tag,
 } from '@carbon/react';
-import { WarningFilled, CheckmarkFilled, Add } from '@carbon/react/icons';
+import { Add, CheckmarkFilled, WarningFilled } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';

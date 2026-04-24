@@ -1,19 +1,18 @@
 // obstetric-history-table.component.tsx
 import {
   DataTable,
-  TableContainer,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from './obstetric-history-table.scss';
 import type { ObstetricTableRowType } from './obstetric-history.schema';
+import styles from './obstetric-history-table.scss';
 
 interface ObstetricHistoryTableProps {
   tableRows: ObstetricTableRowType[];

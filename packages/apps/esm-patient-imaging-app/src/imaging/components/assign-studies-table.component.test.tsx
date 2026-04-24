@@ -1,5 +1,5 @@
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
 import AssignStudiesTable, { type AssignStudiesTableProps } from './assign-studies-table.component';
 
 jest.mock('react-i18next', () => ({

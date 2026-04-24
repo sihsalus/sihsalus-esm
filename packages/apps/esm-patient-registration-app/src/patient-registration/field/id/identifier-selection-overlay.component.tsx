@@ -1,6 +1,6 @@
-import { Button, ButtonSet, Checkbox, Search, RadioButtonGroup, RadioButton } from '@carbon/react';
+import { Button, ButtonSet, Checkbox, RadioButton, RadioButtonGroup, Search } from '@carbon/react';
 import { isDesktop, useConfig, useLayoutType } from '@openmrs/esm-framework';
-import React, { useMemo, useCallback, useEffect, useState, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ResourcesContext } from '../../../offline.resources';
@@ -8,8 +8,8 @@ import {
   isUniqueIdentifierTypeForOffline,
   shouldBlockPatientIdentifierInOfflineMode,
 } from '../../input/custom-input/identifier/utils';
-import { PatientRegistrationContext } from '../../patient-registration-context';
 import { type FormValues, type PatientIdentifierType, PatientIdentifierValue } from '../../patient-registration.types';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 import Overlay from '../../ui-components/overlay/overlay.component';
 
 import { initializeIdentifier, setIdentifierSource } from './id-field.component';

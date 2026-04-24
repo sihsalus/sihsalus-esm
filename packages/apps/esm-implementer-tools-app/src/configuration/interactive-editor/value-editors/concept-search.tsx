@@ -7,7 +7,7 @@ import {
   Tile,
 } from '@carbon/react';
 import uniqueId from 'lodash-es/uniqueId';
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Concept } from './concept-search.resource';

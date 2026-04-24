@@ -1,8 +1,8 @@
-import { type FormField } from '../types';
+import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
 import { useMemo } from 'react';
 import { codedTypes } from '../constants';
+import { type FormField } from '../types';
 import { findConceptByReference } from '../utils/form-helper';
-import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
 
 export function useFormFieldsMeta(rawFormFields: FormField[], concepts: OpenmrsResource[]): FormField[] {
   const formFields = useMemo<FormField[]>(() => {

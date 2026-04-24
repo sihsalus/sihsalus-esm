@@ -1,9 +1,9 @@
 import {
-  type FHIRResource,
   type FetchResponse,
+  type FHIRResource,
   fhirBaseUrl,
-  restBaseUrl,
   openmrsFetch,
+  restBaseUrl,
   useConfig,
 } from '@openmrs/esm-framework';
 import { type ObsRecord } from '@openmrs/esm-patient-common-lib';

@@ -1,7 +1,7 @@
+import { type OpenmrsResource, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-import { openmrsFetch, restBaseUrl, useConfig, type OpenmrsResource } from '@openmrs/esm-framework';
 import type { AllergiesConfigObject } from '../../config-schema';
 import { ALLERGEN_TYPES, type AllergenType } from '../../types';
 

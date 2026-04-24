@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { ToastNotification } from '@carbon/react';
+import { getConfigStore } from '@openmrs/esm-framework/src/internal';
+import React, { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { Controller, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { ErrorBoundary } from 'react-error-boundary';
-import { getConfigStore } from '@openmrs/esm-framework/src/internal';
+import { useFormProviderContext } from '../../../provider/form-provider';
+import { getFieldControlWithFallback, getRegisteredControl } from '../../../registry/registry';
 import {
   type FormField,
   type FormFieldInputComponent,
@@ -14,14 +16,12 @@ import {
   type ValidationResult,
   type ValueAndDisplay,
 } from '../../../types';
-import { getFieldControlWithFallback, getRegisteredControl } from '../../../registry/registry';
-import { handleFieldLogic, validateFieldValue } from './fieldLogic';
+import { isTrue } from '../../../utils/boolean-utils';
 import { hasRendering, isPlainObject, isValidationResultArray } from '../../../utils/common-utils';
 import { isEmpty } from '../../../validators/form-validator';
-import { isTrue } from '../../../utils/boolean-utils';
-import { useFormProviderContext } from '../../../provider/form-provider';
-import PreviousValueReview from '../../previous-value-review/previous-value-review.component';
 import UnspecifiedField from '../../inputs/unspecified/unspecified.component';
+import PreviousValueReview from '../../previous-value-review/previous-value-review.component';
+import { handleFieldLogic, validateFieldValue } from './fieldLogic';
 import { shouldRenderField } from './fieldRenderUtils';
 import styles from './form-field-renderer.scss';
 

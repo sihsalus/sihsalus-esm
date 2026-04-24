@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
-import classNames from 'classnames';
-import { type FormFieldInputProps } from '../../types';
-import styles from './obs-group.scss';
-import { ErrorFallback, FormFieldRenderer, isGroupField } from '../renderer/field/form-field-renderer.component';
-import { useFormProviderContext } from '../../provider/form-provider';
 import { FormGroup } from '@carbon/react';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFormProviderContext } from '../../provider/form-provider';
+import { type FormFieldInputProps } from '../../types';
+import { ErrorFallback, FormFieldRenderer, isGroupField } from '../renderer/field/form-field-renderer.component';
+import styles from './obs-group.scss';
 
 export const ObsGroup: React.FC<FormFieldInputProps> = ({ field, ...restProps }) => {
   const { t } = useTranslation();

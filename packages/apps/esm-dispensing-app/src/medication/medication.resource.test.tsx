@@ -1,6 +1,6 @@
-import { useMedicationCodeableConcept, useMedicationFormulations } from './medication.resource';
-import useSWR from 'swr';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import useSWR from 'swr';
+import { useMedicationCodeableConcept, useMedicationFormulations } from './medication.resource';
 
 jest.mocked(openmrsFetch);
 jest.mock('swr');

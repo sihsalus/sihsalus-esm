@@ -4,10 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import { useLocationsWithAdmissionTag } from '../summary/summary.resource';
 import { type BedWithLocation } from '../types';
-
+import { editBed, useBedType } from './bed-administration.resource';
 import BedAdministrationForm from './bed-administration-form.component';
 import { type BedAdministrationData } from './bed-administration-types';
-import { editBed, useBedType } from './bed-administration.resource';
 
 interface EditBedFormProps {
   editData: BedWithLocation;

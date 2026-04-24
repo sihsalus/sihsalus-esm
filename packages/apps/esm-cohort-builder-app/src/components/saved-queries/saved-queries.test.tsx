@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import { type DefinitionDataRow } from '../../types';
-import { getQueries } from './saved-queries.resources';
 import SavedQueries from './saved-queries.component';
+import { getQueries } from './saved-queries.resources';
 
 const mockGetQueries = jest.mocked(getQueries);
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;

@@ -8,6 +8,7 @@ import { parseOpenMRSCron } from '../../utils/openmrs-cron-utils';
 import { type Time } from '../../utils/time-utils';
 
 import {
+  type CronField,
   DAYS_OF_MONTH,
   DAYS_OF_WEEK,
   SCHEDULE_TYPE_DEFAULT_LABELS,
@@ -17,7 +18,6 @@ import {
   ST_EVERY_MONTH,
   ST_EVERY_WEEK,
   ST_ONCE,
-  type CronField,
 } from './commons';
 import CronDatePicker from './cron-date-picker.component';
 import CronDayOfMonthSelect from './cron-day-of-month-select.component';

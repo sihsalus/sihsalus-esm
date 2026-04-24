@@ -1,4 +1,4 @@
-import { Type, type ConfigValue, type ConfigSchema, type Validator, translateFrom } from '@openmrs/esm-framework';
+import { type ConfigSchema, type ConfigValue, Type, translateFrom, type Validator } from '@openmrs/esm-framework';
 import { type TOptions } from 'i18next';
 
 import type { CustomValueType } from './value-editor';

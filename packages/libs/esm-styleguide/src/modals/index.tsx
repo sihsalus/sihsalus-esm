@@ -1,8 +1,8 @@
 /** @module @category UI */
-import { mountRootParcel, type Parcel } from 'single-spa';
-import { createGlobalStore } from '@openmrs/esm-framework/src/internal';
-import { getModalRegistration } from '@openmrs/esm-framework/src/internal';
+
 import { reportError } from '@openmrs/esm-error-handling';
+import { createGlobalStore, getModalRegistration } from '@openmrs/esm-framework/src/internal';
+import { mountRootParcel, type Parcel } from 'single-spa';
 
 type ModalInstanceState = 'NEW' | 'MOUNTED' | 'TO_BE_DELETED';
 type ModalSize = 'xs' | 'sm' | 'md' | 'lg';

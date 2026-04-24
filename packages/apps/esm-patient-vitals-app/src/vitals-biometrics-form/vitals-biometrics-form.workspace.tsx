@@ -1,7 +1,7 @@
 import {
   Button,
-  ButtonSkeleton,
   ButtonSet,
+  ButtonSkeleton,
   Column,
   Form,
   InlineNotification,
@@ -13,12 +13,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   age,
   createErrorHandler,
+  ExtensionSlot,
   showSnackbar,
   useConfig,
   useLayoutType,
-  useSession,
-  ExtensionSlot,
   usePatient,
+  useSession,
   useVisit,
 } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';

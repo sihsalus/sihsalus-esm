@@ -1,7 +1,7 @@
 import { ExtensionSlot } from '@openmrs/esm-framework';
 import React from 'react';
 
-import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
+import { type QueueTableCellComponentProps, type QueueTableColumnFunction } from '../../types';
 
 export const queueTableExtensionColumn: QueueTableColumnFunction = (key, header) => {
   const QueueTableExtensionCell = ({ queueEntry }: QueueTableCellComponentProps) => {

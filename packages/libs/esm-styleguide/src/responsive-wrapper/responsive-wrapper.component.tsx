@@ -1,7 +1,8 @@
 /** @module @category UI */
-import React from 'react';
+
 import { Layer } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import React from 'react';
 
 export interface ResponsiveWrapperProps {
   children: React.ReactNode;

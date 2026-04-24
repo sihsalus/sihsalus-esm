@@ -1,4 +1,4 @@
-import { getAsyncLifecycle, defineConfigSchema, registerBreadcrumbs } from '@openmrs/esm-framework';
+import { defineConfigSchema, getAsyncLifecycle, registerBreadcrumbs } from '@openmrs/esm-framework';
 import type { i18n } from 'i18next';
 
 import { configSchema } from './config-schema';

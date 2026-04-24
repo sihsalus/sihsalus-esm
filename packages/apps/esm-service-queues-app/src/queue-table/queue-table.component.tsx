@@ -7,9 +7,9 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableExpandedRow,
   TableExpandHeader,
   TableExpandRow,
-  TableExpandedRow,
   TableHead,
   TableHeader,
   TableRow,
@@ -19,7 +19,7 @@ import {
 } from '@carbon/react';
 import { isDesktop, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useEffect, useState, type FC } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type QueueEntry, type QueueTableColumn } from '../types';

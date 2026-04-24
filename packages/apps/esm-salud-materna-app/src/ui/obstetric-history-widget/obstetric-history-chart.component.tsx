@@ -8,9 +8,8 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../config-schema';
 import type { PatientPrenatalAntecedents } from '../../types';
-
-import styles from './obstetric-history-chart.scss';
 import type { ObstetricDisplayDataType } from './obstetric-history.schema';
+import styles from './obstetric-history-chart.scss';
 
 interface ObstetricHistoryChartProps {
   obstetricData: ObstetricDisplayDataType;

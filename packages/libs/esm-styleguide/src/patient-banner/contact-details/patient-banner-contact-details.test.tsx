@@ -2,13 +2,13 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { screen } from '@testing-library/react';
 import { usePatient } from '@openmrs/esm-framework/src/internal';
+import { screen } from '@testing-library/react';
+import { renderWithSwr } from '../../test-utils';
+import { PatientBannerContactDetails } from './patient-banner-contact-details.component';
 import { usePatientAttributes, usePatientContactAttributes } from './usePatientAttributes';
 import { usePatientListsForPatient } from './usePatientListsForPatient';
 import { useRelationships } from './useRelationships';
-import { PatientBannerContactDetails } from './patient-banner-contact-details.component';
-import { renderWithSwr } from '../../test-utils';
 
 const mockUsePatient = vi.mocked(usePatient);
 const mockUsePatientAttributes = vi.mocked(usePatientAttributes);

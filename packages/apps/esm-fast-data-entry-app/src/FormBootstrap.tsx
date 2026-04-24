@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { detach, ExtensionSlot } from '@openmrs/esm-framework';
-import useGetPatient from './hooks/useGetPatient';
+import React, { useContext, useEffect, useState } from 'react';
 import GroupFormWorkflowContext from './context/GroupFormWorkflowContext';
+import useGetPatient from './hooks/useGetPatient';
 
 export interface Order {
   uuid: string;

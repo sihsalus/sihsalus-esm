@@ -1,26 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Dropdown,
   Form,
   FormGroup,
-  Stack,
   InlineLoading,
   InlineNotification,
-  Dropdown,
-  CheckboxGroup,
-  Checkbox,
-  RadioButtonGroup,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   RadioButton,
-  Button,
+  RadioButtonGroup,
+  Stack,
 } from '@carbon/react';
-import { showSnackbar } from '@openmrs/esm-framework';
-import { useForms } from '@hooks/useForms';
 import { useClobdata } from '@hooks/useClobdata';
-import type { FormPage, FormSection, FormField } from '@sihsalus/esm-form-engine-lib';
+import { useForms } from '@hooks/useForms';
+import { showSnackbar } from '@openmrs/esm-framework';
+import type { FormField, FormPage, FormSection } from '@sihsalus/esm-form-engine-lib';
 import type { Form as FormType, Schema } from '@types';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './add-form-reference.scss';
 
 interface AddFormReferenceModalProps {

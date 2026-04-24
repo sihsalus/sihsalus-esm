@@ -1,4 +1,5 @@
 import {
+  Button,
   DataTable,
   DataTableSkeleton,
   Pagination,
@@ -10,7 +11,6 @@ import {
   TableHeader,
   TableRow,
   Tile,
-  Button,
 } from '@carbon/react';
 import { Add, Edit, TrashCan } from '@carbon/react/icons';
 import {
@@ -21,7 +21,7 @@ import {
   useLayoutType,
   usePagination,
 } from '@openmrs/esm-framework';
-import { EmptyDataIllustration, ErrorState, CardHeader, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyDataIllustration, ErrorState, usePaginationInfo } from '@openmrs/esm-patient-common-lib';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

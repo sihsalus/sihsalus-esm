@@ -1,18 +1,18 @@
-import { Tab, Tabs, TabList, TabPanel, TabPanels } from '@carbon/react';
-import { formatTime, parseDate, useLayoutType, formatDatetime } from '@openmrs/esm-framework';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+import { formatDatetime, formatTime, parseDate, useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useVitalsFromObs } from '../../current-visit/hooks/useVitalsConceptMetadata';
 import Vitals from '../../current-visit/visit-details/vitals.component';
 import {
-  type Encounter,
-  type OrderItem,
-  type Order,
-  type Note,
   type DiagnosisItem,
+  type Encounter,
+  type Note,
   type Observation,
+  type Order,
+  type OrderItem,
 } from '../../types/index';
 import styles from '../past-visit.scss';
 

@@ -1,11 +1,11 @@
 import { LineChart } from '@carbon/charts-react';
-import { Tab, Tabs, TabList } from '@carbon/react';
+import { Tab, TabList, Tabs } from '@carbon/react';
 import { formatDate, parseDate } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React, { useId, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { withUnit, type PatientVitalsAndBiometrics } from '../common';
+import { type PatientVitalsAndBiometrics, withUnit } from '../common';
 import { type ConfigObject } from '../config-schema';
 
 import styles from './vitals-chart.scss';

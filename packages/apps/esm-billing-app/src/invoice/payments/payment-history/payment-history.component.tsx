@@ -1,9 +1,9 @@
-import React from 'react';
-import { DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import type { MappedBill } from '../../../types';
+import { DataTable, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
 import { formatDate, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { convertToCurrency } from '../../../helpers';
+import type { MappedBill } from '../../../types';
 
 type PaymentHistoryProps = {
   bill: MappedBill;

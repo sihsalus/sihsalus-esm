@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
 import { useConfig, useSession } from '@openmrs/esm-framework';
+import { render } from '@testing-library/react';
+import { useProviders } from '../medication-dispense/medication-dispense.resource';
 import { type MedicationDispense, MedicationDispenseStatus } from '../types';
 import MedicationDispenseReview from './medication-dispense-review.component';
-import { useProviders } from '../medication-dispense/medication-dispense.resource';
 
 jest.mock('../medication-dispense/medication-dispense.resource', () => ({
   ...jest.requireActual('../medication-dispense/medication-dispense.resource'),

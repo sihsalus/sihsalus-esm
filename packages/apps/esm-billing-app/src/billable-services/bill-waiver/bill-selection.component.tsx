@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   Checkbox,
   Layer,
@@ -8,12 +7,13 @@ import {
   StructuredListRow,
   StructuredListWrapper,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { getCoreTranslation, useConfig } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { convertToCurrency } from '../../helpers';
-import { type MappedBill, type LineItem } from '../../types';
-import BillWaiverForm from './bill-waiver-form.component';
+import { type LineItem, type MappedBill } from '../../types';
 import styles from './bill-waiver.scss';
+import BillWaiverForm from './bill-waiver-form.component';
 
 const PatientBillsSelections: React.FC<{ bills: MappedBill; setPatientUuid: (patientUuid) => void }> = ({
   bills,

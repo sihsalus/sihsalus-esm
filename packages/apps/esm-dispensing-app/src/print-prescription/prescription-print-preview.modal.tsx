@@ -1,6 +1,3 @@
-import React, { useRef, useState } from 'react';
-import { useReactToPrint } from 'react-to-print';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -11,10 +8,13 @@ import {
   ModalHeader,
 } from '@carbon/react';
 import { ErrorState, getCoreTranslation } from '@openmrs/esm-framework';
+import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useReactToPrint } from 'react-to-print';
 import { usePrescriptionDetails } from '../medication-request/medication-request.resource';
 import PrescriptionsPrintout from './prescription-printout.component';
-import PrintablePrescriptionsSelector from './printable-prescriptions.component';
 import styles from './print-prescription.scss';
+import PrintablePrescriptionsSelector from './printable-prescriptions.component';
 
 type PrescriptionPrintPreviewModalProps = {
   onClose: () => void;

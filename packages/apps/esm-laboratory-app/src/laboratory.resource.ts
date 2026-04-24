@@ -1,9 +1,9 @@
-import { useCallback } from 'react';
+import { type Order, openmrsFetch, restBaseUrl, useAppContext, useConfig } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
+import { useCallback } from 'react';
 import useSWR, { mutate } from 'swr';
-import { openmrsFetch, type Order, restBaseUrl, useAppContext, useConfig } from '@openmrs/esm-framework';
-import type { DateFilterContext, FulfillerStatus } from './types';
 import { type Config } from './config-schema';
+import type { DateFilterContext, FulfillerStatus } from './types';
 
 const useLabOrdersDefaultParams: UseLabOrdersParams = {
   status: null,

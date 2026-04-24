@@ -1,4 +1,4 @@
-import { Button, Layer, Tile, SkeletonText } from '@carbon/react';
+import { Button, Layer, SkeletonText, Tile } from '@carbon/react';
 import { ArrowRightIcon, navigate } from '@openmrs/esm-framework';
 import React, { type ComponentProps, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';

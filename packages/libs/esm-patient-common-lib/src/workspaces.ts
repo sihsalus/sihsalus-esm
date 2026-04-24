@@ -1,9 +1,7 @@
 import {
-  type DefaultWorkspaceProps,
-  type Visit,
-  type Workspace2DefinitionProps,
   closeWorkspace,
   closeWorkspaceGroup2,
+  type DefaultWorkspaceProps,
   getGlobalStore,
   getRegisteredWorkspace2Names,
   launchWorkspace,
@@ -12,6 +10,8 @@ import {
   navigateAndLaunchWorkspace,
   showModal,
   useFeatureFlag,
+  type Visit,
+  type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
 import { getGroupByWindowName, getWindowByWorkspaceName, workspace2Store } from '@openmrs/esm-framework/src/internal';
 import { useCallback } from 'react';

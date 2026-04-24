@@ -1,9 +1,9 @@
+import { Calendar, Location, UserFollow } from '@carbon/react/icons';
+import { formatDate, PageHeader, useSession } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Location, UserFollow } from '@carbon/react/icons';
-import { formatDate, useSession, PageHeader } from '@openmrs/esm-framework';
-import Illustration from './illustration.component';
 import styles from './header.scss';
+import Illustration from './illustration.component';
 
 interface HeaderProps {
   title: string;

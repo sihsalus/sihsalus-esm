@@ -56,4 +56,4 @@ const formStateReducer = (state: FormState, action: Action): FormState => {
   }
 };
 
-export { formStateReducer, initialState, FormState, Action };
+export { Action, FormState, formStateReducer, initialState };

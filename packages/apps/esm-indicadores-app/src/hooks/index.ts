@@ -1,9 +1,9 @@
 export {
-  type IndicatorDefinition,
-  useIndicators,
-  useEvaluateIndicator,
   createIndicator,
-  updateIndicator,
   deleteIndicator,
+  type IndicatorDefinition,
+  updateIndicator,
+  useEvaluateIndicator,
+  useIndicators,
   useIndicatorsCRUD,
 } from './useIndicators';

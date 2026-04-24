@@ -1,6 +1,6 @@
 import type { FormState } from '../types';
 
-import { setFormState, getFormState } from './form-state.store';
+import { getFormState, setFormState } from './form-state.store';
 
 jest.mock('@openmrs/esm-framework', () => {
   type TestStoreState = Record<string, FormState>;

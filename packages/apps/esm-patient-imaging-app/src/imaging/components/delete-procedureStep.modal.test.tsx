@@ -1,10 +1,9 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import DeleteProcedureStepModal from './delete-procedureStep.modal';
-import * as api from '../../api';
 import { showSnackbar } from '@openmrs/esm-framework';
-import { act } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { use } from 'i18next';
+import React from 'react';
+import * as api from '../../api';
+import DeleteProcedureStepModal from './delete-procedureStep.modal';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

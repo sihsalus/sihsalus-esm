@@ -1,9 +1,9 @@
 import { Button } from '@carbon/react';
-import { ArrowLeftIcon, Workspace2, useLayoutType, useSession } from '@openmrs/esm-framework';
+import { ArrowLeftIcon, useLayoutType, useSession, Workspace2 } from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
-  type PatientWorkspace2DefinitionProps,
   launchPatientWorkspace,
+  type PatientWorkspace2DefinitionProps,
   useOrderBasket,
 } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps, useCallback, useState } from 'react';

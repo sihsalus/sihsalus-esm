@@ -1,6 +1,3 @@
-import React, { type ComponentProps, useCallback, useMemo } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -18,13 +15,16 @@ import {
 import {
   AddIcon,
   type ConfigObject,
+  isDesktop as desktopLayout,
   formatDate,
   formatDatetime,
   useConfig,
   useLayoutType,
-  isDesktop as desktopLayout,
 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import React, { type ComponentProps, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { findLastState, usePrograms } from './programs.resource';
 import { ProgramsActionMenu } from './programs-action-menu.component';
 import styles from './programs-detailed-summary.scss';

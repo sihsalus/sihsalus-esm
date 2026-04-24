@@ -1,17 +1,17 @@
 import {
   DataTable,
+  InlineLoading,
+  SkeletonText,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableHeader,
   TableHead,
+  TableHeader,
   TableRow,
-  InlineLoading,
-  SkeletonText,
 } from '@carbon/react';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
-import { ErrorState, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 

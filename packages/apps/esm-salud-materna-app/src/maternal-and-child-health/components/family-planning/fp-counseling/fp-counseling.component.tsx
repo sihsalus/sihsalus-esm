@@ -1,4 +1,4 @@
-import { Tile, Tag } from '@carbon/react';
+import { Tag, Tile } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

@@ -1,8 +1,8 @@
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import UiSelectExtended from './ui-select-extended.component';
 import { FormFieldProvider } from '../../../../form-field-context';
-import type { FormField } from '@sihsalus/esm-form-engine-lib';
+import UiSelectExtended from './ui-select-extended.component';
 
 const mockSetFormField = jest.fn();
 const formField: FormField = {
@@ -55,6 +55,7 @@ function renderUiSelectExtendedComponent() {
     </FormFieldProvider>,
   );
 }
+
 import React from 'react';
 
 void React;

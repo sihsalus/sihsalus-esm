@@ -1,27 +1,27 @@
-import React, { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Accordion, AccordionItem, Button, IconButton, InlineLoading } from '@carbon/react';
+import { Add, Edit, TrashCan } from '@carbon/react/icons';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import {
-  DndContext,
   closestCorners,
+  DndContext,
+  DragOverlay,
+  KeyboardSensor,
+  MouseSensor,
   pointerWithin,
   rectIntersection,
-  DragOverlay,
   useSensor,
   useSensors,
-  MouseSensor,
-  KeyboardSensor,
 } from '@dnd-kit/core';
-import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
-import { Accordion, AccordionItem, Button, IconButton, InlineLoading } from '@carbon/react';
-import { Add, TrashCan, Edit } from '@carbon/react/icons';
-import { useParams } from 'react-router-dom';
-import type { FormSchema, FormField } from '@sihsalus/esm-form-engine-lib';
 import { showModal, showSnackbar } from '@openmrs/esm-framework';
-import { moveQuestion, type DragQuestionData } from './drag-and-drop-helpers';
+import type { FormField, FormSchema } from '@sihsalus/esm-form-engine-lib';
+import type { Schema } from '@types';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+import { type DragQuestionData, moveQuestion } from './drag-and-drop-helpers';
 import DraggableQuestion from './draggable/draggable-question.component';
 import EditableValue from './editable/editable-value.component';
-import type { Schema } from '@types';
 import styles from './interactive-builder.scss';
 
 interface ValidationError {

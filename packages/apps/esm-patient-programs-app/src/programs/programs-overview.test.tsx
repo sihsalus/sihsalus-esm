@@ -1,11 +1,17 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, within } from '@testing-library/react';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from 'test-utils';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
-import ProgramsOverview from './programs-overview.component';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import {
+  mockCareProgramsResponse,
+  mockEnrolledInAllProgramsResponse,
+  mockEnrolledProgramsResponse,
+  mockPatient,
+  renderWithSwr,
+  waitForLoadingToFinish,
+} from 'test-utils';
 import { usePrograms } from './programs.resource';
+import ProgramsOverview from './programs-overview.component';
 
 const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);
 const mockUsePrograms = jest.mocked(usePrograms);

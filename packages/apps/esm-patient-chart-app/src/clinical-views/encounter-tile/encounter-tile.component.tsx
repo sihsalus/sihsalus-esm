@@ -1,4 +1,4 @@
-import { CodeSnippetSkeleton, Tile, Column, Layer } from '@carbon/react';
+import { CodeSnippetSkeleton, Column, Layer, Tile } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework';
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

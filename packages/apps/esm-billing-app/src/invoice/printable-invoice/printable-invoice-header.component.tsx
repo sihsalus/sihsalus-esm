@@ -1,7 +1,7 @@
+import { formatDate, interpolateUrl, parseDate, type SessionLocation, useConfig } from '@openmrs/esm-framework';
+import isEmpty from 'lodash/isEmpty';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import isEmpty from 'lodash/isEmpty';
-import { formatDate, interpolateUrl, parseDate, type SessionLocation, useConfig } from '@openmrs/esm-framework';
 import type { BillingConfig } from '../../config-schema';
 import type { MappedBill, PatientDetails } from '../../types';
 import styles from './printable-invoice-header.scss';

@@ -1,7 +1,7 @@
 import {
   type FetchResponse,
-  openmrsFetch,
   type OpenmrsResource,
+  openmrsFetch,
   reportError,
   restBaseUrl,
 } from '@openmrs/esm-framework';

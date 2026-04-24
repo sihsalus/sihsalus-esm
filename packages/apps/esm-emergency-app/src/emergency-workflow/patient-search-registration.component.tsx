@@ -9,37 +9,37 @@
  * - NO modals - everything inline for speed
  */
 
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
-  Search,
+  ContentSwitcher,
   Form,
-  Stack,
-  TextInput,
+  InlineLoading,
+  InlineNotification,
+  Layer,
+  Loading,
+  Search,
   Select,
   SelectItem,
-  InlineNotification,
-  InlineLoading,
-  Tile,
-  Layer,
-  Tag,
-  Loading,
-  ContentSwitcher,
+  Stack,
   Switch,
+  Tag,
+  TextInput,
+  Tile,
 } from '@carbon/react';
-import { UserFollow, User, CheckmarkFilled, SendFilled } from '@carbon/react/icons';
-import { useForm, Controller } from 'react-hook-form';
+import { CheckmarkFilled, SendFilled, User, UserFollow } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import dayjs from 'dayjs';
 import { OpenmrsDatePicker, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import type { SearchedPatient } from './types';
+import dayjs from 'dayjs';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import type { Config } from '../config-schema';
 import { generateIdentifier, saveEmergencyPatient } from '../resources/patient-registration.resource';
-import { usePatientSearch } from './usePatientSearch';
 import InitialPrioritySelector, { type InitialPriority } from './components/initial-priority-selector.component';
 import styles from './patient-search-registration.component.scss';
+import type { SearchedPatient } from './types';
+import { usePatientSearch } from './usePatientSearch';
 
 // ============================================================================
 // SCHEMAS

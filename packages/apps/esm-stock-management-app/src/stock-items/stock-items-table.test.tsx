@@ -1,11 +1,11 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { type StockItemDTO } from '../core/api/types/stockItem/StockItem';
 import { handleMutate } from '../utils';
 import { launchAddOrEditStockItemWorkspace } from './stock-item.utils';
-import { useStockItemsPages } from './stock-items-table.resource';
 import StockItemsTableComponent from './stock-items-table.component';
+import { useStockItemsPages } from './stock-items-table.resource';
 
 const mockUseStockItemsPages = jest.mocked(useStockItemsPages);
 

@@ -1,9 +1,9 @@
 import { mockPreviousImports } from '@mocks/openconceptlab.mock';
 import { formatDatetime } from '@openmrs/esm-framework';
-import type { Import } from '../../types';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithSwr } from '@tools/test-helpers';
 import React from 'react';
+import type { Import } from '../../types';
 
 import ImportOverview from './import-overview.component';
 

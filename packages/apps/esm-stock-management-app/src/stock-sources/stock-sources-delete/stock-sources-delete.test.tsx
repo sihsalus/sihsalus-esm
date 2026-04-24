@@ -1,10 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import { type FetchResponse, showModal, showSnackbar } from '@openmrs/esm-framework';
-import { deleteStockSource } from '../stock-sources.resource';
-import { handleMutate } from '../../utils';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import DeleteConfirmation from '../../stock-user-role-scopes/delete-stock-user-scope.modal';
+import { handleMutate } from '../../utils';
+import { deleteStockSource } from '../stock-sources.resource';
 import StockSourcesDeleteActionMenu from './stock-sources-delete.component';
 
 const mockDeleteStockSource = jest.mocked(deleteStockSource);

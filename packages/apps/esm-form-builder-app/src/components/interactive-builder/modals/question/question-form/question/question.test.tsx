@@ -1,10 +1,10 @@
-import React from 'react';
+import { renderingTypes } from '@constants';
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Question from './question.component';
+import React from 'react';
 import { FormFieldProvider } from '../../form-field-context';
-import type { FormField } from '@sihsalus/esm-form-engine-lib';
-import { renderingTypes } from '@constants';
+import Question from './question.component';
 
 const initialFormField: FormField = {
   id: 'testId',

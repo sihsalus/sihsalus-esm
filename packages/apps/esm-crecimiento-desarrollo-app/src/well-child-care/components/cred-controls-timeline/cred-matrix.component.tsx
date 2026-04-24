@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../../config-schema';
-import { useCREDSchedule, type CREDControlWithStatus } from '../../../hooks/useCREDSchedule';
+import { type CREDControlWithStatus, useCREDSchedule } from '../../../hooks/useCREDSchedule';
 
 import styles from './cred-matrix.scss';
 import CredTile from './cred-tile';

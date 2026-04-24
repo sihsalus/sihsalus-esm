@@ -1,6 +1,6 @@
-import { moveQuestion, type DragQuestionData } from './drag-and-drop-helpers';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '../../types';
+import { type DragQuestionData, moveQuestion } from './drag-and-drop-helpers';
 
 const dummyFormField = { id: '_', label: '_', type: 'obs', questionOptions: { rendering: 'text' } } as FormField;
 

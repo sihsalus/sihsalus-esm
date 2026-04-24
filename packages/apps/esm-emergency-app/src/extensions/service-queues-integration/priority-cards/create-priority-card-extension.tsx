@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { PriorityLevelCard } from '../../../emergency-dashboard/priority-level-cards/priority-level-card.component';
-import { usePatientsByPriority } from '../../../resources/emergency.resource';
 import { usePriorityConfig } from '../../../hooks/usePriorityConfig';
+import { usePatientsByPriority } from '../../../resources/emergency.resource';
 
 type PriorityLevel = 'I' | 'II' | 'III' | 'IV';
 type PriorityCode = 'PRIORITY_I' | 'PRIORITY_II' | 'PRIORITY_III' | 'PRIORITY_IV';

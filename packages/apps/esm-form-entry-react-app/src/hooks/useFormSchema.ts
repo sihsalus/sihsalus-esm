@@ -1,5 +1,5 @@
-import { type FormSchema } from '@sihsalus/esm-form-engine-lib';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { type FormSchema } from '@sihsalus/esm-form-engine-lib';
 import useSWR from 'swr';
 
 interface FormSchemaResponse {

@@ -1,22 +1,22 @@
-import { configSchema } from './config-schema';
-import { createDashboard, defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
-import { createLeftPanelLink } from './left-panel-link.component';
-import { dashboardMeta } from './dashboard.meta';
 import { Settings, Wallet } from '@carbon/react/icons';
+import { createDashboard, defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
+import BillHistory from './bill-history/bill-history.component';
+import EditBillLineItemModal from './bill-item-actions/edit-bill-item.modal';
+import BillableServiceHome from './billable-services/billable-services-home.component';
 import { createBillableServicesLeftPanelLink } from './billable-services/billable-services-left-panel-link.component';
 import { createBillableServicesLeftPanelMenu } from './billable-services/billable-services-left-panel-menu.component';
-import AddCashPointModal from './billable-services/cash-point/add-cash-point.modal';
 import appMenu from './billable-services/billable-services-menu-item/item.component';
-import BillableServiceHome from './billable-services/billable-services-home.component';
-import BillableServicesCardLink from './billable-services-admin-card-link.component';
-import BillHistory from './bill-history/bill-history.component';
-import BillingCheckInForm from './billing-form/billing-checkin-form.component';
+import AddCashPointModal from './billable-services/cash-point/add-cash-point.modal';
 import DeletePaymentModeModal from './billable-services/payment-modes/delete-payment-mode.modal';
-import EditBillLineItemModal from './bill-item-actions/edit-bill-item.modal';
 import PaymentModeFormModal from './billable-services/payment-modes/payment-mode-form.modal';
+import BillableServicesCardLink from './billable-services-admin-card-link.component';
+import BillingCheckInForm from './billing-form/billing-checkin-form.component';
+import { configSchema } from './config-schema';
+import { dashboardMeta } from './dashboard.meta';
+import VisitAttributeTags from './invoice/payments/visit-tags/visit-attribute.component';
+import { createLeftPanelLink } from './left-panel-link.component';
 import RequirePaymentModal from './modal/require-payment.modal';
 import RootComponent from './root.component';
-import VisitAttributeTags from './invoice/payments/visit-tags/visit-attribute.component';
 
 const moduleName = '@sihsalus/esm-billing-app';
 

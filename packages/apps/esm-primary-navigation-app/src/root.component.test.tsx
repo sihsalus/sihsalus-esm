@@ -1,15 +1,15 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { of } from 'rxjs';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import {
-  useConfig,
-  useAssignedExtensions,
-  useSession,
   type AssignedExtension,
   type Session,
+  useAssignedExtensions,
+  useConfig,
   useLeftNavStore,
+  useSession,
 } from '@openmrs/esm-framework';
 
 import { mockSession } from '../test-utils/mocks/mock-session';

@@ -1,6 +1,6 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import useSWRImmutable from 'swr/immutable';
 import { useMemo } from 'react';
+import useSWRImmutable from 'swr/immutable';
 
 export interface ConceptReferenceRange {
   lowAbsolute: number | null;

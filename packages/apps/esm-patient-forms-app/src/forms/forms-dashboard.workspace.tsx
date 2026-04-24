@@ -1,7 +1,7 @@
-import { ExtensionSlot, Workspace2, usePatient } from '@openmrs/esm-framework';
+import { ExtensionSlot, usePatient, Workspace2 } from '@openmrs/esm-framework';
 import {
-  launchPatientWorkspace,
   type DefaultPatientWorkspaceProps,
+  launchPatientWorkspace,
   type PatientWorkspace2DefinitionProps,
   useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
@@ -9,9 +9,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type Form } from '../types';
-
-import styles from './forms-dashboard-workspace.scss';
 import FormsDashboard from './forms-dashboard.component';
+import styles from './forms-dashboard-workspace.scss';
 
 void React;
 

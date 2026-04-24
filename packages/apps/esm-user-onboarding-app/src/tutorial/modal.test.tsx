@@ -1,9 +1,9 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, navigate, useAppContext, useConfig } from '@openmrs/esm-framework';
-import { type TutorialContext } from '../types';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { type Config, configSchema } from '../config-schema';
+import { type TutorialContext } from '../types';
 import TutorialModal from './modal.component';
 
 const mockNavigate = jest.mocked(navigate);

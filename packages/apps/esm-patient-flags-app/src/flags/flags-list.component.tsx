@@ -1,10 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, OperationalTag, Tag } from '@carbon/react';
 import { EditIcon, launchWorkspace2, navigate, useConfig } from '@openmrs/esm-framework';
-import { carbonTagColors, type CarbonTagColor, type ConfigObject, type PriorityConfig } from '../config-schema';
-import { type FlagWithPriority, usePatientFlags } from './hooks/usePatientFlags';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { type CarbonTagColor, type ConfigObject, carbonTagColors, type PriorityConfig } from '../config-schema';
 import styles from './flags-list.scss';
+import { type FlagWithPriority, usePatientFlags } from './hooks/usePatientFlags';
 
 interface FlagsListProps {
   patientUuid: string;

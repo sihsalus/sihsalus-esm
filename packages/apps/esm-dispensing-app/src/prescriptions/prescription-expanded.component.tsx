@@ -1,6 +1,6 @@
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
+import { ExtensionSlot, getAssignedExtensions, type PatientUuid } from '@openmrs/esm-framework';
 import React from 'react';
-import { getAssignedExtensions, ExtensionSlot, type PatientUuid } from '@openmrs/esm-framework';
-import { Tab, Tabs, TabList, TabPanels, TabPanel } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import HistoryAndComments from '../history/history-and-comments.component';
 import PrescriptionDetails from './prescription-details.component';

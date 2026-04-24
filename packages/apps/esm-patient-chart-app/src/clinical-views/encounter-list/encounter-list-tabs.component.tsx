@@ -1,4 +1,4 @@
-import { Tabs, Tab, TabList, TabPanels, TabPanel } from '@carbon/react';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { useConfig, usePatient, useVisit } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,9 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { type Encounter } from '../types';
 import { getMenuItemTabsConfiguration } from '../utils/encounter-list-config-builder';
 import { filter } from '../utils/helpers';
-
-import styles from './encounter-list-tabs.scss';
 import { EncounterList } from './encounter-list.component';
+import styles from './encounter-list-tabs.scss';
 
 interface EncounterListTabsComponentProps {
   patientUuid: string;

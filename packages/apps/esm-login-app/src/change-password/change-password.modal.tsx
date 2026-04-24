@@ -12,12 +12,11 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-
-import styles from './change-password-modal.scss';
 import { changeUserPassword } from './change-password.resource';
+import styles from './change-password-modal.scss';
 
 interface ChangePasswordModalProps {
   close(): () => void;

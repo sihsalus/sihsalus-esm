@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-import { type DataSource, registerCustomDataSource } from '../form-engine-lib-runtime';
-
 import { MonthlyScheduleDataSource } from '../data-sources/monthly-schedule.datasource';
-import type { FormEntryReactConfig } from '../types';
-import type { OpenmrsResource } from '../types';
+import { type DataSource, registerCustomDataSource } from '../form-engine-lib-runtime';
+import type { FormEntryReactConfig, OpenmrsResource } from '../types';
 
 interface ModuleFederationContainer {
   get(module: string): Promise<() => Record<string, unknown>>;

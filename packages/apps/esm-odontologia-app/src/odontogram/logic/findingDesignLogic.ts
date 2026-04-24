@@ -8,7 +8,7 @@
  * NO tiene estado. Recibe datos, retorna datos transformados.
  */
 
-import type { SpaceData, ToothData, LegendSpaceData } from '../types/odontogram';
+import type { LegendSpaceData, SpaceData, ToothData } from '../types/odontogram';
 
 // =============================================================================
 // CÁLCULO DE DYNAMIC DESIGN POR ADYACENCIA

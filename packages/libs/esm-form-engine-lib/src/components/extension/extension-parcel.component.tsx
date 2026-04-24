@@ -1,8 +1,8 @@
+import { attach, ExtensionSlot } from '@openmrs/esm-framework/src/internal';
 import React, { useEffect, useMemo } from 'react';
 import { BehaviorSubject } from 'rxjs';
-import { attach, ExtensionSlot } from '@openmrs/esm-framework/src/internal';
-import { type FormFieldInputProps } from '../../types';
 import { useFormProviderContext } from '../../provider/form-provider';
+import { type FormFieldInputProps } from '../../types';
 
 const ExtensionParcel: React.FC<FormFieldInputProps> = ({ field }) => {
   const submissionNotifier = useMemo(() => new BehaviorSubject<{ isSubmitting: boolean }>({ isSubmitting: false }), []);

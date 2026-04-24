@@ -1,5 +1,3 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Form, FormLabel, InlineLoading } from '@carbon/react';
 import {
   ExtensionSlot,
@@ -11,11 +9,16 @@ import {
   Workspace2,
   type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { type PharmacyConfig } from '../config-schema';
+import { saveMedicationDispense } from '../medication-dispense/medication-dispense.resource';
+import { updateMedicationRequestFulfillerStatus } from '../medication-request/medication-request.resource';
 import {
+  type InventoryItem,
   type MedicationDispense,
   MedicationDispenseStatus,
   type MedicationRequestBundle,
-  type InventoryItem,
   MedicationRequestFulfillerStatus,
 } from '../types';
 import {
@@ -27,13 +30,10 @@ import {
   markEncounterAsStale,
   revalidate,
 } from '../utils';
-import { type PharmacyConfig } from '../config-schema';
-import { createStockDispenseRequestPayload, sendStockDispenseRequest } from './stock-dispense/stock.resource';
-import { saveMedicationDispense } from '../medication-dispense/medication-dispense.resource';
-import { updateMedicationRequestFulfillerStatus } from '../medication-request/medication-request.resource';
-import MedicationDispenseReview from './medication-dispense-review.component';
-import StockDispense from './stock-dispense/stock-dispense.component';
 import styles from './forms.scss';
+import MedicationDispenseReview from './medication-dispense-review.component';
+import { createStockDispenseRequestPayload, sendStockDispenseRequest } from './stock-dispense/stock.resource';
+import StockDispense from './stock-dispense/stock-dispense.component';
 
 type DispenseFormProps = {
   medicationDispense: MedicationDispense;

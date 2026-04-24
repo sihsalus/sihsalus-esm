@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 import {
+  Button,
   DataTable,
   DataTableSkeleton,
   Dropdown,
@@ -19,23 +17,25 @@ import {
   TableToolbarContent,
   TableToolbarSearch,
   Tile,
-  Button,
 } from '@carbon/react';
 import { Add, Reset } from '@carbon/react/icons';
 import {
   ErrorState,
-  useLayoutType,
   isDesktop,
-  usePagination,
-  useConfig,
   launchWorkspace,
   showModal,
+  useConfig,
+  useLayoutType,
+  usePagination,
 } from '@openmrs/esm-framework';
-import { useEmergencyQueueEntries, type EmergencyQueueEntry } from '../../resources/emergency.resource';
+import dayjs from 'dayjs';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type Config } from '../../config-schema';
-import { usePriorityConfig } from '../../hooks/usePriorityConfig';
-import { useEmergencyQueueColumns } from './emergency-queue-columns.resource';
 import { emergencyWorkflowWorkspace } from '../../emergency-workflow/constants';
+import { usePriorityConfig } from '../../hooks/usePriorityConfig';
+import { type EmergencyQueueEntry, useEmergencyQueueEntries } from '../../resources/emergency.resource';
+import { useEmergencyQueueColumns } from './emergency-queue-columns.resource';
 import styles from './emergency-queue-table.scss';
 
 /**

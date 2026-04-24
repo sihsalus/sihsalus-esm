@@ -1,8 +1,9 @@
 /** @module @category Workspace */
-import React from 'react';
-import classNames from 'classnames';
+
 import { Button, IconButton } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React from 'react';
 import { useWorkspaces } from '../workspaces';
 import styles from './action-menu-button.module.scss';
 

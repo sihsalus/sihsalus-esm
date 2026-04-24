@@ -1,7 +1,7 @@
+import { type FetchResponse, formatDate, openmrsFetch, parseDate, restBaseUrl } from '@openmrs/esm-framework';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
-import { type FetchResponse, formatDate, openmrsFetch, parseDate, restBaseUrl } from '@openmrs/esm-framework';
 
 /**
  * Represents a cohort object returned by the OpenMRS Cohort resource https://github.com/openmrs/openmrs-module-cohort#readme.

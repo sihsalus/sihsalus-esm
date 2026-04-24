@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
-  DataTable,
   Button,
+  DataTable,
   IconButton,
   InlineLoading,
+  SelectItem,
   Table,
   TableBody,
   TableCell,
@@ -11,29 +11,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  SelectItem,
 } from '@carbon/react';
-import { CardHeader, compare, PatientChartPagination, EmptyState } from '@openmrs/esm-patient-common-lib';
-
 import {
   AddIcon,
+  launchWorkspace,
+  showModal,
+  TrashCanIcon,
   useLayoutType,
   usePagination,
-  TrashCanIcon,
-  showModal,
-  launchWorkspace,
 } from '@openmrs/esm-framework';
+import { CardHeader, compare, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { type RequestProcedure } from '../../types';
 import {
   addNewProcedureStepWorkspace,
   addNewRequestWorkspace,
-  requestDeleteConfirmationDialog,
   requestCount,
+  requestDeleteConfirmationDialog,
 } from '../constants';
-import ProcedureStepTable from './procedureStep-details-table.component';
 import styles from './details-table.scss';
+import ProcedureStepTable from './procedureStep-details-table.component';
 
 export interface RequestProcedureTableProps {
   isValidating?: boolean;

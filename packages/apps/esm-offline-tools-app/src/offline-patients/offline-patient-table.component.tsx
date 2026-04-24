@@ -19,6 +19,7 @@ import {
 import { Renew } from '@carbon/react/icons';
 import {
   age,
+  type DynamicOfflineDataSyncState,
   deleteSynchronizationItem,
   getDynamicOfflineDataEntries,
   getFullSynchronizationItems,
@@ -27,7 +28,6 @@ import {
   showModal,
   syncDynamicOfflineData,
   useLayoutType,
-  type DynamicOfflineDataSyncState,
 } from '@openmrs/esm-framework';
 import { capitalize } from 'lodash-es';
 import React, { type ChangeEvent, useMemo, useState } from 'react';

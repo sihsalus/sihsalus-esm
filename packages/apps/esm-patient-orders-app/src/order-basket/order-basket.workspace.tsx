@@ -2,18 +2,18 @@
 import { ActionableNotification, Button, ButtonSet, InlineLoading, InlineNotification } from '@carbon/react';
 import {
   ExtensionSlot,
-  Workspace2,
   showModal,
   showSnackbar,
   useConfig,
   useLayoutType,
   useSession,
+  Workspace2,
 } from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
+  launchPatientWorkspace,
   type OrderBasketItem,
   type PatientWorkspace2DefinitionProps,
-  launchPatientWorkspace,
   postOrders,
   postOrdersOnNewEncounter,
   useOrderBasket,

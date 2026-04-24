@@ -7,17 +7,17 @@ import { useTranslation } from 'react-i18next';
 import type { ConfigObject } from '../../config-schema';
 import { useClinicalEncounter } from '../../hooks/useClinicalEncounter';
 import {
-  AdmissionDate_UUID,
-  PriorityOfAdmission_UUID,
-  AdmissionWard_UUID,
   ACCIDENT_TRAUMA_UUID,
-  BLOOD_TRANSFUSION_UUID,
-  SURGICAL_HISTORY_UUID,
-  Alcohol_Use_UUID,
+  AdmissionDate_UUID,
+  AdmissionWard_UUID,
   Alcohol_Use_Duration_UUID,
-  Smoking_UUID,
-  Smoking_Duration_UUID,
+  Alcohol_Use_UUID,
+  BLOOD_TRANSFUSION_UUID,
   Other_Substance_Abuse_UUID,
+  PriorityOfAdmission_UUID,
+  Smoking_Duration_UUID,
+  Smoking_UUID,
+  SURGICAL_HISTORY_UUID,
 } from '../../utils/constants';
 import ClinicalEncounter from '../clinical-enc.component';
 import InPatientSummary from '../summary/in-patient-medical-summary/in-patient-medical-summary.component';

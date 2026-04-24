@@ -1,7 +1,7 @@
+import { DataTableSkeleton } from '@carbon/react';
+import { ErrorState, ExtensionSlot } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DataTableSkeleton } from '@carbon/react';
-import { ExtensionSlot, ErrorState } from '@openmrs/esm-framework';
 import { usePatientsByPriority } from '../../resources/emergency.resource';
 import styles from './priority-level-cards-container.scss';
 

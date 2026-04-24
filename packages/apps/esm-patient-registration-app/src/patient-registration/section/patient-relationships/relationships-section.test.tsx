@@ -3,8 +3,8 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 
 import { type Resources, ResourcesContext } from '../../../offline.resources';
-import { PatientRegistrationContext } from '../../patient-registration-context';
 import { type FormValues } from '../../patient-registration.types';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 
 import { RelationshipsSection } from './relationships-section.component';
 

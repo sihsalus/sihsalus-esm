@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import DeleteSeriesModal from './delete-series.modal';
-import * as api from '../../api';
 import { showSnackbar } from '@openmrs/esm-framework';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import * as api from '../../api';
+import DeleteSeriesModal from './delete-series.modal';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

@@ -1,8 +1,8 @@
-import React from 'react';
+import { getDefaultsFromConfigSchema, type Order, type Patient, useConfig } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useConfig, getDefaultsFromConfigSchema, type Order, type Patient } from '@openmrs/esm-framework';
-import { configSchema, type Config } from '../../config-schema';
+import React from 'react';
+import { type Config, configSchema } from '../../config-schema';
 import { useLabOrders } from '../../laboratory.resource';
 import OrdersDataTable from './orders-data-table.component';
 

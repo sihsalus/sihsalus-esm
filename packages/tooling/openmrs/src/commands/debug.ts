@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 
 import type { ImportmapDeclaration } from '../utils';
-import { rspackBin, shellDir, logInfo } from '../utils';
+import { logInfo, rspackBin, shellDir } from '../utils';
 import { setShellEnvVars } from '../utils/config';
 
 export interface DebugArgs {

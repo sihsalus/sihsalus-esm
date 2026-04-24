@@ -1,9 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { DataTableSkeleton } from '@carbon/react';
 import { ErrorState } from '@openmrs/esm-framework';
-import { MetricsCard, MetricsCardHeader, MetricsCardBody, MetricsCardItem } from './metrics-card.component';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useEmergencyMetrics } from '../../../resources/emergency.resource';
+import { MetricsCard, MetricsCardBody, MetricsCardHeader, MetricsCardItem } from './metrics-card.component';
 
 const TotalPatientsCard: React.FC = () => {
   const { t } = useTranslation();

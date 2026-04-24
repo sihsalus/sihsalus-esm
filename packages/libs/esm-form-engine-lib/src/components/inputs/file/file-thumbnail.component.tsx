@@ -1,7 +1,7 @@
+import { Button } from '@carbon/react';
+import { CloseFilled, DocumentPdf, DocumentUnknown } from '@carbon/react/icons';
 import React, { useMemo } from 'react';
 import styles from './file-thumbnail.scss';
-import { CloseFilled, DocumentPdf, DocumentUnknown } from '@carbon/react/icons';
-import { Button } from '@carbon/react';
 
 interface FileThumbnailProps {
   src: string;

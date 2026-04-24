@@ -1,6 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import type { ReactNode } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -9,8 +6,11 @@ import {
   StructuredListRow,
   StructuredListWrapper,
 } from '@carbon/react';
-import { capitalize } from 'lodash-es';
 import { ExtensionSlot, formatDate, parseDate } from '@openmrs/esm-framework';
+import { capitalize } from 'lodash-es';
+import type { ReactNode } from 'react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { type GroupedOrders } from '../../types';
 import styles from './list-order-details.scss';
 

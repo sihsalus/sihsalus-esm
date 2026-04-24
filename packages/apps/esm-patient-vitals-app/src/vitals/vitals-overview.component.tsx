@@ -1,9 +1,9 @@
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, InlineLoading } from '@carbon/react';
-import { Add, Analytics, Table, Printer } from '@carbon/react/icons';
+import { Add, Analytics, Printer, Table } from '@carbon/react/icons';
 import {
   age,
-  getPatientName,
   formatDate,
+  getPatientName,
   parseDate,
   useConfig,
   useLayoutType,

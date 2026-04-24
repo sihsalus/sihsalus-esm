@@ -1,6 +1,6 @@
-import { openmrsFetch, fhirBaseUrl, useConfig } from '@openmrs/esm-framework';
-import useSWR from 'swr';
+import { fhirBaseUrl, openmrsFetch, useConfig } from '@openmrs/esm-framework';
 import type { KeyedMutator } from 'swr';
+import useSWR from 'swr';
 
 import { type ConfigObject } from '../config-schema';
 
@@ -76,19 +76,19 @@ function filterAndMapObservations(
           ...resource,
           conceptUuid: resource.code.coding.find((c) => isUuid(c.code))?.code,
         };
-        if (Object.prototype.hasOwnProperty.call(resource, 'valueDateTime')) {
+        if (Object.hasOwn(resource, 'valueDateTime')) {
           observation.dataType = 'DateTime';
         }
 
-        if (Object.prototype.hasOwnProperty.call(entry.resource, 'valueString')) {
+        if (Object.hasOwn(entry.resource, 'valueString')) {
           observation.dataType = 'Text';
         }
 
-        if (Object.prototype.hasOwnProperty.call(entry.resource, 'valueQuantity')) {
+        if (Object.hasOwn(entry.resource, 'valueQuantity')) {
           observation.dataType = 'Number';
         }
 
-        if (Object.prototype.hasOwnProperty.call(entry.resource, 'valueCodeableConcept')) {
+        if (Object.hasOwn(entry.resource, 'valueCodeableConcept')) {
           observation.dataType = 'Coded';
         }
 

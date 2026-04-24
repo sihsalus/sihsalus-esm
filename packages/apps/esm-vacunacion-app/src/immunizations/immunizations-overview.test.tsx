@@ -1,7 +1,12 @@
-import { screen } from '@testing-library/react';
 import { useFhirFetchAll } from '@openmrs/esm-framework';
-import { mockImmunizationData } from 'test-utils';
-import { mockPatient, patientChartBasePath, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import { screen } from '@testing-library/react';
+import {
+  mockImmunizationData,
+  mockPatient,
+  patientChartBasePath,
+  renderWithSwr,
+  waitForLoadingToFinish,
+} from 'test-utils';
 import ImmunizationsOverview from './immunizations-overview.component';
 
 const testProps = {

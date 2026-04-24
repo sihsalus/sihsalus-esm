@@ -1,7 +1,7 @@
-import { openmrsFetch, openmrsObservableFetch } from '@openmrs/esm-framework';
 import type { FetchResponse } from '@openmrs/esm-framework';
+import { openmrsFetch, openmrsObservableFetch } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { type Observable } from 'rxjs';
 import useSWR from 'swr';
 

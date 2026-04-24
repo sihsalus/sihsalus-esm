@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import SelectedDateContext from '../hooks/selectedDateContext';
 import { useAppointmentList } from '../hooks/useAppointmentList';
-import { useClinicalMetrics, useAllAppointmentsByDate, useScheduledAppointments } from '../hooks/useClinicalMetrics';
+import { useAllAppointmentsByDate, useClinicalMetrics, useScheduledAppointments } from '../hooks/useClinicalMetrics';
 
 import styles from './appointments-metrics.scss';
 import MetricsCard from './metrics-card.component';

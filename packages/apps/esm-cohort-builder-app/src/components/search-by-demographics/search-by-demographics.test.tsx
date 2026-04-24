@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
-import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import dayjs from 'dayjs';
 import SearchByDemographics from './search-by-demographics.component';
 
 const expectedQuery = {

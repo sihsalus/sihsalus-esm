@@ -28,7 +28,7 @@ describe('Admission Requests Workspace', () => {
     mockedUseEmrConfiguration.mockReturnValue({
       isLoadingEmrConfiguration: false,
       errorFetchingEmrConfiguration: null,
-      // @ts-ignore - we only need these keys for now
+      // @ts-expect-error - we only need these keys for now
       emrConfiguration: {
         admissionEncounterType: {
           uuid: 'admission-encounter-type-uuid',

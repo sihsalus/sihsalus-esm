@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
 import type { FindingColor, FindingSuboption } from '../types/odontogram';
 import { COLOR_CSS, COLOR_LABEL } from './constants';

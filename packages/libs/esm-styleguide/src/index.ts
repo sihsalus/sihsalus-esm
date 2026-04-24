@@ -1,12 +1,10 @@
-import { defineConfigSchema } from '@openmrs/esm-framework/src/internal';
-import { registerModal } from '@openmrs/esm-framework/src/internal';
+import { defineConfigSchema, getSyncLifecycle, registerModal } from '@openmrs/esm-framework/src/internal';
 import { setupBranding } from './brand';
 import { esmStyleGuideSchema } from './config-schema';
 import { setupEmptyCard } from './empty-card/empty-card-registration';
 import { setupIcons } from './icons/icon-registration';
 import { setupLogo } from './logo';
 import { setupPictograms } from './pictograms/pictogram-registration';
-import { getSyncLifecycle } from '@openmrs/esm-framework/src/internal';
 import Workspace2ClosePromptModal from './workspaces2/workspace2-close-prompt.modal';
 
 defineConfigSchema('@openmrs/esm-styleguide', esmStyleGuideSchema);

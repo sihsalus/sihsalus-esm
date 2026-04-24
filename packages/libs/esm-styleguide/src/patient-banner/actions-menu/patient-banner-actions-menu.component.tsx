@@ -1,9 +1,15 @@
 /** @module @category UI */
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
-import classNames from 'classnames';
+
 import { OverflowMenuVertical } from '@carbon/react/icons';
-import { ExtensionSlot, useExtensionSlot, useLayoutType, useOnClickOutside } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import {
+  ExtensionSlot,
+  getCoreTranslation,
+  useExtensionSlot,
+  useLayoutType,
+  useOnClickOutside,
+} from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import customOverflowMenuStyles from '../../custom-overflow-menu/custom-overflow-menu.module.scss';
 import styles from './patient-banner-actions-menu.module.scss';
 

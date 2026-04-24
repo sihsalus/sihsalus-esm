@@ -1,16 +1,16 @@
 import {
+  TableRow as CarbonTableRow,
   DataTable,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
-  TableBody,
   TableHead,
   TableHeader,
-  TableRow as CarbonTableRow,
 } from '@carbon/react';
 import React from 'react';
 
-import type { ColumnValue, FormattedColumn, NamedColumn, FormColumn, TableRow as EncounterTableRow } from '../types';
+import type { ColumnValue, TableRow as EncounterTableRow, FormattedColumn, FormColumn, NamedColumn } from '../types';
 import styles from './table.scss';
 
 interface TableProps {

@@ -11,8 +11,7 @@ import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orde
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { mockSessionDataResponse } from 'test-utils';
-import { mockFhirPatient } from 'test-utils';
+import { mockFhirPatient, mockSessionDataResponse } from 'test-utils';
 
 import { type ConfigObject, configSchema } from '../../config-schema';
 import { type PostDataPrepLabOrderFunction } from '../api';

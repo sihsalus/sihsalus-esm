@@ -2,7 +2,7 @@
 import { Accordion, AccordionItem, Button, Checkbox } from '@carbon/react';
 import { useConfig, useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type ConfigObject } from '../../config-schema';
@@ -10,7 +10,7 @@ import { FilterEmptyState } from '../ui-elements/resetFiltersEmptyState/filter-e
 
 import FilterContext from './filter-context';
 import styles from './filter-set.scss';
-import type { FilterNodeProps, FilterLeafProps, TreeCheckboxes, TreeNode } from './filter-types';
+import type { FilterLeafProps, FilterNodeProps, TreeCheckboxes, TreeNode } from './filter-types';
 
 const isIndeterminate = (kids: string[] | undefined, checkboxes: TreeCheckboxes): boolean => {
   return kids && !kids?.every((kid) => checkboxes[kid]) && !kids?.every((kid) => !checkboxes[kid]);

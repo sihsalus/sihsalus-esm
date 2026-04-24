@@ -1,17 +1,17 @@
-import React from 'react';
 import { Button } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CardHeader, navigate, showSnackbar, useConfig, useVisit } from '@openmrs/esm-framework';
+import React from 'react';
 import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CardHeader, navigate, showSnackbar, useConfig, useVisit } from '@openmrs/esm-framework';
-import { InvoiceBreakDown } from './invoice-breakdown/invoice-breakdown.component';
-import PaymentForm from './payment-form/payment-form.component';
-import PaymentHistory from './payment-history/payment-history.component';
 import { processBillPayment } from '../../billing.resource';
-import { updateBillVisitAttribute } from './payment.resource';
 import { convertToCurrency } from '../../helpers';
 import type { MappedBill } from '../../types';
+import { InvoiceBreakDown } from './invoice-breakdown/invoice-breakdown.component';
+import { updateBillVisitAttribute } from './payment.resource';
+import PaymentForm from './payment-form/payment-form.component';
+import PaymentHistory from './payment-history/payment-history.component';
 import styles from './payments.scss';
 
 type PaymentProps = {

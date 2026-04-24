@@ -1,11 +1,11 @@
 import { restBaseUrl } from '@openmrs/esm-framework';
 import {
-  type PatientData,
-  type ObsRecord,
-  type ConceptUuid,
   type ConceptRecord,
-  type ObsMetaInfo,
+  type ConceptUuid,
   type OBSERVATION_INTERPRETATION,
+  type ObsMetaInfo,
+  type ObsRecord,
+  type PatientData,
 } from '@openmrs/esm-patient-common-lib';
 
 const PAGE_SIZE = 300;

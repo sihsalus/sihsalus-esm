@@ -1,12 +1,13 @@
 /** @module @category UI */
-import React from 'react';
-import { Subject } from 'rxjs';
-import type { InlineNotificationMeta, NotificationDescriptor } from './notification.component';
-import type { ActionableNotificationMeta, ActionableNotificationDescriptor } from './actionable-notification.component';
-import ActiveNotifications from './active-notifications.component';
-import ActionableActiveNotifications from './active-actionable-notifications.component';
+
 import isEmpty from 'lodash-es/isEmpty';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { Subject } from 'rxjs';
+import type { ActionableNotificationDescriptor, ActionableNotificationMeta } from './actionable-notification.component';
+import ActionableActiveNotifications from './active-actionable-notifications.component';
+import ActiveNotifications from './active-notifications.component';
+import type { InlineNotificationMeta, NotificationDescriptor } from './notification.component';
 
 const inlineNotificationsSubject = new Subject<InlineNotificationMeta>();
 let notificationId = 0;

@@ -1,16 +1,16 @@
-import React, { useCallback } from 'react';
 import { Button } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { Add } from '@carbon/react/icons';
-import styles from './file.scss';
-import { type Attachment, type FormFieldInputProps } from '../../../types';
-import { useFormProviderContext } from '../../../provider/form-provider';
-import { isViewMode } from '../../../utils/common-utils';
-import FieldValueView from '../../value/view/field-value-view.component';
-import FieldLabel from '../../field-label/field-label.component';
 import { showModal, type UploadedFile, useLayoutType } from '@openmrs/esm-framework/src/internal';
-import { FileThumbnail } from './file-thumbnail.component';
 import classNames from 'classnames';
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormProviderContext } from '../../../provider/form-provider';
+import { type Attachment, type FormFieldInputProps } from '../../../types';
+import { isViewMode } from '../../../utils/common-utils';
+import FieldLabel from '../../field-label/field-label.component';
+import FieldValueView from '../../value/view/field-value-view.component';
+import styles from './file.scss';
+import { FileThumbnail } from './file-thumbnail.component';
 
 const File: React.FC<FormFieldInputProps<Array<Attachment>>> = ({ field, value, setFieldValue }) => {
   const { t } = useTranslation();

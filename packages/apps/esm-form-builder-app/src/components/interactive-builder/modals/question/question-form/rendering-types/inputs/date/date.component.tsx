@@ -1,8 +1,8 @@
+import { RadioButton, RadioButtonGroup } from '@carbon/react';
+import type { DatePickerTypeOption } from '@types';
 import React, { useCallback } from 'react';
-import { RadioButtonGroup, RadioButton } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useFormField } from '../../../../form-field-context';
-import type { DatePickerTypeOption } from '@types';
 
 const Date: React.FC = () => {
   const { t } = useTranslation();

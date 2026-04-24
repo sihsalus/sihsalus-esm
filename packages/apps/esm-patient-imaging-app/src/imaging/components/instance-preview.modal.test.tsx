@@ -1,10 +1,10 @@
+import { fireEvent, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import InstancePreviewModal from './instance-preview.modal';
 import '@testing-library/jest-dom';
-import * as api from '../../api';
 import { showSnackbar } from '@openmrs/esm-framework';
 import { act } from '@testing-library/react';
+import * as api from '../../api';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

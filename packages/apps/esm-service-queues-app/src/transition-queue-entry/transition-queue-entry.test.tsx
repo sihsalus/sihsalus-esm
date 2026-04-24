@@ -8,7 +8,7 @@ import {
   serveQueueEntry,
   updateQueueEntry,
 } from '../active-visits/active-visits-table.resource';
-import { configSchema, type ConfigObject } from '../config-schema';
+import { type ConfigObject, configSchema } from '../config-schema';
 
 import TransitionQueueEntryModal from './transition-queue-entry.modal';
 import { requeueQueueEntry } from './transition-queue-entry.resource';

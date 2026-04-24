@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Pagination } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { DataTable, Pagination, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import type { DefinitionDataRow, PaginationData } from '../../types';
-import { deleteDataSet, getQueries } from './saved-queries.resources';
-import EmptyData from '../empty-data/empty-data.component';
-import SavedQueriesOptions from './saved-queries-options/saved-queries-options.component';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import mainStyles from '../../cohort-builder.scss';
+import type { DefinitionDataRow, PaginationData } from '../../types';
+import EmptyData from '../empty-data/empty-data.component';
+import { deleteDataSet, getQueries } from './saved-queries.resources';
 import styles from './saved-queries.scss';
+import SavedQueriesOptions from './saved-queries-options/saved-queries-options.component';
 
 interface SavedQueriesProps {
   onViewQuery: (queryId: string) => Promise<void>;

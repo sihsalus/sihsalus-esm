@@ -1,3 +1,4 @@
+import * as Framework from '@openmrs/esm-framework';
 import {
   defineConfigSchema,
   defineExtensionConfigSchema,
@@ -5,7 +6,6 @@ import {
   getSyncLifecycle,
   registerFeatureFlag,
 } from '@openmrs/esm-framework';
-import * as Framework from '@openmrs/esm-framework';
 import * as PatientCommonLib from '@openmrs/esm-patient-common-lib';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 
@@ -17,7 +17,7 @@ import startVisitActionButtonComponent from './actions-buttons/start-visit.compo
 import stopVisitActionButtonComponent from './actions-buttons/stop-visit.component';
 import { esmPatientChartSchema } from './config-schema';
 import { moduleName } from './constants';
-import { summaryDashboardMeta, encountersDashboardMeta } from './dashboard.meta';
+import { encountersDashboardMeta, summaryDashboardMeta } from './dashboard.meta';
 import { setupCacheableRoutes, setupOfflineVisitsSync } from './offline';
 import visitAttributeTagsComponent from './patient-banner-tags/visit-attribute-tags.component';
 import patientDetailsTileComponent from './patient-details-tile/patient-details-tile.component';

@@ -1,8 +1,8 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 
 import { configSchema } from './config-schema';
-import flagTagsComponent from './flags/flags-highlight-bar.component';
 import flagsOverviewComponent from './flags/flags.component';
+import flagTagsComponent from './flags/flags-highlight-bar.component';
 
 const moduleName = '@sihsalus/esm-patient-flags-app';
 

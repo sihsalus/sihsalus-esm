@@ -1,7 +1,7 @@
-import React from 'react';
 import { ActionMenuButton2 } from '@openmrs/esm-framework';
 import { useStartVisitIfNeeded } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 
 import ClinicalFormActionButton from './clinical-form-action-button.component';
 

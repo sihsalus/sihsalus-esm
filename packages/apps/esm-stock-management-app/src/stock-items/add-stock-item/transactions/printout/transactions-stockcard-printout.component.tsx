@@ -13,8 +13,8 @@ import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import React, { useEffect, useState } from 'react';
 import { formatDisplayDate } from '../../../../core/utils/datetimeUtils';
 import PrintableStockcardTransactionHeader from './printable-stockcard-transaction-header.component';
-import PrintableTransactionFooter from './printable-transaction-footer.component';
 import styles from './printable-transaction.scss';
+import PrintableTransactionFooter from './printable-transaction-footer.component';
 
 type Props = {
   title: string;

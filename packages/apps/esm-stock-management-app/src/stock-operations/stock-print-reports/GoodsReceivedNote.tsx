@@ -1,7 +1,7 @@
 import { CLOSE_PRINT_AFTER_PRINT } from '../../constants';
-import { formatDisplayDate } from '../../core/utils/datetimeUtils';
 import { GetHeaderSection, GetPrintTemplate } from '../../core/print/PrintTemplate';
 import { printDocument } from '../../core/print/printUtils';
+import { formatDisplayDate } from '../../core/utils/datetimeUtils';
 import { type StockOperationPrintData } from './StockOperationReport';
 
 export const FormatGoodsReceivedDocument = async (data: StockOperationPrintData): Promise<string> => {

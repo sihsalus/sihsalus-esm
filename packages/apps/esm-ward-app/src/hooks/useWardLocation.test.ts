@@ -1,7 +1,7 @@
 import { useSession } from '@openmrs/esm-framework';
 import { renderHook } from '@testing-library/react';
-import { mockSession } from 'test-utils';
 import { useParams } from 'react-router-dom';
+import { mockSession } from 'test-utils';
 
 import useLocation from './useLocation';
 import useWardLocation from './useWardLocation';

@@ -1,11 +1,11 @@
 import { Button } from '@carbon/react';
 import React, { useContext, useEffect, useState } from 'react';
-import styles from './styles.scss';
-import { useTranslation } from 'react-i18next';
-import GroupFormWorkflowContext from '../context/GroupFormWorkflowContext';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import CancelModal from '../CancelModal';
+import GroupFormWorkflowContext from '../context/GroupFormWorkflowContext';
 import SessionDetailsForm from './SessionDetailsForm';
+import styles from './styles.scss';
 
 const NewGroupWorkflowButtons = () => {
   const { t } = useTranslation();

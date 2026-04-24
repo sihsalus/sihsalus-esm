@@ -1,6 +1,6 @@
+import { Button, Form, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import React, { type SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Form, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import styles from './delete-form.scss';
 
 interface DeleteFormModalProps {

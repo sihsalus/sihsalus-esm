@@ -2,17 +2,17 @@ import {
   Button,
   DataTable,
   DataTableSkeleton,
-  TableContainer,
   Table,
   TableBody,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { EditIcon, setCurrentVisit } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps, ErrorState } from '@openmrs/esm-patient-common-lib';
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './past-visit-overview.scss';

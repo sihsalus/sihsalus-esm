@@ -1,4 +1,4 @@
-import { Tile, InlineLoading } from '@carbon/react';
+import { InlineLoading, Tile } from '@carbon/react';
 import { PatientPhoto, usePatient } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

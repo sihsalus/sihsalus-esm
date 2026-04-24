@@ -1,8 +1,15 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { formattedVitals, mockConceptMetadata, mockConceptUnits, mockVitalsConfig } from 'test-utils';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import {
+  formattedVitals,
+  mockConceptMetadata,
+  mockConceptUnits,
+  mockPatient,
+  mockVitalsConfig,
+  renderWithSwr,
+  waitForLoadingToFinish,
+} from 'test-utils';
 
 import { useVitalsAndBiometrics } from '../common';
 import { type ConfigObject, configSchema } from '../config-schema';

@@ -1,4 +1,4 @@
-import React, { Suspense, type ReactNode } from 'react';
+import React, { type ReactNode, Suspense } from 'react';
 
 import { useRequirePrivilege } from './useRequirePrivilege';
 

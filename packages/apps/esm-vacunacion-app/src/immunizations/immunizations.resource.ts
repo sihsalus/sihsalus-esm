@@ -1,4 +1,4 @@
-import { openmrsFetch, fhirBaseUrl } from '@openmrs/esm-framework';
+import { fhirBaseUrl, openmrsFetch } from '@openmrs/esm-framework';
 import { type FHIRImmunizationResource } from '../types/fhir-immunization-domain';
 
 export function savePatientImmunization(

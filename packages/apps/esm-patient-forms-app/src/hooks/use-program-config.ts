@@ -1,4 +1,4 @@
-import { openmrsFetch, type OpenmrsResource } from '@openmrs/esm-framework';
+import { type OpenmrsResource, openmrsFetch } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 

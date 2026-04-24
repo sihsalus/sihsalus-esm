@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from 'react';
-import { TextInput, Button, Select, SelectItem, RadioButtonGroup, RadioButton } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
-import RenderTypeComponent from '../rendering-types/rendering-type.component';
-import QuestionTypeComponent from '../question-types/question-type.component';
-import RequiredLabel from '../common/required-label/required-label.component';
-import { useFormField } from '../../form-field-context';
+import { Button, RadioButton, RadioButtonGroup, Select, SelectItem, TextInput } from '@carbon/react';
+import { questionTypes, renderingTypes, renderTypeOptions } from '@constants';
 import type { FormField, RenderType } from '@sihsalus/esm-form-engine-lib';
-import { questionTypes, renderTypeOptions, renderingTypes } from '@constants';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormField } from '../../form-field-context';
+import RequiredLabel from '../common/required-label/required-label.component';
+import QuestionTypeComponent from '../question-types/question-type.component';
+import RenderTypeComponent from '../rendering-types/rendering-type.component';
 import styles from './question.scss';
 
 interface QuestionProps {

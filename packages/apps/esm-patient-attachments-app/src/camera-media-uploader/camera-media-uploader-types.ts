@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type UploadedFile, type FetchResponse } from '@openmrs/esm-framework';
+import { type FetchResponse, type UploadedFile } from '@openmrs/esm-framework';
 
 export interface CameraMediaUploaderContextType {
   multipleFiles?: boolean;

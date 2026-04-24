@@ -2555,17 +2555,7 @@ describe('Util Tests', () => {
         templateClose,
       ].join('');
 
-      expect(
-        getPrescriptionTableEndpoint(
-          customEndpoint,
-          'ACTIVE',
-          1,
-          10,
-          '2020-01-01',
-          'bob',
-          '123abc,456def',
-        ),
-      ).toBe(
+      expect(getPrescriptionTableEndpoint(customEndpoint, 'ACTIVE', 1, 10, '2020-01-01', 'bob', '123abc,456def')).toBe(
         '/ws/fhir2/R4/Encounter?_query=someCustomEndpoint&_getpagesoffset=1&_count=10&date=ge2020-01-01&status=ACTIVE&patientSearchTerm=bob&location=123abc,456def',
       );
     });

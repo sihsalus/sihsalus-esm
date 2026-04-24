@@ -1,6 +1,7 @@
+import { attachmentUrl, getAttachmentByUuid, type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
 import dayjs from 'dayjs';
-import { attachmentUrl, getAttachmentByUuid } from '@openmrs/esm-framework/src/internal';
 import { ConceptTrue, codedTypes } from '../constants';
+import { type FormContextProps } from '../provider/form-provider';
 import {
   type Attachment,
   type FormField,
@@ -11,8 +12,6 @@ import {
   type OpenmrsObs,
   type ValueAndDisplay,
 } from '../types';
-import { type FormContextProps } from '../provider/form-provider';
-import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
 import {
   clearSubmission,
   flattenObsList,

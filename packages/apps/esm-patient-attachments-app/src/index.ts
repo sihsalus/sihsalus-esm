@@ -1,8 +1,8 @@
-import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
+import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
+import attachmentsOverviewComponent from './attachments/attachments-overview.component';
 import { attachmentsConfigSchema } from './attachments-config-schema';
 import { dashboardMeta } from './dashboard.meta';
-import attachmentsOverviewComponent from './attachments/attachments-overview.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 

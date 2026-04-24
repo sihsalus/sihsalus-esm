@@ -1,10 +1,10 @@
-import React from 'react';
 import { IconButton, Tile } from '@carbon/react';
 import { Edit } from '@carbon/react/icons';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { type MedicationReferenceOrCodeableConcept } from '../types';
 import { getMedicationDisplay } from '../utils';
 import styles from './medication-card.scss';
-import { useTranslation } from 'react-i18next';
 
 /**
  * This component shows up in the dispensing form to display the medication to be dispensed

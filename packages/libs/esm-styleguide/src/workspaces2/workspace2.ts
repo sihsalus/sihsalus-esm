@@ -1,17 +1,18 @@
-import { type Context, useContext } from 'react';
-import { SingleSpaContext } from 'single-spa-react';
-import { v4 as uuidV4 } from 'uuid';
 import {
+  type Actions,
   getGroupByWindowName,
   getOpenedWindowIndexByWorkspace,
   getWindowByWorkspaceName,
   type OpenedWindow,
   type OpenedWorkspace,
-  workspace2Store,
+  shallowEqual,
+  useStoreWithActions,
   type WorkspaceStoreState2,
+  workspace2Store,
 } from '@openmrs/esm-framework/src/internal';
-import { useStoreWithActions, type Actions } from '@openmrs/esm-framework/src/internal';
-import { shallowEqual } from '@openmrs/esm-framework/src/internal';
+import { type Context, useContext } from 'react';
+import { SingleSpaContext } from 'single-spa-react';
+import { v4 as uuidV4 } from 'uuid';
 import { showModal } from '../modals';
 import { type Workspace2DefinitionProps } from './workspace2.component';
 

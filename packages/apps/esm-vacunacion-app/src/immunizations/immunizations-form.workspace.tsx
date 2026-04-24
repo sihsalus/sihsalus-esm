@@ -1,10 +1,5 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
-import { useForm, Controller, FormProvider } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Button, ButtonSet, Dropdown, Form, InlineLoading, Stack, TextArea, TextInput } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   getCoreTranslation,
   OpenmrsDatePicker,
@@ -17,15 +12,20 @@ import {
   Workspace2,
 } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
-import { DoseInput } from './components/dose-input.component';
-import { immunizationFormSub } from './utils';
-import { mapToFHIRImmunizationResource } from './immunization-mapper';
-import { savePatientImmunization } from './immunizations.resource';
+import dayjs from 'dayjs';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import { type ImmunizationConfigObject } from '../config-schema';
-import { type ImmunizationFormData } from '../types';
 import { useImmunizations } from '../hooks/useImmunizations';
 import { useImmunizationsConceptSet } from '../hooks/useImmunizationsConceptSet';
+import { type ImmunizationFormData } from '../types';
+import { DoseInput } from './components/dose-input.component';
+import { mapToFHIRImmunizationResource } from './immunization-mapper';
+import { savePatientImmunization } from './immunizations.resource';
 import styles from './immunizations-form.scss';
+import { immunizationFormSub } from './utils';
 
 const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string, never>, Record<string, never>>> = ({
   closeWorkspace,
@@ -127,16 +127,22 @@ const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string
   useEffect(() => {
     if (!vaccineUuid || doseNumber == null || !vaccinationDate) return;
 
-    const sequenceDefinition = config.sequenceDefinitions.find((sequence) => sequence.vaccineConceptUuid === vaccineUuid);
+    const sequenceDefinition = config.sequenceDefinitions.find(
+      (sequence) => sequence.vaccineConceptUuid === vaccineUuid,
+    );
     if (!sequenceDefinition) return;
 
     const currentIndex = sequenceDefinition.sequences.findIndex((sequence) => sequence.sequenceNumber === doseNumber);
     const nextSequence = currentIndex >= 0 ? sequenceDefinition.sequences[currentIndex + 1] : undefined;
 
     if (nextSequence?.intervalInDaysAfterPreviousDose) {
-      setValue('nextDoseDate', dayjs(vaccinationDate).add(nextSequence.intervalInDaysAfterPreviousDose, 'day').toDate(), {
-        shouldDirty: false,
-      });
+      setValue(
+        'nextDoseDate',
+        dayjs(vaccinationDate).add(nextSequence.intervalInDaysAfterPreviousDose, 'day').toDate(),
+        {
+          shouldDirty: false,
+        },
+      );
     }
   }, [config.sequenceDefinitions, doseNumber, setValue, vaccinationDate, vaccineUuid]);
 

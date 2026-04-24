@@ -1,10 +1,10 @@
+import { showModal, useConfig, usePatient } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { showModal, useConfig, usePatient } from '@openmrs/esm-framework';
-import { type MedicationDispense, type MedicationRequestBundle, MedicationDispenseStatus } from '../types';
-import DispenseForm from './dispense-form.workspace';
 import { saveMedicationDispense } from '../medication-dispense/medication-dispense.resource';
 import { updateMedicationRequestFulfillerStatus } from '../medication-request/medication-request.resource';
+import { type MedicationDispense, MedicationDispenseStatus, type MedicationRequestBundle } from '../types';
+import DispenseForm from './dispense-form.workspace';
 
 const mockUseConfig = jest.mocked(useConfig);
 const mockUsePatient = jest.mocked(usePatient);

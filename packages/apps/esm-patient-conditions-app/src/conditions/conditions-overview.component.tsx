@@ -1,9 +1,7 @@
-import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
+  type DataTableHeader,
   DataTableSkeleton,
   Dropdown,
   InlineLoading,
@@ -15,7 +13,6 @@ import {
   TableHeader,
   TableRow,
   Tile,
-  type DataTableHeader,
 } from '@carbon/react';
 import {
   AddIcon,
@@ -30,12 +27,15 @@ import {
   CardHeader,
   EmptyState,
   ErrorState,
-  PatientChartPagination,
   launchPatientWorkspace,
+  PatientChartPagination,
 } from '@openmrs/esm-patient-common-lib';
-import { ConditionsActionMenu } from './conditions-action-menu.component';
-import { type Condition, useConditions, useConditionsSorting } from './conditions.resource';
+import classNames from 'classnames';
+import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type ConfigObject } from '../config-schema';
+import { type Condition, useConditions, useConditionsSorting } from './conditions.resource';
+import { ConditionsActionMenu } from './conditions-action-menu.component';
 import styles from './conditions-overview.scss';
 
 interface ConditionTableRow extends Condition {

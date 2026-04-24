@@ -1,8 +1,7 @@
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockDrugSearchResultApiData, mockPatientDrugOrdersApiData } from 'test-utils';
 import React from 'react';
-import { getByTextWithMarkup } from 'test-utils';
+import { getByTextWithMarkup, mockDrugSearchResultApiData, mockPatientDrugOrdersApiData } from 'test-utils';
 
 import { getTemplateOrderBasketItem } from '../add-drug-order/drug-search/drug-search.resource';
 import { type DrugOrderBasketItem } from '../types';

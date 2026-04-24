@@ -1,5 +1,5 @@
-import React from 'react';
 import { InlineNotification } from '@carbon/react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface ValidationMessageProps {

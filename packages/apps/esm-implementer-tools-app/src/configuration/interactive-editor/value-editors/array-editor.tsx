@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Button,
-  Tile,
   StructuredListBody,
   StructuredListCell,
   StructuredListRow,
   StructuredListWrapper,
+  Tile,
 } from '@carbon/react';
 import { AddIcon, TrashCanIcon, Type } from '@openmrs/esm-framework';
 import cloneDeep from 'lodash-es/cloneDeep';

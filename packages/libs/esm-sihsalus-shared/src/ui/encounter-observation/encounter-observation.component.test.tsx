@@ -1,6 +1,6 @@
-import React from 'react';
 import { useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 
 import type { Observation } from '../../types';
 import EncounterObservations from './encounter-observation.component';
@@ -28,9 +28,7 @@ describe('EncounterObservations', () => {
   });
 
   it('falls back to concept display text when the concept name payload is missing', () => {
-    render(
-      <EncounterObservations observations={observations} formConceptMap={{}} />,
-    );
+    render(<EncounterObservations observations={observations} formConceptMap={{}} />);
 
     expect(screen.getByText('Blood pressure')).toBeInTheDocument();
     expect(screen.getByText('120/80')).toBeInTheDocument();

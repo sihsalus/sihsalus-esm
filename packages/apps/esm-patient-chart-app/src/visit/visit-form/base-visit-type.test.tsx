@@ -1,8 +1,8 @@
 import { useVisitTypes } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockVisitTypes } from 'test-utils';
 import React from 'react';
+import { mockVisitTypes } from 'test-utils';
 
 import BaseVisitType from './base-visit-type.component';
 

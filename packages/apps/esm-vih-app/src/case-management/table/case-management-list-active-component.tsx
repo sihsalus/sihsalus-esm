@@ -1,6 +1,10 @@
 import {
   DataTable,
+  Layer,
+  OverflowMenu,
+  OverflowMenuItem,
   Pagination,
+  Search,
   Table,
   TableBody,
   TableCell,
@@ -8,12 +12,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  Search,
-  Layer,
-  Tile,
-  OverflowMenu,
   Tag,
-  OverflowMenuItem,
+  Tile,
 } from '@carbon/react';
 import {
   ConfigurableLink,
@@ -25,7 +25,7 @@ import {
   useSession,
 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { extractNameString, uppercaseText } from '../../utils/expression-helper';

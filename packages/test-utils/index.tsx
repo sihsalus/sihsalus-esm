@@ -4,9 +4,10 @@
  * Resolved as the bare `test-utils` module via the shared TypeScript and Jest config.
  * in the root jest.config.js.
  */
+
+import { type RenderOptions, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { render, screen, waitForElementToBeRemoved, waitFor, type RenderOptions } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 
 // ─── Re-export all shared mocks ──────────────────────────────────────────────

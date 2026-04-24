@@ -1,5 +1,5 @@
-import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
+import { afterEach, vi } from 'vitest';
 
 import type { ImportMapOverridesApi } from './src/devtools/import-map-overrides.types';
 

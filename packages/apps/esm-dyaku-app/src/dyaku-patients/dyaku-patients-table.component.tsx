@@ -20,14 +20,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DyakuPatientSyncButton from './dyaku-patient-sync-button.component';
-import DyakuPatientsSync from './dyaku-patients-sync.component';
-import styles from './dyaku-patients-table.scss';
 import {
-  type DyakuPatient,
   DNI_SYSTEM,
+  type DyakuPatient,
   useDyakuPatients,
   useDyakuPatientsByIdentifier,
 } from './dyaku-patients.resource';
+import DyakuPatientsSync from './dyaku-patients-sync.component';
+import styles from './dyaku-patients-table.scss';
 
 interface DyakuPatientsTableProps {
   pageSize?: number;

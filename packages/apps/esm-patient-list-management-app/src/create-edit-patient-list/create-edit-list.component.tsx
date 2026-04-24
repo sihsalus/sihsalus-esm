@@ -1,6 +1,6 @@
 import { Button, ButtonSet, Layer, TextArea, TextInput } from '@carbon/react';
-import { useLayoutType, showSnackbar, useSession, useConfig } from '@openmrs/esm-framework';
-import React, { useCallback, type SyntheticEvent, useEffect, useId, useState } from 'react';
+import { showSnackbar, useConfig, useLayoutType, useSession } from '@openmrs/esm-framework';
+import React, { type SyntheticEvent, useCallback, useEffect, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { createPatientList, editPatientList } from '../api/api-remote';

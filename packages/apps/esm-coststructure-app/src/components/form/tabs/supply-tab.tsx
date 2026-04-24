@@ -1,6 +1,6 @@
 import { Button, NumberInput, Select, SelectItem, TextInput } from '@carbon/react';
 import { Add, TrashCan } from '@carbon/react/icons';
-import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
+import { Controller, type UseFormReturn, useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import useGetSupply from '../../../hooks/use-get-supply';
@@ -9,6 +9,7 @@ import NoContent from '../../ui/NoContent/NoContent';
 import { type CostStructureFormValues } from '../schema/costructure-schema';
 
 import styles from './tabs.styles.scss';
+
 interface Props {
   form: UseFormReturn<CostStructureFormValues>;
 }

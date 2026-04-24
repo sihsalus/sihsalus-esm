@@ -1,4 +1,4 @@
-import type { FHIRResource, FetchResponse } from '@openmrs/esm-framework';
+import type { FetchResponse, FHIRResource } from '@openmrs/esm-framework';
 import { fhirBaseUrl, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import useSWRImmutable from 'swr/immutable';

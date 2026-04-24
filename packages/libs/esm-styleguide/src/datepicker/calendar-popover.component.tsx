@@ -1,11 +1,11 @@
-import React, { forwardRef } from 'react';
-import classNames from 'classnames';
-import { Button, Calendar, CalendarCell, CalendarGrid, Popover, RangeCalendar } from 'react-aria-components';
 import { type CalendarDate, type DateValue } from '@internationalized/date';
+import classNames from 'classnames';
+import React, { forwardRef } from 'react';
+import { Button, Calendar, CalendarCell, CalendarGrid, Popover, RangeCalendar } from 'react-aria-components';
 import { ChevronLeftIcon, ChevronRightIcon } from '../icons';
-import { MonthYear } from './month-year.component';
 import { AutoCloseDialog } from './auto-close-dialog.component';
 import styles from './datepicker.module.scss';
+import { MonthYear } from './month-year.component';
 
 type CalendarPopoverProps = {
   /** The current date */

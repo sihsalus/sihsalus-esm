@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import type { WorkspaceStoreState2 } from '@openmrs/esm-framework/src/internal';
+import { describe, expect, it } from 'vitest';
 import { workspace2StoreActions } from './workspace2';
 
 function makeState(overrides: Partial<WorkspaceStoreState2> = {}): WorkspaceStoreState2 {

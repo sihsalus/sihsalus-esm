@@ -11,9 +11,8 @@ import WardPatientObs from '../../ward-patient-card/row-elements/ward-patient-ob
 import WardPatientTimeOnWard from '../../ward-patient-card/row-elements/ward-patient-time-on-ward.component';
 import WardPatientCard from '../../ward-patient-card/ward-patient-card.component';
 import styles from '../../ward-patient-card/ward-patient-card.scss';
-
-import MaternalWardPatientCardHeader from './maternal-ward-patient-card-header.component';
 import maternalWardPatientCardStyles from './maternal-ward-patient-card.scss';
+import MaternalWardPatientCardHeader from './maternal-ward-patient-card-header.component';
 
 export interface MaternalWardPatientCardProps {
   /**

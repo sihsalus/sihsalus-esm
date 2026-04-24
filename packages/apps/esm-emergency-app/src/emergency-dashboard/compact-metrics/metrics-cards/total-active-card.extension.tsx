@@ -1,15 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { DataTableSkeleton } from '@carbon/react';
 import { Group } from '@carbon/react/icons';
 import { ErrorState } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useEmergencyMetrics } from '../../../resources/emergency.resource';
 import {
   MetricsCard,
-  MetricsCardHeader,
   MetricsCardBody,
+  MetricsCardHeader,
   MetricsCardItem,
 } from '../../emergency-metrics/metrics-cards/metrics-card.component';
-import { useEmergencyMetrics } from '../../../resources/emergency.resource';
 
 const TotalActiveCard: React.FC<{ queueUuid?: string }> = ({ queueUuid }) => {
   const { t } = useTranslation();

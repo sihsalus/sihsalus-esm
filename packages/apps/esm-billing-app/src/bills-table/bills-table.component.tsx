@@ -1,11 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
 import {
   DataTable,
   DataTableSkeleton,
   Dropdown,
-  Layer,
   InlineLoading,
+  Layer,
   Pagination,
   Search,
   Table,
@@ -17,22 +15,24 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import {
-  useLayoutType,
-  isDesktop,
+  ConfigurableLink,
   EmptyCardIllustration,
   ErrorState,
-  ConfigurableLink,
   formatDate,
+  isDesktop,
+  type LayoutType,
+  parseDate,
   useConfig,
   useDebounce,
-  parseDate,
-  type LayoutType,
+  useLayoutType,
 } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { usePaginatedBills } from '../billing.resource';
-import type { MappedBill } from '../types';
 import type { BillingConfig } from '../config-schema';
+import type { MappedBill } from '../types';
 import styles from './bills-table.scss';
 
 interface BillDisplayItem extends Omit<MappedBill, 'id'> {

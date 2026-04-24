@@ -1,7 +1,8 @@
 /** @module @category Workspace */
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
+
 import { ComponentContext, ExtensionSlot, isDesktop, useLayoutType } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from './action-menu.module.scss';
 
 export interface ActionMenuProps {

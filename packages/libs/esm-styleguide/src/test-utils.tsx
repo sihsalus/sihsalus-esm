@@ -1,6 +1,6 @@
+import { type RenderOptions, render } from '@testing-library/react';
 import React, { type ReactElement } from 'react';
 import { SWRConfig } from 'swr';
-import { type RenderOptions, render } from '@testing-library/react';
 
 export const swrWrapper = ({ children }) => {
   return (

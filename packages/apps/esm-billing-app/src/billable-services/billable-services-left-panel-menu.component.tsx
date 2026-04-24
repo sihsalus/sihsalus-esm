@@ -1,8 +1,8 @@
+import { SideNavMenu, SideNavMenuItem } from '@carbon/react';
+import { navigate, UserHasAccess } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
-import { SideNavMenu, SideNavMenuItem } from '@carbon/react';
-import { navigate, UserHasAccess } from '@openmrs/esm-framework';
 
 export interface BillableServicesMenuConfig {
   title: string;

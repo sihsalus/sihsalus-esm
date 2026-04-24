@@ -1,7 +1,8 @@
 /** @module @category UI */
-import useSWR from 'swr';
+
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-api';
 import { useConfig } from '@openmrs/esm-framework/src/internal';
+import useSWR from 'swr';
 import { type StyleguideConfigObject } from '../config-schema';
 
 export interface UsePatientPhotoResult {

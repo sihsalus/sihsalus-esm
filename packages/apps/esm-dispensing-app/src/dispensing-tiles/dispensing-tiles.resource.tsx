@@ -1,6 +1,6 @@
+import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
-import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 
 // NOT CURRENTLY USED
 

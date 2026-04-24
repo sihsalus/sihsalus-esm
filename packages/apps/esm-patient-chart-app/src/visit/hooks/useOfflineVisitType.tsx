@@ -1,4 +1,4 @@
-import { type VisitType, useConfig } from '@openmrs/esm-framework';
+import { useConfig, type VisitType } from '@openmrs/esm-framework';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 

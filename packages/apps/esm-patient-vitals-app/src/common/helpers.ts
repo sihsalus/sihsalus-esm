@@ -1,6 +1,6 @@
 import { type ConceptMetadata } from '../common';
 
-import type { ObsReferenceRanges, ObservationInterpretation } from './types';
+import type { ObservationInterpretation, ObsReferenceRanges } from './types';
 
 export function calculateBodyMassIndex(weight: number, height: number) {
   if (weight > 0 && height > 0) {

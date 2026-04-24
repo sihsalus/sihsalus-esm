@@ -1,6 +1,6 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
-import { configSchema } from './config-schema';
 import { createHomeDashboardLink } from './components/create-dashboard-link.component';
+import { configSchema } from './config-schema';
 import rootComponent from './root.component';
 
 const moduleName = '@sihsalus/esm-laboratory-app';

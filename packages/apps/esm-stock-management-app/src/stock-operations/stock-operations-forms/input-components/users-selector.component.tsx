@@ -1,5 +1,5 @@
+import { Column, ComboBox, InlineNotification, SelectSkeleton, TextInput } from '@carbon/react';
 import React, { useEffect } from 'react';
-import { ComboBox, InlineNotification, SelectSkeleton, Column, TextInput } from '@carbon/react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { type User } from '../../../core/api/types/identity/User';

@@ -1,10 +1,10 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { DataTableSkeleton } from '@carbon/react';
 import { ErrorState } from '@openmrs/esm-framework';
-import { MetricsCard, MetricsCardHeader, MetricsCardBody, MetricsCardItem } from './metrics-card.component';
-import { useAverageWaitTimeByPriority } from '../../../resources/emergency.resource';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { usePriorityConfig } from '../../../hooks/usePriorityConfig';
+import { useAverageWaitTimeByPriority } from '../../../resources/emergency.resource';
+import { MetricsCard, MetricsCardBody, MetricsCardHeader, MetricsCardItem } from './metrics-card.component';
 
 const AverageWaitTimeCard: React.FC = () => {
   const { t } = useTranslation();

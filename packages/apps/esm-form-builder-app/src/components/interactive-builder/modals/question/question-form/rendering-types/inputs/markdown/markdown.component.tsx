@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ReactMde from 'react-mde';
 import ReactMarkdown from 'react-markdown';
+import ReactMde from 'react-mde';
 import { useFormField } from '../../../../form-field-context';
 import styles from './markdown.scss';
 

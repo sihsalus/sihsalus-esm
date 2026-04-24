@@ -1,10 +1,11 @@
 /** @module @category UI */
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
+
 import { getConfig } from '@openmrs/esm-config';
+import { getCoreTranslation } from '@openmrs/esm-translations';
+import classNames from 'classnames';
+import React, { useEffect, useState } from 'react';
 import { type StyleguideConfigObject } from '../config-schema';
 import styles from './page-header.module.scss';
-import { getCoreTranslation } from '@openmrs/esm-translations';
 
 export interface PageHeaderContentProps {
   title: string | JSX.Element;

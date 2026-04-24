@@ -1,5 +1,5 @@
-import React from 'react';
 import { Tag } from '@carbon/react';
+import React from 'react';
 import { usePatientPaymentInfo } from '../../../billing.resource';
 
 type VisitAttributeTagsProps = { patientUuid: string };

@@ -1,7 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 
-import { type PatientSearchConfig, configSchema } from './config-schema';
+import { configSchema, type PatientSearchConfig } from './config-schema';
 import PatientSearchRootComponent from './root.component';
 
 const mockUseConfig = jest.mocked(useConfig<PatientSearchConfig>);

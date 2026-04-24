@@ -25,10 +25,10 @@ import {
   formatDate,
   formatDatetime,
   isDesktop,
+  launchWorkspace,
   parseDate,
   useConfig,
   useLayoutType,
-  launchWorkspace,
   usePagination,
 } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';

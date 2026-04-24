@@ -1,6 +1,6 @@
-import { openmrsFetch, restBaseUrl, type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
-import { BaseOpenMRSDataSource } from './data-source';
+import { type OpenmrsResource, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework/src/internal';
 import { isEmpty } from '../validators/form-validator';
+import { BaseOpenMRSDataSource } from './data-source';
 
 interface ConceptResource extends OpenmrsResource {
   conceptClass?: OpenmrsResource;

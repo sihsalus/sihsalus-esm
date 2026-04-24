@@ -1,8 +1,8 @@
-import React from 'react';
 import { Layer, Tile } from '@carbon/react';
 import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import styles from './error-state.module.scss';
+import React from 'react';
 import { CardHeader } from '../cards';
+import styles from './error-state.module.scss';
 
 export interface ErrorStateProps {
   /** The error that caused this error card to be rendered. Expected to be a failed fetch result. */

@@ -1,6 +1,7 @@
 import {
   Button,
   DataTable,
+  InlineLoading,
   Table,
   TableBody,
   TableCell,
@@ -9,11 +10,9 @@ import {
   TableHeader,
   TableRow,
   Tag,
-  InlineLoading,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { formatDate, useConfig } from '@openmrs/esm-framework';
-import { launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate, launchWorkspace, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

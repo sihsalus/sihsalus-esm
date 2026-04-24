@@ -3,24 +3,23 @@ import { Information as InformationIcon } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   age,
+  launchWorkspace2,
   ResponsiveWrapper,
   useConfig,
   useLayoutType,
   usePatient,
   useVisit,
-  launchWorkspace2,
 } from '@openmrs/esm-framework';
+import { EncounterDateTimeSection } from '@sihsalus/esm-sihsalus-shared';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-
 import type { ConfigObject } from '../../../config-schema';
 import { useAgeGroups } from '../../../hooks/useAgeGroups';
 import { useCREDFormsForAgeGroup } from '../../../hooks/useCREDFormsForAgeGroup';
 import useCREDEncounters from '../../../hooks/useEncountersCRED';
 import { type DefaultPatientWorkspaceProps } from '../../../types';
-import { EncounterDateTimeSection } from '@sihsalus/esm-sihsalus-shared';
 
 import styles from './well-child-controls-form.scss';
 

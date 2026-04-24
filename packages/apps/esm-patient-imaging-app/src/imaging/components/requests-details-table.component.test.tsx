@@ -1,8 +1,8 @@
-import React, { act } from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import RequestProcedureTable from './requests-details-table.component';
-import { usePagination } from '@openmrs/esm-framework';
 import * as framework from '@openmrs/esm-framework';
+import { usePagination } from '@openmrs/esm-framework';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import React, { act } from 'react';
+import RequestProcedureTable from './requests-details-table.component';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

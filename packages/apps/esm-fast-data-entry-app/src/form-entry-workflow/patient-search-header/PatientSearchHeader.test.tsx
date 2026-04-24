@@ -1,10 +1,10 @@
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import PatientSearchHeader from './PatientSearchHeader';
+import { type ConfigSchema, type Session, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
 import FormWorkflowContext from '../../context/FormWorkflowContext';
-import { showSnackbar, useConfig, useSession, type ConfigSchema, type Session } from '@openmrs/esm-framework';
 import { useHsuIdIdentifier } from '../../hooks/location-tag.resource';
+import PatientSearchHeader from './PatientSearchHeader';
 
 jest.mock('@openmrs/esm-framework', () => ({
   ExtensionSlot: ({ state }) => (

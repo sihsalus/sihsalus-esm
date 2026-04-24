@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { type WorkspaceGroupDefinition2, type WorkspaceWindowDefinition2 } from '@openmrs/esm-globals';
 import { subscribeOpenmrsEvent } from '@openmrs/esm-emr-api';
+import { type WorkspaceGroupDefinition2, type WorkspaceWindowDefinition2 } from '@openmrs/esm-globals';
 import classNames from 'classnames';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ActionMenu } from './action-menu2/action-menu2.component';
-import { closeWorkspaceGroup2, useWorkspace2Store } from './workspace2';
-import { shouldCloseOnUrlChange } from './scope-utils';
 import ActiveWorkspaceWindow from './active-workspace-window.component';
+import { shouldCloseOnUrlChange } from './scope-utils';
 import styles from './workspace-windows-and-menu.module.scss';
+import { closeWorkspaceGroup2, useWorkspace2Store } from './workspace2';
 
 export function renderWorkspaceWindowsAndMenu(target: HTMLElement | null): void {
   if (target) {

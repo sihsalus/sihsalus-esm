@@ -1,8 +1,8 @@
-import { showSnackbar, updateVisit, useVisit, type Visit, type FetchResponse } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { type FetchResponse, showSnackbar, updateVisit, useVisit, type Visit } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit } from 'test-utils';
 import React from 'react';
+import { mockCurrentVisit } from 'test-utils';
 
 import EndVisitDialog from './end-visit-dialog.component';
 

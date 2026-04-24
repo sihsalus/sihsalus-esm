@@ -1,8 +1,8 @@
-import React, { type Dispatch, useCallback, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
+import type { TFunction } from 'i18next';
+import React, { type Dispatch, useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import 'dayjs/plugin/utc';
 import {
   FormGroup,
@@ -16,19 +16,19 @@ import {
   Tile,
 } from '@carbon/react';
 import { WarningFilled } from '@carbon/react/icons';
-import { useFormContext, Controller } from 'react-hook-form';
-import { showSnackbar, useDebounce, useSession, ResponsiveWrapper, OpenmrsDatePicker } from '@openmrs/esm-framework';
+import { OpenmrsDatePicker, ResponsiveWrapper, showSnackbar, useDebounce, useSession } from '@openmrs/esm-framework';
+import { Controller, useFormContext } from 'react-hook-form';
 import {
   type CodedCondition,
   type Condition,
-  type FormFields,
   createCondition,
+  type FormFields,
   updateCondition,
   useConditions,
   useConditionsSearch,
 } from './conditions.resource';
-import { type ConditionsFormSchema } from './conditions-form.workspace';
 import styles from './conditions-form.scss';
+import { type ConditionsFormSchema } from './conditions-form.workspace';
 
 interface ConditionsWidgetProps {
   closeWorkspaceWithSavedChanges?: () => void;

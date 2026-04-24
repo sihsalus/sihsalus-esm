@@ -1,6 +1,6 @@
-import React from 'react';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { renderWithSwr } from 'test-utils';
 
 import FormsList, { type FormsListProps } from './forms-list.component';
@@ -40,7 +40,9 @@ it('renders a list of forms fetched from the server', async () => {
   const expectedColumnHeaders = [/form name \(A-Z\)/, /last completed/];
 
   expectedColumnHeaders.forEach((header) => {
-    expect(within(screen.getByRole('table')).getByRole('columnheader', { name: new RegExp(header, 'i') })).toBeInTheDocument();
+    expect(
+      within(screen.getByRole('table')).getByRole('columnheader', { name: new RegExp(header, 'i') }),
+    ).toBeInTheDocument();
   });
 
   const expectedTableRows = [/laboratory tests never/, /surgical operation never/, /test form 1 never/];

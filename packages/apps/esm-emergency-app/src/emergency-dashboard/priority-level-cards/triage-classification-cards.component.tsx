@@ -1,10 +1,10 @@
+import { DataTableSkeleton, Layer, Tile } from '@carbon/react';
+import { Checkmark, WarningFilled } from '@carbon/react/icons';
+import { ErrorState, useConfig } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, Tile, DataTableSkeleton } from '@carbon/react';
-import { WarningFilled, Checkmark } from '@carbon/react/icons';
-import { ErrorState, useConfig } from '@openmrs/esm-framework';
-import { useEmergencyQueueEntries } from '../../resources/emergency.resource';
 import { type Config } from '../../config-schema';
+import { useEmergencyQueueEntries } from '../../resources/emergency.resource';
 import styles from './priority-level-cards-container.scss';
 import cardStyles from './triage-classification-cards.scss';
 

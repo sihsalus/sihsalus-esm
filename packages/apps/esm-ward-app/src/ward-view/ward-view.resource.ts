@@ -1,17 +1,17 @@
-import { showNotification, useConfig, type Location, type Patient } from '@openmrs/esm-framework';
+import { type Location, type Patient, showNotification, useConfig } from '@openmrs/esm-framework';
 import type { TFunction } from 'i18next';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
-  type PendingItemsElementConfig,
+  type AdmissionRequestNoteElementConfig,
   type ColoredObsTagsElementConfig,
   type IdentifierElementConfig,
   type ObsElementConfig,
   type PatientAddressElementConfig,
+  type PendingItemsElementConfig,
   type WardConfigObject,
   type WardDefinition,
-  type AdmissionRequestNoteElementConfig,
 } from '../config-schema';
 import type {
   AdmissionLocationFetchResponse,

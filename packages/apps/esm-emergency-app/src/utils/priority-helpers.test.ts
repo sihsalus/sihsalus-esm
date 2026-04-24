@@ -1,15 +1,15 @@
 import { type PriorityConfig } from '../config-schema';
 import {
-  getPriorityConfigByUuid,
+  getAllPriorities,
+  getPriorityColor,
   getPriorityConfigByCode,
   getPriorityConfigByLabel,
-  getPriorityColor,
+  getPriorityConfigByUuid,
+  getPriorityCssClass,
   getPriorityLabel,
   getPrioritySortWeight,
-  sortByPriority,
-  getAllPriorities,
   isWaitTimeExceeded,
-  getPriorityCssClass,
+  sortByPriority,
 } from './priority-helpers';
 
 const mockConfigs: PriorityConfig[] = [

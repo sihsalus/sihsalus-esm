@@ -1,8 +1,8 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Tag } from '@carbon/react';
 import { WarningAlt } from '@carbon/react/icons';
 import { useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { type Config } from '../../../config-schema';
 import { useEmergencyConfig } from '../../../hooks/usePriorityConfig';
 import { type EmergencyQueueTableCellProps } from './emergency-queue-name-cell.component';

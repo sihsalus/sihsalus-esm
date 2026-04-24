@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Form, ModalBody, ModalFooter, ModalHeader, TextArea, Layer } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { Button, Form, Layer, ModalBody, ModalFooter, ModalHeader, TextArea } from '@carbon/react';
 import { type Order, showNotification, showSnackbar, useAbortController } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { rejectLabOrder, useInvalidateLabOrders } from '../../laboratory.resource';
 import styles from './reject-lab-request-modal.scss';
 

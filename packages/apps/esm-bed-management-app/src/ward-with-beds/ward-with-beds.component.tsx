@@ -2,18 +2,18 @@ import {
   Button,
   DataTable,
   DataTableSkeleton,
+  InlineLoading,
   Pagination,
-  TableContainer,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
   Tag,
-  InlineLoading,
 } from '@carbon/react';
-import { ArrowLeft, Add } from '@carbon/react/icons';
+import { Add, ArrowLeft } from '@carbon/react/icons';
 import { navigate, usePagination } from '@openmrs/esm-framework';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

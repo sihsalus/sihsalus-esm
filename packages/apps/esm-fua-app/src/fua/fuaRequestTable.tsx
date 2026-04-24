@@ -1,31 +1,31 @@
 import {
+  Button,
   DataTable,
   DataTableSkeleton,
+  Layer,
+  OverflowMenu,
+  OverflowMenuItem,
+  Pagination,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
   TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
-  Pagination,
-  Layer,
-  Tile,
-  Button,
-  OverflowMenu,
-  OverflowMenuItem,
   Tag,
+  Tile,
   Tooltip,
 } from '@carbon/react';
-import { View, Download, EventSchedule } from '@carbon/react/icons';
+import { Download, EventSchedule, View } from '@carbon/react/icons';
 import { formatDate, launchWorkspace, showModal, showSnackbar, usePagination } from '@openmrs/esm-framework';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import useFuaRequests, { setFuaEstado, type FuaRequest } from '../hooks/useFuaRequests';
+import useFuaRequests, { type FuaRequest, setFuaEstado } from '../hooks/useFuaRequests';
 import { useVisit } from '../hooks/useVisit';
 import { FUA_ESTADOS } from '../modals/change-fua-status.modal';
 import { exportFuasToExcel } from '../utils/fua-export';

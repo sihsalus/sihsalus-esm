@@ -2,22 +2,22 @@ import { type TagProps } from '@carbon/react';
 
 import { renderTag } from '../encounter-list/tag.component';
 import {
-  type Encounter,
-  type ColumnDefinition,
-  type TabSchema,
   type ActionProps,
-  type ConditionalActionProps,
+  type ColumnDefinition,
   type ColumnValue,
-  type NamedColumn,
+  type ConditionalActionProps,
   type ConfigConcepts,
+  type Encounter,
+  type NamedColumn,
+  type TabSchema,
 } from '../types';
 
 import {
-  getObsFromEncounter,
-  getMultipleObsFromEncounter,
-  resolveValueUsingMappings,
   getConceptFromMappings,
   getConditionalConceptValue,
+  getMultipleObsFromEncounter,
+  getObsFromEncounter,
+  resolveValueUsingMappings,
 } from './helpers';
 
 export interface FormattedColumn {

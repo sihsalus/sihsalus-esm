@@ -1,5 +1,5 @@
 import { Link } from '@carbon/react';
-import { PendingFilled, WarningAltFilled, CheckmarkOutline } from '@carbon/react/icons';
+import { CheckmarkOutline, PendingFilled, WarningAltFilled } from '@carbon/react/icons';
 import type { DynamicOfflineDataSyncState } from '@openmrs/esm-framework';
 import { getDynamicOfflineDataHandlers, navigate } from '@openmrs/esm-framework';
 import React from 'react';

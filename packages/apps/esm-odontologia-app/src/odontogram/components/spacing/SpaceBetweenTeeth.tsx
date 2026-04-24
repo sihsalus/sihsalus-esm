@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import { useOdontogramContext } from '../../providers/OdontogramProvider';
 import { Finding6Design1, Finding7Design2 } from '../../designs/figuras';
+import { useOdontogramContext } from '../../providers/OdontogramProvider';
 import './SpaceBetweenStyles.css';
 
 interface SpaceBetweenTeethProps {

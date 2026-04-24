@@ -1,4 +1,4 @@
-import type { OrderBasketItem, OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';
+import type { OBSERVATION_INTERPRETATION, OrderBasketItem } from '@openmrs/esm-patient-common-lib';
 
 export interface FhirResponse<T> {
   total: number;

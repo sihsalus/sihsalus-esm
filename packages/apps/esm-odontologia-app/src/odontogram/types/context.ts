@@ -7,14 +7,14 @@
  */
 
 import type {
-  OdontogramData,
-  OdontogramConfig,
   FindingColor,
-  FindingSuboption,
   FindingDesign,
   FindingOptionConfig,
-  ToothPosition,
+  FindingSuboption,
+  OdontogramConfig,
+  OdontogramData,
   ToothConfig,
+  ToothPosition,
 } from './odontogram';
 
 // =============================================================================

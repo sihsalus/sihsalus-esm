@@ -1,6 +1,6 @@
 import type { Patient, PersonAddress } from '@openmrs/esm-framework';
-import { mockAddress } from './address.mock';
 import dayjs from 'dayjs';
+import { mockAddress } from './address.mock';
 
 export const mockFhirPatient: fhir.Patient = {
   resourceType: 'Patient',

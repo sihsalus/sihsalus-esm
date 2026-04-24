@@ -1,10 +1,10 @@
-import dayjs from 'dayjs';
 import { showSnackbar, translateFrom } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
 import { markPatientAsDeceased } from '../api';
-import { extractErrorMessagesFromResponse } from '../utils/error-utils';
-import type { PostSubmissionAction, PatientDeathPayload } from '../types';
 import { formEngineAppName } from '../globals';
+import type { PatientDeathPayload, PostSubmissionAction } from '../types';
 import { isOpenmrsResourceLike, isStringValue } from '../utils/common-utils';
+import { extractErrorMessagesFromResponse } from '../utils/error-utils';
 
 interface DeceasedActionConfig {
   causeOfDeathQuestionId?: string;

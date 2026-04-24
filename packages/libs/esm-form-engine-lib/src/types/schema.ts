@@ -1,4 +1,5 @@
 import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
+import type { AttachmentFieldValue, PatientIdentifier } from './domain';
 import {
   type Attachment,
   type Diagnosis,
@@ -8,7 +9,6 @@ import {
   type Order,
   type ProgramState,
 } from './domain';
-import type { AttachmentFieldValue, PatientIdentifier } from './domain';
 
 export interface FormFieldSubmissionValue extends Record<string, unknown> {
   uuid?: string;

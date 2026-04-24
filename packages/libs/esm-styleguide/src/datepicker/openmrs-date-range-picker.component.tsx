@@ -1,26 +1,26 @@
-import React, { forwardRef, useId, useMemo } from 'react';
+import { type CalendarDate } from '@internationalized/date';
 import classNames from 'classnames';
+import React, { forwardRef, useId, useMemo } from 'react';
 import {
   Button,
   DateInput,
+  type DateRange,
   DateRangePicker,
   type DateRangePickerProps,
   FieldError,
+  Group,
   Label,
   Provider,
-  type DateRange,
-  Group,
 } from 'react-aria-components';
-import { type CalendarDate } from '@internationalized/date';
+import { CalendarPopover } from './calendar-popover.component';
+import { DatePickerIcon } from './date-picker-icon.component';
 import { DateSegment } from './date-segment.component';
 import styles from './datepicker.module.scss';
-import { OpenmrsIntlLocaleContext, useDatepickerContext } from './hooks';
-import { type DateInputValue, type DatePickerBaseProps } from './types';
-import { I18nWrapper } from './i18n-wrapper.component';
-import { DatePickerIcon } from './date-picker-icon.component';
-import { CalendarPopover } from './calendar-popover.component';
-import { dateToInternationalizedDate, internationalizedDateToDate } from './utils';
 import { DEFAULT_MIN_DATE_FLOOR } from './defaults';
+import { OpenmrsIntlLocaleContext, useDatepickerContext } from './hooks';
+import { I18nWrapper } from './i18n-wrapper.component';
+import { type DateInputValue, type DatePickerBaseProps } from './types';
+import { dateToInternationalizedDate, internationalizedDateToDate } from './utils';
 
 /** Properties for the OpenmrsDateRangePicker */
 export interface OpenmrsDateRangePickerProps

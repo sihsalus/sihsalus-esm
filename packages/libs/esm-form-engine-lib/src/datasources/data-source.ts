@@ -1,4 +1,4 @@
-import { openmrsFetch, type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
+import { type OpenmrsResource, openmrsFetch } from '@openmrs/esm-framework/src/internal';
 import { type DataSource } from '../types';
 
 interface ResultsResponse<T> {

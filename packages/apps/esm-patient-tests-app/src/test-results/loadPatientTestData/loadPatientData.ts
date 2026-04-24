@@ -1,20 +1,20 @@
 import {
-  type PatientData,
-  type ObsRecord,
-  type ConceptUuid,
-  type ObsUuid,
-  type ObsMetaInfo,
   type ConceptRecord,
+  type ConceptUuid,
+  type ObsMetaInfo,
+  type ObsRecord,
+  type ObsUuid,
+  type PatientData,
 } from '@openmrs/esm-patient-common-lib';
 import { uniq } from 'lodash-es';
 
 import {
+  addUserDataToCache,
+  extractMetaInformation,
   getEntryConceptClassUuid,
   getUserDataFromCache,
   loadObsEntries,
   loadPresentConcepts,
-  extractMetaInformation,
-  addUserDataToCache,
 } from './helpers';
 
 const isTestConcept = (concept: ConceptRecord): boolean =>

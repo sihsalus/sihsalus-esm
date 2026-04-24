@@ -1,6 +1,11 @@
 /** @module @category UI */
+
+import { OverflowMenuItem } from '@carbon/react';
+import { useLayoutType, useOnClickOutside } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
 import React, {
   Children,
+  type ComponentProps,
   cloneElement,
   createContext,
   isValidElement,
@@ -10,11 +15,7 @@ import React, {
   useId,
   useMemo,
   useRef,
-  type ComponentProps,
 } from 'react';
-import classNames from 'classnames';
-import { OverflowMenuItem } from '@carbon/react';
-import { useLayoutType, useOnClickOutside } from '@openmrs/esm-framework/src/internal';
 import styles from './custom-overflow-menu.module.scss';
 
 interface CustomOverflowMenuContextValue {

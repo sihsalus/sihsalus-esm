@@ -1,12 +1,11 @@
-import React from 'react';
+import { getDefaultsFromConfigSchema, launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getDefaultsFromConfigSchema, launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+import { mockFhirConditionsResponse, mockPatient } from 'test-utils';
 import { type ConfigObject, configSchema } from '../config-schema';
-import { mockFhirConditionsResponse } from 'test-utils';
-import { mockPatient } from 'test-utils';
-import ConditionsOverview from './conditions-overview.component';
 import { useConditions } from './conditions.resource';
+import ConditionsOverview from './conditions-overview.component';
 
 jest.mock('./conditions.resource', () => {
   const actual = jest.requireActual('./conditions.resource');

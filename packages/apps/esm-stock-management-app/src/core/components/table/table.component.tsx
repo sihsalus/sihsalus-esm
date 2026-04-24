@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { saveAs } from 'file-saver';
 import {
   DataTable,
   OverflowMenu,
@@ -20,8 +17,11 @@ import {
 } from '@carbon/react';
 import { DocumentDownload } from '@carbon/react/icons';
 import { isDesktop, useLayoutType, usePagination } from '@openmrs/esm-framework';
-import { type DataTableRenderProps } from './types';
+import { saveAs } from 'file-saver';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './table.scss';
+import { type DataTableRenderProps } from './types';
 
 type FilterProps = {
   rowIds: Array<string>;

@@ -1,12 +1,12 @@
-import { render, screen, within } from '@testing-library/react';
-import React from 'react';
-import SelectAnswers from './select-answers.component';
 import { useConceptId } from '@hooks/useConceptId';
 import { useConceptLookup } from '@hooks/useConceptLookup';
-import { FormFieldProvider } from '../../../../form-field-context';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
-import type { Concept } from '@types';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import type { Concept } from '@types';
+import React from 'react';
+import { FormFieldProvider } from '../../../../form-field-context';
+import SelectAnswers from './select-answers.component';
 
 void React;
 

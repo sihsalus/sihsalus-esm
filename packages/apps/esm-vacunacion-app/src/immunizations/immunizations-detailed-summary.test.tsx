@@ -1,17 +1,16 @@
-import userEvent from '@testing-library/user-event';
-import { screen } from '@testing-library/react';
 import {
   formatDate,
   getDefaultsFromConfigSchema,
   launchWorkspace2,
   parseDate,
-  type VisitReturnType,
   useConfig,
+  type VisitReturnType,
 } from '@openmrs/esm-framework';
-import { configSchema, type ImmunizationConfigObject } from '../config-schema';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
-import { mockCurrentVisit } from 'test-utils';
 import { usePatientChartStore, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { mockCurrentVisit, mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import { configSchema, type ImmunizationConfigObject } from '../config-schema';
 import { useImmunizations } from '../hooks/useImmunizations';
 import ImmunizationsDetailedSummary from './immunizations-detailed-summary.component';
 

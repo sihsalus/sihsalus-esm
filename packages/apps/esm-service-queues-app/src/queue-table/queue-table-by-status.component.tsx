@@ -6,10 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { useQueueEntries } from '../hooks/useQueueEntries';
 import { type Concept, type Queue, type QueueTableTabConfig } from '../types';
-
-import { QueueTableByStatusSkeleton } from './queue-table-by-status-skeleton.component';
 import QueueTable from './queue-table.component';
 import styles from './queue-table.scss';
+import { QueueTableByStatusSkeleton } from './queue-table-by-status-skeleton.component';
 
 interface QueueTableByStatusProps {
   selectedQueue: Queue; // the selected queue

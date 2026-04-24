@@ -1,4 +1,4 @@
-import { getSyncLifecycle, defineConfigSchema } from '@openmrs/esm-framework';
+import { defineConfigSchema, getSyncLifecycle } from '@openmrs/esm-framework';
 
 import { configSchema } from './config-schema';
 import { createLeftPanelLink } from './left-panel-links.component';

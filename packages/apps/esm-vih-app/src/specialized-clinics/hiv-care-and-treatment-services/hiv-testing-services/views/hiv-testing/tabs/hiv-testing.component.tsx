@@ -1,17 +1,15 @@
-import { useConfig, formatDate, parseDate } from '@openmrs/esm-framework';
+import { formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
+import type { EncounterListColumn } from '@sihsalus/esm-sihsalus-shared';
+import { EncounterList, getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../../../../config-schema';
-import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
-import type { EncounterListColumn } from '@sihsalus/esm-sihsalus-shared';
-import { EncounterList } from '@sihsalus/esm-sihsalus-shared';
 import {
-  testApproachConcept,
-  testStrategyConcept,
   entryPointConcept,
   finalResultConcept,
   tbScreeeningConcept,
+  testApproachConcept,
+  testStrategyConcept,
 } from '../../../constants';
 import { hivTestingConceptMap } from '../hiv-testing-constants';
 

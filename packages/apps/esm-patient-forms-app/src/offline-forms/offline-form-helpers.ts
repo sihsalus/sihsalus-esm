@@ -1,4 +1,4 @@
-import { getOfflineDb, type DynamicOfflineData } from '@openmrs/esm-framework';
+import { type DynamicOfflineData, getOfflineDb } from '@openmrs/esm-framework';
 import { type HtmlFormEntryForm } from '@openmrs/esm-patient-common-lib';
 import useSWR from 'swr';
 

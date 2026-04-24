@@ -1,12 +1,13 @@
 /** @module @category UI */
-import React, { useEffect, useMemo, useState } from 'react';
-import Avatar from 'react-avatar';
-import GeoPattern from 'geopattern';
+
 import { SkeletonIcon } from '@carbon/react';
 import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import { usePatientPhoto } from './usePatientPhoto';
-import PlaceholderIcon from './placeholder-icon.component';
+import GeoPattern from 'geopattern';
+import React, { useEffect, useMemo, useState } from 'react';
+import Avatar from 'react-avatar';
 import styles from './patient-photo.module.scss';
+import PlaceholderIcon from './placeholder-icon.component';
+import { usePatientPhoto } from './usePatientPhoto';
 
 export interface PatientPhotoProps {
   patientName: string;

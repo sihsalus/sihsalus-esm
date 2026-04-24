@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
-import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
-import { Table, TableBody, TableCell, TableRow, TableHead, TableHeader } from '@carbon/react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
 import { formatDate, parseDate, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { ErrorState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import dayjs from 'dayjs';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Immunization } from '../types';
 import styles from './immunization-history-card.scss';
 

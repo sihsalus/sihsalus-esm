@@ -1,6 +1,6 @@
-import { Button, ButtonSet, Form, TextArea, Select, SelectItem, InlineNotification } from '@carbon/react';
+import { Button, ButtonSet, Form, InlineNotification, Select, SelectItem, TextArea } from '@carbon/react';
 import { OpenmrsDatePicker, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { DefaultPatientWorkspaceProps } from '../../../types';

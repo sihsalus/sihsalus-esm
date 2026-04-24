@@ -1,5 +1,5 @@
 import { LineChart, ScaleTypes } from '@carbon/charts-react';
-import { Tab, Tabs, TabList } from '@carbon/react';
+import { Tab, TabList, Tabs } from '@carbon/react';
 import { formatDate, parseDate } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';

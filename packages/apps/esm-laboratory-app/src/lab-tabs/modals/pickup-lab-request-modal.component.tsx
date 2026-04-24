@@ -1,7 +1,7 @@
+import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
+import { type Order, showNotification, showSnackbar, useAbortController } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showNotification, showSnackbar, useAbortController, type Order } from '@openmrs/esm-framework';
 import { setFulfillerStatus, useInvalidateLabOrders } from '../../laboratory.resource';
 
 interface PickupLabRequestModalProps {

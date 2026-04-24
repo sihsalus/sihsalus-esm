@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   DataTable,
   Layer,
@@ -14,12 +13,13 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { EmptyCardIllustration, formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
-import { type MappedBill } from '../../types';
-import { convertToCurrency } from '../../helpers';
-import PatientBillsSelections from './bill-selection.component';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from '../../bills-table/bills-table.scss';
+import { convertToCurrency } from '../../helpers';
+import { type MappedBill } from '../../types';
+import PatientBillsSelections from './bill-selection.component';
 
 type PatientBillsProps = {
   patientUuid: string;

@@ -17,7 +17,7 @@ import {
   formEncounterUrlPoc,
 } from '../constants';
 import { getDynamicFormDataEntriesFor, isValidOfflineFormEncounter } from '../offline-forms/offline-form-helpers';
-import type { ListResponse, Form, EncounterWithFormRef, CompletedFormInfo } from '../types';
+import type { CompletedFormInfo, EncounterWithFormRef, Form, ListResponse } from '../types';
 
 function useCustomFormsUrl(patientUuid: string, visitUuid: string) {
   const { customFormsUrl, showHtmlFormEntryForms } = useConfig<ConfigObject>();

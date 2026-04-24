@@ -19,18 +19,17 @@ import {
   useLayoutType,
 } from '@openmrs/esm-framework';
 import classNames from 'classnames';
+import type { TFunction } from 'i18next';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import { mutate } from 'swr';
 import { z } from 'zod';
 
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
 import { useQueues } from '../hooks/useQueues';
-
-import styles from './queue-room-form.scss';
 import { saveQueueRoom } from './queue-room.resource';
+import styles from './queue-room-form.scss';
 
 const createQueueRoomSchema = (t: TFunction) =>
   z.object({

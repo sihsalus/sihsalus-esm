@@ -1,16 +1,12 @@
+import { Button, ButtonSet, DataTableSkeleton, Form, InlineLoading, Row, Stack } from '@carbon/react';
+import { ErrorState, ExtensionSlot, ResponsiveWrapper, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import { type DefaultPatientWorkspaceProps, EmptyState } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
-import { ErrorState, ExtensionSlot, ResponsiveWrapper, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
-import { EmptyState, type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
-
-import { Button, Form, InlineLoading, Stack } from '@carbon/react';
-import { type DicomStudy, type OrthancConfiguration } from '../../types';
 import { assignStudy as assignStudy, useStudiesByConfig, useStudiesByPatient } from '../../api';
+import { type DicomStudy, type OrthancConfiguration } from '../../types';
 import AssignStudiesTable from '../components/assign-studies-table.component';
-import { Row } from '@carbon/react';
-import { ButtonSet } from '@carbon/react';
-import { DataTableSkeleton } from '@carbon/react';
 import styles from './studies.scss';
 
 interface AssignStudiesWorkspaceProps extends DefaultPatientWorkspaceProps {

@@ -1,10 +1,10 @@
 import {
+  type OpenmrsResource,
   openmrsFetch,
+  type Privilege,
   restBaseUrl,
   useConfig,
   useOpenmrsInfinite,
-  type OpenmrsResource,
-  type Privilege,
   type Visit,
 } from '@openmrs/esm-framework';
 import useSWR, { mutate } from 'swr';

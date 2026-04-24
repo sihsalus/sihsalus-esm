@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
-import type { AppointmentSummary, ObsReferenceRanges, ObservationInterpretation } from '../types';
+import type { AppointmentSummary, ObservationInterpretation, ObsReferenceRanges } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getHighestAppointmentServiceLoad = (appointmentSummary: Array<Record<string, any>> = []) => {

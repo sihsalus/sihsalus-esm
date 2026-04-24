@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { find, groupBy, isUndefined, orderBy } from 'lodash-es';
+import { type ExistingDoses, type ImmunizationFormData, type ImmunizationGrouped } from '../types';
 import {
   type Code,
   type FHIRImmunizationBundle,
   type FHIRImmunizationResource,
   type Reference,
 } from '../types/fhir-immunization-domain';
-import { type ExistingDoses, type ImmunizationFormData, type ImmunizationGrouped } from '../types';
 
 export const FHIR_NEXT_DOSE_DATE_EXTENSION_URL = 'http://hl7.eu/fhir/StructureDefinition/immunization-nextDoseDate';
 

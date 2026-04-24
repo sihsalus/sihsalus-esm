@@ -1,16 +1,15 @@
 import { useAppContext, useVisit } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import {
   mockInpatientAdmissions,
   mockInpatientRequests,
   mockLocationInpatientWard,
   mockLocationMosoriot,
   mockPatientAlice,
+  renderWithSwr,
 } from 'test-utils';
-import React from 'react';
-
-import { renderWithSwr } from 'test-utils';
 import { mockWardViewContext } from '../../../mock';
 import { useAssignedBedByPatient } from '../../hooks/useAssignedBedByPatient';
 import useEmrConfiguration from '../../hooks/useEmrConfiguration';
@@ -61,7 +60,7 @@ jest.mocked(useRestPatient).mockReturnValue({
 jest.mock('../../hooks/useAssignedBedByPatient', () => ({
   useAssignedBedByPatient: jest.fn(),
 }));
-// @ts-ignore - we don't need to mock the entire object
+// @ts-expect-error - we don't need to mock the entire object
 jest.mocked(useAssignedBedByPatient).mockReturnValue({
   data: {
     data: {
@@ -113,7 +112,7 @@ jest.mock('../../hooks/useEmrConfiguration', () => jest.fn());
 jest.mocked(useEmrConfiguration).mockReturnValue({
   isLoadingEmrConfiguration: false,
   errorFetchingEmrConfiguration: null,
-  // @ts-ignore - we only need these keys for now
+  // @ts-expect-error - we only need these keys for now
   emrConfiguration: {
     admissionEncounterType: {
       uuid: 'admission-encounter-type-uuid',
@@ -142,7 +141,7 @@ const mockedUseAdmitPatient: ReturnType<typeof useAdmitPatient> = {
 };
 jest.mocked(useAdmitPatient).mockReturnValue(mockedUseAdmitPatient);
 const mockedAdmitPatient = mockedUseAdmitPatient.admitPatient;
-// @ts-ignore - we only need these two keys for now
+// @ts-expect-error - we only need these two keys for now
 mockedAdmitPatient.mockResolvedValue({
   ok: true,
   data: {

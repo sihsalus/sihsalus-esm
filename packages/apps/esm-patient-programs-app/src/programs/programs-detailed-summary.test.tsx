@@ -1,13 +1,19 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { screen, within } from '@testing-library/react';
 import { formatDatetime, getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
-import { mockCareProgramsResponse, mockEnrolledInAllProgramsResponse, mockEnrolledProgramsResponse } from 'test-utils';
-import { mockPatient, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import {
+  mockCareProgramsResponse,
+  mockEnrolledInAllProgramsResponse,
+  mockEnrolledProgramsResponse,
+  mockPatient,
+  renderWithSwr,
+  waitForLoadingToFinish,
+} from 'test-utils';
 import { type ConfigObject, configSchema } from '../config-schema';
-import ProgramsDetailedSummary from './programs-detailed-summary.component';
 import { usePrograms } from './programs.resource';
+import ProgramsDetailedSummary from './programs-detailed-summary.component';
 
 const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);

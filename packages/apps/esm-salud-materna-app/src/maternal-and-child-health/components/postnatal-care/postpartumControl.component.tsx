@@ -1,6 +1,7 @@
 import {
   Button,
   DataTable,
+  InlineLoading,
   Table,
   TableBody,
   TableCell,
@@ -8,9 +9,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  InlineLoading,
 } from '@carbon/react';
-import { useConfig, useLayoutType, launchWorkspace2 } from '@openmrs/esm-framework';
+import { launchWorkspace2, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import dayjs from 'dayjs';

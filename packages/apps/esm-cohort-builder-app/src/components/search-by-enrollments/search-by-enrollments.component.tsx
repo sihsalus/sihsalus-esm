@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import dayjs from 'dayjs';
 import { Column, DatePicker, DatePickerInput, MultiSelect } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocations } from '../../cohort-builder.resources';
 import { type DropdownValue, type SearchByProps } from '../../types';
-import { usePrograms } from './search-by-enrollments.resources';
-import { getQueryDetails, getDescription } from './search-by-enrollments.utils';
 import SearchButtonSet from '../search-button-set/search-button-set';
+import { usePrograms } from './search-by-enrollments.resources';
 import styles from './search-by-enrollments.style.scss';
+import { getDescription, getQueryDetails } from './search-by-enrollments.utils';
 
 const SearchByEnrollments: React.FC<SearchByProps> = ({ onSubmit }) => {
   const { t } = useTranslation();

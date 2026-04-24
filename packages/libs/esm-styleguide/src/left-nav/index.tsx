@@ -1,14 +1,15 @@
 /** @module @category UI */
-import React from 'react';
+
 import { SideNav, type SideNavProps } from '@carbon/react';
 import {
   ComponentContext,
   ExtensionSlot,
+  getCoreTranslation,
   RenderIfValueIsTruthy,
   useAssignedExtensions,
   useLeftNavStore,
 } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import React from 'react';
 import styles from './left-nav.module.scss';
 
 /**

@@ -1,28 +1,28 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { OpenmrsDatePicker, ResponsiveWrapper, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
 import {
   Button,
   ButtonSet,
   ComboBox,
   Form,
   FormGroup,
+  InlineLoading,
+  SelectItem,
   Stack,
   TextArea,
   TextInput,
   TimePicker,
   TimePickerSelect,
-  SelectItem,
-  InlineLoading,
 } from '@carbon/react';
-import { type DefaultPatientWorkspaceProps, type amPm } from '@openmrs/esm-patient-common-lib';
-import { useProcedureStep, useRequestsByPatient, saveRequestProcedureStep } from '../../api';
-import { FormProvider, useForm, Controller } from 'react-hook-form';
-import { type CreateRequestProcedureStep, modalityOptions, type RequestProcedure } from '../../types';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import styles from './worklist.scss';
+import { OpenmrsDatePicker, ResponsiveWrapper, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import { type amPm, type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+import { saveRequestProcedureStep, useProcedureStep, useRequestsByPatient } from '../../api';
+import { type CreateRequestProcedureStep, modalityOptions, type RequestProcedure } from '../../types';
 import { toDICOMDateTime, toDicomTimeString } from '../utils/help';
+import styles from './worklist.scss';
 
 export interface AddNewProcedureStepWorkspaceProps extends DefaultPatientWorkspaceProps {
   request: RequestProcedure;

@@ -1,9 +1,8 @@
-import { useVisit, openmrsFetch, showSnackbar, type FetchResponse } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { type FetchResponse, openmrsFetch, showSnackbar, useVisit } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockCurrentVisit, mockVisitQueueEntries } from 'test-utils';
 import React from 'react';
-import { mockPatient } from 'test-utils';
+import { mockCurrentVisit, mockPatient, mockVisitQueueEntries } from 'test-utils';
 
 import { removeQueuedPatient } from '../hooks/useServiceQueue';
 import { type MappedVisitQueueEntry, useVisitQueueEntry } from '../queue-entry/queue.resource';

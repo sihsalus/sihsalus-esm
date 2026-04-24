@@ -1,4 +1,4 @@
-import { Tab, Tabs, TabList, TabPanels, TabPanel } from '@carbon/react';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import classNames from 'classnames';
 import React from 'react';

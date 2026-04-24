@@ -1,5 +1,5 @@
 import { Accordion, AccordionItem } from '@carbon/react';
-import { ComponentContext, ExtensionSlot, useConfig, Type } from '@openmrs/esm-framework/src/internal';
+import { ComponentContext, ExtensionSlot, Type, useConfig } from '@openmrs/esm-framework/src/internal';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 

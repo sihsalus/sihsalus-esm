@@ -1,6 +1,6 @@
 // obstetric-history-base.component.tsx
 import { Button, ContentSwitcher, DataTableSkeleton, IconSwitch, InlineLoading } from '@carbon/react';
-import { useConfig, useLayoutType, AddIcon, launchWorkspace2 } from '@openmrs/esm-framework';
+import { AddIcon, launchWorkspace2, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

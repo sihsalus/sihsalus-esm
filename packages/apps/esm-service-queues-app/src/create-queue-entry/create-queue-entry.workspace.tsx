@@ -1,6 +1,7 @@
 import { Button, DataTableSkeleton } from '@carbon/react';
 import {
   ArrowLeftIcon,
+  type DefaultWorkspaceProps,
   ErrorState,
   ExtensionSlot,
   getPatientName,
@@ -10,7 +11,6 @@ import {
   PatientPhoto,
   usePatient,
   useVisit,
-  type DefaultWorkspaceProps,
 } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form';
-import { type FormField } from '../types';
 import { useFormProviderContext } from '../provider/form-provider';
+import { type FormField } from '../types';
 import { isPlainObject } from '../utils/common-utils';
 
 type QuestionOptionsWithConfig = FormField['questionOptions'] & {

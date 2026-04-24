@@ -1,21 +1,20 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react';
-import { Edit } from '@carbon/react/icons';
-
 import {
-  CheckboxSkeleton,
+  Button,
   Checkbox,
+  CheckboxSkeleton,
   SkeletonText,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
-  Button,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
+import { Edit } from '@carbon/react/icons';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
 import AddGroupModal from '../../add-group-modal/AddGroupModal';
+import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
 
 const PatientRow = ({ patient }) => {
   const { patientUuids, addPatientUuid, removePatientUuid } = useContext(GroupFormWorkflowContext);

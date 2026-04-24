@@ -1,5 +1,5 @@
 import { Layer, Loading, Tile } from '@carbon/react';
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type PatientSearchResponse } from '../types';

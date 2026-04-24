@@ -1,11 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import Parcel from 'single-spa-react/parcel';
-import { mountRootParcel, type ParcelConfig } from 'single-spa';
 import { InlineLoading } from '@carbon/react';
-import { type OpenedWindow, type OpenedWorkspace, workspace2Store } from '@openmrs/esm-framework/src/internal';
-import { loadLifeCycles } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import {
+  getCoreTranslation,
+  loadLifeCycles,
+  type OpenedWindow,
+  type OpenedWorkspace,
+  workspace2Store,
+} from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useEffect, useMemo, useState } from 'react';
+import { mountRootParcel, type ParcelConfig } from 'single-spa';
+import Parcel from 'single-spa-react/parcel';
 import { promptForClosingWorkspaces, useWorkspace2Store } from './workspace2';
 import { type Workspace2DefinitionProps } from './workspace2.component';
 import styles from './workspace2.module.scss';

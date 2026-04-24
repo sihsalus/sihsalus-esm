@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { mockPatient } from 'test-utils';
 
-import { esmPatientChartSchema, type ChartConfig } from '../config-schema';
+import { type ChartConfig, esmPatientChartSchema } from '../config-schema';
 import { markPatientDeceased, useCausesOfDeath } from '../data.resource';
 
 import MarkPatientDeceasedForm from './mark-patient-deceased-form.workspace';
@@ -55,8 +55,10 @@ jest.mock('@carbon/react', () => {
 });
 
 const originalLocation = window.location;
-delete window.location;
-window.location = { ...originalLocation, reload: jest.fn() };
+Object.defineProperty(window, 'location', {
+  configurable: true,
+  value: { ...originalLocation, reload: jest.fn() } as Location,
+});
 
 const mockMarkPatientDeceased = jest.mocked(markPatientDeceased);
 const mockUseCausesOfDeath = jest.mocked(useCausesOfDeath);
@@ -117,7 +119,10 @@ describe('MarkPatientDeceasedForm', () => {
   });
 
   afterAll(() => {
-    window.location = originalLocation;
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: originalLocation,
+    });
   });
 
   it('renders the cause of death form', () => {

@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
-import useSWR from 'swr';
 import { type DataTableSortState } from '@carbon/react';
 import { fhirBaseUrl, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
+import { useMemo, useState } from 'react';
+import useSWR from 'swr';
 
 export interface FHIRConditionResponse {
   entry: Array<{

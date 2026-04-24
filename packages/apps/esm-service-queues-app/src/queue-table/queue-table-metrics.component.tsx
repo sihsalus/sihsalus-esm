@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { useQueueEntries, useQueueEntriesMetrics } from '../hooks/useQueueEntries';
 import { type Queue } from '../types';
-
-import QueueTableMetricsCard from './queue-table-metrics-card.component';
 import styles from './queue-table-metrics.scss';
+import QueueTableMetricsCard from './queue-table-metrics-card.component';
 
 interface QueueTableMetricsProps {
   selectedQueue: Queue;

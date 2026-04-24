@@ -1,11 +1,11 @@
 import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
-import { type DataSource } from '../../types';
-import { type RegistryItem } from '../registry';
 import { ConceptDataSource } from '../../datasources/concept-data-source';
+import { EncounterRoleDataSource } from '../../datasources/encounter-role-datasource';
 import { LocationDataSource } from '../../datasources/location-data-source';
 import { ProviderDataSource } from '../../datasources/provider-datasource';
 import { SelectConceptAnswersDatasource } from '../../datasources/select-concept-answers-datasource';
-import { EncounterRoleDataSource } from '../../datasources/encounter-role-datasource';
+import { type DataSource } from '../../types';
+import { type RegistryItem } from '../registry';
 
 /**
  * @internal

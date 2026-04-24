@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
+import { type EmergencyQueueEntry } from '../../resources/emergency.resource';
+import { EmergencyQueueActionsCell } from './cells/emergency-queue-actions-cell.component';
 import { EmergencyQueueNameCell } from './cells/emergency-queue-name-cell.component';
 import { EmergencyQueuePriorityCell } from './cells/emergency-queue-priority-cell.component';
-import { EmergencyQueueWaitTimeCell } from './cells/emergency-queue-wait-time-cell.component';
-import { EmergencyQueueStatusCell } from './cells/emergency-queue-status-cell.component';
-import { EmergencyQueueActionsCell } from './cells/emergency-queue-actions-cell.component';
 import { EmergencyQueueProviderCell } from './cells/emergency-queue-provider-cell.component';
-import { type EmergencyQueueEntry } from '../../resources/emergency.resource';
+import { EmergencyQueueStatusCell } from './cells/emergency-queue-status-cell.component';
+import { EmergencyQueueWaitTimeCell } from './cells/emergency-queue-wait-time-cell.component';
 
 export interface EmergencyQueueTableColumn {
   key: string;

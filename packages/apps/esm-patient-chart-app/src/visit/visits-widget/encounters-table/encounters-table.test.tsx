@@ -1,8 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockEncounters2 } from 'test-utils';
 import React from 'react';
-import { renderWithSwr } from 'test-utils';
+import { mockEncounters2, renderWithSwr } from 'test-utils';
 
 import EncountersTable from './encounters-table.component';
 

@@ -1,6 +1,6 @@
 import { fetchCurrentPatient, formatDate, getConfig } from '@openmrs/esm-framework';
-import { writeFile, utils } from 'xlsx';
 import type { WorkSheet } from 'xlsx';
+import { utils, writeFile } from 'xlsx';
 
 import type { ConfigObject } from '../config-schema';
 import type { Appointment } from '../types';

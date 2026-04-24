@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import { FormLabel, InlineNotification, ComboBox, InlineLoading } from '@carbon/react';
+import { ComboBox, FormLabel, InlineLoading, InlineNotification } from '@carbon/react';
 import { usePatientIdentifierTypes } from '@hooks/usePatientIdentifierTypes';
-import { useFormField } from '../../../../form-field-context';
 import type { PatientIdentifierType } from '@types';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormField } from '../../../../form-field-context';
 import styles from './patient-identifier-type-question.scss';
 
 const PatientIdentifierTypeQuestion: React.FC = () => {

@@ -1,4 +1,4 @@
-import { DataTableSkeleton, Button, Search, Form } from '@carbon/react';
+import { Button, DataTableSkeleton, Form, Search } from '@carbon/react';
 import { CloseIcon, navigate, SearchIcon, useLayoutType } from '@openmrs/esm-framework';
 import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
@@ -11,9 +11,8 @@ import PanelTimelineComponent from '../panel-timeline/panel-timeline-component';
 import Overlay from '../tablet-overlay/tablet-overlay.component';
 import Trendline from '../trendline/trendline.component';
 import { FilterEmptyState } from '../ui-elements/resetFiltersEmptyState/filter-empty-state.component';
-
-import styles from './panel-view.scss';
 import LabSetPanel from './panel.component';
+import styles from './panel-view.scss';
 import usePanelData from './usePanelData';
 
 interface PanelViewProps {

@@ -1,5 +1,5 @@
-import { CheckmarkOutline, WarningAlt } from '@carbon/react/icons';
 import { SkeletonText } from '@carbon/react';
+import { CheckmarkOutline, WarningAlt } from '@carbon/react/icons';
 import React from 'react';
 import useGetPatient from '../hooks/useGetPatient';
 import styles from './styles.scss';

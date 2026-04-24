@@ -1,4 +1,4 @@
-import { DataTableSkeleton, Button } from '@carbon/react';
+import { Button, DataTableSkeleton } from '@carbon/react';
 import { ErrorState, launchWorkspace, showModal, showSnackbar, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
 import capitalize from 'lodash/capitalize';

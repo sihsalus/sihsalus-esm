@@ -21,12 +21,14 @@ import isBetween from 'dayjs/plugin/isBetween';
 import React, { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
+
 dayjs.extend(isBetween);
+
 import {
-  ResponsiveWrapper,
   age,
   formatDate,
   getPatientName,
+  ResponsiveWrapper,
   useConfig,
   useLayoutType,
   usePatient,

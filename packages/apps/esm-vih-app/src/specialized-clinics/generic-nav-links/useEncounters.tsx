@@ -1,7 +1,6 @@
 import { openmrsFetch } from '@openmrs/esm-framework';
-import useSWR from 'swr';
-
 import type { Encounter } from '@sihsalus/esm-sihsalus-shared';
+import useSWR from 'swr';
 
 export const useEncounters = (
   encounterUuid: string,

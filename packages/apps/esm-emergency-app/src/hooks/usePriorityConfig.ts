@@ -9,20 +9,20 @@
  * values (queue UUIDs, statuses, location, concepts).
  */
 
-import { useMemo } from 'react';
 import { useConfig } from '@openmrs/esm-framework';
+import { useMemo } from 'react';
 import { type Config } from '../config-schema';
 import {
-  getPriorityConfigByUuid,
+  getAllPriorities,
+  getPriorityColor,
   getPriorityConfigByCode,
   getPriorityConfigByLabel,
-  getPriorityColor,
+  getPriorityConfigByUuid,
+  getPriorityCssClass,
   getPriorityLabel,
   getPrioritySortWeight,
-  sortByPriority,
-  getAllPriorities,
   isWaitTimeExceeded,
-  getPriorityCssClass,
+  sortByPriority,
 } from '../utils/priority-helpers';
 
 export function usePriorityConfig() {

@@ -1,6 +1,5 @@
 import { Button, MenuButton, MenuItem } from '@carbon/react';
-import { AddIcon, type Visit } from '@openmrs/esm-framework';
-import { showModal, useLayoutType } from '@openmrs/esm-framework';
+import { AddIcon, showModal, useLayoutType, type Visit } from '@openmrs/esm-framework';
 import { useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';

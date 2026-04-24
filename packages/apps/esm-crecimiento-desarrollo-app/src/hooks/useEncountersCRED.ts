@@ -1,4 +1,4 @@
-import { useConfig, restBaseUrl, openmrsFetch, type FetchResponse, type Encounter } from '@openmrs/esm-framework';
+import { type Encounter, type FetchResponse, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import useSWR, { type KeyedMutator } from 'swr';
 
 import type { ConfigObject } from '../config-schema';

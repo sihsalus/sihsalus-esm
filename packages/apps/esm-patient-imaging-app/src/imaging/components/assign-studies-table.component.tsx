@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {
   DataTable,
   IconButton,
@@ -10,17 +9,18 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { compare, PatientChartPagination, EmptyState } from '@openmrs/esm-patient-common-lib';
 import { useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { compare, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { getBrowserUrl, type DicomStudy, type StudiesWithScores } from '../../types';
-import { studiesCount } from '../constants';
-import stoneview from '../../assets/stoneViewer.png';
 import ohifview from '../../assets/ohifViewer.png';
-import SeriesDetailsTable from './series-details-table.component';
-import styles from './details-table.scss';
+import stoneview from '../../assets/stoneViewer.png';
+import { type DicomStudy, getBrowserUrl, type StudiesWithScores } from '../../types';
+import { studiesCount } from '../constants';
 import { buildURL } from '../utils/help';
+import styles from './details-table.scss';
+import SeriesDetailsTable from './series-details-table.component';
 
 export interface AssignStudiesTableProps {
   data?: StudiesWithScores | null;

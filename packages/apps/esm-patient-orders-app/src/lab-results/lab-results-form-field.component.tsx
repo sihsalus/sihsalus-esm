@@ -4,9 +4,8 @@ import { type Control, Controller, type FieldErrors } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { type Observation } from '../types/encounter';
-
-import styles from './lab-results-form.scss';
 import { isCoded, isNumeric, isPanel, isText, type LabOrderConcept } from './lab-results.resource';
+import styles from './lab-results-form.scss';
 
 interface ResultFormFieldProps {
   concept: LabOrderConcept;

@@ -1,5 +1,5 @@
 import { Button, InlineLoading } from '@carbon/react';
-import { Workspace2, navigate, openmrsFetch, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { navigate, openmrsFetch, showSnackbar, useConfig, Workspace2 } from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
   type PatientWorkspace2DefinitionProps,

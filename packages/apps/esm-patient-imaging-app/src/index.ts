@@ -1,7 +1,7 @@
-import { getAsyncLifecycle, getSyncLifecycle, defineConfigSchema } from '@openmrs/esm-framework';
+import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-import { dashboardMeta } from './dashboard.meta';
 import { configSchema } from './config-schema';
+import { dashboardMeta } from './dashboard.meta';
 import ImagingDetailedSummaryComponent from './imaging/imaging-summary/imaging-detailed-summary.component';
 
 const moduleName = '@sihsalus/esm-patient-imaging-app';

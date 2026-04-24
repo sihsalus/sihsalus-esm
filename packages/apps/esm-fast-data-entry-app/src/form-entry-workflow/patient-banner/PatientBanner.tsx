@@ -1,9 +1,9 @@
-import { ExtensionSlot } from '@openmrs/esm-framework';
 import { SkeletonPlaceholder, SkeletonText } from '@carbon/react';
+import { ExtensionSlot } from '@openmrs/esm-framework';
 import React, { useContext } from 'react';
-import styles from './styles.scss';
-import useGetPatient from '../../hooks/useGetPatient';
 import FormWorkflowContext from '../../context/FormWorkflowContext';
+import useGetPatient from '../../hooks/useGetPatient';
+import styles from './styles.scss';
 
 const SkeletonPatientInfo = () => {
   return (

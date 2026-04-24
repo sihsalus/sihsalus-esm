@@ -1,12 +1,11 @@
-import { exec } from 'child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { URL } from 'node:url';
-
 import axios from 'axios';
+import { exec } from 'child_process';
 import glob from 'glob';
 
-import { getMainBundle, getAppRoutes, type PackageManifest } from './dependencies';
+import { getAppRoutes, getMainBundle, type PackageManifest } from './dependencies';
 import { startDevServer } from './devserver';
 import { logFail, logInfo, logWarn } from './logger';
 import { getAvailablePort } from './port';

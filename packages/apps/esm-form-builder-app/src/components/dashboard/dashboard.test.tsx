@@ -1,9 +1,9 @@
+import { type FetchResponse, navigate, openmrsFetch, showModal } from '@openmrs/esm-framework';
+import { deleteForm } from '@resources/forms.resource';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { type FetchResponse, navigate, openmrsFetch, showModal } from '@openmrs/esm-framework';
-import Dashboard from './dashboard.component';
 import { renderWithSwr, waitForLoadingToFinish } from 'test-utils';
-import { deleteForm } from '@resources/forms.resource';
+import Dashboard from './dashboard.component';
 
 type OpenmrsFetchResponse = Promise<
   FetchResponse<{
@@ -244,6 +244,7 @@ describe('Dashboard', () => {
 function renderDashboard() {
   renderWithSwr(<Dashboard />);
 }
+
 import React from 'react';
 
 void React;

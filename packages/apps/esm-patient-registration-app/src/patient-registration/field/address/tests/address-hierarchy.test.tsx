@@ -1,16 +1,16 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import { mockedAddressTemplate, mockedOrderedFields, mockOpenmrsId, mockPatient, mockSession } from 'test-utils';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import React from 'react';
+import { mockedAddressTemplate, mockedOrderedFields, mockOpenmrsId, mockPatient, mockSession } from 'test-utils';
 
-import { type RegistrationConfig, esmPatientRegistrationSchema } from '../../../../config-schema';
+import { esmPatientRegistrationSchema, type RegistrationConfig } from '../../../../config-schema';
 import { type Resources, ResourcesContext } from '../../../../offline.resources';
+import { type AddressTemplate } from '../../../patient-registration.types';
 import {
   PatientRegistrationContext,
   type PatientRegistrationContextProps,
 } from '../../../patient-registration-context';
-import { type AddressTemplate } from '../../../patient-registration.types';
 import { AddressComponent } from '../address-field.component';
 import { useOrderedAddressHierarchyLevels } from '../address-hierarchy.resource';
 

@@ -1,5 +1,5 @@
-import { Toggletip, ToggletipButton, ToggletipContent, Tag } from '@carbon/react';
-import { type Visit, formatDatetime, parseDate } from '@openmrs/esm-framework';
+import { Tag, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
+import { formatDatetime, parseDate, type Visit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

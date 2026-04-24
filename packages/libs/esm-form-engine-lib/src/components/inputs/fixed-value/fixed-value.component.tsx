@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { isEmpty } from '../../../validators/form-validator';
-import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { useFormProviderContext } from '../../../provider/form-provider';
+import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import {
   isDateValue,
   isOpenmrsObsLike,
@@ -9,6 +8,7 @@ import {
   isPlainObject,
   isStringOrNumber,
 } from '../../../utils/common-utils';
+import { isEmpty } from '../../../validators/form-validator';
 
 const FixedValue: React.FC<FormFieldInputProps<FormFieldValue | undefined>> = ({ field, setFieldValue }) => {
   const context = useFormProviderContext();

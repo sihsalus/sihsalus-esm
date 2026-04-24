@@ -1,6 +1,6 @@
+import { fhirBaseUrl, openmrsFetch } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 import { type Medication, type MedicationFormulationsResponse } from '../types';
-import { fhirBaseUrl, openmrsFetch } from '@openmrs/esm-framework';
 import { getConceptCodingUuid, getMedicationsByConceptEndpoint } from '../utils';
 
 /**

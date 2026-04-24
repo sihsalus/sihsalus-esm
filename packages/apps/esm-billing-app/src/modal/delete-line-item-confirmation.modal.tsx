@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader, Stack, TextArea } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { deleteBillItem } from '../billing.resource';
 import { type LineItem } from '../types';
 import styles from './delete-line-item-confirmation.scss';

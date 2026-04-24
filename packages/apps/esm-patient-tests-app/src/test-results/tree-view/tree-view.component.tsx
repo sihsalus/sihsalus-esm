@@ -1,5 +1,5 @@
-import { AccordionSkeleton, DataTableSkeleton, Button, Layer } from '@carbon/react';
-import { useLayoutType, TreeViewAltIcon } from '@openmrs/esm-framework';
+import { AccordionSkeleton, Button, DataTableSkeleton, Layer } from '@carbon/react';
+import { TreeViewAltIcon, useLayoutType } from '@openmrs/esm-framework';
 import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { useContext, useState } from 'react';

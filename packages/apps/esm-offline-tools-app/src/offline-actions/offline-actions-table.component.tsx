@@ -23,9 +23,9 @@ import {
   createErrorHandler,
   isDesktop,
   navigate,
+  type SyncItem,
   useLayoutType,
   usePagination,
-  type SyncItem,
 } from '@openmrs/esm-framework';
 import React, { type ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';

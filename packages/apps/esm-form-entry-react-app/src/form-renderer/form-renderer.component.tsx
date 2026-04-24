@@ -1,5 +1,5 @@
 import { InlineLoading } from '@carbon/react';
-import { showModal, useConfig, type Encounter, type OpenmrsResource } from '@openmrs/esm-framework';
+import { type Encounter, type OpenmrsResource, showModal, useConfig } from '@openmrs/esm-framework';
 import { clinicalFormsWorkspace, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,8 +13,8 @@ import { setFormState } from '../store/form-state.store';
 import type { FormEntryReactConfig, FormWidgetProps } from '../types';
 
 import FormError from './form-error.component';
-import { normalizeFormWidgetProps } from './form-widget-adapter';
 import styles from './form-renderer.scss';
+import { normalizeFormWidgetProps } from './form-widget-adapter';
 
 interface FormRendererAdditionalProps {
   formSessionIntent?: string;

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { DatePicker, DatePickerInput, Column, Dropdown, NumberInput, Switch, ContentSwitcher } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { Column, ContentSwitcher, DatePicker, DatePickerInput, Dropdown, NumberInput, Switch } from '@carbon/react';
 import dayjs from 'dayjs';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { composeJson, queryDescriptionBuilder } from '../../cohort-builder.utils';
 import type { Concept, SearchByProps } from '../../types';
-import { SearchConcept } from './search-concept/search-concept.component';
 import SearchButtonSet from '../search-button-set/search-button-set';
 import styles from './search-by-concepts.style.scss';
+import { SearchConcept } from './search-concept/search-concept.component';
 
 const operators = [
   {

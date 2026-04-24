@@ -1,10 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@testing-library/react';
 import { type FetchResponse, getDefaultsFromConfigSchema, showSnackbar, useConfig } from '@openmrs/esm-framework';
-import { configSchema, type BillingConfig } from '../config-schema';
-import { type MappedBill } from '../types';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { updateBillItems } from '../billing.resource';
+import { type BillingConfig, configSchema } from '../config-schema';
+import { type MappedBill } from '../types';
 import EditBillLineItemModal from './edit-bill-item.modal';
 
 const mockUpdateBillItems = jest.mocked(updateBillItems);

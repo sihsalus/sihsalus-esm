@@ -1,15 +1,16 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { fireEvent, render, screen } from '@testing-library/react';
 import {
   type FetchResponse,
-  showSnackbar,
-  useLocations,
-  useConfig,
   getDefaultsFromConfigSchema,
+  showSnackbar,
+  useConfig,
+  useLocations,
 } from '@openmrs/esm-framework';
-import { mockCareProgramsResponse, mockEnrolledProgramsResponse, mockLocationsResponse } from 'test-utils';
-import { mockPatient } from 'test-utils';
+import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { mockCareProgramsResponse, mockEnrolledProgramsResponse, mockLocationsResponse, mockPatient } from 'test-utils';
+import { type ConfigObject, configSchema } from '../config-schema';
 import {
   createProgramEnrollment,
   updateProgramEnrollment,
@@ -17,8 +18,6 @@ import {
   useEnrollments,
 } from './programs.resource';
 import ProgramsForm, { type ProgramsFormProps } from './programs-form.workspace';
-import { type ConfigObject, configSchema } from '../config-schema';
-import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
 
 const mockUseAvailablePrograms = jest.mocked(useAvailablePrograms);
 const mockUseEnrollments = jest.mocked(useEnrollments);

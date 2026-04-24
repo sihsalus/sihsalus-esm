@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './value.scss';
 import { useTranslation } from 'react-i18next';
 import { type FormFieldValue } from '../../types';
+import styles from './value.scss';
 
 type ScalarValue = Exclude<FormFieldValue, Array<unknown> | null> | string | undefined;
 type ListValue = Extract<FormFieldValue, Array<unknown>>;

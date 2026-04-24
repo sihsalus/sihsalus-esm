@@ -1,13 +1,13 @@
+import { filterDOMProps } from '@react-aria/utils';
 import React, {
   type ForwardedRef,
   forwardRef,
+  type MouseEvent as ReactMouseEvent,
   useCallback,
   useContext,
-  type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { mergeProps, useDateSegment, useFocusRing, useHover, useObjectRef } from 'react-aria';
 import { DateFieldStateContext, type DateSegmentProps } from 'react-aria-components';
-import { filterDOMProps } from '@react-aria/utils';
 import { useRenderProps } from './hooks';
 
 /**

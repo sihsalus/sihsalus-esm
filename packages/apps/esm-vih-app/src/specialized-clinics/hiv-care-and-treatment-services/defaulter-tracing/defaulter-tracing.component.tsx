@@ -1,26 +1,25 @@
 import {
   Button,
   DataTable,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableCell,
+  DataTableSkeleton,
   OverflowMenu,
   OverflowMenuItem,
-  DataTableSkeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { formatDate, parseDate, useConfig, launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate, launchWorkspace, parseDate, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { usePatientTracing } from '../../../hooks/usePatientTracing';
-import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import {
   Contacted_UUID,
   MissedAppointmentDate_UUID,
@@ -31,6 +30,7 @@ import {
 //TODO CHANGE THIS
 
 import styles from './defaulter-tracing.scss';
+
 interface PatientTracingProps {
   patientUuid: string;
 }

@@ -1,11 +1,11 @@
+import { Layer, Loading, Tile } from '@carbon/react';
 import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Layer, Tile, Loading } from '@carbon/react';
-import styles from './group-search.scss';
-import { EmptyDataIllustration } from '../../empty-state/EmptyDataIllustration';
-import CompactGroupResults, { SearchResultSkeleton } from './CompactGroupResults';
 import { type GroupType } from '../../context/GroupFormWorkflowContext';
+import { EmptyDataIllustration } from '../../empty-state/EmptyDataIllustration';
 import { useSearchCohortInfinite } from '../../hooks/useSearchEndpoint';
+import CompactGroupResults, { SearchResultSkeleton } from './CompactGroupResults';
+import styles from './group-search.scss';
 
 interface GroupSearchProps {
   query: string;

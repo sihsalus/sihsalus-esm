@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework/src/internal';
-import { type FormSchema, type OpenmrsEncounter } from '../types';
-import { encounterRepresentation } from '../constants';
-import { isEmpty } from '../validators/form-validator';
 import isString from 'lodash-es/isString';
+import { useEffect, useState } from 'react';
+import { encounterRepresentation } from '../constants';
+import { type FormSchema, type OpenmrsEncounter } from '../types';
+import { isEmpty } from '../validators/form-validator';
 
 export function useEncounter(formJson: FormSchema): {
   encounter: OpenmrsEncounter | null;

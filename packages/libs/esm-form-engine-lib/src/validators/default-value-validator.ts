@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import { type FormFieldValidator, type FormField } from '../types';
 import { codedTypes } from '../constants';
+import { type FormField, type FormFieldValidator } from '../types';
 import { isEmpty } from './form-validator';
 
 export const DefaultValueValidator: FormFieldValidator = {

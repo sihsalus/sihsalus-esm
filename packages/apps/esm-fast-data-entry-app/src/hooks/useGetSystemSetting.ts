@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { useCallback, useEffect, useState } from 'react';
 
 const useGetSystemSetting = (settingId) => {
   const [isSubmitting, setIsSubmitting] = useState(false);

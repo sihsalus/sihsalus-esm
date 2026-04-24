@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { type ObsRecord } from '../../types';
 import { type ParsedTimeType } from '../filter/filter-types';
 
-import { PaddingContainer, TimeSlots, Grid, RowStartCell, GridItems, ShadowBox } from './helpers';
+import { Grid, GridItems, PaddingContainer, RowStartCell, ShadowBox, TimeSlots } from './helpers';
 import styles from './timeline.scss';
 import useScrollIndicator from './useScroll';
 

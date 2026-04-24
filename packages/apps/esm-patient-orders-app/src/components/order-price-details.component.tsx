@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { SkeletonText, Tooltip } from '@carbon/react';
-import { InformationIcon, getLocale } from '@openmrs/esm-framework';
+import { getLocale, InformationIcon } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 

@@ -1,8 +1,8 @@
+import { showModal, usePagination } from '@openmrs/esm-framework';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
-import SeriesDetailsTable from './series-details-table.component';
 import * as api from '../../api';
-import { usePagination, showModal } from '@openmrs/esm-framework';
+import SeriesDetailsTable from './series-details-table.component';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({

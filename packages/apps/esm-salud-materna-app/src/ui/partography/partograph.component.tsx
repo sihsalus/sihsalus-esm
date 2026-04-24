@@ -1,4 +1,5 @@
 import {
+  Button,
   DataTable,
   DataTableSkeleton,
   Layer,
@@ -10,11 +11,10 @@ import {
   TableHeader,
   TableRow,
   Tile,
-  Button,
 } from '@carbon/react';
 import { Add, ChartLineSmooth } from '@carbon/react/icons';
-import { formatDate, isDesktop, parseDate, useLayoutType, launchWorkspace2 } from '@openmrs/esm-framework';
-import { EmptyDataIllustration, ErrorState, CardHeader, EmptyState } from '@openmrs/esm-patient-common-lib';
+import { formatDate, isDesktop, launchWorkspace2, parseDate, useLayoutType } from '@openmrs/esm-framework';
+import { CardHeader, EmptyDataIllustration, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,10 +25,10 @@ import {
   ContractionDuration,
   ContractionFrequency,
   DeviceRecorded,
+  descentOfHeadObj,
   FetalHeartRate,
   PartographEncounterFormUuid,
   SurgicalProcedure,
-  descentOfHeadObj,
 } from '../../utils';
 
 import styles from './labour-delivery.scss';

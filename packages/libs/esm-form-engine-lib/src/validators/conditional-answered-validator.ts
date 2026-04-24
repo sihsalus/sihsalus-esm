@@ -1,5 +1,5 @@
+import { type FormField, type FormFieldValidator } from '../types';
 import { isEmpty } from '../validators/form-validator';
-import { type FormFieldValidator, type FormField } from '../types';
 
 interface ConditionalAnsweredConfig {
   referenceQuestionId?: string;

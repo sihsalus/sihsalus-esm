@@ -1,6 +1,6 @@
-import React from 'react';
 import { Button } from '@carbon/react';
 import { ArrowLeft, ArrowRight, Close } from '@carbon/react/icons';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { type TooltipRenderProps } from 'react-joyride';
 import { type ExtendedStep } from '../types';

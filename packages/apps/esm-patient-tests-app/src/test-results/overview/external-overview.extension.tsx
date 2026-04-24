@@ -14,7 +14,7 @@ import usePatientResultsData from '../loadPatientTestData/usePatientResultsData'
 
 import CommonOverview from './common-overview.component';
 import styles from './external-overview.scss';
-import { parseSingleEntry, type OverviewPanelEntry } from './useOverviewData';
+import { type OverviewPanelEntry, parseSingleEntry } from './useOverviewData';
 
 const resultsToShow = 3;
 

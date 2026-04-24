@@ -1,6 +1,3 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import {
   Button,
   ComposedModal,
@@ -16,9 +13,9 @@ import {
   TextArea,
   TextInput,
 } from '@carbon/react';
-import { navigate, showSnackbar } from '@openmrs/esm-framework';
 import { useEncounterTypes } from '@hooks/useEncounterTypes';
 import { useForm } from '@hooks/useForm';
+import { navigate, showSnackbar } from '@openmrs/esm-framework';
 import {
   deleteClobdata,
   deleteForm,
@@ -29,6 +26,9 @@ import {
   uploadSchema,
 } from '@resources/forms.resource';
 import type { EncounterType, Resource, Schema } from '@types';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import styles from './save-form.scss';
 
 interface FormGroupData {

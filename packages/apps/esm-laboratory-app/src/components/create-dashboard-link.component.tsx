@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
 import { ConfigurableLink } from '@openmrs/esm-framework';
-import { BrowserRouter, useLocation } from 'react-router-dom';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 
 export interface DashboardLinkConfig {
   name: string;

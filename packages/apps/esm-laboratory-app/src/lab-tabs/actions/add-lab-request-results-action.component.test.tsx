@@ -1,14 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import {
   getDefaultsFromConfigSchema,
   launchWorkspace2,
-  useConfig,
   type Order,
   type Patient,
+  useConfig,
 } from '@openmrs/esm-framework';
-import { configSchema, type Config } from '../../config-schema';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { type Config, configSchema } from '../../config-schema';
 import AddLabRequestResultsAction from './add-lab-request-results-action.component';
 
 const mockLaunchWorkspace2 = jest.mocked(launchWorkspace2);

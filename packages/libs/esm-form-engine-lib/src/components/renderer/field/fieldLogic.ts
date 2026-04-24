@@ -8,9 +8,9 @@ import {
   isStringValue,
   isValidationResultArray,
 } from '../../../utils/common-utils';
+import { reportError } from '../../../utils/error-utils';
 import { evaluateAsyncExpression, evaluateExpression } from '../../../utils/expression-runner';
 import { evalConditionalRequired, evaluateDisabled, evaluateHide, findFieldSection } from '../../../utils/form-helper';
-import { reportError } from '../../../utils/error-utils';
 import { isEmpty } from '../../../validators/form-validator';
 
 type FormValues = Record<string, unknown>;

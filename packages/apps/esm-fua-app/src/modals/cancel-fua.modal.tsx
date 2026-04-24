@@ -1,4 +1,4 @@
-import { ModalHeader, ModalBody, ModalFooter, Button, TextArea, InlineLoading } from '@carbon/react';
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader, TextArea } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';

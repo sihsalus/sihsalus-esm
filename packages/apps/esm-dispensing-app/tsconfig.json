@@ -8,5 +8,5 @@
       "tools": ["./tools"]
     }
   },
-  "include": ["src/**/*", "tools/**/*"]
+  "include": ["src/**/*", "tools/**/*", "../../tooling/scripts/setup-tests.ts"]
 }

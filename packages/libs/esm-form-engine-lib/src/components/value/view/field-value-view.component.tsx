@@ -1,9 +1,9 @@
 import React from 'react';
+import { type FormFieldValue } from '../../../types';
 import { isEmpty } from '../../../validators/form-validator';
 import LabelField from '../../label/label.component';
 import { ValueDisplay, ValueEmpty } from '../value.component';
 import styles from './field-value-view.scss';
-import { type FormFieldValue } from '../../../types';
 
 interface FieldValueViewProps {
   isInline: boolean;

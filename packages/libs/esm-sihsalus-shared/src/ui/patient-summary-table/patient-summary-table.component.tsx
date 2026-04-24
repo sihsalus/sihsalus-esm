@@ -3,13 +3,13 @@ import {
   DataTable,
   DataTableSkeleton,
   InlineLoading,
-  TableContainer,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import {
@@ -25,8 +25,8 @@ import {
   EmptyState,
   ErrorState,
   launchStartVisitPrompt,
-  useVisitOrOfflineVisit,
   PatientChartPagination,
+  useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';

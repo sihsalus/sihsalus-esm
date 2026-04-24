@@ -1,8 +1,8 @@
-import useSWR from 'swr';
 import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { type SimpleLocation } from '../types';
-import { type PharmacyConfig } from '../config-schema';
 import { useMemo } from 'react';
+import useSWR from 'swr';
+import { type PharmacyConfig } from '../config-schema';
+import { type SimpleLocation } from '../types';
 
 export function useLocations(config: PharmacyConfig) {
   const { data, error } = useSWR<FetchResponse, Error>(

@@ -5,11 +5,11 @@ import {
   StructuredListRow,
   StructuredListWrapper,
 } from '@carbon/react';
-import { type OpenmrsResource, formatTime, parseDate } from '@openmrs/esm-framework';
+import { formatTime, type OpenmrsResource, parseDate } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type Note, type Encounter, type Observation, type DiagnosisItem } from '../../types/index';
+import { type DiagnosisItem, type Encounter, type Note, type Observation } from '../../types/index';
 import styles from '../current-visit.scss';
 import { useVitalsFromObs } from '../hooks/useVitalsConceptMetadata';
 

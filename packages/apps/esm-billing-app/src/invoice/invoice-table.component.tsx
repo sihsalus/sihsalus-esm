@@ -1,7 +1,3 @@
-import React, { useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import fuzzy from 'fuzzy';
 import {
   DataTable,
   DataTableSkeleton,
@@ -17,11 +13,15 @@ import {
   Tile,
 } from '@carbon/react';
 import { getCoreTranslation, isDesktop, useConfig, useDebounce, useLayoutType } from '@openmrs/esm-framework';
-import { type LineItem, type MappedBill } from '../types';
-import { convertToCurrency } from '../helpers';
+import classNames from 'classnames';
+import fuzzy from 'fuzzy';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BillingConfig } from '../config-schema';
-import LineItemActionMenu from './line-item-action-menu.component';
+import { convertToCurrency } from '../helpers';
+import { type LineItem, type MappedBill } from '../types';
 import styles from './invoice-table.scss';
+import LineItemActionMenu from './line-item-action-menu.component';
 
 type InvoiceTableProps = {
   bill: MappedBill;

@@ -1,8 +1,8 @@
 import { showModal } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockGroupedResults } from 'test-utils';
 import React from 'react';
+import { mockGroupedResults } from 'test-utils';
 
 import FilterContext from '../filter/filter-context';
 import { type FilterContextProps } from '../filter/filter-types';
@@ -15,6 +15,7 @@ describe('GroupedTimeline', () => {
   const mockFilterContext: FilterContextProps = {
     activeTests: ['Bloodwork-Chemistry', 'Bloodwork'],
     timelineData: mockGroupedResults.timelineData,
+    tableData: null,
     parents: mockGroupedResults.parents,
     checkboxes: { Bloodwork: false, Chemistry: true },
     someChecked: false,

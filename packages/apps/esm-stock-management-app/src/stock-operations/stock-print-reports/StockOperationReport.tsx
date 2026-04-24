@@ -1,8 +1,8 @@
+import { HEALTH_CENTER_NAME } from '../../constants';
 import { type StockItemInventory } from '../../core/api/types/stockItem/StockItemInventory';
 import { type StockOperationDTO } from '../../core/api/types/stockOperation/StockOperationDTO';
 import { type StockOperationItemCost } from '../../core/api/types/stockOperation/StockOperationItemCost';
 import { type StockOperationItemDTO } from '../../core/api/types/stockOperation/StockOperationItemDTO';
-import { HEALTH_CENTER_NAME } from '../../constants';
 import { OperationType } from '../../core/api/types/stockOperation/StockOperationType';
 
 export interface StockOperationPrintData {

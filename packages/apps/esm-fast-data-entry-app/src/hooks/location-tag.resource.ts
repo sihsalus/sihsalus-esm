@@ -1,5 +1,5 @@
-import useSWR from 'swr';
 import { openmrsFetch } from '@openmrs/esm-framework';
+import useSWR from 'swr';
 import { type Identifier } from '../types';
 
 export function useHsuIdIdentifier(patientUuid: string) {

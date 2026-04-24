@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
 import { render } from '@testing-library/react';
+import React, { useEffect } from 'react';
 
-import { useFormFactory, FormFactoryProvider } from './form-factory-provider';
+import { FormFactoryProvider, useFormFactory } from './form-factory-provider';
 
 jest.mock('react-i18next', () => ({
   useTranslation: (): { t: (_key: string, defaultValue: string) => string } => ({

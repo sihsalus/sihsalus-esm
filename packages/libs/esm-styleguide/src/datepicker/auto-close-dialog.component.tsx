@@ -1,6 +1,6 @@
+import { useOnClickOutside } from '@openmrs/esm-framework/src/internal';
 import React, { useContext } from 'react';
 import { DatePickerStateContext, DateRangePickerStateContext, Dialog } from 'react-aria-components';
-import { useOnClickOutside } from '@openmrs/esm-framework/src/internal';
 import styles from './datepicker.module.scss';
 
 interface AutoCloseDialogProps {

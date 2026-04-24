@@ -1,9 +1,9 @@
+import { showSnackbar } from '@openmrs/esm-framework';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import * as api from '../../api';
 import AddNewRequestWorkspace from './add-request-form.workspace';
-import { showSnackbar } from '@openmrs/esm-framework';
-import userEvent from '@testing-library/user-event';
 
 jest.mock('../../api');
 jest.mock('@openmrs/esm-framework', () => ({

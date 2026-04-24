@@ -111,7 +111,7 @@ describe('Testing AdmitPatientForm', () => {
       errorFetchingLocation: null,
     });
 
-    // @ts-ignore - we don't need to mock the entire object
+    // @ts-expect-error - we don't need to mock the entire object
     mockedUseAssignedBedByPatient.mockReturnValue({
       data: {
         data: {
@@ -128,7 +128,7 @@ describe('Testing AdmitPatientForm', () => {
       },
     });
 
-    // @ts-ignore - we only need these two keys for now
+    // @ts-expect-error - we only need these two keys for now
     mockedAdmitPatient.mockResolvedValue({
       ok: true,
       data: {
@@ -136,12 +136,12 @@ describe('Testing AdmitPatientForm', () => {
       },
     });
 
-    // @ts-ignore - we only need the ok key for now
+    // @ts-expect-error - we only need the ok key for now
     mockedAssignPatientToBed.mockResolvedValue({
       ok: true,
     });
 
-    // @ts-ignore - we only need the ok key for now
+    // @ts-expect-error - we only need the ok key for now
     mockedRemovePatientFromBed.mockResolvedValue({
       ok: true,
     });

@@ -1,18 +1,18 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { type LoggedInUser, type Session } from '@openmrs/esm-api';
 import { type FHIRLocationResource } from '@openmrs/esm-emr-api';
 import { useConfig, useSession } from '@openmrs/esm-framework/src/internal';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { mockConfig } from '../../__mocks__/config.mock';
 import {
   inpatientWardResponse,
   locationResponseForNonExistingSearch,
-  outpatientClinicResponse,
   mockLoginLocations,
+  outpatientClinicResponse,
 } from '../../__mocks__/locations.mock';
-import { mockConfig } from '../../__mocks__/config.mock';
 import { LocationPicker } from './location-picker.component';
 import { useLocationByUuid, useLocations } from './location-picker.resource';
 

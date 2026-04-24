@@ -1,6 +1,3 @@
-import dayjs from 'dayjs';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
 import {
   getDefaultsFromConfigSchema,
   showSnackbar,
@@ -10,13 +7,15 @@ import {
   useSession,
 } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import dayjs from 'dayjs';
+import { mockCurrentVisit, mockPatient, mockSessionDataResponse } from 'test-utils';
 import { configSchema, type ImmunizationConfigObject } from '../config-schema';
-import { immunizationFormSub } from './utils';
-import { mockCurrentVisit, mockSessionDataResponse } from 'test-utils';
-import { mockPatient } from 'test-utils';
-import { savePatientImmunization } from './immunizations.resource';
 import { FHIR_NEXT_DOSE_DATE_EXTENSION_URL } from './immunization-mapper';
+import { savePatientImmunization } from './immunizations.resource';
 import ImmunizationsForm from './immunizations-form.workspace';
+import { immunizationFormSub } from './utils';
 
 const mockCloseWorkspace = jest.fn();
 const mockSavePatientImmunization = savePatientImmunization as jest.Mock;

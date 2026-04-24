@@ -1,15 +1,14 @@
 import { defineConfigSchema, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-
-import { createDashboardGroup } from './clinical-view-group/createDashboardGroup';
-import { configSchema } from './config-schema';
-
 // Case Management
 import CaseEncounterOverviewComponent from './case-management/encounters/case-encounter-overview.component';
-import EndRelationshipWorkspace from './case-management/workspace/case-management-workspace.component';
 import CaseManagementForm from './case-management/workspace/case-management.workspace';
+import EndRelationshipWorkspace from './case-management/workspace/case-management-workspace.component';
 import WrapComponent from './case-management/wrap/wrap.component';
-
+import { createDashboardGroup } from './clinical-view-group/createDashboardGroup';
+import { configSchema } from './config-schema';
+// Dashboard metas from atencion-ambulatoria config (reused here)
+import { createLeftPanelLink } from './left-panel-link.component';
 // Specialized Clinics
 import GenericDashboard from './specialized-clinics/generic-nav-links/generic-dashboard.component';
 import GenericNavLinks from './specialized-clinics/generic-nav-links/generic-nav-links.component';
@@ -21,9 +20,6 @@ import {
 } from './specialized-clinics/hiv-care-and-treatment-services/hiv-care-and-treatment-dashboard.meta';
 import HivTestingEncountersList from './specialized-clinics/hiv-care-and-treatment-services/hiv-testing-services/views/hiv-testing/hiv-testing-services.component';
 import { specialClinicsNavGroup } from './specialized-clinics/special-clinic-dashboard.meta';
-
-// Dashboard metas from atencion-ambulatoria config (reused here)
-import { createLeftPanelLink } from './left-panel-link.component';
 
 const moduleName = '@sihsalus/esm-vih-app';
 const options = {

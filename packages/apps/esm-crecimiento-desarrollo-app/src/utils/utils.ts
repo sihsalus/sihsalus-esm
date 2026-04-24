@@ -1,6 +1,6 @@
 import { getPatientName, makeUrl, parseDate } from '@openmrs/esm-framework';
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 /**
  * Generates a URL based on the given path and the current location.

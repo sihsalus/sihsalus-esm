@@ -10,9 +10,9 @@
  * - Proper error handling and user feedback
  */
 
-import { useState, useCallback } from 'react';
+import { openmrsFetch, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { openmrsFetch, showSnackbar, useSession, useConfig } from '@openmrs/esm-framework';
 import type { Config } from '../../config-schema';
 
 interface VisitResponse {

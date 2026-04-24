@@ -1,6 +1,8 @@
 import {
   Button,
   DataTable,
+  DataTableSkeleton,
+  InlineLoading,
   Table,
   TableBody,
   TableCell,
@@ -11,10 +13,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  InlineLoading,
-  DataTableSkeleton,
 } from '@carbon/react';
-import { AddIcon, launchWorkspace, useLayoutType, isDesktop, formatDate } from '@openmrs/esm-framework';
+import { AddIcon, formatDate, isDesktop, launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
 import {
   CardHeader,
   EmptyState,

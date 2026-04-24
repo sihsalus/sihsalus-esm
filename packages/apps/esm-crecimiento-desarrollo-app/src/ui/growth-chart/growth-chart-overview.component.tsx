@@ -4,11 +4,10 @@ import { isDesktop as isDesktopLayout, launchWorkspace2, useLayoutType } from '@
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from './growth-chart-overview.scss';
-import GrowthChart from './growth-chart.component';
-import { useBiometrics } from './hooks/useBiometrics';
 import { getSafePatientName } from '../../utils/utils';
+import GrowthChart from './growth-chart.component';
+import styles from './growth-chart-overview.scss';
+import { useBiometrics } from './hooks/useBiometrics';
 
 interface GrowthChartProps {
   patient: fhir.Patient;

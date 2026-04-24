@@ -1,7 +1,7 @@
+import type { questionTypes } from '@constants';
 import type { OpenmrsResource } from '@openmrs/esm-framework';
 import type { FormSchema, ProgramState } from '@sihsalus/esm-form-engine-lib';
 import type { AuditInfo } from './components/audit-details/audit-details.component';
-import type { questionTypes } from '@constants';
 
 // Extend FormSchema to include description property
 export type FormBuilderSchema = Omit<FormSchema, 'translations'> & {

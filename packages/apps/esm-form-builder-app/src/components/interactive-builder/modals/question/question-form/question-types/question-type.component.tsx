@@ -1,12 +1,12 @@
+import type { QuestionType } from '@types';
 import React from 'react';
+import { useFormField } from '../../form-field-context';
 import {
   ObsTypeQuestion,
-  ProgramStateTypeQuestion,
   PatientIdentifierTypeQuestion,
+  ProgramStateTypeQuestion,
   TestOrderTypeQuestion,
 } from './inputs';
-import { useFormField } from '../../form-field-context';
-import type { QuestionType } from '@types';
 
 const componentMap: Partial<Record<QuestionType, React.FC>> = {
   obs: ObsTypeQuestion,

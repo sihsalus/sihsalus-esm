@@ -7,10 +7,9 @@ import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import PatientAppointmentContext, { PatientAppointmentContextTypes } from '../hooks/patientAppointmentContext';
-
+import { usePatientAppointments } from './patient-appointments.resource';
 import styles from './patient-appointments-base.scss';
 import PatientAppointmentsTable from './patient-appointments-table.component';
-import { usePatientAppointments } from './patient-appointments.resource';
 
 interface PatientAppointmentsBaseProps {
   patientUuid: string;

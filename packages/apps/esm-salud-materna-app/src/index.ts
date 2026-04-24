@@ -15,28 +15,28 @@ import FpCounseling from './maternal-and-child-health/components/family-planning
 import FpFollowup from './maternal-and-child-health/components/family-planning/fp-followup/fp-followup.component';
 import DeliveryOrAbortionTable from './maternal-and-child-health/components/labour-delivery/deliveryOrAbortion.component';
 import SummaryOfLaborAndPostpartumTable from './maternal-and-child-health/components/labour-delivery/summaryOfLaborAndPostpartum.component';
-import { LabourDelivery } from './maternal-and-child-health/labour-delivery.component';
-import { PostnatalCare } from './maternal-and-child-health/postnatal-care.component';
-import { PrenatalCare } from './maternal-and-child-health/prenatal-care.component';
-import { FamilyPlanning } from './maternal-and-child-health/family-planning.component';
 import ImmediatePostpartumTable from './maternal-and-child-health/components/postnatal-care/immediatePostpartum.component';
+import PostpartumTrackingWidget from './maternal-and-child-health/components/postnatal-care/postpartum-tracking.component';
 import PostpartumControlTable from './maternal-and-child-health/components/postnatal-care/postpartumControl.component';
+import BirthPlanWidget from './maternal-and-child-health/components/prenatal-care/birth-plan/birth-plan.component';
 import CurrentPregnancyTable from './maternal-and-child-health/components/prenatal-care/currentPregnancy.component';
 import MaternalHistoryTable from './maternal-and-child-health/components/prenatal-care/maternalHistory.component';
-import PrenatalCareChart from './maternal-and-child-health/components/prenatal-care/prenatalCareChart.component';
-import BirthPlanWidget from './maternal-and-child-health/components/prenatal-care/birth-plan/birth-plan.component';
-import RiskClassification from './maternal-and-child-health/components/prenatal-care/risk-classification/risk-classification.component';
-import PsychoprophylaxisWidget from './maternal-and-child-health/components/prenatal-care/psychoprophylaxis/psychoprophylaxis.component';
 import PrenatalSupplementationWidget from './maternal-and-child-health/components/prenatal-care/prenatal-supplementation/prenatal-supplementation.component';
-import PostpartumTrackingWidget from './maternal-and-child-health/components/postnatal-care/postpartum-tracking.component';
+import PrenatalCareChart from './maternal-and-child-health/components/prenatal-care/prenatalCareChart.component';
+import PsychoprophylaxisWidget from './maternal-and-child-health/components/prenatal-care/psychoprophylaxis/psychoprophylaxis.component';
+import RiskClassification from './maternal-and-child-health/components/prenatal-care/risk-classification/risk-classification.component';
 import {
+  cancerPreventionDashboardMeta,
+  familyPlanningDashboardMeta,
   labourAndDeliveryDashboardMeta,
   maternalAndChildHealthNavGroup,
   postnatalDashboardMeta,
   prenatalDashboardMeta,
-  familyPlanningDashboardMeta,
-  cancerPreventionDashboardMeta,
 } from './maternal-and-child-health/dashboard.meta';
+import { FamilyPlanning } from './maternal-and-child-health/family-planning.component';
+import { LabourDelivery } from './maternal-and-child-health/labour-delivery.component';
+import { PostnatalCare } from './maternal-and-child-health/postnatal-care.component';
+import { PrenatalCare } from './maternal-and-child-health/prenatal-care.component';
 import { ObstetricHistoryBase } from './ui/obstetric-history-widget';
 import PartographChart from './ui/partography/partograph-chart';
 

@@ -1,4 +1,4 @@
-import { fhirBaseUrl, openmrsFetch, type OpenmrsResource, restBaseUrl, type Visit } from '@openmrs/esm-framework';
+import { fhirBaseUrl, type OpenmrsResource, openmrsFetch, restBaseUrl, type Visit } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 export type QueuePriority = 'Emergency' | 'Not Urgent' | 'Priority' | 'Urgent';

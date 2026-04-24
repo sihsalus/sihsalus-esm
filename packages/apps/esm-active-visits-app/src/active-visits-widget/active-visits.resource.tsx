@@ -1,8 +1,8 @@
 import {
   type FetchResponse,
   formatDatetime,
-  openmrsFetch,
   type OpenmrsResource,
+  openmrsFetch,
   parseDate,
   restBaseUrl,
   useConfig,

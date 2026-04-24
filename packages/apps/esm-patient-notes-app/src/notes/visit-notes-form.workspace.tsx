@@ -17,24 +17,24 @@ import {
 import { Add, CloseFilled, WarningFilled } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  createAttachment,
+  createErrorHandler,
   type Encounter,
   ExtensionSlot,
   OpenmrsDatePicker,
   ResponsiveWrapper,
-  type UploadedFile,
-  Workspace2,
-  createAttachment,
-  createErrorHandler,
   restBaseUrl,
   showModal,
   showSnackbar,
+  type UploadedFile,
   useConfig,
   useLayoutType,
   useSession,
+  Workspace2,
 } from '@openmrs/esm-framework';
 import {
-  type PatientWorkspace2DefinitionProps,
   invalidateVisitAndEncounterData,
+  type PatientWorkspace2DefinitionProps,
   useAllowedFileExtensions,
 } from '@openmrs/esm-patient-common-lib';
 import classnames from 'classnames';
@@ -48,7 +48,6 @@ import { useSWRConfig } from 'swr';
 import { z } from 'zod';
 import type { ConfigObject } from '../config-schema';
 import type { Concept, Diagnosis, DiagnosisPayload, VisitNotePayload } from '../types';
-import styles from './visit-notes-form.scss';
 import {
   deletePatientDiagnosis,
   fetchDiagnosisConceptsByName,
@@ -57,6 +56,7 @@ import {
   updateVisitNote,
   useVisitNotes,
 } from './visit-notes.resource';
+import styles from './visit-notes-form.scss';
 
 type VisitNotesFormData = Omit<z.infer<ReturnType<typeof createSchema>>, 'images'> & {
   images?: UploadedFile[];

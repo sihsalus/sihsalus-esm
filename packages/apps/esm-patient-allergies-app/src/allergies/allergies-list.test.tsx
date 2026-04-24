@@ -1,8 +1,7 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { mockFhirAllergyIntoleranceResponse } from 'test-utils';
-import { mockFhirPatient, renderWithSwr } from 'test-utils';
+import { screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import { mockFhirAllergyIntoleranceResponse, mockFhirPatient, renderWithSwr } from 'test-utils';
 import AllergyList from './allergies-list.extension';
 
 const mockOpenmrsFetch = openmrsFetch as jest.Mock;

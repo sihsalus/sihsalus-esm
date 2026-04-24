@@ -1,5 +1,5 @@
-import { Tile, Tag } from '@carbon/react';
-import { CheckmarkFilled, WarningFilled, Time } from '@carbon/react/icons';
+import { Tag, Tile } from '@carbon/react';
+import { CheckmarkFilled, Time, WarningFilled } from '@carbon/react/icons';
 import { useConfig } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';

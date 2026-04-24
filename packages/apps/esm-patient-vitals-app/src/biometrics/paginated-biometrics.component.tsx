@@ -1,9 +1,9 @@
 import {
   DataTable,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
-  TableBody,
   TableHead,
   TableHeader,
   TableRow,

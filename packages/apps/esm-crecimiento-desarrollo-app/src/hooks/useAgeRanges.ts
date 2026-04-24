@@ -1,5 +1,5 @@
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // Type (aligned with VaccinationSchedule)
 interface AgeRange {

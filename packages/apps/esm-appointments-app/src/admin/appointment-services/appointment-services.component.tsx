@@ -7,10 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { appointmentLocationTagName } from '../../constants';
 import { closeOverlay } from '../../hooks/useOverlay';
 import type { AppointmentService } from '../../types';
-
+import styles from './appointment-services.scss';
 import { useAppointmentServices } from './appointment-services-hook';
 import { validationSchema } from './appointment-services-validation';
-import styles from './appointment-services.scss';
 
 const AppointmentServices: React.FC = () => {
   const { t } = useTranslation();

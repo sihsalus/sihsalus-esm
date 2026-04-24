@@ -5,10 +5,10 @@
  * Displays the 4 priority levels according to Peruvian technical standards.
  */
 
+import { InlineNotification, RadioButton, RadioButtonGroup } from '@carbon/react';
+import { Warning } from '@carbon/react/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RadioButtonGroup, RadioButton, InlineNotification } from '@carbon/react';
-import { Warning } from '@carbon/react/icons';
 import { usePriorityConfig } from '../../hooks/usePriorityConfig';
 import styles from './priority-selector.component.scss';
 

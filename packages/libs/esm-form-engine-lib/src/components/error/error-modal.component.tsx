@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
 import { InlineNotification } from '@carbon/react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fieldRequiredErrCode, fieldOutOfBoundErrCode } from '../../validators/form-validator';
 import type { ValidationResult } from '../../types';
+import { fieldOutOfBoundErrCode, fieldRequiredErrCode } from '../../validators/form-validator';
 import styles from './error.scss';
 
 const ErrorModal: React.FC<{ errors: ValidationResult[] }> = ({ errors }) => {

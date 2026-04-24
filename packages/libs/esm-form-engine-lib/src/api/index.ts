@@ -1,10 +1,10 @@
 import {
   attachmentUrl,
+  type FetchResponse,
   fhirBaseUrl,
+  type OpenmrsResource,
   openmrsFetch,
   restBaseUrl,
-  type FetchResponse,
-  type OpenmrsResource,
 } from '@openmrs/esm-framework/src/internal';
 import { encounterRepresentation } from '../constants';
 import type {

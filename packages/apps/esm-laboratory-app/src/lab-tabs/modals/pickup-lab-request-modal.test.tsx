@@ -1,7 +1,7 @@
-import React from 'react';
+import { type FetchResponse, type Order, showNotification, showSnackbar } from '@openmrs/esm-framework';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { showSnackbar, showNotification, type FetchResponse, type Order } from '@openmrs/esm-framework';
+import React from 'react';
 import { setFulfillerStatus, useInvalidateLabOrders } from '../../laboratory.resource';
 import PickupLabRequestModal from './pickup-lab-request-modal.component';
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeInterpretation, calculateInterpretation, type ObsReferenceRanges } from './interpretation-utils';
+import { calculateInterpretation, normalizeInterpretation, type ObsReferenceRanges } from './interpretation-utils';
 
 describe('normalizeInterpretation', () => {
   it('returns undefined for undefined input', () => {

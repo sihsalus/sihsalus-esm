@@ -1,27 +1,7 @@
-import React from 'react';
 import { Modal } from '@carbon/react';
 import { CheckmarkFilled } from '@carbon/react/icons';
-import Tooth from './Tooth';
-import type { FindingColor, FindingDesign, ToothFinding } from '../types/odontogram';
+import React from 'react';
 import {
-  Finding8Design1,
-  Finding8Design2,
-  Finding8Design3,
-  Finding37Design1,
-  Finding37Design2,
-  Finding37Design3,
-  Finding37Design4,
-  Finding37Design5,
-  Finding36Design1,
-  Finding36Design2,
-  Finding10Design1,
-  Finding10Design2,
-  Finding10Design3,
-  Finding10Design4,
-  Finding10Design5,
-  Finding10Design6,
-  Finding10Design7,
-  Finding10Design8,
   Finding5Design1,
   Finding5Design2,
   Finding5Design3,
@@ -36,6 +16,19 @@ import {
   Finding5Design12,
   Finding5Design13,
   Finding5Design14,
+  Finding8Design1,
+  Finding8Design2,
+  Finding8Design3,
+  Finding10Design1,
+  Finding10Design2,
+  Finding10Design3,
+  Finding10Design4,
+  Finding10Design5,
+  Finding10Design6,
+  Finding10Design7,
+  Finding10Design8,
+  Finding13Design1,
+  Finding13Design2,
   Finding27Design9,
   Finding35Design1,
   Finding35Design2,
@@ -51,9 +44,16 @@ import {
   Finding35Design12,
   Finding35Design13,
   Finding35Design14,
-  Finding13Design1,
-  Finding13Design2,
+  Finding36Design1,
+  Finding36Design2,
+  Finding37Design1,
+  Finding37Design2,
+  Finding37Design3,
+  Finding37Design4,
+  Finding37Design5,
 } from '../designs/figuras';
+import type { FindingColor, FindingDesign, ToothFinding } from '../types/odontogram';
+import Tooth from './Tooth';
 
 // Mapeo de nombres de componentes a componentes reales
 const designComponentMap = {

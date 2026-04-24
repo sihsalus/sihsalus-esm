@@ -5,10 +5,10 @@ import {
   omrsOfflineCachingStrategyHttpHeaderName,
   openmrsFetch,
   restBaseUrl,
+  type SyncItem,
+  type SyncProcessOptions,
   setupDynamicOfflineDataHandler,
   setupOfflineSync,
-  type SyncProcessOptions,
-  type SyncItem,
   type Visit,
 } from '@openmrs/esm-framework';
 import escapeRegExp from 'lodash-es/escapeRegExp';

@@ -1,7 +1,8 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
+import { type FetchResponse, type Workspace2DefinitionProps } from '@openmrs/esm-framework';
 import { render, screen, waitFor } from '@testing-library/react';
-import { type Workspace2DefinitionProps, type FetchResponse } from '@openmrs/esm-framework';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import type { BillableService } from '../../types';
 import {
   createBillableService,
   updateBillableService,
@@ -11,12 +12,11 @@ import {
   useServiceTypes,
 } from '../billable-service.resource';
 import BillableServiceFormWorkspace, {
-  transformServiceToFormData,
-  normalizePrice,
-  getAvailablePaymentModes,
   type BillableServiceFormWorkspaceProps,
+  getAvailablePaymentModes,
+  normalizePrice,
+  transformServiceToFormData,
 } from './billable-service-form.workspace';
-import type { BillableService } from '../../types';
 
 const mockUseBillableServices = jest.mocked(useBillableServices);
 const mockUsePaymentModes = jest.mocked(usePaymentModes);

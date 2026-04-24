@@ -1,7 +1,7 @@
 import { Button, NumberInput, Select, SelectItem } from '@carbon/react';
 import { Add, TrashCan } from '@carbon/react/icons';
 import { useState } from 'react';
-import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
+import { Controller, type UseFormReturn, useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import useGetInfrastructure from '../../../hooks/use-get-infrastructure';
@@ -10,6 +10,7 @@ import NoContent from '../../ui/NoContent/NoContent';
 import { type CostStructureFormValues } from '../schema/costructure-schema';
 
 import styles from './tabs.styles.scss';
+
 interface CalculateFields {
   totalConstruction: number;
   depreciationPerMinute: number;

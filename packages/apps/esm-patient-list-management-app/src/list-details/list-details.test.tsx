@@ -4,7 +4,7 @@ import React from 'react';
 
 import { deletePatientList } from '../api/api-remote';
 import { usePatientListDetails, usePatientListMembers } from '../api/hooks';
-import type { OpenmrsCohortMember, OpenmrsCohort } from '../api/types';
+import type { OpenmrsCohort, OpenmrsCohortMember } from '../api/types';
 
 import ListDetails from './list-details.component';
 

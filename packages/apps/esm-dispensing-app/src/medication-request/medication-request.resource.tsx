@@ -1,28 +1,28 @@
-import { useMemo } from 'react';
-import dayjs from 'dayjs';
-import useSWR from 'swr';
 import { fhirBaseUrl, openmrsFetch, parseDate } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import { useMemo } from 'react';
+import useSWR from 'swr';
 import { JSON_MERGE_PATH_MIME_TYPE, OPENMRS_FHIR_EXT_REQUEST_FULFILLER_STATUS } from '../constants';
 import {
   type AllergyIntoleranceResponse,
+  type Encounter,
   type EncounterResponse,
+  type MedicationDispense,
   type MedicationRequest,
+  type MedicationRequestBundle,
+  type MedicationRequestFulfillerStatus,
   type MedicationRequestResponse,
   type PrescriptionsTableRow,
-  type MedicationDispense,
-  type Encounter,
-  type MedicationRequestFulfillerStatus,
-  type MedicationRequestBundle,
   type SimpleLocation,
 } from '../types';
 import {
-  getPrescriptionDetailsEndpoint,
-  getMedicationDisplay,
-  getMedicationReferenceOrCodeableConcept,
-  getPrescriptionTableEndpoint,
-  sortMedicationDispensesByWhenHandedOver,
   computePrescriptionStatusMessageCode,
   getAssociatedMedicationDispenses,
+  getMedicationDisplay,
+  getMedicationReferenceOrCodeableConcept,
+  getPrescriptionDetailsEndpoint,
+  getPrescriptionTableEndpoint,
+  sortMedicationDispensesByWhenHandedOver,
 } from '../utils';
 
 export function usePrescriptionsTable(

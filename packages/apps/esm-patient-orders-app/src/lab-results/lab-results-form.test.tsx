@@ -4,17 +4,16 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { type Encounter } from '../types/encounter';
-
-import LabResultsForm from './lab-results-form.component';
 import {
-  useOrderConceptByUuid,
-  useLabEncounter,
-  useObservation,
+  type Datatype,
   type LabOrderConcept,
   updateOrderResult,
-  type Datatype,
   useCompletedLabResults,
+  useLabEncounter,
+  useObservation,
+  useOrderConceptByUuid,
 } from './lab-results.resource';
+import LabResultsForm from './lab-results-form.component';
 
 const mockUseOrderConceptByUuid = jest.mocked(useOrderConceptByUuid);
 const mockUseLabEncounter = jest.mocked(useLabEncounter);

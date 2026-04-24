@@ -1,8 +1,8 @@
-import React from 'react';
+import { Link, ModalBody, ModalHeader } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
-import { ModalHeader, ModalBody, Link } from '@carbon/react';
+import { navigate, useAppContext, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useConfig, useAppContext, navigate } from '@openmrs/esm-framework';
 import { type Config } from '../config-schema';
 import { type TutorialContext } from '../types';
 import styles from './styles.scss';

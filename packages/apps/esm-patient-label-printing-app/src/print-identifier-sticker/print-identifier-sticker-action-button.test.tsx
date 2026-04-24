@@ -1,11 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
+import { getDefaultsFromConfigSchema, showSnackbar, UserHasAccess, useConfig } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import { getDefaultsFromConfigSchema, showSnackbar, useConfig, UserHasAccess } from '@openmrs/esm-framework';
-import { mockFhirPatient } from 'test-utils';
-import { renderWithSwr } from 'test-utils';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
+import { mockFhirPatient, renderWithSwr } from 'test-utils';
+import { type ConfigObject, configSchema } from '../config-schema';
 import { useStickerPdfPrinter } from '../hooks/useStickerPdfPrinter';
-import { configSchema, type ConfigObject } from '../config-schema';
 import PrintIdentifierStickerOverflowMenuItem from './print-identifier-sticker-action-button.component';
 
 jest.mock('../hooks/useStickerPdfPrinter');

@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react';
 import { useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
 import { type MedicationRequest, MedicationRequestStatus } from '../types';
 import MedicationEvent from './medication-event.component';
 

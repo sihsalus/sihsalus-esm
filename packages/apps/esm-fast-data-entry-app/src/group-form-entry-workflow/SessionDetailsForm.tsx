@@ -1,15 +1,15 @@
-import { Layer, Tile, TextInput, TextArea, DatePicker, DatePickerInput } from '@carbon/react';
-import React, { useContext } from 'react';
+import { DatePicker, DatePickerInput, Layer, TextArea, TextInput, Tile } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
-import { useParams } from 'react-router-dom';
-import styles from './styles.scss';
-import { useTranslation } from 'react-i18next';
+import React, { useContext } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { AttendanceTable } from './attendance-table';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import GroupFormWorkflowContext from '../context/GroupFormWorkflowContext';
 import useGetPatients from '../hooks/useGetPatients';
-import ConfigurableQuestionsSection from './configurable-questions/ConfigurableQuestionsSection';
 import useSpecificQuestions from '../hooks/useSpecificQuestions';
+import { AttendanceTable } from './attendance-table';
+import ConfigurableQuestionsSection from './configurable-questions/ConfigurableQuestionsSection';
+import styles from './styles.scss';
 
 interface ParamTypes {
   formUuid?: string;

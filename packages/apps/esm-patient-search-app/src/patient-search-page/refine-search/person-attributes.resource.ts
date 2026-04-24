@@ -1,8 +1,8 @@
 import {
   type FetchResponse,
   fhirBaseUrl,
-  openmrsFetch,
   type OpenmrsResource,
+  openmrsFetch,
   restBaseUrl,
   useDebounce,
 } from '@openmrs/esm-framework';

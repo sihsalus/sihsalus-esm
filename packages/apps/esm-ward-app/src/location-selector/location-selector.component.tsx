@@ -4,10 +4,10 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   isDesktop,
+  type Location,
   ResponsiveWrapper,
   useDebounce,
   useLayoutType,
-  type Location,
 } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React, { useCallback, useMemo, useState } from 'react';

@@ -1,4 +1,4 @@
-import { Layer, Search, type SearchProps as CarbonSearchProps } from '@carbon/react';
+import { type SearchProps as CarbonSearchProps, Layer, Search } from '@carbon/react';
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 

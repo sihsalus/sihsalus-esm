@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { getCoreTranslation, isDesktop, showModal, useLayoutType } from '@openmrs/esm-framework';
+import React, { useCallback } from 'react';
 import { type LineItem, type MappedBill } from '../types';
 import styles from './line-item-action-menu.scss';
 

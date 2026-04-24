@@ -5,8 +5,8 @@ import React from 'react';
 
 import { esmPatientRegistrationSchema, type RegistrationConfig } from '../../config-schema';
 import { type Resources, ResourcesContext } from '../../offline.resources';
-import { PatientRegistrationContext } from '../patient-registration-context';
 import type { AddressTemplate, FormValues } from '../patient-registration.types';
+import { PatientRegistrationContext } from '../patient-registration-context';
 
 import { Field } from './field.component';
 

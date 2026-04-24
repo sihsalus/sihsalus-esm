@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Button, ComboBox, FileUploader, Form, FormGroup, Row, Stack } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   createErrorHandler,
   ExtensionSlot,
@@ -8,16 +8,14 @@ import {
   useLayoutType,
 } from '@openmrs/esm-framework';
 import { type DefaultPatientWorkspaceProps } from '@openmrs/esm-patient-common-lib';
-import { uploadStudies, useOrthancConfigurations } from '../../api';
-import { Button, ComboBox, Form, Stack, Row } from '@carbon/react';
-import { getBrowserUrl, type OrthancConfiguration } from '../../types';
-import { FileUploader } from '@carbon/react';
-import styles from './studies.scss';
-import { maxUploadImageDataSize } from '../constants';
-import { z } from 'zod';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormGroup } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
+import { uploadStudies, useOrthancConfigurations } from '../../api';
+import { getBrowserUrl, type OrthancConfiguration } from '../../types';
+import { maxUploadImageDataSize } from '../constants';
+import styles from './studies.scss';
 
 const UploadStudiesWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ patientUuid, closeWorkspace }) => {
   const { t } = useTranslation();

@@ -1,9 +1,9 @@
-import React from 'react';
 import { Layer } from '@carbon/react';
+import { useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+import type { PharmacyConfig } from '../config-schema';
 import PrescriptionPrintAction from '../print-prescription/prescription-print-action.component';
 import styles from './prescription-actions.scss';
-import { useConfig } from '@openmrs/esm-framework';
-import type { PharmacyConfig } from '../config-schema';
 
 type PrescriptionsActionsFooterProps = {
   encounterUuid: string;

@@ -27,7 +27,7 @@ import {
 import fuzzy from 'fuzzy';
 import type { TFunction } from 'i18next';
 import orderBy from 'lodash-es/orderBy';
-import React, { type CSSProperties, useCallback, useId, useMemo, useState, useEffect } from 'react';
+import React, { type CSSProperties, useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { starPatientList } from '../api/api-remote';

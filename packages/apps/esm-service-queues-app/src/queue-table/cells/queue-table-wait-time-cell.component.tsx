@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 
 import QueueDuration from '../../queue-entry-table-components/queue-duration.component';
-import { type QueueTableColumnFunction, type QueueTableCellComponentProps } from '../../types';
+import { type QueueTableCellComponentProps, type QueueTableColumnFunction } from '../../types';
 
 export const QueueTableWaitTimeCell = ({ queueEntry }: QueueTableCellComponentProps) => {
   const startedAt = dayjs(queueEntry.startedAt).toDate();

@@ -1,9 +1,9 @@
-import userEvent from '@testing-library/user-event';
 import { openmrsFetch } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { useLocations } from '../../cohort-builder.resources';
-import { usePrograms } from './search-by-enrollments.resources';
 import SearchByEnrollments from './search-by-enrollments.component';
+import { usePrograms } from './search-by-enrollments.resources';
 
 const mockLocations = [
   {

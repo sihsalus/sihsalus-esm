@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react';
 import { usePagination } from '@openmrs/esm-framework';
-import { usePatientConditions } from './conditions.resource';
+import { render, screen } from '@testing-library/react';
 import PatientConditions from './conditions.component';
+import { usePatientConditions } from './conditions.resource';
 
 jest.mock('./conditions.resource', () => ({
   usePatientConditions: jest.fn(),

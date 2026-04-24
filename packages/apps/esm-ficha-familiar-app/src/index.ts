@@ -5,6 +5,11 @@ import { configSchema } from './config-schema';
 
 import ContactList from './contact-list/contact-list.component';
 import ContactListForm from './contact-list/contact-list.workspace';
+import {
+  familyHistoryDashboardMeta,
+  otherRelationshipsDashboardMeta,
+  relationshipsDashboardMeta,
+} from './dashboard.meta';
 import FamilyHistory from './family-partner-history/family-history.component';
 import FamilyRelationshipForm from './family-partner-history/family-relationship.workspace';
 import { OtherRelationships } from './other-relationships/other-relationships.component';
@@ -13,12 +18,6 @@ import RelationshipUpdateForm from './relationships/forms/relationships-update-f
 import BirthDateCalculator from './relationships/modals/birthdate-calculator.modal';
 import DeleteRelationshipConfirmDialog from './relationships/modals/delete-relationship-dialog.modal';
 import Relationships from './relationships/relationships.component';
-
-import {
-  familyHistoryDashboardMeta,
-  otherRelationshipsDashboardMeta,
-  relationshipsDashboardMeta,
-} from './dashboard.meta';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 

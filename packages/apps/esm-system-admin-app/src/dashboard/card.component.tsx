@@ -1,4 +1,4 @@
-import { Layer, ClickableTile, type TileProps } from '@carbon/react';
+import { ClickableTile, Layer, type TileProps } from '@carbon/react';
 import { ArrowRightIcon } from '@openmrs/esm-framework';
 import React from 'react';
 

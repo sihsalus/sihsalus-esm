@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
-import { useForm, FormProvider, type SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Button, ButtonSet, Form, InlineLoading, InlineNotification } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLayoutType, Workspace2 } from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
   type PatientWorkspace2DefinitionProps,
 } from '@openmrs/esm-patient-common-lib';
+import classNames from 'classnames';
+import type { TFunction } from 'i18next';
+import React, { useCallback, useState } from 'react';
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { z } from 'zod';
 import { type Condition, useConditions } from './conditions.resource';
-import ConditionsWidget from './conditions-widget.component';
 import styles from './conditions-form.scss';
+import ConditionsWidget from './conditions-widget.component';
 
 export interface ConditionFormProps {
   condition?: Condition;

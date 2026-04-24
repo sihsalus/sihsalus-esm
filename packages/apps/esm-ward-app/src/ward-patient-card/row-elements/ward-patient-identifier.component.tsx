@@ -1,4 +1,4 @@
-import { type Patient, type PatientIdentifier, PatientBannerPatientIdentifiers } from '@openmrs/esm-framework';
+import { type Patient, PatientBannerPatientIdentifiers, type PatientIdentifier } from '@openmrs/esm-framework';
 import React from 'react';
 
 import { useElementConfig } from '../../ward-view/ward-view.resource';

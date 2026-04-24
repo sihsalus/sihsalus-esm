@@ -2,7 +2,7 @@ import { usePatient } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
-import { generateCREDSchedule, type CREDScheduledControl } from '../utils/cred-schedule-rules';
+import { type CREDScheduledControl, generateCREDSchedule } from '../utils/cred-schedule-rules';
 
 import useAppointmentsCRED from './useAppointmentsCRED';
 import useEncountersCRED from './useEncountersCRED';

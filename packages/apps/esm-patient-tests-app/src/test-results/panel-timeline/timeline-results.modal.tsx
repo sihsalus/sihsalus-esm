@@ -1,4 +1,4 @@
-import { ModalHeader, ModalBody } from '@carbon/react';
+import { ModalBody, ModalHeader } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

@@ -1,8 +1,8 @@
 import {
-  StructuredListHead,
-  StructuredListCell,
-  StructuredListRow,
   StructuredListBody,
+  StructuredListCell,
+  StructuredListHead,
+  StructuredListRow,
   StructuredListWrapper,
 } from '@carbon/react';
 import { formatDatetime, parseDate } from '@openmrs/esm-framework';

@@ -3,7 +3,7 @@ import { ConfigurableLink } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter, useMatch, generatePath } from 'react-router-dom';
+import { BrowserRouter, generatePath, useMatch } from 'react-router-dom';
 
 import { useQueues } from '../hooks/useQueues';
 import { type Queue } from '../types';

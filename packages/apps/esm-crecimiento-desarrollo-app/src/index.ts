@@ -5,54 +5,50 @@ import type React from 'react';
 
 import { createDashboardGroup } from './clinical-view-group/createDashboardGroup';
 import { configSchema } from './config-schema';
-
-// Well Child Care Components
-import SlotPlaceholder from './ui/slot-placeholder/slot-placeholder.component';
-import { ChildImmunizationSchedule } from './well-child-care/child-immunization.component';
-import { NeonatalCare } from './well-child-care/neonatal-care.component';
-import { WellChildControl } from './well-child-care/well-child-control.component';
-import { EarlyStimulation } from './well-child-care/early-stimulation.component';
-import { ChildNutrition } from './well-child-care/child-nutrition.component';
-import AlojamientoConjunto from './well-child-care/components/alojamiento-conjunto';
-import CredControlsCheckout from './well-child-care/components/cred-controls-timeline/cred-checkups.component';
-import CredControlsMatrix from './well-child-care/components/cred-controls-timeline/cred-matrix.component';
-import CredControlsTimeline from './well-child-care/components/cred-controls-timeline/cred-controls-timeline.component';
-import BirthDataTable from './well-child-care/components/neonatal-register/detalles-nacimiento/birth-date.component';
-import PregnancyBirthTable from './well-child-care/components/neonatal-register/detalles-embarazo/pregnancy-table.component';
-import LabourHistory from './well-child-care/components/neonatal-register/labour-history/labour-history.component';
-import NeonatalAttention from './well-child-care/components/neonatal-attention/neonatal-attention.component';
-import NeonatalCounseling from './well-child-care/components/neonatal-counseling/neonatal-consuling.component';
-import NeonatalEvaluation from './well-child-care/components/neonatal-evaluation/neonatal-evaluation.component';
-import NewbornBalanceOverview from './well-child-care/components/newborn-monitoring/newborn balance/balance-overview.component';
-import NewbornBiometricsBase from './well-child-care/components/newborn-monitoring/newborn biometrics/biometrics-base.component';
-import VaccinationSchedule from './well-child-care/components/vaccination-schema-widget/vaccinationSchedule.component';
-import AdverseReactionsSummary from './well-child-care/components/adverse-reactions-summary/adverse-reactions-summary.component';
-import AnemiaScreening from './well-child-care/components/anemia-screening/anemia-screening.component';
-import SupplementationTracker from './well-child-care/components/supplementation/supplementation-tracker.component';
-import ScreeningIndicators from './well-child-care/components/screening/screening-indicators.component';
-import DevelopmentOverview from './well-child-care/components/development-overview/development-overview.component';
-import PrenatalAntecedents from './well-child-care/components/neonatal-register/prenatal-history/prenatal-history.component';
-import CREDFormActionButton from './well-child-care/components/cred-form-action-button.component';
-import ChildMedicalHistory from './ui/conditions-filter/conditions-overview.component';
-
-// Child Nutrition Components
-import NutritionalAssessment from './well-child-care/components/child-nutrition/nutritional-assessment/nutritional-assessment.component';
-import FeedingCounseling from './well-child-care/components/child-nutrition/feeding-counseling/feeding-counseling.component';
-import NutritionFollowup from './well-child-care/components/child-nutrition/nutrition-followup/nutrition-followup.component';
-
-// Early Stimulation Components
-import StimulationSessions from './well-child-care/components/early-stimulation/stimulation-sessions/stimulation-sessions.component';
-import StimulationFollowup from './well-child-care/components/early-stimulation/stimulation-followup/stimulation-followup.component';
-import StimulationCounseling from './well-child-care/components/early-stimulation/stimulation-counseling/stimulation-counseling.component';
-
 import {
   childImmunizationScheduleDashboardMeta,
+  childNutritionDashboardMeta,
+  earlyStimulationDashboardMeta,
   neonatalCareDashboardMeta,
   wellChildCareNavGroup,
   wellChildControlDashboardMeta,
-  earlyStimulationDashboardMeta,
-  childNutritionDashboardMeta,
 } from './dashboard.meta';
+import ChildMedicalHistory from './ui/conditions-filter/conditions-overview.component';
+// Well Child Care Components
+import SlotPlaceholder from './ui/slot-placeholder/slot-placeholder.component';
+import { ChildImmunizationSchedule } from './well-child-care/child-immunization.component';
+import { ChildNutrition } from './well-child-care/child-nutrition.component';
+import AdverseReactionsSummary from './well-child-care/components/adverse-reactions-summary/adverse-reactions-summary.component';
+import AlojamientoConjunto from './well-child-care/components/alojamiento-conjunto';
+import AnemiaScreening from './well-child-care/components/anemia-screening/anemia-screening.component';
+import FeedingCounseling from './well-child-care/components/child-nutrition/feeding-counseling/feeding-counseling.component';
+import NutritionFollowup from './well-child-care/components/child-nutrition/nutrition-followup/nutrition-followup.component';
+// Child Nutrition Components
+import NutritionalAssessment from './well-child-care/components/child-nutrition/nutritional-assessment/nutritional-assessment.component';
+import CredControlsCheckout from './well-child-care/components/cred-controls-timeline/cred-checkups.component';
+import CredControlsTimeline from './well-child-care/components/cred-controls-timeline/cred-controls-timeline.component';
+import CredControlsMatrix from './well-child-care/components/cred-controls-timeline/cred-matrix.component';
+import CREDFormActionButton from './well-child-care/components/cred-form-action-button.component';
+import DevelopmentOverview from './well-child-care/components/development-overview/development-overview.component';
+import StimulationCounseling from './well-child-care/components/early-stimulation/stimulation-counseling/stimulation-counseling.component';
+import StimulationFollowup from './well-child-care/components/early-stimulation/stimulation-followup/stimulation-followup.component';
+// Early Stimulation Components
+import StimulationSessions from './well-child-care/components/early-stimulation/stimulation-sessions/stimulation-sessions.component';
+import NeonatalAttention from './well-child-care/components/neonatal-attention/neonatal-attention.component';
+import NeonatalCounseling from './well-child-care/components/neonatal-counseling/neonatal-consuling.component';
+import NeonatalEvaluation from './well-child-care/components/neonatal-evaluation/neonatal-evaluation.component';
+import PregnancyBirthTable from './well-child-care/components/neonatal-register/detalles-embarazo/pregnancy-table.component';
+import BirthDataTable from './well-child-care/components/neonatal-register/detalles-nacimiento/birth-date.component';
+import LabourHistory from './well-child-care/components/neonatal-register/labour-history/labour-history.component';
+import PrenatalAntecedents from './well-child-care/components/neonatal-register/prenatal-history/prenatal-history.component';
+import NewbornBalanceOverview from './well-child-care/components/newborn-monitoring/newborn balance/balance-overview.component';
+import NewbornBiometricsBase from './well-child-care/components/newborn-monitoring/newborn biometrics/biometrics-base.component';
+import ScreeningIndicators from './well-child-care/components/screening/screening-indicators.component';
+import SupplementationTracker from './well-child-care/components/supplementation/supplementation-tracker.component';
+import VaccinationSchedule from './well-child-care/components/vaccination-schema-widget/vaccinationSchedule.component';
+import { EarlyStimulation } from './well-child-care/early-stimulation.component';
+import { NeonatalCare } from './well-child-care/neonatal-care.component';
+import { WellChildControl } from './well-child-care/well-child-control.component';
 
 const moduleName = '@sihsalus/esm-cred-app';
 const options = {

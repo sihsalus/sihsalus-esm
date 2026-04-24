@@ -1,30 +1,27 @@
-import React, { type ComponentProps, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
   DataTableSkeleton,
+  InlineLoading,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
-  InlineLoading,
-  TableExpandHeader,
-  TableExpandRow,
   TableContainer,
   TableExpandedRow,
+  TableExpandHeader,
+  TableExpandRow,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
-import { orderBy } from 'lodash-es';
 import {
   AddIcon,
   formatDate,
+  launchWorkspace2,
   parseDate,
   useConfig,
   useLayoutType,
   usePagination,
-  launchWorkspace2,
 } from '@openmrs/esm-framework';
 import {
   CardHeader,
@@ -33,10 +30,13 @@ import {
   PatientChartPagination,
   useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
-import { immunizationFormSub, latestFirst, linkConfiguredSequences } from './utils';
+import { orderBy } from 'lodash-es';
+import React, { type ComponentProps, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useImmunizations } from '../hooks/useImmunizations';
 import SequenceTable from './components/immunizations-sequence-table.component';
 import styles from './immunizations-detailed-summary.scss';
+import { immunizationFormSub, latestFirst, linkConfiguredSequences } from './utils';
 
 interface ImmunizationsDetailedSummaryProps {
   patientUuid: string;

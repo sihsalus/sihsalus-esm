@@ -1,5 +1,5 @@
 import { getCoreTranslation } from '@openmrs/esm-framework';
-import { type Payment, type LineItem } from '../types';
+import { type LineItem, type Payment } from '../types';
 
 // amount already paid
 export function calculateTotalAmountTendered(payments: Array<Payment>) {

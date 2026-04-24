@@ -1,22 +1,22 @@
 import { Button } from '@carbon/react';
 import { EditIcon, ResetIcon } from '@openmrs/esm-framework';
 import {
-  clearConfigErrors,
-  temporaryConfigStore,
-  type ConfigValue,
   type Config,
-  type Validator,
+  type ConfigValue,
+  clearConfigErrors,
   type Type,
+  temporaryConfigStore,
+  type Validator,
 } from '@openmrs/esm-framework/src/internal';
-import { isEqual, cloneDeep, unset } from 'lodash-es';
-import React, { useState, useEffect, useRef } from 'react';
+import { cloneDeep, isEqual, unset } from 'lodash-es';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { implementerToolsStore, type ImplementerToolsStore } from '../../store';
+import { type ImplementerToolsStore, implementerToolsStore } from '../../store';
 
 import { DisplayValue } from './display-value';
 import styles from './editable-value.styles.scss';
-import { ValueEditor, type CustomValueType } from './value-editor';
+import { type CustomValueType, ValueEditor } from './value-editor';
 
 export interface EditableValueProps {
   path: Array<string>;

@@ -8,7 +8,7 @@
  * Final values are flushed to state on touchEnd.
  */
 
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface PinchZoomOptions {
   /** Minimum effective scale (baseScale × userZoom). Default: 0.2 */

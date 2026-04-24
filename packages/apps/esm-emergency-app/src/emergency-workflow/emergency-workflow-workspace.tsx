@@ -6,19 +6,19 @@
  * 2. CONFIRMACION - Success summary with options to register another or close
  */
 
+import { type DefaultWorkspaceProps, showSnackbar, useConfig } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
-import { type DefaultWorkspaceProps, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { type Config } from '../config-schema';
+import { useEmergencyConfig } from '../hooks/usePriorityConfig';
+import { createEmergencyQueueEntry } from '../resources/emergency.resource';
+import { type InitialPriority, mapInitialPriorityToConfig } from './components/initial-priority-selector.component';
+import styles from './emergency-workflow-workspace.scss';
+import { useEmergencyVisit } from './hooks/useEmergencyVisit';
 import PatientSearchRegistration from './patient-search-registration.component';
 import { ConfirmationStep } from './steps';
-import { WorkflowStep, type WorkflowState, type SearchedPatient } from './types';
-import { type Config } from '../config-schema';
-import { createEmergencyQueueEntry } from '../resources/emergency.resource';
-import { useEmergencyConfig } from '../hooks/usePriorityConfig';
-import { useEmergencyVisit } from './hooks/useEmergencyVisit';
-import { mapInitialPriorityToConfig, type InitialPriority } from './components/initial-priority-selector.component';
-import styles from './emergency-workflow-workspace.scss';
+import { type SearchedPatient, type WorkflowState, WorkflowStep } from './types';
 
 interface EmergencyWorkflowWorkspaceProps extends DefaultWorkspaceProps {
   selectedPatientUuid?: string;

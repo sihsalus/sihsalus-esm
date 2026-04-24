@@ -2,12 +2,12 @@
 import {
   DataTable,
   Table,
+  TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableHeader,
   TableRow,
-  TableCell,
-  TableBody,
 } from '@carbon/react';
 import { useLayoutType } from '@openmrs/esm-framework';
 import { type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';

@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import {
   Button,
   InlineLoading,
@@ -10,11 +9,12 @@ import {
   Stack,
   Tag,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
 import { usePriorityConfig } from '../hooks/usePriorityConfig';
-import { transitionEmergencyQueueEntry, useQueues, type EmergencyQueueEntry } from '../resources/emergency.resource';
+import { type EmergencyQueueEntry, transitionEmergencyQueueEntry, useQueues } from '../resources/emergency.resource';
 import styles from './move-queue-entry.modal.scss';
 
 interface MoveQueueEntryModalProps {

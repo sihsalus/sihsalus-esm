@@ -1,5 +1,3 @@
-import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -33,13 +31,13 @@ import {
   WarningAltFilled,
 } from '@carbon/react/icons';
 import { isDesktop, restBaseUrl, useSession } from '@openmrs/esm-framework';
-import { useGetReports } from '../stock-reports.resource';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  URL_BATCH_JOB_ARTIFACT,
   APP_STOCKMANAGEMENT_REPORTS_VIEW,
   TASK_STOCKMANAGEMENT_REPORTS_MUTATE,
+  URL_BATCH_JOB_ARTIFACT,
 } from '../../constants';
-import { formatDisplayDateTime } from '../../core/utils/datetimeUtils';
 import {
   BatchJobStatusCancelled,
   BatchJobStatusCompleted,
@@ -47,11 +45,13 @@ import {
   BatchJobStatusFailed,
   BatchJobStatusPending,
 } from '../../core/api/types/BatchJob';
-import { handleMutate } from '../../utils';
 import { PrivilegedView } from '../../core/components/privileged-view-component/privileged-view.component';
+import { formatDisplayDateTime } from '../../core/utils/datetimeUtils';
+import { handleMutate } from '../../utils';
+import { useGetReports } from '../stock-reports.resource';
 import NewReportActionButton from './new-report-button.component';
-import StockReportStatus from './stock-report-status.component';
 import StockReportParameters from './stock-report-parameters.component';
+import StockReportStatus from './stock-report-status.component';
 import styles from './stock-reports.scss';
 
 const StockReports: React.FC = () => {

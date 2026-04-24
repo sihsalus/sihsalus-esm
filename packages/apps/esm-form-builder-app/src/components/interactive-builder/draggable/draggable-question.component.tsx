@@ -1,13 +1,13 @@
-import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
-import { SortableContext, useSortable } from '@dnd-kit/sortable';
-import { useTranslation } from 'react-i18next';
 import { IconButton } from '@carbon/react';
-import { Draggable, Edit, TrashCan, Copy } from '@carbon/react/icons';
-import { showModal, ChevronDownIcon, ChevronUpIcon } from '@openmrs/esm-framework';
-import MarkdownWrapper from '../markdown-wrapper/markdown-wrapper';
+import { Copy, Draggable, Edit, TrashCan } from '@carbon/react/icons';
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
+import { ChevronDownIcon, ChevronUpIcon, showModal } from '@openmrs/esm-framework';
 import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import type { Schema } from '@types';
+import classNames from 'classnames';
+import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import MarkdownWrapper from '../markdown-wrapper/markdown-wrapper';
 import styles from './draggable-question.scss';
 
 interface DraggableQuestionProps {

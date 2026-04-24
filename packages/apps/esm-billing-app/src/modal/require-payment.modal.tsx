@@ -1,5 +1,3 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   InlineLoading,
@@ -13,6 +11,8 @@ import {
   StructuredListWrapper,
 } from '@carbon/react';
 import { getCoreTranslation, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBills } from '../billing.resource';
 import { convertToCurrency } from '../helpers';
 import styles from './require-payment.scss';

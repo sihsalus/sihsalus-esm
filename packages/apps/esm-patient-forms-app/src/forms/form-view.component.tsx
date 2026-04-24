@@ -1,4 +1,5 @@
 import {
+  Button,
   DataTable,
   Layer,
   Table,
@@ -11,13 +12,12 @@ import {
   TableToolbarContent,
   TableToolbarSearch,
   Tile,
-  Button,
 } from '@carbon/react';
 import { EditIcon, formatDatetime, useConfig, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import {
   EmptyDataIllustration,
-  PatientChartPagination,
   launchPatientWorkspace,
+  PatientChartPagination,
   useVisitOrOfflineVisit,
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';

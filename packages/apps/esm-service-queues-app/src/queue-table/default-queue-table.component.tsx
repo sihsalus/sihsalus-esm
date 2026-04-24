@@ -25,9 +25,9 @@ import useQueueServices from '../hooks/useQueueService';
 import useQueueStatuses from '../hooks/useQueueStatuses';
 
 import { useColumns } from './cells/columns.resource';
-import QueueTableExpandedRow from './queue-table-expanded-row.component';
 import QueueTable from './queue-table.component';
 import styles from './queue-table.scss';
+import QueueTableExpandedRow from './queue-table-expanded-row.component';
 
 const serviceQueuesPatientSearchWorkspace = 'create-queue-entry-workspace';
 

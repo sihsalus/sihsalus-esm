@@ -1,15 +1,15 @@
-import React from 'react';
 import { SkeletonText, Tag, Tile } from '@carbon/react';
 import { WarningFilled } from '@carbon/react/icons';
+import { type PatientUuid, UserHasAccess, useConfig } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { type PatientUuid, useConfig, UserHasAccess } from '@openmrs/esm-framework';
-import { computeMedicationRequestCombinedStatus, getConceptCodingDisplay, useStaleEncounterUuids } from '../utils';
-import { PRIVILEGE_CREATE_DISPENSE } from '../constants';
-import { type AllergyIntolerance, type MedicationRequest, MedicationRequestCombinedStatus } from '../types';
-import { type PharmacyConfig } from '../config-schema';
-import { usePatientAllergies, usePrescriptionDetails } from '../medication-request/medication-request.resource';
 import ActionButtons from '../components/action-buttons.component';
 import MedicationEvent from '../components/medication-event.component';
+import { type PharmacyConfig } from '../config-schema';
+import { PRIVILEGE_CREATE_DISPENSE } from '../constants';
+import { usePatientAllergies, usePrescriptionDetails } from '../medication-request/medication-request.resource';
+import { type AllergyIntolerance, type MedicationRequest, MedicationRequestCombinedStatus } from '../types';
+import { computeMedicationRequestCombinedStatus, getConceptCodingDisplay, useStaleEncounterUuids } from '../utils';
 import PrescriptionsActionsFooter from './prescription-actions.component';
 import styles from './prescription-details.scss';
 

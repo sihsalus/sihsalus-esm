@@ -1,5 +1,13 @@
-import useSWR from 'swr';
 import { openmrsFetch, type Session } from '@openmrs/esm-framework';
+import dayjs from 'dayjs';
+import useSWR from 'swr';
+import {
+  type MedicationDispense,
+  MedicationDispenseStatus,
+  type MedicationRequest,
+  MedicationRequestStatus,
+  type Provider,
+} from '../types';
 import {
   deleteMedicationDispense,
   initiateMedicationDispenseBody,
@@ -8,14 +16,6 @@ import {
   useSubstitutionReasonValueSet,
   useSubstitutionTypeValueSet,
 } from './medication-dispense.resource';
-import {
-  type MedicationDispense,
-  type MedicationRequest,
-  MedicationDispenseStatus,
-  MedicationRequestStatus,
-  type Provider,
-} from '../types';
-import dayjs from 'dayjs';
 
 jest.mocked(openmrsFetch);
 jest.mock('swr');

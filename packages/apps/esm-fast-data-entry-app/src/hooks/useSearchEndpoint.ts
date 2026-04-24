@@ -1,4 +1,4 @@
-import { openmrsFetch, type FetchResponse, restBaseUrl } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useCallback, useMemo } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
@@ -100,4 +100,4 @@ const useSearchCohortInfinite = ({ ...props }: SearchInfiniteProps): SearchRespo
   });
 };
 
-export { useSearchEndpointInfinite, useSearchCohortInfinite };
+export { useSearchCohortInfinite, useSearchEndpointInfinite };

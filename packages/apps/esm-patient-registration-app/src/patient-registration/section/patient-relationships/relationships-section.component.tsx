@@ -1,10 +1,10 @@
 import {
   Button,
+  InlineNotification,
   Layer,
+  NotificationActionButton,
   Select,
   SelectItem,
-  InlineNotification,
-  NotificationActionButton,
   SkeletonText,
 } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
@@ -14,9 +14,9 @@ import { useTranslation } from 'react-i18next';
 
 import { ResourcesContext } from '../../../offline.resources';
 import { Autosuggest } from '../../input/custom-input/autosuggest/autosuggest.component';
-import { PatientRegistrationContext } from '../../patient-registration-context';
 import { fetchPerson } from '../../patient-registration.resource';
 import { type RelationshipValue } from '../../patient-registration.types';
+import { PatientRegistrationContext } from '../../patient-registration-context';
 import sectionStyles from '../section.scss';
 
 import styles from './relationships.scss';

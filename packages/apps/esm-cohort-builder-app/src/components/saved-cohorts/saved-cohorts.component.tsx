@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { DataTable, Pagination, Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from '@carbon/react';
+import { DataTable, Pagination, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { onDeleteCohort, useCohorts } from './saved-cohorts.resources';
+import mainStyles from '../../cohort-builder.scss';
 import type { PaginationData } from '../../types';
 import EmptyData from '../empty-data/empty-data.component';
-import SavedCohortsOptions from './saved-cohorts-options/saved-cohorts-options.component';
-import mainStyles from '../../cohort-builder.scss';
+import { onDeleteCohort, useCohorts } from './saved-cohorts.resources';
 import styles from './saved-cohorts.scss';
+import SavedCohortsOptions from './saved-cohorts-options/saved-cohorts-options.component';
 
 interface SavedCohortsProps {
   onViewCohort: (queryId: string) => Promise<void>;

@@ -1,5 +1,5 @@
-import React from 'react';
 import { Layer, Tile } from '@carbon/react';
+import React from 'react';
 import styles from './lab-summary-tile.scss';
 
 interface LabSummaryTileProps {

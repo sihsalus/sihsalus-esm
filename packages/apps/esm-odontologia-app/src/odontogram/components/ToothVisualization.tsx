@@ -1,11 +1,11 @@
 import React from 'react';
+import { isMultiDesignFinding } from '../logic/findingDesignLogic';
+import { useOdontogramContext } from '../providers/OdontogramProvider';
+import type { FindingDesign } from '../types/odontogram';
+import { TOOTH_DESIGN_COMPONENT_MAP } from './constants';
+import DesignSelector from './DesignSelector';
 import Tooth from './Tooth';
 import ToothDesigns from './ToothDesigns';
-import DesignSelector from './DesignSelector';
-import { useOdontogramContext } from '../providers/OdontogramProvider';
-import { isMultiDesignFinding } from '../logic/findingDesignLogic';
-import { TOOTH_DESIGN_COMPONENT_MAP } from './constants';
-import type { FindingDesign } from '../types/odontogram';
 
 interface ToothVisualizationProps {
   idTooth: number;

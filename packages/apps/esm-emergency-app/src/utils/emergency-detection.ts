@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
 import { useConfig } from '@openmrs/esm-framework';
-import { useServiceQueuesLocationAndName } from './service-queues-integration';
+import { useMemo } from 'react';
 import { type Config } from '../config-schema';
+import { useServiceQueuesLocationAndName } from './service-queues-integration';
 
 /**
  * Utility function to check if a location is the emergency department

@@ -1,15 +1,14 @@
-import { SkeletonText, InlineNotification } from '@carbon/react';
+import { InlineNotification, SkeletonText } from '@carbon/react';
 import { useConfig, useConnectivity } from '@openmrs/esm-framework';
-import React, { useEffect, useState, useContext, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ResourcesContext } from '../../../offline.resources';
 import { Input } from '../../input/basic-input/input/input.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import styles from '../field.scss';
-
-import AddressHierarchyLevels from './address-hierarchy-levels.component';
 import { useOrderedAddressHierarchyLevels } from './address-hierarchy.resource';
+import AddressHierarchyLevels from './address-hierarchy-levels.component';
 import AddressSearchComponent from './address-search.component';
 
 function parseString(xmlDockAsString: string) {

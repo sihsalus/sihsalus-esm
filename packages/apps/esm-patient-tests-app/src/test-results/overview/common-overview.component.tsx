@@ -1,4 +1,4 @@
-import { Button, TableToolbarContent, TableToolbar, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
+import { Button, TableToolbar, TableToolbarContent, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
 import { ChartLine, Information, Table } from '@carbon/react/icons';
 import { formatDatetime, navigate } from '@openmrs/esm-framework';
 import { EmptyState } from '@openmrs/esm-patient-common-lib';

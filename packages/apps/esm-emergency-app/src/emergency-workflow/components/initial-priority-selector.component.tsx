@@ -9,9 +9,9 @@
  * is assigned during formal triage by the nurse.
  */
 
+import { RadioButton, RadioButtonGroup, Tag } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RadioButtonGroup, RadioButton, Tag } from '@carbon/react';
 import styles from './initial-priority-selector.component.scss';
 
 export type InitialPriority = 'emergency' | 'urgency';

@@ -1,4 +1,4 @@
-import type { ObsReferenceRanges, ObservationInterpretation } from '../types';
+import type { ObservationInterpretation, ObsReferenceRanges } from '../types';
 
 export const formatAMPM = (date) => {
   let hours = date.getHours();

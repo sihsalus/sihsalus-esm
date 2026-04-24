@@ -1,14 +1,14 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { clearMockExtensionRegistry } from '@openmrs/esm-framework/mock';
 import { registerExtension, registerWorkspace, registerWorkspaceGroup } from '@openmrs/esm-framework/src/internal';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  type Prompt,
   cancelPrompt,
   closeWorkspace,
   getWorkspaceGroupStore,
   getWorkspaceStore,
   launchWorkspace,
   launchWorkspaceGroup,
+  type Prompt,
   resetWorkspaceStore,
 } from './workspaces';
 
@@ -20,7 +20,13 @@ describe('workspace system', () => {
 
   it('registering, launching, and closing a workspace', () => {
     const store = getWorkspaceStore();
-    registerWorkspace({ name: 'allergies', title: 'Allergies', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
+    registerWorkspace({
+      name: 'allergies',
+      title: 'Allergies',
+      load: vi.fn(),
+      moduleName: '@openmrs/foo',
+      component: 'test',
+    });
 
     launchWorkspace('allergies', { foo: true });
 
@@ -38,7 +44,13 @@ describe('workspace system', () => {
   describe('Testing launchPatientWorkspace', () => {
     it('should launch a workspace', () => {
       const store = getWorkspaceStore();
-      registerWorkspace({ name: 'allergies', title: 'Allergies', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
+      registerWorkspace({
+        name: 'allergies',
+        title: 'Allergies',
+        load: vi.fn(),
+        moduleName: '@openmrs/foo',
+        component: 'test',
+      });
 
       launchWorkspace('allergies', { foo: true });
 
@@ -52,7 +64,13 @@ describe('workspace system', () => {
     it('should update additionalProps when re-opening an already opened form with same name but with different props', () => {
       const store = getWorkspaceStore();
 
-      registerWorkspace({ name: 'POC HIV Form', title: 'Clinical Form', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
+      registerWorkspace({
+        name: 'POC HIV Form',
+        title: 'Clinical Form',
+        load: vi.fn(),
+        moduleName: '@openmrs/foo',
+        component: 'test',
+      });
       launchWorkspace('POC HIV Form', { workspaceTitle: 'POC HIV Form' });
 
       expect(store.getState().openWorkspaces.length).toEqual(1);
@@ -73,7 +91,13 @@ describe('workspace system', () => {
 
     it('should show a modal when a workspace is already open (with changes) and it cannot hide', () => {
       const store = getWorkspaceStore();
-      registerWorkspace({ name: 'allergies', title: 'Allergies', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
+      registerWorkspace({
+        name: 'allergies',
+        title: 'Allergies',
+        load: vi.fn(),
+        moduleName: '@openmrs/foo',
+        component: 'test',
+      });
 
       launchWorkspace('allergies', { foo: true });
 
@@ -82,7 +106,13 @@ describe('workspace system', () => {
       const allergies = store.getState().openWorkspaces?.[0];
       allergies.promptBeforeClosing(() => true);
 
-      registerWorkspace({ name: 'conditions', title: 'Conditions', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
+      registerWorkspace({
+        name: 'conditions',
+        title: 'Conditions',
+        load: vi.fn(),
+        moduleName: '@openmrs/foo',
+        component: 'test',
+      });
       launchWorkspace('conditions', { foo: true });
 
       const prompt = store.getState().prompt as Prompt;
@@ -483,7 +513,13 @@ describe('workspace system', () => {
   it('respects promptBeforeClosing function', () => {
     const store = getWorkspaceStore();
     registerWorkspace({ name: 'hiv', title: 'HIV', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
-    registerWorkspace({ name: 'diabetes', title: 'Diabetes', load: vi.fn(), moduleName: '@openmrs/foo', component: 'test' });
+    registerWorkspace({
+      name: 'diabetes',
+      title: 'Diabetes',
+      load: vi.fn(),
+      moduleName: '@openmrs/foo',
+      component: 'test',
+    });
 
     launchWorkspace('hiv');
 

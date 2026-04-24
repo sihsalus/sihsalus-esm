@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import type { FindingOptionConfig, ToothAnnotation, ToothFinding } from '../types/odontogram';
+import { COLOR_CSS, COLOR_LABEL, TOOTH_DESIGN_COMPONENT_MAP } from './constants';
 import Tooth from './Tooth';
 import ToothDesigns from './ToothDesigns';
-import type { ToothFinding, FindingOptionConfig, ToothAnnotation } from '../types/odontogram';
-import { COLOR_CSS, COLOR_LABEL, TOOTH_DESIGN_COMPONENT_MAP } from './constants';
 import './ToothInfoModal.css';
 
 interface ToothInfoModalProps {

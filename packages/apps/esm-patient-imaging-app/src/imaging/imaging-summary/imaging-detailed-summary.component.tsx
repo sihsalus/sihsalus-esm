@@ -1,13 +1,12 @@
+import { Button, DataTableSkeleton } from '@carbon/react';
+import { AddIcon, launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRequestProcedures, useRequestsByPatient, useStudiesByPatient } from '../../api';
-import { DataTableSkeleton } from '@carbon/react';
-import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
-import { AddIcon, launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
-import StudiesDetailTable from '../components/studies-details-table.component';
 import RequestProcedureTable from '../components/requests-details-table.component';
+import StudiesDetailTable from '../components/studies-details-table.component';
 import { addNewRequestWorkspace, linkStudiesFormWorkspace, uploadStudiesFormWorkspace } from '../constants';
-import { Button } from '@carbon/react';
 
 interface ImagingDetailedSummaryProps {
   patientUuid: string;

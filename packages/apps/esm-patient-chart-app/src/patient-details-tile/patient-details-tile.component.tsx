@@ -1,4 +1,4 @@
-import { age, getPatientName, formatDate, parseDate } from '@openmrs/esm-framework';
+import { age, formatDate, getPatientName, parseDate } from '@openmrs/esm-framework';
 import capitalize from 'lodash-es/capitalize';
 import React from 'react';
 

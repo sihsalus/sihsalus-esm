@@ -1,8 +1,8 @@
+import { StructuredListBody, StructuredListCell, StructuredListRow, StructuredListWrapper } from '@carbon/react';
+import { formatDatetime, parseDate } from '@openmrs/esm-framework';
+import type { EncounterType } from '@types';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatDatetime, parseDate } from '@openmrs/esm-framework';
-import { StructuredListWrapper, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
-import type { EncounterType } from '@types';
 
 interface AuditDetailsProps {
   form: FormGroupData;

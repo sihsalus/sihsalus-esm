@@ -1,4 +1,4 @@
-import { DatePicker, DatePickerInput, Select, SelectItem, TextInput, Search } from '@carbon/react';
+import { DatePicker, DatePickerInput, Search, Select, SelectItem, TextInput } from '@carbon/react';
 import { useDebounce } from '@openmrs/esm-framework';
 import { isEqual } from 'lodash-es';
 import React, { useCallback, useEffect, useRef, useState } from 'react';

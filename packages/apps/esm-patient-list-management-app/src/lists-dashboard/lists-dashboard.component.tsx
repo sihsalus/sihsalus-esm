@@ -1,4 +1,4 @@
-import { Tab, Tabs, TabList } from '@carbon/react';
+import { Tab, TabList, Tabs } from '@carbon/react';
 import classnames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

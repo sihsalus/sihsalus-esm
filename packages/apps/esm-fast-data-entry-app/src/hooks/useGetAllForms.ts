@@ -1,4 +1,4 @@
-import { openmrsFetch, userHasAccess, useSession, restBaseUrl } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl, userHasAccess, useSession } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
 const customFormRepresentation =

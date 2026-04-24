@@ -1,5 +1,5 @@
 import { useDebounce } from '@openmrs/esm-framework';
-import { useState, useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 interface ConceptSearchInputOptions {
   parameterName: string;

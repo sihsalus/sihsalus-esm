@@ -1,10 +1,10 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { billsSummary } from '../../test-utils/mocks/bills.mock';
 import { useBills } from '../billing.resource';
+import { type BillingConfig, configSchema } from '../config-schema';
 import { type MappedBill } from '../types';
-import { configSchema, type BillingConfig } from '../config-schema';
 import MetricsCards from './metrics-cards.component';
 
 const mockUseBills = jest.mocked<typeof useBills>(useBills);

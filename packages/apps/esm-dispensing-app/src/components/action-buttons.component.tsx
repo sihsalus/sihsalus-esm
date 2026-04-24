@@ -1,14 +1,14 @@
-import React from 'react';
 import { ExtensionSlot, useConfig, useSession } from '@openmrs/esm-framework';
+import React from 'react';
+import { type PharmacyConfig } from '../config-schema';
+import { useProviders } from '../medication-dispense/medication-dispense.resource';
 import { MedicationDispenseStatus, type MedicationRequestBundle, MedicationRequestStatus } from '../types';
 import {
   computeMedicationRequestStatus,
   computeQuantityRemaining,
-  getMostRecentMedicationDispenseStatus,
   computeTotalQuantityDispensed,
+  getMostRecentMedicationDispenseStatus,
 } from '../utils';
-import { type PharmacyConfig } from '../config-schema';
-import { useProviders } from '../medication-dispense/medication-dispense.resource';
 import styles from './action-buttons.scss';
 
 interface ActionButtonsProps {

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
 import { Button, Form, FormGroup, Layer, NumberInput, Stack } from '@carbon/react';
 import { TaskAdd } from '@carbon/react/icons';
-import { useSWRConfig } from 'swr';
-import { useTranslation } from 'react-i18next';
 import { showSnackbar, useConfig } from '@openmrs/esm-framework';
-import { calculateTotalAmount, convertToCurrency } from '../../helpers';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSWRConfig } from 'swr';
 import { processBillPayment } from '../../billing.resource';
-import type { LineItem, MappedBill } from '../../types';
 import type { BillingConfig } from '../../config-schema';
 import { apiBasePath } from '../../constants';
+import { calculateTotalAmount, convertToCurrency } from '../../helpers';
+import type { LineItem, MappedBill } from '../../types';
 import styles from './bill-waiver-form.scss';
 
 type BillWaiverFormProps = {

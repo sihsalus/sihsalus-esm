@@ -20,10 +20,9 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import type { ConfigObject } from '../../config-schema';
-
+import { type ConditionDataTableRow, useConditions } from './conditions.resource';
 import styles from './conditions-form.scss';
 import ConditionsWidget from './conditions-widget.component';
-import { type ConditionDataTableRow, useConditions } from './conditions.resource';
 
 interface ConditionFormProps extends DefaultPatientWorkspaceProps {
   condition?: ConditionDataTableRow;

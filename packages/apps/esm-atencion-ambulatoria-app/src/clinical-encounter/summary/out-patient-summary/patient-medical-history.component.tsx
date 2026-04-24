@@ -1,29 +1,29 @@
 import {
-  OverflowMenu,
-  OverflowMenuItem,
-  InlineLoading,
   Button,
   DataTable,
-  TableContainer,
+  InlineLoading,
+  OverflowMenu,
+  OverflowMenuItem,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { formatDate, launchWorkspace, useConfig } from '@openmrs/esm-framework';
-import { EmptyState, ErrorState, CardHeader } from '@openmrs/esm-patient-common-lib';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
+import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
 import { mutate } from 'swr';
-
 import type { ConfigObject } from '../../../config-schema';
 import type { OpenmrsEncounter } from '../../../types';
-import { getObsFromEncounter } from '@sihsalus/esm-sihsalus-shared';
-import { SURGICAL_HISTORY_UUID, ACCIDENT_TRAUMA_UUID, BLOOD_TRANSFUSION_UUID } from '../../../utils/constants';
+import { ACCIDENT_TRAUMA_UUID, BLOOD_TRANSFUSION_UUID, SURGICAL_HISTORY_UUID } from '../../../utils/constants';
+
 interface OutPatientMedicalHistoryProps {
   patientUuid: string;
   encounters: OpenmrsEncounter[];

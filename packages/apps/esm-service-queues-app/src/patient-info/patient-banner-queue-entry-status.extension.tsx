@@ -1,4 +1,4 @@
-import { Tag, Button } from '@carbon/react';
+import { Button, Tag } from '@carbon/react';
 import { isDesktop, showModal, useLayoutType } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

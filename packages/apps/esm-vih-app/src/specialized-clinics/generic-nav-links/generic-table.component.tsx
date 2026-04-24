@@ -1,24 +1,23 @@
 import {
-  DataTable,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableExpandHeader,
-  TableHeader,
-  TableBody,
-  TableExpandRow,
-  TableCell,
-  TableExpandedRow,
   Button,
+  DataTable,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableExpandedRow,
+  TableExpandHeader,
+  TableExpandRow,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { formatDate } from '@openmrs/esm-framework';
 import capitalize from 'lodash-es/capitalize';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import EncounterObservations from './encounter-observations/encounter-observations.component';
 import type { Observation } from '../../types';
+import EncounterObservations from './encounter-observations/encounter-observations.component';
 
 interface GenericTableEncounter {
   uuid: string;

@@ -1,6 +1,6 @@
 import { navigate } from '@openmrs/esm-framework';
-import { initialWorkflowState } from './FormWorkflowContext';
 import { v4 as uuid } from 'uuid';
+import { initialWorkflowState } from './FormWorkflowContext';
 
 export const fdeGroupWorkflowStorageVersion = '1.0.5';
 export const fdeGroupWorkflowStorageName = 'openmrs:fastDataEntryGroupWorkflowState';

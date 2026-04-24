@@ -1,4 +1,4 @@
-import { openmrsFetch, useConfig, formatTime, parseDate, restBaseUrl } from '@openmrs/esm-framework';
+import { formatTime, openmrsFetch, parseDate, restBaseUrl, useConfig } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
 
 import { type ConfigObject } from '../../config-schema';

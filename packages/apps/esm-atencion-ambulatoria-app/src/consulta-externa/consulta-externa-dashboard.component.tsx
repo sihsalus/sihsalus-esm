@@ -1,8 +1,8 @@
 import { Layer, Tab, TabList, TabPanel, TabPanels, Tabs, Tile } from '@carbon/react';
 import {
   Activity,
-  Chat,
   Catalog,
+  Chat,
   DocumentMultiple_01,
   Finance,
   ListChecked,

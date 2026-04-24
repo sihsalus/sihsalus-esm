@@ -7,7 +7,7 @@ import { startOfDay } from '../constants';
 import { useMutateQueueEntries } from '../hooks/useQueueEntries';
 import { type MappedQueueEntry } from '../types';
 
-import { useCheckedInAppointments, endQueueEntry } from './remove-queue-entry.resource';
+import { endQueueEntry, useCheckedInAppointments } from './remove-queue-entry.resource';
 import styles from './remove-queue-entry.scss';
 
 interface RemoveQueueEntryModalProps {

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
 import { TextInput } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { showSnackbar } from '@openmrs/esm-framework';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { SearchByProps } from '../../types';
-import { createCompositionQuery, isCompositionValid } from './composition.utils';
 import SearchButtonSet from '../search-button-set/search-button-set';
 import styles from './composition.style.css';
+import { createCompositionQuery, isCompositionValid } from './composition.utils';
 
 const Composition: React.FC<SearchByProps> = ({ onSubmit }) => {
   const { t } = useTranslation();

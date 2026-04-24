@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader, Tag, Tile } from '@carbon/react';
+import { formatDatetime, getCoreTranslation, parseDate } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ModalHeader, ModalBody, ModalFooter, InlineLoading, Tile, Tag } from '@carbon/react';
-import type { MedicationDispense } from '../types';
 import MedicationEvent from '../components/medication-event.component';
+import type { MedicationDispense } from '../types';
 import styles from './duplicate-dispense-modal.scss';
-import { getCoreTranslation, parseDate, formatDatetime } from '@openmrs/esm-framework';
 
 interface DuplicateDispenseModalProps {
   onClose: () => void;

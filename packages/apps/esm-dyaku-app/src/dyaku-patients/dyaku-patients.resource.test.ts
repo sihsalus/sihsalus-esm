@@ -1,4 +1,4 @@
-import { validateAndFixPeruvianDNI, syncDyakuPatientsToOpenMRS } from './dyaku-patients.resource';
+import { syncDyakuPatientsToOpenMRS, validateAndFixPeruvianDNI } from './dyaku-patients.resource';
 
 jest.mock('@openmrs/esm-framework', () => ({
   openmrsFetch: jest.fn(),

@@ -4,9 +4,9 @@ import useSWR from 'swr';
 
 import type { OpenmrsEncounter } from '../types';
 import {
+  encounterRepresentation,
   MchEncounterType_UUID,
   PartographEncounterFormUuid,
-  encounterRepresentation,
   Progress_UUID,
 } from '../utils/constants';
 

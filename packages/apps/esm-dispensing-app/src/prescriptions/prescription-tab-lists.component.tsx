@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react';
-import { Tab, Tabs, TabList, TabPanels } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
+import { Tab, TabList, TabPanels, Tabs } from '@carbon/react';
 import { useConfig, useSession } from '@openmrs/esm-framework';
-import { type CustomTab } from '../types';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type PharmacyConfig } from '../config-schema';
+import { type CustomTab } from '../types';
 import PatientSearchTabPanel from './patient-search-tab-panel.component';
 import PrescriptionTabPanel from './prescription-tab-panel.component';
 import styles from './prescriptions.scss';

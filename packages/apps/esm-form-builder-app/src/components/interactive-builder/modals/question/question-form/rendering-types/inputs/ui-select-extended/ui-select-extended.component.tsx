@@ -1,6 +1,6 @@
+import { RadioButton, RadioButtonGroup } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RadioButtonGroup, RadioButton } from '@carbon/react';
 import { useFormField } from '../../../../form-field-context';
 
 const UiSelectExtended: React.FC = () => {

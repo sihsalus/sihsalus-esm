@@ -1,6 +1,6 @@
+import path from 'node:path';
 import { defineConfig, devices, type PlaywrightTestConfig } from '@playwright/test';
 import { config as dotenvConfig } from 'dotenv';
-import path from 'node:path';
 
 dotenvConfig({ path: path.resolve(process.cwd(), '.env') });
 dotenvConfig();

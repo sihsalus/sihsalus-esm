@@ -1,12 +1,12 @@
 import {
-  type LoggedInUser,
-  openmrsFetch,
-  refetchCurrentUser,
-  restBaseUrl,
   fhirBaseUrl,
   getDynamicOfflineDataEntries,
-  syncDynamicOfflineData,
+  type LoggedInUser,
+  openmrsFetch,
   putDynamicOfflineData,
+  refetchCurrentUser,
+  restBaseUrl,
+  syncDynamicOfflineData,
   toOmrsIsoString,
   useConfig,
 } from '@openmrs/esm-framework';
@@ -17,8 +17,8 @@ import useSWR from 'swr';
 import { type ConfigSchema } from '../config-schema';
 
 import {
-  type AddPatientData,
   type AddablePatientListViewModel,
+  type AddPatientData,
   type CohortResponse,
   type NewCohortData,
   type NewCohortDataPayload,
@@ -27,8 +27,8 @@ import {
   type OpenmrsCohortRef,
   type PatientListFilter,
   type PatientListMember,
-  type PatientListUpdate,
   PatientListType,
+  type PatientListUpdate,
 } from './types';
 
 export const cohortUrl = `${restBaseUrl}/cohortm`;

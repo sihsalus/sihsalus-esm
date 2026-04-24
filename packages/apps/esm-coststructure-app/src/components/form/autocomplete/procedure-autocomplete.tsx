@@ -1,11 +1,11 @@
 import { TextInput } from '@carbon/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import useGetProcedures from '../../../hooks/use-get-procedures';
 import type { Procedure } from '../../../hooks/use-get-procedures';
+import useGetProcedures from '../../../hooks/use-get-procedures';
 
 import styles from './styles.scss';
+
 interface Props {
   value: Procedure;
   onChange: (value: Procedure) => void;

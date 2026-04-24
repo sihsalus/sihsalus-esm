@@ -73,4 +73,4 @@ const usePostCohort = () => {
   return usePostEndpoint({ endpointUrl: `${restBaseUrl}/cohortm/cohort` });
 };
 
-export { usePostEndpoint, usePostVisit, usePostCohort };
+export { usePostCohort, usePostEndpoint, usePostVisit };

@@ -1,11 +1,11 @@
+import { type AssignedExtension, Extension, useAssignedExtensions, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
-import { type AssignedExtension, useAssignedExtensions, Extension, useConfig } from '@openmrs/esm-framework';
 // ComponentContext is not part of the public API but is needed here to render extensions
 // in a custom layout (CSS grid tiles) without the wrapper div that ExtensionSlot adds.
 
 import { ComponentContext } from '@openmrs/esm-framework/src/internal';
-import styles from './laboratory-summary-tiles.scss';
 import { type Config } from '../config-schema';
+import styles from './laboratory-summary-tiles.scss';
 
 const LaboratorySummaryTiles: React.FC = () => {
   const { enableReviewingLabResultsBeforeApproval } = useConfig<Config>();

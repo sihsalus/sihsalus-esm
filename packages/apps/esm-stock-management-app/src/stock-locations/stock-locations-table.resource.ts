@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
-import useSWR from 'swr';
 import { type FetchResponse, openmrsFetch, restBaseUrl, usePagination } from '@openmrs/esm-framework';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type StockOperationFilter } from '../stock-operations/stock-operations.resource';
+import useSWR from 'swr';
 import { useStockTagLocations } from '../stock-lookups/stock-lookups.resource';
+import { type StockOperationFilter } from '../stock-operations/stock-operations.resource';
 
 export function useStockLocationPages(filter: StockOperationFilter) {
   const { stockLocations, error, isLoading } = useStockTagLocations();

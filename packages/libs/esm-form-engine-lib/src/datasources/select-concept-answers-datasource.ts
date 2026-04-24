@@ -1,4 +1,4 @@
-import { openmrsFetch, type OpenmrsResource, restBaseUrl } from '@openmrs/esm-framework/src/internal';
+import { type OpenmrsResource, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework/src/internal';
 import { BaseOpenMRSDataSource } from './data-source';
 
 interface ConceptAnswersResponse extends OpenmrsResource {

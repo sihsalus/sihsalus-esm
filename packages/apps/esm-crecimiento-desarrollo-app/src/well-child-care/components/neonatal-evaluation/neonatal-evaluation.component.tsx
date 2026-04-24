@@ -1,32 +1,31 @@
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema'; // Ajusta la ruta
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter'; // Ajusta la ruta
-import { PatientSummaryTable } from '@sihsalus/esm-sihsalus-shared'; // Ajusta la ruta
 import {
-  SKIN_COLOR_UUID,
-  FONTANELLE_UUID,
-  SUTURES_UUID,
-  EARS_UUID,
-  NOSE_UUID,
-  MOUTH_UUID,
-  NECK_UUID,
-  THORAX_UUID,
-  NIPPLES_UUID,
-  CLAVICLE_UUID,
-  ESOPHAGUS_PERMEABILITY_UUID,
-  UMBILICAL_CORD_UUID,
   ABDOMEN_CHARACTERISTICS_UUID,
-  GENITOURINARY_UUID,
-  OBSERVATION_UUID,
+  CLAVICLE_UUID,
+  EARS_UUID,
+  ESOPHAGUS_PERMEABILITY_UUID,
+  FONTANELLE_UUID,
   GENITOURINARY_ELIMINATION_UUID,
-  SPINAL_COLUMN_UUID,
-  LIMBS_UUID,
-  MUSCLE_TONE_UUID,
+  GENITOURINARY_UUID,
   HIP_UUID,
+  LIMBS_UUID,
+  MOUTH_UUID,
+  MUSCLE_TONE_UUID,
+  NECK_UUID,
   NEUROLOGICAL_EVALUATION_UUID,
+  NIPPLES_UUID,
+  NOSE_UUID,
+  OBSERVATION_UUID,
+  SKIN_COLOR_UUID,
+  SPINAL_COLUMN_UUID,
+  SUTURES_UUID,
+  THORAX_UUID,
+  UMBILICAL_CORD_UUID,
 } from '../../concepts/neonatal-concepts';
 
 interface CephaloCaudalNeurologicalEvaluationProps {

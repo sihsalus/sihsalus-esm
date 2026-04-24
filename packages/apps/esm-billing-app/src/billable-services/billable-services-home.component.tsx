@@ -1,14 +1,14 @@
-import React from 'react';
+import { isDesktop, useLayoutType, useLeftNav, WorkspaceContainer } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLeftNav, WorkspaceContainer, useLayoutType, isDesktop } from '@openmrs/esm-framework';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BillingHeader from '../billing-header/billing-header.component';
+import styles from './billable-services.scss';
+import CashPointConfiguration from './cash-point/cash-point-configuration.component';
 // import BillWaiver from './bill-waiver/bill-waiver.component';
 import BillableServicesDashboard from './dashboard/dashboard.component';
-import BillingHeader from '../billing-header/billing-header.component';
-import CashPointConfiguration from './cash-point/cash-point-configuration.component';
 import PaymentModesConfig from './payment-modes/payment-modes-config.component';
-import styles from './billable-services.scss';
 
 const BillableServiceHome: React.FC = () => {
   const { t } = useTranslation();

@@ -2,9 +2,8 @@ import { EmptyState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from '../visit-detail-overview.scss';
 import type { Note } from '../visit.resource';
+import styles from '../visit-detail-overview.scss';
 
 interface NotesSummaryProps {
   notes: Array<Note>;

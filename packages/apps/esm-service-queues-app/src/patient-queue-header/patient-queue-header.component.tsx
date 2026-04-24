@@ -1,13 +1,13 @@
 import { Dropdown } from '@carbon/react';
-import { useConfig, useSession, PageHeader, PageHeaderContent, ServiceQueuesPictogram } from '@openmrs/esm-framework';
+import { PageHeader, PageHeaderContent, ServiceQueuesPictogram, useConfig, useSession } from '@openmrs/esm-framework';
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { useQueueLocations } from '../create-queue-entry/hooks/useQueueLocations';
 import {
-  updateSelectedQueueLocationUuid,
   updateSelectedQueueLocationName,
+  updateSelectedQueueLocationUuid,
   updateSelectedService,
   useSelectedQueueLocationName,
   useSelectedQueueLocationUuid,

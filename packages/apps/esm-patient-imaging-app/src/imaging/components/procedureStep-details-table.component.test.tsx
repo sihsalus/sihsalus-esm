@@ -1,7 +1,7 @@
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { render, screen, act, fireEvent } from '@testing-library/react';
-import ProcedureStepTable, { type ProcedureStepTableProps } from './procedureStep-details-table.component';
 import * as api from '../../api';
+import ProcedureStepTable, { type ProcedureStepTableProps } from './procedureStep-details-table.component';
 
 jest.mock('../../api');
 jest.mock('react-i18next', () => ({

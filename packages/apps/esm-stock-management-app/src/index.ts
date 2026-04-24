@@ -1,22 +1,22 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { configSchema } from './config-schema';
 import { createDashboardLink } from './createDashboardLink';
-import appMenu from './stock-app-menu-item/item.component';
-import deletePackagingUnitModalButtonComponent from './stock-items/add-stock-item/packaging-units/delete-packaging-unit-action-button.component';
 import Root from './root.component';
 import SideMenu from './side-menu/side-menu.component';
+import appMenu from './stock-app-menu-item/item.component';
 import StockHomeLandingPage from './stock-home/stock-home-landing-page-component';
+import deletePackagingUnitModalButtonComponent from './stock-items/add-stock-item/packaging-units/delete-packaging-unit-action-button.component';
+import TransactionsBincardPrintPreviewModal from './stock-items/add-stock-item/transactions/printout/transactions-print-bincard-preview.modal';
+import TransactionsStockcardPrintPreviewModal from './stock-items/add-stock-item/transactions/printout/transactions-print-stockcard-preview.modal';
 import StockItems from './stock-items/stock-items.component';
 import StockLocations from './stock-locations/stock-locations.component';
-import stockManagementAdminCardLinkComponent from './stock-management-admin-card-link.component';
 import stockManagementComponent from './stock-management.component';
+import stockManagementAdminCardLinkComponent from './stock-management-admin-card-link.component';
 import StockOperationsComponent from './stock-operations/stock-operations.component';
 import StockReports from './stock-reports/report-list/stock-reports.component';
 import StockSettings from './stock-settings/stock-settings.component';
 import StockSources from './stock-sources/stock-sources.component';
 import StockUserScopes from './stock-user-role-scopes/stock-user-role-scopes.component';
-import TransactionsBincardPrintPreviewModal from './stock-items/add-stock-item/transactions/printout/transactions-print-bincard-preview.modal';
-import TransactionsStockcardPrintPreviewModal from './stock-items/add-stock-item/transactions/printout/transactions-print-stockcard-preview.modal';
 
 const moduleName = '@sihsalus/esm-stock-management-app';
 

@@ -1,5 +1,5 @@
-import React from 'react';
 import { type Diagnosis } from '@openmrs/esm-emr-api';
+import React from 'react';
 
 /* Please keep these stubs in alphabetical order for readability */
 
@@ -158,7 +158,7 @@ export const EmptyCard = ({
   </div>
 );
 
-export { CardHeader, ErrorCard, Pagination, PageHeader, PageHeaderContent } from '@openmrs/esm-styleguide/src/internal';
+export { CardHeader, ErrorCard, PageHeader, PageHeaderContent, Pagination } from '@openmrs/esm-styleguide/src/internal';
 
 export const OpenmrsDatePicker = () => <span>OpenmrsDatePicker</span>;
 export const OpenmrsDateRangePicker = () => <span>OpenmrsDateRangePicker</span>;

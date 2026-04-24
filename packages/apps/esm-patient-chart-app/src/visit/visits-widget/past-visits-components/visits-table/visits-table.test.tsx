@@ -1,9 +1,8 @@
 import { getConfig, showModal, userHasAccess } from '@openmrs/esm-framework';
 import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockEncounters } from 'test-utils';
 import React from 'react';
-import { mockPatient, renderWithSwr } from 'test-utils';
+import { mockEncounters, mockPatient, renderWithSwr } from 'test-utils';
 
 import VisitsTable from './visits-table.component';
 

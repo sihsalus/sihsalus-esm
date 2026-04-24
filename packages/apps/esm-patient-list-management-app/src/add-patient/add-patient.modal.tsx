@@ -12,7 +12,7 @@ import {
 } from '@carbon/react';
 import { getCoreTranslation, navigate, restBaseUrl, showSnackbar, usePagination } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
 

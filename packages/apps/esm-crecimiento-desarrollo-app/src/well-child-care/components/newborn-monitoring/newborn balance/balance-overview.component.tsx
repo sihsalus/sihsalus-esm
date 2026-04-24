@@ -1,8 +1,7 @@
-import { useConfig, formatDate, parseDate } from '@openmrs/esm-framework';
+import { formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
+import { ClinicalDataOverview } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { ClinicalDataOverview } from '@sihsalus/esm-sihsalus-shared';
 import { useBalance, useVitalsConceptMetadata, withUnit } from '../../../common';
 
 interface BalanceOverviewProps {

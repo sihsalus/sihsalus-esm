@@ -1,7 +1,7 @@
+import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import { render, screen } from '@testing-library/react';
 import { FormFieldProvider } from '../../form-field-context';
 import QuestionTypeComponent from './question-type.component';
-import type { FormField } from '@sihsalus/esm-form-engine-lib';
 
 const mockSetFormField = jest.fn();
 const formField: FormField = {
@@ -68,6 +68,7 @@ function renderQuestionTypeComponent() {
     </FormFieldProvider>,
   );
 }
+
 import React from 'react';
 
 void React;

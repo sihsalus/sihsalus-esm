@@ -1,5 +1,5 @@
-import { Tile, Tag, Button } from '@carbon/react';
-import { Add, Edit, CheckmarkFilled, WarningFilled } from '@carbon/react/icons';
+import { Button, Tag, Tile } from '@carbon/react';
+import { Add, CheckmarkFilled, Edit, WarningFilled } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';

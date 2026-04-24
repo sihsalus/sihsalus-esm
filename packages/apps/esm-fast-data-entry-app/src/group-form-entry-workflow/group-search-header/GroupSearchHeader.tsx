@@ -1,12 +1,12 @@
-import { Close, Add } from '@carbon/react/icons';
 import { Button } from '@carbon/react';
+import { Add, Close } from '@carbon/react/icons';
+import { showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
 import React, { useCallback, useContext, useState } from 'react';
-import { useConfig, useSession, showSnackbar } from '@openmrs/esm-framework';
-import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
-import styles from './styles.scss';
 import { useTranslation } from 'react-i18next';
-import CompactGroupSearch from '../group-search/CompactGroupSearch';
 import AddGroupModal from '../../add-group-modal/AddGroupModal';
+import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
+import CompactGroupSearch from '../group-search/CompactGroupSearch';
+import styles from './styles.scss';
 
 const GroupSearchHeader = () => {
   const { t } = useTranslation();

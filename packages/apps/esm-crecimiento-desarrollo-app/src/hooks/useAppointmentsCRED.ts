@@ -1,5 +1,5 @@
 //FETCH APPOINTMENTS FOR CRED SERVICE
-import { restBaseUrl, openmrsFetch } from '@openmrs/esm-framework';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
 import type { AppointmentsFetchResponse } from '../types';

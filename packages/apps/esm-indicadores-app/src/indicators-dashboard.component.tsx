@@ -1,26 +1,26 @@
 import {
   Button,
   DataTable,
-  Table,
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableCell,
-  Tag,
-  Tile,
-  TextInput,
-  NumberInput,
   InlineNotification,
   Loading,
   Modal,
+  NumberInput,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  Tag,
+  TextInput,
+  Tile,
 } from '@carbon/react';
-import { Add, TrashCan, Play, Renew } from '@carbon/react/icons';
+import { Add, Play, Renew, TrashCan } from '@carbon/react/icons';
 import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useIndicatorsCRUD, useEvaluateIndicator } from './hooks/useIndicators';
+import { useEvaluateIndicator, useIndicatorsCRUD } from './hooks/useIndicators';
 import styles from './indicators-dashboard.module.scss';
 
 const IndicatorsDashboard: React.FC = () => {

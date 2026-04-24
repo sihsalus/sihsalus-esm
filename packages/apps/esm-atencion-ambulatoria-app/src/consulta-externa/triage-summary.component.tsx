@@ -1,12 +1,11 @@
-import { Button, InlineLoading, Tile, Tag, Accordion, AccordionItem } from '@carbon/react';
+import { Accordion, AccordionItem, Button, InlineLoading, Tag, Tile } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { formatDate, useConfig } from '@openmrs/esm-framework';
-import { launchWorkspace } from '@openmrs/esm-framework';
+import { formatDate, launchWorkspace, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
-import { useTriageVitals, type TriageVitals } from '../hooks/useTriageVitals';
+import { type TriageVitals, useTriageVitals } from '../hooks/useTriageVitals';
 
 import styles from './consulta-externa-dashboard.scss';
 

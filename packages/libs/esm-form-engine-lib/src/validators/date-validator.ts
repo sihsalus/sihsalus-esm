@@ -1,4 +1,4 @@
-import { type FormFieldValidator, type FormField } from '../types';
+import { type FormField, type FormFieldValidator } from '../types';
 import { isTrue } from '../utils/boolean-utils';
 import { FieldValidator } from './form-validator';
 

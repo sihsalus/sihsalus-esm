@@ -1,22 +1,22 @@
-import React, { type ReactNode, Suspense, useCallback, useContext, useEffect, useMemo } from 'react';
-import { I18nextProvider, useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 import { Header, HeaderGlobalAction, HeaderGlobalBar, HeaderMenuButton, HeaderName } from '@carbon/react';
 import { DownToBottom, Maximize, Minimize } from '@carbon/react/icons';
 import {
   ComponentContext,
   ExtensionSlot,
+  getCoreTranslation,
   isDesktop,
   useBodyScrollLock,
   useLayoutType,
 } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { type ReactNode, Suspense, useCallback, useContext, useEffect, useMemo } from 'react';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 import { ArrowLeftIcon, ArrowRightIcon, CloseIcon } from '../../icons';
 import { WorkspaceNotification } from '../notification/workspace-notification.component';
 import { type OpenWorkspace, updateWorkspaceWindowState, useWorkspaces } from '../workspaces';
-import { WorkspaceRenderer } from './workspace-renderer.component';
 import ActionMenu from './action-menu.component';
 import styles from './workspace.module.scss';
+import { WorkspaceRenderer } from './workspace-renderer.component';
 
 /**
  * @deprecated Workspace container is no longer needed with workspace v2.

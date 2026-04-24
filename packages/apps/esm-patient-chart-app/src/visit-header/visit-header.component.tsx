@@ -1,16 +1,16 @@
 import { Button, Header, HeaderGlobalBar, HeaderMenuButton, Tag, Tooltip } from '@carbon/react';
 import {
   age,
-  getPatientName,
   ConfigurableLink,
+  ExtensionSlot,
+  getCoreTranslation,
+  getPatientName,
+  interpolateUrl,
+  showModal,
   useAssignedExtensions,
+  useConfig,
   useLayoutType,
   useVisit,
-  useConfig,
-  showModal,
-  ExtensionSlot,
-  interpolateUrl,
-  getCoreTranslation,
 } from '@openmrs/esm-framework';
 import { launchPatientWorkspace, useSystemVisitSetting } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useState } from 'react';
@@ -21,8 +21,8 @@ import { type MappedQueuePriority, useVisitQueueEntry } from '../visit/queue-ent
 
 import { CloseButton } from './close-button.component';
 import RetrospectiveVisitLabel from './retrospective-visit-label.component';
-import VisitHeaderSideMenu from './visit-header-side-menu.component';
 import styles from './visit-header.scss';
+import VisitHeaderSideMenu from './visit-header-side-menu.component';
 
 interface PatientInfoProps {
   patient: fhir.Patient;

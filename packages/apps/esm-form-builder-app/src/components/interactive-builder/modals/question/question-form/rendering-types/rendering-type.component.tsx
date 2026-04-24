@@ -1,8 +1,8 @@
-import React from 'react';
-import { Date, Markdown, Number, SelectAnswers, Text, TextArea, Toggle, UiSelectExtended } from './inputs';
-import { useFormField } from '../../form-field-context';
+import { renderingTypes, renderTypeOptions } from '@constants';
 import type { RenderType } from '@sihsalus/esm-form-engine-lib';
-import { renderTypeOptions, renderingTypes } from '@constants';
+import React from 'react';
+import { useFormField } from '../../form-field-context';
+import { Date, Markdown, Number, SelectAnswers, Text, TextArea, Toggle, UiSelectExtended } from './inputs';
 
 const componentMap: Partial<Record<RenderType, React.FC>> = {
   number: Number,

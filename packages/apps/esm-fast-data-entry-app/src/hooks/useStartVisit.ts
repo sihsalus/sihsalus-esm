@@ -1,6 +1,6 @@
+import { openmrsFetch, restBaseUrl, showNotification, showSnackbar } from '@openmrs/esm-framework';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showNotification, showSnackbar, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
 const useStartVisit = ({ showSuccessNotification = true, showErrorNotification = true }) => {
   const { t } = useTranslation();

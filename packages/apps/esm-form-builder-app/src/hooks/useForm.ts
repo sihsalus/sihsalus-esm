@@ -1,6 +1,6 @@
-import useSWR from 'swr/immutable';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import type { Form } from '@types';
+import useSWR from 'swr/immutable';
 
 export const useForm = (uuid: string) => {
   const url = `${restBaseUrl}/form/${uuid}?v=full`;

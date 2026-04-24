@@ -1,6 +1,6 @@
-import { Button, ModalBody, ModalHeader, ModalFooter } from '@carbon/react';
+import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { useFeatureFlag } from '@openmrs/esm-framework';
-import { launchPatientWorkspace, launchPatientChartWithWorkspaceOpen } from '@openmrs/esm-patient-common-lib';
+import { launchPatientChartWithWorkspaceOpen, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 

@@ -4,9 +4,9 @@ import {
   messageOmrsServiceWorker,
   navigate,
   restBaseUrl,
+  type SyncProcessOptions,
   setupDynamicOfflineDataHandler,
   setupOfflineSync,
-  type SyncProcessOptions,
 } from '@openmrs/esm-framework';
 
 import { patientRegistration, personRelationshipRepresentation } from './constants';

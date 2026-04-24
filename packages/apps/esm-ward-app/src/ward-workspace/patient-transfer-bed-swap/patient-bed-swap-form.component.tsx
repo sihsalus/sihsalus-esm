@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import type { WardPatientWorkspaceProps, WardViewContext } from '../../types';
-import { assignPatientToBed, useCreateEncounter, removePatientFromBed } from '../../ward.resource';
+import { assignPatientToBed, removePatientFromBed, useCreateEncounter } from '../../ward.resource';
 import BedSelector from '../bed-selector.component';
 
 import styles from './patient-transfer-swap.scss';

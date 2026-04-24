@@ -1,3 +1,12 @@
+import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
+import dayjs from 'dayjs';
+import { assignedDiagnosesIds } from '../../adapters/encounter-diagnosis-adapter';
+import { assignedObsIds, constructObs, voidObs } from '../../adapters/obs-adapter';
+import { assignedOrderIds } from '../../adapters/orders-adapter';
+import { createAttachment, findPatientsByIdentifier, savePatientIdentifier, saveProgramEnrollment } from '../../api';
+import { cloneRepeatField } from '../../components/repeat/helpers';
+import { ConceptTrue } from '../../constants';
+import { type FormContextProps } from '../../provider/form-provider';
 import {
   type Diagnosis,
   type DiagnosisPayload,
@@ -10,7 +19,6 @@ import {
   type PatientProgram,
   type PatientProgramPayload,
 } from '../../types';
-import { createAttachment, findPatientsByIdentifier, savePatientIdentifier, saveProgramEnrollment } from '../../api';
 import {
   getResourceUuid,
   hasRendering,
@@ -23,15 +31,7 @@ import {
   isPlainObject,
   isStringValue,
 } from '../../utils/common-utils';
-import dayjs from 'dayjs';
-import { assignedObsIds, constructObs, voidObs } from '../../adapters/obs-adapter';
-import { type FormContextProps } from '../../provider/form-provider';
-import { ConceptTrue } from '../../constants';
 import { DefaultValueValidator } from '../../validators/default-value-validator';
-import { cloneRepeatField } from '../../components/repeat/helpers';
-import { assignedOrderIds } from '../../adapters/orders-adapter';
-import { type OpenmrsResource } from '@openmrs/esm-framework/src/internal';
-import { assignedDiagnosesIds } from '../../adapters/encounter-diagnosis-adapter';
 
 export async function prepareEncounter(
   context: FormContextProps,

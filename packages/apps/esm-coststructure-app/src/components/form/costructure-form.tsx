@@ -1,9 +1,9 @@
-import { Button, Tabs, Tab, TabList, TabPanels, TabPanel } from '@carbon/react';
+import { Button, Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { WhitePaper } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { baseUrl } from '../../constants';
@@ -12,7 +12,7 @@ import PageHeader from '../ui/PageHeader/pageHeader';
 
 import { ProcedureAutocomplete } from './autocomplete/procedure-autocomplete';
 import styles from './form.scss';
-import { costStructureSchema, type CostStructureFormValues } from './schema/costructure-schema';
+import { type CostStructureFormValues, costStructureSchema } from './schema/costructure-schema';
 import EquipmentTab from './tabs/equipment-tab';
 import GeneralServiceTab from './tabs/general-service-tab';
 import HumanResourceTab from './tabs/humanresource-tab';

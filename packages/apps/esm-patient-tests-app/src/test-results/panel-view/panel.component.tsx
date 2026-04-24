@@ -1,13 +1,13 @@
 import {
   DataTable,
-  TableContainer,
+  Layer,
   Table,
-  TableHead,
-  TableRow,
-  TableHeader,
   TableBody,
   TableCell,
-  Layer,
+  TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@carbon/react';
 import { formatDate, isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';

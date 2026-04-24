@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { appPath } from './constant';
+
 const FormsPage = React.lazy(() => import('./forms-page'));
 const FormEntryWorkflow = React.lazy(() => import('./form-entry-workflow'));
 const GroupFormEntryWorkflow = React.lazy(() => import('./group-form-entry-workflow'));

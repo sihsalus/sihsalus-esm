@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { type FormProcessorContextProps } from '../types';
-import { type FormNode, evaluateExpression } from '../utils/expression-runner';
-import { evalConditionalRequired, evaluateConditionalAnswered, evaluateHide } from '../utils/form-helper';
-import { isTrue } from '../utils/boolean-utils';
-import { isEmpty } from '../validators/form-validator';
 import { type QuestionAnswerOption } from '../types/schema';
+import { isTrue } from '../utils/boolean-utils';
 import { updateFormSectionReferences } from '../utils/common-utils';
+import { evaluateExpression, type FormNode } from '../utils/expression-runner';
+import { evalConditionalRequired, evaluateConditionalAnswered, evaluateHide } from '../utils/form-helper';
+import { isEmpty } from '../validators/form-validator';
 
 export const useEvaluateFormFieldExpressions = (
   formValues: Record<string, unknown>,

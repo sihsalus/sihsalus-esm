@@ -1,9 +1,8 @@
 import { useLayoutType } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import styles from './offline-actions-patient-chart-widget.styles.scss';
 import OfflineActions from './offline-actions.component';
+import styles from './offline-actions-patient-chart-widget.styles.scss';
 
 export interface OfflineActionsPatientChartWidgetProps {
   patientUuid: string;

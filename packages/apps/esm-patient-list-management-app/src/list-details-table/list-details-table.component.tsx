@@ -17,7 +17,7 @@ import {
   Tile,
 } from '@carbon/react';
 import { ArrowLeft, TrashCan } from '@carbon/react/icons';
-import { ConfigurableLink, useLayoutType, isDesktop, showSnackbar, useDebounce } from '@openmrs/esm-framework';
+import { ConfigurableLink, isDesktop, showSnackbar, useDebounce, useLayoutType } from '@openmrs/esm-framework';
 import fuzzy from 'fuzzy';
 import React, { type CSSProperties, useCallback, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

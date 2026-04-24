@@ -19,7 +19,7 @@ import { getCoreTranslation, type Location } from '@openmrs/esm-framework';
 import { type TFunction } from 'i18next';
 import capitalize from 'lodash-es/capitalize';
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 

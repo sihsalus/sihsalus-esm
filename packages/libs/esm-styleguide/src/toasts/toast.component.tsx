@@ -1,6 +1,7 @@
 /** @module @category UI */
-import React, { useCallback } from 'react';
+
 import { ActionableNotification } from '@carbon/react';
+import React, { useCallback } from 'react';
 
 export interface ToastProps {
   toast: ToastNotificationMeta;

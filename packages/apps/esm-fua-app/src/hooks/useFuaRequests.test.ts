@@ -2,7 +2,7 @@ import { openmrsFetch, useAppContext } from '@openmrs/esm-framework';
 import { renderHook } from '@testing-library/react';
 import useSWR from 'swr';
 
-import { useFuaRequests, setFuaEstado, cancelFuaRequest, useFuasByPatient } from './useFuaRequests';
+import { cancelFuaRequest, setFuaEstado, useFuaRequests, useFuasByPatient } from './useFuaRequests';
 
 jest.mock('swr');
 jest.mock('@openmrs/esm-framework', () => ({

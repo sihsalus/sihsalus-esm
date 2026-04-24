@@ -5,7 +5,7 @@ import { CardHeader, EmptyState, ErrorState, useVisitOrOfflineVisit } from '@ope
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useVitalsConceptMetadata, useVitalsAndBiometrics, withUnit } from '../common';
+import { useVitalsAndBiometrics, useVitalsConceptMetadata, withUnit } from '../common';
 import { type ConfigObject } from '../config-schema';
 import { launchVitalsAndBiometricsForm } from '../utils';
 

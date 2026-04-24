@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useCallback } from 'react';
 import {
   Button,
   DataTable,
@@ -11,7 +10,6 @@ import {
   TableRow,
 } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import {
   CardHeader,
   getCoreTranslation,
@@ -20,6 +18,8 @@ import {
   showModal,
   showSnackbar,
 } from '@openmrs/esm-framework';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './cash-point-configuration.scss';
 
 const CashPointConfiguration: React.FC = () => {

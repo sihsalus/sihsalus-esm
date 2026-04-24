@@ -1,4 +1,4 @@
-import { type FormFieldValidator, type FormField, type ValidationResult } from '../types';
+import { type FormField, type FormFieldValidator, type ValidationResult } from '../types';
 import { isPlainObject } from '../utils/common-utils';
 export const fieldRequiredErrCode = 'field.required';
 export const fieldOutOfBoundErrCode = 'field.outOfBound';

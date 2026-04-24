@@ -13,15 +13,14 @@ import {
   TableRow,
   Tile,
 } from '@carbon/react';
-import { AddIcon, formatDate, parseDate, useLayoutType, launchWorkspace } from '@openmrs/esm-framework';
+import { AddIcon, formatDate, launchWorkspace, parseDate, useLayoutType } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { type ConditionTableHeader, useConditions, useConditionsSorting } from './conditions.resource';
 import { ConditionsActionMenu } from './conditions-action-menu.component';
 import styles from './conditions-detailed-summary.scss';
-import { useConditions, type ConditionTableHeader, useConditionsSorting } from './conditions.resource';
 
 const renderHeaderLabel = (header: React.ReactNode): React.ReactNode =>
   typeof header === 'object' && header !== null && 'content' in header

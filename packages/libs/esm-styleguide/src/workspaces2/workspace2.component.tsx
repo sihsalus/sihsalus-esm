@@ -1,13 +1,17 @@
-import React, { useEffect, type ReactNode } from 'react';
-import classNames from 'classnames';
 import { Header, HeaderGlobalAction, HeaderGlobalBar, HeaderName } from '@carbon/react';
 import { DownToBottom, Maximize, Minimize } from '@carbon/react/icons';
-import { ComponentContext, ExtensionSlot, isDesktop, useLayoutType } from '@openmrs/esm-framework/src/internal';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
-import { getOpenedWindowIndexByWorkspace } from '@openmrs/esm-framework/src/internal';
-import { useContext } from 'react';
+import {
+  ComponentContext,
+  ExtensionSlot,
+  getCoreTranslation,
+  getOpenedWindowIndexByWorkspace,
+  isDesktop,
+  useLayoutType,
+} from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { type ReactNode, useContext, useEffect } from 'react';
 import { ArrowRightIcon, CloseIcon } from '../icons';
-import { useWorkspace2Store, useWorkspace2Context, closeWorkspaceGroup2 } from './workspace2';
+import { closeWorkspaceGroup2, useWorkspace2Context, useWorkspace2Store } from './workspace2';
 import styles from './workspace2.module.scss';
 
 interface Workspace2Props {

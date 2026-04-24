@@ -8,9 +8,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { type Control, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
-
-import ResultFormField from './lab-results-form-field.component';
-import styles from './lab-results-form.scss';
 import {
   createObservationPayload,
   isCoded,
@@ -22,6 +19,8 @@ import {
   useCompletedLabResults,
   useOrderConceptByUuid,
 } from './lab-results.resource';
+import styles from './lab-results-form.scss';
+import ResultFormField from './lab-results-form-field.component';
 import { useLabResultsFormSchema } from './useLabResultsFormSchema';
 
 export interface LabResultsFormProps extends DefaultPatientWorkspaceProps {

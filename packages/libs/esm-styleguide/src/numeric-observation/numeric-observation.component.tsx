@@ -1,16 +1,17 @@
 /** @module @category UI */
-import React, { useMemo, useId } from 'react';
-import classNames from 'classnames';
+
 import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import classNames from 'classnames';
+import React, { useId, useMemo } from 'react';
 import {
   calculateInterpretation,
   normalizeInterpretation,
-  type ObservationInterpretation,
   type OBSERVATION_INTERPRETATION,
+  type ObservationInterpretation,
   type ObsReferenceRanges,
 } from './interpretation-utils';
-import { useConceptReferenceRange } from './use-concept-reference-range';
 import styles from './numeric-observation.module.scss';
+import { useConceptReferenceRange } from './use-concept-reference-range';
 
 export interface NumericObservationProps {
   /** The observation value to display */

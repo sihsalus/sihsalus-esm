@@ -1,10 +1,10 @@
+import { FormGroup, RadioButton, RadioButtonGroup } from '@carbon/react';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FormGroup, RadioButtonGroup, RadioButton } from '@carbon/react';
+import { useFormProviderContext } from '../../../provider/form-provider';
 import { type FormFieldInputProps, type FormFieldValue } from '../../../types';
 import { isTrue } from '../../../utils/boolean-utils';
 import { shouldUseInlineLayout } from '../../../utils/form-helper';
-import { useFormProviderContext } from '../../../provider/form-provider';
 import FieldLabel from '../../field-label/field-label.component';
 import FieldValueView from '../../value/view/field-value-view.component';
 import styles from './radio.scss';

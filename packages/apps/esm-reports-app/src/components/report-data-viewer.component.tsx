@@ -1,5 +1,10 @@
 import {
+  Button,
+  Checkbox,
   DataTable,
+  FormGroup,
+  Modal,
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -7,15 +12,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  Pagination,
-  Button,
-  Modal,
-  Checkbox,
-  FormGroup,
 } from '@carbon/react';
 import { Download } from '@carbon/react/icons';
-import { isDesktop, useLayoutType, formatDatetime, getCoreTranslation, parseDate } from '@openmrs/esm-framework';
-import React, { useState, useMemo } from 'react';
+import { formatDatetime, getCoreTranslation, isDesktop, parseDate, useLayoutType } from '@openmrs/esm-framework';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './reports.scss';

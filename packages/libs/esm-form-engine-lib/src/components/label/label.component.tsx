@@ -1,5 +1,5 @@
-import React from 'react';
 import { DefinitionTooltip } from '@carbon/react';
+import React from 'react';
 import styles from './label.scss';
 
 type LabelProps = {

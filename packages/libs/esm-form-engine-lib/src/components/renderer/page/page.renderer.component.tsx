@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { type FormSection, type FormPage } from '../../../types';
-import { isTrue } from '../../../utils/boolean-utils';
-import { useTranslation } from 'react-i18next';
-import { SectionRenderer } from '../section/section-renderer.component';
-import { Waypoint } from 'react-waypoint';
-import styles from './page.renderer.scss';
 import { Accordion, AccordionItem } from '@carbon/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@openmrs/esm-framework/src/internal';
 import classNames from 'classnames';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Waypoint } from 'react-waypoint';
+import { type FormPage, type FormSection } from '../../../types';
+import { isTrue } from '../../../utils/boolean-utils';
 import { pageObserver } from '../../sidebar/page-observer';
+import { SectionRenderer } from '../section/section-renderer.component';
+import styles from './page.renderer.scss';
 
 interface PageRendererProps {
   page: FormPage;

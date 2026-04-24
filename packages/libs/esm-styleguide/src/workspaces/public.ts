@@ -1,17 +1,15 @@
 export * from './action-menu-button/action-menu-button.component';
 export * from './container/workspace-container.component';
 export {
+  type CloseWorkspaceOptions,
   closeAllWorkspaces,
   closeWorkspace,
-  launchWorkspace,
-  navigateAndLaunchWorkspace,
-  useWorkspaces,
-  launchWorkspaceGroup,
-} from './workspaces';
-export {
   type DefaultWorkspaceProps,
-  type CloseWorkspaceOptions,
+  launchWorkspace,
+  launchWorkspaceGroup,
+  navigateAndLaunchWorkspace,
   type OpenWorkspace,
-  type WorkspacesInfo,
   type Prompt,
+  useWorkspaces,
+  type WorkspacesInfo,
 } from './workspaces';

@@ -16,7 +16,7 @@
     "test": "jest --config jest.config.js --verbose false --passWithNoTests --color",
     "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
     "coverage": "yarn test --coverage",
-    "typescript": "tsc",
+    "typescript": "yarn exec tsc --noEmit && yarn exec tsc --noEmit -p tsconfig.test.json",
     "extract-translations": "i18next \"src/**/*.component.tsx\" \"src/**/*.extension.tsx\" \"src/**/*modal.tsx\" \"src/**/*.workspace.tsx\" \"src/index.ts\" --config ../../tooling/scripts/i18next-parser.config.js"
   },
   "browserslist": [
@@ -60,6 +60,7 @@
     "@openmrs/esm-styleguide": "patch:@openmrs/esm-styleguide@npm%3A9.0.2#~/.yarn/patches/@openmrs-esm-styleguide-npm-9.0.2-fc8ffda76a.patch",
     "cross-env": "^7.0.3",
     "jest": "^29.7.0",
-    "openmrs": "*"
+    "openmrs": "*",
+    "typescript": "^5.8.3"
   }
 }

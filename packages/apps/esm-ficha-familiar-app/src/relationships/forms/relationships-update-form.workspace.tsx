@@ -18,10 +18,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
 import type { z } from 'zod';
-
-import PatientInfo from '../patient-info.component';
 import useRelationship from '../../hooks/useRelationship';
 import useRelationshipTypes from '../../hooks/useRelationshipTypes';
+import PatientInfo from '../patient-info.component';
 import { relationshipUpdateFormSchema, updateRelationship } from '../relationship.resources';
 
 import styles from './form.scss';

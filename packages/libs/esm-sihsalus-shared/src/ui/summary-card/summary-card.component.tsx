@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './summary-card.scss';
+
 type SummaryCardProps = {
   title: string;
   value: string | React.ReactNode;

@@ -1,8 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-
-import type { ImportMapOverridesApi } from './import-map-overrides.types';
-import ImportMapList from './import-map-list/list.component';
+import React, { useEffect, useRef } from 'react';
 import styles from './import-map.styles.css';
+import ImportMapList from './import-map-list/list.component';
+import type { ImportMapOverridesApi } from './import-map-overrides.types';
 
 type ImportMapProps = {
   toggleOverridden: (overridden: boolean) => void;

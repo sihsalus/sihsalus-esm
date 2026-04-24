@@ -1,9 +1,9 @@
+import { DataTable, Pagination, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
 import React, { useState } from 'react';
-import { DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Pagination } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
+import mainStyle from '../../cohort-builder.scss';
 import type { PaginationData, Patient } from '../../types';
 import EmptyData from '../empty-data/empty-data.component';
-import mainStyle from '../../cohort-builder.scss';
 import styles from './search-results-table.scss';
 
 interface SearchResultsTableProps {

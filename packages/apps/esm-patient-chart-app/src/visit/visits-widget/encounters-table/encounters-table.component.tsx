@@ -18,7 +18,7 @@ import {
   Tile,
 } from '@carbon/react';
 import { formatDatetime, parseDate, useLayoutType, usePagination } from '@openmrs/esm-framework';
-import { ErrorState, EmptyState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
+import { EmptyState, ErrorState, PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

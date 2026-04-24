@@ -1,4 +1,4 @@
-import { ModalHeader, ModalBody, ModalFooter, Button, SkeletonText, Tag, InlineNotification } from '@carbon/react';
+import { Button, InlineNotification, ModalBody, ModalFooter, ModalHeader, SkeletonText, Tag } from '@carbon/react';
 import { formatDate } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

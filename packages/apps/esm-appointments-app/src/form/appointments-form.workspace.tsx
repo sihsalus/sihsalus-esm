@@ -19,7 +19,9 @@ import {
 } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  type DefaultWorkspaceProps,
   ExtensionSlot,
+  type FetchResponse,
   OpenmrsDatePicker,
   ResponsiveWrapper,
   showSnackbar,
@@ -29,8 +31,6 @@ import {
   useLocations,
   usePatient,
   useSession,
-  type DefaultWorkspaceProps,
-  type FetchResponse,
 } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
@@ -67,10 +67,10 @@ function getConflictErrorMessage(
   t: (key: string, defaultValue: string) => string,
 ): string | null {
   const defaultMessage = t('appointmentConflict', 'Appointment conflict');
-  if (Object.prototype.hasOwnProperty.call(responseData, 'SERVICE_UNAVAILABLE')) {
+  if (Object.hasOwn(responseData, 'SERVICE_UNAVAILABLE')) {
     return t('serviceUnavailable', 'Appointment time is outside of service hours');
   }
-  if (Object.prototype.hasOwnProperty.call(responseData, 'PATIENT_DOUBLE_BOOKING')) {
+  if (Object.hasOwn(responseData, 'PATIENT_DOUBLE_BOOKING')) {
     return context !== 'editing'
       ? t('patientDoubleBooking', 'Patient already booked for an appointment at this time')
       : null;

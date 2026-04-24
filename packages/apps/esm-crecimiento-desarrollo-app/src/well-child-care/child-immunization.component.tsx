@@ -1,9 +1,8 @@
 import { Eyedropper, Pills } from '@carbon/react/icons';
 import { usePatient } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
-
 import type { TabConfig } from '@sihsalus/esm-sihsalus-shared';
 import { TabbedDashboard } from '@sihsalus/esm-sihsalus-shared';
+import React, { useMemo } from 'react';
 
 export interface ChildImmunizationProps {
   patient?: fhir.Patient | null;

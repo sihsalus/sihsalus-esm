@@ -1,4 +1,4 @@
-import { DataSetLabels, CategoryCodes } from '../data-sets';
+import { CategoryCodes, DataSetLabels } from '../data-sets';
 
 export interface MeasurementData {
   eventDate: Date;

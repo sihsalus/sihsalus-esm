@@ -9,8 +9,8 @@ import { registerWorkspace } from '@openmrs/esm-framework/src/internal';
 
 import clinicalFormActionMenuComponent from './clinical-form-action-menu.component';
 import { configSchema } from './config-schema';
-import OfflineForms from './offline-forms/offline-forms.component';
 import { setupDynamicFormDataHandler, setupPatientFormSync } from './offline';
+import OfflineForms from './offline-forms/offline-forms.component';
 
 const moduleName = '@sihsalus/esm-patient-forms-app';
 

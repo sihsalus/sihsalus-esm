@@ -1,14 +1,14 @@
 import { Button } from '@carbon/react';
-import { TrashCan, Edit, Reset } from '@carbon/react/icons';
-import { showModal, useConfig, UserHasAccess } from '@openmrs/esm-framework';
+import { Edit, Reset, TrashCan } from '@carbon/react/icons';
+import { showModal, UserHasAccess, useConfig } from '@openmrs/esm-framework';
 import { useField } from 'formik';
-import React, { useState, useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ResourcesContext } from '../../../../offline.resources';
 import { deleteIdentifierType, setIdentifierSource } from '../../../field/id/id-field.component';
-import { PatientRegistrationContext } from '../../../patient-registration-context';
 import { type PatientIdentifierValue } from '../../../patient-registration.types';
+import { PatientRegistrationContext } from '../../../patient-registration-context';
 import { Input } from '../../basic-input/input/input.component';
 import styles from '../../input.scss';
 

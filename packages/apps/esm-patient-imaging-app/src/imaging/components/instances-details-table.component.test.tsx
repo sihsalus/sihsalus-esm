@@ -1,8 +1,8 @@
-import React, { act } from 'react';
-import { render, screen, fireEvent, within } from '@testing-library/react';
-import InstancesDetailsTable, { type InstancesDetailsTableProps } from './instances-details-table.component';
-import * as api from '../../api';
 import { showModal } from '@openmrs/esm-framework';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import React, { act } from 'react';
+import * as api from '../../api';
+import InstancesDetailsTable, { type InstancesDetailsTableProps } from './instances-details-table.component';
 
 jest.mock('../../api');
 jest.mock('@openmrs/esm-framework', () => ({

@@ -1,6 +1,4 @@
-import React, { useMemo } from 'react';
 import { OverflowMenu, OverflowMenuItem, SkeletonText, Tag, Tile } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import {
   formatDatetime,
   launchWorkspace2,
@@ -12,17 +10,21 @@ import {
   userHasAccess,
   useSession,
 } from '@openmrs/esm-framework';
-import {
-  updateMedicationRequestFulfillerStatus,
-  usePrescriptionDetails,
-} from '../medication-request/medication-request.resource';
-import { deleteMedicationDispense } from '../medication-dispense/medication-dispense.resource';
-import { type MedicationDispense, MedicationDispenseStatus, type MedicationRequestBundle } from '../types';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import MedicationEvent from '../components/medication-event.component';
+import { type PharmacyConfig } from '../config-schema';
 import {
   PRIVILEGE_DELETE_DISPENSE,
   PRIVILEGE_DELETE_DISPENSE_THIS_PROVIDER_ONLY,
   PRIVILEGE_EDIT_DISPENSE,
 } from '../constants';
+import { deleteMedicationDispense } from '../medication-dispense/medication-dispense.resource';
+import {
+  updateMedicationRequestFulfillerStatus,
+  usePrescriptionDetails,
+} from '../medication-request/medication-request.resource';
+import { type MedicationDispense, MedicationDispenseStatus, type MedicationRequestBundle } from '../types';
 import {
   computeNewFulfillerStatusAfterDelete,
   computeQuantityRemaining,
@@ -34,8 +36,6 @@ import {
   revalidate,
   sortMedicationDispensesByWhenHandedOver,
 } from '../utils';
-import { type PharmacyConfig } from '../config-schema';
-import MedicationEvent from '../components/medication-event.component';
 import styles from './history-and-comments.scss';
 
 const HistoryAndComments: React.FC<{

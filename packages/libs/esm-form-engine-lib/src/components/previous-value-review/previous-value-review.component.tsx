@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useFormProviderContext } from '../../provider/form-provider';
+import { type FormField, type FormFieldValue } from '../../types';
 import { ValueDisplay } from '../value/value.component';
 import styles from './previous-value-review.scss';
-import { type FormField, type FormFieldValue } from '../../types';
-import { useFormProviderContext } from '../../provider/form-provider';
 
 type PreviousValueReviewProps = {
   previousValue: FormFieldValue | undefined;

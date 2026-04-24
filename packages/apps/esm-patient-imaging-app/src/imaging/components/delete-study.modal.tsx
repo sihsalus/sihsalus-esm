@@ -1,10 +1,16 @@
+import {
+  Button,
+  InlineLoading,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  RadioButton,
+  RadioButtonGroup,
+} from '@carbon/react';
+import { showSnackbar } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, InlineLoading, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { showSnackbar } from '@openmrs/esm-framework';
 import { deleteStudy, useStudiesByPatient } from '../../api';
-import { RadioButtonGroup } from '@carbon/react';
-import { RadioButton } from '@carbon/react';
 import styles from './modal.scss';
 
 interface DeleteStudyModalProps {

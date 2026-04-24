@@ -7,16 +7,15 @@ import { useTranslation } from 'react-i18next';
 import FilterContext from '../filter/filter-context';
 import { makeThrottled } from '../helpers';
 import { Grid, ShadowBox } from '../panel-timeline/helpers';
-
+import styles from './grouped-timeline.scss';
 import type {
+  DataRowsProps,
   DateHeaderGridProps,
+  NewRowStartCellProps,
   PanelNameCornerProps,
   TimelineCellProps,
-  DataRowsProps,
-  NewRowStartCellProps,
   TimelineDataGroupProps,
 } from './grouped-timeline-types';
-import styles from './grouped-timeline.scss';
 
 const TimeSlots: React.FC<{
   children?: React.ReactNode;

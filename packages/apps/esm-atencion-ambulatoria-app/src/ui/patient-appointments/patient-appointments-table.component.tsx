@@ -1,16 +1,17 @@
-import React, { useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import React, { useEffect, useMemo } from 'react';
 
 dayjs.extend(utc);
+
 import type { DataTableHeader } from '@carbon/react';
 import {
   DataTable,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
-  TableBody,
   TableHead,
   TableHeader,
   TableRow,

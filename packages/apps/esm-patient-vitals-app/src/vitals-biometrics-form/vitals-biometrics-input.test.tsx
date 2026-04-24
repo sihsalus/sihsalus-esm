@@ -1,9 +1,9 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { screen, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { mockConceptUnits } from 'test-utils';
 
 import { assessValue, getReferenceRangesForConcept } from '../common';
-import { configSchema, type ConfigObject } from '../config-schema';
+import { type ConfigObject, configSchema } from '../config-schema';
 
 import VitalsAndBiometricsInput from './vitals-biometrics-input.component';
 

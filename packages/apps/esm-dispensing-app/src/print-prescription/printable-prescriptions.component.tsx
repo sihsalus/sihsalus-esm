@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
 import { Checkbox } from '@carbon/react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type DosageInstruction, type MedicationRequestBundle } from '../types';
 import { getDosageInstruction, getMedicationDisplay, getMedicationReferenceOrCodeableConcept } from '../utils';

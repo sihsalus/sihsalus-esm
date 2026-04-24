@@ -1,5 +1,5 @@
 import { Calendar, Location } from '@carbon/react/icons';
-import { useSession, formatDate, PageHeader, PageHeaderContent, Assessment1Pictogram } from '@openmrs/esm-framework';
+import { Assessment1Pictogram, formatDate, PageHeader, PageHeaderContent, useSession } from '@openmrs/esm-framework';
 import React from 'react';
 
 import styles from './case-management-header.scss';

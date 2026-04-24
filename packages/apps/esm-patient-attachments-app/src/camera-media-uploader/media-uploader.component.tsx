@@ -1,9 +1,9 @@
-import { useCallback, useContext, useState } from 'react';
 import { FileUploaderDropContainer, InlineNotification } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { useConfig } from '@openmrs/esm-framework';
-import { readFileAsString } from '../utils';
 import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
+import { useCallback, useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { readFileAsString } from '../utils';
 import CameraMediaUploaderContext from './camera-media-uploader-context.resources';
 import styles from './media-uploader.scss';
 

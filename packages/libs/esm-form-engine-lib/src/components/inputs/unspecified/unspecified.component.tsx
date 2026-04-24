@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
 import { Checkbox } from '@carbon/react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isEmpty } from '../../../validators/form-validator';
+import { useFormProviderContext } from '../../../provider/form-provider';
 import { type FormField, type FormFieldValue } from '../../../types';
 import { isTrue } from '../../../utils/boolean-utils';
-
-import styles from './unspecified.scss';
-import { useFormProviderContext } from '../../../provider/form-provider';
 import { clearSubmission, isViewMode } from '../../../utils/common-utils';
+import { isEmpty } from '../../../validators/form-validator';
+import styles from './unspecified.scss';
 
 interface UnspecifiedFieldProps {
   field: FormField;

@@ -1,5 +1,6 @@
 import { getDefaultsFromConfigSchema, useConfig, useSession } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
+import React from 'react';
 import {
   mockLocationSurgery,
   mockLocationTriage,
@@ -7,9 +8,8 @@ import {
   mockQueueRooms,
   mockServices,
   mockSession,
+  renderWithSwr,
 } from 'test-utils';
-import React from 'react';
-import { renderWithSwr } from 'test-utils';
 
 import { useQueueRooms } from '../add-provider-queue-room-modal/add-provider-queue-room.resource';
 import { type ConfigObject, configSchema } from '../config-schema';

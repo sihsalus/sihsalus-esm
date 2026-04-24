@@ -1,4 +1,4 @@
-import { Tab, Tabs, TabList } from '@carbon/react';
+import { Tab, TabList, Tabs } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 

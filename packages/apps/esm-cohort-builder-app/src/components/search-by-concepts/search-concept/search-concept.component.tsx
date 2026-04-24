@@ -1,7 +1,7 @@
-import React, { type Dispatch, type SetStateAction, useState, useRef, useEffect } from 'react';
-import { debounce } from 'lodash-es';
-import { useTranslation } from 'react-i18next';
 import { Column, InlineLoading, Search, Tile } from '@carbon/react';
+import { debounce } from 'lodash-es';
+import React, { type Dispatch, type SetStateAction, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type Concept } from '../../../types';
 import { getConcepts } from './search-concept.resource';
 import styles from './search-concept.scss';

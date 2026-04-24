@@ -1,7 +1,6 @@
 import { Button } from '@carbon/react';
 import {
   ArrowLeftIcon,
-  Workspace2,
   age,
   formatDate,
   getPatientName,
@@ -9,12 +8,13 @@ import {
   useConfig,
   useLayoutType,
   usePatient,
+  Workspace2,
 } from '@openmrs/esm-framework';
 import {
   type DefaultPatientWorkspaceProps,
+  launchPatientWorkspace,
   type OrderBasketItem,
   type PatientWorkspace2DefinitionProps,
-  launchPatientWorkspace,
   useOrderType,
   usePatientChartStore,
 } from '@openmrs/esm-patient-common-lib';

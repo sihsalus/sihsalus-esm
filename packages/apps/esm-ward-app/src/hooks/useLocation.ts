@@ -1,4 +1,4 @@
-import { type Location, openmrsFetch, restBaseUrl, type FetchResponse } from '@openmrs/esm-framework';
+import { type FetchResponse, type Location, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWRImmutable from 'swr/immutable';
 
 export default function useLocation(locationUuid: string, rep: string = 'custom:(display,uuid)') {

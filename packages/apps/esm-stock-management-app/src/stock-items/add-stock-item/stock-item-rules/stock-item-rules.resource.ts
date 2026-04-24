@@ -1,6 +1,6 @@
+import { usePagination } from '@openmrs/esm-framework';
 import { useMemo, useState } from 'react';
 import { type StockRuleFilter, useStockRules } from '../../stock-items.resource';
-import { usePagination } from '@openmrs/esm-framework';
 
 export function useStockItemRules(filter: StockRuleFilter) {
   const { items, isLoading, error } = useStockRules(filter);

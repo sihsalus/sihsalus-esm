@@ -1,11 +1,11 @@
 import {
-  type FetchResponse,
-  type Session,
   clearCurrentUser,
+  type FetchResponse,
   navigate,
   openmrsFetch,
   refetchCurrentUser,
   restBaseUrl,
+  type Session,
   setUserLanguage,
   useConfig,
   useConnectivity,

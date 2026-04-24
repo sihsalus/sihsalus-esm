@@ -1,19 +1,19 @@
-import React from 'react';
 import { Button } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import {
   AddIcon,
+  type FetchResponse,
   launchWorkspace2,
+  type Order,
   openmrsFetch,
   restBaseUrl,
   showModal,
   showSnackbar,
   useLayoutType,
-  type FetchResponse,
-  type Order,
   type Visit,
   type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './fill-prescription-button.scss';
 
 const FillPrescriptionButton: React.FC<{}> = () => {

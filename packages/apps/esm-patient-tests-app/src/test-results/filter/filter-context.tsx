@@ -1,17 +1,17 @@
 import { isObject } from 'lodash-es';
-import React, { createContext, useReducer, useEffect, useMemo } from 'react';
+import React, { createContext, useEffect, useMemo, useReducer } from 'react';
 
-import { type MappedObservation, type TestResult, type GroupedObservation, type Observation } from '../../types';
+import { type GroupedObservation, type MappedObservation, type Observation, type TestResult } from '../../types';
 import { parseTime } from '../panel-timeline/helpers';
 
 import reducer from './filter-reducer';
 import {
-  type TreeNode,
   type FilterContextProps,
-  type ReducerState,
   ReducerActionType,
-  type TimelineData,
+  type ReducerState,
   type RowData,
+  type TimelineData,
+  type TreeNode,
 } from './filter-types';
 
 const initialState: ReducerState = {
@@ -178,4 +178,4 @@ const FilterProvider = ({ roots, children }: FilterProviderProps) => {
 };
 
 export default FilterContext;
-export { FilterProvider, FilterContext };
+export { FilterContext, FilterProvider };

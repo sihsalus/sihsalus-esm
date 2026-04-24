@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
 
-import type { ProgramWorkflowState, PatientProgram, Program, ProgramsFetchResponse } from '../types';
+import type { PatientProgram, Program, ProgramsFetchResponse, ProgramWorkflowState } from '../types';
 
 export const customRepresentation = `custom:(uuid,display,program,dateEnrolled,dateCompleted,location:(uuid,display),states:(startDate,endDate,voided,state:(uuid,concept:(display))))`;
 

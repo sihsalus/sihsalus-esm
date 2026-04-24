@@ -1,5 +1,3 @@
-import React, { type ComponentProps } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button, DataTableSkeleton, InlineLoading } from '@carbon/react';
 import { AddIcon, launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
 import {
@@ -9,9 +7,11 @@ import {
   launchStartVisitPrompt,
   usePatientChartStore,
 } from '@openmrs/esm-patient-common-lib';
-import { useVisitNotes } from './visit-notes.resource';
-import PaginatedNotes from './paginated-notes.component';
+import React, { type ComponentProps } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './notes-overview.scss';
+import PaginatedNotes from './paginated-notes.component';
+import { useVisitNotes } from './visit-notes.resource';
 
 interface NotesOverviewProps {
   patientUuid?: string;

@@ -1,13 +1,13 @@
 import { Button, ButtonSet, InlineLoading, Tag } from '@carbon/react';
-import { showSnackbar, type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+import { type DefaultWorkspaceProps, showSnackbar } from '@openmrs/esm-framework';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useOdontogramEncounter } from '../hooks/useOdontogramEncounter';
-import useOdontogramDataStore from '../store/odontogramDataStore';
-import type { OdontogramRecordType } from '../types/odontogram-record';
 import OdontogramCanvas from '../odontogram/components/Odontogram';
 import { adultConfig } from '../odontogram/config/adultConfig';
+import useOdontogramDataStore from '../store/odontogramDataStore';
+import type { OdontogramRecordType } from '../types/odontogram-record';
 import styles from './odontogram-workspace.scss';
 
 interface OdontogramWorkspaceProps extends DefaultWorkspaceProps {

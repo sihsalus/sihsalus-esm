@@ -14,6 +14,7 @@ const mockUsePatient = jest.mocked(usePatient);
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
 const mockUseLayoutType = jest.mocked(useLayoutType);
 const mockUseGetManyObstreeData = jest.mocked(useGetManyObstreeData);
+const mockFhirPatient = mockPatient as unknown as fhir.Patient;
 
 jest.mock('../panel-timeline/helpers', () => ({
   ...jest.requireActual('../panel-timeline/helpers'),
@@ -37,6 +38,7 @@ const mockProps = {
 const mockFilterContext: FilterContextProps = {
   activeTests: ['Bloodwork-Chemistry', 'Bloodwork'],
   timelineData: mockGroupedResults.timelineData,
+  tableData: null,
   parents: mockGroupedResults.parents,
   checkboxes: { Bloodwork: false, Chemistry: true },
   someChecked: true,
@@ -46,7 +48,7 @@ const mockFilterContext: FilterContextProps = {
   toggleVal: jest.fn(),
   updateParent: jest.fn(),
   resetTree: jest.fn(),
-  roots: mockResults,
+  roots: mockResults as any,
   tests: {},
 };
 
@@ -63,7 +65,7 @@ describe('TreeViewWrapper', () => {
     mockUseLayoutType.mockReturnValue('small-desktop');
 
     mockUsePatient.mockReturnValue({
-      patient: mockPatient,
+      patient: mockFhirPatient,
       patientUuid: mockPatient.id,
       isLoading: false,
       error: null,
@@ -127,7 +129,7 @@ describe('TreeViewWrapper', () => {
 
   it('renders the tree view when test data is successfully fetched', async () => {
     mockUseGetManyObstreeData.mockReturnValue({
-      roots: mockResults,
+      roots: mockResults as any,
       isLoading: false,
       error: null,
     });
