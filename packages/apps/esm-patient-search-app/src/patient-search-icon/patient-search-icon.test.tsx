@@ -1,4 +1,4 @@
-import { getDefaultsFromConfigSchema, isDesktop, useConfig } from '@openmrs/esm-framework';
+import { getDefaultsFromConfigSchema, isDesktop, useConfig, useSession } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -8,6 +8,7 @@ import PatientSearchLaunch from './patient-search-icon.component';
 
 const mockIsDesktop = jest.mocked(isDesktop);
 const mockUseConfig = jest.mocked(useConfig<PatientSearchConfig>);
+const mockUseSession = jest.mocked(useSession);
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -20,6 +21,11 @@ jest.mock('react-router-dom', () => ({
 
 describe('PatientSearchLaunch', () => {
   beforeEach(() => {
+    mockIsDesktop.mockReturnValue(true);
+    mockUseSession.mockReturnValue({
+      user: { uuid: 'test-user-uuid' },
+      sessionLocation: { uuid: 'test-location-uuid' },
+    } as ReturnType<typeof useSession>);
     mockUseConfig.mockReturnValue({
       ...getDefaultsFromConfigSchema(configSchema),
       search: {
@@ -38,10 +44,10 @@ describe('PatientSearchLaunch', () => {
     const user = userEvent.setup();
     render(<PatientSearchLaunch />);
 
-    const searchButton = screen.getByTestId('searchPatientIcon');
+    const searchButton = screen.getByRole('button', { name: /search patient/i });
 
     await user.click(searchButton);
-    const closeButton = screen.getByTestId('closeSearchIcon');
+    const closeButton = await screen.findByTestId('closeSearchIcon');
     expect(closeButton).toBeInTheDocument();
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
 
@@ -55,9 +61,10 @@ describe('PatientSearchLaunch', () => {
 
     render(<PatientSearchLaunch />);
 
-    const searchButton = screen.getByTestId('searchPatientIcon');
+    const searchButton = screen.getByRole('button', { name: /search patient/i });
 
     await user.click(searchButton);
-    expect(screen.getByTestId('closeSearchIcon')).toBeInTheDocument();
+    expect(await screen.findByTestId('closeSearchIcon')).toBeInTheDocument();
+    expect(screen.getByText(/search results/i)).toBeInTheDocument();
   });
 });

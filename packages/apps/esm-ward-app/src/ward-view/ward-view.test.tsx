@@ -9,7 +9,7 @@ import { screen } from '@testing-library/react';
 import { useParams } from 'react-router-dom';
 import { renderWithSwr } from 'test-utils';
 
-import { mockWardPatientGroupDetails, mockWardViewContext } from '../../mock';
+import { mockWardPatientGroupDetails, mockWardViewContext } from '../../../test-utils/mock';
 import { configSchema } from '../config-schema';
 import { useObs } from '../hooks/useObs';
 import useWardLocation from '../hooks/useWardLocation';

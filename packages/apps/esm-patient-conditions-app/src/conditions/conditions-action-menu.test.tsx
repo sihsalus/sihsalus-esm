@@ -1,11 +1,17 @@
-import { launchWorkspace2, showModal, useLayoutType } from '@openmrs/esm-framework';
+import { showModal, useLayoutType } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { type Condition } from './conditions.resource';
 import { ConditionsActionMenu } from './conditions-action-menu.component';
 
-const mockLaunchWorkspace2 = jest.mocked(launchWorkspace2);
+jest.mock('@openmrs/esm-patient-common-lib', () => ({
+  ...jest.requireActual('@openmrs/esm-patient-common-lib'),
+  launchPatientWorkspace: jest.fn(),
+}));
+
+const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);
 const mockShowModal = jest.mocked(showModal);
 const mockUseLayoutType = jest.mocked(useLayoutType);
 
@@ -72,15 +78,13 @@ describe('ConditionsActionMenu', () => {
     await user.click(screen.getByRole('button'));
     await user.click(screen.getByText('Edit'));
 
-    expect(mockLaunchWorkspace2).toHaveBeenCalledWith(
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith(
       'conditions-form-workspace',
       {
         workspaceTitle: 'Edit a Condition',
         condition: specificCondition,
         formContext: 'editing',
       },
-      null,
-      null,
     );
   });
 

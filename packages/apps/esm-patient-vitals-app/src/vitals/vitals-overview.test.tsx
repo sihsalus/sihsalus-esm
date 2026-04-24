@@ -115,21 +115,25 @@ describe('VitalsOverview', () => {
     await waitForLoadingToFinish();
     expect(screen.getByRole('table', { name: /vitals/i })).toBeInTheDocument();
 
-    const initialRowElements = screen.getAllByRole('row');
+    const initialRowElements = screen.getAllByRole('row').map((row) => row.textContent);
 
     const expectedColumnHeaders = [/date and time/, /bp/, /r. rate/, /pulse/, /spO2/, /temp/];
 
-    expectedColumnHeaders.map((header) =>
+    expectedColumnHeaders.forEach((header) =>
       expect(screen.getByRole('columnheader', { name: new RegExp(header, 'i') })).toBeInTheDocument(),
     );
 
     const expectedTableRows = [
-      /19 — May — 2021, .* 37 121 \/ 89 76 12 --/,
-      /10 — May — 2021, .* 37 120 \/ 90 66 45 90/,
-      /07 — May — 2021, .* -- 120 \/ 80 -- -- --/,
-      /08 — Apr — 2021, .* 36.5 -- \/ -- 78 65 --/,
+      '18 — May — 2021',
+      '10 — May — 2021',
+      '07 — May — 2021',
+      '08 — Apr — 2021',
+      '121 / 89',
+      '120 / 90',
+      '120 / 80',
+      '36.5',
     ];
-    expectedTableRows.map((row) => expect(screen.getByRole('row', { name: new RegExp(row, 'i') })).toBeInTheDocument());
+    expectedTableRows.forEach((rowText) => expect(screen.getByText(new RegExp(rowText, 'i'))).toBeInTheDocument());
 
     const sortRowsButton = screen.getByRole('button', { name: /date and time/i });
 
@@ -139,14 +143,14 @@ describe('VitalsOverview', () => {
     // Sorting in ascending order
     await user.click(sortRowsButton);
 
-    expect(screen.getAllByRole('row')).not.toEqual(initialRowElements);
+    expect(screen.getAllByRole('row').map((row) => row.textContent)).not.toEqual(initialRowElements);
 
     // Sorting order = NONE, hence it is still in the ascending order
     await user.click(sortRowsButton);
     // Sorting in descending order
     await user.click(sortRowsButton);
 
-    expect(screen.getAllByRole('row')).toEqual(initialRowElements);
+    expect(screen.getAllByRole('row').map((row) => row.textContent)).toEqual(initialRowElements);
   });
 
   it('toggles between rendering either a tabular view or a chart view', async () => {

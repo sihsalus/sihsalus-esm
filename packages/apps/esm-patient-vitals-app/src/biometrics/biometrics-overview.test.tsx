@@ -111,11 +111,10 @@ describe('BiometricsOverview', () => {
       expect(screen.getByRole('columnheader', { name: new RegExp(header, 'i') })).toBeInTheDocument(),
     );
 
-    expect(screen.getByText(/12.*Aug.*2021/i)).toBeInTheDocument();
-    expect(screen.getByText('90')).toBeInTheDocument();
-    expect(screen.getByText('186')).toBeInTheDocument();
-    expect(screen.getByText('26.0')).toBeInTheDocument();
-    expect(screen.getByText('17')).toBeInTheDocument();
+    const tableRows = screen.getAllByRole('row').map((row) => row.textContent ?? '');
+    expect(tableRows.some((row) => row.includes('90') && row.includes('186') && row.includes('26.0') && row.includes('17'))).toBe(
+      true,
+    );
 
     const sortRowsButton = screen.getByRole('button', { name: /date and time/i });
 

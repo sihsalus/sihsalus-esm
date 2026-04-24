@@ -34,7 +34,7 @@ function ConditionsDetailedSummary({ patient }) {
   const { conditions, error, isLoading, isValidating } = useConditions(patient.id);
 
   const filteredConditions = useMemo(() => {
-    if (!filter || filter == 'All') {
+    if (!filter || filter === 'All') {
       return conditions;
     }
 
@@ -156,24 +156,30 @@ function ConditionsDetailedSummary({ patient }) {
                 <Table {...getTableProps()} aria-label="conditions summary" className={styles.table}>
                   <TableHead>
                     <TableRow>
-                      {headers.map((header) => (
-                        <TableHeader
-                          className={classNames(styles.productiveHeading01, styles.text02)}
-                          {...getHeaderProps({
-                            header,
-                          })}
-                        >
-                          {header.header}
-                        </TableHeader>
-                      ))}
+                      {headers.map((header) => {
+                        const { key, ...headerProps } = getHeaderProps({
+                          header,
+                        });
+
+                        return (
+                          <TableHeader
+                            key={key}
+                            className={classNames(styles.productiveHeading01, styles.text02)}
+                            {...headerProps}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        );
+                      })}
                       <TableHeader />
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {rows.map((row) => {
-                      const matchingCondition = conditions.find((condition) => condition.id == row.id);
+                      const matchingCondition = conditions.find((condition) => condition.id === row.id);
+                      const { key, ...rowProps } = getRowProps({ row });
                       return (
-                        <TableRow key={row.id} {...getRowProps({ row })}>
+                        <TableRow key={key} {...rowProps}>
                           {row.cells.map((cell) => (
                             <TableCell key={cell.id}>
                               {(cell.value?.content ?? cell.info.header === 'status')

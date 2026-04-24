@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithSwr } from 'test-utils';
 
-import { mockWardViewContext } from '../../mock';
+import { mockWardViewContext } from '../../../test-utils/mock';
 import { type WardViewContext } from '../types';
 
 import AdmissionRequestsBar from './admission-requests-bar.component';

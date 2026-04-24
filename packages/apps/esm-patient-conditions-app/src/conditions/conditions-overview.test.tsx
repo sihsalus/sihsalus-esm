@@ -1,8 +1,9 @@
-import { getDefaultsFromConfigSchema, launchWorkspace2, useConfig } from '@openmrs/esm-framework';
+import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
+import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { mockFhirConditionsResponse, mockPatient } from 'test-utils';
+import { mockPatient } from 'test-utils';
 import { type ConfigObject, configSchema } from '../config-schema';
 import { useConditions } from './conditions.resource';
 import ConditionsOverview from './conditions-overview.component';
@@ -16,8 +17,13 @@ jest.mock('./conditions.resource', () => {
   };
 });
 
+jest.mock('@openmrs/esm-patient-common-lib', () => ({
+  ...jest.requireActual('@openmrs/esm-patient-common-lib'),
+  launchPatientWorkspace: jest.fn(),
+}));
+
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
-const mockLaunchWorkspace = jest.mocked(launchWorkspace2);
+const mockLaunchPatientWorkspace = jest.mocked(launchPatientWorkspace);
 const mockUseConditions = jest.mocked(useConditions);
 
 mockUseConfig.mockReturnValue({
@@ -183,12 +189,10 @@ describe('ConditionsOverview', () => {
 
     await user.click(recordConditionsLink);
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledTimes(1);
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith(
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledTimes(1);
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith(
       'conditions-form-workspace',
       { formContext: 'creating' },
-      null,
-      null,
     );
   });
 });

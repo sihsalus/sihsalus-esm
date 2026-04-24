@@ -196,23 +196,28 @@ const ConditionsOverview: React.FC<ConditionsOverviewProps> = ({ patientUuid }) 
                 <Table {...getTableProps()} className={styles.table}>
                   <TableHead>
                     <TableRow>
-                      {(headers as Array<DataTableHeader & ConditionTableHeader>).map((header) => (
-                        <TableHeader
-                          className={classNames(styles.productiveHeading01, styles.text02)}
-                          {...getHeaderProps({
-                            header,
-                            isSortable: header.isSortable,
-                          })}
-                        >
-                          {header.header}
-                        </TableHeader>
-                      ))}
+                      {(headers as Array<DataTableHeader & ConditionTableHeader>).map((header) => {
+                        const { key, ...headerProps } = getHeaderProps({
+                          header,
+                          isSortable: header.isSortable,
+                        });
+
+                        return (
+                          <TableHeader
+                            key={key}
+                            className={classNames(styles.productiveHeading01, styles.text02)}
+                            {...headerProps}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        );
+                      })}
                       <TableHeader aria-label={t('actions', 'Actions')} />
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {rows.map((row) => {
-                      const matchingCondition = conditions.find((condition) => condition.id == row.id);
+                      const matchingCondition = conditions.find((condition) => condition.id === row.id);
                       return (
                         <TableRow key={row.id}>
                           {row.cells.map((cell) => (
