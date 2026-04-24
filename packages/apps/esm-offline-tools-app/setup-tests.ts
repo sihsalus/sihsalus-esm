@@ -1,11 +1,9 @@
-import { afterEach, vi } from 'vitest';
-import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/react';
 
 afterEach(cleanup);
 
-vi.mock('workbox-window', () => ({
-  Workbox: vi.fn(),
+jest.mock('workbox-window', () => ({
+  Workbox: jest.fn(),
 }));
 
 declare global {
@@ -21,4 +19,4 @@ window.getComputedStyle = (element) => getComputedStyle(element);
 window.openmrsBase = '/openmrs';
 window.spaBase = '/spa';
 window.getOpenmrsSpaBase = () => '/openmrs/spa/';
-window.HTMLElement.prototype.scrollIntoView = vi.fn();
+window.HTMLElement.prototype.scrollIntoView = jest.fn();

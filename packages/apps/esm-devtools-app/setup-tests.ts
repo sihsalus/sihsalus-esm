@@ -1,5 +1,4 @@
 import { cleanup } from '@testing-library/react';
-import { afterEach, vi } from 'vitest';
 
 import type { ImportMapOverridesApi } from './src/devtools/import-map-overrides.types';
 
@@ -26,20 +25,20 @@ if (typeof localStorage.clear !== 'function') {
 const emptyMap = { imports: {} };
 
 window.importMapOverrides = {
-  getOverrideMap: vi.fn().mockReturnValue(emptyMap),
-  getNextPageMap: vi.fn().mockResolvedValue(emptyMap),
-  getCurrentPageMap: vi.fn().mockResolvedValue(emptyMap),
-  getDefaultMap: vi.fn().mockResolvedValue(emptyMap),
-  getDisabledOverrides: vi.fn().mockReturnValue([]),
-  isDisabled: vi.fn().mockReturnValue(false),
-  enableOverride: vi.fn(),
-  addOverride: vi.fn(),
-  removeOverride: vi.fn(),
-  resetOverrides: vi.fn(),
+  getOverrideMap: jest.fn().mockReturnValue(emptyMap),
+  getNextPageMap: jest.fn().mockResolvedValue(emptyMap),
+  getCurrentPageMap: jest.fn().mockResolvedValue(emptyMap),
+  getDefaultMap: jest.fn().mockResolvedValue(emptyMap),
+  getDisabledOverrides: jest.fn().mockReturnValue([]),
+  isDisabled: jest.fn().mockReturnValue(false),
+  enableOverride: jest.fn(),
+  addOverride: jest.fn(),
+  removeOverride: jest.fn(),
+  resetOverrides: jest.fn(),
 } as unknown as ImportMapOverridesApi;
 
 afterEach(cleanup);
 
-vi.mock('workbox-window', () => ({
-  Workbox: vi.fn(),
+jest.mock('workbox-window', () => ({
+  Workbox: jest.fn(),
 }));

@@ -8,5 +8,5 @@
     "declarationDir": "dist",
     "emitDeclarationOnly": true
   },
-  "include": ["src/**/*", "setup-tests.ts", "vitest.config.ts"]
+  "include": ["src/**/*", "setup-tests.ts"]
 }

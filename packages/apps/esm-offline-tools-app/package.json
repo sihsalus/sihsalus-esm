@@ -10,9 +10,9 @@
     "start": "openmrs develop",
     "serve": "rspack serve --mode=development",
     "debug": "npm run serve",
-    "test": "vitest run --passWithNoTests",
-    "test:watch": "cross-env TZ=UTC vitest watch",
-    "coverage": "cross-env TZ=UTC vitest run --coverage --passWithNoTests",
+    "test": "jest --config jest.config.js --passWithNoTests --color",
+    "test:watch": "cross-env TZ=UTC jest --watch --config jest.config.js --color",
+    "coverage": "cross-env TZ=UTC jest --config jest.config.js --coverage --passWithNoTests --color",
     "build": "rspack --mode=production",
     "build:development": "rspack --mode=development",
     "analyze": "rspack --mode=production --env analyze=true",
@@ -58,15 +58,12 @@
     "@carbon/react": "^1.92.1",
     "@rspack/cli": "1.7.11",
     "@types/lodash-es": "^4.17.12",
-    "@vitest/coverage-v8": "^4.0.18",
-    "happy-dom": "^20.6.0",
     "openmrs": "*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^16.0.0",
     "react-router-dom": "^6.3.0",
     "rxjs": "^6.5.3",
-    "typescript": "^5.8.3",
-    "vitest": "^4.0.18"
+    "typescript": "^5.8.3"
   }
 }

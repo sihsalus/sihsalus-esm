@@ -1,5 +1,4 @@
 import { cleanup } from '@testing-library/react';
-import { afterEach, vi } from 'vitest';
 
 // Node.js v25+ provides a broken native localStorage (missing methods unless --localstorage-file is set).
 // This shadows happy-dom's working implementation, so we restore a complete in-memory shim.
@@ -21,10 +20,10 @@ if (typeof localStorage.clear !== 'function') {
   });
 }
 
-window.URL.createObjectURL = vi.fn();
+window.URL.createObjectURL = jest.fn();
 
 afterEach(cleanup);
 
-vi.mock('workbox-window', () => ({
-  Workbox: vi.fn(),
+jest.mock('workbox-window', () => ({
+  Workbox: jest.fn(),
 }));

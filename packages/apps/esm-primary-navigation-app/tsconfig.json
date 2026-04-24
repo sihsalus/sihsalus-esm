@@ -4,5 +4,5 @@
     "moduleResolution": "node",
     "target": "es2015"
   },
-  "include": ["src/**/*", "test-utils/**/*", "setup-tests.ts", "vitest.config.ts"]
+  "include": ["src/**/*", "test-utils/**/*", "setup-tests.ts"]
 }
