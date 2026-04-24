@@ -108,15 +108,22 @@ const PrescriptionsTable: React.FC<PrescriptionsTableProps> = ({
                   <TableHead>
                     <TableRow>
                       <TableExpandHeader {...getExpandHeaderProps()} />
-                      {headers.map((header) => (
-                        <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
-                      ))}
+                      {headers.map((header) => {
+                        const { key, ...headerProps } = getHeaderProps({ header });
+                        return (
+                          <TableHeader key={key} {...headerProps}>
+                            {header.header}
+                          </TableHeader>
+                        );
+                      })}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map((row) => (
+                    {rows.map((row) => {
+                      const { key, ...rowProps } = getRowProps({ row });
+                      return (
                       <React.Fragment key={row.id}>
-                        <TableExpandRow {...getRowProps({ row })}>
+                        <TableExpandRow {...rowProps}>
                           {row.cells.map((cell) => (
                             <TableCell key={cell.id}>
                               {cell.id.endsWith('created') ? (
@@ -144,7 +151,7 @@ const PrescriptionsTable: React.FC<PrescriptionsTableProps> = ({
                           <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 1} />
                         )}
                       </React.Fragment>
-                    ))}
+                    )})}
                   </TableBody>
                 </Table>
               </TableContainer>

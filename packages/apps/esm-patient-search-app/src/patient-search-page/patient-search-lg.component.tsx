@@ -19,7 +19,6 @@ interface PatientSearchComponentProps {
 }
 
 const PatientSearchComponent: React.FC<PatientSearchComponentProps> = ({
-  query,
   stickyPagination,
   inTabletOrOverlay,
   searchResults,

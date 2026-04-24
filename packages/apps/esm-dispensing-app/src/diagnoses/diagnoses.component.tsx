@@ -73,23 +73,28 @@ const PatientDiagnoses: React.FC<PatientDiagnosesProps> = ({ encounterUuid, pati
           <Table {...getTableProps()} className={styles.table}>
             <TableHead>
               <TableRow>
-                {headers.map((header) => (
-                  <TableHeader {...getHeaderProps({ header })} key={header.key} className={getColumnClass(header.key)}>
-                    {header.header}
-                  </TableHeader>
-                ))}
+                {headers.map((header) => {
+                  const { key, ...headerProps } = getHeaderProps({ header });
+                  return (
+                    <TableHeader key={key} {...headerProps} className={getColumnClass(header.key)}>
+                      {header.header}
+                    </TableHeader>
+                  );
+                })}
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow {...getRowProps({ row })} key={row.id}>
+              {rows.map((row) => {
+                const { key, ...rowProps } = getRowProps({ row });
+                return (
+                <TableRow key={key} {...rowProps}>
                   {row.cells.map((cell) => (
                     <TableCell key={cell.id} className={getColumnClass(cell.info.header)}>
                       {cell.value}
                     </TableCell>
                   ))}
                 </TableRow>
-              ))}
+              )})}
             </TableBody>
           </Table>
         )}
