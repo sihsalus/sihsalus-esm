@@ -5,11 +5,6 @@ interface StockList {
   uuid: string;
   hasExpiration: boolean;
   expiryNotice: number;
-  results: {
-    uuid: string;
-    hasExpiration: boolean;
-    expiryNotice: number;
-  };
 }
 
 const useStockList = () => {
@@ -24,7 +19,7 @@ const useStockList = () => {
   }));
 
   return {
-    stockList: (stocks as Array<any>) ?? [],
+    stockList: stocks ?? [],
     isLoading,
     error,
   };

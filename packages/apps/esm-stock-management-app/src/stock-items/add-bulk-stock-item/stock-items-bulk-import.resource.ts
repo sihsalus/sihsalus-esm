@@ -1,6 +1,6 @@
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
+import { type FetchResponse, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
-export async function uploadStockItems(body: any) {
+export async function uploadStockItems(body: FormData): Promise<FetchResponse<unknown>> {
   const abortController = new AbortController();
 
   return openmrsFetch(`${restBaseUrl}/stockmanagement/stockitemimport`, {
@@ -9,6 +9,6 @@ export async function uploadStockItems(body: any) {
     //   "Content-Type": "application/json",
     // },
     signal: abortController.signal,
-    body: body,
+    body,
   });
 }
