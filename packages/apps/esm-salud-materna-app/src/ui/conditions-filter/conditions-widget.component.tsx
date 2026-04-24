@@ -210,9 +210,9 @@ const ConditionsWidget: React.FC<ConditionsWidgetProps> = ({
     editableAbatementDateTime,
   ]);
 
-  const focusOnSearchInput = () => {
+  const focusOnSearchInput = useCallback(() => {
     searchInputRef?.current?.focus();
-  };
+  }, []);
 
   const handleSearchTermChange = (searchTerm: string) => {
     setSearchTerm(searchTerm);

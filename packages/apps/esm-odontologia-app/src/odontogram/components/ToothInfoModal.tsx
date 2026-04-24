@@ -125,8 +125,15 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
   }, [findings, getFindingName]);
 
   return (
-    <div className="tim-backdrop" onClick={onClose} role="presentation">
-      <div className="tim-modal" onClick={(e) => e.stopPropagation()} role="presentation">
+    <div
+      className="tim-backdrop"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div className="tim-modal">
         {/* Header */}
         <div className="tim-header">
           <div className="tim-header-left">
@@ -294,7 +301,7 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
                           </div>
                           <div className="tim-finding-actions">
                             <span className="tim-ghost-label">Eliminado</span>
-                            <button className="tim-btn tim-btn--undo" onClick={() => handleUndo(f.id)}>
+                            <button type="button" className="tim-btn tim-btn--undo" onClick={() => handleUndo(f.id)}>
                               Deshacer
                             </button>
                           </div>
