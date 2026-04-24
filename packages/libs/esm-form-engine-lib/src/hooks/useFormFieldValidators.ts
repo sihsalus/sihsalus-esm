@@ -8,7 +8,9 @@ export function useFormFieldValidators(fields: FormField[]): Record<string, Form
   useEffect(() => {
     const supportedTypes = new Set<string>();
     fields.forEach((field) => {
-      field.validators?.forEach((validator) => supportedTypes.add(validator.type));
+      field.validators?.forEach((validator) => {
+        supportedTypes.add(validator.type);
+      });
     });
     const supportedTypesArray = Array.from(supportedTypes);
     void Promise.all(supportedTypesArray.map((type) => getRegisteredValidator(type))).then((validators) => {

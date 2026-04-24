@@ -38,7 +38,11 @@ export const usePageObserver = (): PageObserverState => {
       }),
     ];
 
-    return (): void => subscriptions.forEach((sub) => sub.unsubscribe());
+    return (): void => {
+      subscriptions.forEach((sub) => {
+        sub.unsubscribe();
+      });
+    };
   }, []);
 
   return state;

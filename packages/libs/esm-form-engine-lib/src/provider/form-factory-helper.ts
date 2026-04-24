@@ -47,6 +47,8 @@ export function validateForm(context: FormContextProps): boolean {
           }
           return errors;
         }
+
+        return [];
       }),
     )
     .filter((error) => Boolean(error));

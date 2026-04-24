@@ -110,6 +110,7 @@ function PageLink({ page, currentActivePage, pagesWithErrors, requestPage }: Pag
       })}
     >
       <button
+        type="button"
         onClick={(e) => {
           e.preventDefault();
           requestPage(page.id);

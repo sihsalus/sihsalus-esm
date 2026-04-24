@@ -151,7 +151,7 @@ export class EncounterFormProcessor extends FormProcessor {
       if (field.questionOptions?.rendering === 'group' || field.type === 'obsGroup') {
         field.questions?.forEach((child) => {
           child.readonly = child.readonly ?? field.readonly;
-          return prepareFormField(child, section, page, schema);
+          prepareFormField(child, section, page, schema);
         });
       }
     }

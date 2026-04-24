@@ -196,11 +196,14 @@ const FormDentalClinicalFindings = () => {
     setShowInfo(false);
   }, []);
 
-  const norm = (s: string) =>
-    s
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
+  const norm = useCallback(
+    (s: string) =>
+      s
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, ''),
+    [],
+  );
 
   const filtered = useMemo(() => {
     const q = norm(query.trim());
@@ -412,8 +415,16 @@ const FormDentalClinicalFindings = () => {
           return (
             <div
               className="odon-siglas-overlay"
+              role="button"
+              tabIndex={0}
               onClick={(event) => {
                 if (event.target === event.currentTarget) {
+                  setShowInfo(false);
+                }
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
                   setShowInfo(false);
                 }
               }}

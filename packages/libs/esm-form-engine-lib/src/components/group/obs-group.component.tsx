@@ -37,6 +37,8 @@ export const ObsGroup: React.FC<FormFieldInputProps> = ({ field, ...restProps })
               </div>
             );
           }
+
+          return null;
         }),
     [field, formFieldAdapters, formFields, restProps],
   );

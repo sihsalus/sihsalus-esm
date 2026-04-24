@@ -121,9 +121,9 @@ describe('VitalsOverview', () => {
 
     const expectedColumnHeaders = [/date and time/, /bp/, /r. rate/, /pulse/, /spO2/, /temp/];
 
-    expectedColumnHeaders.forEach((header) =>
-      expect(screen.getByRole('columnheader', { name: new RegExp(header, 'i') })).toBeInTheDocument(),
-    );
+    expectedColumnHeaders.forEach((header) => {
+      expect(screen.getByRole('columnheader', { name: new RegExp(header, 'i') })).toBeInTheDocument();
+    });
 
     const expectedTableRows = [
       '18 — May — 2021',
@@ -135,7 +135,9 @@ describe('VitalsOverview', () => {
       '120 / 80',
       '36.5',
     ];
-    expectedTableRows.forEach((rowText) => expect(screen.getByText(new RegExp(rowText, 'i'))).toBeInTheDocument());
+    expectedTableRows.forEach((rowText) => {
+      expect(screen.getByText(new RegExp(rowText, 'i'))).toBeInTheDocument();
+    });
 
     const sortRowsButton = screen.getByRole('button', { name: /date and time/i });
 

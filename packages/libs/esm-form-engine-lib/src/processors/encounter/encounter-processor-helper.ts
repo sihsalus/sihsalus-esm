@@ -273,7 +273,11 @@ function getPatientIdentifierKey(identifier: string, identifierType?: string): s
 // Helpers
 
 function prepareObs(obsForSubmission: OpenmrsObs[], fields: FormField[]): void {
-  fields.filter((field) => hasSubmittableObs(field)).forEach((field) => processObsField(obsForSubmission, field));
+  fields
+    .filter((field) => hasSubmittableObs(field))
+    .forEach((field) => {
+      processObsField(obsForSubmission, field);
+    });
 }
 
 function processObsField(obsForSubmission: OpenmrsObs[], field: FormField): void {

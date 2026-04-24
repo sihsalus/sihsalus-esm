@@ -43,20 +43,24 @@ export function useFormFields(form: FormSchema): { formFields: FormField[]; conc
       };
 
       // Process all input fields
-      fields.forEach((field) => processField(field));
+      fields.forEach((field) => {
+        processField(field);
+      });
 
       return { flattenedFields, conceptReferences };
     };
 
-    form.pages?.forEach((page) =>
+    form.pages?.forEach((page) => {
       page.sections?.forEach((section) => {
         if (section.questions) {
           const { flattenedFields, conceptReferences } = processFlattenedFields(section.questions);
           flattenedFieldsTemp.push(...flattenedFields);
-          conceptReferences.forEach((conceptReference) => conceptReferencesTemp.add(conceptReference));
+          conceptReferences.forEach((conceptReference) => {
+            conceptReferencesTemp.add(conceptReference);
+          });
         }
-      }),
-    );
+      });
+    });
 
     return [flattenedFieldsTemp, conceptReferencesTemp];
   }, [form]);

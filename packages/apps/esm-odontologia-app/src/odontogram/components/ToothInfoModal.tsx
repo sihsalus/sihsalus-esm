@@ -127,8 +127,16 @@ const ToothInfoModal: React.FC<ToothInfoModalProps> = ({
   return (
     <div
       className="tim-backdrop"
+      role="button"
+      tabIndex={0}
       onClick={(event) => {
         if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
           onClose();
         }
       }}

@@ -55,7 +55,18 @@ function PageRenderer({ page, isFormExpanded }: PageRendererProps): React.JSX.El
         bottomOffset="40%"
       >
         <div id={page.id} className={styles.pageContent}>
-          <div className={styles.pageHeader} onClick={toggleCollapse}>
+          <div
+            className={styles.pageHeader}
+            onClick={toggleCollapse}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleCollapse();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+          >
             <p className={styles.pageTitle}>
               {t(page.label)}
               <span className={styles.collapseIconWrapper}>
