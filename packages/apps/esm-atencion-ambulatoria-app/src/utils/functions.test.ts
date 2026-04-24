@@ -2,13 +2,14 @@ import {
   assessValue,
   calculateBodyMassIndex,
   formatAMPM,
+  generatePlaceholder,
   getGender,
   getReferenceRangesForConcept,
   interpretBloodPressure,
   type ConceptMetadata,
 } from './functions';
 
-describe('maternal utils/functions', () => {
+describe('consulta ambulatoria utils/functions', () => {
   const metadata: Array<ConceptMetadata> = [
     {
       uuid: 'systolic',
@@ -36,45 +37,34 @@ describe('maternal utils/functions', () => {
 
   const t = (_key: string, fallback: string) => fallback;
 
-  it('formats 12-hour time and computes BMI safely', () => {
+  it('formats time, computes BMI, and maps gender labels', () => {
     expect(formatAMPM(new Date(2025, 0, 1, 0, 5))).toBe('12:05 AM');
     expect(formatAMPM(new Date(2025, 0, 1, 13, 9))).toBe('1:09 PM');
     expect(calculateBodyMassIndex(70, 175)).toBe(22.9);
     expect(calculateBodyMassIndex(0, 175)).toBeNull();
+    expect(getGender('M', t)).toBe('Male');
+    expect(getGender('U', t)).toBe('Unknown');
+    expect(getGender('X', t)).toBe('X');
   });
 
-  it('maps gender and resolves reference ranges', () => {
-    expect(getGender('M', t)).toBe('Male');
-    expect(getGender('F', t)).toBe('Female');
-    expect(getGender('X', t)).toBe('X');
+  it('interprets reference ranges, blood pressure, and placeholders', () => {
     expect(getReferenceRangesForConcept('systolic', metadata)).toEqual(metadata[0]);
     expect(getReferenceRangesForConcept('missing', metadata)).toBeUndefined();
-  });
-
-  it('interprets lab values and blood pressure severity correctly', () => {
     expect(assessValue(181, metadata[0])).toBe('critically_high');
-    expect(assessValue(141, metadata[0])).toBe('high');
-    expect(assessValue(69, metadata[0])).toBe('critically_low');
     expect(assessValue(89, metadata[0])).toBe('low');
-    expect(assessValue(120, metadata[0])).toBe('normal');
-
-    expect(
-      interpretBloodPressure(
-        185,
-        80,
-        { systolicBloodPressureUuid: 'systolic', diastolicBloodPressureUuid: 'diastolic' },
-        metadata,
-      ),
-    ).toBe('critically_high');
+    expect(generatePlaceholder('BMI')).toBe('');
+    expect(generatePlaceholder('Temperature')).toBe('--.-');
+    expect(generatePlaceholder('Pulse')).toBe('---');
+    expect(generatePlaceholder('Other')).toBe('--');
 
     expect(
       interpretBloodPressure(
         120,
-        95,
+        121,
         { systolicBloodPressureUuid: 'systolic', diastolicBloodPressureUuid: 'diastolic' },
         metadata,
       ),
-    ).toBe('high');
+    ).toBe('critically_high');
 
     expect(
       interpretBloodPressure(

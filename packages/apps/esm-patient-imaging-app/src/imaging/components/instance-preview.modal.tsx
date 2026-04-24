@@ -19,7 +19,7 @@ const InstancePreviewModal: React.FC<InstancePreviewModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState<string | null>(null);
 
   useEffect(() => {
     setIsLoading(true);

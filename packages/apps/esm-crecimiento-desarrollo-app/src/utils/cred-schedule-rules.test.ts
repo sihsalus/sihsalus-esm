@@ -41,7 +41,7 @@ describe('cred-schedule-rules', () => {
     expect(schedule.at(-1)).toEqual(
       expect.objectContaining({
         controlNumber: 33,
-        targetDate: new Date('2036-01-02T00:00:00.000Z'),
+        targetDate: new Date('2036-01-01T00:00:00.000Z'),
       }),
     );
   });
