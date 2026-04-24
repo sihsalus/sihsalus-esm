@@ -87,7 +87,7 @@ describe('VitalsHeader', () => {
     await waitForLoadingToFinish();
 
     expect(screen.getByText(/vitals and biometrics/i)).toBeInTheDocument();
-    expect(screen.getByText(/18-May-2021/i)).toBeInTheDocument();
+    expect(screen.getByText(/19-May-2021/i)).toBeInTheDocument();
     expect(screen.getByText(/vitals history/i)).toBeInTheDocument();
     expect(screen.getByText(/record vitals/i)).toBeInTheDocument();
 

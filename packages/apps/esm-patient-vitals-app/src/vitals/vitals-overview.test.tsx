@@ -126,7 +126,7 @@ describe('VitalsOverview', () => {
     });
 
     const expectedTableRows = [
-      '18 — May — 2021',
+      '19 — May — 2021',
       '10 — May — 2021',
       '07 — May — 2021',
       '08 — Apr — 2021',

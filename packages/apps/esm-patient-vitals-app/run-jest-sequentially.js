@@ -1,13 +1,14 @@
 const { spawnSync } = require('node:child_process');
 
+const jestBin = require.resolve('jest/bin/jest');
 const args = process.argv.slice(2);
 const baseArgs = ['--config', 'jest.config.js', '--verbose', 'false', '--passWithNoTests', '--color'];
 
 function runJest(extraArgs, options = {}) {
-  return spawnSync('jest', [...baseArgs, ...extraArgs], {
+  return spawnSync(process.execPath, [jestBin, ...baseArgs, ...extraArgs], {
     stdio: options.captureStdout ? ['inherit', 'pipe', 'inherit'] : 'inherit',
     encoding: options.captureStdout ? 'utf8' : undefined,
-    shell: process.platform === 'win32',
+    env: { ...process.env, TZ: 'UTC' },
   });
 }
 
