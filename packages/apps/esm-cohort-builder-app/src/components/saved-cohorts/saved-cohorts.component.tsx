@@ -64,9 +64,15 @@ const SavedCohorts: React.FC<SavedCohortsProps> = ({ onViewCohort }) => {
           <Table {...getTableProps()}>
             <TableHead>
               <TableRow>
-                {headers.map((header) => (
-                  <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
-                ))}
+                {headers.map((header) => {
+                  const { key, ...headerProps } = getHeaderProps({ header });
+
+                  return (
+                    <TableHeader key={key} {...headerProps}>
+                      {header.header}
+                    </TableHeader>
+                  );
+                })}
                 <TableHeader className={mainStyles.optionHeader}></TableHeader>
               </TableRow>
             </TableHead>
@@ -74,20 +80,24 @@ const SavedCohorts: React.FC<SavedCohortsProps> = ({ onViewCohort }) => {
               {rows
                 .slice((page - 1) * pageSize)
                 .slice(0, pageSize)
-                .map((row, index: number) => (
-                  <TableRow {...getRowProps({ row })} key={index}>
-                    {row.cells.map((cell, index: number) => (
-                      <TableCell key={index}>{cell.value}</TableCell>
-                    ))}
-                    <TableCell className={mainStyles.optionCell}>
-                      <SavedCohortsOptions
-                        cohort={cohorts[index]}
-                        onViewCohort={onViewCohort}
-                        onDeleteCohort={handleDeleteCohort}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
+                .map((row, index: number) => {
+                  const { key, ...rowProps } = getRowProps({ row });
+
+                  return (
+                    <TableRow key={key} {...rowProps}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                      <TableCell className={mainStyles.optionCell}>
+                        <SavedCohortsOptions
+                          cohort={cohorts[index]}
+                          onViewCohort={onViewCohort}
+                          onDeleteCohort={handleDeleteCohort}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         )}

@@ -31,7 +31,7 @@ export async function getConcepts(conceptName: String): Promise<Concept[]> {
   if (searchResult.data.results.length > 0) {
     concepts = searchResult.data.results.map((concept) => {
       const description = concept.descriptions.filter((description: Description) =>
-        description.locale == 'en' ? description.description : '',
+        description.locale === 'en' ? description.description : '',
       );
       const conceptData: Concept = {
         uuid: concept.uuid,

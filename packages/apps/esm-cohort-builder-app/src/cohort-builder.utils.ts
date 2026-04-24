@@ -15,7 +15,7 @@ export const composeJson = (searchParameters) => {
       delete searchParameters[field];
       continue;
     }
-    if (searchParameters[field] != 'all' && searchParameters != '') {
+    if (searchParameters[field] !== 'all' && searchParameters[field] !== '') {
       query.rowFilters[counter] = {};
       query.rowFilters[counter].key = getDefinitionLibraryKey(field, searchParameters[field]);
     }

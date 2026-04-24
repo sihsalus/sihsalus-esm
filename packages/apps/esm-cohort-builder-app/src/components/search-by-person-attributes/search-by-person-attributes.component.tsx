@@ -33,7 +33,7 @@ const SearchByPersonAttributes: React.FC<SearchByProps> = ({ onSubmit }) => {
   const submit = async () => {
     setIsLoading(true);
     const selectedPersonAttribute = personAttributes?.find(
-      (personAttribute) => personAttribute.value == selectedAttributeId,
+      (personAttribute) => personAttribute.value === selectedAttributeId,
     );
     await onSubmit(
       getQueryDetails(selectedAttributeId, selectedAttributeValues),
