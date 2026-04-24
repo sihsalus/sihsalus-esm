@@ -37,7 +37,7 @@
   },
   "scripts": {
     "build": "rspack build -c rspack.config.cjs",
-    "typescript": "tsc --noEmit -p tsconfig.test.json && tsc -p tsconfig.build.json"
+    "typescript": "tsc --noEmit && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "@carbon/charts": "^1.27.0",

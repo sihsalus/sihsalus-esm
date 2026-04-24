@@ -893,9 +893,7 @@ const AppointmentsForm: React.FC<AppointmentsFormProps & DefaultWorkspaceProps> 
   );
 };
 
-function TimeAndDuration({ t, watch, control, services, errors }) {
-  const defaultDuration = services?.find((service) => service.name === watch('selectedService'))?.durationMins || null;
-
+function TimeAndDuration({ t, watch: _watch, control, services: _services, errors }) {
   return (
     <>
       <ResponsiveWrapper>

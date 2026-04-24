@@ -8,6 +8,8 @@ import { usePatientNotes } from '../notes.resource';
 import PatientNotesHistory from './notes-container.component';
 
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
+const mockedUsePatientNotes = jest.mocked(usePatientNotes);
+const typedEmrConfigurationMock = emrConfigurationMock as NonNullable<ReturnType<typeof useEmrConfiguration>['emrConfiguration']>;
 
 jest.mock('../../../hooks/useEmrConfiguration', () => jest.fn());
 
@@ -45,36 +47,36 @@ describe('PatientNotesHistory', () => {
 
   test('displays loading skeletons when loading', () => {
     mockedUseEmrConfiguration.mockReturnValue({
-      emrConfiguration: emrConfigurationMock,
+      emrConfiguration: typedEmrConfigurationMock,
       mutateEmrConfiguration: jest.fn(),
       isLoadingEmrConfiguration: false,
       errorFetchingEmrConfiguration: null,
     });
 
-    usePatientNotes.mockReturnValue({
+    mockedUsePatientNotes.mockReturnValue({
       patientNotes: [],
       isLoadingPatientNotes: true,
-    });
+    } as ReturnType<typeof usePatientNotes>);
 
-    render(<PatientNotesHistory patientUuid={mockPatientUuid} />);
+    render(<PatientNotesHistory patientUuid={mockPatientUuid} visitUuid="test-visit-uuid" />);
 
     expect(screen.getAllByTestId('in-patient-note-skeleton')).toHaveLength(4);
   });
 
   test('displays patient notes when available', () => {
     mockedUseEmrConfiguration.mockReturnValue({
-      emrConfiguration: emrConfigurationMock,
+      emrConfiguration: typedEmrConfigurationMock,
       mutateEmrConfiguration: jest.fn(),
       isLoadingEmrConfiguration: false,
       errorFetchingEmrConfiguration: null,
     });
 
-    usePatientNotes.mockReturnValue({
+    mockedUsePatientNotes.mockReturnValue({
       patientNotes: mockPatientNotes,
       isLoadingPatientNotes: false,
-    });
+    } as ReturnType<typeof usePatientNotes>);
 
-    render(<PatientNotesHistory patientUuid={mockPatientUuid} />);
+    render(<PatientNotesHistory patientUuid={mockPatientUuid} visitUuid="test-visit-uuid" />);
 
     expect(screen.getByText('History')).toBeInTheDocument();
 

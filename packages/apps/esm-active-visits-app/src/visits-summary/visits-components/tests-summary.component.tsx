@@ -1,5 +1,5 @@
 import { ExtensionSlot } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { type Encounter } from '../../types';
 import styles from '../visit-detail-overview.scss';

@@ -1,6 +1,5 @@
 import { usePatient } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import { mockPatient } from 'test-utils';
 
 import type { Appointment, AppointmentKind, AppointmentStatus } from '../../types';
@@ -49,7 +48,7 @@ const appointment: Appointment = {
   voided: false,
   dateAppointmentScheduled: '',
   teleconsultationLink: null,
-  extensions: [],
+  extensions: {},
 };
 
 const mockUsePatient = jest.mocked(usePatient);

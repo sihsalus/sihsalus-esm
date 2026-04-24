@@ -6,7 +6,7 @@
     "noImplicitAny": false,
     "strictNullChecks": false,
     "noUncheckedIndexedAccess": false,
-    "types": ["node", "fhir"],
+    "types": ["node", "fhir", "vitest/globals"],
     "baseUrl": ".",
     "paths": {
       "@openmrs/esm-api": ["../../../node_modules/@openmrs/esm-api/dist/index"],
@@ -47,6 +47,5 @@
       "@openmrs/esm-utils": ["../../../node_modules/@openmrs/esm-utils/dist/index"]
     }
   },
-  "include": ["src/**/*.ts*", "src/**/*.d.ts"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx", "setup-tests.ts"]
+  "include": ["src/**/*.ts*", "src/**/*.d.ts", "setup-tests.ts"]
 }

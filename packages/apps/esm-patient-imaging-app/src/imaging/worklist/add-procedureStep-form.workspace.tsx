@@ -211,7 +211,6 @@ const AddNewProcedureStepWorkspace: React.FC<AddNewProcedureStepWorkspaceProps> 
                 render={({ field: { onChange, value } }) => (
                   <div className={styles.row}>
                     <TextArea
-                      type="text"
                       id="requestedProcedureDescription"
                       labelText={t('description', 'Description')}
                       value={value}

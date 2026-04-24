@@ -83,7 +83,6 @@ const SessionDetailsForm = () => {
                   />
                   <TextArea
                     id="text"
-                    type="text"
                     labelText={t('sessionNotes', 'Session Notes')}
                     {...register('sessionNotes', { required: true })}
                     invalid={Boolean(errors.sessionNotes)}

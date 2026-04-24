@@ -11,7 +11,7 @@ import { bedLayoutToBed, filterBeds } from '../ward-view/ward-view.resource';
 
 import WardBed from './ward-bed.component';
 
-const defaultConfig: WardConfigObject = getDefaultsFromConfigSchema(configSchema);
+const defaultConfig = getDefaultsFromConfigSchema(configSchema as Record<string, unknown>) as WardConfigObject;
 
 jest.mocked(useConfig).mockReturnValue(defaultConfig);
 jest.mock('../hooks/useObs', () => ({

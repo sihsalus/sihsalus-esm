@@ -15,7 +15,6 @@ const DeleteSeriesModal: React.FC<DeleteSeriesModalProps> = ({
   closeDeleteModal,
   studyId,
   orthancSeriesUID,
-  patientUuid,
 }) => {
   const { t } = useTranslation();
   const { mutate } = useStudySeries(studyId);

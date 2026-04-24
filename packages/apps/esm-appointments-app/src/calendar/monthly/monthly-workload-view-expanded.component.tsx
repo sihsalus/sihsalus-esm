@@ -1,5 +1,5 @@
 import { Popover, PopoverContent } from '@carbon/react';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './monthly-view-workload.scss';
@@ -14,11 +14,11 @@ const MonthlyWorkloadViewExpanded: React.FC<MonthlyWorkloadViewExpandedProps> = 
   const [isOpen, setIsOpen] = React.useState(false);
   const popoverRef = useRef(null);
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = useCallback((event) => {
     if (popoverRef.current && !popoverRef.current.contains(event.target)) {
       setIsOpen(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
@@ -26,7 +26,7 @@ const MonthlyWorkloadViewExpanded: React.FC<MonthlyWorkloadViewExpandedProps> = 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   return (
     <Popover open={isOpen} align="top" ref={popoverRef}>

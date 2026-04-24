@@ -81,7 +81,7 @@ const ScheduledAppointments: React.FC<ScheduledAppointmentsProps> = ({ appointme
         className={styles.switcher}
         size={responsiveSize}
         onChange={({ name }) => setCurrentTab(name)}
-        selectedIndex={panelsToShow.findIndex((panel) => panel.name == currentTab) ?? 0}
+        selectedIndex={panelsToShow.findIndex((panel) => panel.name === currentTab) ?? 0}
         selectionMode="manual"
       >
         {panelsToShow.map((panel) => (

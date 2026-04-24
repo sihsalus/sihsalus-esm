@@ -67,7 +67,7 @@ const VisitSummary: React.FC<VisitSummaryProps> = ({ encounters, patientUuid }) 
           } else if (obs.concept.display === 'Text of encounter note') {
             // Putting all notes in a single array.
             notes.push({
-              note: obs.value,
+              note: typeof obs.value === 'string' ? obs.value : '',
               provider: {
                 name: enc.encounterProviders.length ? enc.encounterProviders[0].provider.person.display : '',
                 role: enc.encounterProviders.length ? enc.encounterProviders[0].encounterRole.display : '',

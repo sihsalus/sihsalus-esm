@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type Encounter } from '../types';
 import { useVisit } from './visit.resource';
 import styles from './visit-detail-overview.scss';
 import EncounterList from './visits-components/encounter-list.component';
@@ -23,7 +22,7 @@ const VisitDetailComponent: React.FC<VisitDetailComponentProps> = ({ visitUuid, 
   const encounters = useMemo(
     () =>
       visit
-        ? visit?.encounters?.map((encounter: Encounter) => ({
+        ? visit?.encounters?.map((encounter) => ({
             id: encounter.uuid,
             time: formatTime(parseDate(encounter.encounterDateTime)),
             encounterType: encounter.encounterType.display,

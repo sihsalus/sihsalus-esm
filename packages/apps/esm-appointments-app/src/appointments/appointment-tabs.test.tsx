@@ -1,6 +1,5 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-import React from 'react';
 import { mockAppointmentsData, renderWithSwr, waitForLoadingToFinish } from 'test-utils';
 
 import AppointmentTabs from './appointment-tabs.component';

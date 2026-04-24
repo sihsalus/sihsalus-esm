@@ -26,8 +26,7 @@ describe('LinkStudiesWorkspace', () => {
       <LinkStudiesWorkspace
         patientUuid={patientUuid}
         closeWorkspace={mockParam}
-        patient={undefined}
-        promptBeforeClosing={jest.fn()}
+promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
       />,

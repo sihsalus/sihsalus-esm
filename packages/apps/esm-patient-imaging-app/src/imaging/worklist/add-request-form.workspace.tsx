@@ -184,7 +184,6 @@ const AddNewRequestWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
                 render={({ field: { onChange, value } }) => (
                   <div className={styles.row}>
                     <TextArea
-                      type="text"
                       id="requestDescription"
                       labelText={t('requestDescription', 'Request procedure description')}
                       value={value}

@@ -44,7 +44,6 @@ describe('AddNewProcedureStepWorkspace', () => {
 
   const defaultProps = {
     patientUuid,
-    patient: null,
     closeWorkspace: mockClose,
     closeWorkspaceWithSavedChanges: mockCloseWithChanges,
     promptBeforeClosing: jest.fn(),
@@ -66,8 +65,7 @@ describe('AddNewProcedureStepWorkspace', () => {
       <AddNewRequestWorkspace
         patientUuid={patientUuid}
         closeWorkspace={mockClose}
-        patient={null}
-        promptBeforeClosing={jest.fn()}
+promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
       />,
@@ -83,8 +81,7 @@ describe('AddNewProcedureStepWorkspace', () => {
     render(
       <AddNewRequestWorkspace
         patientUuid={patientUuid}
-        patient={null}
-        closeWorkspace={mockClose}
+closeWorkspace={mockClose}
         promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
@@ -98,8 +95,7 @@ describe('AddNewProcedureStepWorkspace', () => {
     render(
       <AddNewRequestWorkspace
         patientUuid={patientUuid}
-        patient={null}
-        closeWorkspace={mockClose}
+closeWorkspace={mockClose}
         promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
@@ -184,7 +180,6 @@ describe('AddNewProcedureStepWorkspace', () => {
         closeWorkspaceWithSavedChanges={mockCloseWithChanges}
         promptBeforeClosing={jest.fn()}
         setTitle={jest.fn()}
-        patient={null}
       />,
     );
     fireEvent.click(screen.getByRole('button', { name: /Discard/i }));

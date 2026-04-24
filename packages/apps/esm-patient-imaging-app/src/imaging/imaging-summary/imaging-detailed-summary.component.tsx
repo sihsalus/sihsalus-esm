@@ -63,7 +63,7 @@ export default function ImagingDetailedSummary({ patientUuid }: ImagingDetailedS
           const headerTitle = t('Studies', 'Studies');
 
           if (isLoadingPatientStudies)
-            return <DataTableSkeleton data-testid="studies-loading" role="progressbar" compact={isDesktop} zebra />;
+            return <DataTableSkeleton data-testid="studies-loading" role="progressbar" zebra />;
 
           if (studiesError) return <ErrorState error={studiesError} headerTitle={headerTitle} />;
 
@@ -91,7 +91,7 @@ export default function ImagingDetailedSummary({ patientUuid }: ImagingDetailedS
           const displayTextWorklist = t('worklistNoFoundMessage', 'No worklist found');
           const headerTitle = t('worklist', 'Worklist');
 
-          if (isLoadingRequests) return <DataTableSkeleton role="progressbar" compact={isDesktop} zebra />;
+          if (isLoadingRequests) return <DataTableSkeleton role="progressbar" zebra />;
 
           if (requestError) return <ErrorState error={requestError} headerTitle={headerTitle} />;
           if (requests?.length > 0) {

@@ -3,11 +3,14 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type Observation } from '../../types';
 import styles from '../visit-detail-overview.scss';
 
+interface EncounterObservation {
+  display?: string;
+}
+
 interface EncounterObservationsProps {
-  observations: Array<Observation>;
+  observations: Array<EncounterObservation>;
 }
 
 const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observations }) => {
@@ -16,8 +19,8 @@ const EncounterObservations: React.FC<EncounterObservationsProps> = ({ observati
   const observationsList = useMemo(() => {
     return (
       observations &&
-      observations.map((obs: Observation) => {
-        const [question, answer] = obs.display.split(':');
+      observations.map((obs) => {
+        const [question, answer] = (obs.display ?? '').split(':');
         return { question, answer };
       })
     );

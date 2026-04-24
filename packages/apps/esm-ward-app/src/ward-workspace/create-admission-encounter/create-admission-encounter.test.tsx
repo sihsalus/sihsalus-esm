@@ -28,6 +28,7 @@ jest.mocked(useVisit).mockReturnValue({
   activeVisit: {
     encounters: [],
     startDatetime: new Date().toISOString(),
+    stopDatetime: null,
     uuid: 'mock-visit',
     visitType: { display: 'Some Visit Type', uuid: 'some-visit-type-uuid' },
   },

@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { formatDatetime, parseDate, useLayoutType, usePagination } from '@openmrs/esm-framework';
+import { formatDatetime, useLayoutType, usePagination } from '@openmrs/esm-framework';
 import { PatientChartPagination } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import dayjs from 'dayjs';

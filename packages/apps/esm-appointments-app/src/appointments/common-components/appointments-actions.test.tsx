@@ -1,7 +1,5 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
-
 import { type ConfigObject, configSchema } from '../../config-schema';
 import { useTodaysVisits } from '../../hooks/useTodaysVisits';
 import { type Appointment, AppointmentKind, AppointmentStatus } from '../../types';
@@ -48,7 +46,7 @@ const appointment: Appointment = {
   recurring: false,
   voided: false,
   teleconsultationLink: null,
-  extensions: [],
+  extensions: {},
   endDateTime: null,
   dateAppointmentScheduled: null,
 };

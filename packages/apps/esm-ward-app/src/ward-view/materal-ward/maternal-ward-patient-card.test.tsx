@@ -17,7 +17,7 @@ jest.mock('../../ward-patient-card/row-elements/ward-patient-obs.resource', () =
   useConceptToTagColorMap: jest.fn(),
 }));
 
-const defaultConfig: WardConfigObject = getDefaultsFromConfigSchema(configSchema);
+const defaultConfig = getDefaultsFromConfigSchema(configSchema as Record<string, unknown>) as WardConfigObject;
 
 jest.mocked(useConfig).mockReturnValue(defaultConfig);
 //@ts-expect-error

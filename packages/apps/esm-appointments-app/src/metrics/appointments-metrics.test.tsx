@@ -1,6 +1,5 @@
 import { type FetchResponse, openmrsFetch } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 
 import AppointmentsMetrics from './appointments-metrics.component';
 

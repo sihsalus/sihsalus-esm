@@ -22,7 +22,7 @@ const AppointmentDetails: React.FC<AppointmentDetailsProps> = ({ appointment }) 
     if (!isLoading) {
       setIsEnabledQuery(true);
     }
-  }, [appointmentsCount, isLoading]);
+  }, [isLoading]);
 
   return (
     <div className={styles.appointmentDetailsContainer}>

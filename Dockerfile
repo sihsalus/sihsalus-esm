@@ -35,3 +35,22 @@ COPY config/ ./config/
 COPY assets/ ./assets/
 
 CMD ["node", "packages/tooling/scripts/assemble-importmap.js"]
+
+# Stage 3: Hardened init container image
+# Same runtime behavior as `init`, but runs as a non-root user and keeps the
+# published image target explicit for secure container workflows.
+FROM node:24-alpine AS secure-init
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV SPA_OUTPUT_DIR=/spa
+
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/packages/apps ./packages/apps
+COPY --from=builder --chown=node:node /app/packages/tooling/scripts/assemble-importmap.js ./packages/tooling/scripts/assemble-importmap.js
+COPY --chown=node:node config/ ./config/
+COPY --chown=node:node assets/ ./assets/
+
+USER node
+
+CMD ["node", "packages/tooling/scripts/assemble-importmap.js"]

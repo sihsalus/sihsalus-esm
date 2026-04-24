@@ -13,7 +13,7 @@
     "analyze": "rspack --mode=production --env analyze=true",
     "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "prettier": "node ../../tooling/scripts/run-biome.js format --write src",
-    "typescript": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+    "typescript": "tsc --noEmit",
     "test": "jest --config jest.config.js --passWithNoTests",
     "verify": "turbo lint typescript coverage",
     "coverage": "yarn test --coverage",

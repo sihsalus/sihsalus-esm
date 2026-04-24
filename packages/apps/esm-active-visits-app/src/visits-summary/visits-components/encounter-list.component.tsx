@@ -16,21 +16,20 @@ import classNames from 'classnames';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { type Observation } from '../../types';
 import styles from '../visit-detail-overview.scss';
 
 import EncounterObservations from './encounter-observations.component';
 
+type EncounterListRow = {
+  id: string;
+  time: string;
+  encounterType: string;
+  provider: string;
+  obs: React.ComponentProps<typeof EncounterObservations>['observations'];
+};
+
 interface EncounterListProps {
-  encounters: Array<{
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    id: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    time: any;
-    encounterType: string;
-    provider: string;
-    obs: Array<Observation>;
-  }>;
+  encounters: Array<EncounterListRow>;
   visitUuid: string;
 }
 
@@ -38,7 +37,7 @@ const EncounterListDataTable: React.FC<EncounterListProps> = ({ encounters, visi
   const { t } = useTranslation();
   const layout = useLayoutType();
   const [headerWidth, setHeaderWidth] = useState(0);
-  const headerRef = useRef(null);
+  const headerRef = useRef<HTMLTableCellElement | null>(null);
 
   const headerData = useMemo(
     () => [

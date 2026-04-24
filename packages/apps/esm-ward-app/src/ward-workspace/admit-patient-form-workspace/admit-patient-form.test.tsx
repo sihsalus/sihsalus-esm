@@ -111,14 +111,13 @@ describe('Testing AdmitPatientForm', () => {
       errorFetchingLocation: null,
     });
 
-    // @ts-expect-error - we don't need to mock the entire object
     mockedUseAssignedBedByPatient.mockReturnValue({
       data: {
         data: {
           results: [
             {
               bedId: 1,
-              bedNumber: 1,
+              bedNumber: '1',
               bedType: null,
               patients: [mockPatientAlice],
               physicalLocation: mockLocationInpatientWard,
@@ -126,25 +125,22 @@ describe('Testing AdmitPatientForm', () => {
           ],
         },
       },
-    });
+    } as ReturnType<typeof useAssignedBedByPatient>);
 
-    // @ts-expect-error - we only need these two keys for now
     mockedAdmitPatient.mockResolvedValue({
       ok: true,
       data: {
         uuid: 'encounter-uuid',
       },
-    });
+    } as Awaited<ReturnType<typeof mockedAdmitPatient>>);
 
-    // @ts-expect-error - we only need the ok key for now
     mockedAssignPatientToBed.mockResolvedValue({
       ok: true,
-    });
+    } as Awaited<ReturnType<typeof assignPatientToBed>>);
 
-    // @ts-expect-error - we only need the ok key for now
     mockedRemovePatientFromBed.mockResolvedValue({
       ok: true,
-    });
+    } as Awaited<ReturnType<typeof removePatientFromBed>>);
   });
 
   it('should render admit patient form', async () => {

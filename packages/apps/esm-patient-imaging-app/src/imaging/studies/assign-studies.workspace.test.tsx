@@ -97,8 +97,7 @@ describe('AssignStudiesWorkspace', () => {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={jest.fn()}
-        patient={undefined}
-        promptBeforeClosing={function (testFcn: () => boolean): void {
+promptBeforeClosing={function (testFcn: () => boolean): void {
           throw new Error('Function not implemented.');
         }}
         closeWorkspaceWithSavedChanges={function (closeWorkspaceOptions?: CloseWorkspaceOptions): void {
@@ -126,8 +125,7 @@ describe('AssignStudiesWorkspace', () => {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={jest.fn()}
-        patient={null}
-        promptBeforeClosing={function (testFcn: () => boolean): void {
+promptBeforeClosing={function (testFcn: () => boolean): void {
           throw new Error('Function not implemented.');
         }}
         closeWorkspaceWithSavedChanges={function (closeWorkspaceOptions?: CloseWorkspaceOptions): void {
@@ -147,8 +145,7 @@ describe('AssignStudiesWorkspace', () => {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={jest.fn()}
-        patient={null}
-        promptBeforeClosing={() => true}
+promptBeforeClosing={() => true}
         closeWorkspaceWithSavedChanges={() => {}}
         setTitle={() => {}}
       />,
@@ -165,8 +162,7 @@ describe('AssignStudiesWorkspace', () => {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={closeMock}
-        patient={null}
-        promptBeforeClosing={() => true}
+promptBeforeClosing={() => true}
         closeWorkspaceWithSavedChanges={() => {}}
         setTitle={() => {}}
       />,
@@ -185,8 +181,7 @@ describe('AssignStudiesWorkspace', () => {
       <AssignStudiesWorkspace
         patientUuid={patientUuid}
         configuration={configuration}
-        patient={null}
-        promptBeforeClosing={() => true}
+promptBeforeClosing={() => true}
         closeWorkspaceWithSavedChanges={() => {}}
         setTitle={() => {}}
         closeWorkspace={jest.fn()}

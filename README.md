@@ -108,7 +108,13 @@ yarn test:e2e                               # Run Playwright E2E tests
 yarn lint                                   # ESLint all packages
 yarn typecheck                              # TypeScript check all packages
 yarn verify                                 # lint + typecheck + test
+yarn verify:changed --base origin/main      # Verify only changed workspaces in a PR branch
 ```
+
+Repository discipline and workspace ownership expectations live in:
+
+- [docs/operations/monorepo-discipline-rfc.md](docs/operations/monorepo-discipline-rfc.md)
+- [docs/operations/workspace-quality-registry.md](docs/operations/workspace-quality-registry.md)
 
 ### Cleaning
 

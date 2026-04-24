@@ -24,14 +24,15 @@ jest.mock('@openmrs/esm-patient-common-lib', () => ({
   useVisitOrOfflineVisit: jest.fn(),
 }));
 
-const mockUseImmunizations = jest.mocked(useImmunizations);
-const mockLaunchWorkspace = launchWorkspace2 as jest.Mock;
-const mockUseConfig = jest.mocked(useConfig<ImmunizationConfigObject>);
-const mockUsePatientChartStore = jest.mocked(usePatientChartStore);
-const mockUseVisitOrOfflineVisit = jest.mocked(useVisitOrOfflineVisit);
 type VaccinationConfig = {
   immunizationsConfig: ImmunizationConfigObject;
 };
+
+const mockUseImmunizations = jest.mocked(useImmunizations);
+const mockLaunchWorkspace = launchWorkspace2 as jest.Mock;
+const mockUseConfig = jest.mocked(useConfig<VaccinationConfig>);
+const mockUsePatientChartStore = jest.mocked(usePatientChartStore);
+const mockUseVisitOrOfflineVisit = jest.mocked(useVisitOrOfflineVisit);
 
 mockUseConfig.mockReturnValue({
   immunizationsConfig: getDefaultsFromConfigSchema(configSchema),

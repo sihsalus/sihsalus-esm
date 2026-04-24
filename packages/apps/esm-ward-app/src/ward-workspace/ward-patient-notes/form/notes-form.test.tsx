@@ -30,9 +30,10 @@ jest.mock('../notes.resource', () => ({
 jest.mock('../../../hooks/useEmrConfiguration', () => jest.fn());
 
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
+const typedEmrConfigurationMock = emrConfigurationMock as NonNullable<ReturnType<typeof useEmrConfiguration>['emrConfiguration']>;
 
 mockedUseEmrConfiguration.mockReturnValue({
-  emrConfiguration: emrConfigurationMock,
+  emrConfiguration: typedEmrConfigurationMock,
   mutateEmrConfiguration: jest.fn(),
   isLoadingEmrConfiguration: false,
   errorFetchingEmrConfiguration: null,
@@ -110,6 +111,6 @@ test('renders an error snackbar if there was a problem recording a visit note', 
 });
 
 function renderWardPatientNotesForm() {
-  mockedUseSession.mockReturnValue(mockSession);
+  mockedUseSession.mockReturnValue(mockSession.data);
   render(<PatientNotesForm {...testProps} />);
 }

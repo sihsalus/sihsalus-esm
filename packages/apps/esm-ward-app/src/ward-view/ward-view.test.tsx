@@ -20,8 +20,8 @@ import DefaultWardView from './default-ward/default-ward-view.component';
 import WardView from './ward-view.component';
 
 jest.mocked(useConfig).mockReturnValue({
-  ...getDefaultsFromConfigSchema<ConfigSchema>(configSchema),
-});
+  ...getDefaultsFromConfigSchema(configSchema as Record<string, unknown>),
+} as ConfigSchema);
 
 const mockUseFeatureFlag = jest.mocked(useFeatureFlag);
 

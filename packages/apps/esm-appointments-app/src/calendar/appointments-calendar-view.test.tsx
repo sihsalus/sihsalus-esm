@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
-
 import AppointmentsCalendarView from './appointments-calendar-view.component';
 
 describe('Appointment calendar view', () => {

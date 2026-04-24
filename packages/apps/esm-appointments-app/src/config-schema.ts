@@ -1,6 +1,6 @@
 import { Type, validators } from '@openmrs/esm-framework';
 
-const patientChartUrlPlaceholder = ['${openmrsSpaBase}', '/patient/', '${patientUuid}', '/chart'].join('');
+const patientChartUrlPlaceholder = `\${openmrsSpaBase}/patient/\${patientUuid}/chart`;
 
 export const configSchema = {
   allowAllDayAppointments: {

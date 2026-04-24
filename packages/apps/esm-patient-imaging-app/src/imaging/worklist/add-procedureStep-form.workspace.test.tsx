@@ -78,7 +78,6 @@ const defaultProps: AddNewProcedureStepWorkspaceProps = {
   closeWorkspace: jest.fn(),
   closeWorkspaceWithSavedChanges: jest.fn(),
   promptBeforeClosing: jest.fn(),
-  patient: undefined,
   setTitle: function (title: string, titleNode?: React.ReactNode): void {
     throw new Error('Function not implemented.');
   },

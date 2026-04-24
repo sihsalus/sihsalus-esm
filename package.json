@@ -27,6 +27,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typescript",
     "verify": "cross-env TZ=UTC turbo run lint typescript test",
+    "verify:changed": "node packages/tooling/scripts/verify-changed.js",
     "extract-translations": "turbo run extract-translations",
     "clean": "node packages/tooling/scripts/clean-monorepo.js",
     "clean:dry-run": "node packages/tooling/scripts/clean-monorepo.js --dry-run",

@@ -12,7 +12,7 @@ import {
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import last from 'lodash-es/last';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
@@ -177,7 +177,13 @@ export function useObsConcepts(uuids: Array<string>): {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useActiveVisitsSorting(tableRows: Array<any>) {
+type SortableVisitValue = string | number | boolean | null | undefined;
+type SortableVisitRow = {
+  id: string;
+  [key: string]: SortableVisitValue | Record<string, unknown>;
+};
+
+export function useActiveVisitsSorting(tableRows: Array<SortableVisitRow>) {
   const [sortParams, setSortParams] = useState<{
     key: string;
     sortDirection: 'ASC' | 'DESC' | 'NONE';
@@ -189,32 +195,40 @@ export function useActiveVisitsSorting(tableRows: Array<any>) {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getSortValue = (item: any, key: string) => {
+  const getSortValue = useCallback((item: SortableVisitRow, key: string): SortableVisitValue => {
     // For observation columns
     if (key.startsWith('obs-')) {
       const conceptUuid = key.replace('obs-', '');
-      const obsValue = item?.observations?.[conceptUuid]?.[0]?.value;
+      const observations = item.observations;
+      const obsList =
+        observations && typeof observations === 'object' ? (observations[conceptUuid] as Array<Record<string, unknown>>) : undefined;
+      const obsValue = obsList?.[0]?.value;
 
       if (!obsValue) return null;
-      if (typeof obsValue === 'object' && obsValue.display) {
+      if (typeof obsValue === 'object' && 'display' in obsValue && typeof obsValue.display === 'string') {
         return obsValue.display.toLowerCase();
       }
-      return obsValue;
+      if (typeof obsValue === 'string' || typeof obsValue === 'number' || typeof obsValue === 'boolean') {
+        return obsValue;
+      }
+      return null;
     }
 
     const value = item[key];
     if (value == null) return null;
 
     if (key === 'visitStartTime') {
-      return new Date(value).getTime();
+      return typeof value === 'string' || typeof value === 'number' ? new Date(value).getTime() : null;
     }
 
-    if (key === 'age' && !isNaN(value)) {
+    if (key === 'age' && (typeof value === 'string' || typeof value === 'number') && !isNaN(Number(value))) {
       return Number(value);
     }
 
-    return String(value).toLowerCase();
-  };
+    return typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
+      ? String(value).toLowerCase()
+      : null;
+  }, []);
 
   const sortedRows = useMemo(() => {
     if (sortParams.sortDirection === 'NONE') {
@@ -239,7 +253,7 @@ export function useActiveVisitsSorting(tableRows: Array<any>) {
 
       return sortParams.sortDirection === 'DESC' ? -compareResult : compareResult;
     });
-  }, [sortParams, tableRows]);
+  }, [sortParams, tableRows, getSortValue]);
 
   return {
     sortedRows,
