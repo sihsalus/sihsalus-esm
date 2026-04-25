@@ -97,7 +97,11 @@ const PatientAppointmentsTable: React.FC<AppointmentTableProps> = ({
                     });
 
                     return (
-                      <TableHeader key={key} className={classNames(styles.productiveHeading01, styles.text02)} {...headerProps}>
+                      <TableHeader
+                        key={key}
+                        className={classNames(styles.productiveHeading01, styles.text02)}
+                        {...headerProps}
+                      >
                         {renderHeaderLabel(header.header)}
                       </TableHeader>
                     );

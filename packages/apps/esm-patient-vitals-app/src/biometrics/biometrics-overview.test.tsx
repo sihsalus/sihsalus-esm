@@ -6,6 +6,7 @@ import {
   mockBiometricsConfig,
   mockConceptMetadata,
   mockConceptUnits,
+  mockFhirPatient,
   mockPatient,
   patientChartBasePath,
   renderWithSwr,
@@ -20,6 +21,7 @@ import BiometricsOverview from './biometrics-overview.component';
 const testProps = {
   basePath: patientChartBasePath,
   patientUuid: mockPatient.id,
+  patient: mockFhirPatient as fhir.Patient,
 };
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
@@ -104,7 +106,11 @@ describe('BiometricsOverview', () => {
     expect(screen.getByRole('tab', { name: /chart view/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /see all/i })).toBeInTheDocument();
 
-    const getDataRowText = () => screen.getAllByRole('row').slice(1).map((row) => row.textContent);
+    const getDataRowText = () =>
+      screen
+        .getAllByRole('row')
+        .slice(1)
+        .map((row) => row.textContent);
 
     const initialRowElements = getDataRowText();
 
@@ -114,9 +120,9 @@ describe('BiometricsOverview', () => {
     );
 
     const tableRows = getDataRowText().map((row) => row ?? '');
-    expect(tableRows.some((row) => row.includes('90') && row.includes('186') && row.includes('26.0') && row.includes('17'))).toBe(
-      true,
-    );
+    expect(
+      tableRows.some((row) => row.includes('90') && row.includes('186') && row.includes('26.0') && row.includes('17')),
+    ).toBe(true);
 
     const sortRowsButton = screen.getByRole('button', { name: /date and time/i });
 
@@ -159,5 +165,27 @@ describe('BiometricsOverview', () => {
     expect(screen.getByRole('tab', { name: /weight/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /height/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /bmi/i })).toBeInTheDocument();
+  });
+
+  it('hides BMI column when bmiMinimumAge is set and patient is under the minimum age', async () => {
+    const minorPatient = { ...mockFhirPatient, birthDate: '2020-01-01' } as fhir.Patient;
+
+    mockUseConfig.mockReturnValue({
+      ...(getDefaultsFromConfigSchema(configSchema) as Record<string, unknown>),
+      ...mockBiometricsConfig,
+      biometrics: { ...mockBiometricsConfig.biometrics, bmiMinimumAge: 18 },
+    } as unknown as ConfigObject);
+
+    mockUseVitalsAndBiometrics.mockReturnValue({ data: formattedBiometrics } as ReturnType<
+      typeof useVitalsAndBiometrics
+    >);
+
+    renderWithSwr(<BiometricsOverview {...{ ...testProps, patient: minorPatient }} />);
+    await waitForLoadingToFinish();
+    await screen.findByRole('heading', { name: /biometrics/i });
+
+    expect(screen.queryByRole('columnheader', { name: /bmi/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: /weight/i })).toBeInTheDocument();
+    expect(screen.getByRole('columnheader', { name: /height/i })).toBeInTheDocument();
   });
 });

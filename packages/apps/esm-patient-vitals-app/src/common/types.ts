@@ -18,11 +18,14 @@ export interface ObsReferenceRanges {
 
 export type ObservationInterpretation = 'critically_low' | 'critically_high' | 'high' | 'low' | 'normal';
 
+export type FHIRInterpretation = 'Critically Low' | 'Critically High' | 'High' | 'Low' | 'Normal';
+
 export type MappedVitals = {
   code: string;
-  interpretation: string;
-  recordedDate: Date;
+  interpretation: ObservationInterpretation;
+  recordedDate: string | Date;
   value: number;
+  encounterId: string;
 };
 
 export interface PatientVitalsAndBiometrics {
@@ -31,6 +34,16 @@ export interface PatientVitalsAndBiometrics {
   systolic?: number;
   diastolic?: number;
   bloodPressureRenderInterpretation?: ObservationInterpretation;
+  systolicRenderInterpretation?: ObservationInterpretation;
+  diastolicRenderInterpretation?: ObservationInterpretation;
+  pulseRenderInterpretation?: ObservationInterpretation;
+  temperatureRenderInterpretation?: ObservationInterpretation;
+  spo2RenderInterpretation?: ObservationInterpretation;
+  heightRenderInterpretation?: ObservationInterpretation;
+  weightRenderInterpretation?: ObservationInterpretation;
+  bmiRenderInterpretation?: ObservationInterpretation;
+  respiratoryRateRenderInterpretation?: ObservationInterpretation;
+  muacRenderInterpretation?: ObservationInterpretation;
   pulse?: number;
   temperature?: number;
   spo2?: number;
@@ -39,6 +52,7 @@ export interface PatientVitalsAndBiometrics {
   bmi?: number | null;
   respiratoryRate?: number;
   muac?: number;
+  note?: string;
 }
 
 export interface VitalsResponse {

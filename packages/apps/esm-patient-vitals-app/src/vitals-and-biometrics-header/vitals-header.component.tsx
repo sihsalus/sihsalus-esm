@@ -1,6 +1,6 @@
-import { Button, InlineLoading, Tag } from '@carbon/react';
-import { ArrowRight } from '@carbon/react/icons';
-import { ConfigurableLink, formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
+import { Button, InlineLoading, Tag, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
+import { ArrowRight, Information } from '@carbon/react/icons';
+import { type Visit, ConfigurableLink, formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
 import { ErrorState, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -11,13 +11,7 @@ import { Trans, useTranslation } from 'react-i18next';
 dayjs.extend(isToday);
 dayjs.extend(duration);
 
-import {
-  assessValue,
-  getReferenceRangesForConcept,
-  interpretBloodPressure,
-  useVitalsAndBiometrics,
-  useVitalsConceptMetadata,
-} from '../common';
+import { interpretBloodPressure, shouldShowBmi, useVitalsAndBiometrics, useVitalsConceptMetadata } from '../common';
 import { type ConfigObject } from '../config-schema';
 import { launchVitalsAndBiometricsForm as launchForm } from '../utils';
 import styles from './vitals-header.scss';
@@ -30,12 +24,15 @@ interface VitalsHeaderProps {
    * This is useful for extensions slots using the Vitals Header
    */
   hideLinks?: boolean;
+
+  patient?: fhir.Patient;
+  visitContext?: Visit;
 }
 
-const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = false }) => {
+const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = false, patient, visitContext }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { data: conceptUnits, conceptMetadata, error: conceptsError } = useVitalsConceptMetadata();
+  const { data: conceptUnits, conceptMetadata, conceptRangeMap, error: conceptsError } = useVitalsConceptMetadata();
   const { data: vitals, isLoading, isValidating, error: vitalsError } = useVitalsAndBiometrics(patientUuid, 'both');
   const latestVitals = vitals?.[0];
   const [showDetailsPanel, setShowDetailsPanel] = useState(false);
@@ -49,6 +46,8 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
     },
     [config, currentVisit],
   );
+
+  const showBmi = shouldShowBmi(patient, config.biometrics);
 
   if (isLoading) {
     return (
@@ -66,14 +65,29 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
   }
 
   if (latestVitals && Object.keys(latestVitals)?.length && conceptMetadata?.length) {
-    const hasActiveVisit = Boolean(currentVisit?.uuid);
-    const vitalsTakenToday = Boolean(dayjs(latestVitals?.date).isToday());
-    const vitalsOverdue = hasActiveVisit && !vitalsTakenToday;
+    const isActiveVisit = visitContext
+      ? Boolean(visitContext && !visitContext.stopDatetime)
+      : Boolean(currentVisit?.uuid);
+
+    const vitalsOverdueThresholdHours = config.vitals.vitalsOverdueThresholdHours ?? 12;
+    const vitalsTakenTimeAgo = dayjs.duration(dayjs().diff(latestVitals?.date));
+    const areVitalsOverdue = isActiveVisit && vitalsTakenTimeAgo.asHours() >= vitalsOverdueThresholdHours;
+
     const now = dayjs();
     const vitalsOverdueDayCount = Math.round(dayjs.duration(now.diff(latestVitals?.date)).asDays());
+    const hoursSinceVitalsTaken = Math.round(vitalsTakenTimeAgo.asHours());
 
     let overdueVitalsTagContent: React.ReactNode;
-    if (vitalsOverdueDayCount >= 1 && vitalsOverdueDayCount < 7) {
+    if (vitalsOverdueDayCount < 1) {
+      overdueVitalsTagContent = (
+        <Trans i18nKey="hoursOldVitals" count={hoursSinceVitalsTaken}>
+          <span>
+            {/* @ts-expect-error Workaround for i18next types issue */}
+            These vitals are <strong>{{ count: hoursSinceVitalsTaken }} hour old</strong>
+          </span>
+        </Trans>
+      );
+    } else if (vitalsOverdueDayCount >= 1 && vitalsOverdueDayCount < 7) {
       overdueVitalsTagContent = (
         <Trans i18nKey="daysOldVitals" count={vitalsOverdueDayCount}>
           <span>
@@ -108,7 +122,7 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
             <span className={styles.bodyText}>
               {formatDate(parseDate(latestVitals?.date), { day: true, time: true })}
             </span>
-            {vitalsOverdue ? (
+            {areVitalsOverdue ? (
               <Tag className={styles.tag} type="red">
                 <span className={styles.overdueIndicator}>{overdueVitalsTagContent}</span>
               </Tag>
@@ -129,6 +143,35 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
           ) : null}
           {!hideLinks && (
             <div className={styles.buttonContainer}>
+              {conceptRangeMap?.size > 0 && (
+                <Toggletip>
+                  <ToggletipButton label={t('viewNormalRanges', 'View normal ranges')}>
+                    <Information />
+                  </ToggletipButton>
+                  <ToggletipContent>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>{t('vital', 'Vital')}</th>
+                          <th>{t('normalRange', 'Normal range')}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Array.from(conceptRangeMap.entries()).map(([uuid, metadata]) => (
+                          <tr key={uuid}>
+                            <td>{metadata.display}</td>
+                            <td>
+                              {metadata.lowNormal != null && metadata.hiNormal != null
+                                ? `${metadata.lowNormal} – ${metadata.hiNormal} ${metadata.units ?? ''}`
+                                : t('notAvailable', 'N/A')}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </ToggletipContent>
+                </Toggletip>
+              )}
               <Button
                 className={styles.recordVitalsButton}
                 data-openmrs-role="Record Vitals"
@@ -150,25 +193,21 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
                 latestVitals?.diastolic,
                 config?.concepts,
                 conceptMetadata,
+                latestVitals?.systolicRenderInterpretation,
+                latestVitals?.diastolicRenderInterpretation,
               )}
               unitName={t('bp', 'BP')}
               unitSymbol={(latestVitals?.systolic && conceptUnits.get(config.concepts.systolicBloodPressureUuid)) ?? ''}
               value={`${latestVitals?.systolic ?? '--'} / ${latestVitals?.diastolic ?? '--'}`}
             />
             <VitalsHeaderItem
-              interpretation={assessValue(
-                latestVitals?.pulse,
-                getReferenceRangesForConcept(config.concepts.pulseUuid, conceptMetadata),
-              )}
+              interpretation={latestVitals?.pulseRenderInterpretation}
               unitName={t('heartRate', 'Heart rate')}
               unitSymbol={(latestVitals?.pulse && conceptUnits.get(config.concepts.pulseUuid)) ?? ''}
               value={latestVitals?.pulse ?? '--'}
             />
             <VitalsHeaderItem
-              interpretation={assessValue(
-                latestVitals?.respiratoryRate,
-                getReferenceRangesForConcept(config.concepts.respiratoryRateUuid, conceptMetadata),
-              )}
+              interpretation={latestVitals?.respiratoryRateRenderInterpretation}
               unitName={t('respiratoryRate', 'R. rate')}
               unitSymbol={
                 (latestVitals?.respiratoryRate && conceptUnits.get(config.concepts.respiratoryRateUuid)) ?? ''
@@ -176,19 +215,13 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
               value={latestVitals?.respiratoryRate ?? '--'}
             />
             <VitalsHeaderItem
-              interpretation={assessValue(
-                latestVitals?.spo2,
-                getReferenceRangesForConcept(config.concepts.oxygenSaturationUuid, conceptMetadata),
-              )}
+              interpretation={latestVitals?.spo2RenderInterpretation}
               unitName={t('spo2', 'SpO2')}
               unitSymbol={(latestVitals?.spo2 && conceptUnits.get(config.concepts.oxygenSaturationUuid)) ?? ''}
               value={latestVitals?.spo2 ?? '--'}
             />
             <VitalsHeaderItem
-              interpretation={assessValue(
-                latestVitals?.temperature,
-                getReferenceRangesForConcept(config.concepts.temperatureUuid, conceptMetadata),
-              )}
+              interpretation={latestVitals?.temperatureRenderInterpretation}
               unitName={t('temperatureAbbreviated', 'Temp')}
               unitSymbol={(latestVitals?.temperature && conceptUnits.get(config.concepts.temperatureUuid)) ?? ''}
               value={latestVitals?.temperature ?? '--'}
@@ -203,11 +236,13 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
               unitSymbol={(latestVitals?.height && conceptUnits.get(config.concepts.heightUuid)) ?? ''}
               value={latestVitals?.height ?? '--'}
             />
-            <VitalsHeaderItem
-              unitName={t('bmi', 'BMI')}
-              unitSymbol={(latestVitals?.bmi && config.biometrics['bmiUnit']) ?? ''}
-              value={latestVitals?.bmi ?? '--'}
-            />
+            {showBmi && (
+              <VitalsHeaderItem
+                unitName={t('bmi', 'BMI')}
+                unitSymbol={(latestVitals?.bmi && config.biometrics['bmiUnit']) ?? ''}
+                value={latestVitals?.bmi ?? '--'}
+              />
+            )}
             {latestVitals?.muac && (
               <VitalsHeaderItem
                 unitName={t('muac', 'MUAC')}

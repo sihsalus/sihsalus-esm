@@ -201,7 +201,9 @@ export function useActiveVisitsSorting(tableRows: Array<SortableVisitRow>) {
       const conceptUuid = key.replace('obs-', '');
       const observations = item.observations;
       const obsList =
-        observations && typeof observations === 'object' ? (observations[conceptUuid] as Array<Record<string, unknown>>) : undefined;
+        observations && typeof observations === 'object'
+          ? (observations[conceptUuid] as Array<Record<string, unknown>>)
+          : undefined;
       const obsValue = obsList?.[0]?.value;
 
       if (!obsValue) return null;

@@ -21,9 +21,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useFilteredEncounter } from '../../hooks/useFilteredEncounter';
 
-import ObservationGroupDetails, {
-  type ObservationGroup,
-} from './observation-group-details.component';
+import ObservationGroupDetails, { type ObservationGroup } from './observation-group-details.component';
 import styles from './patient-observation-group-table.scss';
 
 // Importar tipos desde el componente separado

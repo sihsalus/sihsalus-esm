@@ -1,4 +1,3 @@
-
 import StockOperations from './stock-operations-table.component';
 
 function StockOperationsComponent() {

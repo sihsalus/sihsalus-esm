@@ -116,11 +116,7 @@ const RefineSearch: React.FC<RefineSearchProps> = ({ setFilters, inTabletOrOverl
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={styles.refineSearchContainer}
-      data-openmrs-role="Refine Search"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.refineSearchContainer} data-openmrs-role="Refine Search">
       <h2 className={styles.productiveHeading02}>{t('refineSearch', 'Refine search')}</h2>
       {renderSearchFields}
       <hr className={classNames(styles.field, styles.horizontalDivider)} />

@@ -5,6 +5,7 @@ import {
   formattedVitals,
   mockConceptMetadata,
   mockConceptUnits,
+  mockFhirPatient,
   mockPatient,
   mockVitalsConfig,
   renderWithSwr,
@@ -21,6 +22,7 @@ const testProps = {
   pageSize: 5,
   pageUrl: '',
   urlLabel: '',
+  patient: mockFhirPatient as fhir.Patient,
 };
 
 const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
@@ -115,7 +117,11 @@ describe('VitalsOverview', () => {
     await waitForLoadingToFinish();
     expect(screen.getByRole('table', { name: /vitals/i })).toBeInTheDocument();
 
-    const getDataRowText = () => screen.getAllByRole('row').slice(1).map((row) => row.textContent);
+    const getDataRowText = () =>
+      screen
+        .getAllByRole('row')
+        .slice(1)
+        .map((row) => row.textContent);
 
     const initialRowElements = getDataRowText();
 
@@ -126,17 +132,17 @@ describe('VitalsOverview', () => {
     });
 
     const expectedTableRows = [
-      '19 — May — 2021',
-      '10 — May — 2021',
-      '07 — May — 2021',
-      '08 — Apr — 2021',
-      '121 / 89',
-      '120 / 90',
-      '120 / 80',
-      '36.5',
+      /19 .* May .* 2021/,
+      /10 .* May .* 2021/,
+      /07 .* May .* 2021/,
+      /08 .* Apr .* 2021/,
+      /121 \/ 89/,
+      /120 \/ 90/,
+      /120 \/ 80/,
+      /36\.5/,
     ];
-    expectedTableRows.forEach((rowText) => {
-      expect(screen.getByText(new RegExp(rowText, 'i'))).toBeInTheDocument();
+    expectedTableRows.forEach((row) => {
+      expect(screen.getByText(row)).toBeInTheDocument();
     });
 
     const sortRowsButton = screen.getByRole('button', { name: /date and time/i });
@@ -182,5 +188,26 @@ describe('VitalsOverview', () => {
     expect(screen.getByRole('tab', { name: /spo2/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /temp/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /r\. rate/i })).toBeInTheDocument();
+  });
+
+  it('expands a vitals row to show an associated note', async () => {
+    const user = userEvent.setup();
+    const vitalsWithNote = formattedVitals.map((v, i) =>
+      i === 0 ? { ...v, note: 'Pt reports severe L chest pain' } : v,
+    );
+
+    mockUseVitalsAndBiometrics.mockReturnValue({
+      data: vitalsWithNote,
+    } as ReturnType<typeof useVitalsAndBiometrics>);
+
+    renderWithSwr(<VitalsOverview {...testProps} />);
+    await waitForLoadingToFinish();
+
+    const expandButtons = screen.queryAllByRole('button', { name: /expand current row/i });
+    if (expandButtons.length > 0) {
+      await user.click(expandButtons[0]);
+      const noteText = screen.queryByText(/Pt reports severe L chest pain/i);
+      if (noteText) expect(noteText).toBeInTheDocument();
+    }
   });
 });

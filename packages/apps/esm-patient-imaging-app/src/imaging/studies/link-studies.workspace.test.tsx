@@ -1,8 +1,11 @@
 import { launchWorkspace, showSnackbar } from '@openmrs/esm-framework';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import React, { Children } from 'react';
+import React from 'react';
 import * as api from '../../api';
 import LinkStudiesWorkspace from './link-studies.workspace';
+
+type NameOnlyProps = { name: string };
+type ChildrenOnlyProps = { children: React.ReactNode };
 
 jest.mock('../../api');
 jest.mock('@openmrs/esm-framework', () => ({
@@ -11,8 +14,8 @@ jest.mock('@openmrs/esm-framework', () => ({
   showSnackbar: jest.fn(),
   createErrorHandler: jest.fn(),
   useLayoutType: jest.fn(() => 'desktop'),
-  ExtensionSlot: ({ name }: any) => <div data-testid={`extension-slot-${name}`} />,
-  ResponsiveWrapper: ({ children }: any) => <div data-testid="responsive-wrapper">{children}</div>,
+  ExtensionSlot: ({ name }: NameOnlyProps) => <div data-testid={`extension-slot-${name}`} />,
+  ResponsiveWrapper: ({ children }: ChildrenOnlyProps) => <div data-testid="responsive-wrapper">{children}</div>,
 }));
 
 describe('LinkStudiesWorkspace', () => {
@@ -26,7 +29,7 @@ describe('LinkStudiesWorkspace', () => {
       <LinkStudiesWorkspace
         patientUuid={patientUuid}
         closeWorkspace={mockParam}
-promptBeforeClosing={jest.fn()}
+        promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
       />,

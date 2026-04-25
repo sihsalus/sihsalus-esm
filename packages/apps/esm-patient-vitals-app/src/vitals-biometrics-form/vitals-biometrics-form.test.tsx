@@ -29,7 +29,7 @@ const testProps = {
   closeWorkspace: () => {},
   closeWorkspaceWithSavedChanges: jest.fn(),
   patientUuid: mockPatient.id,
-  promptBeforeClosing: () => {},
+  promptBeforeClosing: jest.fn(),
   formContext: 'creating' as 'creating' | 'editing',
   setTitle: jest.fn(),
 };
@@ -59,7 +59,7 @@ jest.mock('../common', () => ({
 mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
   ...mockVitalsConfig,
-});
+} as ConfigObject);
 
 mockUseSession.mockReturnValue({
   sessionLocation: {
@@ -78,6 +78,10 @@ mockUseVisit.mockReturnValue({
 } as ReturnType<typeof useVisit>);
 
 describe('VitalsBiometricsForm', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders the vitals and biometrics form', async () => {
     render(<VitalsAndBiometricsForm {...testProps} />);
 
@@ -270,5 +274,19 @@ describe('VitalsBiometricsForm', () => {
     expect(screen.queryByText(/some of the values entered are invalid/i)).not.toBeInTheDocument();
     await user.click(saveButton);
     expect(screen.getByText(/Some of the values entered are invalid/i)).toBeInTheDocument();
+  });
+
+  it('uses dirtyFields to determine unsaved changes', async () => {
+    const user = userEvent.setup();
+
+    render(<VitalsAndBiometricsForm {...testProps} />);
+
+    const initialGuard = jest.mocked(testProps.promptBeforeClosing).mock.calls.at(-1)?.[0];
+    expect(initialGuard?.()).toBe(false);
+
+    await user.type(screen.getByRole('spinbutton', { name: /height/i }), '180');
+
+    const updatedGuard = jest.mocked(testProps.promptBeforeClosing).mock.calls.at(-1)?.[0];
+    expect(updatedGuard?.()).toBe(true);
   });
 });

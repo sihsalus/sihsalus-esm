@@ -2,7 +2,17 @@ import { type CloseWorkspaceOptions, showSnackbar, useLayoutType } from '@openmr
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import * as api from '../../api';
+import { type DicomStudy } from '../../types';
 import AssignStudiesWorkspace from './assign-studies.workspace';
+
+type ErrorStateProps = { error?: { message?: string }; headerTitle?: string };
+type NameOnlyProps = { name: string };
+type ChildrenOnlyProps = { children: React.ReactNode };
+type StudiesTableDataProps = { data?: { studies?: Array<unknown> } | null };
+type EmptyStateProps = { displayText?: string; headerTitle?: string };
+type AssignStudiesTableMockProps = {
+  assignStudyFunction: (study: DicomStudy, isAssign: boolean) => Promise<void>;
+};
 
 jest.mock('@openmrs/esm-framework', () => ({
   useLayoutType: jest.fn(() => 'desktop'),
@@ -13,40 +23,42 @@ jest.mock('@openmrs/esm-framework', () => ({
     goTo: jest.fn(),
     currentPage: 1,
   })),
-  ErrorState: ({ error, headerTitle }: any) => (
+  ErrorState: ({ error, headerTitle }: ErrorStateProps) => (
     <div role="alert">
       {headerTitle}: {error?.message}
     </div>
   ),
-  ExtensionSlot: ({ name }: any) => <div data-testid={`extension-slot-${name}`} />,
-  ResponsiveWrapper: ({ children }: any) => <div data-testid="responsive-wrapper">{children}</div>,
+  ExtensionSlot: ({ name }: NameOnlyProps) => <div data-testid={`extension-slot-${name}`} />,
+  ResponsiveWrapper: ({ children }: ChildrenOnlyProps) => <div data-testid="responsive-wrapper">{children}</div>,
   AddIcon: () => <span>AddIcon</span>,
 }));
 
 jest.mock('../../api');
 jest.mock('../components/assign-studies-table.component', () => ({
   __esModule: true,
-  default: ({ data }: any) => <div data-testid="assign-studies-table">Studies: {data?.studies?.length}</div>,
+  default: ({ data }: StudiesTableDataProps) => (
+    <div data-testid="assign-studies-table">Studies: {data?.studies?.length}</div>
+  ),
 }));
 
 jest.mock('@openmrs/esm-patient-common-lib', () => ({
-  EmptyState: ({ displayText, headerTitle }: any) => (
+  EmptyState: ({ displayText, headerTitle }: EmptyStateProps) => (
     <div>
       {headerTitle}: {displayText}
     </div>
   ),
 }));
 
-let capturedAssignStudyFunction: ((study: any, isAssign: boolean) => Promise<void>) | undefined;
+let capturedAssignStudyFunction: ((study: DicomStudy, isAssign: boolean) => Promise<void>) | undefined;
 
-jest.mock('../components/assign-studies-table.component', () => (props: any) => {
+jest.mock('../components/assign-studies-table.component', () => (props: AssignStudiesTableMockProps) => {
   capturedAssignStudyFunction = props.assignStudyFunction;
   return <div data-testid="assign-studies-table" />;
 });
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, defaultValue: string) => defaultValue,
+    t: (_key: string, defaultValue: string) => defaultValue,
   }),
 }));
 
@@ -97,13 +109,13 @@ describe('AssignStudiesWorkspace', () => {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={jest.fn()}
-promptBeforeClosing={function (testFcn: () => boolean): void {
+        promptBeforeClosing={function (_testFcn: () => boolean): void {
           throw new Error('Function not implemented.');
         }}
-        closeWorkspaceWithSavedChanges={function (closeWorkspaceOptions?: CloseWorkspaceOptions): void {
+        closeWorkspaceWithSavedChanges={function (_closeWorkspaceOptions?: CloseWorkspaceOptions): void {
           throw new Error('Function not implemented.');
         }}
-        setTitle={function (title: string, titleNode?: React.ReactNode): void {
+        setTitle={function (_title: string, _titleNode?: React.ReactNode): void {
           throw new Error('Function not implemented.');
         }}
       />,
@@ -125,13 +137,13 @@ promptBeforeClosing={function (testFcn: () => boolean): void {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={jest.fn()}
-promptBeforeClosing={function (testFcn: () => boolean): void {
+        promptBeforeClosing={function (_testFcn: () => boolean): void {
           throw new Error('Function not implemented.');
         }}
-        closeWorkspaceWithSavedChanges={function (closeWorkspaceOptions?: CloseWorkspaceOptions): void {
+        closeWorkspaceWithSavedChanges={function (_closeWorkspaceOptions?: CloseWorkspaceOptions): void {
           throw new Error('Function not implemented.');
         }}
-        setTitle={function (title: string, titleNode?: React.ReactNode): void {
+        setTitle={function (_title: string, _titleNode?: React.ReactNode): void {
           throw new Error('Function not implemented.');
         }}
       />,
@@ -145,7 +157,7 @@ promptBeforeClosing={function (testFcn: () => boolean): void {
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={jest.fn()}
-promptBeforeClosing={() => true}
+        promptBeforeClosing={() => true}
         closeWorkspaceWithSavedChanges={() => {}}
         setTitle={() => {}}
       />,
@@ -162,7 +174,7 @@ promptBeforeClosing={() => true}
         patientUuid={patientUuid}
         configuration={configuration}
         closeWorkspace={closeMock}
-promptBeforeClosing={() => true}
+        promptBeforeClosing={() => true}
         closeWorkspaceWithSavedChanges={() => {}}
         setTitle={() => {}}
       />,
@@ -181,7 +193,7 @@ promptBeforeClosing={() => true}
       <AssignStudiesWorkspace
         patientUuid={patientUuid}
         configuration={configuration}
-promptBeforeClosing={() => true}
+        promptBeforeClosing={() => true}
         closeWorkspaceWithSavedChanges={() => {}}
         setTitle={() => {}}
         closeWorkspace={jest.fn()}

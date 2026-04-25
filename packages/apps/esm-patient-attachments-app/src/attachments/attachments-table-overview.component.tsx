@@ -154,12 +154,13 @@ const AttachmentsTableOverview: React.FC<AttachmentsTableOverviewProps> = ({
               {rows.map((row) => {
                 const { key, ...rowProps } = getRowProps({ row });
                 return (
-                <TableRow key={key} {...rowProps}>
-                  {row.cells.map((cell) => (
-                    <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
-                  ))}
-                </TableRow>
-              )})}
+                  <TableRow key={key} {...rowProps}>
+                    {row.cells.map((cell) => (
+                      <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

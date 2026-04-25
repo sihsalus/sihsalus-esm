@@ -55,12 +55,9 @@ export default function LocationSelector({ paginationSize = 15, ...props }: Loca
     goToPrevious,
   } = useLocations(filterCriteria, paginationSize, !emrConfiguration);
 
-  const handleSearch = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchTerm(event.target.value);
-    },
-    [],
-  );
+  const handleSearch = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  }, []);
   return (
     <div className={styles.locationSelector}>
       <ResponsiveWrapper>

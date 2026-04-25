@@ -65,7 +65,7 @@ describe('AddNewProcedureStepWorkspace', () => {
       <AddNewRequestWorkspace
         patientUuid={patientUuid}
         closeWorkspace={mockClose}
-promptBeforeClosing={jest.fn()}
+        promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
       />,
@@ -81,7 +81,7 @@ promptBeforeClosing={jest.fn()}
     render(
       <AddNewRequestWorkspace
         patientUuid={patientUuid}
-closeWorkspace={mockClose}
+        closeWorkspace={mockClose}
         promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
@@ -95,7 +95,7 @@ closeWorkspace={mockClose}
     render(
       <AddNewRequestWorkspace
         patientUuid={patientUuid}
-closeWorkspace={mockClose}
+        closeWorkspace={mockClose}
         promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}

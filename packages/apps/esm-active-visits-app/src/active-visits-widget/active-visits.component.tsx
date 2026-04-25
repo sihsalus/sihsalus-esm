@@ -222,7 +222,9 @@ const ActiveVisitsTable = () => {
                             {row.cells.map((cell) => (
                               <TableCell key={`active-visit-row-${index}-cell-${cell.id}`} data-testid={cell.id}>
                                 {cell.info.header === 'name' && currentVisit.patientUuid ? (
-                                  <ConfigurableLink to={`${globalThis.spaBase}/patient/${currentVisit.patientUuid}/chart`}>
+                                  <ConfigurableLink
+                                    to={`${globalThis.spaBase}/patient/${currentVisit.patientUuid}/chart`}
+                                  >
                                     {cell.value}
                                   </ConfigurableLink>
                                 ) : (

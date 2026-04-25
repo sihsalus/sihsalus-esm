@@ -59,7 +59,9 @@ jest.mock('./steps/stock-operation-items-form-step.component', () => ({
           <div key={item.uuid ?? `item-${index}`}>
             {typeof item.quantity === 'number' ? <span>{item.quantity.toLocaleString()}</span> : null}
             {item.expiration ? (
-              <span>{formatForDatePicker(item.expiration instanceof Date ? item.expiration : new Date(item.expiration))}</span>
+              <span>
+                {formatForDatePicker(item.expiration instanceof Date ? item.expiration : new Date(item.expiration))}
+              </span>
             ) : null}
           </div>
         ))}

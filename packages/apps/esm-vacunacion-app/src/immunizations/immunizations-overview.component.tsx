@@ -100,7 +100,11 @@ const ImmunizationsOverview: React.FC<ImmunizationsOverviewProps> = ({ patient: 
                       });
 
                       return (
-                        <TableHeader key={key} className={classNames(styles.productiveHeading01, styles.text02)} {...headerProps}>
+                        <TableHeader
+                          key={key}
+                          className={classNames(styles.productiveHeading01, styles.text02)}
+                          {...headerProps}
+                        >
                           {header.header}
                         </TableHeader>
                       );

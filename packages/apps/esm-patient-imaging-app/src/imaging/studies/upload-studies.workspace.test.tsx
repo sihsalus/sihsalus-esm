@@ -66,7 +66,7 @@ describe('UploadStudiesWorkspace', () => {
       <UploadStudiesWorkspace
         patientUuid={patientUuid}
         closeWorkspace={closeWorkspace}
-promptBeforeClosing={jest.fn()}
+        promptBeforeClosing={jest.fn()}
         closeWorkspaceWithSavedChanges={jest.fn()}
         setTitle={jest.fn()}
       />,

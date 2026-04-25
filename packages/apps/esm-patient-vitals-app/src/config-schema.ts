@@ -42,6 +42,10 @@ export const configSchema = {
       _type: Type.ConceptUuid,
       _default: '1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     },
+    bodyMassIndexUuid: {
+      _type: Type.ConceptUuid,
+      _default: '1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    },
     vitalSignsConceptSetUuid: {
       _type: Type.ConceptUuid,
       _default: '1114AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
@@ -105,6 +109,11 @@ export const configSchema = {
       _type: Type.String,
       _default: 'kg / m²',
     },
+    bmiMinimumAge: {
+      _type: Type.Number,
+      _default: 0,
+      _description: 'The minimum age (in years) required to display BMI. Set to 0 to show BMI for all patients.',
+    },
   },
 };
 
@@ -112,6 +121,7 @@ export interface BiometricsConfigObject {
   bmiUnit: string;
   heightUnit: string;
   weightUnit: string;
+  bmiMinimumAge: number;
 }
 
 export interface ConfigObject {
@@ -126,6 +136,7 @@ export interface ConfigObject {
     respiratoryRateUuid: string;
     generalPatientNoteUuid: string;
     midUpperArmCircumferenceUuid: string;
+    bodyMassIndexUuid: string;
     vitalSignsConceptSetUuid: string;
   };
   vitals: {

@@ -8,6 +8,7 @@ export interface VitalsTableRow extends PatientVitalsAndBiometrics {
   spo2Render: string | number;
   temperatureRender: string | number;
   respiratoryRateRender: string | number;
+  note?: string;
 }
 
 export interface VitalsTableHeader {

@@ -2,7 +2,6 @@ import { showModal, useLayoutType } from '@openmrs/esm-framework';
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { type Condition } from './conditions.resource';
 import { ConditionsActionMenu } from './conditions-action-menu.component';
 
@@ -78,14 +77,11 @@ describe('ConditionsActionMenu', () => {
     await user.click(screen.getByRole('button'));
     await user.click(screen.getByText('Edit'));
 
-    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith(
-      'conditions-form-workspace',
-      {
-        workspaceTitle: 'Edit a Condition',
-        condition: specificCondition,
-        formContext: 'editing',
-      },
-    );
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('conditions-form-workspace', {
+      workspaceTitle: 'Edit a Condition',
+      condition: specificCondition,
+      formContext: 'editing',
+    });
   });
 
   it('opens delete confirmation modal with condition ID when Delete button is clicked', async () => {

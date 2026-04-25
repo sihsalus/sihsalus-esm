@@ -1,5 +1,5 @@
 import { Tag, Tile } from '@carbon/react';
-import { CheckmarkFilled, Time, } from '@carbon/react/icons';
+import { CheckmarkFilled, Time } from '@carbon/react/icons';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 

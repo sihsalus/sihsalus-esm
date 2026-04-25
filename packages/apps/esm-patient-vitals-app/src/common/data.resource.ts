@@ -10,7 +10,6 @@ import { type ObsRecord } from '@openmrs/esm-patient-common-lib';
 import { useCallback, useEffect, useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import useSWRInfinite, { type SWRInfiniteKeyedMutator } from 'swr/infinite';
-
 import { type ConfigObject } from '../config-schema';
 import { type VitalsBiometricsFormData } from '../vitals-biometrics-form/vitals-biometrics-form.workspace';
 
@@ -88,13 +87,34 @@ export function useVitalsConceptMetadata() {
       )
     : new Map<string, { lowAbsolute: number | null; highAbsolute: number | null }>([]);
 
+  const conceptRangeMap = useMemo(
+    () => new Map<string, ConceptMetadata>(conceptMetadata?.map((c) => [c.uuid, c]) ?? []),
+    [conceptMetadata],
+  );
+
   return {
     data: conceptUnits,
     error,
     isLoading,
     conceptMetadata,
     conceptRanges,
+    conceptRangeMap,
   };
+}
+
+export function useConceptUnits() {
+  const { concepts } = useConfig<ConfigObject>();
+  const vitalSignsConceptSetUuid = concepts.vitalSignsConceptSetUuid;
+  const customRepresentation = 'custom:(setMembers:(uuid,display,units))';
+  const apiUrl = `${restBaseUrl}/concept/${vitalSignsConceptSetUuid}?v=${customRepresentation}`;
+  const { data, error, isLoading } = useSWRImmutable<{ data: VitalsConceptMetadataResponse }, Error>(
+    apiUrl,
+    openmrsFetch,
+  );
+  const conceptUnits = data?.data?.setMembers?.length
+    ? new Map<string, string>(data.data.setMembers.map((c) => [c.uuid, c.units]))
+    : new Map<string, string>();
+  return { conceptUnits, error, isLoading };
 }
 
 export const withUnit = (label: string, unit: string | null | undefined) => {
@@ -297,6 +317,7 @@ function handleFetch({ patientUuid, conceptUuids, page, prevPageData }: VitalsAn
 function vitalsProperties(conceptMetadata: Array<ConceptMetadata> | undefined) {
   return (resource: FHIRResource['resource']): MappedVitals => ({
     code: resource?.code?.coding?.[0]?.code,
+    encounterId: resource?.encounter?.reference?.split('/')?.pop() ?? '',
     interpretation: assessValue(
       resource?.valueQuantity?.value,
       getReferenceRangesForConcept(resource?.code?.coding?.[0]?.code, conceptMetadata),

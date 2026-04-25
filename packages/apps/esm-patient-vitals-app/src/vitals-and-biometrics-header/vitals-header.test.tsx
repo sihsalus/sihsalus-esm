@@ -9,6 +9,7 @@ import {
   mockConceptMetadata,
   mockConceptUnits,
   mockCurrentVisit,
+  mockFhirPatient,
   mockPatient,
   mockVitalsConfig,
   renderWithSwr,
@@ -255,5 +256,54 @@ describe('VitalsHeader', () => {
 
     expect(screen.queryByRole('link', { name: /vitals history/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /record vitals/i })).not.toBeInTheDocument();
+  });
+
+  it('displays correct overdue tag for vitals less than 1 day old', async () => {
+    mockUseConfig.mockReturnValue({
+      ...getDefaultsFromConfigSchema(configSchema),
+      ...mockVitalsConfig,
+      vitals: { ...mockVitalsConfig.vitals, vitalsOverdueThresholdHours: 1 },
+    } as ConfigObject);
+
+    const twoHoursAgo = dayjs().subtract(2, 'hours').toISOString();
+    mockUseVitalsAndBiometrics.mockReturnValue({
+      data: [{ ...formattedVitals[0], date: twoHoursAgo }],
+    } as ReturnType<typeof useVitalsAndBiometrics>);
+
+    renderWithSwr(<VitalsHeader {...testProps} visitContext={mockCurrentVisit} />);
+    await waitForLoadingToFinish();
+
+    expect(getByTextWithMarkup(/These vitals are 2 hour/i)).toBeInTheDocument();
+  });
+
+  it('hides BMI in vitals header when bmiMinimumAge is set and patient is under minimum age', async () => {
+    mockUseConfig.mockReturnValue({
+      ...getDefaultsFromConfigSchema(configSchema),
+      ...mockVitalsConfig,
+      biometrics: { ...mockVitalsConfig.biometrics, bmiMinimumAge: 18 },
+    } as ConfigObject);
+
+    mockUseVitalsAndBiometrics.mockReturnValue({
+      data: formattedVitals,
+    } as ReturnType<typeof useVitalsAndBiometrics>);
+
+    const minorPatient = { ...mockFhirPatient, birthDate: '2020-01-01' } as fhir.Patient;
+    renderWithSwr(<VitalsHeader {...testProps} patient={minorPatient} />);
+    await waitForLoadingToFinish();
+
+    expect(screen.queryByText(/BMI/i)).not.toBeInTheDocument();
+  });
+
+  it('shows BMI by default (bmiMinimumAge = 0)', async () => {
+    mockUseConfig.mockReturnValue({
+      ...getDefaultsFromConfigSchema(configSchema),
+      ...mockVitalsConfig,
+    } as ConfigObject);
+
+    mockUseVitalsAndBiometrics.mockReturnValue({ data: formattedVitals } as ReturnType<typeof useVitalsAndBiometrics>);
+    renderWithSwr(<VitalsHeader {...testProps} />);
+    await waitForLoadingToFinish();
+
+    expect(getByTextWithMarkup(/BMI\s*/i)).toBeInTheDocument();
   });
 });

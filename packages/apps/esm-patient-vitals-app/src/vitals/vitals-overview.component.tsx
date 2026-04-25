@@ -29,9 +29,10 @@ interface VitalsOverviewProps {
   pageSize: number;
   urlLabel: string;
   pageUrl: string;
+  patient?: fhir.Patient;
 }
 
-const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, urlLabel, pageUrl }) => {
+const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, urlLabel, pageUrl, patient }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
   const headerTitle = t('vitals', 'Vitals');
@@ -40,7 +41,7 @@ const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, 
   const isTablet = useLayoutType() === 'tablet';
   const [isPrinting, setIsPrinting] = useState(false);
   const contentToPrintRef = useRef(null);
-  const patient = usePatient(patientUuid);
+  const patientData = usePatient(patientUuid);
 
   const { excludePatientIdentifierCodeTypes } = useConfig();
   const { data: vitals, error, isLoading, isValidating } = useVitalsAndBiometrics(patientUuid);
@@ -68,18 +69,18 @@ const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, 
     };
 
     const identifiers =
-      patient?.patient?.identifier?.filter(
+      patientData?.patient?.identifier?.filter(
         (identifier) => !excludePatientIdentifierCodeTypes?.uuids.includes(identifier.type.coding[0].code),
       ) ?? [];
 
     return {
-      name: patient?.patient ? getPatientName(patient?.patient) : '',
-      age: age(patient?.patient?.birthDate),
-      gender: getGender(patient?.patient?.gender),
-      location: patient?.patient?.address?.[0].city,
+      name: patientData?.patient ? getPatientName(patientData?.patient) : '',
+      age: age(patientData?.patient?.birthDate),
+      gender: getGender(patientData?.patient?.gender),
+      location: patientData?.patient?.address?.[0].city,
       identifiers: identifiers?.length ? identifiers.map(({ value, type: _type }) => value) : [],
     };
-  }, [patient, t, excludePatientIdentifierCodeTypes?.uuids]);
+  }, [patientData, t, excludePatientIdentifierCodeTypes?.uuids]);
 
   const tableHeaders: Array<VitalsTableHeader> = [
     {
@@ -168,7 +169,7 @@ const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, 
     documentTitle: `OpenMRS - ${patientDetails.name} - ${headerTitle}`,
     onBeforePrint: () =>
       new Promise((resolve) => {
-        if (patient && patient.patient && headerTitle) {
+        if (patientData && patientData.patient && headerTitle) {
           onBeforeGetContentResolve.current = resolve;
           setIsPrinting(true);
         }
@@ -240,6 +241,7 @@ const VitalsOverview: React.FC<VitalsOverviewProps> = ({ patientUuid, pageSize, 
                     urlLabel={urlLabel}
                     pageUrl={pageUrl}
                     tableHeaders={tableHeaders}
+                    patient={patient}
                   />
                 </div>
               )}

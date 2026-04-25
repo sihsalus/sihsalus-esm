@@ -1,5 +1,3 @@
-
-
 /** Common props for all design SVG components */
 interface DesignProps {
   strokeColor: string;

@@ -59,10 +59,10 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
       };
     },
     [
-      errorLoadingInpatientAdmissions, 
-      hasMoreInpatientAdmissions, 
-      isLoadingInpatientAdmissions, 
-      loadMoreInpatientAdmissions
+      errorLoadingInpatientAdmissions,
+      hasMoreInpatientAdmissions,
+      isLoadingInpatientAdmissions,
+      loadMoreInpatientAdmissions,
     ],
   );
 

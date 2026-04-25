@@ -8,7 +8,9 @@ import PatientNotesHistory from './notes-container.component';
 
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
 const mockedUsePatientNotes = jest.mocked(usePatientNotes);
-const typedEmrConfigurationMock = emrConfigurationMock as NonNullable<ReturnType<typeof useEmrConfiguration>['emrConfiguration']>;
+const typedEmrConfigurationMock = emrConfigurationMock as NonNullable<
+  ReturnType<typeof useEmrConfiguration>['emrConfiguration']
+>;
 
 jest.mock('../../../hooks/useEmrConfiguration', () => jest.fn());
 

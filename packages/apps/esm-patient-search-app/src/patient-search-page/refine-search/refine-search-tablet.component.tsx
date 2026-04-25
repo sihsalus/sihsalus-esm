@@ -143,7 +143,7 @@ export const RefineSearchTablet: React.FC<RefineSearchTabletProps> = ({
                 {t('refineSearch', 'Refine search')}
               </Button>
             </div>
-            <form onSubmit={onSubmit} >
+            <form onSubmit={onSubmit}>
               {renderSearchFields}
               <div className={classNames(styles.buttonSet, styles.paddedButtons)}>
                 <Button kind="secondary" size="xl" onClick={onResetFields} className={styles.button}>

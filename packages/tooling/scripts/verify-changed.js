@@ -7,11 +7,7 @@ const { spawnSync } = require('node:child_process');
 const repoRoot = path.resolve(__dirname, '../../..');
 const rootPackageJsonPath = path.join(repoRoot, 'package.json');
 
-const repoWidePrefixes = [
-  '.yarn/',
-  'config/',
-  'packages/tooling/',
-];
+const repoWidePrefixes = ['.yarn/', 'config/', 'packages/tooling/'];
 
 const repoWideFiles = new Set([
   '.yarnrc.yml',
@@ -51,7 +47,9 @@ function main() {
   }
 
   console.log('[verify:changed] Affected workspaces:');
-  changedWorkspaces.forEach((workspaceName) => console.log(`- ${workspaceName}`));
+  changedWorkspaces.forEach((workspaceName) => {
+    console.log(`- ${workspaceName}`);
+  });
 
   const turboArgs = ['turbo', 'run', 'lint', 'typescript', 'test'];
   changedWorkspaces.forEach((workspaceName) => {

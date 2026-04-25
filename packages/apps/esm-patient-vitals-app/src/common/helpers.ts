@@ -1,6 +1,9 @@
-import { type ConceptMetadata } from '../common';
+import dayjs from 'dayjs';
 
-import type { ObservationInterpretation, ObsReferenceRanges } from './types';
+import { type ConceptMetadata } from '../common';
+import { type BiometricsConfigObject } from '../config-schema';
+
+import type { FHIRInterpretation, ObservationInterpretation, ObsReferenceRanges } from './types';
 
 export function calculateBodyMassIndex(weight: number, height: number) {
   if (weight > 0 && height > 0) {
@@ -10,20 +13,20 @@ export function calculateBodyMassIndex(weight: number, height: number) {
 }
 
 export function assessValue(value: number | undefined, range?: ObsReferenceRanges): ObservationInterpretation {
-  if (range && value) {
-    if (range.hiCritical && value >= range.hiCritical) {
+  if (range && value != null) {
+    if (range.hiCritical != null && value >= range.hiCritical) {
       return 'critically_high';
     }
 
-    if (range.hiNormal && value > range.hiNormal) {
+    if (range.hiNormal != null && value > range.hiNormal) {
       return 'high';
     }
 
-    if (range.lowCritical && value <= range.lowCritical) {
+    if (range.lowCritical != null && value <= range.lowCritical) {
       return 'critically_low';
     }
 
-    if (range.lowNormal && value < range.lowNormal) {
+    if (range.lowNormal != null && value < range.lowNormal) {
       return 'low';
     }
   }
@@ -36,19 +39,22 @@ export function interpretBloodPressure(
   diastolic: number | undefined,
   concepts: { systolicBloodPressureUuid?: string; diastolicBloodPressureUuid?: string } | undefined,
   conceptMetadata: Array<ConceptMetadata> | undefined,
+  systolicInterpretation?: ObservationInterpretation,
+  diastolicInterpretation?: ObservationInterpretation,
 ): ObservationInterpretation {
   if (!conceptMetadata) {
     return 'normal';
   }
 
-  const systolicAssessment = assessValue(
-    systolic,
-    getReferenceRangesForConcept(concepts?.systolicBloodPressureUuid, conceptMetadata),
-  );
+  const systolicAssessment =
+    systolicInterpretation ??
+    assessValue(systolic, getReferenceRangesForConcept(concepts?.systolicBloodPressureUuid, conceptMetadata));
 
-  const diastolicAssessment = concepts?.diastolicBloodPressureUuid
-    ? assessValue(diastolic, getReferenceRangesForConcept(concepts.diastolicBloodPressureUuid, conceptMetadata))
-    : 'normal';
+  const diastolicAssessment =
+    diastolicInterpretation ??
+    (concepts?.diastolicBloodPressureUuid
+      ? assessValue(diastolic, getReferenceRangesForConcept(concepts.diastolicBloodPressureUuid, conceptMetadata))
+      : 'normal');
 
   if (systolicAssessment === 'critically_high' || diastolicAssessment === 'critically_high') {
     return 'critically_high';
@@ -67,6 +73,39 @@ export function interpretBloodPressure(
   }
 
   return 'normal';
+}
+
+export const getPatientAge = (patient: fhir.Patient): number | null => {
+  if (!patient.birthDate) return null;
+  const birthDate = dayjs(patient.birthDate);
+  return birthDate.isValid() ? dayjs().diff(birthDate, 'years') : null;
+};
+
+export const shouldShowBmi = (patient: fhir.Patient | undefined, biometricsConfig: BiometricsConfigObject): boolean => {
+  if (!patient) return true;
+  const minAge = biometricsConfig.bmiMinimumAge ?? 0;
+  if (minAge <= 0) return true;
+  const patientAge = getPatientAge(patient);
+  if (patientAge === null) return true;
+  return patientAge >= minAge;
+};
+
+export function mapFhirInterpretationToObservationInterpretation(
+  interpretation: FHIRInterpretation,
+): ObservationInterpretation {
+  const normalized = interpretation?.trim();
+  switch (normalized) {
+    case 'Critically Low':
+      return 'critically_low';
+    case 'Critically High':
+      return 'critically_high';
+    case 'High':
+      return 'high';
+    case 'Low':
+      return 'low';
+    default:
+      return 'normal';
+  }
 }
 
 export function generatePlaceholder(value: string) {

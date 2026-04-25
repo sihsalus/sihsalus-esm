@@ -87,13 +87,16 @@ export const pick = <T extends object>(obj: T, fields: string[]): Partial<T> => 
         const lastKey = keys.pop()!;
 
         // Create nested structure in result
-        const nestedTarget = keys.reduce<Record<string, unknown>>((nested, key) => {
-          const currentValue = nested[key];
-          if (typeof currentValue !== 'object' || currentValue === null) {
-            nested[key] = {};
-          }
-          return nested[key] as Record<string, unknown>;
-        }, result as Partial<T> as Record<string, unknown>);
+        const nestedTarget = keys.reduce<Record<string, unknown>>(
+          (nested, key) => {
+            const currentValue = nested[key];
+            if (typeof currentValue !== 'object' || currentValue === null) {
+              nested[key] = {};
+            }
+            return nested[key] as Record<string, unknown>;
+          },
+          result as Partial<T> as Record<string, unknown>,
+        );
         nestedTarget[lastKey] = value;
       }
       return result;

@@ -3,6 +3,7 @@ export {
   invalidateCachedVitalsAndBiometrics,
   saveVitalsAndBiometrics,
   updateVitalsAndBiometrics,
+  useConceptUnits,
   useVitalsAndBiometrics,
   useVitalsConceptMetadata,
   withUnit,
@@ -11,7 +12,10 @@ export {
   assessValue,
   calculateBodyMassIndex,
   generatePlaceholder,
+  getPatientAge,
   getReferenceRangesForConcept,
   interpretBloodPressure,
+  mapFhirInterpretationToObservationInterpretation,
+  shouldShowBmi,
 } from './helpers';
-export type { ObservationInterpretation, PatientVitalsAndBiometrics } from './types';
+export type { FHIRInterpretation, ObservationInterpretation, PatientVitalsAndBiometrics } from './types';

@@ -99,7 +99,11 @@ const SavedQueries: React.FC<SavedQueriesProps> = ({ onViewQuery }) => {
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
                       <TableCell className={mainStyles.optionCell}>
-                        <SavedQueriesOptions query={queries[index]} onViewQuery={onViewQuery} deleteQuery={deleteQuery} />
+                        <SavedQueriesOptions
+                          query={queries[index]}
+                          onViewQuery={onViewQuery}
+                          deleteQuery={deleteQuery}
+                        />
                       </TableCell>
                     </TableRow>
                   );

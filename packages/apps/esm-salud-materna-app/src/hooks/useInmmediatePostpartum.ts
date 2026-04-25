@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import useSWR from 'swr';
 import useSWRImmutable from 'swr/immutable';
 
-
 export const customRepresentation = `custom:(uuid,display,program,dateEnrolled,dateCompleted,location:(uuid,display),states:(startDate,endDate,voided,state:(uuid,concept:(display))))`;
 
 type Encounter = {

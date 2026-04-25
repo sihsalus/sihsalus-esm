@@ -1,4 +1,3 @@
-
 import StockSourcesItems from './stock-sources-items-table.component';
 
 function StockSources() {

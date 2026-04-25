@@ -111,7 +111,16 @@ export default function PatientBedSwapForm({
           closeWorkspaceWithSavedChanges();
         });
     },
-    [beds, createEncounter, patient, visit, emrConfiguration, t, wardPatientGroupDetails, closeWorkspaceWithSavedChanges],
+    [
+      beds,
+      createEncounter,
+      patient,
+      visit,
+      emrConfiguration,
+      t,
+      wardPatientGroupDetails,
+      closeWorkspaceWithSavedChanges,
+    ],
   );
 
   const onError = useCallback(() => {

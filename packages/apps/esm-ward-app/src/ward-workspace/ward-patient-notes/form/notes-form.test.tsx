@@ -29,7 +29,9 @@ jest.mock('../notes.resource', () => ({
 jest.mock('../../../hooks/useEmrConfiguration', () => jest.fn());
 
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
-const typedEmrConfigurationMock = emrConfigurationMock as NonNullable<ReturnType<typeof useEmrConfiguration>['emrConfiguration']>;
+const typedEmrConfigurationMock = emrConfigurationMock as NonNullable<
+  ReturnType<typeof useEmrConfiguration>['emrConfiguration']
+>;
 
 mockedUseEmrConfiguration.mockReturnValue({
   emrConfiguration: typedEmrConfigurationMock,
@@ -77,7 +79,10 @@ test('renders a success snackbar upon successfully recording a visit note', asyn
   await userEvent.click(submitButton);
 
   expect(mockSavePatientNote).toHaveBeenCalledTimes(1);
-  expect(mockSavePatientNote).toHaveBeenCalledWith(expect.objectContaining(successPayload), expect.any(AbortController));
+  expect(mockSavePatientNote).toHaveBeenCalledWith(
+    expect.objectContaining(successPayload),
+    expect.any(AbortController),
+  );
 });
 
 test('renders an error snackbar if there was a problem recording a visit note', async () => {

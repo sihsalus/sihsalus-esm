@@ -97,9 +97,7 @@ const DataList = <T extends TableRowData>({
 
   const convertToCSV = (csvData: Array<T>, csvColumns: Array<{ key: string; header: string }>) => {
     const header = csvColumns.map((col) => col.header).join(',');
-    const rows = csvData.map((row) =>
-      csvColumns.map((col) => JSON.stringify(row[col.key as keyof T] ?? '')).join(','),
-    );
+    const rows = csvData.map((row) => csvColumns.map((col) => JSON.stringify(row[col.key as keyof T] ?? '')).join(','));
     return [header, ...rows].join('\n');
   };
 

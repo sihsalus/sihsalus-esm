@@ -11,10 +11,7 @@ import { type ConfigObject } from '../config-schema';
 import styles from './biometrics-chart.scss';
 
 enum ScaleTypes {
-  LABELS = 'labels',
-  LABELS_RATIO = 'labels-ratio',
   LINEAR = 'linear',
-  LOG = 'log',
   TIME = 'time',
 }
 
@@ -44,14 +41,14 @@ const BiometricsChart: React.FC<BiometricsChartProps> = ({ patientBiometrics, co
   const chartData = useMemo(
     () =>
       patientBiometrics
-        .filter((biometrics) => biometrics[selectedBiometrics.value])
+        .filter((biometrics) => biometrics[selectedBiometrics.value] != null)
         .slice(0, 10)
         .sort((biometricA, biometricB) => new Date(biometricA.date).getTime() - new Date(biometricB.date).getTime())
         .map((biometric) => {
           return (
-            biometric[selectedBiometrics.value] && {
+            biometric[selectedBiometrics.value] != null && {
               group: selectedBiometrics.groupName,
-              key: formatDate(new Date(biometric.date), { mode: 'wide', year: false, time: false }),
+              key: formatDate(parseDate(biometric.date), { year: true }),
               value: biometric[selectedBiometrics.value],
               date: biometric.date,
             }
@@ -66,8 +63,8 @@ const BiometricsChart: React.FC<BiometricsChartProps> = ({ patientBiometrics, co
       axes: {
         bottom: {
           title: t('date', 'Date'),
-          mapsTo: 'key',
-          scaleType: ScaleTypes.LABELS,
+          mapsTo: 'date',
+          scaleType: ScaleTypes.TIME,
         },
         left: {
           mapsTo: 'value',
@@ -89,6 +86,35 @@ const BiometricsChart: React.FC<BiometricsChartProps> = ({ patientBiometrics, co
             { year: true },
           )} -
           <span style="color: #c6c6c6; font-size: 1rem; font-weight:400">${value}</span></div>`,
+      },
+      toolbar: {
+        enabled: true,
+        numberOfIcons: 4,
+        controls: [
+          {
+            type: 'Zoom in',
+          },
+          {
+            type: 'Zoom out',
+          },
+          {
+            type: 'Reset zoom',
+          },
+          {
+            type: 'Export as CSV',
+          },
+          {
+            type: 'Export as PNG',
+          },
+          {
+            type: 'Make fullscreen',
+          },
+        ],
+      },
+      zoomBar: {
+        top: {
+          enabled: true,
+        },
       },
       height: '400px',
     };

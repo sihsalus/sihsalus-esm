@@ -5,7 +5,7 @@ import { CardHeader, EmptyState, ErrorState, useVisitOrOfflineVisit } from '@ope
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useVitalsAndBiometrics, useVitalsConceptMetadata, withUnit } from '../common';
+import { shouldShowBmi, useVitalsAndBiometrics, useVitalsConceptMetadata, withUnit } from '../common';
 import { type ConfigObject } from '../config-schema';
 import { launchVitalsAndBiometricsForm } from '../utils';
 
@@ -19,9 +19,10 @@ interface BiometricsBaseProps {
   pageUrl: string;
   patientUuid: string;
   urlLabel: string;
+  patient?: fhir.Patient;
 }
 
-const BiometricsBase: React.FC<BiometricsBaseProps> = ({ patientUuid, pageSize, urlLabel, pageUrl }) => {
+const BiometricsBase: React.FC<BiometricsBaseProps> = ({ patientUuid, pageSize, urlLabel, pageUrl, patient }) => {
   const { t } = useTranslation();
   const displayText = t('biometrics_lower', 'biometrics');
   const headerTitle = t('biometrics', 'Biometrics');
@@ -33,6 +34,8 @@ const BiometricsBase: React.FC<BiometricsBaseProps> = ({ patientUuid, pageSize, 
   const { data: biometrics, isLoading, error, isValidating } = useVitalsAndBiometrics(patientUuid, 'biometrics');
   const { data: conceptUnits, error: conceptsError } = useVitalsConceptMetadata();
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
+
+  const showBmi = shouldShowBmi(patient, config.biometrics);
 
   const launchBiometricsForm = useCallback(
     () => launchVitalsAndBiometricsForm(currentVisit, config),
@@ -58,12 +61,17 @@ const BiometricsBase: React.FC<BiometricsBaseProps> = ({ patientUuid, pageSize, 
       isSortable: true,
       sortFunc: (valueA, valueB) => (valueA.height && valueB.height ? valueA.height - valueB.height : 0),
     },
-    {
-      key: 'bmiRender',
-      header: `${t('bmi', 'BMI')} (${bmiUnit})`,
-      isSortable: true,
-      sortFunc: (valueA, valueB) => (valueA.bmi && valueB.bmi ? valueA.bmi - valueB.bmi : 0),
-    },
+    ...(showBmi
+      ? [
+          {
+            key: 'bmiRender' as const,
+            header: `${t('bmi', 'BMI')} (${bmiUnit})`,
+            isSortable: true,
+            sortFunc: (valueA: BiometricsTableRow, valueB: BiometricsTableRow) =>
+              valueA.bmi && valueB.bmi ? (valueA.bmi as number) - (valueB.bmi as number) : 0,
+          },
+        ]
+      : []),
     {
       key: 'muacRender',
       header: withUnit(t('muac', 'MUAC'), conceptUnits.get(config.concepts.midUpperArmCircumferenceUuid) ?? ''),

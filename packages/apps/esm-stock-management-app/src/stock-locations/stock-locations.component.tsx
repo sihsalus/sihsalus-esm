@@ -1,4 +1,3 @@
-
 import StockLocationsItems from './stock-locations-table.component';
 
 function StockLocations() {

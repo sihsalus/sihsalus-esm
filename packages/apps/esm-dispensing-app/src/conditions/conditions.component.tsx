@@ -94,14 +94,15 @@ const PatientConditions: React.FC<PatientConditionsProps> = ({ patientUuid }) =>
               {rows.map((row) => {
                 const { key, ...rowProps } = getRowProps({ row });
                 return (
-                <TableRow key={key} {...rowProps}>
-                  {row.cells.map((cell) => (
-                    <TableCell key={cell.id} className={getColumnClass(cell.info.header)}>
-                      {cell.value}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              )})}
+                  <TableRow key={key} {...rowProps}>
+                    {row.cells.map((cell) => (
+                      <TableCell key={cell.id} className={getColumnClass(cell.info.header)}>
+                        {cell.value}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         )}

@@ -60,7 +60,7 @@ const PrescriptionsTable: React.FC<PrescriptionsTableProps> = ({
   // reset back to page 1 whenever search term changes
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearchTerm]);
+  }, []);
 
   // dynamic status keys we need to maintain
   // t('active', 'Active')
@@ -122,36 +122,37 @@ const PrescriptionsTable: React.FC<PrescriptionsTableProps> = ({
                     {rows.map((row) => {
                       const { key, ...rowProps } = getRowProps({ row });
                       return (
-                      <React.Fragment key={row.id}>
-                        <TableExpandRow {...rowProps}>
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>
-                              {cell.id.endsWith('created') ? (
-                                formatDatetime(parseDate(cell.value))
-                              ) : cell.id.endsWith('patient') ? (
-                                <PatientInfoCell patient={cell.value} />
-                              ) : cell.id.endsWith('status') ? (
-                                t(cell.value)
-                              ) : (
-                                cell.value
+                        <React.Fragment key={row.id}>
+                          <TableExpandRow {...rowProps}>
+                            {row.cells.map((cell) => (
+                              <TableCell key={cell.id}>
+                                {cell.id.endsWith('created') ? (
+                                  formatDatetime(parseDate(cell.value))
+                                ) : cell.id.endsWith('patient') ? (
+                                  <PatientInfoCell patient={cell.value} />
+                                ) : cell.id.endsWith('status') ? (
+                                  t(cell.value)
+                                ) : (
+                                  cell.value
+                                )}
+                              </TableCell>
+                            ))}
+                          </TableExpandRow>
+                          {row.isExpanded ? (
+                            <TableExpandedRow colSpan={headers.length + 1}>
+                              {row.cells.find((cell) => cell.id.endsWith('patient'))?.value?.uuid && (
+                                <PrescriptionExpanded
+                                  encounterUuid={row.id}
+                                  patientUuid={row.cells.find((cell) => cell.id.endsWith('patient')).value.uuid}
+                                />
                               )}
-                            </TableCell>
-                          ))}
-                        </TableExpandRow>
-                        {row.isExpanded ? (
-                          <TableExpandedRow colSpan={headers.length + 1}>
-                            {row.cells.find((cell) => cell.id.endsWith('patient'))?.value?.uuid && (
-                              <PrescriptionExpanded
-                                encounterUuid={row.id}
-                                patientUuid={row.cells.find((cell) => cell.id.endsWith('patient')).value.uuid}
-                              />
-                            )}
-                          </TableExpandedRow>
-                        ) : (
-                          <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 1} />
-                        )}
-                      </React.Fragment>
-                    )})}
+                            </TableExpandedRow>
+                          ) : (
+                            <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 1} />
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
                   </TableBody>
                 </Table>
               </TableContainer>

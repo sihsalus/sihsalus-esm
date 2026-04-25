@@ -1,7 +1,6 @@
 import { launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { mockPatient } from 'test-utils';
 import { useConditions } from './conditions.resource';
 import ConditionsDetailedSummary from './conditions-detailed-summary.component';
@@ -175,8 +174,5 @@ it('clicking the Add button or Record Conditions link launches the conditions fo
   await user.click(recordConditionsLink);
 
   expect(mockLaunchPatientWorkspace).toHaveBeenCalledTimes(1);
-  expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith(
-    'conditions-form-workspace',
-    { formContext: 'creating' },
-  );
+  expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('conditions-form-workspace', { formContext: 'creating' });
 });

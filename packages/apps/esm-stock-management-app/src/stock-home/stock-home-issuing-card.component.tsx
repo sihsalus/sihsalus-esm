@@ -1,5 +1,5 @@
 import { Button } from '@carbon/react';
-import { DocumentImport, } from '@carbon/react/icons';
+import { DocumentImport } from '@carbon/react/icons';
 import { showModal } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
 import { ResourceRepresentation } from '../core/api/api';

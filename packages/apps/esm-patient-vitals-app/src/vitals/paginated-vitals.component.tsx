@@ -4,6 +4,9 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableExpandedRow,
+  TableExpandHeader,
+  TableExpandRow,
   TableHead,
   TableHeader,
   TableRow,
@@ -25,6 +28,7 @@ interface PaginatedVitalsProps {
   tableHeaders: Array<VitalsTableHeader>;
   tableRows: Array<VitalsTableRow>;
   urlLabel: string;
+  patient?: fhir.Patient;
 }
 
 const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
@@ -110,6 +114,8 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
 
   const rows = isPrinting ? sortedData : paginatedVitals;
 
+  const hasAnyNotes = tableRows.some((row) => Boolean(row.note));
+
   return (
     <>
       <DataTable
@@ -120,11 +126,12 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
         sortRow={handleSorting}
         isSortable
       >
-        {({ rows, headers, getTableProps, getHeaderProps }) => (
+        {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
           <TableContainer className={styles.tableContainer}>
             <Table className={styles.table} aria-label="vitals" {...getTableProps()}>
               <TableHead>
                 <TableRow>
+                  {hasAnyNotes && <TableExpandHeader />}
                   {headers.map((header) => {
                     const { key, ...headerProps } = getHeaderProps({ header, isSortable: header.isSortable });
 
@@ -137,20 +144,45 @@ const PaginatedVitals: React.FC<PaginatedVitalsProps> = ({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.id}>
-                    {row.cells.map((cell) => {
-                      const vitalsObj = rows.find((obj) => obj.id === row.id);
-                      const vitalSignInterpretation = vitalsObj && vitalsObj[cell.id.substring(2) + 'Interpretation'];
+                {rows.map((row) => {
+                  const vitalsObj = rows.find((obj) => obj.id === row.id);
+                  const note = (vitalsObj as unknown as VitalsTableRow)?.note;
 
-                      return (
-                        <StyledTableCell key={`styled-cell-${cell.id}`} interpretation={vitalSignInterpretation}>
-                          {cell.value?.content ?? cell.value}
-                        </StyledTableCell>
-                      );
-                    })}
-                  </TableRow>
-                ))}
+                  if (hasAnyNotes) {
+                    const { key: rowKey, ...rowProps } = getRowProps({ row });
+                    return (
+                      <React.Fragment key={rowKey}>
+                        <TableExpandRow {...rowProps}>
+                          {row.cells.map((cell) => {
+                            const vitalSignInterpretation =
+                              vitalsObj && vitalsObj[cell.id.substring(2) + 'Interpretation'];
+
+                            return (
+                              <StyledTableCell key={`styled-cell-${cell.id}`} interpretation={vitalSignInterpretation}>
+                                {cell.value?.content ?? cell.value}
+                              </StyledTableCell>
+                            );
+                          })}
+                        </TableExpandRow>
+                        <TableExpandedRow colSpan={headers.length + 1}>{note ? <p>{note}</p> : null}</TableExpandedRow>
+                      </React.Fragment>
+                    );
+                  }
+
+                  return (
+                    <TableRow key={row.id}>
+                      {row.cells.map((cell) => {
+                        const vitalSignInterpretation = vitalsObj && vitalsObj[cell.id.substring(2) + 'Interpretation'];
+
+                        return (
+                          <StyledTableCell key={`styled-cell-${cell.id}`} interpretation={vitalSignInterpretation}>
+                            {cell.value?.content ?? cell.value}
+                          </StyledTableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>

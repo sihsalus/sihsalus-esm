@@ -1,4 +1,3 @@
-
 import StockItemsTableComponent from './stock-items-table.component';
 
 const StockItems = () => {

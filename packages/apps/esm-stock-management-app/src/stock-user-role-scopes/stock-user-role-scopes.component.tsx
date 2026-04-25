@@ -1,4 +1,3 @@
-
 import StockUserRoleScopesItems from './stock-user-role-scopes-items-table.component';
 
 function StockUserScopes() {

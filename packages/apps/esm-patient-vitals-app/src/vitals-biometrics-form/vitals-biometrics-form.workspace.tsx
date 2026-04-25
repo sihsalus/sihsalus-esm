@@ -63,7 +63,7 @@ const VitalsAndBiometricFormSchema = z
   .partial()
   .refine(
     (fields) => {
-      return Object.values(fields).some((value) => Boolean(value));
+      return Object.values(fields).some((value) => value != null && value !== '');
     },
     {
       message: 'Please fill at least one field',
@@ -99,15 +99,17 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
     handleSubmit,
     watch,
     setValue,
-    formState: { isDirty, isSubmitting },
+    formState: { dirtyFields, isSubmitting },
   } = useForm<VitalsBiometricsFormData>({
     mode: 'all',
     resolver: zodResolver(VitalsAndBiometricFormSchema),
   });
 
+  const hasUserUnsavedChanges = Object.keys(dirtyFields).length > 0;
+
   useEffect(() => {
-    promptBeforeClosing(() => isDirty);
-  }, [isDirty, promptBeforeClosing]);
+    promptBeforeClosing(() => hasUserUnsavedChanges);
+  }, [hasUserUnsavedChanges, promptBeforeClosing]);
 
   const encounterUuid = currentVisit?.encounters?.find(
     (encounter) => encounter?.form?.uuid === config.vitals.formUuid,
@@ -125,14 +127,14 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
 
   useEffect(() => {
     const patientBirthDate = patient?.patient?.birthDate;
-    if (patientBirthDate && midUpperArmCircumference) {
+    if (patientBirthDate && midUpperArmCircumference != null) {
       const patientAge = extractNumbers(age(patientBirthDate));
       getMuacColorCode(patientAge, midUpperArmCircumference, setMuacColorCode);
     }
   }, [patient.patient?.birthDate, midUpperArmCircumference]);
 
   useEffect(() => {
-    if (height && weight) {
+    if (height != null && weight != null) {
       const computedBodyMassIndex = calculateBodyMassIndex(weight, height);
       setValue('computedBodyMassIndex', computedBodyMassIndex);
     }
@@ -177,7 +179,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
       setShowErrorNotification(false);
 
       const allFieldsAreValid = Object.entries(formData)
-        .filter(([, value]) => Boolean(value))
+        .filter(([, value]) => value != null && value !== '')
         .every(([key, value]) => isValueWithinReferenceRange(conceptMetadata, config.concepts[`${key}Uuid`], value));
 
       if (allFieldsAreValid) {
@@ -316,7 +318,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  temperature &&
+                  temperature != null &&
                   assessValue(
                     temperature,
                     getReferenceRangesForConcept(config.concepts.temperatureUuid, conceptMetadata),
@@ -353,8 +355,8 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  systolicBloodPressure &&
-                  diastolicBloodPressure &&
+                  systolicBloodPressure != null &&
+                  diastolicBloodPressure != null &&
                   interpretBloodPressure(
                     systolicBloodPressure,
                     diastolicBloodPressure,
@@ -363,8 +365,8 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   )
                 }
                 isValueWithinReferenceRange={
-                  systolicBloodPressure &&
-                  diastolicBloodPressure &&
+                  systolicBloodPressure != null &&
+                  diastolicBloodPressure != null &&
                   isValueWithinReferenceRange(
                     conceptMetadata,
                     config.concepts.systolicBloodPressureUuid,
@@ -394,10 +396,11 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  pulse && assessValue(pulse, getReferenceRangesForConcept(config.concepts.pulseUuid, conceptMetadata))
+                  pulse != null &&
+                  assessValue(pulse, getReferenceRangesForConcept(config.concepts.pulseUuid, conceptMetadata))
                 }
                 isValueWithinReferenceRange={
-                  pulse && isValueWithinReferenceRange(conceptMetadata, config.concepts['pulseUuid'], pulse)
+                  pulse != null && isValueWithinReferenceRange(conceptMetadata, config.concepts['pulseUuid'], pulse)
                 }
                 label={t('heartRate', 'Heart rate')}
                 showErrorMessage={showErrorMessage}
@@ -417,14 +420,14 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  respiratoryRate &&
+                  respiratoryRate != null &&
                   assessValue(
                     respiratoryRate,
                     getReferenceRangesForConcept(config.concepts.respiratoryRateUuid, conceptMetadata),
                   )
                 }
                 isValueWithinReferenceRange={
-                  respiratoryRate &&
+                  respiratoryRate != null &&
                   isValueWithinReferenceRange(conceptMetadata, config.concepts['respiratoryRateUuid'], respiratoryRate)
                 }
                 showErrorMessage={showErrorMessage}
@@ -445,14 +448,14 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  oxygenSaturation &&
+                  oxygenSaturation != null &&
                   assessValue(
                     oxygenSaturation,
                     getReferenceRangesForConcept(config.concepts.oxygenSaturationUuid, conceptMetadata),
                   )
                 }
                 isValueWithinReferenceRange={
-                  oxygenSaturation &&
+                  oxygenSaturation != null &&
                   isValueWithinReferenceRange(
                     conceptMetadata,
                     config.concepts['oxygenSaturationUuid'],
@@ -502,7 +505,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  weight &&
+                  weight != null &&
                   assessValue(weight, getReferenceRangesForConcept(config.concepts.weightUuid, conceptMetadata))
                 }
                 isValueWithinReferenceRange={
@@ -526,7 +529,7 @@ const VitalsAndBiometricsForm: React.FC<DefaultPatientWorkspaceProps> = ({
                   },
                 ]}
                 interpretation={
-                  height &&
+                  height != null &&
                   assessValue(height, getReferenceRangesForConcept(config.concepts.heightUuid, conceptMetadata))
                 }
                 isValueWithinReferenceRange={
