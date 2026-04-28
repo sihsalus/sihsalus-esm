@@ -78,7 +78,7 @@ interface DiagnosesDisplayProps {
 interface DiagnosisSearchProps {
   control: Control<VisitNotesFormData>;
   error?: object;
-  handleSearch: (fieldName: 'primaryDiagnosisSearch' | 'secondaryDiagnosisSearch') => void;
+  handleSearch: (fieldName) => void;
   labelText: string;
   name: 'noteDate' | 'primaryDiagnosisSearch' | 'secondaryDiagnosisSearch' | 'clinicalNote';
   placeholder: string;
@@ -270,7 +270,7 @@ const VisitNotesForm: React.FC<PatientWorkspace2DefinitionProps<VisitNotesFormPr
   );
 
   const handleSearch = useCallback(
-    (fieldName: 'primaryDiagnosisSearch' | 'secondaryDiagnosisSearch') => {
+    (fieldName) => {
       const fieldQuery = watch(fieldName);
       if (fieldQuery) {
         debouncedSearch(fieldQuery, fieldName);
