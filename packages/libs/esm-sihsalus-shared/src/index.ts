@@ -1,5 +1,19 @@
 // Types
 
+export type {
+  AnamnesisConceptMap,
+  AnamnesisEncounter,
+  AnamnesisEntry,
+  AnamnesisObs,
+} from './clinical/anamnesis/anamnesis';
+// Clinical domains
+export {
+  ANAMNESIS_DEFAULT_CONCEPT_UUIDS,
+  getAnamnesisObsValue,
+  hasAnamnesisData,
+  mapEncounterToAnamnesisEntry,
+} from './clinical/anamnesis/anamnesis';
+
 // Constants
 export { TRUE_CONCEPT_UUID } from './constants';
 // Hooks

@@ -1,4 +1,5 @@
 import { Type } from '@openmrs/esm-framework';
+import { ANAMNESIS_DEFAULT_CONCEPT_UUIDS } from '@sihsalus/esm-sihsalus-shared';
 
 // ===============================
 // MAIN CONFIGURATION SCHEMA
@@ -261,6 +262,28 @@ export const configSchema = {
       _type: Type.ConceptUuid,
       _description: 'Chief complaint / reason for visit (CIEL 5219)',
       _default: '5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    },
+
+    // Anamnesis (CE-3.1) — NTS 139 / NTS 229
+    anamnesisUuid: {
+      _type: Type.ConceptUuid,
+      _description: 'Anamnesis / current illness narrative',
+      _default: ANAMNESIS_DEFAULT_CONCEPT_UUIDS.anamnesisUuid,
+    },
+    illnessDurationUuid: {
+      _type: Type.ConceptUuid,
+      _description: 'Tiempo de enfermedad',
+      _default: ANAMNESIS_DEFAULT_CONCEPT_UUIDS.illnessDurationUuid,
+    },
+    onsetTypeUuid: {
+      _type: Type.ConceptUuid,
+      _description: 'Forma de inicio',
+      _default: ANAMNESIS_DEFAULT_CONCEPT_UUIDS.onsetTypeUuid,
+    },
+    courseUuid: {
+      _type: Type.ConceptUuid,
+      _description: 'Curso de la enfermedad actual',
+      _default: ANAMNESIS_DEFAULT_CONCEPT_UUIDS.courseUuid,
     },
 
     // SOAP Notes (CE-5)

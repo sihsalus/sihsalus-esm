@@ -11,7 +11,7 @@ import {
 } from '@carbon/react/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import Anamnesis from './anamnesis.component';
 import styles from './consulta-externa-dashboard.scss';
 import DiagnosticoClasificado from './diagnostico-clasificado.component';
 import Financiador from './financiador.component';
@@ -44,6 +44,7 @@ const ConsultaExternaDashboard: React.FC<ConsultaExternaDashboardProps> = ({ pat
           <TabList contained activation="manual" aria-label={t('consultaExternaTabs', 'Consulta Externa tabs')}>
             <Tab renderIcon={Activity}>{t('triage', 'Triaje')}</Tab>
             <Tab renderIcon={Chat}>{t('chiefComplaint', 'Motivo de Consulta')}</Tab>
+            <Tab renderIcon={DocumentMultiple_01}>{t('anamnesis', 'Anamnesis')}</Tab>
             <Tab renderIcon={Catalog}>{t('diagnosisClassification', 'Diagnóstico')}</Tab>
             <Tab renderIcon={DocumentMultiple_01}>{t('soapNotes', 'Notas SOAP')}</Tab>
             <Tab renderIcon={ListChecked}>{t('treatmentPlan', 'Plan de Tratamiento')}</Tab>
@@ -58,6 +59,9 @@ const ConsultaExternaDashboard: React.FC<ConsultaExternaDashboardProps> = ({ pat
             </TabPanel>
             <TabPanel>
               <MotivoConsulta patientUuid={patientUuid} />
+            </TabPanel>
+            <TabPanel>
+              <Anamnesis patientUuid={patientUuid} />
             </TabPanel>
             <TabPanel>
               <DiagnosticoClasificado patientUuid={patientUuid} />
