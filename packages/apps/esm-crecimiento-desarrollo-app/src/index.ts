@@ -69,7 +69,10 @@ export const wellChildCareSideNavGroup = getSyncLifecycle(createDashboardGroup(w
 
 // Navigation Links
 export const childImmunizationScheduleLink = getSyncLifecycle(
-  createDashboardLink({ ...childImmunizationScheduleDashboardMeta, moduleName }),
+  createDashboardLink({
+    ...childImmunizationScheduleDashboardMeta,
+    moduleName,
+  }),
   options,
 );
 export const neonatalCareLink = getSyncLifecycle(
@@ -175,10 +178,6 @@ export const newbornFluidBalanceworkspace = getAsyncLifecycle(
 );
 export const perinatalRegisterworkspace = getAsyncLifecycle(
   () => import('./well-child-care/workspace/perinatal-register/perinatal-register-form.workspace'),
-  options,
-);
-export const schedulingAdminPageCardLink = getAsyncLifecycle(
-  () => import('./immunization-plan/scheduling-admin-link.component'),
   options,
 );
 export const wellchildControlsworkspace = getAsyncLifecycle(

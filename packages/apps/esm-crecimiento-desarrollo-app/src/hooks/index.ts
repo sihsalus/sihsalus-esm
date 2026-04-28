@@ -1,7 +1,6 @@
 // CRED schedule & forms
 
 export { useAgeGroups } from './useAgeGroups';
-export { useAgeRanges } from './useAgeRanges';
 // Neonatal & child health
 export { useAlojamientoConjuntoSummary } from './useAlojamientoConjuntoSummary';
 // Screening & supplementation
@@ -20,9 +19,6 @@ export { default as useEncountersCRED } from './useEncountersCRED';
 // Child nutrition
 export { useFeedingAssessment } from './useFeedingAssessment';
 export { useImmediateNewbornAttentions } from './useImmediateNewbornAttentions';
-// Vaccination / immunization
-export { useImmunizations } from './useImmunizations';
-export { useImmunizationsConceptSet } from './useImmunizationsConceptSet';
 export { useIndicators } from './useIndicators';
 export { useLatestValidEncounter } from './useLatestEncounter';
 export { useLaunchCREDForm } from './useLaunchCREDForm';
@@ -39,5 +35,4 @@ export { useStimulationCounseling } from './useStimulationCounseling';
 export { useStimulationFollowup } from './useStimulationFollowup';
 export { useStimulationSessions } from './useStimulationSessions';
 export { useSupplementationTracker } from './useSupplementationTracker';
-export { useVaccinationSchema } from './useVaccinationSchema';
 export { useVitalNewBorn } from './useVitalNewBorn';

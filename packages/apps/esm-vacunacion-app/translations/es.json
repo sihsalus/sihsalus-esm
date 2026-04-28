@@ -26,6 +26,7 @@
   "immunizationWorkspaceTitle": "Formulario de inmunizacion",
   "lastDoseOnDate": "Ultima dosis el {{date}}",
   "lotNumber": "Numero de lote",
+  "manageVaccinationSchedule": "Administrar calendario de vacunación",
   "manufacturer": "Fabricante",
   "minsaMaximumAgeWarning": "La edad del paciente supera la ventana recomendada por MINSA para esta dosis{{label}}. Revise si corresponde rescate, campaña o indicación especial antes de guardar.",
   "minsaMinimumAgeWarning": "La edad del paciente es menor a la recomendada por MINSA para esta dosis{{label}}. Revise la fecha de aplicación antes de guardar.",
@@ -46,6 +47,7 @@
   "vaccinationDateCannotBeBeforeBirthDate": "La fecha de vacunacion no puede ser anterior a la fecha de nacimiento",
   "vaccinationDateCannotBeInTheFuture": "La fecha de vacunacion no puede ser futura",
   "vaccinationSaved": "Vacunación guardada exitosamente",
+  "vaccinationScheduleBuilder": "Gestor del calendario de vacunación",
   "vaccine": "Vacuna",
   "vaccineBatchInformation": "Informacion del lote de vacuna",
   "vaccineRequired": "La vacuna es obligatoria"

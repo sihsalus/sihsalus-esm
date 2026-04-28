@@ -44,3 +44,8 @@ export const deleteImmunizationConfirmationModal = getAsyncLifecycle(
   () => import('./immunizations/delete-immunization.modal'),
   options,
 );
+
+export const schedulingAdminPageCardLink = getAsyncLifecycle(
+  () => import('./immunization-plan/scheduling-admin-link.component'),
+  options,
+);

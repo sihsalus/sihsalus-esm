@@ -5,6 +5,13 @@
   },
   "extensions": [
     {
+      "name": "system-administration-vaccination-scheduling-card-link",
+      "slot": "system-admin-page-card-link-slot",
+      "component": "schedulingAdminPageCardLink",
+      "online": true,
+      "offline": true
+    },
+    {
       "name": "vacunacion-overview-widget",
       "component": "immunizationsOverview",
       "order": 8

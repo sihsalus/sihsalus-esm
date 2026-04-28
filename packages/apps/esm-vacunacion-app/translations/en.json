@@ -26,6 +26,7 @@
   "immunizationWorkspaceTitle": "Immunization Form",
   "lastDoseOnDate": "Last dose on {{date}}",
   "lotNumber": "Lot number",
+  "manageVaccinationSchedule": "Manage schedule",
   "manufacturer": "Manufacturer",
   "minsaMaximumAgeWarning": "The patient's age is above the MINSA recommended window for this dose{{label}}. Check whether catch-up, campaign, or special indication applies before saving.",
   "minsaMinimumAgeWarning": "The patient's age is below the MINSA recommended age for this dose{{label}}. Check the vaccination date before saving.",
@@ -46,6 +47,7 @@
   "vaccinationDateCannotBeBeforeBirthDate": "Vaccination date cannot precede birth date",
   "vaccinationDateCannotBeInTheFuture": "Vaccination date cannot be in the future",
   "vaccinationSaved": "Vaccination saved successfully",
+  "vaccinationScheduleBuilder": "Vaccination schedule builder",
   "vaccine": "Vaccine",
   "vaccineBatchInformation": "Vaccine Batch Information",
   "vaccineRequired": "Vaccine is required"

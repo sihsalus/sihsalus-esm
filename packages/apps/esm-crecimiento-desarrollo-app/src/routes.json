@@ -10,13 +10,6 @@
       "slot": "patient-chart-summary-dashboard-slot"
     },
     {
-      "name": "system-administration-scheduling-card-link",
-      "slot": "system-admin-page-card-link-slot",
-      "component": "schedulingAdminPageCardLink",
-      "online": true,
-      "offline": true
-    },
-    {
       "name": "child-immunization-schedule",
       "component": "childImmunizationScheduleLink",
       "slot": "well-child-care-slot",

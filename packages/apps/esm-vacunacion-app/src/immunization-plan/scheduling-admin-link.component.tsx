@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 const SchedulingAdminLink: React.FC = () => {
   const { t } = useTranslation();
   const schedulingUrl = `${globalThis.spaBase}/vaccine-scheduling-builder`;
+
   const handleOpenSchedulingAdmin = (
     event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
   ) => {
