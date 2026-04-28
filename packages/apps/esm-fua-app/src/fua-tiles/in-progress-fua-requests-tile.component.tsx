@@ -2,16 +2,16 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FuaSummaryTile from '../components/summary-tiles/summary-tile.component';
-import { useFuaRequests } from '../hooks/useFuaRequests';
+import { useVisits } from '../hooks/useVisit';
 
 const InProgressFuaRequestsTile = () => {
   const { t } = useTranslation();
-  const { fuaOrders } = useFuaRequests({ status: 'IN_PROGRESS' });
+  const { visits } = useVisits();
 
   return (
     <FuaSummaryTile
       label={t('activeFuas', 'Visitas')}
-      value={fuaOrders?.length}
+      value={visits?.length}
       headerLabel={t('inProcessHeader', 'Visitas')}
     />
   );

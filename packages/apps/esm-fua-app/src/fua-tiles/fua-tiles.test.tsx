@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { useFuaRequests } from '../hooks/useFuaRequests';
+import { useVisits } from '../hooks/useVisit';
 
 import AllFuaRequestsTile from './all-fua-requests-tile.component';
 import CompletedFuaRequestsTile from './completed-fua-requests-tile.component';
@@ -9,8 +10,10 @@ import EnviadoFuaRequestsTile from './enviado-fua-requests-tile.component';
 import InProgressFuaRequestsTile from './in-progress-fua-requests-tile.component';
 
 jest.mock('../hooks/useFuaRequests');
+jest.mock('../hooks/useVisit');
 
 const mockUseFuaRequests = useFuaRequests as jest.MockedFunction<typeof useFuaRequests>;
+const mockUseVisits = useVisits as jest.MockedFunction<typeof useVisits>;
 
 const makeMockOrders = (n: number) =>
   Array.from({ length: n }, (_, i) => ({
@@ -41,8 +44,12 @@ describe('AllFuaRequestsTile', () => {
 
 describe('InProgressFuaRequestsTile', () => {
   it('renders in-progress count', () => {
-    mockUseFuaRequests.mockReturnValue({
-      fuaOrders: makeMockOrders(3),
+    mockUseVisits.mockReturnValue({
+      visits: Array.from({ length: 3 }, (_, i) => ({
+        patient: { person: { names: [{ display: `Paciente ${i}` }] } },
+        location: { display: 'Area' },
+        startDatetime: '2026-04-28T14:10:41.000+0000',
+      })),
       isLoading: false,
       isError: null,
       mutate: jest.fn(),
@@ -53,16 +60,16 @@ describe('InProgressFuaRequestsTile', () => {
     expect(screen.getAllByText('Visitas')).toHaveLength(2);
   });
 
-  it('passes status IN_PROGRESS to hook', () => {
-    mockUseFuaRequests.mockReturnValue({
-      fuaOrders: [],
+  it('uses the visits hook', () => {
+    mockUseVisits.mockReturnValue({
+      visits: [],
       isLoading: false,
       isError: null,
       mutate: jest.fn(),
       isValidating: false,
     });
     render(<InProgressFuaRequestsTile />);
-    expect(mockUseFuaRequests).toHaveBeenCalledWith(expect.objectContaining({ status: 'IN_PROGRESS' }));
+    expect(mockUseVisits).toHaveBeenCalled();
   });
 });
 

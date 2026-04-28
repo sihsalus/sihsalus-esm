@@ -1,6 +1,20 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
+export interface VisitSummary {
+  patient?: {
+    person?: {
+      names?: Array<{
+        display?: string;
+      }>;
+    };
+  };
+  location?: {
+    display?: string;
+  };
+  startDatetime?: string;
+}
+
 export interface VisitPatientInfo {
   display: string;
   identifiers: Array<{
@@ -28,4 +42,20 @@ export function useVisit(visitUuid: string | null | undefined) {
     null;
 
   return { patient, dni, isLoading, error };
+}
+
+export function useVisits() {
+  const url = `${restBaseUrl}/visit?v=custom:(patient:(person:(names:(display))),location:(display),startDatetime)`;
+  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<VisitSummary> } }>(
+    url,
+    openmrsFetch,
+  );
+
+  return {
+    visits: data?.data?.results ?? [],
+    isLoading,
+    isError: error,
+    isValidating,
+    mutate,
+  };
 }

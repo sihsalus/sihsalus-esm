@@ -1,9 +1,9 @@
 import React from 'react';
 
-import FuaRequestTable from '../../fua/fuaRequestTable';
+import VisitTable from '../../fua/visitTable';
 
 const InProgressFuaRequestsTable: React.FC = () => {
-  return <FuaRequestTable statusFilter="in-progress" />;
+  return <VisitTable />;
 };
 
 export default InProgressFuaRequestsTable;

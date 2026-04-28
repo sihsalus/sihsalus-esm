@@ -1,6 +1,7 @@
 {
   "activeFuas": "Visitas",
   "allFuas": "FUAs solicitados",
+  "area": "Area",
   "cancel": "Cancelar",
   "cancelFua": "Cancelar FUA",
   "cancellationReason": "Motivo de cancelación",
@@ -52,6 +53,7 @@
   "noFuaForPatient": "No hay FUAs registrados para este paciente",
   "noHistorialFound": "No hay registros de cambios de estado",
   "noStatus": "Sin estado",
+  "noVisitsFound": "No se encontraron visitas",
   "openFuaManagement": "Abrir gestión FUA",
   "possibleCauses": "Posibles causas",
   "retry": "Reintentar",
@@ -73,5 +75,6 @@
   "unknownErrorLoadingContent": "Error desconocido al cargar el contenido",
   "user": "Usuario",
   "verifyServer": "Verifique que el servidor esté funcionando",
+  "visits": "Visitas",
   "viewFua": "Ver FUA"
 }

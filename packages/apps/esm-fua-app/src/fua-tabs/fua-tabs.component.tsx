@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FuaRequestTable from '../fua/fuaRequestTable';
+import VisitTable from '../fua/visitTable';
 
 import styles from './fua-tabs.scss';
 
@@ -26,7 +27,7 @@ const FuaOrdersTabs: React.FC = () => {
           </TabList>
           <TabPanels>
             <TabPanel className={styles.tabPanel}>
-              <FuaRequestTable statusFilter="in-progress" />
+              <VisitTable />
             </TabPanel>
             <TabPanel className={styles.tabPanel}>
               <FuaRequestTable statusFilter="completed" />
