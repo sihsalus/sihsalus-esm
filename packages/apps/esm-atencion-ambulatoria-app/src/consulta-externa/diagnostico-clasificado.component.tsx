@@ -44,23 +44,27 @@ const DiagnosticoClasificado: React.FC<DiagnosticoClasificadoProps> = ({ patient
     diagnosis: dx.display,
     cie10: dx.cie10Code || '—',
     certainty:
-      dx.certainty === 'CONFIRMED' ? (
+      dx.tipoNts === 'D' ? (
         <Tag type="green" size="sm">
-          {t('definitive', 'Definitivo')}
+          {t('definitive', 'D - Definitivo')}
+        </Tag>
+      ) : dx.tipoNts === 'R' ? (
+        <Tag type="purple" size="sm">
+          {t('repetido', 'R - Repetido')}
         </Tag>
       ) : (
         <Tag type="red" size="sm">
-          {t('presumptive', 'Presuntivo')}
+          {t('presumptive', 'P - Presuntivo')}
         </Tag>
       ),
     occurrence:
       dx.occurrence === 'NEW' ? (
         <Tag type="blue" size="sm">
-          {t('new', 'Nuevo')}
+          {t('new', 'N - Nuevo')}
         </Tag>
       ) : (
         <Tag type="purple" size="sm">
-          {t('repeat', 'Repetido')}
+          {t('repeat', 'R - Repetido')}
         </Tag>
       ),
   }));
