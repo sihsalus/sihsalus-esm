@@ -115,52 +115,60 @@ const PaginatedNotes: React.FC<PaginatedNotesProps> = ({ notes, pageSize, pageUr
               <TableHead>
                 <TableRow>
                   <TableExpandHeader enableToggle {...getExpandHeaderProps()} />
-                  {headers.map((header, i) => (
-                    <TableHeader
-                      key={i}
-                      className={classNames(styles.productiveHeading01, styles.text02)}
-                      {...getHeaderProps({
-                        header,
-                      })}
-                    >
-                      {header.header}
-                    </TableHeader>
-                  ))}
+                  {headers.map((header) => {
+                    const { key, ...headerProps } = getHeaderProps({ header });
+
+                    return (
+                      <TableHeader
+                        key={key}
+                        className={classNames(styles.productiveHeading01, styles.text02)}
+                        {...headerProps}
+                      >
+                        {header.header}
+                      </TableHeader>
+                    );
+                  })}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, i) => (
-                  <React.Fragment key={row.id}>
-                    <TableExpandRow {...getRowProps({ row })}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                    </TableExpandRow>
-                    {row.isExpanded ? (
-                      <TableExpandedRow
-                        className={styles.expandedRow}
-                        colSpan={headers.length + 1}
-                        {...getExpandedRowProps({ row })}
-                      >
-                        <div className={styles.container} key={i}>
-                          {tableRows?.[i]?.encounterNote ? (
-                            <div className={styles.copy}>
-                              <span className={styles.content}>{tableRows?.[i]?.encounterNote}</span>
-                              <span className={styles.metadata}>
-                                {formatTime(new Date(tableRows?.[i]?.encounterNoteRecordedAt))} &middot;{' '}
-                                {tableRows?.[i]?.encounterProvider}, {tableRows?.[i]?.encounterProviderRole}
+                {rows.map((row, i) => {
+                  const { key, ...rowProps } = getRowProps({ row });
+
+                  return (
+                    <React.Fragment key={row.id}>
+                      <TableExpandRow key={key} {...rowProps}>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                        ))}
+                      </TableExpandRow>
+                      {row.isExpanded ? (
+                        <TableExpandedRow
+                          className={styles.expandedRow}
+                          colSpan={headers.length + 1}
+                          {...getExpandedRowProps({ row })}
+                        >
+                          <div className={styles.container} key={i}>
+                            {tableRows?.[i]?.encounterNote ? (
+                              <div className={styles.copy}>
+                                <span className={styles.content}>{tableRows?.[i]?.encounterNote}</span>
+                                <span className={styles.metadata}>
+                                  {formatTime(new Date(tableRows?.[i]?.encounterNoteRecordedAt))} &middot;{' '}
+                                  {tableRows?.[i]?.encounterProvider}, {tableRows?.[i]?.encounterProviderRole}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className={styles.copy}>
+                                {t('noVisitNoteToDisplay', 'No visit note to display')}
                               </span>
-                            </div>
-                          ) : (
-                            <span className={styles.copy}>{t('noVisitNoteToDisplay', 'No visit note to display')}</span>
-                          )}
-                        </div>
-                      </TableExpandedRow>
-                    ) : (
-                      <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 2} />
-                    )}
-                  </React.Fragment>
-                ))}
+                            )}
+                          </div>
+                        </TableExpandedRow>
+                      ) : (
+                        <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 2} />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
