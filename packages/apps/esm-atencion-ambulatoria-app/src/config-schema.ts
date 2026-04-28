@@ -341,23 +341,23 @@ export const configSchema = {
     // Referencia y Contrarreferencia (CE-8) — NTS 102
     referralTypeUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Tipo de referencia: Emergencia, Urgencia, Electiva (concepto codificado)',
-      _default: '1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      _description: 'Tipo de referencia: Emergencia, Urgencia, Electiva (f0000170)',
+      _default: 'f0000170-0000-4000-8000-000000000170',
     },
     referralReasonUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Motivo de referencia (texto libre)',
+      _description: 'Motivo de referencia (CIEL 160481 — Referral reason)',
       _default: '160481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     },
     referralDestinationUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Establecimiento destino de la referencia (texto libre)',
-      _default: '163391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      _description: 'Establecimiento destino de la referencia (proyecto: establecimiento-destino-referencia)',
+      _default: '6a1e18c1-8874-45fe-92dd-26758d5d6ba7',
     },
     counterReferralResponseUuid: {
       _type: Type.ConceptUuid,
-      _description: 'Respuesta de contrarreferencia del establecimiento destino (texto libre)',
-      _default: '161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      _description: 'Respuesta de contrarreferencia del establecimiento destino (f0000174)',
+      _default: 'f0000174-0000-4000-8000-000000000174',
     },
   },
 

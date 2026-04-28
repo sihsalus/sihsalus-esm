@@ -22,18 +22,18 @@
               "required": true,
               "questionOptions": {
                 "rendering": "select",
-                "concept": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "f0000170-0000-4000-8000-000000000170",
                 "answers": [
                   {
-                    "concept": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000171-0000-4000-8000-000000000171",
                     "label": "Emergencia"
                   },
                   {
-                    "concept": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000172-0000-4000-8000-000000000172",
                     "label": "Urgencia"
                   },
                   {
-                    "concept": "160429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000173-0000-4000-8000-000000000173",
                     "label": "Electiva"
                   }
                 ]
@@ -46,7 +46,7 @@
               "required": true,
               "questionOptions": {
                 "rendering": "text",
-                "concept": "163391AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "concept": "6a1e18c1-8874-45fe-92dd-26758d5d6ba7"
               }
             },
             {
@@ -66,7 +66,7 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "text",
-                "concept": "159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                "concept": "bdf63a89-fb2c-48c5-a670-8a0032aae816"
               }
             },
             {
@@ -96,7 +96,7 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "textarea",
-                "concept": "161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "f0000174-0000-4000-8000-000000000174",
                 "rows": 5
               },
               "validators": []
@@ -107,22 +107,22 @@
               "type": "obs",
               "questionOptions": {
                 "rendering": "select",
-                "concept": "159640AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "concept": "f0000175-0000-4000-8000-000000000175",
                 "answers": [
                   {
-                    "concept": "162844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000176-0000-4000-8000-000000000176",
                     "label": "Mejorado"
                   },
                   {
-                    "concept": "160432AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000177-0000-4000-8000-000000000177",
                     "label": "Sin cambio"
                   },
                   {
-                    "concept": "160433AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000178-0000-4000-8000-000000000178",
                     "label": "Deteriorado"
                   },
                   {
-                    "concept": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    "concept": "f0000179-0000-4000-8000-000000000179",
                     "label": "Fallecido"
                   }
                 ]
