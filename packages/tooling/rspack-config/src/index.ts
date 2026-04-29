@@ -315,7 +315,7 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
             test: /\.m?(js|ts|tsx)$/,
             exclude: (path: string) =>
               path.includes('node_modules') && !path.includes('@openmrs') && !path.includes('@sihsalus'),
-            loader: 'builtin:swc-loader',
+            loader: require.resolve('swc-loader'),
             options: {
               jsc: {
                 parser: {
@@ -423,6 +423,9 @@ export default (env: Record<string, string>, argv: Record<string, string> = {}) 
       }),
       new DefinePlugin({
         'process.env.FRAMEWORK_VERSION': JSON.stringify(frameworkVersion),
+      }),
+      new rspack.ProvidePlugin({
+        React: 'react',
       }),
       new ModuleFederationPlugin({
         // Look in the `esm-dynamic-loading` framework package for an explanation of how modules
