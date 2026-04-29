@@ -1,6 +1,5 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { useConfig, useSession } from '@openmrs/esm-framework';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { fdeWorkflowStorageName, fdeWorkflowStorageVersion } from '../context/FormWorkflowReducer';
 import { fdeGroupWorkflowStorageName, fdeGroupWorkflowStorageVersion } from '../context/GroupFormWorkflowReducer';
@@ -96,7 +95,7 @@ const FormsPage = () => {
           </Tab>
           {categoryRows?.map((category, index) => (
             <Tab aria-label={category.name} key={index}>
-              {`${category.name} (${category.rows.length})`}
+              {`${t(category.name, category.name)} (${category.rows.length})`}
             </Tab>
           ))}
         </TabList>

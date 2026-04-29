@@ -8,7 +8,7 @@ export function useHsuIdIdentifier(patientUuid: string) {
   const { data, error, isValidating } = useSWR<{ data: { results: Array<Identifier> } }, Error>(url, openmrsFetch);
 
   const hsuIdentifier = data?.data?.results.length
-    ? data.data.results.find((id: Identifier) => id.identifierType.uuid == hsuIdType)
+    ? data.data.results.find((id: Identifier) => id.identifierType.uuid === hsuIdType)
     : undefined;
 
   return {

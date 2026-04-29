@@ -1,7 +1,7 @@
 import { Button } from '@carbon/react';
 import { Add, Close } from '@carbon/react/icons';
 import { showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddGroupModal from '../../add-group-modal/AddGroupModal';
 import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
@@ -34,7 +34,7 @@ const GroupSearchHeader = () => {
       }
 
       if (group.cohortMembers) {
-        group.cohortMembers = group.cohortMembers.slice().sort((a, b) => {
+        group.cohortMembers.sort((a, b) => {
           const aName = a?.patient?.person?.names?.[0]?.display;
           const bName = b?.patient?.person?.names?.[0]?.display;
           return aName.localeCompare(bName, undefined, { sensitivity: 'base' });

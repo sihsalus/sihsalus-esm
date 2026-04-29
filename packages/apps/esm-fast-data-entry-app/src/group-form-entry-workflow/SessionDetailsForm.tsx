@@ -1,6 +1,6 @@
 import { DatePicker, DatePickerInput, Layer, TextArea, TextInput, Tile } from '@carbon/react';
 import { useConfig } from '@openmrs/esm-framework';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';

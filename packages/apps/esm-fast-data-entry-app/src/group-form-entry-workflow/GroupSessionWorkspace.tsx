@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
 import { getGlobalStore, useConfig, useSession, useStore } from '@openmrs/esm-framework';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuid } from 'uuid';
 import CancelModal from '../CancelModal';
@@ -83,7 +83,7 @@ const GroupSessionWorkspace = () => {
     if (activeVisitUuid) {
       updateVisitUuid(activeVisitUuid);
     }
-  }, [updateVisitUuid, activeVisitUuid, activePatientUuid]);
+  }, [updateVisitUuid, activeVisitUuid]);
 
   // If there's no active visit, trigger the creation of a new one
   const handleEncounterCreate = useCallback(

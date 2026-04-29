@@ -1,6 +1,6 @@
 import { SkeletonPlaceholder, SkeletonText } from '@carbon/react';
 import { ExtensionSlot } from '@openmrs/esm-framework';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import FormWorkflowContext from '../../context/FormWorkflowContext';
 import useGetPatient from '../../hooks/useGetPatient';
 import styles from './styles.scss';

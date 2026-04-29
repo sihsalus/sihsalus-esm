@@ -1,5 +1,5 @@
 import { Button } from '@carbon/react';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import CancelModal from '../CancelModal';

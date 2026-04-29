@@ -1,5 +1,5 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
+@use "@carbon/colors";
+@use "@carbon/layout";
 
 .modal {
   :global(.cds--modal) {
@@ -28,7 +28,7 @@
 .patientRow {
   display: flex;
   align-items: center;
-  width: '100%';
+  width: "100%";
   &:nth-child(odd) {
     background-color: colors.$gray-20;
   }

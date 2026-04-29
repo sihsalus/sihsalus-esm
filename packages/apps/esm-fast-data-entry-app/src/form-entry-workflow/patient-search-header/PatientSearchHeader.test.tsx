@@ -1,5 +1,4 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
 import '@testing-library/jest-dom';
 import { type ConfigSchema, type Session, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
 import FormWorkflowContext from '../../context/FormWorkflowContext';
@@ -8,7 +7,7 @@ import PatientSearchHeader from './PatientSearchHeader';
 
 jest.mock('@openmrs/esm-framework', () => ({
   ExtensionSlot: ({ state }) => (
-    <button data-testid="mock-search-select" onClick={() => state.selectPatientAction('patient-123')}>
+    <button type="button" data-testid="mock-search-select" onClick={() => state.selectPatientAction('patient-123')}>
       Select Patient
     </button>
   ),

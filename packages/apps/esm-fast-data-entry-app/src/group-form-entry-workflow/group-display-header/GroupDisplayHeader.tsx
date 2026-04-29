@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
 import { Close, Events } from '@carbon/react/icons';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
 import styles from './styles.scss';

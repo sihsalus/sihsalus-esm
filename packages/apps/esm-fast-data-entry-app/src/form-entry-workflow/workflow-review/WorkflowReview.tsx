@@ -1,5 +1,5 @@
 import { Button } from '@carbon/react';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import FormWorkflowContext from '../../context/FormWorkflowContext';

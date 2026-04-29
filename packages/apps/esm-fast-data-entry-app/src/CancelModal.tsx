@@ -1,5 +1,4 @@
 import { Button, ComposedModal, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const CancelModal = ({ open, setOpen, context }) => {
@@ -16,7 +15,7 @@ const CancelModal = ({ open, setOpen, context }) => {
   };
 
   return (
-    <ComposedModal open={open}>
+    <ComposedModal open={open} preventCloseOnClickOutside={true} onClose={onCancel}>
       <ModalHeader>{t('areYouSure', 'Are you sure?')}</ModalHeader>
       <ModalBody>
         {t(

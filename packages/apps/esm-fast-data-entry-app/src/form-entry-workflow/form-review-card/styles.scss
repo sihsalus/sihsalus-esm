@@ -1,6 +1,6 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
 
 .formReviewCard {
   background-color: colors.$white-0;
@@ -22,16 +22,16 @@
 }
 
 .dataField {
-  @include type.type-style('code-02');
+  @include type.type-style("code-02");
   background-color: colors.$gray-10;
   padding: layout.$spacing-03;
 }
 
 .displayName {
-  @include type.type-style('heading-02');
+  @include type.type-style("heading-02");
   font-weight: bold;
 }
 
 .identifier {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
 }

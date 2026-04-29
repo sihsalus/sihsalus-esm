@@ -1,6 +1,6 @@
 import { SkeletonIcon, SkeletonText } from '@carbon/react';
 import { Events } from '@carbon/react/icons';
-import React, { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import useKeyPress from '../../hooks/useKeyPress';
 import styles from './compact-group-result.scss';
