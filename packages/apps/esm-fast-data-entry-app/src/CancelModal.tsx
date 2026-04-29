@@ -1,7 +1,16 @@
 import { Button, ComposedModal, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 
-const CancelModal = ({ open, setOpen, context }) => {
+type CancelModalProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  context: {
+    destroySession: () => void | Promise<void>;
+    closeSession: () => void | Promise<void>;
+  };
+};
+
+const CancelModal = ({ open, setOpen, context }: CancelModalProps) => {
   const { t } = useTranslation();
 
   const onCancel = () => setOpen(false);
