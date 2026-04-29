@@ -1,7 +1,10 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
+import { ModuleFuaRestURL } from '../constant';
+
 export interface VisitSummary {
+  uuid?: string;
   patient?: {
     person?: {
       names?: Array<{
@@ -45,7 +48,7 @@ export function useVisit(visitUuid: string | null | undefined) {
 }
 
 export function useVisits() {
-  const url = `${restBaseUrl}/visit?v=custom:(patient:(person:(names:(display))),location:(display),startDatetime)`;
+  const url = `${restBaseUrl}/visit?v=custom:(uuid,patient:(person:(names:(display))),location:(display),startDatetime)`;
   const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<VisitSummary> } }>(
     url,
     openmrsFetch,
@@ -58,4 +61,10 @@ export function useVisits() {
     isValidating,
     mutate,
   };
+}
+
+export function generateFuaFromVisit(visitUuid: string) {
+  return openmrsFetch(`${ModuleFuaRestURL}/generateFromVisit/${visitUuid}`, {
+    method: 'POST',
+  });
 }

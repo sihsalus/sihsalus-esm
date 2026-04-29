@@ -1,4 +1,5 @@
 import {
+  Button,
   DataTable,
   DataTableSkeleton,
   Layer,
@@ -15,11 +16,12 @@ import {
   TableToolbarSearch,
   Tile,
 } from '@carbon/react';
-import { usePagination } from '@openmrs/esm-framework';
-import React, { useMemo, useState } from 'react';
+import { Add } from '@carbon/react/icons';
+import { showSnackbar, usePagination } from '@openmrs/esm-framework';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useVisits, type VisitSummary } from '../hooks/useVisit';
+import { generateFuaFromVisit, useVisits, type VisitSummary } from '../hooks/useVisit';
 
 import styles from './fua-request-table.scss';
 
@@ -45,6 +47,7 @@ const VisitTable: React.FC = () => {
   const { t } = useTranslation();
   const { visits, isLoading } = useVisits();
   const [searchString, setSearchString] = useState('');
+  const [generatingVisitUuid, setGeneratingVisitUuid] = useState<string | null>(null);
 
   const filteredData = useMemo(() => {
     if (!searchString) {
@@ -67,14 +70,44 @@ const VisitTable: React.FC = () => {
     { key: 'patient', header: t('patient', 'Paciente') },
     { key: 'area', header: t('area', 'Area') },
     { key: 'fechaCreacion', header: t('creationDate', 'Fecha de Creación') },
+    { key: 'actions', header: t('actions', 'Acciones') },
   ];
 
   const rows = results.map((visit, index) => ({
-    id: `${visit.startDatetime ?? 'visit'}-${index}`,
+    id: visit.uuid ?? `${visit.startDatetime ?? 'visit'}-${index}`,
     patient: getPatientName(visit),
     area: getArea(visit),
     fechaCreacion: formatVisitDate(visit.startDatetime),
+    actions: visit.uuid ?? '',
   }));
+
+  const handleGenerateFua = useCallback(
+    async (visitUuid: string) => {
+      if (!visitUuid) {
+        return;
+      }
+
+      setGeneratingVisitUuid(visitUuid);
+
+      try {
+        await generateFuaFromVisit(visitUuid);
+        showSnackbar({
+          kind: 'success',
+          title: t('success', 'Exito'),
+          subtitle: t('fuaGeneratedSuccessfully', 'El FUA se genero correctamente'),
+        });
+      } catch (error) {
+        showSnackbar({
+          kind: 'error',
+          title: t('error', 'Error'),
+          subtitle: error instanceof Error ? error.message : t('errorGeneratingFua', 'Ocurrio un error al generar el FUA'),
+        });
+      } finally {
+        setGeneratingVisitUuid(null);
+      }
+    },
+    [t],
+  );
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" showHeader={false} showToolbar={false} />;
@@ -114,7 +147,22 @@ const VisitTable: React.FC = () => {
                   <TableRow key={row.id} {...getRowProps({ row })}>
                     {row.cells.map((cell) => (
                       <TableCell key={cell.id} className={styles.tableCell}>
-                        {cell.value}
+                        {cell.info.header === 'actions' ? (
+                          <Button
+                            kind="ghost"
+                            size="sm"
+                            renderIcon={Add}
+                            iconDescription={t('generateFua', 'Generar FUA')}
+                            disabled={!cell.value || generatingVisitUuid === cell.value}
+                            onClick={() => handleGenerateFua(cell.value)}
+                          >
+                            {generatingVisitUuid === cell.value
+                              ? t('generatingFua', 'Generando FUA...')
+                              : t('generateFua', 'Generar FUA')}
+                          </Button>
+                        ) : (
+                          cell.value
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>
