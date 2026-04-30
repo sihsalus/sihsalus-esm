@@ -404,7 +404,27 @@ export const configSchema = {
     defaultIdentifierTypeUuid: {
       _type: Type.UUID,
       _default: '550e8400-e29b-41d4-a716-446655440001', // DNI - 8 dígitos numéricos
-      _description: 'UUID del tipo de identificador por defecto para nuevos pacientes (DNI)',
+      _description: 'UUID del tipo de documento de identidad por defecto para nuevos pacientes (DNI)',
+    },
+    foreignCardIdentifierTypeUuid: {
+      _type: Type.UUID,
+      _default: '550e8400-e29b-41d4-a716-446655440002',
+      _description: 'UUID del tipo de documento Carné de Extranjería',
+    },
+    passportIdentifierTypeUuid: {
+      _type: Type.UUID,
+      _default: '550e8400-e29b-41d4-a716-446655440003',
+      _description: 'UUID del tipo de documento Pasaporte',
+    },
+    dieIdentifierTypeUuid: {
+      _type: Type.UUID,
+      _default: '8d793bee-c2cc-11de-8d13-0010c6dffd0f',
+      _description: 'UUID del tipo de documento DIE',
+    },
+    liveBirthCertificateIdentifierTypeUuid: {
+      _type: Type.UUID,
+      _default: '8d79403a-c2cc-11de-8d13-0010c6dffd0f',
+      _description: 'UUID del tipo de documento Certificado de Nacido Vivo',
     },
     defaultLocationUuid: {
       _type: Type.UUID,
@@ -555,6 +575,10 @@ export interface Config {
   promptVisitCreationOnNewPatient: boolean;
   patientRegistration: {
     defaultIdentifierTypeUuid: string;
+    foreignCardIdentifierTypeUuid: string;
+    passportIdentifierTypeUuid: string;
+    dieIdentifierTypeUuid: string;
+    liveBirthCertificateIdentifierTypeUuid: string;
     defaultLocationUuid: string;
     phoneNumberAttributeTypeUuid: string;
     identifierSourceUuid: string;

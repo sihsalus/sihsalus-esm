@@ -17,7 +17,7 @@ export type CondicionDiagnostico = 'NUEVO' | 'REPETICION';
 export interface FuaPaciente {
   nombres: string;
   apellidos: string;
-  tipoDocumento: 'DNI' | 'CE' | 'PASAPORTE';
+  tipoDocumento: 'DNI' | 'CE' | 'PASAPORTE' | 'DIE' | 'CNV';
   numeroDocumento: string;
   fechaNacimiento: string; // ISO date
   sexo: 'M' | 'F';

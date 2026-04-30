@@ -21,6 +21,8 @@ interface ServePatientModalProps {
   closeModal: () => void;
 }
 
+const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV'];
+
 const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, closeModal }) => {
   const { t } = useTranslation();
   const config = useConfig<Config>();
@@ -34,9 +36,14 @@ const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, close
   const gender = queueEntry.patient.person?.gender || '';
   const age = queueEntry.patient.person?.age;
   const identifiers = queueEntry.patient.identifiers || [];
-  const dniTypeUuid = config.patientRegistration.defaultIdentifierTypeUuid;
-  const dni = identifiers.find((id) => id.identifierType?.uuid === dniTypeUuid);
-  const otherIdentifiers = identifiers.filter((id) => id.identifierType?.uuid !== dniTypeUuid);
+  const hceTypeUuid = config.patientRegistration.openMrsIdIdentifierTypeUuid;
+  const preferredIdentifier =
+    preferredIdentifierNames
+      .map((identifierName) =>
+        identifiers.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
+      )
+      .find(Boolean) ?? identifiers.find((id) => id.identifierType?.uuid === hceTypeUuid);
+  const otherIdentifiers = identifiers.filter((id) => id.uuid !== preferredIdentifier?.uuid);
 
   const handleServe = useCallback(() => {
     setIsSubmitting(true);
@@ -83,9 +90,9 @@ const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, close
           <p className={styles.p}>
             {t('patientName', 'Nombre del paciente')}: &nbsp; {patientName}
           </p>
-          {dni && (
+          {preferredIdentifier && (
             <p className={styles.p}>
-              {t('dni', 'DNI')}: &nbsp; <strong>{dni.identifier}</strong>
+              {preferredIdentifier.identifierType?.display}: &nbsp; <strong>{preferredIdentifier.identifier}</strong>
             </p>
           )}
           {otherIdentifiers.map((identifier) => (

@@ -2,7 +2,7 @@
  * Patient Search and Quick Registration Component
  *
  * Streamlined interface for emergency patient registration:
- * - Smart search: name, OpenMRS ID, or DNI
+ * - Smart search: name, HCE, or identity document
  * - Inline quick registration when patient not found
  * - Inline initial priority selector (Emergencia/Urgencia)
  * - Single "Enviar a cola de triaje" button
@@ -30,7 +30,7 @@ import { CheckmarkFilled, SendFilled, User, UserFollow } from '@carbon/react/ico
 import { zodResolver } from '@hookform/resolvers/zod';
 import { OpenmrsDatePicker, showSnackbar, useConfig } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -53,6 +53,7 @@ const quickRegistrationSchema = z.object({
   gender: z.enum(['M', 'F'], { required_error: 'Sexo es requerido' }),
   yearsEstimated: z.number().min(0).optional(),
   birthdate: z.string().optional(),
+  identifierType: z.string().optional(),
   identifier: z.string().optional(),
   isUnknown: z.boolean().optional(),
   // Ubicación
@@ -69,6 +70,18 @@ const quickRegistrationSchema = z.object({
 });
 
 type QuickRegistrationFormData = z.infer<typeof quickRegistrationSchema>;
+
+const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
+
+function getPreferredIdentifier(patient: SearchedPatient) {
+  return (
+    preferredIdentifierNames
+      .map((identifierName) =>
+        patient.identifiers?.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
+      )
+      .find(Boolean) ?? patient.identifiers?.[0]
+  );
+}
 
 // ============================================================================
 // COMPONENT PROPS
@@ -116,6 +129,17 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
 
   // The patient ready to be queued (either selected or registered)
   const readyPatient = selectedPatient || registeredPatient;
+  const identityDocumentTypes = useMemo(
+    () =>
+      [
+        { label: 'DNI', value: config.patientRegistration.defaultIdentifierTypeUuid },
+        { label: 'CE', value: config.patientRegistration.foreignCardIdentifierTypeUuid },
+        { label: 'Pasaporte', value: config.patientRegistration.passportIdentifierTypeUuid },
+        { label: 'DIE', value: config.patientRegistration.dieIdentifierTypeUuid },
+        { label: 'CNV', value: config.patientRegistration.liveBirthCertificateIdentifierTypeUuid },
+      ].filter((type) => type.value),
+    [config.patientRegistration],
+  );
 
   // React Hook Form
   const {
@@ -129,6 +153,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
     resolver: zodResolver(quickRegistrationSchema),
     defaultValues: {
       isUnknown: false,
+      identifierType: config.patientRegistration.defaultIdentifierTypeUuid,
       district: 'NAPO',
       village: 'SANTA CLOTILDE',
       address: '',
@@ -267,11 +292,11 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
           },
         ];
 
-        // Si el usuario ingresó DNI, agregarlo como segundo identifier
+        // Si el usuario ingresó un documento de identidad, agregarlo como identifier clínico-administrativo.
         if (data.identifier) {
           identifiers.push({
             identifier: data.identifier,
-            identifierType: config.patientRegistration.defaultIdentifierTypeUuid,
+            identifierType: data.identifierType || config.patientRegistration.defaultIdentifierTypeUuid,
             location: config.patientRegistration.defaultLocationUuid,
             preferred: false,
           });
@@ -369,7 +394,13 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
             identifiers.map((id: { identifier: string; identifierType: string }, i: number) => ({
               uuid: `temp-${i}`,
               identifier: id.identifier,
-              identifierType: { uuid: id.identifierType, display: i === 0 ? 'OpenMRS ID' : 'DNI' },
+              identifierType: {
+                uuid: id.identifierType,
+                display:
+                  i === 0
+                    ? 'N° Historia Clínica'
+                    : identityDocumentTypes.find((type) => type.value === id.identifierType)?.label,
+              },
             })),
           person: {
             age: data.yearsEstimated || undefined,
@@ -405,7 +436,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
         setIsRegistering(false);
       }
     },
-    [t, config],
+    [t, config, identityDocumentTypes],
   );
 
   // ============================================================================
@@ -447,7 +478,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
               <Search
                 id="patient-search"
                 labelText={t('searchPatient', 'Buscar paciente')}
-                placeholder={t('enterNameIdOrDni', 'Nombre, ID o DNI...')}
+                placeholder={t('enterNameIdOrDni', 'Nombre, HCE o documento...')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 size="lg"
@@ -464,33 +495,39 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                   {t('resultsFound', '{{count}} resultado(s)', { count: totalResults })}
                 </p>
                 <Stack gap={3}>
-                  {searchResults.map((patient) => (
-                    <Layer key={patient.uuid}>
-                      <Tile className={styles.patientResultTile} onClick={() => handleSelectPatient(patient)}>
-                        <div className={styles.patientResult}>
-                          <User size={24} className={styles.patientIcon} />
-                          <div className={styles.patientResultInfo}>
-                            <p className={styles.patientResultName}>
-                              {patient.person?.personName?.display || patient.display}
-                            </p>
-                            <div className={styles.patientResultMeta}>
-                              <span>
-                                {patient.person?.age || '?'} {t('years', 'años')}
-                              </span>
-                              <span className={styles.separator}>|</span>
-                              <span>{patient.person?.gender === 'M' ? t('male', 'M') : t('female', 'F')}</span>
-                              {patient.identifiers?.[0] && (
-                                <>
-                                  <span className={styles.separator}>|</span>
-                                  <span>{patient.identifiers[0].identifier}</span>
-                                </>
-                              )}
+                  {searchResults.map((patient) => {
+                    const preferredIdentifier = getPreferredIdentifier(patient);
+
+                    return (
+                      <Layer key={patient.uuid}>
+                        <Tile className={styles.patientResultTile} onClick={() => handleSelectPatient(patient)}>
+                          <div className={styles.patientResult}>
+                            <User size={24} className={styles.patientIcon} />
+                            <div className={styles.patientResultInfo}>
+                              <p className={styles.patientResultName}>
+                                {patient.person?.personName?.display || patient.display}
+                              </p>
+                              <div className={styles.patientResultMeta}>
+                                <span>
+                                  {patient.person?.age || '?'} {t('years', 'años')}
+                                </span>
+                                <span className={styles.separator}>|</span>
+                                <span>{patient.person?.gender === 'M' ? t('male', 'M') : t('female', 'F')}</span>
+                                {preferredIdentifier && (
+                                  <>
+                                    <span className={styles.separator}>|</span>
+                                    <span>
+                                      {preferredIdentifier.identifierType?.display}: {preferredIdentifier.identifier}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Tile>
-                    </Layer>
-                  ))}
+                        </Tile>
+                      </Layer>
+                    );
+                  })}
                   {hasMore && (
                     <div className={styles.loadingIcon} ref={loadingIconRef}>
                       <Loading withOverlay={false} small />
@@ -642,15 +679,34 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                                 )}
                               />
                             </div>
-                            <TextInput
-                              id="identifier"
-                              labelText={t('dniOptional', 'DNI (opcional)')}
-                              placeholder={t('enterDni', 'Ingrese DNI')}
-                              invalid={!!errors.identifier}
-                              invalidText={errors.identifier?.message}
-                              disabled={isRegistering}
-                              {...register('identifier')}
-                            />
+                            <div className={styles.fieldRow}>
+                              <Controller
+                                name="identifierType"
+                                control={control}
+                                render={({ field }) => (
+                                  <Select
+                                    id="identifierType"
+                                    labelText={t('identityDocumentType', 'Tipo de documento')}
+                                    disabled={isRegistering}
+                                    value={field.value || config.patientRegistration.defaultIdentifierTypeUuid}
+                                    onChange={(event) => field.onChange(event.target.value)}
+                                  >
+                                    {identityDocumentTypes.map((type) => (
+                                      <SelectItem key={type.value} value={type.value} text={type.label} />
+                                    ))}
+                                  </Select>
+                                )}
+                              />
+                              <TextInput
+                                id="identifier"
+                                labelText={t('identityDocumentOptional', 'Documento de identidad (opcional)')}
+                                placeholder={t('enterIdentityDocument', 'Ingrese documento de identidad')}
+                                invalid={!!errors.identifier}
+                                invalidText={errors.identifier?.message}
+                                disabled={isRegistering}
+                                {...register('identifier')}
+                              />
+                            </div>
                           </fieldset>
                         )}
 

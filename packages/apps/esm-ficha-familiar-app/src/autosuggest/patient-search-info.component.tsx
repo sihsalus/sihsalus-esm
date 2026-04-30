@@ -9,7 +9,21 @@ type PatientSearchInfoProps = {
   patient: Patient;
 };
 
+const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
+
+function getPreferredIdentifier(patient: Patient) {
+  return (
+    preferredIdentifierNames
+      .map((identifierName) =>
+        patient.identifiers?.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
+      )
+      .find(Boolean) ?? patient.identifiers?.[0]
+  );
+}
+
 const PatientSearchInfo: React.FC<PatientSearchInfoProps> = ({ patient }) => {
+  const identifier = getPreferredIdentifier(patient);
+
   return (
     <Tile className={styles.patientInfo}>
       <div className={styles.patientAvatar} role="img">
@@ -20,10 +34,11 @@ const PatientSearchInfo: React.FC<PatientSearchInfoProps> = ({ patient }) => {
         <div className={styles.demographics}>
           {patient?.person?.gender} <span className={styles.middot}>&middot;</span> {patient?.person?.age}
           <span className={styles.middot}>&middot;</span>
-          <Tag>DNI:{patient.identifiers.find((id) => id.identifierType.display === 'DNI')?.identifier}</Tag>
-          {/* {patient.identifiers.map((identifier) => (
-            <span>{identifier.display}</span>
-          ))} */}
+          {identifier && (
+            <Tag>
+              {identifier.identifierType.display}: {identifier.identifier}
+            </Tag>
+          )}
         </div>
       </div>
     </Tile>
