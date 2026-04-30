@@ -2,19 +2,20 @@ import { Button, ButtonSkeleton, SkeletonText, Tile } from '@carbon/react';
 import { ShoppingCartArrowUp } from '@carbon/react/icons';
 import {
   ArrowRightIcon,
+  ExtensionSlot,
   ShoppingCartArrowDownIcon,
   UserHasAccess,
   useConfig,
   useLayoutType,
+  type Visit,
+  type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
-import { type Order, useOrderBasket, usePatientChartStore } from '@openmrs/esm-patient-common-lib';
+import { type DrugOrderBasketItem, type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { type ComponentProps, useCallback, useMemo } from 'react';
+import { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { prepMedicationOrderPostData, usePatientOrders } from '../../api/api';
-import type { DrugOrderBasketItem } from '../../types';
-
+import { prepMedicationOrderPostData, useActivePatientOrders } from '../../api/api';
+import { type ConfigObject } from '../../config-schema';
 import {
   type DrugSearchResult,
   getTemplateOrderBasketItem,
@@ -25,23 +26,29 @@ import { ordersEqual } from './helpers';
 import styles from './order-basket-search-results.scss';
 
 export interface OrderBasketSearchResultsProps {
+  patient: fhir.Patient;
   searchTerm: string;
+  closeWorkspace: Workspace2DefinitionProps['closeWorkspace'];
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;
   focusAndClearSearchInput: () => void;
-  returnToOrderBasket: () => void;
+  visit: Visit;
 }
 
 interface DrugSearchResultItemProps {
+  patient: fhir.Patient;
   drug: DrugSearchResult;
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;
-  returnToOrderBasket: () => void;
+  visit: Visit;
+  closeWorkspace: Workspace2DefinitionProps['closeWorkspace'];
 }
 
 export default function OrderBasketSearchResults({
   searchTerm,
   openOrderForm,
   focusAndClearSearchInput,
-  returnToOrderBasket,
+  patient,
+  visit,
+  closeWorkspace,
 }: OrderBasketSearchResultsProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -110,9 +117,11 @@ export default function OrderBasketSearchResults({
         {drugs?.map((drug) => (
           <DrugSearchResultItem
             key={drug.uuid}
+            patient={patient}
             drug={drug}
             openOrderForm={openOrderForm}
-            returnToOrderBasket={returnToOrderBasket}
+            visit={visit}
+            closeWorkspace={closeWorkspace}
           />
         ))}
       </div>
@@ -120,35 +129,41 @@ export default function OrderBasketSearchResults({
   );
 }
 
-const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openOrderForm, returnToOrderBasket }) => {
+export const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({
+  patient,
+  drug,
+  openOrderForm,
+  visit,
+  closeWorkspace,
+}) => {
   const isTablet = useLayoutType() === 'tablet';
-  const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications', prepMedicationOrderPostData);
-  const { patientUuid } = usePatientChartStore();
-  const { data: activeOrders, isLoading: isLoadingActiveOrders } = usePatientOrders(patientUuid);
-  const activeDrugOrders = activeOrders as Array<Order> | null;
-  const drugAlreadyInBasket = useMemo(
-    () => orders?.some((order) => ordersEqual(order, getTemplateOrderBasketItem(drug))),
-    [orders, drug],
+  const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>(
+    patient,
+    'medications',
+    prepMedicationOrderPostData as PostDataPrepFunction,
   );
+  const patientUuid = patient.id;
+  const { data: activeOrders, isLoading: isLoadingActiveOrders } = useActivePatientOrders(patientUuid);
+  const drugAlreadyInBasket = useMemo(
+    () => orders?.some((order) => ordersEqual(order, getTemplateOrderBasketItem(drug, visit))),
+    [orders, drug, visit],
+  );
+  // TODO: use the backend instead of this to determine whether the drug formulation can be ordered
+  // See: https://openmrs.atlassian.net/browse/RESTWS-1003
   const drugAlreadyPrescribed = useMemo(
-    () => (activeDrugOrders ?? []).some((order) => order.drug?.uuid === drug.uuid),
-    [activeDrugOrders, drug],
+    () => activeOrders?.some((order) => order?.drug?.uuid === drug?.uuid),
+    [activeOrders, drug?.uuid],
   );
 
   const { templates, error: fetchingDrugOrderTemplatesError } = useDrugTemplate(drug?.uuid);
   const { t } = useTranslation();
-  const config = useConfig<{
-    daysDurationUnit?: {
-      uuid: string;
-      display: string;
-    };
-  }>();
+  const config = useConfig<ConfigObject>();
   const drugItemTemplateOptions: Array<DrugOrderBasketItem> = useMemo(
     () =>
       templates?.length
-        ? templates.map((template) => getTemplateOrderBasketItem(drug, config?.daysDurationUnit, template))
-        : [getTemplateOrderBasketItem(drug, config?.daysDurationUnit)],
-    [templates, drug, config?.daysDurationUnit],
+        ? templates.map((template) => getTemplateOrderBasketItem(drug, visit, config?.daysDurationUnit, template))
+        : [getTemplateOrderBasketItem(drug, visit, config?.daysDurationUnit)],
+    [templates, drug, config?.daysDurationUnit, visit],
   );
 
   const addToBasket = useCallback(
@@ -156,9 +171,9 @@ const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openO
       // Directly adding the order to basket should be marked as incomplete
       searchResult.isOrderIncomplete = true;
       setOrders([...orders, searchResult]);
-      returnToOrderBasket();
+      closeWorkspace();
     },
-    [orders, setOrders, returnToOrderBasket],
+    [orders, setOrders, closeWorkspace],
   );
 
   const removeFromBasket = useCallback(
@@ -179,11 +194,14 @@ const DrugSearchResultItem: React.FC<DrugSearchResultItemProps> = ({ drug, openO
           })}
         >
           <div className={classNames(styles.searchResultTileContent, styles.text02)}>
-            <p>
-              <span className={styles.productiveHeading01}>{drug?.display}</span>{' '}
-              {drug?.strength && <>&mdash; {drug?.strength.toLowerCase()}</>}{' '}
-              {drug?.dosageForm?.display && <>&mdash; {drug?.dosageForm?.display.toLowerCase()}</>}
-            </p>
+            <div className={styles.drugNameRow}>
+              <p className={styles.drugNameText}>
+                <span className={styles.productiveHeading01}>{drug?.display}</span>{' '}
+                {drug?.strength && <>&mdash; {drug?.strength.toLowerCase()}</>}{' '}
+                {drug?.dosageForm?.display && <>&mdash; {drug?.dosageForm?.display.toLowerCase()}</>}
+              </p>
+              <ExtensionSlot name="drug-search-result-actions-slot" state={{ drug, orderItem }} />
+            </div>
             <UserHasAccess privilege="Manage OrderTemplates">
               {fetchingDrugOrderTemplatesError ? (
                 <p>
@@ -262,7 +280,7 @@ const DrugSearchSkeleton = () => {
         <SkeletonText className={styles.searchResultCntSkeleton} />
         <ButtonSkeleton size={buttonSize} />
       </div>
-      {Array.from({ length: 4 }).map((_, index) => (
+      {[...Array(4)].map((_, index) => (
         <Tile key={index} className={tileClassName}>
           <SkeletonText />
         </Tile>

@@ -1,28 +1,37 @@
 import { Button, Tile } from '@carbon/react';
-import { AddIcon, ChevronDownIcon, ChevronUpIcon, useLayoutType } from '@openmrs/esm-framework';
-import { useOrderBasket } from '@openmrs/esm-patient-common-lib';
+import { AddIcon, ChevronDownIcon, ChevronUpIcon, useConfig, useLayoutType } from '@openmrs/esm-framework';
+import { type DrugOrderBasketItem, type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
+import { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { prepMedicationOrderPostData } from '../api/api';
-import type { DrugOrderBasketItem } from '../types';
-
+import type { ConfigObject } from '../config-schema';
 import styles from './drug-order-basket-panel.scss';
 import OrderBasketItemTile from './order-basket-item-tile.component';
 import RxIcon from './rx-icon.component';
 
 /**
+ * The extension is slotted into order-basket-slot in the main Order Basket workspace by default.
+ * It renders the "Add +" button for drug orders, and lists pending drug orders in the order basket.
+ *
  * Designs: https://app.zeplin.io/project/60d59321e8100b0324762e05/screen/62c6bb9500e7671a618efa56
  */
-interface DrugOrderBasketPanelExtensionProps {
-  launchAddDrugOrder?: (order?: DrugOrderBasketItem) => void;
+export interface DrugOrderBasketPanelExtensionProps {
+  patient: fhir.Patient;
+  launchDrugOrderForm: (order?: DrugOrderBasketItem) => void;
 }
 
-export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: DrugOrderBasketPanelExtensionProps) {
+function DrugOrderBasketPanelExtension({ patient, launchDrugOrderForm }: DrugOrderBasketPanelExtensionProps) {
   const { t } = useTranslation();
+  const config = useConfig<ConfigObject>();
   const isTablet = useLayoutType() === 'tablet';
-  const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>('medications', prepMedicationOrderPostData);
+
+  const responsiveSize = isTablet ? 'md' : 'sm';
+  const { orders, setOrders } = useOrderBasket<DrugOrderBasketItem>(
+    patient,
+    'medications',
+    prepMedicationOrderPostData as PostDataPrepFunction,
+  );
   const [isExpanded, setIsExpanded] = useState(orders.length > 0);
   const {
     incompleteOrderBasketItems,
@@ -60,14 +69,6 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
     };
   }, [orders]);
 
-  const openDrugSearch = () => {
-    launchAddDrugOrder?.();
-  };
-
-  const openDrugForm = (order: DrugOrderBasketItem) => {
-    launchAddDrugOrder?.(order);
-  };
-
   const removeMedication = useCallback(
     (order: DrugOrderBasketItem) => {
       const newOrders = [...orders];
@@ -81,11 +82,17 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
     setIsExpanded(orders.length > 0);
   }, [orders]);
 
+  useEffect(() => {
+    if (config.orderTypeUuid !== config.drugOrderTypeUUID) {
+      console.warn('orderTypeUuid does not match drugOrderTypeUUID — order basket filtering may not work as expected');
+    }
+  }, [config.orderTypeUuid, config.drugOrderTypeUUID]);
+
   return (
     <Tile
       className={classNames(isTablet ? styles.tabletTile : styles.desktopTile, { [styles.collapsedTile]: !isExpanded })}
     >
-      <div className={styles.container}>
+      <div className={classNames(isTablet ? styles.tabletContainer : styles.desktopContainer)}>
         <div className={styles.iconAndLabel}>
           <RxIcon isTablet={isTablet} />
           <h4 className={styles.heading}>{`${t('drugOrders', 'Drug orders')} (${orders.length})`}</h4>
@@ -96,8 +103,8 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
             kind="ghost"
             renderIcon={(props: ComponentProps<typeof AddIcon>) => <AddIcon size={16} {...props} />}
             iconDescription="Add medication"
-            onClick={openDrugSearch}
-            size={isTablet ? 'md' : 'sm'}
+            onClick={() => launchDrugOrderForm()}
+            size={responsiveSize}
           >
             {t('add', 'Add')}
           </Button>
@@ -111,6 +118,7 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
             iconDescription="View"
             disabled={orders.length === 0}
             onClick={() => setIsExpanded(!isExpanded)}
+            size={responsiveSize}
           >
             {t('add', 'Add')}
           </Button>
@@ -124,7 +132,7 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
                 <OrderBasketItemTile
                   key={index}
                   orderBasketItem={order}
-                  onItemClick={() => openDrugForm(order)}
+                  onItemClick={() => launchDrugOrderForm(order)}
                   onRemoveClick={() => removeMedication(order)}
                 />
               ))}
@@ -136,7 +144,7 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
                 <OrderBasketItemTile
                   key={index}
                   orderBasketItem={order}
-                  onItemClick={() => openDrugForm(order)}
+                  onItemClick={() => launchDrugOrderForm(order)}
                   onRemoveClick={() => removeMedication(order)}
                 />
               ))}
@@ -149,7 +157,7 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
                 <OrderBasketItemTile
                   key={index}
                   orderBasketItem={item}
-                  onItemClick={() => openDrugForm(item)}
+                  onItemClick={() => launchDrugOrderForm(item)}
                   onRemoveClick={() => removeMedication(item)}
                 />
               ))}
@@ -162,7 +170,7 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
                 <OrderBasketItemTile
                   key={index}
                   orderBasketItem={item}
-                  onItemClick={() => openDrugForm(item)}
+                  onItemClick={() => launchDrugOrderForm(item)}
                   onRemoveClick={() => removeMedication(item)}
                 />
               ))}
@@ -175,7 +183,7 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
                 <OrderBasketItemTile
                   key={index}
                   orderBasketItem={item}
-                  onItemClick={() => openDrugForm(item)}
+                  onItemClick={() => launchDrugOrderForm(item)}
                   onRemoveClick={() => removeMedication(item)}
                 />
               ))}
@@ -186,3 +194,5 @@ export default function DrugOrderBasketPanelExtension({ launchAddDrugOrder }: Dr
     </Tile>
   );
 }
+
+export default DrugOrderBasketPanelExtension;

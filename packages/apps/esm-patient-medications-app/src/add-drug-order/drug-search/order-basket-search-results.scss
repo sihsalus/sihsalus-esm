@@ -1,7 +1,7 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 /** For OrderBasketSearchResults */
 .container {
@@ -9,7 +9,7 @@
 }
 
 .searchResultsCount {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
   color: $text-02;
 }
 
@@ -41,6 +41,16 @@
 
 .searchResultTileContent {
   padding: layout.$spacing-03 layout.$spacing-05;
+}
+
+.drugNameRow {
+  display: flex;
+  align-items: flex-start;
+  gap: layout.$spacing-03;
+}
+
+.drugNameText {
+  flex: 1;
 }
 
 .searchResultActions {
@@ -108,21 +118,21 @@
 .drugAlreadyPrescribed {
   margin: 0 layout.$spacing-03 layout.$spacing-03 0;
   text-align: right;
-  @include type.type-style('label-01');
+  @include type.type-style("label-01");
   color: $text-02;
 }
 
 .productiveHeading01 {
-  @include type.type-style('heading-compact-01');
+  @include type.type-style("heading-compact-01");
   margin-bottom: layout.$spacing-03;
 }
 
 .bodyShort01 {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
 }
 
 .label01 {
-  @include type.type-style('label-01');
+  @include type.type-style("label-01");
 }
 
 .text02 {

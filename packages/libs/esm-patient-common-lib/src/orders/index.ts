@@ -1,5 +1,7 @@
 export * from './postOrders';
+export * from './showOrderSuccessToast';
 export * from './types';
+export * from './useMutatePatientOrders';
 export * from './useOrderableConceptSets';
 export * from './useOrderBasket';
 export * from './useOrders';

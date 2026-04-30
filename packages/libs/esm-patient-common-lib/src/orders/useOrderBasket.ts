@@ -81,15 +81,32 @@ type UseOrderBasketReturn<T, U> = {
  *  in every usage of useOrderBasket with a grouping key.
  */
 export function useOrderBasket<T extends OrderBasketItem>(): UseOrderBasketReturn<T, undefined>;
+export function useOrderBasket<T extends OrderBasketItem>(patient: fhir.Patient): UseOrderBasketReturn<T, undefined>;
 export function useOrderBasket<T extends OrderBasketItem>(grouping: string): UseOrderBasketReturn<T, string>;
+export function useOrderBasket<T extends OrderBasketItem>(
+  patient: fhir.Patient,
+  grouping: string,
+): UseOrderBasketReturn<T, string>;
 export function useOrderBasket<T extends OrderBasketItem>(
   grouping: string,
   postDataPrepFunction: PostDataPrepFunction,
 ): UseOrderBasketReturn<T, string>;
 export function useOrderBasket<T extends OrderBasketItem>(
-  grouping?: string | null,
-  postDataPrepFunction?: PostDataPrepFunction,
+  patient: fhir.Patient,
+  grouping: string,
+  postDataPrepFunction: PostDataPrepFunction,
+): UseOrderBasketReturn<T, string>;
+export function useOrderBasket<T extends OrderBasketItem>(
+  patientOrGrouping?: fhir.Patient | string | null,
+  groupingOrPostDataPrepFunction?: string | PostDataPrepFunction,
+  maybePostDataPrepFunction?: PostDataPrepFunction,
 ): UseOrderBasketReturn<T, string | undefined> {
+  const grouping =
+    typeof patientOrGrouping === 'string' ? patientOrGrouping : (groupingOrPostDataPrepFunction as string | undefined);
+  const postDataPrepFunction =
+    typeof patientOrGrouping === 'string'
+      ? (groupingOrPostDataPrepFunction as PostDataPrepFunction | undefined)
+      : maybePostDataPrepFunction;
   const { items, postDataPrepFunctions, setOrderBasketItems, setPostDataPrepFunctionForGrouping } = useStoreWithActions(
     orderBasketStore,
     orderBasketStoreActions,

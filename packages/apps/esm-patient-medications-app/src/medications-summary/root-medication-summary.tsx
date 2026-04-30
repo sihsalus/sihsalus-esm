@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MedicationsSummary from './medications-summary.component';
 
 export interface RootMedicationSummaryProps {

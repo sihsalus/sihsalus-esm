@@ -1,8 +1,6 @@
 import { DataTableSkeleton } from '@carbon/react';
 import { EmptyState, ErrorState, useLaunchWorkspaceRequiringVisit } from '@openmrs/esm-patient-common-lib';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useActivePatientOrders } from '../api/api';
 import MedicationsDetailsTable from '../components/medications-details-table.component';
 
@@ -12,16 +10,20 @@ interface ActiveMedicationsProps {
 
 const ActiveMedications: React.FC<ActiveMedicationsProps> = ({ patient }) => {
   const { t } = useTranslation();
-  const displayText = t('activeMedicationsDisplayText', 'Active medications');
-  const headerTitle = t('activeMedicationsHeaderTitle', 'active medications');
+  const headerTitle = t('activeMedicationsHeaderTitle', 'Active medications');
+  const displayText = t('activeMedicationsDisplayText', 'active medications');
 
   const { data: activePatientOrders, error, isLoading, isValidating } = useActivePatientOrders(patient?.id);
 
-  const launchAddDrugWorkspace = useLaunchWorkspaceRequiringVisit('add-drug-order');
+  const launchOrderBasket = useLaunchWorkspaceRequiringVisit(patient.id, 'order-basket');
 
-  if (isLoading) return <DataTableSkeleton role="progressbar" />;
+  if (isLoading) {
+    return <DataTableSkeleton role="progressbar" />;
+  }
 
-  if (error) return <ErrorState error={error} headerTitle={headerTitle} />;
+  if (error) {
+    return <ErrorState error={error} headerTitle={headerTitle} />;
+  }
 
   if (activePatientOrders?.length) {
     return (
@@ -31,13 +33,19 @@ const ActiveMedications: React.FC<ActiveMedicationsProps> = ({ patient }) => {
         medications={activePatientOrders}
         showDiscontinueButton={true}
         showModifyButton={true}
-        showReorderButton={false}
+        showRenewButton={true}
         patient={patient}
       />
     );
   }
 
-  return <EmptyState displayText={displayText} headerTitle={headerTitle} launchForm={() => launchAddDrugWorkspace()} />;
+  return (
+    <EmptyState
+      displayText={displayText}
+      headerTitle={headerTitle}
+      launchForm={() => launchOrderBasket({}, { encounterUuid: '' })}
+    />
+  );
 };
 
 export default ActiveMedications;

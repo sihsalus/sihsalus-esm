@@ -1,54 +1,42 @@
-import { closeWorkspace, useSession } from '@openmrs/esm-framework';
+/* eslint-disable testing-library/no-node-access */
+
+import { ExtensionSlot, UserHasAccess, useSession } from '@openmrs/esm-framework';
 import { type PostDataPrepFunction, useOrderBasket } from '@openmrs/esm-patient-common-lib';
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
 import { render, renderHook, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import {
   getByTextWithMarkup,
   mockDrugOrderTemplateApiData,
   mockDrugSearchResultApiData,
+  mockFhirPatient,
   mockPatientDrugOrdersApiData,
   mockSessionDataResponse,
 } from 'test-utils';
-
 import AddDrugOrderWorkspace from './add-drug-order.workspace';
 import { getTemplateOrderBasketItem, useDrugSearch, useDrugTemplate } from './drug-search/drug-search.resource';
 
-const mockCloseWorkspace = closeWorkspace as jest.Mock;
-const mockLaunchPatientWorkspace = jest.fn();
+const mockCloseWorkspace = jest.fn();
 const mockUseSession = jest.mocked(useSession);
 const mockUseDrugSearch = jest.mocked(useDrugSearch);
 const mockUseDrugTemplate = jest.mocked(useDrugTemplate);
+const mockExtensionSlot = jest.mocked(ExtensionSlot);
+const mockUserHasAccess = jest.mocked(UserHasAccess);
 const usePatientOrdersMock = jest.fn();
 
-mockCloseWorkspace.mockImplementation((name, { onWorkspaceClose }) => onWorkspaceClose());
 mockUseSession.mockReturnValue(mockSessionDataResponse.data);
-
-jest.mock('@openmrs/esm-patient-common-lib', () => ({
-  ...jest.requireActual('@openmrs/esm-patient-common-lib'),
-  launchPatientWorkspace: (...args) => mockLaunchPatientWorkspace(...args),
-}));
-
-/** This is needed to render the order form */
-global.IntersectionObserver = jest.fn(function (callback, options) {
-  this.observe = jest.fn();
-  this.unobserve = jest.fn();
-  this.disconnect = jest.fn();
-  this.trigger = (entries) => callback(entries, this);
-  this.options = options;
-}) as any;
+mockExtensionSlot.mockImplementation(() => null);
+mockUserHasAccess.mockImplementation(({ children }) => <>{children}</>);
 
 jest.mock('./drug-search/drug-search.resource', () => ({
   ...jest.requireActual('./drug-search/drug-search.resource'),
   useDrugSearch: jest.fn(),
   useDrugTemplate: jest.fn(),
-  useDebounce: jest.fn().mockImplementation((x) => x),
 }));
 
 jest.mock('../api/api', () => ({
   ...jest.requireActual('../api/api'),
-  usePatientOrders: () => usePatientOrdersMock(),
+  useActivePatientOrders: () => usePatientOrdersMock(),
   useRequireOutpatientQuantity: jest
     .fn()
     .mockReturnValue({ requireOutpatientQuantity: false, error: null, isLoading: false }),
@@ -62,6 +50,8 @@ describe('AddDrugOrderWorkspace drug search', () => {
       isLoading: false,
       drugs: mockDrugSearchResultApiData,
       error: null,
+      isValidating: false,
+      mutate: jest.fn(),
     }));
 
     mockUseDrugTemplate.mockImplementation((drugUuid) => ({
@@ -87,14 +77,14 @@ describe('AddDrugOrderWorkspace drug search', () => {
     // Anotates results with dosing info if an order-template was found.
     const aspirin81 = getByTextWithMarkup(/Aspirin 81mg/i);
     expect(aspirin81).toBeInTheDocument();
-    expect(aspirin81.closest('div')).toHaveTextContent(/Aspirin.*81mg.*tablet.*twice daily.*oral/i);
+    expect(aspirin81.closest('[role="listitem"]')).toHaveTextContent(/Aspirin.*81mg.*tablet.*twice daily.*oral/i);
     // Only displays drug name for results without a matching order template
     const aspirin325 = getByTextWithMarkup(/Aspirin 325mg/i);
     expect(aspirin325).toBeInTheDocument();
-    expect(aspirin325.closest('div')).toHaveTextContent(/Aspirin.*325mg.*tablet/i);
+    expect(aspirin325.closest('[role="listitem"]')).toHaveTextContent(/Aspirin.*325mg.*tablet/i);
     const asprin162 = screen.getByText(/Aspirin 162.5mg/i);
     expect(asprin162).toBeInTheDocument();
-    expect(asprin162.closest('div')).toHaveTextContent(/Aspirin.*162.5mg.*tablet/i);
+    expect(asprin162.closest('[role="listitem"]')).toHaveTextContent(/Aspirin.*162.5mg.*tablet/i);
   });
 
   test('no buttons to click if the medication is already prescribed', async () => {
@@ -108,7 +98,7 @@ describe('AddDrugOrderWorkspace drug search', () => {
 
     await user.type(screen.getByRole('searchbox'), 'Aspirin');
     expect(screen.getAllByRole('listitem').length).toEqual(3);
-    const aspirin162Div = getByTextWithMarkup(/Aspirin 162.5mg/i).closest('div').parentElement;
+    const aspirin162Div = getByTextWithMarkup(/Aspirin 162.5mg/i).closest('[role="listitem"]');
     expect(aspirin162Div).toHaveTextContent(/Already prescribed/i);
   });
 
@@ -122,18 +112,18 @@ describe('AddDrugOrderWorkspace drug search', () => {
       useOrderBasket('medications', ((x) => x) as unknown as PostDataPrepFunction),
     );
 
-    const aspirin325Div = getByTextWithMarkup(/Aspirin 325mg/i).closest('div').parentElement;
+    const aspirin325Div = getByTextWithMarkup(/Aspirin 325mg/i).closest('[role="listitem"]') as HTMLElement;
     const aspirin325AddButton = within(aspirin325Div).getByText(/Add to basket/i);
     await user.click(aspirin325AddButton);
 
     expect(hookResult.current.orders).toEqual([
       expect.objectContaining({
-        ...getTemplateOrderBasketItem(mockDrugSearchResultApiData[2]),
+        ...getTemplateOrderBasketItem(mockDrugSearchResultApiData[2], null),
         isOrderIncomplete: true,
         startDate: expect.any(Date),
       }),
     ]);
-    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('order-basket');
+    expect(mockCloseWorkspace).toHaveBeenCalled();
   });
 
   test('can open the drug form ', async () => {
@@ -142,9 +132,7 @@ describe('AddDrugOrderWorkspace drug search', () => {
     renderAddDrugOrderWorkspace();
 
     await user.type(screen.getByRole('searchbox'), 'Aspirin');
-
-    renderHook(() => useOrderBasket('medications', ((x) => x) as unknown as PostDataPrepFunction));
-    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('div').parentElement;
+    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('[role="listitem"]') as HTMLElement;
     const aspirin81OpenFormButton = within(aspirin81Div).getByText(/Order form/i);
     await user.click(aspirin81OpenFormButton);
 
@@ -160,7 +148,7 @@ describe('AddDrugOrderWorkspace drug search', () => {
       useOrderBasket('medications', ((x) => x) as unknown as PostDataPrepFunction),
     );
     await user.type(screen.getByRole('searchbox'), 'Aspirin');
-    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('div').parentElement;
+    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('[role="listitem"]') as HTMLElement;
     const openFormButton = within(aspirin81Div).getByText(/Order form/i);
     await user.click(openFormButton);
 
@@ -175,28 +163,94 @@ describe('AddDrugOrderWorkspace drug search', () => {
         expect.objectContaining({
           ...getTemplateOrderBasketItem(
             mockDrugSearchResultApiData[0],
+            null,
             undefined,
             mockDrugOrderTemplateApiData[mockDrugSearchResultApiData[0].uuid][0],
           ),
           startDate: expect.any(Date),
           indication: 'Hypertension',
-          careSetting: '6f0c9a92-6f24-11e3-af88-005056821db0',
-          orderer: mockSessionDataResponse.data.currentProvider.uuid,
         }),
       ]),
     );
+  });
+
+  test('discarding a new order returns to drug search', async () => {
+    const user = userEvent.setup();
+
+    renderAddDrugOrderWorkspace();
+
+    await user.type(screen.getByRole('searchbox'), 'Aspirin');
+    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('[role="listitem"]') as HTMLElement;
+    await user.click(within(aspirin81Div).getByText(/Order form/i));
+
+    expect(screen.getByText(/Order Form/i)).toBeInTheDocument();
+    expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+
+    await user.click(screen.getByText(/Discard/i));
+
+    expect(screen.getByRole('searchbox')).toBeInTheDocument();
+    expect(mockCloseWorkspace).not.toHaveBeenCalled();
+  });
+
+  test('preserves search term when navigating back from order form', async () => {
+    const user = userEvent.setup();
+
+    renderAddDrugOrderWorkspace();
+
+    await user.type(screen.getByRole('searchbox'), 'Aspirin');
+    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('[role="listitem"]') as HTMLElement;
+    await user.click(within(aspirin81Div).getByText(/Order form/i));
+
+    expect(screen.getByText(/Order Form/i)).toBeInTheDocument();
+
+    await user.click(screen.getByText(/Discard/i));
+
+    expect(screen.getByRole('searchbox')).toHaveValue('Aspirin');
+  });
+
+  test('shows a validation error when dose is 0', async () => {
+    const user = userEvent.setup();
+
+    renderAddDrugOrderWorkspace();
+
+    await user.type(screen.getByRole('searchbox'), 'Aspirin');
+    const aspirin81Div = getByTextWithMarkup(/Aspirin 81mg/i).closest('[role="listitem"]') as HTMLElement;
+    await user.click(within(aspirin81Div).getByText(/Order form/i));
+
+    expect(screen.getByText(/Order Form/i)).toBeInTheDocument();
+
+    // Clear the pre-filled dose value and enter 0
+    const doseInput = screen.getByRole('spinbutton', { name: /dose/i });
+    await user.clear(doseInput);
+    await user.type(doseInput, '0');
+    await user.click(screen.getByText(/Save order/i));
+
+    expect(await screen.findByText(/dose must be greater than 0/i)).toBeInTheDocument();
   });
 });
 
 function renderAddDrugOrderWorkspace() {
   render(
     <AddDrugOrderWorkspace
-      order={undefined as any}
-      closeWorkspace={({ onWorkspaceClose }) => onWorkspaceClose()}
-      closeWorkspaceWithSavedChanges={({ onWorkspaceClose }) => onWorkspaceClose()}
-      promptBeforeClosing={() => false}
-      patientUuid={'mock-patient-uuid'}
-      setTitle={jest.fn()}
+      workspaceProps={{
+        order: null,
+        orderToEditOrdererUuid: null,
+      }}
+      groupProps={{
+        patientUuid: mockFhirPatient.id,
+        patient: mockFhirPatient,
+        visitContext: null,
+        mutateVisitContext: null,
+      }}
+      workspaceName={''}
+      launchChildWorkspace={jest.fn()}
+      closeWorkspace={mockCloseWorkspace}
+      windowProps={{
+        encounterUuid: '',
+      }}
+      windowName={''}
+      isRootWorkspace={false}
+      showActionMenu={false}
     />,
   );
 }

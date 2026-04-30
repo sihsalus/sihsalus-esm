@@ -3,6 +3,24 @@
   "backendDependencies": {
     "webservices.rest": ">=2.2.0"
   },
+  "optionalBackendDependencies": {
+    "providermanagement": {
+      "version": "^2.16.0",
+      "feature": {
+        "flagName": "providermanagement-module",
+        "label": "Prescribing Clinician Roles",
+        "description": "Enable support for configuring prescribing clinicians roles when ordering drugs. Requires the backend providermanagement module."
+      }
+    },
+    "ordertemplates": {
+      "version": "^1.0.2 || ^2.0.0",
+      "feature": {
+        "flagName": "ordertemplates-module",
+        "label": "Order Templates",
+        "description": "Enable support for order templates when ordering drugs. Requires the backend ordertemplates module."
+      }
+    }
+  },
   "extensions": [
     {
       "name": "medications-details-widget",
@@ -22,13 +40,22 @@
       "order": 4
     },
     {
+      "name": "past-medications-widget",
+      "component": "pastMedications",
+      "slot": "patient-chart-summary-dashboard-slot",
+      "meta": {
+        "fullWidth": false
+      },
+      "order": 5
+    },
+    {
       "name": "medications-summary-dashboard",
       "component": "medicationsDashboardLink",
       "slot": "patient-chart-dashboard-slot",
       "order": 3,
       "meta": {
         "slot": "patient-chart-medications-dashboard-slot",
-        "path": "Medications"
+        "path": "medications"
       }
     },
     {
@@ -36,21 +63,21 @@
       "component": "drugOrderPanel",
       "slot": "order-basket-slot",
       "order": 1
+    },
+    {
+      "name": "drug-order-form",
+      "component": "drugOrderForm"
+    },
+    {
+      "name": "drug-search-combobox",
+      "component": "drugSearchComboBox"
     }
   ],
   "workspaces2": [
     {
       "name": "add-drug-order",
       "component": "addDrugOrderWorkspace",
-      "window": "patient-chart-orders"
-    }
-  ],
-  "workspaces": [
-    {
-      "name": "add-drug-order",
-      "title": "addDrugOrderWorkspaceTitle",
-      "component": "addDrugOrderWorkspace",
-      "type": "order"
+      "window": "patient-chart-order-basket"
     }
   ]
 }
