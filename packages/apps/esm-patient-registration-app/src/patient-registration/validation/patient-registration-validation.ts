@@ -7,7 +7,7 @@ import { type RegistrationConfig } from '../../config-schema';
 import { getDatetime } from '../patient-registration.resource';
 import { type FormValues } from '../patient-registration.types';
 
-const t = (key: string, value: string) => translateFrom('@openmrs/esm-framework', key, value);
+const t = (key: string, value: string) => translateFrom('@sihsalus/esm-patient-registration-app', key, value);
 
 export function getValidationSchema(config: RegistrationConfig) {
   return Yup.object({
