@@ -8,6 +8,7 @@
 
 import { Button, ModalBody, ModalFooter, ModalHeader, Tag } from '@carbon/react';
 import { launchWorkspace, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
@@ -20,8 +21,6 @@ interface ServePatientModalProps {
   queueEntry: EmergencyQueueEntry;
   closeModal: () => void;
 }
-
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV'];
 
 const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, closeModal }) => {
   const { t } = useTranslation();
@@ -36,13 +35,7 @@ const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, close
   const gender = queueEntry.patient.person?.gender || '';
   const age = queueEntry.patient.person?.age;
   const identifiers = queueEntry.patient.identifiers || [];
-  const hceTypeUuid = config.patientRegistration.openMrsIdIdentifierTypeUuid;
-  const preferredIdentifier =
-    preferredIdentifierNames
-      .map((identifierName) =>
-        identifiers.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
-      )
-      .find(Boolean) ?? identifiers.find((id) => id.identifierType?.uuid === hceTypeUuid);
+  const preferredIdentifier = getPreferredIdentifier(identifiers);
   const otherIdentifiers = identifiers.filter((id) => id.uuid !== preferredIdentifier?.uuid);
 
   const handleServe = useCallback(() => {

@@ -62,33 +62,38 @@ export function useAddressEntryFetchConfig(addressField: string) {
   const [, { value: addressValues }] = useField('address');
 
   const index = useMemo(
-    () => (!isLoadingFieldOrder ? orderedFields.findIndex((field) => field === addressField) : -1),
+    () => (!isLoadingFieldOrder ? (orderedFields?.findIndex((field) => field === addressField) ?? -1) : -1),
     [orderedFields, addressField, isLoadingFieldOrder],
+  );
+
+  const previousSelectedFields = useMemo(() => orderedFields?.slice(0, index) ?? [], [orderedFields, index]);
+  const previousSelectedValues = useMemo(
+    () => previousSelectedFields.map((fieldName) => addressValues?.[fieldName] ?? ''),
+    [addressValues, previousSelectedFields],
   );
 
   const addressFieldSearchConfig = useMemo(() => {
     let fetchEntriesForField = true;
-    const previousSelectedFields = orderedFields?.slice(0, index) ?? [];
-    const previousSelectedValues = [];
-    for (const fieldName of previousSelectedFields) {
-      if (!addressValues[fieldName]) {
+    const selectedValues = [];
+    for (const selectedValue of previousSelectedValues) {
+      if (!selectedValue) {
         fetchEntriesForField = false;
         break;
       }
-      previousSelectedValues.push(addressValues[fieldName]);
+      selectedValues.push(selectedValue);
     }
     return {
       fetchEntriesForField,
-      searchString: previousSelectedValues.join('|'),
+      searchString: selectedValues.join('|'),
     };
-  }, [orderedFields, index, addressValues]);
+  }, [previousSelectedValues]);
 
   const updateChildElements = useCallback(() => {
-    if (isLoadingFieldOrder) {
+    if (isLoadingFieldOrder || !orderedFields) {
       return;
     }
     orderedFields.slice(index + 1).forEach((fieldName) => {
-      setFieldValue(`address.${fieldName}`, '');
+      setFieldValue(`address.${fieldName}`, '', false);
     });
   }, [index, isLoadingFieldOrder, orderedFields, setFieldValue]);
 
@@ -104,6 +109,8 @@ export function useAddressEntryFetchConfig(addressField: string) {
 }
 
 export function useAddressHierarchy(searchString: string, separator: string) {
+  const encodedSearchString = encodeURIComponent(searchString);
+  const encodedSeparator = encodeURIComponent(separator);
   const { data, error, isLoading } = useSWRImmutable<
     FetchResponse<
       Array<{
@@ -113,7 +120,7 @@ export function useAddressHierarchy(searchString: string, separator: string) {
     Error
   >(
     searchString
-      ? `/module/addresshierarchy/ajax/getPossibleFullAddresses.form?separator=${separator}&searchString=${searchString}`
+      ? `/module/addresshierarchy/ajax/getPossibleFullAddresses.form?separator=${encodedSeparator}&searchString=${encodedSearchString}`
       : null,
     openmrsFetch,
   );
@@ -130,6 +137,8 @@ export function useAddressHierarchy(searchString: string, separator: string) {
 }
 
 export function useAddressHierarchyWithParentSearch(addressField: string, parentid: string, query: string) {
+  const encodedQuery = encodeURIComponent(query);
+  const encodedParentId = encodeURIComponent(parentid);
   const { data, error, isLoading } = useSWRImmutable<
     FetchResponse<
       Array<{
@@ -140,7 +149,7 @@ export function useAddressHierarchyWithParentSearch(addressField: string, parent
     Error
   >(
     query
-      ? `/module/addresshierarchy/ajax/getPossibleAddressHierarchyEntriesWithParents.form?addressField=${addressField}&limit=20&searchString=${query}&parentUuid=${parentid}`
+      ? `/module/addresshierarchy/ajax/getPossibleAddressHierarchyEntriesWithParents.form?addressField=${addressField}&limit=20&searchString=${encodedQuery}&parentUuid=${encodedParentId}`
       : null,
     openmrsFetch,
   );

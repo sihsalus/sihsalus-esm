@@ -29,6 +29,7 @@ import {
 import { CheckmarkFilled, SendFilled, User, UserFollow } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { OpenmrsDatePicker, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import dayjs from 'dayjs';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -70,18 +71,6 @@ const quickRegistrationSchema = z.object({
 });
 
 type QuickRegistrationFormData = z.infer<typeof quickRegistrationSchema>;
-
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
-
-function getPreferredIdentifier(patient: SearchedPatient) {
-  return (
-    preferredIdentifierNames
-      .map((identifierName) =>
-        patient.identifiers?.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
-      )
-      .find(Boolean) ?? patient.identifiers?.[0]
-  );
-}
 
 // ============================================================================
 // COMPONENT PROPS
@@ -496,7 +485,7 @@ const PatientSearchRegistration: React.FC<PatientSearchRegistrationProps> = ({ o
                 </p>
                 <Stack gap={3}>
                   {searchResults.map((patient) => {
-                    const preferredIdentifier = getPreferredIdentifier(patient);
+                    const preferredIdentifier = getPreferredIdentifier(patient.identifiers ?? []);
 
                     return (
                       <Layer key={patient.uuid}>

@@ -4,6 +4,7 @@
  */
 
 import { ConfigurableLink, useConfig } from '@openmrs/esm-framework';
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 import { type Config } from '../../../config-schema';
 import { type EmergencyQueueEntry } from '../../../resources/emergency.resource';
@@ -13,19 +14,9 @@ export interface EmergencyQueueTableCellProps {
   queueEntry: EmergencyQueueEntry;
 }
 
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV'];
-
 export const EmergencyQueueNameCell: React.FC<EmergencyQueueTableCellProps> = ({ queueEntry }) => {
-  const config = useConfig<Config>();
-  const hceTypeUuid = config.patientRegistration.openMrsIdIdentifierTypeUuid;
-
   const identifiers = queueEntry.patient.identifiers || [];
-  const preferredIdentifier =
-    preferredIdentifierNames
-      .map((identifierName) =>
-        identifiers.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
-      )
-      .find(Boolean) ?? identifiers.find((id) => id.identifierType?.uuid === hceTypeUuid);
+  const preferredIdentifier = getPreferredIdentifier(identifiers);
   const patientName = queueEntry.patient.person?.display || queueEntry.patient.display;
 
   return (

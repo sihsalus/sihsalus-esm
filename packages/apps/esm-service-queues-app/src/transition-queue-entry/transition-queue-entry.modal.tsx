@@ -23,7 +23,7 @@ enum priorityComment {
   REQUEUED = 'Requeued',
 }
 
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
+import { preferredIdentifierNames } from '@sihsalus/esm-sihsalus-shared';
 
 function getPreferredIdentifiers(
   identifiers: MappedVisitQueueEntry['identifiers'] = [],

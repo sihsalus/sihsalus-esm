@@ -21,21 +21,9 @@ import { type ActiveVisit, type VisitResponse } from '../types';
 
 dayjs.extend(isToday);
 
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
+
 type VisitIdentifier = NonNullable<Visit['patient']>['identifiers'][number];
-
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
-
-function getPreferredIdentifier(identifiers: Array<VisitIdentifier> = []) {
-  return (
-    preferredIdentifierNames
-      .map((identifierName) =>
-        identifiers.find(
-          (identifier) => identifier?.identifierType?.name?.toLowerCase() === identifierName.toLowerCase(),
-        ),
-      )
-      .find(Boolean) ?? identifiers[0]
-  );
-}
 
 export function useActiveVisits() {
   const session = useSession();

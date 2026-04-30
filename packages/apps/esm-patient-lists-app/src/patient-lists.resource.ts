@@ -112,21 +112,7 @@ interface PatientListResponse {
   totalCount: number;
 }
 
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
-
-function getPreferredIdentifier(identifiers: CohortMember['patient']['identifiers'] = []) {
-  return (
-    preferredIdentifierNames
-      .map((identifierName) =>
-        identifiers.find(
-          (identifier) =>
-            identifier?.identifierType?.display?.toLowerCase() === identifierName.toLowerCase() ||
-            identifier?.identifierType?.name?.toLowerCase() === identifierName.toLowerCase(),
-        ),
-      )
-      .find(Boolean) ?? identifiers[0]
-  );
-}
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 
 /**
  * Fetches patient lists from the OpenMRS Cohort resource.

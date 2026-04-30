@@ -1,6 +1,7 @@
 import { Tag, Tile } from '@carbon/react';
 import type { Patient } from '@openmrs/esm-framework';
 import { PatientPhoto } from '@openmrs/esm-framework';
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 
 import styles from './patient-search-info.scss';
@@ -9,20 +10,8 @@ type PatientSearchInfoProps = {
   patient: Patient;
 };
 
-const preferredIdentifierNames = ['DNI', 'CE', 'Pasaporte', 'PASS', 'DIE', 'CNV', 'N° Historia Clínica'];
-
-function getPreferredIdentifier(patient: Patient) {
-  return (
-    preferredIdentifierNames
-      .map((identifierName) =>
-        patient.identifiers?.find((id) => id.identifierType?.display?.toLowerCase() === identifierName.toLowerCase()),
-      )
-      .find(Boolean) ?? patient.identifiers?.[0]
-  );
-}
-
 const PatientSearchInfo: React.FC<PatientSearchInfoProps> = ({ patient }) => {
-  const identifier = getPreferredIdentifier(patient);
+  const identifier = getPreferredIdentifier(patient.identifiers ?? []);
 
   return (
     <Tile className={styles.patientInfo}>
