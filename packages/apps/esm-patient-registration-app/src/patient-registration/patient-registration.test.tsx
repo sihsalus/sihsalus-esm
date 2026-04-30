@@ -557,7 +557,7 @@ describe('Updating an existing patient record', () => {
       expect.anything(),
       expect.anything(),
       null,
-      undefined,
+      '',
       expect.anything(),
       expect.anything(),
       expect.anything(),

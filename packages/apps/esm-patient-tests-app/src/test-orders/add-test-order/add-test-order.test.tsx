@@ -216,12 +216,18 @@ describe('AddLabOrder', () => {
   });
 
   test('should display a patient header on tablet', () => {
-    mockUseLayoutType.mockReturnValue('tablet');
-    renderAddLabOrderWorkspace();
-    expect(screen.getByText(/joshua johnson/i)).toBeInTheDocument();
-    expect(screen.getByText(/male/i)).toBeInTheDocument();
-    expect(screen.getByText(/6 yrs, 6 mths/i)).toBeInTheDocument();
-    expect(screen.getByText('25 — Sept — 2019')).toBeInTheDocument();
+    jest.useFakeTimers().setSystemTime(new Date('2026-03-26T12:00:00Z'));
+
+    try {
+      mockUseLayoutType.mockReturnValue('tablet');
+      renderAddLabOrderWorkspace();
+      expect(screen.getByText(/joshua johnson/i)).toBeInTheDocument();
+      expect(screen.getByText(/male/i)).toBeInTheDocument();
+      expect(screen.getByText(/6 yrs, 6 mths/i)).toBeInTheDocument();
+      expect(screen.getByText('25 — Sept — 2019')).toBeInTheDocument();
+    } finally {
+      jest.useRealTimers();
+    }
   });
 
   test('should display an error message if test types fail to load', () => {

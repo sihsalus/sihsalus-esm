@@ -46,7 +46,7 @@ describe('RedirectLogout', () => {
       },
     });
 
-    jest.spyOn(document.documentElement, 'getAttribute').mockReturnValue('km');
+    document.documentElement.dataset.defaultLang = 'km';
   });
 
   it('should redirect to login page upon logout', async () => {
@@ -125,13 +125,13 @@ describe('RedirectLogout', () => {
   });
 
   it('should handle missing default language attribute', async () => {
-    jest.spyOn(document.documentElement, 'getAttribute').mockReturnValue(null);
+    delete document.documentElement.dataset.defaultLang;
 
     render(<RedirectLogout />);
 
     await waitFor(() => {
       expect(mockSetUserLanguage).toHaveBeenCalledWith({
-        locale: null,
+        locale: undefined,
         authenticated: false,
         sessionId: '',
       });
