@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import SearchHistory from './search-history.component';
 
+const _mockGetSearchHistory = jest.fn();
+
 jest.mock('./search-history.utils.ts', () => ({
   getSearchHistory: () => mockSearchHistory,
 }));

@@ -30,14 +30,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openmrs/openmrs-esm-stock-management-app.git"
+    "url": "git+https://github.com/openmrs/openmrs-esm-stock-management.git"
   },
-  "homepage": "https://github.com/openmrs/openmrs-esm-stock-management-app#readme",
+  "homepage": "https://github.com/openmrs/openmrs-esm-stock-management#readme",
   "publishConfig": {
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/openmrs/openmrs-esm-stock-management-app/issues"
+    "url": "https://github.com/openmrs/openmrs-esm-stock-management/issues"
   },
   "dependencies": {
     "@carbon/react": "^1.92.1",

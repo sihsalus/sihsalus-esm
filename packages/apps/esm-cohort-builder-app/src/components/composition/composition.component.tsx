@@ -38,7 +38,7 @@ const Composition: React.FC<SearchByProps> = ({ onSubmit }) => {
         });
       }
       setIsLoading(false);
-    } catch {
+    } catch (_error) {
       setIsLoading(false);
       showSnackbar({
         title: t('error', 'Error!'),

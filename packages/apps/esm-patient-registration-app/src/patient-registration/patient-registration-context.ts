@@ -4,6 +4,7 @@ import { createContext, type SetStateAction } from 'react';
 import { type RegistrationConfig } from '../config-schema';
 
 import { type CapturePhotoProps, type FormValues } from './patient-registration.types';
+import { getEffectiveRegistrationConfig } from './peru-registration-config';
 
 export interface PatientRegistrationContextProps {
   currentPhoto: string | null;
@@ -22,6 +23,6 @@ export interface PatientRegistrationContextProps {
 export const PatientRegistrationContext = createContext<PatientRegistrationContextProps | undefined>(undefined);
 
 export function useFieldConfig(field: string) {
-  const { fieldConfigurations } = useConfig() as RegistrationConfig;
+  const { fieldConfigurations } = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   return fieldConfigurations[field];
 }

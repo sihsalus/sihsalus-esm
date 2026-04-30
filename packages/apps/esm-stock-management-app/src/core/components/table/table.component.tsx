@@ -23,36 +23,27 @@ import { useTranslation } from 'react-i18next';
 import styles from './table.scss';
 import { type DataTableRenderProps } from './types';
 
-type TableRowData = Record<string, unknown>;
-
 type FilterProps = {
   rowIds: Array<string>;
-  headers: Array<{ key: string }>;
-  cellsById: Record<string, { value: unknown }>;
+  headers: any;
+  cellsById: any;
   inputValue: string;
-  getCellId: (row: string, key: string) => string;
+  getCellId: (row, key) => string;
 };
 
-interface ListProps<T extends TableRowData = TableRowData> {
-  columns: Array<{ key: string; header: string }>;
-  data: Array<T>;
+interface ListProps {
+  columns: any;
+  data: any;
   children?: (renderProps: DataTableRenderProps) => React.ReactElement;
   totalItems?: number;
   goToPage?: (page: number) => void;
   hasToolbar?: boolean;
 }
 
-const DataList = <T extends TableRowData>({
-  columns,
-  data,
-  children,
-  totalItems,
-  goToPage,
-  hasToolbar = true,
-}: ListProps<T>) => {
+const DataList: React.FC<ListProps> = ({ columns, data, children, totalItems, goToPage, hasToolbar = true }) => {
   const { t } = useTranslation();
   const layout = useLayoutType();
-  const [allRows, setAllRows] = useState<Array<T & { id: string }>>([]);
+  const [allRows, setAllRows] = useState([]);
   const isTablet = useLayoutType() === 'tablet';
   const [list] = useState(data);
   const pageSizes = [10, 20, 30, 40, 50];
@@ -60,10 +51,10 @@ const DataList = <T extends TableRowData>({
   const { goTo, results: paginatedList, currentPage } = usePagination(list, currentPageSize);
 
   useEffect(() => {
-    const rows: Array<T & { id: string }> = [];
+    const rows: Array<Record<string, string>> = [];
 
-    paginatedList.forEach((item, index) => {
-      rows.push({ ...item, id: String(index) });
+    paginatedList.map((item: any, index) => {
+      return rows.push({ ...item, id: index++ });
     });
     setAllRows(rows);
   }, [paginatedList]);
@@ -95,9 +86,9 @@ const DataList = <T extends TableRowData>({
     saveAs(jsonBlob, 'data.json');
   };
 
-  const convertToCSV = (csvData: Array<T>, csvColumns: Array<{ key: string; header: string }>) => {
-    const header = csvColumns.map((col) => col.header).join(',');
-    const rows = csvData.map((row) => csvColumns.map((col) => JSON.stringify(row[col.key as keyof T] ?? '')).join(','));
+  const convertToCSV = (data, columns) => {
+    const header = columns.map((col) => col.header).join(',');
+    const rows = data.map((row) => columns.map((col) => JSON.stringify(row[col.key])).join(','));
     return [header, ...rows].join('\n');
   };
 

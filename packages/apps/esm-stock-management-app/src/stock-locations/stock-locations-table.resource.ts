@@ -73,6 +73,7 @@ export function useStockLocationPages(_filter: StockOperationFilter) {
 export const useLocationTags = () => {
   const url = `${restBaseUrl}/locationtag/`;
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data, isLoading, mutate } = useSWR<{ data }, Error>(url, openmrsFetch);
   const results = data?.data?.results ? data?.data?.results : [];
   return {

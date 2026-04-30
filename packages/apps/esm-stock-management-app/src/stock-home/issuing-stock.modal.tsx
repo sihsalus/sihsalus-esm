@@ -12,14 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 interface IssuingStockModalProps {
-  issuingStock: Array<{
-    status?: string;
-    sourceName?: string;
-    destinationName?: string;
-    stockItemName?: string;
-    stockItemPackagingUOMName?: string;
-    quantity?: number | string;
-  }>;
+  issuingStock: any[];
   closeModal: () => void;
 }
 

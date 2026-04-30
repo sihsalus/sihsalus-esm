@@ -33,7 +33,7 @@ const SideNavItemsList: React.FC<SideNavProps> = ({ tabs, selectedIndex, onSelec
                   } else {
                     onSelectTab(index); // Call onSelectTab to update selectedTab in the parent
                     navigate({
-                      to: `${globalThis.getOpenmrsSpaBase()}stock-management/${tab.link}`,
+                      to: `${window.getOpenmrsSpaBase()}stock-management/${tab.link}`,
                     });
                   }
                 }}

@@ -108,9 +108,10 @@ describe('DrugSelector', () => {
   });
 
   it('does not call fetchStockItem in read-only mode when a drug is selected', async () => {
+    const _user = userEvent.setup();
     mockUseDrugsHook.mockReturnValue({ drugList: mockDrugs as Drug[], isLoading: false });
 
-    render(<DrugSelectorWrapper defaultDrugUuid="drug-1" initialDrugName="Aspirin" readOnly />);
+    const { rerender } = render(<DrugSelectorWrapper defaultDrugUuid="drug-1" initialDrugName="Aspirin" readOnly />);
 
     expect(mockFetchStockItem).not.toHaveBeenCalled();
   });
