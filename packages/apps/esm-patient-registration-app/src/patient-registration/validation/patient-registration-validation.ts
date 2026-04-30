@@ -1,4 +1,3 @@
-import { translateFrom } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import mapValues from 'lodash/mapValues';
 import * as Yup from 'yup';
@@ -7,7 +6,7 @@ import { type RegistrationConfig } from '../../config-schema';
 import { getDatetime } from '../patient-registration.resource';
 import { type FormValues } from '../patient-registration.types';
 
-const t = (key: string, value: string) => translateFrom('@sihsalus/esm-patient-registration-app', key, value);
+const t = (key: string, _value: string) => key;
 
 export function getValidationSchema(config: RegistrationConfig) {
   return Yup.object({
