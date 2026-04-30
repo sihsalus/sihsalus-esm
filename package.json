@@ -30,6 +30,8 @@
     "format:check": "biome format .",
     "lint": "turbo run lint",
     "typecheck": "turbo run typescript",
+    "audit:workspaces": "node packages/tooling/scripts/audit-workspaces.js",
+    "audit:workspaces:report": "node packages/tooling/scripts/audit-workspaces.js --report-only",
     "verify": "cross-env TZ=UTC turbo run lint typescript test",
     "verify:changed": "node packages/tooling/scripts/verify-changed.js",
     "extract-translations": "turbo run extract-translations",
