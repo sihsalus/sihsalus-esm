@@ -16,6 +16,7 @@ const WardPatientCancelAdmissionRequestWorkspace: React.FC<WardPatientWorkspaceD
       closeWorkspace={closeWorkspace as never}
       closeWorkspaceWithSavedChanges={closeWorkspace as never}
       promptBeforeClosing={() => {}}
+      setTitle={() => {}}
       wardPatient={wardPatient}
     />
   );
