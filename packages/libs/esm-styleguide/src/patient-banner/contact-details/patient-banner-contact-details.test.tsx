@@ -2,7 +2,7 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { usePatient } from '@openmrs/esm-framework/src/internal';
+import { usePatient } from '@openmrs/esm-react-utils';
 import { screen } from '@testing-library/react';
 import { renderWithSwr } from '../../test-utils';
 import { PatientBannerContactDetails } from './patient-banner-contact-details.component';

@@ -1,16 +1,15 @@
 /** @module @category Workspace */
 
 import {
-  createGlobalStore,
-  getCoreTranslation,
-  getGlobalStore,
   getWorkspaceGroupRegistration,
   getWorkspaceRegistration,
-  navigate,
-  useStore,
   type WorkspaceRegistration,
-} from '@openmrs/esm-framework/src/internal';
+} from '@openmrs/esm-extensions';
 import { type WorkspaceWindowState } from '@openmrs/esm-globals';
+import { navigate } from '@openmrs/esm-navigation';
+import { useStore } from '@openmrs/esm-react-utils';
+import { createGlobalStore, getGlobalStore } from '@openmrs/esm-state';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import { type ReactNode, useMemo } from 'react';
 import type { StoreApi } from 'zustand/vanilla';
 
@@ -370,13 +369,18 @@ export function launchWorkspace<
     });
   } else if (isWorkspaceAlreadyOpen) {
     const openWorkspace = openWorkspaces[workspaceIndexInOpenWorkspaces];
-    // Only update the title if it hasn't been set by `setTitle`
-    if (openWorkspace.title === getWorkspaceTitle(openWorkspace, openWorkspace.additionalProps)) {
-      openWorkspace.title = getWorkspaceTitle(newWorkspace, newWorkspace.additionalProps);
-    }
-    openWorkspace.additionalProps = newWorkspace.additionalProps;
+    // Create a new object reference so that WorkspaceRenderer's useMemo
+    // detects the change and re-renders with the updated additionalProps.
+    const updatedWorkspace: OpenWorkspace = {
+      ...openWorkspace,
+      additionalProps: newWorkspace.additionalProps,
+      // Only update the title if it hasn't been set by `setTitle`
+      ...(openWorkspace.title === getWorkspaceTitle(openWorkspace, openWorkspace.additionalProps) && {
+        title: getWorkspaceTitle(newWorkspace, newWorkspace.additionalProps),
+      }),
+    };
     const restOfTheWorkspaces = openWorkspaces.filter((w) => w.name != name);
-    updateStoreWithNewWorkspace(openWorkspaces[workspaceIndexInOpenWorkspaces], restOfTheWorkspaces);
+    updateStoreWithNewWorkspace(updatedWorkspace, restOfTheWorkspaces);
   } else if (openedWorkspaceWithSameType) {
     const restOfTheWorkspaces = store.getState().openWorkspaces.filter((w) => w.type != newWorkspace.type);
     updateStoreWithNewWorkspace(openedWorkspaceWithSameType, restOfTheWorkspaces);

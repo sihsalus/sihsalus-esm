@@ -1,7 +1,7 @@
 /** @module @category UI */
 
 import { FormLabel, Tag } from '@carbon/react';
-import { useConfig, usePrimaryIdentifierCode } from '@openmrs/esm-framework/src/internal';
+import { useConfig, usePrimaryIdentifierCode } from '@openmrs/esm-react-utils';
 import React from 'react';
 import { type StyleguideConfigObject } from '../../config-schema';
 import styles from './patient-banner-patient-info.module.scss';

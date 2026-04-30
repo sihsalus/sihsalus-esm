@@ -1,4 +1,4 @@
-import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { useLayoutType } from '@openmrs/esm-react-utils';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './card-header.module.scss';

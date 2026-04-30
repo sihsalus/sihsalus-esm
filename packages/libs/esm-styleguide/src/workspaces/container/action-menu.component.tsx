@@ -1,6 +1,6 @@
 /** @module @category Workspace */
 
-import { ComponentContext, ExtensionSlot, isDesktop, useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { ComponentContext, ExtensionSlot, isDesktop, useLayoutType } from '@openmrs/esm-react-utils';
 import classNames from 'classnames';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from './action-menu.module.scss';

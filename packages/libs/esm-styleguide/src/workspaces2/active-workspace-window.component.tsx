@@ -1,11 +1,7 @@
 import { InlineLoading } from '@carbon/react';
-import {
-  getCoreTranslation,
-  loadLifeCycles,
-  type OpenedWindow,
-  type OpenedWorkspace,
-  workspace2Store,
-} from '@openmrs/esm-framework/src/internal';
+import { type OpenedWindow, type OpenedWorkspace, workspace2Store } from '@openmrs/esm-extensions';
+import { loadLifeCycles } from '@openmrs/esm-routes';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useState } from 'react';
 import { mountRootParcel, type ParcelConfig } from 'single-spa';

@@ -5,6 +5,7 @@ import '@testing-library/jest-dom/vitest';
 import { useConfig } from '@openmrs/esm-react-utils/mock';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import styles from './datepicker.module.scss';
 import { DEFAULT_MIN_DATE_FLOOR } from './defaults';
 import { OpenmrsDateRangePicker } from './index';
 
@@ -150,6 +151,41 @@ describe('OpenmrsDateRangePicker', () => {
       );
       consoleErrorSpy.mockRestore();
     });
+  });
+
+  describe('size prop', () => {
+    /* eslint-disable testing-library/no-container, testing-library/no-node-access */
+    const getInputsWrapper = (container: HTMLElement) =>
+      Array.from(container.querySelectorAll('div')).find((el) => el.className.includes('inputsWrapper')) ?? null;
+
+    it('should apply md size classes by default', () => {
+      const { container } = render(<OpenmrsDateRangePicker aria-label="datepicker" />);
+      const wrapper = getInputsWrapper(container)!;
+      expect(wrapper).toHaveClass(styles.inputsWrapperMd);
+      expect(screen.getByRole('button')).toHaveClass(styles.flatButtonMd);
+    });
+
+    it('should apply sm size classes when size="sm"', () => {
+      const { container } = render(<OpenmrsDateRangePicker aria-label="datepicker" size="sm" />);
+      const wrapper = getInputsWrapper(container)!;
+      expect(wrapper).toHaveClass(styles.inputsWrapperSm);
+      expect(screen.getByRole('button')).toHaveClass(styles.flatButtonSm);
+    });
+
+    it('should apply md size classes when size="md"', () => {
+      const { container } = render(<OpenmrsDateRangePicker aria-label="datepicker" size="md" />);
+      const wrapper = getInputsWrapper(container)!;
+      expect(wrapper).toHaveClass(styles.inputsWrapperMd);
+      expect(screen.getByRole('button')).toHaveClass(styles.flatButtonMd);
+    });
+
+    it('should apply lg size classes when size="lg"', () => {
+      const { container } = render(<OpenmrsDateRangePicker aria-label="datepicker" size="lg" />);
+      const wrapper = getInputsWrapper(container)!;
+      expect(wrapper).toHaveClass(styles.inputsWrapperLg);
+      expect(screen.getByRole('button')).toHaveClass(styles.flatButtonLg);
+    });
+    /* eslint-enable testing-library/no-container, testing-library/no-node-access */
   });
 
   describe('calendar popover', () => {

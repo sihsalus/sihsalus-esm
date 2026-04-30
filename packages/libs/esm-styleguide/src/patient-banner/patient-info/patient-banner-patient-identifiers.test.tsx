@@ -1,7 +1,7 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { useConfig, usePrimaryIdentifierCode } from '@openmrs/esm-framework/src/internal';
+import { useConfig, usePrimaryIdentifierCode } from '@openmrs/esm-react-utils';
 import { render, screen } from '@testing-library/react';
 import PatientBannerPatientIdentifiers from './patient-banner-patient-identifiers.component';
 

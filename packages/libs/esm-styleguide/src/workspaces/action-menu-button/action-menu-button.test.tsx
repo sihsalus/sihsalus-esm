@@ -2,7 +2,7 @@ import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { Pen } from '@carbon/react/icons';
-import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { useLayoutType } from '@openmrs/esm-react-utils';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type OpenWorkspace, useWorkspaces, type WorkspacesInfo } from '../workspaces';
@@ -118,7 +118,7 @@ describe('ActionMenuButton', () => {
     expect(button).toBeInTheDocument();
 
     // toHaveAttribute() cannot do either partial or regex matches
-
+    // eslint-disable-next-line jest-dom/prefer-to-have-attribute
     expect(button.getAttribute('class')).toContain('active');
   });
 
@@ -231,7 +231,7 @@ describe('ActionMenuButton', () => {
     expect(button).toBeInTheDocument();
 
     // toHaveAttribute() cannot do either partial or regex matches
-
+    // eslint-disable-next-line jest-dom/prefer-to-have-attribute
     expect(button.getAttribute('class')).toContain('active');
   });
 

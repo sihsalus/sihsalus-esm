@@ -1,7 +1,7 @@
 /** @module @category UI */
 
 import { ActionableNotification } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classnames from 'classnames';
 import React, { useCallback, useEffect, useState } from 'react';
 import styles from './snackbar.module.scss';

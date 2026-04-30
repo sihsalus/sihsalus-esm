@@ -1,7 +1,7 @@
 /** @module @category UI */
 
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-api';
-import { useConfig } from '@openmrs/esm-framework/src/internal';
+import { useConfig } from '@openmrs/esm-react-utils';
 import useSWR from 'swr';
 import { type StyleguideConfigObject } from '../config-schema';
 

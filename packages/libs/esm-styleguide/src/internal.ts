@@ -3,6 +3,7 @@ export * from './cards';
 export * from './config-schema';
 export * from './custom-overflow-menu';
 export * from './dashboard-extension';
+export * from './data-table-batch-actions';
 export * from './datepicker';
 export * from './diagnosis-tags';
 export * from './empty-card';

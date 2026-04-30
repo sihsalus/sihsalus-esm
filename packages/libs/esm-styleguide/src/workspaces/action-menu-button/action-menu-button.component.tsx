@@ -1,7 +1,7 @@
 /** @module @category Workspace */
 
 import { Button, IconButton } from '@carbon/react';
-import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { useLayoutType } from '@openmrs/esm-react-utils';
 import classNames from 'classnames';
 import React from 'react';
 import { useWorkspaces } from '../workspaces';

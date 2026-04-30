@@ -1,7 +1,7 @@
 /** @module @category UI */
 
 import { OverflowMenuItem } from '@carbon/react';
-import { useLayoutType, useOnClickOutside } from '@openmrs/esm-framework/src/internal';
+import { useLayoutType, useOnClickOutside } from '@openmrs/esm-react-utils';
 import classNames from 'classnames';
 import React, {
   Children,

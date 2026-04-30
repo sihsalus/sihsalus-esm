@@ -1,6 +1,6 @@
 /** @category Pictograms */
 
-import { RenderIfValueIsTruthy } from '@openmrs/esm-framework/src/internal';
+import { RenderIfValueIsTruthy } from '@openmrs/esm-react-utils';
 import classNames, { type Argument } from 'classnames';
 import React, { forwardRef, memo, useEffect, useRef } from 'react';
 import style from './pictograms.module.scss';
@@ -264,8 +264,7 @@ export type SvgPictogramProps = {
  */
 export const Pictogram = memo(
   forwardRef<SVGSVGElement, SvgPictogramProps>(function Pictogram({ pictogram, pictogramProps }, ref) {
-    const { className } = Object.assign({}, { size: 92 }, pictogramProps);
-    let { size } = Object.assign({}, { size: 92 }, pictogramProps);
+    let { className, size } = Object.assign({}, { size: 92 }, pictogramProps);
     if (size <= 26 || size > 144) {
       console.error(`Invalid size '${size}' specified for ${pictogram}. Defaulting to 92.`);
       size = 92;

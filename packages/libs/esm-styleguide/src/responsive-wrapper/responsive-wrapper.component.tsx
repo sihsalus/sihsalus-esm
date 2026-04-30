@@ -1,7 +1,7 @@
 /** @module @category UI */
 
 import { Layer } from '@carbon/react';
-import { useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { useLayoutType } from '@openmrs/esm-react-utils';
 import React from 'react';
 
 export interface ResponsiveWrapperProps {

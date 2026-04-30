@@ -1,7 +1,6 @@
-import { type CalendarDate } from '@internationalized/date';
+import { type CalendarDate, type DateValue } from '@internationalized/date';
 import classNames from 'classnames';
 import React, { forwardRef, useId, useMemo } from 'react';
-import { type DateValue } from 'react-aria';
 import { Button, DatePicker, type DatePickerProps, FieldError, Group, Label, Provider } from 'react-aria-components';
 import { CalendarPopover } from './calendar-popover.component';
 import { DatePickerIcon } from './date-picker-icon.component';
@@ -129,7 +128,9 @@ export const OpenmrsDatePicker = /*#__PURE__*/ forwardRef<HTMLDivElement, Openmr
                     id={hasVisibleLabel ? id : undefined}
                     ref={ref}
                     className={classNames('cds--date-picker-input__wrapper', styles.inputWrapper, {
+                      [styles.inputWrapperSm]: size === 'sm',
                       [styles.inputWrapperMd]: size === 'md' || !size || size.length === 0,
+                      [styles.inputWrapperLg]: size === 'lg',
                     })}
                   >
                     {(segment) => {
@@ -140,7 +141,13 @@ export const OpenmrsDatePicker = /*#__PURE__*/ forwardRef<HTMLDivElement, Openmr
                       );
                     }}
                   </DatePickerInput>
-                  <Button className={classNames(styles.flatButton, styles.flatButtonMd)}>
+                  <Button
+                    className={classNames(styles.flatButton, {
+                      [styles.flatButtonSm]: size === 'sm',
+                      [styles.flatButtonMd]: size === 'md' || !size || size.length === 0,
+                      [styles.flatButtonLg]: size === 'lg',
+                    })}
+                  >
                     <DatePickerIcon />
                   </Button>
                 </Group>

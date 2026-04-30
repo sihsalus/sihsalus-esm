@@ -1,4 +1,4 @@
-import type { WorkspaceStoreState2 } from '@openmrs/esm-framework/src/internal';
+import type { WorkspaceStoreState2 } from '@openmrs/esm-extensions';
 import { describe, expect, it } from 'vitest';
 import { workspace2StoreActions } from './workspace2';
 

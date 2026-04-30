@@ -1,4 +1,5 @@
-import { age, usePrimaryIdentifierCode } from '@openmrs/esm-framework/src/internal';
+import { usePrimaryIdentifierCode } from '@openmrs/esm-react-utils';
+import { age } from '@openmrs/esm-utils';
 import { render, screen } from '@testing-library/react';
 import { type i18n } from 'i18next';
 import React from 'react';

@@ -1,5 +1,5 @@
 import { InlineLoading } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import React, { useEffect, useMemo, useState } from 'react';
 import { mountRootParcel, type ParcelConfig } from 'single-spa';
 import Parcel from 'single-spa-react/parcel';

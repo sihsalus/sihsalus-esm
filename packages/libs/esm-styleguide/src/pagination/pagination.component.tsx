@@ -1,10 +1,6 @@
 import { Pagination as CarbonPagination, type PaginationProps as CarbonPaginationProps } from '@carbon/react';
-import {
-  ConfigurableLink,
-  getCoreTranslation,
-  useLayoutType,
-  usePaginationInfo,
-} from '@openmrs/esm-framework/src/internal';
+import { ConfigurableLink, useLayoutType, usePaginationInfo } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './pagination.module.scss';
@@ -19,7 +15,7 @@ export interface PaginationProps {
   /** The size of each page */
   pageSize: number;
   /** A callback to be called when the page changes */
-  onPageNumberChange?: (data: { page: number; pageSize: number }) => void;
+  onPageNumberChange?: CarbonPaginationProps['onChange'];
   /** An optional URL the user should be directed to if they click on the link to see all results */
   dashboardLinkUrl?: string;
   /** Optional text to display instead of the default "See all" */

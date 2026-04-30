@@ -6,7 +6,8 @@ import {
   RadioButtonSkeleton,
   Search,
 } from '@carbon/react';
-import { getCoreTranslation, useOnVisible } from '@openmrs/esm-framework/src/internal';
+import { useOnVisible } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import React, { useCallback, useId, useMemo, useState } from 'react';
 import styles from './location-picker.module.scss';
 import { useLocationByUuid, useLocations } from './location-picker.resource';

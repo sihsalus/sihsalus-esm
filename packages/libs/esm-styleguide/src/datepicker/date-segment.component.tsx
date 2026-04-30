@@ -1,3 +1,4 @@
+import { useDateSegment } from '@react-aria/datepicker';
 import { filterDOMProps } from '@react-aria/utils';
 import React, {
   type ForwardedRef,
@@ -6,7 +7,7 @@ import React, {
   useCallback,
   useContext,
 } from 'react';
-import { mergeProps, useDateSegment, useFocusRing, useHover, useObjectRef } from 'react-aria';
+import { mergeProps, useFocusRing, useHover, useObjectRef } from 'react-aria';
 import { DateFieldStateContext, type DateSegmentProps } from 'react-aria-components';
 import { useRenderProps } from './hooks';
 
@@ -48,6 +49,8 @@ export const DateSegment = /*#__PURE__*/ forwardRef(function DateSegment(
   }, []);
 
   return (
+    // Segment props from React Aria include the keyboard semantics for this interactive span.
+    // biome-ignore lint/a11y/noStaticElementInteractions: React Aria controls the accessible role and handlers.
     <span
       {...mergeProps(
         filterDOMProps(otherProps as unknown as Parameters<typeof filterDOMProps>[0]),

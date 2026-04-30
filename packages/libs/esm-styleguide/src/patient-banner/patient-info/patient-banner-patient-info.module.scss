@@ -1,7 +1,7 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
-@use '../../vars' as *;
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+@use "../../vars" as *;
 
 .container {
   border-top: 1px solid $ui-03;
@@ -18,7 +18,7 @@
 }
 
 .patientName {
-  @include type.type-style('heading-03');
+  @include type.type-style("heading-03");
   color: colors.$gray-100;
   font-weight: 600;
   margin-right: layout.$spacing-02;
@@ -46,7 +46,7 @@
 }
 
 .demographics {
-  @include type.type-style('body-compact-02');
+  @include type.type-style("body-compact-02");
   color: $text-02;
   display: flex;
   align-items: center;
@@ -74,7 +74,7 @@
 }
 
 .identifiers {
-  @include type.type-style('body-compact-02');
+  @include type.type-style("body-compact-02");
   color: colors.$gray-70;
   display: flex;
   flex-wrap: wrap;
@@ -88,7 +88,7 @@
 
 .primaryIdentifier,
 .secondaryIdentifier {
-  @include type.type-style('body-compact-02');
+  @include type.type-style("body-compact-02");
   display: flex;
   align-items: center;
   gap: layout.$spacing-02;
@@ -100,11 +100,20 @@
   .value {
     font-weight: bold;
   }
+
+  .tag {
+    max-inline-size: none;
+  }
+
+  span {
+    overflow: visible;
+    text-overflow: unset;
+  }
 }
 
 .secondaryIdentifier {
   .identifier {
-    @include type.type-style('body-compact-02');
+    @include type.type-style("body-compact-02");
     align-self: baseline;
   }
 }
@@ -134,12 +143,12 @@
 }
 
 .actionsButtonText {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
   color: $interactive-01;
 }
 
 // Overriding styles for RTL support
-html[dir='rtl'] {
+html[dir="rtl"] {
   .demographics {
     display: flex;
     gap: layout.$spacing-02;

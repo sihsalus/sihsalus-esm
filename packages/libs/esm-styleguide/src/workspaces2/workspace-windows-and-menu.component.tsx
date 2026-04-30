@@ -1,5 +1,4 @@
 import { subscribeOpenmrsEvent } from '@openmrs/esm-emr-api';
-import { type WorkspaceGroupDefinition2, type WorkspaceWindowDefinition2 } from '@openmrs/esm-globals';
 import classNames from 'classnames';
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -9,7 +8,7 @@ import { shouldCloseOnUrlChange } from './scope-utils';
 import styles from './workspace-windows-and-menu.module.scss';
 import { closeWorkspaceGroup2, useWorkspace2Store } from './workspace2';
 
-export function renderWorkspaceWindowsAndMenu(target: HTMLElement | null): void {
+export function renderWorkspaceWindowsAndMenu(target: HTMLElement | null) {
   if (target) {
     const root = createRoot(target);
     root.render(<WorkspaceWindowsAndMenu />);
@@ -20,21 +19,12 @@ export function renderWorkspaceWindowsAndMenu(target: HTMLElement | null): void 
  * This component renders the workspace action menu of a workspace group
  * and all the active workspace windows within that group.
  */
-interface WorkspaceWindowsAndMenuProps {
-  showActionMenu?: boolean;
-}
-
-export function WorkspaceWindowsAndMenu({
-  showActionMenu = true,
-}: WorkspaceWindowsAndMenuProps): React.JSX.Element | null {
+function WorkspaceWindowsAndMenu() {
   const { openedGroup, openedWindows, registeredGroupsByName, registeredWindowsByName } = useWorkspace2Store();
-  const registeredGroups = registeredGroupsByName as Record<string, WorkspaceGroupDefinition2 & { moduleName: string }>;
-  const registeredWindows = registeredWindowsByName as Record<string, WorkspaceWindowDefinition2>;
-  const workspaceStyles = styles as Record<string, string>;
 
   useEffect(() => {
-    const subscription: unknown = subscribeOpenmrsEvent('before-page-changed', (pageChangedEvent) => {
-      const { newPage, oldUrl, newUrl } = pageChangedEvent;
+    const unsubscribe = subscribeOpenmrsEvent('before-page-changed', (pageChangedEvent) => {
+      const { newPage, cancelNavigation, oldUrl, newUrl } = pageChangedEvent;
 
       if (!openedGroup) {
         return;
@@ -42,11 +32,11 @@ export function WorkspaceWindowsAndMenu({
 
       // Always close on app change - this takes precedence as a safety boundary
       if (newPage) {
-        pageChangedEvent.cancelNavigation(closeWorkspaceGroup2().then((isClosed) => !isClosed));
+        cancelNavigation(closeWorkspaceGroup2().then((isClosed) => !isClosed));
         return;
       }
 
-      const group = registeredGroups[openedGroup.groupName];
+      const group = registeredGroupsByName[openedGroup.groupName];
       const scopePattern = group?.scopePattern;
 
       // No scopePattern means no additional scope-based closing (original behavior)
@@ -64,53 +54,45 @@ export function WorkspaceWindowsAndMenu({
       if (shouldCloseOnUrlChange(scopePattern, oldUrl, newUrl)) {
         // Prompt to close the workspaces
         // should only cancel navigation if the user cancels the prompt
-        pageChangedEvent.cancelNavigation(closeWorkspaceGroup2().then((isClosed) => !isClosed));
+        cancelNavigation(closeWorkspaceGroup2().then((isClosed) => !isClosed));
       }
     });
 
-    const unsubscribe = typeof subscription === 'function' ? (subscription as () => void) : null;
-
-    return (): void => {
-      unsubscribe?.();
-    };
-  }, [openedGroup, registeredGroups]);
+    return unsubscribe;
+  }, [openedGroup, registeredGroupsByName]);
 
   if (!openedGroup) {
     return null;
   }
 
-  const group = registeredGroups[openedGroup.groupName];
-  if (!group) {
-    throw new Error(`Cannot find registered workspace group ${openedGroup.groupName}`);
-  }
-
+  const group = registeredGroupsByName[openedGroup.groupName];
   const hasMaximizedWindow = openedWindows.some((window) => window.maximized);
 
   const { name: groupName } = group;
-  const windowsWithIcons = Object.values(registeredWindows)
+  const windowsWithIcons = Object.values(registeredWindowsByName)
     .filter((window): window is Required<typeof window> => window.group === groupName && window.icon !== undefined)
     .sort((a, b) => (a.order ?? Number.MAX_VALUE) - (b.order ?? Number.MAX_VALUE));
-  const shouldShowActionMenu = showActionMenu && windowsWithIcons.length > 0;
+  const showActionMenu = windowsWithIcons.length > 0;
 
   return (
     <div
-      className={classNames(workspaceStyles.workspaceWindowsAndMenuContainer, {
-        [workspaceStyles.overlay as string]: group.overlay,
-        [workspaceStyles.hasMaximizedWindow as string]: hasMaximizedWindow,
+      className={classNames(styles.workspaceWindowsAndMenuContainer, {
+        [styles.overlay]: group.overlay,
+        [styles.hasMaximizedWindow]: hasMaximizedWindow,
       })}
     >
-      <div className={workspaceStyles.workspaceWindowsContainer}>
+      <div className={styles.workspaceWindowsContainer}>
         {openedWindows.map((openedWindow) => {
           return (
             <ActiveWorkspaceWindow
               key={openedWindow.windowName}
               openedWindow={openedWindow}
-              showActionMenu={shouldShowActionMenu}
+              showActionMenu={showActionMenu}
             />
           );
         })}
       </div>
-      {shouldShowActionMenu && <ActionMenu workspaceGroup={group} groupProps={openedGroup.props} />}
+      {showActionMenu && <ActionMenu workspaceGroup={group} groupProps={openedGroup.props} />}
     </div>
   );
 }

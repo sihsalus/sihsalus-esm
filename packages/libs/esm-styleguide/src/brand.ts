@@ -1,4 +1,4 @@
-import { getConfigStore } from '@openmrs/esm-framework/src/internal';
+import { getConfigStore } from '@openmrs/esm-config';
 
 /**
  * Sets up the branding CSS variables by applying the configured brand colors

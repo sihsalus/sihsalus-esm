@@ -1,12 +1,12 @@
-@use '@carbon/styles/scss/motion';
-@use '@carbon/layout';
-@use '@carbon/styles/scss/theme';
-@use '@carbon/type';
-@use '@carbon/styles/scss/components/button';
-@use '@carbon/styles/scss/utilities/box-shadow';
-@use '@carbon/styles/scss/utilities/component-reset';
-@use '@carbon/styles/scss/utilities/focus-outline' as focus;
-@use '../vars' as *;
+@use "@carbon/styles/scss/motion";
+@use "@carbon/layout";
+@use "@carbon/styles/scss/theme";
+@use "@carbon/type";
+@use "@carbon/styles/scss/components/button";
+@use "@carbon/styles/scss/utilities/box-shadow";
+@use "@carbon/styles/scss/utilities/component-reset";
+@use "@carbon/styles/scss/utilities/focus-outline" as focus;
+@use "../vars" as *;
 
 // Text field for dates
 .inputGroup {
@@ -19,11 +19,11 @@
 
   &:focus-within,
   &.cds--focused {
-    @include focus.focus-outline('outline');
+    @include focus.focus-outline("outline");
   }
 
   &[data-invalid] {
-    @include focus.focus-outline('invalid');
+    @include focus.focus-outline("invalid");
 
     & {
       color: theme.$support-error;
@@ -50,8 +50,12 @@
     color: theme.$text-disabled;
   }
 
-  &[data-focused='true'] {
+  &[data-focused="true"] {
     animation: cursor-blink 1s step-end infinite;
+  }
+
+  :global([dir="rtl"]) &[data-focused="true"] {
+    animation: cursor-blink-rtl 1s step-end infinite;
   }
 }
 
@@ -67,13 +71,28 @@
   }
 }
 
+// Use physical `border-right`/`border-left` rather than logical `border-inline-end`:
+// a PostCSS plugin in the build pipeline incorrectly hoists `border-inline-end`
+// out of @keyframes and re-emits it as a static `border-right` on selectors that
+// reference the animation, which produced a permanent vertical line on the
+// date input wrappers in LTR contexts.
 @keyframes cursor-blink {
   from,
   to {
-    border-inline-end: 1px solid transparent;
+    border-right: 1px solid transparent;
   }
   50% {
-    border-inline-end: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+  }
+}
+
+@keyframes cursor-blink-rtl {
+  from,
+  to {
+    border-left: 1px solid transparent;
+  }
+  50% {
+    border-left: 1px solid currentColor;
   }
 }
 
@@ -95,6 +114,14 @@
   block-size: layout.$spacing-08;
 }
 
+.inputWrapperSm {
+  block-size: layout.$spacing-07;
+}
+
+.inputWrapperLg {
+  block-size: layout.$spacing-09;
+}
+
 // Range date picker inputs
 .inputsWrapper {
   display: flex;
@@ -102,6 +129,18 @@
   max-width: 15rem;
   margin-inline-start: 1rem;
   inline-size: 15rem;
+}
+
+.inputsWrapperSm {
+  block-size: layout.$spacing-07;
+}
+
+.inputsWrapperMd {
+  block-size: layout.$spacing-08;
+}
+
+.inputsWrapperLg {
+  block-size: layout.$spacing-09;
 }
 
 .dateInputWrapper {
@@ -135,20 +174,32 @@
 }
 
 // Used for calendar pop-over
-@keyframes fade-in-down {
+@keyframes expand-in {
   from {
     opacity: 0;
-    transform: translate3d(0, -20px, 0);
+    transform: scale(0.93);
   }
 
   to {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: scale(1);
   }
 }
 
+.popover {
+  transform-origin: top center;
+}
+
+// When the popover flips above the trigger (near bottom of viewport), anchor from the bottom
+.popover[data-placement="top"],
+.popover[data-placement="top-start"],
+.popover[data-placement="top-end"] {
+  transform-origin: bottom center;
+}
+
 .popover[data-entering] {
-  animation: fade-in-down motion.$duration-fast-02 motion.motion(entrance, productive);
+  animation: expand-in motion.$duration-fast-02
+    motion.motion(entrance, productive);
 
   @media screen and (prefers-reduced-motion: reduce) {
     animation: none;
@@ -159,7 +210,8 @@
   @include box-shadow.box-shadow;
   background-color: theme.$layer-01;
   overflow: hidden;
-  padding: layout.$spacing-02 layout.$spacing-02 layout.$spacing-03 layout.$spacing-02;
+  padding: layout.$spacing-02 layout.$spacing-02 layout.$spacing-03
+    layout.$spacing-02;
 }
 
 // Navigation header (prev/next buttons + month/year display)
@@ -204,9 +256,19 @@
   width: layout.$spacing-08;
 }
 
+.flatButtonSm {
+  height: layout.$spacing-07;
+  width: layout.$spacing-07;
+}
+
+.flatButtonLg {
+  height: layout.$spacing-09;
+  width: layout.$spacing-09;
+}
+
 .monthYear {
   @include component-reset.reset;
-  @include type.type-style('heading-compact-01');
+  @include type.type-style("heading-compact-01");
 
   & {
     margin-top: layout.$spacing-03;
@@ -219,12 +281,12 @@
     margin-right: layout.$spacing-02;
   }
 
-  & div:has(input[inputmode='numeric']) {
+  & div:has(input[inputmode="numeric"]) {
     display: inline;
 
-    & > input[inputmode='numeric'] {
+    & > input[inputmode="numeric"] {
       @include component-reset.reset;
-      @include type.type-style('heading-compact-01');
+      @include type.type-style("heading-compact-01");
 
       & {
         background-color: var(--cds-field);
@@ -240,11 +302,11 @@
       }
 
       &:focus {
-        @include focus.focus-outline('border');
+        @include focus.focus-outline("border");
       }
 
       &[data-invalid] {
-        @include focus.focus-outline('invalid');
+        @include focus.focus-outline("invalid");
       }
 
       &[data-disabled],
@@ -264,7 +326,7 @@
       }
     }
 
-    & div[role='group'] {
+    & div[role="group"] {
       @include component-reset.reset;
 
       & {
@@ -298,7 +360,7 @@
         display: block;
         border-inline-end: layout.$spacing-02 solid transparent;
         border-inline-start: layout.$spacing-02 solid transparent;
-        content: '';
+        content: "";
         inset-block-start: 33%;
       }
 
@@ -312,12 +374,12 @@
         border-block-start-color: theme.$border-interactive;
       }
 
-      &[slot='increment'] {
+      &[slot="increment"] {
         top: 0;
         left: 0;
       }
 
-      &[slot='decrement'] {
+      &[slot="decrement"] {
         top: layout.$spacing-04;
         left: 0;
       }
@@ -338,14 +400,14 @@
   }
 
   & > thead > tr > th {
-    @include type.type-style('body-compact-01');
+    @include type.type-style("body-compact-01");
     cursor: default;
     text-align: center;
     vertical-align: middle;
   }
 
   & > tbody > tr > td {
-    @include type.type-style('body-compact-01');
+    @include type.type-style("body-compact-01");
     cursor: pointer;
     text-align: center;
     vertical-align: middle;
@@ -388,7 +450,7 @@
     position: absolute;
     display: block;
     block-size: layout.$spacing-02;
-    content: '';
+    content: "";
     inline-size: layout.$spacing-02;
     inset-block-end: 0.4375rem;
     inset-inline-start: 50%;
@@ -406,7 +468,7 @@
 }
 
 // RTL overrides
-:global([dir='rtl']) {
+:global([dir="rtl"]) {
   .inputWrapper {
     padding-left: unset;
     padding-right: layout.$spacing-04;
@@ -417,20 +479,20 @@
   }
 
   .monthYear {
-    & div:has(input[inputmode='numeric']) {
-      > input[inputmode='numeric'] {
+    & div:has(input[inputmode="numeric"]) {
+      > input[inputmode="numeric"] {
         padding-right: layout.$spacing-02;
       }
     }
 
     & button {
-      &[slot='increment'] {
+      &[slot="increment"] {
         top: 0;
         left: unset;
         right: 0;
       }
 
-      &[slot='decrement'] {
+      &[slot="decrement"] {
         top: layout.$spacing-04;
         left: unset;
         right: 0;
