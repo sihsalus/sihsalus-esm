@@ -107,8 +107,33 @@ export const cancelAppointmentModal = getAsyncLifecycle(
 // t('createNewAppointment', 'Create new appointment')
 export const appointmentsFormWorkspace = getAsyncLifecycle(() => import('./form/appointments-form.workspace'), options);
 
+export const exportedAppointmentsFormWorkspace = getAsyncLifecycle(
+  () => import('./form/exported-appointments-form.workspace'),
+  options,
+);
+
 export const endAppointmentModal = getAsyncLifecycle(
   () => import('./appointments/common-components/end-appointment.modal'),
+  options,
+);
+
+export const batchChangeAppointmentStatusesModal = getAsyncLifecycle(
+  () => import('./appointments/common-components/batch-change-appointment-statuses.modal'),
+  options,
+);
+
+export const metricsCardScheduledAppointments = getAsyncLifecycle(
+  () => import('./metrics/metrics-cards/scheduled-appointments.extension'),
+  options,
+);
+
+export const metricsCardHighestVolumeService = getAsyncLifecycle(
+  () => import('./metrics/metrics-cards/highest-volume-service.extension'),
+  options,
+);
+
+export const metricsCardProvidersBooked = getAsyncLifecycle(
+  () => import('./metrics/metrics-cards/providers-booked.extension'),
   options,
 );
 

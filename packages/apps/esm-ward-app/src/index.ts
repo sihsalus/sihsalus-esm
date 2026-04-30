@@ -140,6 +140,27 @@ export const wardPatientWorkspaceBanner = getAsyncLifecycle(
   options,
 );
 
+// Ported from upstream openmrs-esm-patient-management
+export const deleteNoteModal = getAsyncLifecycle(
+  () => import('./ward-workspace/ward-patient-notes/history/delete-note.modal'),
+  options,
+);
+
+export const noteHistoryModal = getAsyncLifecycle(
+  () => import('./ward-workspace/ward-patient-notes/history/note-history.modal'),
+  options,
+);
+
+export const orderBasketWorkspaceSideRailIcon = getAsyncLifecycle(
+  () => import('./action-menu-buttons/order-basket-action-button.component'),
+  options,
+);
+
+export const wardPatientCancelAdmissionRequestWorkspace = getAsyncLifecycle(
+  () => import('./ward-workspace/cancel-admission-request-workspace/ward-patient-cancel-admission-request.workspace'),
+  options,
+);
+
 export function startupApp() {
   registerBreadcrumbs([]);
   defineConfigSchema(moduleName, configSchema);

@@ -14,8 +14,9 @@ export interface AppointmentLocation {
   name: string;
 }
 
-// note that the API supports two other statuses that we are not currently supporting: "Requested" and "WaitList"
+// note that the API supports two other statuses that we are not currently supporting: "WaitList"
 export enum AppointmentStatus {
+  REQUESTED = 'Requested',
   SCHEDULED = 'Scheduled',
   CANCELLED = 'Cancelled',
   MISSED = 'Missed',

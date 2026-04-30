@@ -57,7 +57,6 @@ const CompactPatientBanner = forwardRef<HTMLDivElement, CompactPatientBannerProp
                 id: addressId,
                 city: preferredAddress.cityVillage,
                 country: preferredAddress.country,
-                postalCode: preferredAddress.postalCode,
                 state: preferredAddress.stateProvince,
                 use: 'home',
               },

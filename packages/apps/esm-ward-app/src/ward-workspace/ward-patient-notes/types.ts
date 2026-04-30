@@ -19,6 +19,17 @@ export interface PatientNote {
   encounterNoteRecordedAt: string;
   encounterProvider: string;
   encounterProviderRole: string;
+  // Fields used by note history and delete modals (ported from upstream)
+  encounterUuid?: string;
+  obsUuid?: string;
+  isEdited?: boolean;
+  lastEditedBy?: string;
+  lastEditedAt?: string;
+  editHistory?: Array<{
+    note: string;
+    recordedAt: string;
+    recordedBy: string;
+  }>;
 }
 
 export interface UsePatientNotes {

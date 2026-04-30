@@ -76,3 +76,9 @@ export function removePatientFromBed(bedId: number, patientUuid: string) {
     method: 'DELETE',
   });
 }
+
+export function deleteEncounter(encounterUuid: string) {
+  return openmrsFetch(`${restBaseUrl}/encounter/${encounterUuid}`, {
+    method: 'DELETE',
+  });
+}
