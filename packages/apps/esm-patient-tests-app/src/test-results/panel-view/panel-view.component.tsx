@@ -174,7 +174,7 @@ const PanelViewHeader: React.FC<PanelViewHeaderProps> = ({
 
   const handleToggleSearchFields = useCallback(() => {
     setShowSearchFields((prev) => !prev);
-  }, [setShowSearchFields]);
+  }, []);
 
   const handleSearchTerm = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -188,7 +188,7 @@ const PanelViewHeader: React.FC<PanelViewHeaderProps> = ({
   const handleClear = useCallback(() => {
     setSearchTerm('');
     setLocalSearchTerm('');
-  }, [setSearchTerm, setLocalSearchTerm]);
+  }, [setSearchTerm]);
 
   return (
     <div className={styles.panelViewHeader}>

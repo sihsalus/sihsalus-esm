@@ -1,7 +1,7 @@
 import { ClickableTile, IconButton, Tile } from '@carbon/react';
 import { TrashCanIcon, useLayoutType, WarningIcon } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { TestOrderBasketItem } from '../../types';

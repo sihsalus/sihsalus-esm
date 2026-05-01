@@ -86,7 +86,7 @@ const Trendline: React.FC<TrendlineProps> = ({
     (selectedLowerRange: Date) => {
       setRange([selectedLowerRange > lowerRange ? selectedLowerRange : lowerRange, upperRange]);
     },
-    [setRange, upperRange, lowerRange],
+    [upperRange, lowerRange],
   );
 
   /**

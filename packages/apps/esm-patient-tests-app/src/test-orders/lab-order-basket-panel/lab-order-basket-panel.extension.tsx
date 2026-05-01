@@ -2,7 +2,7 @@ import { Button, Tile } from '@carbon/react';
 import { AddIcon, ChevronDownIcon, ChevronUpIcon, MaybeIcon, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { type OrderBasketItem, useOrderBasket, useOrderType } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
+import { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../config-schema';
