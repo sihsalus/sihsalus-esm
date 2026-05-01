@@ -58,7 +58,7 @@ const FilterProvider = ({ roots, children }: FilterProviderProps) => {
       },
       resetTree: () => dispatch({ type: ReducerActionType.RESET_TREE }),
     }),
-    [],
+    [dispatch],
   );
 
   const activeTests = useMemo(() => {

@@ -304,7 +304,7 @@ export const GroupedTimeline: React.FC<{ patientUuid: string }> = ({ patientUuid
 
   useEffect(() => {
     setPanelName('');
-  }, []);
+  }, [rowData]);
 
   if (rowData && rowData?.length === 0) {
     return <EmptyState displayText={t('data', 'data')} headerTitle={t('dataTimelineText', 'Data timeline')} />;

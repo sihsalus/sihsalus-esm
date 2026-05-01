@@ -10,6 +10,7 @@ import { type PostDataPrepFunction, useOrderBasket, useOrderType } from '@openmr
 import { _resetOrderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { mockFhirPatient, mockSessionDataResponse } from 'test-utils';
 
 import { type ConfigObject, configSchema } from '../../config-schema';
