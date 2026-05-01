@@ -1,18 +1,9 @@
 import { HeaderGlobalAction } from '@carbon/react';
 import { Close, Search } from '@carbon/react/icons';
-import {
-  isDesktop,
-  navigate,
-  openmrsFetch,
-  restBaseUrl,
-  useLayoutType,
-  useOnClickOutside,
-  useSession,
-} from '@openmrs/esm-framework';
+import { isDesktop, navigate, useLayoutType, useOnClickOutside } from '@openmrs/esm-framework';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { preload } from 'swr';
 
 import CompactPatientSearchComponent from '../compact-patient-search/compact-patient-search.component';
 import PatientSearchOverlay from '../patient-search-overlay/patient-search-overlay.component';
@@ -25,8 +16,6 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
   const { t } = useTranslation();
   const layout = useLayoutType();
   const { page } = useParams();
-  const { user } = useSession();
-  const userUuid = user?.uuid;
   const isSearchPage = useMemo(() => page === 'search', [page]);
   const [searchParams] = useSearchParams();
   const initialSearchTerm = isSearchPage ? searchParams.get('query') : '';
@@ -54,20 +43,9 @@ const PatientSearchLaunch: React.FC<PatientSearchLaunchProps> = () => {
     setShowSearchInput(false);
   }, [isSearchPage]);
 
-  const preloadRecentPatients = useCallback(() => {
-    // Preload the user object on hover. This object may contain a 'patientsVisited'
-    // property with UUIDs of recently viewed patients. This data can be used to display
-    // recently viewed patients if the 'showRecentlySearchedPatients' config property
-    // is enabled.
-    if (userUuid) {
-      void preload(`${restBaseUrl}/user/${userUuid}`, openmrsFetch);
-    }
-  }, [userUuid]);
-
   const handleShowSearchInput = useCallback(() => {
-    preloadRecentPatients();
     setShowSearchInput(true);
-  }, [preloadRecentPatients]);
+  }, []);
 
   const resetToInitialState = useCallback(() => {
     setShowSearchInput(false);
