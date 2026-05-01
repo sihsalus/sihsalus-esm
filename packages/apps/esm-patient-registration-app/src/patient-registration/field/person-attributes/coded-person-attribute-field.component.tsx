@@ -33,6 +33,8 @@ export function CodedPersonAttributeField({
   const { t } = useTranslation(moduleName);
   const fieldName = `attributes.${personAttributeType.uuid}`;
   const [error, setError] = useState(false);
+  const displayLabel = label ?? personAttributeType?.display;
+  const labelText = required ? displayLabel : `${displayLabel} (${t('optional', 'optional')})`;
 
   useEffect(() => {
     if (!answerConceptSetUuid && !customConceptAnswers.length) {
@@ -101,7 +103,7 @@ export function CodedPersonAttributeField({
                   <Select
                     id={id}
                     name={`person-attribute-${personAttributeType.uuid}`}
-                    labelText={label ?? personAttributeType?.display}
+                    labelText={labelText}
                     invalid={errors[fieldName] && touched[fieldName]}
                     required={required}
                     {...field}

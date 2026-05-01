@@ -29,6 +29,8 @@ export function LocationPersonAttributeField({
   const [searchQuery, setSearchQuery] = useState('');
   const { locations, isLoading, loadingNewData } = useLocations(locationTag || null, searchQuery);
   const prevLocationOptions = useRef([]);
+  const displayLabel = label ?? personAttributeType?.display;
+  const titleText = required ? displayLabel : `${displayLabel} (${t('optional', 'optional')})`;
 
   const locationOptions = useMemo(() => {
     if (!(isLoading && loadingNewData)) {
@@ -83,7 +85,7 @@ export function LocationPersonAttributeField({
               <ComboBox
                 id={id}
                 name={`person-attribute-${personAttributeType.uuid}`}
-                titleText={label}
+                titleText={titleText}
                 items={locationOptions}
                 placeholder={t('searchLocationPersonAttribute', 'Search location')}
                 onInputChange={handleInputChange}

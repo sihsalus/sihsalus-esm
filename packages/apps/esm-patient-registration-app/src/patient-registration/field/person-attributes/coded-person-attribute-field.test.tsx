@@ -104,7 +104,7 @@ describe('CodedPersonAttributeField', () => {
       </Formik>,
     );
 
-    expect(screen.getByLabelText(/Referred by/i)).toBeInTheDocument();
+    expect(screen.getByLabelText('Referred by (optional)')).toBeInTheDocument();
     expect(screen.getByText(/Option 1/i)).toBeInTheDocument();
     expect(screen.getByText(/Option 2/i)).toBeInTheDocument();
   });
@@ -134,7 +134,7 @@ describe('CodedPersonAttributeField', () => {
       </Formik>,
     );
 
-    expect(screen.getByLabelText(/Referred by/i)).toBeInTheDocument();
+    expect(screen.getByLabelText('Referred by (optional)')).toBeInTheDocument();
     expect(screen.getByText(/Special Option A/i)).toBeInTheDocument();
     expect(screen.getByText(/Special Option B/i)).toBeInTheDocument();
     expect(screen.queryByText(/Option 1/i)).not.toBeInTheDocument();
