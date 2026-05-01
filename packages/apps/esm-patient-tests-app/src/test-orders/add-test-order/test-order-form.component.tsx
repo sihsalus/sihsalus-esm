@@ -24,7 +24,7 @@ import {
   useOrderType,
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, type ControllerRenderProps, type FieldErrors, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';

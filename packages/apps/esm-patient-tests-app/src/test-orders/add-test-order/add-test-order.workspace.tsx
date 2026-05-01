@@ -20,7 +20,7 @@ import {
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import { capitalize } from 'lodash-es';
-import React, { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
+import { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type ConfigObject } from '../../config-schema';
