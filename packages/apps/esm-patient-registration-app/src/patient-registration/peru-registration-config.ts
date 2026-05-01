@@ -2,7 +2,7 @@ import { type FieldDefinition, type RegistrationConfig, type SectionDefinition }
 
 const dniIdentifierTypeUuid = '550e8400-e29b-41d4-a716-446655440001';
 
-const peruSections = ['filiation', 'responsiblePerson'];
+const peruSections = ['filiation', 'insurance', 'responsiblePerson'];
 const minorResponsibleRelationshipTypes = [
   '8d91a210-c2cc-11de-8d13-0010c6dffdff/aIsToB',
   '8d91a210-c2cc-11de-8d13-0010c6dffd0f/aIsToB',
@@ -21,11 +21,13 @@ const peruSectionDefinitions: Array<SectionDefinition> = [
       'occupation',
       'educationLevel',
       'religion',
-      'insuranceType',
-      'insuranceCode',
       'bloodType',
-      'mothersName',
     ],
+  },
+  {
+    id: 'insurance',
+    name: 'Seguro',
+    fields: ['insuranceType', 'insuranceCode'],
   },
   {
     id: 'responsiblePerson',
@@ -110,13 +112,6 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     label: 'Tipo de sangre',
     showHeading: false,
     answerConceptSetUuid: '3f6056ed-17e9-4b3b-98a7-18dc431a7e99',
-  },
-  {
-    id: 'mothersName',
-    type: 'person attribute',
-    uuid: '8d871d18-c2cc-11de-8d13-0010c6dffd0f',
-    label: 'Nombre de la madre',
-    showHeading: false,
   },
   {
     id: 'companionName',
