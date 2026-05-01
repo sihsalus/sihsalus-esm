@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import FuaRequestTable from '../fua/fuaRequestTable';
+import VisitTable from '../fua/visitTable';
 
 import styles from './fua-tabs.scss';
 
@@ -19,20 +20,20 @@ const FuaOrdersTabs: React.FC = () => {
       <div className={styles.tabs}>
         <Tabs selectedIndex={activeTabIndex} onChange={handleTabChange}>
           <TabList style={{ paddingLeft: '1rem' }} aria-label="FUA tabs" contained>
+            <Tab className={styles.tab}>{t('inProgressFuas', 'Visitas')}</Tab>
+            <Tab className={styles.tab}>{t('completedFuas', 'Lista de Formatos FUA')}</Tab>
             <Tab className={styles.tab}>{t('allFuas', 'FUAs solicitados')}</Tab>
-            <Tab className={styles.tab}>{t('inProgressFuas', 'En progreso')}</Tab>
-            <Tab className={styles.tab}>{t('completedFuas', 'Completadas')}</Tab>
-            <Tab className={styles.tab}>{t('declinedFuas', 'Rechazadas')}</Tab>
+            <Tab className={styles.tab}>{t('envioFuas', 'Envio FUAs')}</Tab>
           </TabList>
           <TabPanels>
             <TabPanel className={styles.tabPanel}>
-              <FuaRequestTable statusFilter="all" />
-            </TabPanel>
-            <TabPanel className={styles.tabPanel}>
-              <FuaRequestTable statusFilter="in-progress" />
+              <VisitTable />
             </TabPanel>
             <TabPanel className={styles.tabPanel}>
               <FuaRequestTable statusFilter="completed" />
+            </TabPanel>
+            <TabPanel className={styles.tabPanel}>
+              <FuaRequestTable statusFilter="all" />
             </TabPanel>
             <TabPanel className={styles.tabPanel}>
               <FuaRequestTable statusFilter="declined" />

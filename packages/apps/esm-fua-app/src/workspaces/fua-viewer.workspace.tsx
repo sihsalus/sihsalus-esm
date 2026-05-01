@@ -10,9 +10,10 @@ import FuaHtmlViewer from '../components/fua-html-viewer.component';
 
 interface LegacyFuaViewerWorkspaceProps extends DefaultPatientWorkspaceProps {
   fuaId?: string;
+  visitUuid?: string;
 }
 
-type Workspace2FuaViewerWorkspaceProps = PatientWorkspace2DefinitionProps<{ fuaId?: string }, object>;
+type Workspace2FuaViewerWorkspaceProps = PatientWorkspace2DefinitionProps<{ fuaId?: string; visitUuid?: string }, object>;
 type FuaViewerWorkspaceProps = LegacyFuaViewerWorkspaceProps | Workspace2FuaViewerWorkspaceProps;
 
 function isWorkspace2Props(props: FuaViewerWorkspaceProps): props is Workspace2FuaViewerWorkspaceProps {
@@ -22,9 +23,10 @@ function isWorkspace2Props(props: FuaViewerWorkspaceProps): props is Workspace2F
 const FuaViewerWorkspace: React.FC<FuaViewerWorkspaceProps> = (props) => {
   const { t } = useTranslation();
   const fuaId = isWorkspace2Props(props) ? props.workspaceProps?.fuaId : props.fuaId;
+  const visitUuid = isWorkspace2Props(props) ? props.workspaceProps?.visitUuid : props.visitUuid;
   const content = (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <FuaHtmlViewer fuaId={fuaId} />
+      <FuaHtmlViewer fuaId={fuaId} visitUuid={visitUuid} />
     </div>
   );
 

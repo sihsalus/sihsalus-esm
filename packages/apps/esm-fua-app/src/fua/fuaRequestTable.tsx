@@ -20,11 +20,12 @@ import {
   Tile,
   Tooltip,
 } from '@carbon/react';
-import { Download, EventSchedule, View } from '@carbon/react/icons';
-import { formatDate, launchWorkspace, showModal, showSnackbar, usePagination } from '@openmrs/esm-framework';
+import { Download, EventSchedule, Renew, View } from '@carbon/react/icons';
+import { formatDate, openmrsFetch, showModal, showSnackbar, usePagination } from '@openmrs/esm-framework';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { ModuleFuaRestURL } from '../constant';
 import useFuaRequests, { type FuaRequest, setFuaEstado } from '../hooks/useFuaRequests';
 import { useVisit } from '../hooks/useVisit';
 import { FUA_ESTADOS } from '../modals/change-fua-status.modal';
@@ -130,7 +131,7 @@ const PatientCell: React.FC<{ visitUuid: string }> = ({ visitUuid }) => {
 const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' }) => {
   const { t } = useTranslation();
 
-  const { fuaOrders, isLoading, mutate } = useFuaRequests({
+  const { fuaOrders, isLoading, isValidating, mutate } = useFuaRequests({
     status: statusFilter !== 'all' ? statusFilter : null,
     excludeCanceled: true,
   });
@@ -154,9 +155,56 @@ const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' 
   const [currentPageSize, setPageSize] = useState(10);
   const { results, goTo, currentPage } = usePagination(filteredData ?? [], currentPageSize);
 
-  const handleViewFua = useCallback((fuaId: string) => {
-    launchWorkspace('fua-viewer-workspace', { fuaId });
-  }, []);
+  const handleViewFua = useCallback(
+    async (fuaRequest: FuaRequest) => {
+      if (!fuaRequest.visitUuid) {
+        showSnackbar({
+          kind: 'error',
+          title: t('errorLoadingFua', 'Error al cargar FUA'),
+          subtitle: t('missingVisitUuid', 'No se encontro el identificador de visita para este FUA'),
+        });
+        return;
+      }
+
+      const fuaWindow = window.open('', '_blank');
+
+      if (!fuaWindow) {
+        showSnackbar({
+          kind: 'error',
+          title: t('errorLoadingFua', 'Error al cargar FUA'),
+          subtitle: t('popupBlocked', 'El navegador bloqueo la nueva pestana'),
+        });
+        return;
+      }
+
+      fuaWindow.document.write(`<p>${t('loadingFuaDocument', 'Cargando documento FUA...')}</p>`);
+
+      try {
+        const response = await openmrsFetch(`${ModuleFuaRestURL}/RenderFUA/${encodeURIComponent(fuaRequest.visitUuid)}`, {
+          method: 'POST',
+          headers: {
+            Accept: 'text/html',
+          },
+        });
+
+        const html = await response.text();
+        fuaWindow.document.open();
+        fuaWindow.document.write(html);
+        fuaWindow.document.close();
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : t('unknownError', 'Error desconocido');
+        fuaWindow.document.open();
+        fuaWindow.document.write(`<p>${errorMessage}</p>`);
+        fuaWindow.document.close();
+        showSnackbar({
+          kind: 'error',
+          title: t('errorLoadingFua', 'Error al cargar FUA'),
+          subtitle: errorMessage,
+        });
+      }
+    },
+    [t],
+  );
 
   const handleChangeStatus = useCallback(
     (fuaRequest: FuaRequest) => {
@@ -213,6 +261,10 @@ const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' 
     exportFuasToExcel(filteredData);
   }, [filteredData]);
 
+  const handleRefresh = useCallback(() => {
+    mutate();
+  }, [mutate]);
+
   const headers = [
     { key: 'patient', header: t('patient', 'Paciente') },
     { key: 'name', header: t('fuaName', 'Nombre del FUA') },
@@ -264,6 +316,9 @@ const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' 
                 >
                   {t('exportExcel', 'Exportar a Excel')}
                 </Button>
+                <Button kind="ghost" size="sm" renderIcon={Renew} onClick={handleRefresh} disabled={isValidating}>
+                  {isValidating ? t('refreshing', 'Actualizando...') : t('refresh', 'Actualizar')}
+                </Button>
               </TableToolbarContent>
             </TableToolbar>
             <Table {...getTableProps()} className={styles.table} aria-label={t('fuaRequests', 'Solicitudes FUA')}>
@@ -309,7 +364,7 @@ const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' 
                           ) : cell.info.header === 'actions' ? (
                             <FuaActionsCell
                               fuaRequest={fuaRequest}
-                              onView={(req) => handleViewFua(req.uuid)}
+                              onView={handleViewFua}
                               onViewHistory={handleViewHistorial}
                               onChangeStatus={handleChangeStatus}
                               onResend={handleReenviar}

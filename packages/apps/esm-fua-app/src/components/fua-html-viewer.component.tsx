@@ -4,15 +4,17 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Config } from '../config-schema';
+import { ModuleFuaRestURL } from '../constant';
 
 import styles from './fua-html-viewer.scss';
 
 interface FuaHtmlViewerProps {
   fuaId?: string;
+  visitUuid?: string;
   endpoint?: string;
 }
 
-const FuaHtmlViewer: React.FC<FuaHtmlViewerProps> = ({ fuaId, endpoint }) => {
+const FuaHtmlViewer: React.FC<FuaHtmlViewerProps> = ({ fuaId, visitUuid, endpoint }) => {
   const config = useConfig<Config>();
   const { t } = useTranslation();
   const fuaEndpoint = endpoint || config.fuaGeneratorEndpoint;
@@ -28,9 +30,16 @@ const FuaHtmlViewer: React.FC<FuaHtmlViewerProps> = ({ fuaId, endpoint }) => {
         setIsLoading(true);
         setError(null);
 
-        const url = fuaId ? `${fuaEndpoint}?fuaId=${fuaId}` : fuaEndpoint;
+        const url = visitUuid
+          ? `${ModuleFuaRestURL}/RenderFUA/${encodeURIComponent(visitUuid)}`
+          : fuaId
+            ? `${fuaEndpoint}?fuaId=${encodeURIComponent(fuaId)}`
+            : fuaEndpoint;
 
-        const response = await fetch(url, { signal: abortController.signal });
+        const response = await fetch(url, {
+          method: visitUuid ? 'POST' : 'GET',
+          signal: abortController.signal,
+        });
 
         if (!response.ok) {
           throw new Error(`${t('errorLoadingFua', 'Error loading FUA')}: ${response.status}`);
@@ -57,7 +66,7 @@ const FuaHtmlViewer: React.FC<FuaHtmlViewerProps> = ({ fuaId, endpoint }) => {
     fetchFuaHtml();
 
     return () => abortController.abort();
-  }, [fuaId, fuaEndpoint, t]);
+  }, [fuaId, fuaEndpoint, t, visitUuid]);
 
   if (isLoading) {
     return (

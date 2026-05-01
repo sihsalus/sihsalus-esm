@@ -78,8 +78,8 @@ export const completedFuaRequestsTable = getAsyncLifecycle(
   options,
 );
 
-export const declinedFuaRequestsTable = getAsyncLifecycle(
-  () => import('./fua-tabs/data-table-extensions/declined-fua-requests-table.extension'),
+export const envioFuasTable = getAsyncLifecycle(
+  () => import('./fua-tabs/data-table-extensions/envio-fuas-table.extension'),
   options,
 );
 

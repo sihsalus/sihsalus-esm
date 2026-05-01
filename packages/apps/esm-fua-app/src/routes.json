@@ -33,7 +33,7 @@
       "name": "all-fua-requests-tile",
       "component": "allFuaRequestsTile",
       "slot": "fua-tiles-slot",
-      "order": 0,
+      "order": 2,
       "meta": {
         "name": "allFuasRequestsTileSlot",
         "title": "FUAs solicitados"
@@ -43,20 +43,20 @@
       "name": "in-progress-fua-requests-tile",
       "component": "inProgressFuaRequestsTile",
       "slot": "fua-tiles-slot",
-      "order": 1,
+      "order": 0,
       "meta": {
         "name": "inProgressTileSlot",
-        "title": "Worklist"
+        "title": "Visitas"
       }
     },
     {
       "name": "completed-fua-requests-tile",
       "component": "completedFuaRequestsTile",
       "slot": "fua-tiles-slot",
-      "order": 2,
+      "order": 1,
       "meta": {
         "name": "completedTileSlot",
-        "title": "Resultados"
+        "title": "Lista de Formatos FUA"
       }
     },
     {
@@ -82,7 +82,7 @@
       "name": "all-fua-requests-panel",
       "component": "allFuaRequestsTable",
       "slot": "fua-panels-slot",
-      "order": 0,
+      "order": 2,
       "meta": {
         "name": "allFuasPanel",
         "title": "FUAs solicitados"
@@ -92,30 +92,30 @@
       "name": "in-progress-fua-requests-panel",
       "component": "inProgressFuaRequestsTable",
       "slot": "fua-panels-slot",
-      "order": 1,
+      "order": 0,
       "meta": {
         "name": "inProgressPanel",
-        "title": "En progreso"
+        "title": "Visitas"
       }
     },
     {
       "name": "completed-fua-requests-panel",
       "component": "completedFuaRequestsTable",
       "slot": "fua-panels-slot",
-      "order": 2,
+      "order": 1,
       "meta": {
         "name": "completedPanel",
-        "title": "Completadas"
+        "title": "Lista de Formatos FUA"
       }
     },
     {
-      "name": "declined-fua-requests-panel",
-      "component": "declinedFuaRequestsTable",
+      "name": "envio-fuas-panel",
+      "component": "envioFuasTable",
       "slot": "fua-panels-slot",
       "order": 3,
       "meta": {
-        "name": "declinedPanel",
-        "title": "Rechazadas"
+        "name": "envioFuasPanel",
+        "title": "Envio FUAs"
       }
     }
   ],
