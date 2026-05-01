@@ -7,6 +7,7 @@ import BillsTable from '../bills-table/bills-table.component';
 import { omrsDateFormat } from '../constants';
 import SelectedDateContext from '../hooks/selectedDateContext';
 import styles from './billing-dashboard.scss';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 
 export function BillingDashboard() {
   const { t } = useTranslation();
@@ -21,17 +22,20 @@ export function BillingDashboard() {
   }, [params.date]);
 
   return (
-    <SelectedDateContext.Provider value={{ selectedDate, setSelectedDate }}>
-      <BillingHeader title={t('billing', 'Billing')} />
-      {/**
-       *
-       * TODO: Add this back when the backend has an endpoint to get the metrics
-       * The metrics are too intensive to calculate on the frontend since it requires fetching all the bills
-       * <MetricsCards />
-       **/}
-      <section className={styles.billsTableContainer}>
-        <BillsTable />
-      </section>
-    </SelectedDateContext.Provider>
+    <AppErrorBoundary appName="testing billing" privilegesRequired={["Get Queue Entries"]}>
+      <SelectedDateContext.Provider value={{ selectedDate, setSelectedDate }}>
+        <BillingHeader title={t('billing', 'Billing')} />
+        <a>TESTING HERE ---</a>
+        {/**
+         *
+         * TODO: Add this back when the backend has an endpoint to get the metrics
+         * The metrics are too intensive to calculate on the frontend since it requires fetching all the bills
+         * <MetricsCards />
+         **/}
+        <section className={styles.billsTableContainer}>
+          <BillsTable />
+        </section>
+      </SelectedDateContext.Provider>
+    </AppErrorBoundary>
   );
 }

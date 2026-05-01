@@ -19,9 +19,9 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@openmrs/*": ["../node_modules/@openmrs/*"],
       "test-utils": ["./test-utils/index.tsx"],
-      "test-utils/*": ["./test-utils/*"]
+      "test-utils/*": ["./test-utils/*"],
+      "@openmrs/*": ["./apps/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

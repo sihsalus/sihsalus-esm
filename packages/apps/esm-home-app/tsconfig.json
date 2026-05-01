@@ -1,5 +1,10 @@
 {
   "extends": "../../tooling/tsconfig.app.json",
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.tsx"]
+  "exclude": ["src/**/*.test.tsx"],
+  "compilerOptions": {
+    "paths": {
+      "test-utils": ["../../test-utils/index"]
+    }
+  }    
 }

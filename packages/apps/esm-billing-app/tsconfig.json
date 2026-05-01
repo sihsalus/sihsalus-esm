@@ -5,12 +5,26 @@
     "moduleResolution": "node",
     "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
-      "@openmrs/*": ["../../../node_modules/@openmrs/*"],
       "mocks/*": ["./test-utils/mocks/*"],
       "test-utils": ["../../test-utils/index.tsx"],
       "test-utils/*": ["../../test-utils/*"],
-      "tools/*": ["./tools/*"]
-    }
+      "tools/*": ["./tools/*"],    
+      "mocks/*": [
+        "./__mocks__/*"
+      ],
+      "tools/*": [
+        "./tools/*"
+      ],
+      "test-utils": [
+        "../../test-utils/index"
+      ],
+      "@openmrs/*": [
+        "../../apps/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "esnext"
   },
   "include": ["src/**/*", "e2e/**/*", "test-utils/**/*", "../../tools/setup-tests.ts"]
 }
