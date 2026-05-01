@@ -20,6 +20,12 @@ interface ComboInputProps {
   handleSelection: (newSelection: string) => void;
 }
 
+const ComboMenuItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="cds--list-box__menu-item">
+    <div className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption)}>{children}</div>
+  </div>
+);
+
 const ComboInput: React.FC<ComboInputProps> = ({
   entries,
   error,
@@ -59,7 +65,7 @@ const ComboInput: React.FC<ComboInputProps> = ({
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      const totalResults = filteredEntries.length ?? 0;
+      const totalResults = filteredEntries.length;
 
       if (event.key === 'Tab') {
         setShowEntries(false);
@@ -91,7 +97,38 @@ const ComboInput: React.FC<ComboInputProps> = ({
     return () => {
       globalThis.removeEventListener('click', listener);
     };
-  });
+  }, []);
+
+  const renderDropdownContent = () => {
+    if (isLoading) return <ComboMenuItem>{t('searching', 'Searching...')}</ComboMenuItem>;
+    if (error) return <ComboMenuItem>{t('errorFetchingResults', 'Error fetching results')}</ComboMenuItem>;
+    if (filteredEntries.length > 0) {
+      return filteredEntries.map((entry, indx) => (
+        <div
+          className={classNames('cds--list-box__menu-item', {
+            'cds--list-box__menu-item--highlighted': indx === highlightedEntry,
+          })}
+          key={indx}
+          id={`downshift-1-item-${indx}`}
+          role="option"
+          tabIndex={-1}
+          aria-selected={entry === value}
+          onClick={() => handleOptionClick(entry)}
+        >
+          <div
+            className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption, {
+              'cds--list-box__menu-item--active': entry === value,
+            })}
+          >
+            {entry}
+            {entry === value && <SelectionTick />}
+          </div>
+        </div>
+      ));
+    }
+    if (value) return <ComboMenuItem>{t('noMatchingResults', 'No matching results')}</ComboMenuItem>;
+    return null;
+  };
 
   return (
     <div className={styles.comboInput} ref={comboInputRef}>
@@ -112,48 +149,7 @@ const ComboInput: React.FC<ComboInputProps> = ({
         {showEntries && (
           <div className="cds--combo-box cds--list-box cds--list-box--expanded">
             <div id="downshift-1-menu" className="cds--list-box__menu" role="listbox">
-              {isLoading ? (
-                <div className="cds--list-box__menu-item">
-                  <div className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption)}>
-                    {t('searching', 'Searching...')}
-                  </div>
-                </div>
-              ) : error ? (
-                <div className="cds--list-box__menu-item">
-                  <div className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption)}>
-                    {t('errorFetchingResults', 'Error fetching results')}
-                  </div>
-                </div>
-              ) : filteredEntries.length > 0 ? (
-                filteredEntries.map((entry, indx) => (
-                  <div
-                    className={classNames('cds--list-box__menu-item', {
-                      'cds--list-box__menu-item--highlighted': indx === highlightedEntry,
-                    })}
-                    key={indx}
-                    id="downshift-1-item-0"
-                    role="option"
-                    tabIndex={-1}
-                    aria-selected="true"
-                    onClick={() => handleOptionClick(entry)}
-                  >
-                    <div
-                      className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption, {
-                        'cds--list-box__menu-item--active': entry === value,
-                      })}
-                    >
-                      {entry}
-                      {entry === value && <SelectionTick />}
-                    </div>
-                  </div>
-                ))
-              ) : value ? (
-                <div className="cds--list-box__menu-item">
-                  <div className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption)}>
-                    {t('noMatchingResults', 'No matching results')}
-                  </div>
-                </div>
-              ) : null}
+              {renderDropdownContent()}
             </div>
           </div>
         )}

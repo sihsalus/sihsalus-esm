@@ -17,9 +17,7 @@ const options = {
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
-export function startupApp() {
-  // No startup work is required for this module.
-}
+export function startupApp() {}
 
 export const cohortBuilder = getSyncLifecycle(cohortBuilderComponent, options);
 

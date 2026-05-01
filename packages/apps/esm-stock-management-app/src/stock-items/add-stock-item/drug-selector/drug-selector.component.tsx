@@ -41,7 +41,7 @@ const DrugSelector = <T,>(props: DrugSelectorProps<T>) => {
 
       existenceCheckUuidRef.current = drugUuid;
 
-      fetchStockItem(drugUuid).then((result: { results?: Array<unknown> } | undefined) => {
+      fetchStockItem(drugUuid).then((result: any) => {
         if (existenceCheckUuidRef.current !== drugUuid) {
           return;
         }

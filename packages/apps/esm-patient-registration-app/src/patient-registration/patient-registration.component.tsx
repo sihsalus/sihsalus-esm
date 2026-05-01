@@ -25,6 +25,7 @@ import { type CapturePhotoProps, type FormValues } from './patient-registration.
 import { PatientRegistrationContext } from './patient-registration-context';
 import { useInitialAddressFieldValues, useInitialFormValues, usePatientUuidMap } from './patient-registration-hooks';
 import { cancelRegistration, filterOutUndefinedPatientIdentifiers, scrollIntoView } from './patient-registration-utils';
+import { getEffectiveRegistrationConfig } from './peru-registration-config';
 import { SectionWrapper } from './section/section-wrapper.component';
 import { getValidationSchema } from './validation/patient-registration-validation';
 
@@ -51,7 +52,11 @@ export interface PatientRegistrationProps {
 export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePatientForm, isOffline }) => {
   const { currentSession, identifierTypes } = useContext(ResourcesContext);
   const { search } = useLocation();
-  const config = useConfig() as RegistrationConfig;
+  const configuredRegistrationConfig = useConfig() as RegistrationConfig;
+  const config = useMemo(
+    () => getEffectiveRegistrationConfig(configuredRegistrationConfig),
+    [configuredRegistrationConfig],
+  );
   const [target, setTarget] = useState<undefined | string>();
   const { patientUuid: uuidOfPatientToEdit } = useParams();
   const patientUuidToEdit = uuidOfPatientToEdit ?? '';

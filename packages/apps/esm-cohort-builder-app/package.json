@@ -34,14 +34,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openmrs/openmrs-esm-cohortbuilder.git"
+    "url": "git+https://github.com/openmrs/openmrs-esm-cohortbuilder-app.git"
   },
-  "homepage": "https://github.com/openmrs/openmrs-esm-cohortbuilder#readme",
+  "homepage": "https://github.com/openmrs/openmrs-esm-cohortbuilder-app#readme",
   "publishConfig": {
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/openmrs/openmrs-esm-cohortbuilder/issues"
+    "url": "https://github.com/openmrs/openmrs-esm-cohortbuilder-app/issues"
   },
   "peerDependencies": {
     "@openmrs/esm-framework": "9.x",

@@ -37,7 +37,7 @@ const FlagsList: React.FC<FlagsListProps> = ({ patientUuid, filterByTags = [] })
     });
   }, [flags, filterByTags]);
 
-  const handleClickEditFlags = useCallback(() => launchWorkspace2('edit-flags-side-panel-form'), []);
+  const handleClickEditFlags = useCallback(() => launchWorkspace2('patient-flags-workspace'), []);
 
   if (!isLoading && !error) {
     return (
@@ -65,6 +65,19 @@ const FlagsList: React.FC<FlagsListProps> = ({ patientUuid, filterByTags = [] })
   }
   return null;
 };
+
+const operationalTagColors: Array<CarbonTagColor> = [
+  'red',
+  'magenta',
+  'purple',
+  'blue',
+  'cyan',
+  'teal',
+  'green',
+  'gray',
+  'cool-gray',
+  'warm-gray',
+];
 
 interface FlagProps {
   flag: FlagWithPriority;
@@ -129,10 +142,14 @@ const Flag: React.FC<FlagProps> = ({ flag, patientUuid }) => {
   }, [priorityConfig.color, action]);
 
   if (action) {
+    const operationalTagType = operationalTagColors.includes(priorityConfig.color as CarbonTagColor)
+      ? (priorityConfig.color as CarbonTagColor)
+      : undefined;
+
     return (
       <OperationalTag
         className={styles.flagTag}
-        type={tagType}
+        type={operationalTagType}
         style={customStyle}
         onClick={handleClick}
         text={flagText}

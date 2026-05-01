@@ -24,7 +24,7 @@ const TransactionsBincardPrintPreviewModal: React.FC<TransactionsBincardPrintPre
   const ref = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
-    contentRef: ref,
+    content: () => ref.current,
   });
   return (
     <>

@@ -115,8 +115,9 @@ describe('BatchNoSelector', () => {
 
     const combobox = screen.getByRole('combobox');
     await user.click(combobox);
+    await user.type(combobox, 'BATCH-001');
 
-    const option = await screen.findByText(`BATCH-001 | Qty: 10 | Expiry: ${formatForDatePicker(mockExpiration)}`);
+    const option = screen.getByText(`BATCH-001 | Qty: 10 | Expiry: ${formatForDatePicker(mockExpiration)}`);
 
     await user.click(option);
 

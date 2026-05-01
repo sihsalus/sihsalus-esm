@@ -3,13 +3,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from './search-button-set.scss';
 
-interface SearchButtonSetProps {
+interface SearchButtonSet {
   isLoading: boolean;
   onHandleSubmit: () => void;
   onHandleReset: () => void;
 }
 
-const SearchButtonSet: React.FC<SearchButtonSetProps> = ({ isLoading, onHandleSubmit, onHandleReset }) => {
+const SearchButtonSet: React.FC<SearchButtonSet> = ({ isLoading, onHandleSubmit, onHandleReset }) => {
   const { t } = useTranslation();
 
   return (

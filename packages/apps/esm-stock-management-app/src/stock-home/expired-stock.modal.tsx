@@ -13,13 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 interface ExpiredStockModalProps {
   closeModal: () => void;
-  expiredStock: Array<{
-    drugName?: string;
-    batchNo?: string;
-    quantity?: number | string;
-    dispensingUnitName?: string;
-    expiration?: string | Date;
-  }>;
+  expiredStock: any[];
 }
 
 const ExpiredStockModal = ({ closeModal, expiredStock }: ExpiredStockModalProps) => {
@@ -33,7 +27,7 @@ const ExpiredStockModal = ({ closeModal, expiredStock }: ExpiredStockModalProps)
     { key: 'expiration', header: 'Expiration Date' },
   ];
 
-  const formatDate = (dateString?: string | Date) => {
+  const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-GB', {

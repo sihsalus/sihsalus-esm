@@ -143,6 +143,8 @@ describe('ContactDetails', () => {
     expect(screen.getByText(/patient lists/i)).toBeInTheDocument();
     expect(screen.getByText(/Test patient List-47/)).toBeInTheDocument();
     expect(screen.getByText(/List three/)).toBeInTheDocument();
+    expect(screen.queryByText(/postal code/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/00100/)).not.toBeInTheDocument();
   });
 
   it('patient related name should be a link', async () => {

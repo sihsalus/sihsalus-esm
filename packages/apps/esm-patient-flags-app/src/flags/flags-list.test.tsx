@@ -1,7 +1,6 @@
 import { getDefaultsFromConfigSchema, launchWorkspace2, navigate, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { mockPatient, mockPatientFlags } from 'test-utils';
 import { type ConfigObject, configSchema } from '../config-schema';
 import FlagsList from './flags-list.component';
@@ -53,7 +52,7 @@ describe('flags list', () => {
 
     await user.click(editButton);
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('edit-flags-side-panel-form');
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith('patient-flags-workspace');
   });
 
   it('hides the Edit button when allowFlagDeletion config is false', () => {
@@ -126,10 +125,11 @@ describe('flags list', () => {
 
   it('navigates to URL when flag with configured flagAction URL is clicked', async () => {
     const user = userEvent.setup();
+    const followUpUrl = ['$' + '{openmrsSpaBase}', '/patient/', '$' + '{patientUuid}', '/follow-up'].join('');
 
     mockUseConfig.mockReturnValue({
       ...getDefaultsFromConfigSchema(configSchema),
-      flagActions: [{ flagName: 'Needs Follow Up', url: '${openmrsSpaBase}/patient/${patientUuid}/follow-up' }],
+      flagActions: [{ flagName: 'Needs Follow Up', url: followUpUrl }],
     });
     mockUsePatientFlags.mockReturnValue({
       error: null,
@@ -145,7 +145,7 @@ describe('flags list', () => {
     await user.click(clickableFlag);
 
     expect(mockNavigate).toHaveBeenCalledWith({
-      to: '${openmrsSpaBase}/patient/${patientUuid}/follow-up',
+      to: followUpUrl,
       templateParams: { patientUuid: mockPatient.id },
     });
   });

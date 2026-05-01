@@ -8,6 +8,7 @@
 
 import { Button, ModalBody, ModalFooter, ModalHeader, Tag } from '@carbon/react';
 import { launchWorkspace, showSnackbar, useConfig } from '@openmrs/esm-framework';
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSWRConfig } from 'swr';
@@ -34,9 +35,8 @@ const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, close
   const gender = queueEntry.patient.person?.gender || '';
   const age = queueEntry.patient.person?.age;
   const identifiers = queueEntry.patient.identifiers || [];
-  const dniTypeUuid = config.patientRegistration.defaultIdentifierTypeUuid;
-  const dni = identifiers.find((id) => id.identifierType?.uuid === dniTypeUuid);
-  const otherIdentifiers = identifiers.filter((id) => id.identifierType?.uuid !== dniTypeUuid);
+  const preferredIdentifier = getPreferredIdentifier(identifiers);
+  const otherIdentifiers = identifiers.filter((id) => id.uuid !== preferredIdentifier?.uuid);
 
   const handleServe = useCallback(() => {
     setIsSubmitting(true);
@@ -83,9 +83,9 @@ const ServePatientModal: React.FC<ServePatientModalProps> = ({ queueEntry, close
           <p className={styles.p}>
             {t('patientName', 'Nombre del paciente')}: &nbsp; {patientName}
           </p>
-          {dni && (
+          {preferredIdentifier && (
             <p className={styles.p}>
-              {t('dni', 'DNI')}: &nbsp; <strong>{dni.identifier}</strong>
+              {preferredIdentifier.identifierType?.display}: &nbsp; <strong>{preferredIdentifier.identifier}</strong>
             </p>
           )}
           {otherIdentifiers.map((identifier) => (

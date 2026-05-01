@@ -17,21 +17,31 @@ const AddressSearchComponent: React.FC<AddressSearchComponentProps> = ({ address
   const wrapper = useRef(null);
 
   const [searchString, setSearchString] = useState('');
+  const [debouncedSearchString, setDebouncedSearchString] = useState('');
 
-  const { addresses, isLoading, error } = useAddressHierarchy(searchString, separator);
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setDebouncedSearchString(searchString.trim());
+    }, 300);
+
+    return () => window.clearTimeout(timeout);
+  }, [searchString]);
+
+  const searchQuery = debouncedSearchString.length >= 3 ? debouncedSearchString : '';
+  const { addresses, isLoading, error } = useAddressHierarchy(searchQuery, separator);
 
   const addressOptions: Array<string> = useMemo(() => {
     const options: Set<string> = new Set();
     addresses.forEach((address) => {
       const values = address.split(separator);
       values.forEach((val, index) => {
-        if (val.toLowerCase().includes(searchString.toLowerCase())) {
+        if (val.toLowerCase().includes(searchQuery.toLowerCase())) {
           options.add(values.slice(0, index + 1).join(separator));
         }
       });
     });
     return [...options];
-  }, [addresses, searchString]);
+  }, [addresses, searchQuery]);
 
   const { setFieldValue } = useFormikContext();
 
@@ -43,28 +53,27 @@ const AddressSearchComponent: React.FC<AddressSearchComponentProps> = ({ address
     if (address) {
       const values = address.split(separator);
       addressLayout.forEach(({ name }, index) => {
-        setFieldValue(`address.${name}`, values?.[index] ?? '');
+        setFieldValue(`address.${name}`, values?.[index] ?? '', false);
       });
       setSearchString('');
-    }
-  };
-
-  const handleClickOutsideComponent = (e) => {
-    if (wrapper.current && !wrapper.current.contains(e.target)) {
-      setSearchString('');
+      setDebouncedSearchString('');
     }
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutsideComponent);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutsideComponent);
+    const handleClickOutside = (e) => {
+      if (wrapper.current && !wrapper.current.contains(e.target)) {
+        setSearchString('');
+      }
     };
-  }, [wrapper]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className={styles.autocomplete} ref={wrapper} style={{ marginBottom: '1rem' }}>
+    <div className={styles.autocomplete} ref={wrapper}>
       <Search
         onChange={handleInputChange}
         onKeyDown={(e) => {
@@ -79,7 +88,9 @@ const AddressSearchComponent: React.FC<AddressSearchComponentProps> = ({ address
       />
       {searchString && (
         <ul className={styles.suggestions}>
-          {isLoading ? (
+          {searchString.trim().length < 3 ? (
+            <li className={styles.noResults}>{t('typeAtLeastThreeCharacters', 'Type at least 3 characters')}</li>
+          ) : isLoading ? (
             <li className={styles.loading}>{t('searching', 'Searching...')}</li>
           ) : error ? (
             <li className={styles.noResults}>{t('errorFetchingAddresses', 'Error fetching address results')}</li>

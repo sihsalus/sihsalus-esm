@@ -73,7 +73,6 @@ const PatientBanner: React.FC<PatientBannerProps> = ({ patient, patientUuid, hid
               id: addressId,
               city: preferredAddress.cityVillage,
               country: preferredAddress.country,
-              postalCode: preferredAddress.postalCode,
               state: preferredAddress.stateProvince,
               use: 'home',
             },

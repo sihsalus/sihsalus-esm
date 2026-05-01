@@ -1,6 +1,6 @@
 import { DataTable, Pagination, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import mainStyles from '../../cohort-builder.scss';
 import type { DefinitionDataRow, PaginationData } from '../../types';
@@ -19,10 +19,10 @@ const SavedQueries: React.FC<SavedQueriesProps> = ({ onViewQuery }) => {
   const [pageSize, setPageSize] = useState(10);
   const [queries, setQueries] = useState<DefinitionDataRow[]>([]);
 
-  const getTableData = useCallback(async () => {
+  const getTableData = async () => {
     const queries = await getQueries();
     setQueries(queries);
-  }, []);
+  };
 
   const deleteQuery = async (queryId: string) => {
     try {
@@ -74,15 +74,9 @@ const SavedQueries: React.FC<SavedQueriesProps> = ({ onViewQuery }) => {
           <Table {...getTableProps()}>
             <TableHead>
               <TableRow>
-                {headers.map((header) => {
-                  const { key, ...headerProps } = getHeaderProps({ header });
-
-                  return (
-                    <TableHeader key={key} {...headerProps}>
-                      {header.header}
-                    </TableHeader>
-                  );
-                })}
+                {headers.map((header) => (
+                  <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
+                ))}
                 <TableHeader className={mainStyles.optionHeader}></TableHeader>
               </TableRow>
             </TableHead>
@@ -90,24 +84,16 @@ const SavedQueries: React.FC<SavedQueriesProps> = ({ onViewQuery }) => {
               {rows
                 .slice((page - 1) * pageSize)
                 .slice(0, pageSize)
-                .map((row, index: number) => {
-                  const { key, ...rowProps } = getRowProps({ row });
-
-                  return (
-                    <TableRow key={key} {...rowProps}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                      <TableCell className={mainStyles.optionCell}>
-                        <SavedQueriesOptions
-                          query={queries[index]}
-                          onViewQuery={onViewQuery}
-                          deleteQuery={deleteQuery}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                .map((row, index: number) => (
+                  <TableRow {...getRowProps({ row })} key={index}>
+                    {row.cells.map((cell, index) => (
+                      <TableCell key={index}>{cell.value}</TableCell>
+                    ))}
+                    <TableCell className={mainStyles.optionCell}>
+                      <SavedQueriesOptions query={queries[index]} onViewQuery={onViewQuery} deleteQuery={deleteQuery} />
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         )}

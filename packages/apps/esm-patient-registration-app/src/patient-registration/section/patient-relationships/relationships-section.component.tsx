@@ -8,15 +8,19 @@ import {
   SkeletonText,
 } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
+import { useConfig } from '@openmrs/esm-framework';
 import { FieldArray } from 'formik';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { type RegistrationConfig } from '../../../config-schema';
 import { moduleName } from '../../../constants';
 import { ResourcesContext } from '../../../offline.resources';
 import { Autosuggest } from '../../input/custom-input/autosuggest/autosuggest.component';
 import { fetchPerson } from '../../patient-registration.resource';
-import { type RelationshipValue } from '../../patient-registration.types';
+import { type FormValues, type RelationshipValue } from '../../patient-registration.types';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+import { getEffectiveRegistrationConfig } from '../../peru-registration-config';
+import { hasResponsibleRelationship, isMinorPatient } from '../../validation/patient-registration-validation';
 import sectionStyles from '../section.scss';
 import styles from './relationships.scss';
 
@@ -161,8 +165,14 @@ const RelationshipView: React.FC<RelationshipViewProps> = ({
 
 export const RelationshipsSection = () => {
   const { relationshipTypes } = useContext(ResourcesContext);
+  const registrationContext = useContext(PatientRegistrationContext);
+  const values = registrationContext?.values ?? ({} as FormValues);
+  const configuredConfig = useConfig() as RegistrationConfig;
+  const config = configuredConfig?.sections ? getEffectiveRegistrationConfig(configuredConfig) : configuredConfig;
   const [displayRelationshipTypes, setDisplayRelationshipTypes] = useState<RelationshipType[]>([]);
   const { t } = useTranslation(moduleName);
+  const requiresResponsibleRelationship = isMinorPatient(values);
+  const minorResponsibleRelationshipTypes = config?.relationshipOptions?.minorResponsibleRelationshipTypes ?? [];
 
   useEffect(() => {
     if (relationshipTypes) {
@@ -209,6 +219,18 @@ export const RelationshipsSection = () => {
           },
         }) => (
           <div>
+            {requiresResponsibleRelationship &&
+            !hasResponsibleRelationship(relationships, minorResponsibleRelationshipTypes) ? (
+              <InlineNotification
+                kind="warning"
+                lowContrast
+                title={t('responsibleRelationshipRequiredTitle', 'Responsible relationship required')}
+                subtitle={t(
+                  'responsibleRelationshipRequiredForMinor',
+                  'A responsible family member or guardian relationship is required for minors',
+                )}
+              />
+            ) : null}
             {relationships && relationships.length > 0
               ? relationships.map((relationship: RelationshipValue, index) => (
                   <div key={index} className={sectionStyles.formSection}>

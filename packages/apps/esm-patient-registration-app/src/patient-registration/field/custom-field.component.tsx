@@ -2,6 +2,7 @@ import { useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 
 import { type RegistrationConfig } from '../../config-schema';
+import { getEffectiveRegistrationConfig } from '../peru-registration-config';
 
 import { AddressField } from './address/custom-address-field.component';
 import { ObsField } from './obs/obs-field.component';
@@ -12,7 +13,7 @@ export interface CustomFieldProps {
 }
 
 export function CustomField({ name }: CustomFieldProps) {
-  const config = useConfig() as RegistrationConfig;
+  const config = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   const fieldDefinition = config.fieldDefinitions.filter((def) => def.id == name)[0];
 
   if (fieldDefinition.type === 'person attribute') {

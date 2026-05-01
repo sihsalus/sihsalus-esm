@@ -47,32 +47,22 @@ const SearchResultsTable: React.FC<SearchResultsTableProps> = ({ patients }) => 
           <Table {...getTableProps()}>
             <TableHead>
               <TableRow>
-                {headers.map((header) => {
-                  const { key, ...headerProps } = getHeaderProps({ header });
-
-                  return (
-                    <TableHeader key={key} {...headerProps}>
-                      {header.header}
-                    </TableHeader>
-                  );
-                })}
+                {headers.map((header) => (
+                  <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
               {rows
                 .slice((page - 1) * pageSize)
                 .slice(0, pageSize)
-                .map((row) => {
-                  const { key, ...rowProps } = getRowProps({ row });
-
-                  return (
-                    <TableRow key={key} {...rowProps}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                    </TableRow>
-                  );
-                })}
+                .map((row, index) => (
+                  <TableRow {...getRowProps({ row })} key={index}>
+                    {row.cells.map((cell, index) => (
+                      <TableCell key={index}>{cell.value}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         )}

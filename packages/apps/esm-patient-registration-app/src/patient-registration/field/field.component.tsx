@@ -2,6 +2,7 @@ import { reportError, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 
 import { builtInFields, type RegistrationConfig } from '../../config-schema';
+import { getEffectiveRegistrationConfig } from '../peru-registration-config';
 
 import { AddressComponent } from './address/address-field.component';
 import { CauseOfDeathField } from './cause-of-death/cause-of-death.component';
@@ -18,7 +19,7 @@ export interface FieldProps {
 }
 
 export function Field({ name }: FieldProps) {
-  const config = useConfig() as RegistrationConfig;
+  const config = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   if (
     !(builtInFields as ReadonlyArray<string>).includes(name) &&
     !config.fieldDefinitions.some((def) => def.id == name)

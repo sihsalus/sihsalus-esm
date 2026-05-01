@@ -3,13 +3,14 @@ import camelCase from 'lodash-es/camelCase';
 import escapeRegExp from 'lodash-es/escapeRegExp';
 import find from 'lodash-es/find';
 import React from 'react';
-
+import { type RegistrationConfig } from './config-schema';
 import { cacheForOfflineHeaders, moduleName } from './constants';
 import type {
   AddressTemplate,
   FetchedPatientIdentifierType,
   PatientIdentifierType,
 } from './patient-registration/patient-registration.types';
+import { getEffectiveRegistrationConfig } from './patient-registration/peru-registration-config';
 
 export interface Resources {
   addressTemplate: AddressTemplate;
@@ -36,7 +37,7 @@ export async function fetchAllRelationshipTypes() {
 }
 
 export async function fetchAllFieldDefinitionTypes() {
-  const config = await getConfig(moduleName);
+  const config = getEffectiveRegistrationConfig((await getConfig(moduleName)) as RegistrationConfig);
 
   if (!config.fieldDefinitions) {
     return;

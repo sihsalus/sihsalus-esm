@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-service-queues-app",
-  "version": "8.3.1",
+  "version": "10.0.2",
   "description": "Outpatient front-end module for O3",
   "browser": "dist/openmrs-esm-service-queues-app.js",
   "main": "src/index.ts",
@@ -40,6 +40,7 @@
     "@carbon/react": "^1.71.0",
     "@hookform/resolvers": "^3.9.1",
     "@sihsalus/esm-rbac": "workspace:*",
+    "@sihsalus/esm-sihsalus-shared": "workspace:*",
     "classnames": "^2.3.2",
     "lodash-es": "^4.17.15",
     "react-hook-form": "^7.54.0",

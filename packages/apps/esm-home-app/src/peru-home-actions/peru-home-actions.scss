@@ -1,0 +1,50 @@
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: layout.$spacing-04;
+  padding: layout.$spacing-05 layout.$spacing-05 0;
+}
+
+.actionLink {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: layout.$spacing-04;
+  min-height: 5.5rem;
+  padding: layout.$spacing-05;
+  color: colors.$gray-100;
+  text-decoration: none;
+  background: colors.$white-0;
+  border: 1px solid colors.$gray-20;
+  border-radius: 0.25rem;
+
+  &:hover {
+    color: colors.$blue-70;
+    background: colors.$gray-10;
+  }
+
+  &:focus {
+    outline: 2px solid colors.$blue-60;
+    outline-offset: -2px;
+  }
+}
+
+.actionText {
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-02;
+  min-width: 0;
+
+  strong {
+    @include type.type-style("heading-compact-01");
+  }
+
+  span {
+    @include type.type-style("body-compact-01");
+    color: colors.$gray-70;
+  }
+}

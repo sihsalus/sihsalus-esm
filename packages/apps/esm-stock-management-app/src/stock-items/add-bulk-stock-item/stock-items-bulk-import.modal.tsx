@@ -10,7 +10,7 @@ export interface ImportBulkStockItemsModalProps {
 
 const ImportBulkStockItemsModal: React.FC<ImportBulkStockItemsModalProps> = ({ closeModal }) => {
   const { t } = useTranslation();
-  const [selectedFile, setSelectedFile] = useState<File | undefined>();
+  const [selectedFile, setSelectedFile] = useState<any>();
 
   const onConfirmUpload = () => {
     if (!selectedFile) {

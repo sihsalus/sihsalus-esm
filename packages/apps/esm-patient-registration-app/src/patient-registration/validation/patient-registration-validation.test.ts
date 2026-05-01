@@ -33,6 +33,13 @@ describe('Patient registration validation', () => {
           },
         ],
       },
+      relationshipOptions: {
+        minorResponsibleRelationshipTypes: [
+          '8d91a210-c2cc-11de-8d13-0010c6dffdff/aIsToB',
+          '8d91a210-c2cc-11de-8d13-0010c6dffd0f/aIsToB',
+          '057de23f-3d9c-4314-9391-4452970739c6/aIsToB',
+        ],
+      },
     });
   });
 
@@ -60,6 +67,7 @@ describe('Patient registration validation', () => {
         identifierValue: '',
       },
     },
+    relationships: [],
   };
 
   const validateFormValues = async (formValues) => {
@@ -191,6 +199,60 @@ describe('Patient registration validation', () => {
     };
     const validationError = await validateFormValues(invalidFormValues);
     expect(validationError.errors).toContain('birthdayNotOver140YearsAgo');
+  });
+
+  it('should require a responsible relationship when the patient is a minor', async () => {
+    const invalidFormValues = {
+      ...validFormValues,
+      birthdate: dayjs().subtract(10, 'years').toDate(),
+      relationships: [],
+    };
+    const validationError = await validateFormValues(invalidFormValues);
+    expect(validationError.errors).toContain('responsibleRelationshipRequiredForMinor');
+  });
+
+  it('should allow a minor patient with a responsible relationship', async () => {
+    const minorWithRelationship = {
+      ...validFormValues,
+      birthdate: dayjs().subtract(10, 'years').toDate(),
+      relationships: [
+        {
+          action: 'ADD',
+          relatedPersonUuid: '11524ae7-3ef6-4ab6-aff6-804ffc58704a',
+          relationshipType: '8d91a210-c2cc-11de-8d13-0010c6dffdff/aIsToB',
+        },
+      ],
+    };
+    const validationError = await validateFormValues(minorWithRelationship);
+    expect(validationError).toBeFalsy();
+  });
+
+  it('should not allow a minor patient with a non-responsible relationship only', async () => {
+    const minorWithNonResponsibleRelationship = {
+      ...validFormValues,
+      birthdate: dayjs().subtract(10, 'years').toDate(),
+      relationships: [
+        {
+          action: 'ADD',
+          relatedPersonUuid: '11524ae7-3ef6-4ab6-aff6-804ffc58704a',
+          relationshipType: '8d91a210-c2cc-11de-8d13-0010c6dffdff/bIsToA',
+        },
+      ],
+    };
+    const validationError = await validateFormValues(minorWithNonResponsibleRelationship);
+    expect(validationError.errors).toContain('responsibleRelationshipRequiredForMinor');
+  });
+
+  it('should require a responsible relationship when the estimated age is under 18', async () => {
+    const invalidFormValues = {
+      ...validFormValues,
+      birthdate: '',
+      birthdateEstimated: true,
+      yearsEstimated: 17,
+      relationships: [],
+    };
+    const validationError = await validateFormValues(invalidFormValues);
+    expect(validationError.errors).toContain('responsibleRelationshipRequiredForMinor');
   });
 
   it('should require yearsEstimated when birthdateEstimated is true', async () => {

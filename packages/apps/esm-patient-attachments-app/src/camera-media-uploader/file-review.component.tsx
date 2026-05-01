@@ -107,7 +107,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({
   uploadedFile,
   collectDescription,
   onSaveFile,
-  clearData: _clearData,
+  clearData,
   closeModal,
 }) => {
   const { t } = useTranslation();

@@ -8,6 +8,7 @@ import { type RegistrationConfig } from '../../../config-schema';
 import { moduleName } from '../../../constants';
 import { Input } from '../../input/basic-input/input/input.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+import { getEffectiveRegistrationConfig } from '../../peru-registration-config';
 import styles from '../field.scss';
 
 export const unidentifiedPatientAttributeTypeUuid = '8b56eac7-5c76-4b9c-8c6f-1deab8d3fc47';
@@ -37,7 +38,7 @@ export const NameField = () => {
         requireFamilyName2,
       },
     },
-  } = useConfig<RegistrationConfig>();
+  } = getEffectiveRegistrationConfig(useConfig<RegistrationConfig>());
 
   const [{ value: isPatientUnknownValue }, , { setValue: setUnknownPatient }] = useField<string>(
     `attributes.${unidentifiedPatientAttributeTypeUuid}`,

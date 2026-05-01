@@ -95,6 +95,8 @@
   "relationshipRemovedText": "Relación quitada",
   "relationshipsSection": "Relaciones",
   "relationshipToPatient": "Relación con el paciente",
+  "responsibleRelationshipRequiredForMinor": "Para pacientes menores de edad, registre una relación con familiar responsable, apoderado o tutor.",
+  "responsibleRelationshipRequiredTitle": "Relación responsable requerida",
   "relativeFullNameLabelText": "Nombre completo",
   "relativeNamePlaceholder": "Nombre Apellido",
   "removeIdentifierButton": "Quitar dato de identificación",

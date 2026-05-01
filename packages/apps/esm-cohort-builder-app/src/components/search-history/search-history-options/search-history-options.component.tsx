@@ -17,7 +17,7 @@ const Option = {
 
 type OptionType = (typeof Option)[keyof typeof Option];
 
-interface SearchHistoryOptionsProps {
+interface SearchHistoryOptions {
   searchItem: SearchHistoryItem;
   updateSearchHistory: (selectedSearchItem: SearchHistoryItem) => void;
 }
@@ -59,9 +59,8 @@ const createCohortFromSearchItem = async (
   }
 };
 
-const SearchHistoryOptions: React.FC<SearchHistoryOptionsProps> = ({ searchItem, updateSearchHistory }) => {
+const SearchHistoryOptions: React.FC<SearchHistoryOptions> = ({ searchItem, updateSearchHistory }) => {
   const { t } = useTranslation();
-  // Pre-fill en progreso: modal de save-cohort tomará name/description desde estos estados.
   const [_cohortName, _setCohortName] = useState('');
   const [_cohortDescription, setCohortDescription] = useState('');
   const [queryName, setQueryName] = useState('');

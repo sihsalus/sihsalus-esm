@@ -3,6 +3,7 @@ import { ArrowRight, TrashCan } from '@carbon/react/icons';
 import { isDesktop, UserHasAccess, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { type RegistrationConfig } from '../../../config-schema';
 import { moduleName } from '../../../constants';
 import { ResourcesContext } from '../../../offline.resources';
 import IdentifierInput from '../../input/custom-input/identifier/identifier-input.component';
@@ -13,6 +14,7 @@ import type {
   PatientIdentifierValue,
 } from '../../patient-registration.types';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+import { getEffectiveRegistrationConfig } from '../../peru-registration-config';
 import styles from '../field.scss';
 import IdentifierSelectionOverlay from './identifier-selection-overlay.component';
 
@@ -66,7 +68,7 @@ export const Identifiers: React.FC = () => {
   const { t } = useTranslation(moduleName);
   const layout = useLayoutType();
   const [showIdentifierOverlay, setShowIdentifierOverlay] = useState(false);
-  const config = useConfig();
+  const config = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   const { defaultPatientIdentifierTypes } = config;
 
   useEffect(() => {

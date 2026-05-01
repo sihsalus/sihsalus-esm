@@ -7,6 +7,7 @@ import type {
   Patient,
   Person,
   Visit,
+  Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
 import type React from 'react';
 
@@ -258,3 +259,16 @@ export interface MaternalWardViewContext {
 }
 
 export type PatientWorkspaceAdditionalProps = Omit<WardPatientWorkspaceProps, keyof DefaultWorkspaceProps>;
+
+/**
+ * Type for workspace components that use the Workspace v2 API.
+ * Ported from upstream openmrs-esm-patient-management.
+ */
+export type WardPatientWorkspaceDefinition = Workspace2DefinitionProps<
+  object,
+  object,
+  {
+    wardPatient: WardPatient;
+    relatedTransferPatients?: WardPatient[];
+  }
+>;

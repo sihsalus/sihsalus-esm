@@ -21,6 +21,10 @@ import { type ActiveVisit, type VisitResponse } from '../types';
 
 dayjs.extend(isToday);
 
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
+
+type VisitIdentifier = NonNullable<Visit['patient']>['identifiers'][number];
+
 export function useActiveVisits() {
   const session = useSession();
   const config = useConfig();
@@ -84,7 +88,7 @@ export function useActiveVisits() {
 
     // in case no configuration is given the previous behavior remains the same
     if (!config?.activeVisits?.identifiers) {
-      activeVisits.idNumber = visit?.patient?.identifiers[0]?.identifier ?? '--';
+      activeVisits.idNumber = getPreferredIdentifier(visit?.patient?.identifiers)?.identifier ?? '--';
     } else {
       // map identifiers on config
       config?.activeVisits?.identifiers?.forEach((configIdentifier) => {

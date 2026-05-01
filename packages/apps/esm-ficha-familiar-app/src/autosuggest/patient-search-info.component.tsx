@@ -1,6 +1,7 @@
 import { Tag, Tile } from '@carbon/react';
 import type { Patient } from '@openmrs/esm-framework';
 import { PatientPhoto } from '@openmrs/esm-framework';
+import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import React from 'react';
 
 import styles from './patient-search-info.scss';
@@ -10,6 +11,8 @@ type PatientSearchInfoProps = {
 };
 
 const PatientSearchInfo: React.FC<PatientSearchInfoProps> = ({ patient }) => {
+  const identifier = getPreferredIdentifier(patient.identifiers ?? []);
+
   return (
     <Tile className={styles.patientInfo}>
       <div className={styles.patientAvatar} role="img">
@@ -20,10 +23,11 @@ const PatientSearchInfo: React.FC<PatientSearchInfoProps> = ({ patient }) => {
         <div className={styles.demographics}>
           {patient?.person?.gender} <span className={styles.middot}>&middot;</span> {patient?.person?.age}
           <span className={styles.middot}>&middot;</span>
-          <Tag>DNI:{patient.identifiers.find((id) => id.identifierType.display === 'DNI')?.identifier}</Tag>
-          {/* {patient.identifiers.map((identifier) => (
-            <span>{identifier.display}</span>
-          ))} */}
+          {identifier && (
+            <Tag>
+              {identifier.identifierType.display}: {identifier.identifier}
+            </Tag>
+          )}
         </div>
       </div>
     </Tile>

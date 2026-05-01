@@ -99,6 +99,8 @@
   "relationshipRemovedText": "Relationship removed",
   "relationshipsSection": "Relationships",
   "relationshipToPatient": "Relationship to patient",
+  "responsibleRelationshipRequiredForMinor": "For minors, record a relationship with a responsible family member, guardian, or legal representative.",
+  "responsibleRelationshipRequiredTitle": "Responsible relationship required",
   "relativeFullNameLabelText": "Full name",
   "relativeNamePlaceholder": "Firstname Familyname",
   "removeIdentifierButton": "Remove identifier",

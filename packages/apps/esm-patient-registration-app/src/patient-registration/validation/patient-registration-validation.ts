@@ -4,9 +4,36 @@ import * as Yup from 'yup';
 
 import { type RegistrationConfig } from '../../config-schema';
 import { getDatetime } from '../patient-registration.resource';
-import { type FormValues } from '../patient-registration.types';
+import { type FormValues, type RelationshipValue } from '../patient-registration.types';
 
 const t = (key: string, _value: string) => key;
+
+export function isMinorPatient(values: Pick<FormValues, 'birthdate' | 'birthdateEstimated' | 'yearsEstimated'>) {
+  if (values.birthdateEstimated) {
+    return typeof values.yearsEstimated === 'number' && values.yearsEstimated < 18;
+  }
+
+  if (!values.birthdate) {
+    return false;
+  }
+
+  return dayjs().diff(dayjs(values.birthdate), 'year') < 18;
+}
+
+export function hasResponsibleRelationship(
+  relationships: Array<RelationshipValue> | undefined,
+  minorResponsibleRelationshipTypes: Array<string> = [],
+) {
+  return (
+    relationships?.some(
+      (relationship) =>
+        relationship.action !== 'DELETE' &&
+        !!relationship.relatedPersonUuid &&
+        !!relationship.relationshipType &&
+        minorResponsibleRelationshipTypes.includes(relationship.relationshipType),
+    ) ?? false
+  );
+}
 
 export function getValidationSchema(config: RegistrationConfig) {
   return Yup.object({
@@ -119,11 +146,25 @@ export function getValidationSchema(config: RegistrationConfig) {
         ),
       ),
     ),
-    relationships: Yup.array().of(
-      Yup.object().shape({
-        relatedPersonUuid: Yup.string().required(),
-        relationshipType: Yup.string().required(),
-      }),
-    ),
+    relationships: Yup.array()
+      .of(
+        Yup.object().shape({
+          relatedPersonUuid: Yup.string().required(),
+          relationshipType: Yup.string().required(),
+        }),
+      )
+      .test(
+        'responsible-relationship-required-for-minors',
+        t(
+          'responsibleRelationshipRequiredForMinor',
+          'A responsible family member or guardian relationship is required for minors',
+        ),
+        function (relationships?: Array<RelationshipValue>) {
+          return (
+            !isMinorPatient(this.parent as FormValues) ||
+            hasResponsibleRelationship(relationships, config.relationshipOptions?.minorResponsibleRelationshipTypes)
+          );
+        },
+      ),
   });
 }

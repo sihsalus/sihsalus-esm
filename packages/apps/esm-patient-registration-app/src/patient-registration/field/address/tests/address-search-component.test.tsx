@@ -1,5 +1,5 @@
 import { getDefaultsFromConfigSchema, useConfig } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Formik, useFormikContext } from 'formik';
 import React from 'react';
@@ -124,14 +124,19 @@ describe('Testing address search bar', () => {
     });
 
     const addressOptions = [...options];
-    addressOptions.forEach(async (address) => {
-      const optionElement = screen.getByText(address);
+    await user.type(screen.getByRole('searchbox'), searchString);
+
+    for (const address of addressOptions) {
+      const optionElement = await screen.findByText(address);
       expect(optionElement).toBeInTheDocument();
       await user.click(optionElement);
       const values = address.split(separator);
-      allFields.forEach(({ name }, index) => {
-        expect(setFieldValue).toHaveBeenCalledWith(`address.${name}`, values?.[index]);
+      await waitFor(() => {
+        allFields.forEach(({ name }, index) => {
+          expect(setFieldValue).toHaveBeenCalledWith(`address.${name}`, values?.[index] ?? '', false);
+        });
       });
-    });
+      await user.type(screen.getByRole('searchbox'), searchString);
+    }
   });
 });

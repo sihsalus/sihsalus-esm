@@ -1,5 +1,4 @@
 import { Type, validator, validators } from '@openmrs/esm-framework';
-import _default from 'yup/lib/locale';
 
 export interface SectionDefinition {
   id: string;
@@ -77,6 +76,9 @@ export interface RegistrationConfig {
         matches?: string;
       };
     };
+  };
+  relationshipOptions?: {
+    minorResponsibleRelationshipTypes?: Array<string>;
   };
   links: {
     submitButton: string;
@@ -379,6 +381,17 @@ export const esmPatientRegistrationSchema = {
       },
     },
   },
+  relationshipOptions: {
+    minorResponsibleRelationshipTypes: {
+      _type: Type.Array,
+      _default: [],
+      _description:
+        'Relationship type UUID/direction values that satisfy the responsible family member or guardian requirement for minors.',
+      _elements: {
+        _type: Type.String,
+      },
+    },
+  },
   links: {
     submitButton: {
       _type: Type.String,
@@ -419,7 +432,7 @@ export const esmPatientRegistrationSchema = {
   _validators: [
     validator(
       (config: RegistrationConfig) =>
-        !config.fieldDefinitions.some((d) => d.type == 'obs') || config.registrationObs.encounterTypeUuid != null,
+        !config.fieldDefinitions.some((d) => d.type === 'obs') || config.registrationObs.encounterTypeUuid != null,
       "If fieldDefinitions contains any fields of type 'obs', `registrationObs.encounterTypeUuid` must be specified.",
     ),
     validator(

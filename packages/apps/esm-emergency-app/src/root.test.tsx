@@ -96,7 +96,11 @@ it('renders the emergency dashboard', () => {
     autoCreateVisitOnPatientSelect: true,
     promptVisitCreationOnNewPatient: true,
     patientRegistration: {
-      defaultIdentifierTypeUuid: '05a29f94-c0ed-11e2-94be-8c13b969e334',
+      defaultIdentifierTypeUuid: '550e8400-e29b-41d4-a716-446655440001',
+      foreignCardIdentifierTypeUuid: '550e8400-e29b-41d4-a716-446655440002',
+      passportIdentifierTypeUuid: '550e8400-e29b-41d4-a716-446655440003',
+      dieIdentifierTypeUuid: '8d793bee-c2cc-11de-8d13-0010c6dffd0f',
+      liveBirthCertificateIdentifierTypeUuid: '8d79403a-c2cc-11de-8d13-0010c6dffd0f',
       defaultLocationUuid: '',
       phoneNumberAttributeTypeUuid: '14d4f066-15f5-102d-96e4-000c29c2a5d7',
       identifierSourceUuid: '8549f706-7e85-4c1d-9424-217d50a2988b',

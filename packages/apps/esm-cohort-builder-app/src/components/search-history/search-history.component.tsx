@@ -58,7 +58,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ isHistoryUpdated, setIsHi
   ];
 
   const clearHistory = () => {
-    globalThis.sessionStorage.removeItem('openmrsHistory');
+    window.sessionStorage.removeItem('openmrsHistory');
     setSearchResults([]);
   };
 
@@ -67,7 +67,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ isHistoryUpdated, setIsHi
       (_searchResult, index) => index !== searchResults.indexOf(selectedSearchItem),
     );
     setSearchResults(updatedSearchResults);
-    globalThis.sessionStorage.setItem('openmrsHistory', JSON.stringify(updatedSearchResults));
+    window.sessionStorage.setItem('openmrsHistory', JSON.stringify(updatedSearchResults));
   };
 
   const launchClearSearchHistoryModal = () => {
@@ -93,15 +93,9 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ isHistoryUpdated, setIsHi
           <Table {...getTableProps()}>
             <TableHead>
               <TableRow>
-                {headers.map((header) => {
-                  const { key, ...headerProps } = getHeaderProps({ header });
-
-                  return (
-                    <TableHeader key={key} {...headerProps}>
-                      {header.header}
-                    </TableHeader>
-                  );
-                })}
+                {headers.map((header) => (
+                  <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
+                ))}
                 <TableHeader className={mainStyles.optionHeader}></TableHeader>
               </TableRow>
             </TableHead>
@@ -109,23 +103,19 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({ isHistoryUpdated, setIsHi
               {rows
                 .slice((page - 1) * pageSize)
                 .slice(0, pageSize)
-                .map((row, index: number) => {
-                  const { key, ...rowProps } = getRowProps({ row });
-
-                  return (
-                    <TableRow key={key} {...rowProps}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                      <TableCell className={mainStyles.optionCell}>
-                        <SearchHistoryOptions
-                          searchItem={searchResults[index]}
-                          updateSearchHistory={updateSearchHistory}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                .map((row, index: number) => (
+                  <TableRow {...getRowProps({ row })}>
+                    {row.cells.map((cell) => (
+                      <TableCell key={cell.id}>{cell.value}</TableCell>
+                    ))}
+                    <TableCell className={mainStyles.optionCell}>
+                      <SearchHistoryOptions
+                        searchItem={searchResults[index]}
+                        updateSearchHistory={updateSearchHistory}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         )}
