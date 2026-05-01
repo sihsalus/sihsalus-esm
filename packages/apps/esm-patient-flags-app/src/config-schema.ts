@@ -65,7 +65,10 @@ export const configSchema = {
       url: {
         _type: Type.String,
         _description:
-          'URL to navigate to when the flag is clicked. Supports template variables: ${patientUuid}, ${openmrsSpaBase}.',
+          'URL to navigate to when the flag is clicked. Supports template variables: ' +
+          '$' +
+          '{patientUuid}, $' +
+          '{openmrsSpaBase}.',
         _default: null,
         _validators: [validators.isUrlWithTemplateParameters(['patientUuid'])],
       },
@@ -89,7 +92,10 @@ export const configSchema = {
       url: {
         _type: Type.String,
         _description:
-          'URL to navigate to when the flag is clicked. Supports template variables: ${patientUuid}, ${openmrsSpaBase}.',
+          'URL to navigate to when the flag is clicked. Supports template variables: ' +
+          '$' +
+          '{patientUuid}, $' +
+          '{openmrsSpaBase}.',
         _default: null,
         _validators: [validators.isUrlWithTemplateParameters(['patientUuid'])],
       },

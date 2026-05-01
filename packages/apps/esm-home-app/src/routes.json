@@ -38,6 +38,13 @@
       "component": "homePageHeader"
     },
     {
+      "name": "peru-home-actions",
+      "slot": "home-dashboard-slot",
+      "component": "peruHomeActions",
+      "online": true,
+      "offline": true
+    },
+    {
       "name": "metrics-slot",
       "slot": "home-dashboard-slot",
       "component": "metrics",

@@ -10,12 +10,14 @@ interface PageHeaderProps {
 
 const HomePageHeader: React.FC<PageHeaderProps> = ({ dashboardTitle }) => {
   const { t } = useTranslation();
+  const title = dashboardTitle === 'home' ? t('homeDashboardTitle', 'Admisión y atención') : t(dashboardTitle);
 
   /**
    * Translation for the home page header
    * // t('home', 'Home')
+   * // t('homeDashboardTitle', 'Admisión y atención')
    */
-  return <PageHeader className={styles.pageHeader} illustration={<HomePictogram />} title={t(dashboardTitle)} />;
+  return <PageHeader className={styles.pageHeader} illustration={<HomePictogram />} title={title} />;
 };
 
 export default HomePageHeader;
