@@ -8,7 +8,12 @@ import { useTranslation } from 'react-i18next';
 import type { KeyedMutator } from 'swr';
 import type { ConfigObject } from '../config-schema';
 import type { OpenmrsEncounter } from '../types';
-import { AdmissionDate_UUID, AdmissionWard_UUID, PriorityOfAdmission_UUID } from '../utils/constants';
+import {
+  AdmissionDate_UUID,
+  AdmissionWard_UUID,
+  PriorityOfAdmission_UUID,
+  patientFormEntryWorkspace,
+} from '../utils/constants';
 
 import styles from './dashboard/in-patient.scss';
 import SummaryCard from './summary/summary-card.component';
@@ -35,7 +40,7 @@ const ClinicalEncounter: React.FC<ClinicalEncounterProps> = ({
     formsList: { clinicalEncounterFormUuid },
   } = useConfig<ConfigObject>();
   const handleOpenOrEditClinicalEncounterForm = (encounterUUID = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'Clinical Encounter',
       mutateForm: mutate,
       formInfo: {
@@ -52,7 +57,7 @@ const ClinicalEncounter: React.FC<ClinicalEncounterProps> = ({
       id: `${encounter.uuid}`,
       encounterDate: formatDate(new Date(encounter.encounterDatetime)),
       admissionDate:
-        getObsFromEncounter(encounter, AdmissionDate_UUID) == '--' ||
+        getObsFromEncounter(encounter, AdmissionDate_UUID) === '--' ||
         getObsFromEncounter(encounter, AdmissionDate_UUID) == null
           ? formatDate(parseDate(encounter.encounterDatetime))
           : formatDate(parseDate(String(getObsFromEncounter(encounter, AdmissionDate_UUID)))),

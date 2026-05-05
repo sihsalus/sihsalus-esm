@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 import type { ConfigObject } from '../../config-schema';
+import { patientFormEntryWorkspace } from '../../utils/constants';
 import { type ConditionDataTableRow, useConditions } from './conditions.resource';
 import styles from './conditions-form.scss';
 import ConditionsWidget from './conditions-widget.component';
@@ -179,7 +180,7 @@ const ConditionsForm: React.FC<ConditionFormProps> = ({
 
     if (values.antecedentScope === 'social') {
       // Open social history clinical encounter form and close
-      launchWorkspace('patient-form-entry-workspace', {
+      launchWorkspace(patientFormEntryWorkspace, {
         workspaceTitle: t('socialHistory', 'Social History'),
         formInfo: {
           encounterUuid: config?.clinicalEncounterUuid,

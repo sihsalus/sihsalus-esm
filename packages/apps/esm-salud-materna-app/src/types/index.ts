@@ -20,7 +20,8 @@ export interface DefaultPatientWorkspaceProps {
 /**
  * Workspace name constants (removed from esm-patient-common-lib@11.x).
  */
-export const formEntryWorkspace = 'patient-form-entry-workspace';
+export const formEntryWorkspace = 'patient-form-entry-workspace-v2';
+export const formEntryWorkspaceLegacy = 'patient-form-entry-workspace';
 export const htmlFormEntryWorkspace = 'patient-html-form-entry-workspace';
 
 /**

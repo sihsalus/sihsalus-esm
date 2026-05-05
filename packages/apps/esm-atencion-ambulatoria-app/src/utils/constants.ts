@@ -38,3 +38,6 @@ export const omrsDateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
 
 // ── App info ──
 export const moduleName = '@sihsalus/esm-atencion-ambulatoria-app';
+
+// ── Workspace names ──
+export const patientFormEntryWorkspace = 'patient-form-entry-workspace';

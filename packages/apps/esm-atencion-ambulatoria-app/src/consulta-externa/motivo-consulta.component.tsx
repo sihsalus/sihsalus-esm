@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { useChiefComplaint } from '../hooks/useChiefComplaint';
+import { patientFormEntryWorkspace } from '../utils/constants';
 
 import styles from './consulta-externa-dashboard.scss';
 
@@ -41,7 +42,7 @@ const MotivoConsulta: React.FC<MotivoConsultaProps> = ({ patientUuid }) => {
   }));
 
   const handleLaunchForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       formInfo: {
         formUuid: config.formsList?.anamnesisForm ?? config.formsList?.consultaExternaForm,
       },

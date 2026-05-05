@@ -26,6 +26,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useFilteredEncounter } from '../../hooks/useFilteredEncounter';
+import { patientFormEntryWorkspace } from '../../utils/constants';
 
 import ObservationGroupDetails, { type ObservationGroup } from './observation-group-details.component';
 import styles from './patient-observation-group-table.scss';
@@ -95,7 +96,7 @@ const PatientObservationGroupTable: React.FC<PatientObservationGroupTableProps> 
         launchStartVisitPrompt();
       } else {
         if (formWorkspace) {
-          launchWorkspace('patient-form-entry-workspace', {
+          launchWorkspace(patientFormEntryWorkspace, {
             workspaceTitle: headerTitle,
             mutateForm: mutate,
             formInfo: { formUuid: formWorkspace, patientUuid, additionalProps: {} },

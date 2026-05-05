@@ -23,6 +23,7 @@ import { usePatientTracing } from '../../../hooks/usePatientTracing';
 import {
   Contacted_UUID,
   MissedAppointmentDate_UUID,
+  patientFormEntryWorkspace,
   TracingNumber_UUID,
   TracingOutcome_UUID,
   TracingType_UUID,
@@ -40,9 +41,9 @@ const DefaulterTracing: React.FC<PatientTracingProps> = ({ patientUuid }) => {
   const config = useConfig<ConfigObject>();
   const { formsList } = config ?? {};
   const headerTitle = t('defaulterTracing', 'Defaulter Tracing');
-  const { encounters, isLoading, error, mutate, isValidating } = usePatientTracing(patientUuid);
+  const { encounters, isLoading, error, mutate } = usePatientTracing(patientUuid);
   const handleOpenOrEditDefaulterTracingForm = (encounterUUID = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'Defaulter Tracing',
       mutateForm: () => mutate(),
       formInfo: {
@@ -85,7 +86,7 @@ const DefaulterTracing: React.FC<PatientTracingProps> = ({ patientUuid }) => {
     return {
       id: `${encounter.uuid}`,
       missedAppointmentDate:
-        getObsFromEncounter(encounter, MissedAppointmentDate_UUID) == '--' ||
+        getObsFromEncounter(encounter, MissedAppointmentDate_UUID) === '--' ||
         getObsFromEncounter(encounter, MissedAppointmentDate_UUID) == null
           ? formatDate(parseDate(encounter.encounterDatetime))
           : formatDate(parseDate(String(getObsFromEncounter(encounter, MissedAppointmentDate_UUID)))),

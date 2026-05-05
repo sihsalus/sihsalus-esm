@@ -18,8 +18,8 @@ import { CardHeader, EmptyDataIllustration, EmptyState, ErrorState } from '@open
 import dayjs from 'dayjs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { usePartograph } from '../../hooks/usePartograph';
+import { formEntryWorkspace } from '../../types';
 import {
   CervicalDilation,
   ContractionDuration,
@@ -120,7 +120,7 @@ const Partograph: React.FC<PartographyProps> = ({ patientUuid }) => {
       };
     }) ?? [];
   const handleAddHistory = () => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: PartographEncounterFormUuid },
       encounterUuid: '',
     });

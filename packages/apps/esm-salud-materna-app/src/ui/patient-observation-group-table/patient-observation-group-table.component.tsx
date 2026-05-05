@@ -18,8 +18,8 @@ import { AddIcon, formatDate, isDesktop, launchWorkspace2, useLayoutType } from 
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useFilteredEncounter } from '../../hooks/useFilteredEncounter';
+import { formEntryWorkspace } from '../../types';
 
 import ObservationGroupDetails, { type ObservationGroup } from './observation-group-details.component';
 import styles from './patient-observation-group-table.scss';
@@ -85,7 +85,7 @@ const PatientObservationGroupTable: React.FC<PatientObservationGroupTableProps> 
   const launchForm = useCallback(() => {
     try {
       if (formWorkspace) {
-        launchWorkspace2('patient-form-entry-workspace-v2', {
+        launchWorkspace2(formEntryWorkspace, {
           form: { uuid: formWorkspace },
           encounterUuid: '',
         });

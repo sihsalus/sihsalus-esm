@@ -7,6 +7,7 @@ import type { KeyedMutator } from 'swr';
 
 import type { ConfigObject } from '../../../config-schema';
 import type { OpenmrsEncounter } from '../../../types';
+import { patientFormEntryWorkspace } from '../../../utils/constants';
 import styles from '../../dashboard/in-patient.scss';
 import SummaryCard from '../summary-card.component';
 
@@ -25,7 +26,7 @@ const InPatientSummary: React.FC<InPatientSummaryProps> = ({ patientUuid, encoun
     formsList: { clinicalEncounterFormUuid },
   } = useConfig<ConfigObject>();
   const handleOpenOrEditMaternalForm = (encounterUUID = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'Clinical Encounter',
       mutateForm: mutate,
       formInfo: {

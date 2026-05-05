@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ConfigObject } from '../../../config-schema'; // Ajusta la ruta
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter'; // Ajusta la ruta
+import { formEntryWorkspace } from '../../../types';
 import {
   ABDOMEN_CHARACTERISTICS_UUID,
   CLAVICLE_UUID,
@@ -52,7 +53,7 @@ const CephaloCaudalNeurologicalEvaluationTable: React.FC<CephaloCaudalNeurologic
   }, [encounter]);
 
   const handleLaunchForm = () => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: config.formsList.newbornNeuroEval },
       encounterUuid: encounter?.uuid || '',
     });

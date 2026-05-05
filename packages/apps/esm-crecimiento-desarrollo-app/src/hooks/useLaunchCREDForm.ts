@@ -2,17 +2,17 @@ import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { useCallback } from 'react';
 
 import { type ConfigObject } from '../config-schema';
-import { type Form } from '../types';
+import { type Form, formEntryWorkspace } from '../types';
 
 /**
  * Custom hook for launching CRED forms with workspace functionality
  * Similar to useLaunchVitalsAndBiometricsForm but specific to CRED forms
  */
-export function useLaunchCREDForm(patientUuid: string) {
+export function useLaunchCREDForm(_patientUuid: string) {
   const config = useConfig<ConfigObject>();
 
   const launchCREDForm = useCallback((form: Form, encounterUuid: string = '') => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form,
       encounterUuid,
     });

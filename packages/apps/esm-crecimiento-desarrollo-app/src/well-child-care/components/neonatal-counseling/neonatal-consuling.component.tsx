@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter'; // Ajusta la ruta
+import { formEntryWorkspace } from '../../../types';
 import {
   AFFECTIVE_BOND_UUID,
   ANATOMY_UUID,
@@ -50,7 +51,7 @@ const NeonatalCounseling: React.FC<NeonatalCounselingProps> = ({ patientUuid }) 
   }, [encounter]);
 
   const handleLaunchForm = () => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: config.formsList.breastfeedingObservation },
       encounterUuid: encounter?.uuid || '',
     });

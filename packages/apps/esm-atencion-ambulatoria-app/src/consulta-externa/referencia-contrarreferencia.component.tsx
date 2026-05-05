@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { useReferralCounterReferral } from '../hooks/useReferralCounterReferral';
+import { patientFormEntryWorkspace } from '../utils/constants';
 import styles from './consulta-externa-dashboard.scss';
 
 interface ReferenciaContraReferenciaProps {
@@ -40,7 +41,7 @@ const ReferenciaContraReferencia: React.FC<ReferenciaContraReferenciaProps> = ({
   );
 
   const handleLaunchForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       formInfo: {
         formUuid: config.formsList?.referralForm,
       },

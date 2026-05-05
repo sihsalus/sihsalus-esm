@@ -22,7 +22,12 @@ import type { KeyedMutator } from 'swr';
 import { mutate } from 'swr';
 import type { ConfigObject } from '../../../config-schema';
 import type { OpenmrsEncounter } from '../../../types';
-import { ACCIDENT_TRAUMA_UUID, BLOOD_TRANSFUSION_UUID, SURGICAL_HISTORY_UUID } from '../../../utils/constants';
+import {
+  ACCIDENT_TRAUMA_UUID,
+  BLOOD_TRANSFUSION_UUID,
+  patientFormEntryWorkspace,
+  SURGICAL_HISTORY_UUID,
+} from '../../../utils/constants';
 
 interface OutPatientMedicalHistoryProps {
   patientUuid: string;
@@ -44,7 +49,7 @@ const OutPatientMedicalHistory: React.FC<OutPatientMedicalHistoryProps> = ({
   } = useConfig<ConfigObject>();
   const headerTitle = t('medicalHistory', 'Medical History');
   const handleOpenOrEditClinicalEncounterForm = (encounterUUID = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'Medical History',
       mutateForm: mutate(
         (key) => typeof key === 'string' && key.startsWith('/openmrs/ws/rest/v1/kenyaemr/flags'),

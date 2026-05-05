@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { deleteEncounter } from '../../case-management/encounters/case-encounter-table.resource';
 import type { ConfigObject } from '../../config-schema';
+import { patientFormEntryWorkspace } from '../../utils/constants';
 
 import GenericTable from './generic-table.component';
 import { genericTableHeader, useEncounters } from './useEncounters';
@@ -44,7 +45,7 @@ const GenericDashboard: React.FC<GenericDashboardProps> = ({ patientUuid }) => {
   const clinicalFormTitle = capitalize(clinic.replace('-', ' '));
 
   const handleWorkspaceForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: clinicalFormTitle.replace('clinic', 'form'),
       mutateForm: mutate,
       formInfo: {
@@ -55,7 +56,7 @@ const GenericDashboard: React.FC<GenericDashboardProps> = ({ patientUuid }) => {
     });
   };
   const handleWorkspaceEditForm = (encounterUuid = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: clinicalFormTitle.replace('clinic', 'form'),
       mutateForm: mutate,
       formInfo: {

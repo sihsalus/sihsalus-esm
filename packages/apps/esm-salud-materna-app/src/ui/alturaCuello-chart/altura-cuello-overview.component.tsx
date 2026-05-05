@@ -5,8 +5,8 @@ import { launchWorkspace2 } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { usePrenatalMeasurements } from '../../hooks/usePrenatalMeasurements';
+import { formEntryWorkspace } from '../../types';
 import { getSafePatientName } from '../../utils/utils';
 
 import AlturaCuelloChart from './altura-cuello-chart.component';
@@ -25,7 +25,7 @@ const AlturaCuelloOverview: React.FC<AlturaCuelloOverviewProps> = ({ patient, pa
   //const formWorkspace = config.formsList?.prenatalCare || 'prenatal-measurements-form';
 
   const launchForm = useCallback(() => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: 'OBST-003-ATENCIÓN PRENATAL' },
     });
   }, []);

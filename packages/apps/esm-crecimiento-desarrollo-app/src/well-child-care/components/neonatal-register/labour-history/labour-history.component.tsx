@@ -14,8 +14,8 @@ import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useCurrentPregnancy } from '../../../../hooks/useCurrentPregnancy';
+import { formEntryWorkspace } from '../../../../types';
 
 import styles from './labour-history-summary.scss';
 
@@ -103,7 +103,7 @@ const LabourHistorySummary: React.FC<LabourHistorySummaryProps> = ({ patientUuid
 
   // Handler to launch form for additional data
   const handleAddLabourDetails = () => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formPrenatalUuid },
       encounterUuid: '',
     });
