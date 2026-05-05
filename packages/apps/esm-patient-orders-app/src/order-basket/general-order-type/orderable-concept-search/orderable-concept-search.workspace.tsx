@@ -30,6 +30,7 @@ interface LegacyOrderableConceptSearchWorkspaceProps extends DefaultWorkspacePro
   orderTypeUuid: string;
   orderableConceptClasses?: Array<string>;
   orderableConceptSets?: Array<string>;
+  orderBasketWorkspaceName?: string;
 }
 
 type Workspace2OrderableConceptSearchWorkspaceProps = PatientWorkspace2DefinitionProps<
@@ -38,6 +39,7 @@ type Workspace2OrderableConceptSearchWorkspaceProps = PatientWorkspace2Definitio
     orderTypeUuid: string;
     orderableConceptClasses?: Array<string>;
     orderableConceptSets?: Array<string>;
+    orderBasketWorkspaceName?: string;
   },
   object
 >;
@@ -67,6 +69,9 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
     orderTypeUuid,
     orderableConceptSets: propOrderableConceptSets,
   } = isWorkspace2Props(props) ? props.workspaceProps : props;
+  const orderBasketWorkspaceName = isWorkspace2Props(props)
+    ? (props.workspaceProps.orderBasketWorkspaceName ?? 'order-basket')
+    : (props.orderBasketWorkspaceName ?? 'order-basket');
   const isTablet = useLayoutType() === 'tablet';
   const { orders } = useOrderBasket<OrderBasketItem>(orderTypeUuid, prepOrderPostData);
   const { orderTypes } = useConfig<ConfigObject>();
@@ -97,11 +102,11 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
 
       props.closeWorkspace({
         ignoreChanges: discardUnsavedChanges,
-        onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
+        onWorkspaceClose: () => launchPatientWorkspace(orderBasketWorkspaceName),
         closeWorkspaceGroup: false,
       });
     },
-    [props],
+    [orderBasketWorkspaceName, props],
   );
 
   const handlePromptBeforeClosing = useCallback(
