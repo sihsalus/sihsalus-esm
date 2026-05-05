@@ -58,17 +58,16 @@ export async function fetchAllFieldDefinitionTypes() {
 }
 
 async function fetchFieldDefinitionType(fieldDefinition) {
-  let apiUrl = '';
-
   if (fieldDefinition.type === 'person attribute') {
-    apiUrl = `${restBaseUrl}/personattributetype/${fieldDefinition.uuid}`;
+    const { data } = await cacheAndFetch(`${restBaseUrl}/personattributetype/${fieldDefinition.uuid}`);
+    return data;
   }
 
   if (fieldDefinition.answerConceptSetUuid) {
     await cacheAndFetch(`${restBaseUrl}/concept/${fieldDefinition.answerConceptSetUuid}`);
   }
-  const { data } = await cacheAndFetch(apiUrl);
-  return data;
+
+  return null;
 }
 
 export async function fetchPatientIdentifierTypesWithSources(): Promise<Array<PatientIdentifierType>> {
@@ -110,15 +109,12 @@ async function fetchPatientIdentifierTypes(): Promise<Array<FetchedPatientIdenti
     const patientIdentifierTypes = patientIdentifierTypesResponse?.data?.results;
 
     const primaryIdentifierTypeUuid = primaryIdentifierTypeResponse?.data?.results?.[0]?.metadataUuid;
+    const primaryIdentifierType = patientIdentifierTypes?.find((type) => type.uuid === primaryIdentifierTypeUuid);
 
-    const identifierTypes = primaryIdentifierTypeResponse?.ok
-      ? [
-          mapPatientIdentifierType(
-            patientIdentifierTypes?.find((type) => type.uuid === primaryIdentifierTypeUuid),
-            true,
-          ),
-        ]
-      : [];
+    const identifierTypes =
+      primaryIdentifierTypeResponse?.ok && primaryIdentifierType
+        ? [mapPatientIdentifierType(primaryIdentifierType, true)]
+        : [];
 
     patientIdentifierTypes.forEach((type) => {
       if (type.uuid !== primaryIdentifierTypeUuid) {

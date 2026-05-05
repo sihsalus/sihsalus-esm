@@ -6,13 +6,13 @@ export const generateFormatting = (order: Array<string>, separator: string) => {
     order.forEach((key, index) => {
       switch (key) {
         case 'd':
-          date.setDate(parseInt(parts[index]));
+          date.setDate(parseInt(parts[index], 10));
           break;
         case 'm':
-          date.setMonth(parseInt(parts[index]) - 1);
+          date.setMonth(parseInt(parts[index], 10) - 1);
           break;
         case 'Y':
-          date.setFullYear(parseInt(parts[index]));
+          date.setFullYear(parseInt(parts[index], 10));
           break;
       }
     });
