@@ -22,3 +22,8 @@ Configuracion de conceptos:
 
 - `immunizationConceptSet`: default `CIEL:984`. Debe resolver a un set/concepto con las vacunas seleccionables como respuestas.
 - `fhirConceptMappings.immunizationResourceConcept`: default `CIEL:1421`. Debe existir como mapping unico en el content package para que el recurso FHIR2 `Immunization` pueda leer y guardar.
+
+TODO content/backend:
+
+- Validar en el content reference application que `CIEL:1421` exista como mapping unico para FHIR2 `Immunization`.
+- Validar que `CIEL:984` resuelva al set local correcto de vacunas, o sobreescribir `immunizationConceptSet` en config con el mapping/UUID local.
