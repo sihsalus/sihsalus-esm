@@ -17,7 +17,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
       "@openmrs/esm-api": ["../node_modules/@openmrs/esm-api/dist/index"],
