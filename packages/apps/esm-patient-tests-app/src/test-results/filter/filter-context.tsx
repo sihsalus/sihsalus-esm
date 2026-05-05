@@ -31,6 +31,8 @@ const initialContext = {
   activeTests: [],
   someChecked: false,
   totalResultsCount: 0,
+  filteredResultsCount: 0,
+  isLoading: false,
   initialize: () => {},
   toggleVal: () => {},
   updateParent: () => {},
@@ -41,10 +43,11 @@ const FilterContext = createContext<FilterContextProps>(initialContext);
 
 export interface FilterProviderProps {
   roots: Array<TreeNode>;
+  isLoading?: boolean;
   children: React.ReactNode;
 }
 
-const FilterProvider = ({ roots, children }: FilterProviderProps) => {
+const FilterProvider = ({ roots, isLoading = false, children }: FilterProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const actions = useMemo(
@@ -143,7 +146,7 @@ const FilterProvider = ({ roots, children }: FilterProviderProps) => {
   }, [state.tests]);
 
   useEffect(() => {
-    if (roots?.length && !Object.keys(state?.parents).length) {
+    if (roots && !Object.keys(state?.parents).length && (roots.length || state.roots !== roots)) {
       actions.initialize(roots);
     }
   }, [actions, state, roots]);
@@ -157,6 +160,16 @@ const FilterProvider = ({ roots, children }: FilterProviderProps) => {
     return count;
   }, [state?.tests]);
 
+  const filteredResultsCount: number = useMemo(() => {
+    if (!someChecked) {
+      return totalResultsCount;
+    }
+
+    return Object.values(timelineData?.data?.rowData ?? {}).reduce((count, row) => {
+      return count + (row.entries?.filter(Boolean).length ?? 0);
+    }, 0);
+  }, [someChecked, timelineData?.data?.rowData, totalResultsCount]);
+
   return (
     <FilterContext.Provider
       value={{
@@ -166,6 +179,8 @@ const FilterProvider = ({ roots, children }: FilterProviderProps) => {
         activeTests,
         someChecked,
         totalResultsCount,
+        filteredResultsCount,
+        isLoading,
         initialize: actions.initialize,
         toggleVal: actions.toggleVal,
         updateParent: actions.updateParent,

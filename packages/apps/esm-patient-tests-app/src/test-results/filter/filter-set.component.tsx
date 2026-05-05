@@ -79,7 +79,7 @@ const FilterNodeParent = ({ root, itemNumber }: filterNodeParentProps): React.JS
         <FilterNode
           root={node}
           level={0}
-          open={expandAll === undefined ? config.resultsViewerConcepts[itemNumber].defaultOpen : expandAll}
+          open={expandAll === undefined ? (config.resultsViewerConcepts[itemNumber]?.defaultOpen ?? false) : expandAll}
         />
       </div>
     );
