@@ -33,6 +33,7 @@ import {
 import { orderBy } from 'lodash-es';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { ImmunizationConfigObject } from '../config-schema';
 import { useImmunizations } from '../hooks/useImmunizations';
 import SequenceTable from './components/immunizations-sequence-table.component';
 import styles from './immunizations-detailed-summary.scss';
@@ -48,12 +49,12 @@ const ImmunizationsDetailedSummary: React.FC<ImmunizationsDetailedSummaryProps> 
   launchStartVisitPrompt,
 }) => {
   const { t } = useTranslation();
-  const { immunizationsConfig } = useConfig();
+  const config = useConfig<ImmunizationConfigObject>();
   const displayText = t('immunizations__lower', 'immunizations');
   const headerTitle = t('immunizations', 'Immunizations');
   const { currentVisit: visitContext } = useVisitOrOfflineVisit(patientUuid);
   const isTablet = useLayoutType() === 'tablet';
-  const sequenceDefinitions = immunizationsConfig?.sequenceDefinitions;
+  const sequenceDefinitions = config.sequenceDefinitions;
 
   const { data: existingImmunizations, isLoading, error, isValidating } = useImmunizations(patientUuid);
 
