@@ -24,7 +24,10 @@ export function useMutateAppointments() {
       mutate((key) => {
         return (
           (typeof key === 'string' && key.startsWith(appointmentUrlMatcher)) ||
-          (Array.isArray(key) && key[0].startsWith(appointmentUrlMatcher))
+          (typeof key === 'string' && key.startsWith(appointmentsSearchUrl)) ||
+          (Array.isArray(key) &&
+            typeof key[0] === 'string' &&
+            (key[0].startsWith(appointmentUrlMatcher) || key[0].startsWith(appointmentsSearchUrl)))
         );
       }),
     [mutate],
