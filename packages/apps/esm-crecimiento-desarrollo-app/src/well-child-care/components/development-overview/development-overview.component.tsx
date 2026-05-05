@@ -1,8 +1,11 @@
 import { Button, Tag, Tile } from '@carbon/react';
 import { Education, Growth } from '@carbon/react/icons';
-import { launchWorkspace2 } from '@openmrs/esm-framework';
+import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
+import type { ConfigObject } from '../../../config-schema';
+import { formEntryWorkspace } from '../../../types';
 
 import styles from './development-overview.scss';
 
@@ -16,9 +19,30 @@ interface DevelopmentOverviewProps {
  */
 const DevelopmentOverview: React.FC<DevelopmentOverviewProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
+  const config = useConfig<ConfigObject>();
+  const testPeruanoConcepts = [
+    config.testPeruano?.scoreCognitivoUuid,
+    config.testPeruano?.scoreMotorUuid,
+    config.testPeruano?.scoreSocialUuid,
+    config.testPeruano?.scoreLenguajeUuid,
+    config.testPeruano?.clasificacionTotalUuid,
+    config.testPeruano?.observacionesUuid,
+    config.testPeruano?.contextoCulturalUuid,
+    config.testPeruano?.idiomaUuid,
+  ];
+  const isTestPeruanoConfigured = testPeruanoConcepts.some(Boolean);
 
   const handleLaunchTepsi = () => {
-    launchWorkspace2('tepsi-form', { patientUuid });
+    const formUuid = config.formsList.tepsi;
+    if (!formUuid) {
+      console.warn('Form UUID not configured for TEPSI');
+      return;
+    }
+
+    launchWorkspace2(formEntryWorkspace, {
+      form: { uuid: formUuid },
+      encounterUuid: '',
+    });
   };
 
   const handleLaunchTestPeruano = () => {
@@ -51,7 +75,13 @@ const DevelopmentOverview: React.FC<DevelopmentOverviewProps> = ({ patientUuid }
               {t('testPeruanoDescription', 'Evaluación del desarrollo infantil adaptada al contexto peruano')}
             </p>
           </div>
-          <Button kind="tertiary" size="sm" renderIcon={Growth} onClick={handleLaunchTestPeruano}>
+          <Button
+            kind="tertiary"
+            size="sm"
+            renderIcon={Growth}
+            onClick={handleLaunchTestPeruano}
+            disabled={!isTestPeruanoConfigured}
+          >
             {t('startTestPeruano', 'Realizar Test Peruano')}
           </Button>
         </div>

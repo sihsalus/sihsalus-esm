@@ -402,12 +402,6 @@
       "type": "form"
     },
     {
-      "name": "tepsi-form",
-      "component": "tepsiFormWorkspace",
-      "title": "Evaluación TEPSI",
-      "type": "form"
-    },
-    {
       "name": "test-peruano-form",
       "component": "testPeruanoFormWorkspace",
       "title": "Test Peruano de Desarrollo",
@@ -458,11 +452,6 @@
     {
       "name": "wellchild-control-form",
       "component": "wellchildControlsworkspace",
-      "window": "patient-chart-well-child-care-forms"
-    },
-    {
-      "name": "tepsi-form",
-      "component": "tepsiFormWorkspace",
       "window": "patient-chart-well-child-care-forms"
     },
     {

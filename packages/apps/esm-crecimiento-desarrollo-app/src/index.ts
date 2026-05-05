@@ -205,10 +205,6 @@ export const antecedentesPatologicosFormWorkspace = getAsyncLifecycle(
   options,
 );
 export const formsSelectorWorkspace = getSyncLifecycle(FormsSelectorWorkspace, options);
-export const tepsiFormWorkspace = getAsyncLifecycle(
-  () => import('./well-child-care/workspace/tepsi-form/tepsi-form.component'),
-  options,
-);
 export const testPeruanoFormWorkspace = getAsyncLifecycle(
   () => import('./well-child-care/workspace/test-peruano-form/test-peruano-form.component'),
   options,
