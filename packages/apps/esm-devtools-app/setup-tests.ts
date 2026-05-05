@@ -1,4 +1,5 @@
 import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 import type { ImportMapOverridesApi } from './src/devtools/import-map-overrides.types';
 

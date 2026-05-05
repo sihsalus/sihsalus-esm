@@ -17,3 +17,11 @@ declare module '*.svg' {
   const value: string;
   export default value;
 }
+
+declare const require: {
+  (moduleName: string): any;
+  context: (directory: string, useSubdirectories?: boolean, regExp?: RegExp, mode?: string) => any;
+};
+
+declare var spaBase: string;
+declare function getOpenmrsSpaBase(): string;

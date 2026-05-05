@@ -5988,7 +5988,7 @@ __metadata:
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
     react-error-boundary: "npm:^4.0.13"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     "@openmrs/esm-patient-common-lib": "*"
@@ -6174,7 +6174,7 @@ __metadata:
     jest: "npm:^29.7.0"
     jsep: "npm:^1.4.0"
     lodash-es: "npm:^4.17.23"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     uuid: "npm:^8.3.2"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
@@ -6316,7 +6316,7 @@ __metadata:
     sass-embedded: "npm:1.89.0"
     sass-loader: "npm:16.0.5"
     swc-loader: "npm:0.2.7"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     webpack-bundle-analyzer: "npm:4.10.2"
   peerDependencies:
     "@openmrs/esm-api": 9.x
@@ -6439,7 +6439,7 @@ __metadata:
     style-loader: "npm:3.3.4"
     swc-loader: "npm:0.2.7"
     ts-checker-rspack-plugin: "npm:1.3.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     webpack-bundle-analyzer: "npm:4.10.2"
     webpack-stats-plugin: "npm:1.1.3"
   languageName: unknown
@@ -9223,7 +9223,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     dayjs: 1.x
@@ -9249,7 +9249,7 @@ __metadata:
     lodash-es: "npm:^4.17.15"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.54.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
     yup: "npm:^0.32.11"
     zod: "npm:^3.24.1"
@@ -9279,7 +9279,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.56.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
     zod: "npm:^3.24.1"
   peerDependencies:
@@ -9306,7 +9306,7 @@ __metadata:
   dependencies:
     "@openmrs/esm-framework": "npm:>=9.0.2"
     react: "npm:^18.3.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     vitest: "npm:^4.0.18"
   peerDependencies:
     "@openmrs/esm-framework": ">=9.0.2"
@@ -9327,7 +9327,7 @@ __metadata:
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
     react-hook-form: "npm:^7.54.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.24.1"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
@@ -9387,7 +9387,7 @@ __metadata:
     sass: "npm:^1.70.0"
     swr: "npm:^2.2.4"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     webpack-dev-server: "npm:^5.2.1"
     zod: "npm:^3.22.4"
   peerDependencies:
@@ -9437,7 +9437,7 @@ __metadata:
     react-hook-form: "npm:^7.56.1"
     react-i18next: "npm:^16.0.0"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.24.3"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
@@ -9488,7 +9488,7 @@ __metadata:
     rxjs: "npm:^6.6.7"
     swr: "npm:^2.3.6"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^4.1.12"
   peerDependencies:
     "@carbon/react": 1.x
@@ -9516,7 +9516,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.56.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
     zod: "npm:^3.24.1"
   peerDependencies:
@@ -9543,13 +9543,16 @@ __metadata:
   dependencies:
     "@carbon/react": "npm:^1.92.1"
     "@rspack/cli": "npm:1.7.11"
+    "@types/jest": "npm:^30.0.0"
+    "@types/node": "npm:^25.5.0"
+    "@types/webpack-env": "npm:^1.18.5"
     fuzzy: "npm:^0.1.3"
     jest: "npm:^29.7.0"
     openmrs: "npm:*"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-i18next: "npm:^16.0.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.0.2
@@ -9598,7 +9601,7 @@ __metadata:
     rxjs: "npm:^6.6.7"
     swr: "npm:^2.2.5"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -9624,7 +9627,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.56.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
     zod: "npm:^3.24.1"
   peerDependencies:
@@ -9661,7 +9664,7 @@ __metadata:
     openmrs: "npm:*"
     react-hook-form: "npm:^7.51.0"
     swr: "npm:^2.3.6"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.22.0"
   peerDependencies:
     "@openmrs/esm-framework": "*"
@@ -9713,7 +9716,7 @@ __metadata:
     semver: "npm:^7.5.4"
     swr: "npm:^2.2.4"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     uuid: "npm:^9.0.1"
   peerDependencies:
     "@carbon/react": 1.x
@@ -9738,7 +9741,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.24.1"
   peerDependencies:
     "@carbon/react": 1.x
@@ -9799,7 +9802,7 @@ __metadata:
     rxjs: "npm:^6.6.7"
     sass: "npm:^1.67.0"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -9857,7 +9860,7 @@ __metadata:
     sass: "npm:^1.77.2"
     swr: "npm:^2.2.5"
     turbo: "npm:^2.5.2"
-    typescript: "npm:^5.0.0"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -9881,7 +9884,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
     react-error-boundary: "npm:^4.0.13"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -9911,7 +9914,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.56.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
     zod: "npm:^3.24.1"
   peerDependencies:
@@ -9940,7 +9943,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     "@openmrs/esm-patient-common-lib": "*"
@@ -9966,7 +9969,7 @@ __metadata:
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-i18next: "npm:^16.0.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.0.2
@@ -9983,7 +9986,7 @@ __metadata:
   dependencies:
     jest: "npm:^29.7.0"
     openmrs: "npm:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     react: 18.x
@@ -10009,7 +10012,7 @@ __metadata:
     react-i18next: "npm:^16.0.0"
     rxjs: "npm:^6.5.3"
     swr: "npm:2.2.5"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.0.2
@@ -10049,7 +10052,7 @@ __metadata:
     react-router-dom: "npm:^6.14.1"
     rxjs: "npm:^6.6.7"
     swr: "npm:^2.3.6"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.0.2
@@ -10093,7 +10096,7 @@ __metadata:
     react-hook-form: "npm:^7.52.1"
     react-i18next: "npm:^16.0.0"
     react-router-dom: "npm:^6.11.2"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -10120,7 +10123,7 @@ __metadata:
     react-router-dom: "npm:^6.3.0"
     rxjs: "npm:^6.5.3"
     swr: "npm:2.2.5"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.23.8"
   peerDependencies:
     "@carbon/react": 1.x
@@ -10146,7 +10149,7 @@ __metadata:
     konva: "npm:^9.3.18"
     openmrs: "workspace:*"
     react-konva: "npm:^19.0.5"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zustand: "npm:^4.5.5"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
@@ -10175,7 +10178,7 @@ __metadata:
     react-router-dom: "npm:^6.3.0"
     rxjs: "npm:^6.5.3"
     swr: "npm:2.2.5"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.0.2
@@ -10198,7 +10201,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "npm:*"
     swr: "npm:^2.2.5"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -10221,7 +10224,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10248,7 +10251,7 @@ __metadata:
     openmrs: "workspace:*"
     react-grid-gallery: "npm:^0.5.6"
     react-html5-camera-photo: "npm:^1.5.11"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10273,7 +10276,7 @@ __metadata:
     openmrs: "workspace:*"
     react-barcode: "npm:^1.5.3"
     react-to-print: "npm:^3.1.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10298,7 +10301,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     uuid: "npm:^8.3.2"
   peerDependencies:
     "@carbon/react": 1.x
@@ -10327,7 +10330,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10349,7 +10352,7 @@ __metadata:
     "@rspack/cli": "npm:1.7.11"
     jest: "npm:^29.7.0"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10374,7 +10377,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     "@openmrs/esm-patient-common-lib": "*"
@@ -10432,10 +10435,9 @@ __metadata:
     sass: "npm:^1.54.3"
     swc-loader: "npm:^0.2.3"
     swr: "npm:^2.x"
-    ts-jest: "npm:^29.4.1"
     ts-node: "npm:^10.9.2"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.x"
   peerDependencies:
     "@carbon/react": 1.x
@@ -10458,7 +10460,7 @@ __metadata:
     "@rspack/cli": "npm:1.7.11"
     jest: "npm:^29.7.0"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     react: 18.x
@@ -10480,7 +10482,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     react: 18.x
@@ -10500,7 +10502,7 @@ __metadata:
     "@sihsalus/esm-sihsalus-shared": "workspace:*"
     jest: "npm:^29.7.0"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10523,7 +10525,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10545,7 +10547,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10568,7 +10570,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10591,7 +10593,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10618,7 +10620,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     uuid: "npm:^8.3.2"
     yup: "npm:^0.29.1"
   peerDependencies:
@@ -10644,7 +10646,7 @@ __metadata:
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
     react-hook-form: "npm:^7.54.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     react: ^18.3.1
@@ -10668,7 +10670,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
     "@openmrs/esm-patient-common-lib": "*"
@@ -10692,7 +10694,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     "@openmrs/esm-patient-common-lib": "*"
@@ -10720,7 +10722,7 @@ __metadata:
     react-i18next: "npm:^16.0.0"
     react-router-dom: "npm:^6.3.0"
     rxjs: "npm:^6.5.3"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 9.0.2
@@ -10741,7 +10743,7 @@ __metadata:
     "@openmrs/esm-framework": "npm:>=9.0.2"
     "@sihsalus/esm-audit-logger": "workspace:*"
     react: "npm:^18.3.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     vitest: "npm:^4.0.18"
   peerDependencies:
     "@carbon/react": ">=1.0.0"
@@ -10764,7 +10766,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "npm:*"
     react-image-annotate: "npm:^1.8.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -10791,7 +10793,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.56.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
     zod: "npm:^3.24.1"
   peerDependencies:
@@ -10826,7 +10828,7 @@ __metadata:
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
     react-hook-form: "npm:^7.54.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.24.1"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
@@ -10846,7 +10848,7 @@ __metadata:
     "@openmrs/esm-patient-common-lib": "workspace:*"
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/colors": 1.x
     "@carbon/layout": 1.x
@@ -10910,7 +10912,7 @@ __metadata:
     swc-loader: "npm:^0.2.3"
     swr: "npm:^2.2.4"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     yup: "npm:^1.2.0"
     zod: "npm:^3.22.2"
   peerDependencies:
@@ -10934,7 +10936,7 @@ __metadata:
     lodash-es: "npm:^4.17.21"
     openmrs: "npm:*"
     swr: "npm:^2.2.5"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@openmrs/esm-framework": 9.x
     dayjs: 1.x
@@ -10988,7 +10990,7 @@ __metadata:
     rxjs: "npm:^6.6.7"
     swc-loader: "npm:^0.2.3"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     webpack: "npm:^5.99.9"
     webpack-cli: "npm:^6.0.1"
   peerDependencies:
@@ -11013,7 +11015,7 @@ __metadata:
     lodash-es: "npm:^4.17.23"
     openmrs: "workspace:*"
     react-hook-form: "npm:^7.46.2"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.23.8"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
@@ -11037,7 +11039,7 @@ __metadata:
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
   peerDependencies:
     "@carbon/react": 1.x
     "@carbon/styles": 1.x
@@ -11066,7 +11068,7 @@ __metadata:
     lodash-es: "npm:^4.17.15"
     openmrs: "npm:*"
     react-hook-form: "npm:^7.54.0"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     zod: "npm:^3.24.1"
   peerDependencies:
     "@openmrs/esm-framework": 9.0.2
@@ -11117,7 +11119,7 @@ __metadata:
     prettier: "npm:^3.8.1"
     swc-loader: "npm:0.2.7"
     turbo: "npm:^2.9.1"
-    typescript: "npm:^5.8.3"
+    typescript: "npm:^6.0.0"
     typescript-eslint: "npm:^8.58.0"
   languageName: unknown
   linkType: soft
@@ -15532,15 +15534,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bs-logger@npm:^0.2.6":
-  version: 0.2.6
-  resolution: "bs-logger@npm:0.2.6"
-  dependencies:
-    fast-json-stable-stringify: "npm:2.x"
-  checksum: 10c0/80e89aaaed4b68e3374ce936f2eb097456a0dddbf11f75238dbd53140b1e39259f0d248a5089ed456f1158984f22191c3658d54a713982f676709fbe1a6fa5a0
-  languageName: node
-  linkType: hard
-
 "bser@npm:2.1.1":
   version: 2.1.1
   resolution: "bser@npm:2.1.1"
@@ -19707,7 +19700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-json-stable-stringify@npm:2.x, fast-json-stable-stringify@npm:^2.0.0, fast-json-stable-stringify@npm:^2.1.0":
+"fast-json-stable-stringify@npm:^2.0.0, fast-json-stable-stringify@npm:^2.1.0":
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
   checksum: 10c0/7f081eb0b8a64e0057b3bb03f974b3ef00135fbf36c1c710895cd9300f13c94ba809bb3a81cf4e1b03f6e5285610a61abbd7602d0652de423144dfee5a389c9b
@@ -21050,24 +21043,6 @@ __metadata:
   version: 2.0.1
   resolution: "handle-thing@npm:2.0.1"
   checksum: 10c0/7ae34ba286a3434f1993ebd1cc9c9e6b6d8ea672182db28b1afc0a7119229552fa7031e3e5f3cd32a76430ece4e94b7da6f12af2eb39d6239a7693e4bd63a998
-  languageName: node
-  linkType: hard
-
-"handlebars@npm:^4.7.8":
-  version: 4.7.8
-  resolution: "handlebars@npm:4.7.8"
-  dependencies:
-    minimist: "npm:^1.2.5"
-    neo-async: "npm:^2.6.2"
-    source-map: "npm:^0.6.1"
-    uglify-js: "npm:^3.1.4"
-    wordwrap: "npm:^1.0.0"
-  dependenciesMeta:
-    uglify-js:
-      optional: true
-  bin:
-    handlebars: bin/handlebars
-  checksum: 10c0/7aff423ea38a14bb379316f3857fe0df3c5d66119270944247f155ba1f08e07a92b340c58edaa00cfe985c21508870ee5183e0634dcb53dd405f35c93ef7f10d
   languageName: node
   linkType: hard
 
@@ -24885,13 +24860,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.memoize@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "lodash.memoize@npm:4.1.2"
-  checksum: 10c0/c8713e51eccc650422716a14cece1809cfe34bc5ab5e242b7f8b4e2241c2483697b971a604252807689b9dd69bfe3a98852e19a5b89d506b000b4187a1285df8
-  languageName: node
-  linkType: hard
-
 "lodash.sortby@npm:^4.7.0":
   version: 4.7.0
   resolution: "lodash.sortby@npm:4.7.0"
@@ -25104,7 +25072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"make-error@npm:^1.1.1, make-error@npm:^1.3.6":
+"make-error@npm:^1.1.1":
   version: 1.3.6
   resolution: "make-error@npm:1.3.6"
   checksum: 10c0/171e458d86854c6b3fc46610cfacf0b45149ba043782558c6875d9f42f222124384ad0b468c92e996d815a8a2003817a710c0a160e49c1c394626f76fa45396f
@@ -26020,7 +25988,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.6":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
@@ -27343,7 +27311,7 @@ __metadata:
     rimraf: "npm:^6.0.1"
     semver: "npm:^7.7.3"
     tar: "npm:^6.0.5"
-    typescript: "npm:5.8.3"
+    typescript: "npm:^6.0.0"
     vitest: "npm:^4.0.18"
     yargs: "npm:^17.6.2"
   bin:
@@ -33714,46 +33682,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^29.4.1":
-  version: 29.4.6
-  resolution: "ts-jest@npm:29.4.6"
-  dependencies:
-    bs-logger: "npm:^0.2.6"
-    fast-json-stable-stringify: "npm:^2.1.0"
-    handlebars: "npm:^4.7.8"
-    json5: "npm:^2.2.3"
-    lodash.memoize: "npm:^4.1.2"
-    make-error: "npm:^1.3.6"
-    semver: "npm:^7.7.3"
-    type-fest: "npm:^4.41.0"
-    yargs-parser: "npm:^21.1.1"
-  peerDependencies:
-    "@babel/core": ">=7.0.0-beta.0 <8"
-    "@jest/transform": ^29.0.0 || ^30.0.0
-    "@jest/types": ^29.0.0 || ^30.0.0
-    babel-jest: ^29.0.0 || ^30.0.0
-    jest: ^29.0.0 || ^30.0.0
-    jest-util: ^29.0.0 || ^30.0.0
-    typescript: ">=4.3 <6"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@jest/transform":
-      optional: true
-    "@jest/types":
-      optional: true
-    babel-jest:
-      optional: true
-    esbuild:
-      optional: true
-    jest-util:
-      optional: true
-  bin:
-    ts-jest: cli.js
-  checksum: 10c0/013dda99ac938cd4b94bae9323ed1b633cd295976c256d596d01776866188078fe7b82b8b3ebd05deb401b27b5618d9d76208eded2568661240ecf9694a5c933
-  languageName: node
-  linkType: hard
-
 "ts-node@npm:^10.9.2":
   version: 10.9.2
   resolution: "ts-node@npm:10.9.2"
@@ -33974,7 +33902,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.27.0, type-fest@npm:^4.41.0":
+"type-fest@npm:^4.27.0":
   version: 4.41.0
   resolution: "type-fest@npm:4.41.0"
   checksum: 10c0/f5ca697797ed5e88d33ac8f1fec21921839871f808dc59345c9cf67345bfb958ce41bd821165dbf3ae591cedec2bf6fe8882098dfdd8dc54320b859711a2c1e4
@@ -34076,13 +34004,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.0.0, typescript@npm:^5.0.4, typescript@npm:^5.8.3":
+"typescript@npm:^5.0.4":
   version: 5.9.3
   resolution: "typescript@npm:5.9.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/6bd7552ce39f97e711db5aa048f6f9995b53f1c52f7d8667c1abdc1700c68a76a308f579cd309ce6b53646deb4e9a1be7c813a93baaf0a28ccd536a30270e1c5
+  languageName: node
+  linkType: hard
+
+"typescript@npm:^6.0.0":
+  version: 6.0.3
+  resolution: "typescript@npm:6.0.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/4a25ff5045b984370f48f196b3a0120779b1b343d40b9a68d114ea5e5fff099809b2bb777576991a63a5cd59cf7bffd96ff6fe10afcefbcb8bd6fb96ad4b6606
   languageName: node
   linkType: hard
 
@@ -34096,13 +34034,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.0.0#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.0.4#optional!builtin<compat/typescript>":
   version: 5.9.3
   resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/ad09fdf7a756814dce65bc60c1657b40d44451346858eea230e10f2e95a289d9183b6e32e5c11e95acc0ccc214b4f36289dcad4bf1886b0adb84d711d336a430
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A^6.0.0#optional!builtin<compat/typescript>":
+  version: 6.0.3
+  resolution: "typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10c0/2f25c74e65663c248fa1ade2b8459d9ce5372ff9dad07067310f132966ebec1d93f6c42f0baf77a6b6a7a91460463f708e6887013aaade22111037457c6b25df
   languageName: node
   linkType: hard
 
@@ -34130,15 +34078,6 @@ __metadata:
   bin:
     ua-parser-js: script/cli.js
   checksum: 10c0/45dc1f7f3ce8248e0e64640d2e29c65c0ea1fc9cb105594de84af80e2a57bba4f718b9376098ca7a5b0ffe240f8995b0fa3714afa9d36861c41370a378f1a274
-  languageName: node
-  linkType: hard
-
-"uglify-js@npm:^3.1.4":
-  version: 3.19.3
-  resolution: "uglify-js@npm:3.19.3"
-  bin:
-    uglifyjs: bin/uglifyjs
-  checksum: 10c0/83b0a90eca35f778e07cad9622b80c448b6aad457c9ff8e568afed978212b42930a95f9e1be943a1ffa4258a3340fbb899f41461131c05bb1d0a9c303aed8479
   languageName: node
   linkType: hard
 
@@ -35839,13 +35778,6 @@ __metadata:
   version: 0.3.0
   resolution: "word@npm:0.3.0"
   checksum: 10c0/c6da2a9f7a0d81a32fa6768a638d21b153da2be04f94f3964889c7cc1365d74b6ecb43b42256c3f926cd59512d8258206991c78c21000c3da96d42ff1238b840
-  languageName: node
-  linkType: hard
-
-"wordwrap@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "wordwrap@npm:1.0.0"
-  checksum: 10c0/7ed2e44f3c33c5c3e3771134d2b0aee4314c9e49c749e37f464bf69f2bcdf0cbf9419ca638098e2717cff4875c47f56a007532f6111c3319f557a2ca91278e92
   languageName: node
   linkType: hard
 

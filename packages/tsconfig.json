@@ -17,7 +17,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@openmrs/esm-api": ["../node_modules/@openmrs/esm-api/dist/index"],
@@ -59,6 +59,11 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "esnext",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noUncheckedIndexedAccess": false,
+    "types": ["fhir", "jest", "node", "webpack-env", "@testing-library/jest-dom"],
     "typeRoots": ["../node_modules/@types"]
   },
   "files": ["declarations.d.ts"],

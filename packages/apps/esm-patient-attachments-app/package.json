@@ -60,6 +60,6 @@
     "@rspack/cli": "1.7.11",
     "jest": "^29.7.0",
     "openmrs": "workspace:*",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.0"
   }
 }

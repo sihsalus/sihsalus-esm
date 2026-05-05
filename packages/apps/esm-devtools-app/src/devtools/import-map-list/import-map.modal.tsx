@@ -3,13 +3,12 @@ import { addRoutesOverride, removeRoutesOverride } from '@openmrs/esm-framework/
 import React, { type FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { ImportMapOverridesApi } from '../import-map-overrides.types';
 import type { Module } from './types';
 
-type ImportMapModalProps = ({ module: Module; isNew: false } | { module: never; isNew: true }) & { close: () => void };
+type ImportMapModalProps = ({ module: Module; isNew: false } | { module?: never; isNew: true }) & { close: () => void };
 
 const isPortRegex = /^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$/;
-const importMapOverrides = globalThis.importMapOverrides as unknown as ImportMapOverridesApi;
+const importMapOverrides = globalThis.importMapOverrides;
 
 async function getUrlFromPort(moduleName: string, port: string) {
   const latestImportMap = await importMapOverrides.getNextPageMap();
@@ -29,7 +28,7 @@ async function getUrlFromPort(moduleName: string, port: string) {
 
 const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close }) => {
   const { t } = useTranslation();
-  const [moduleName, setModuleName] = useState<string | undefined>(module?.moduleName);
+  const [moduleName, setModuleName] = useState(module?.moduleName ?? '');
   const moduleNameRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -46,7 +45,7 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
       }
 
       if (isNew) {
-        let newUrl = inputRef.current?.value || null;
+        let newUrl = inputRef.current?.value ?? '';
         if (newUrl) {
           if (isPortRegex.test(newUrl)) {
             newUrl = await getUrlFromPort(moduleName, newUrl);
@@ -57,8 +56,8 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
           addRoutesOverride(moduleName, new URL('routes.json', baseUrl));
         }
       } else {
-        let newUrl = inputRef.current?.value || null;
-        if (newUrl === null) {
+        let newUrl = inputRef.current?.value ?? '';
+        if (!newUrl) {
           importMapOverrides.removeOverride(moduleName);
           removeRoutesOverride(moduleName);
         } else {
@@ -118,7 +117,7 @@ const ImportMapModal: React.FC<ImportMapModalProps> = ({ module, isNew, close })
               <TextInput
                 id="default-url"
                 labelText={t('defaultUrl', 'Default URL')}
-                value={module.defaultUrl}
+                value={module.defaultUrl ?? ''}
                 readOnly
               />
             )}

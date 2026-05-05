@@ -62,6 +62,6 @@
     "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "openmrs": "*",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.0"
   }
 }

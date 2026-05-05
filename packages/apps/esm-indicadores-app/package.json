@@ -75,6 +75,6 @@
     "react-i18next": "^16.0.0",
     "react-router-dom": "^6.14.1",
     "rxjs": "^6.6.7",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.0"
   }
 }

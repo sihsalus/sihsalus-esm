@@ -6,7 +6,7 @@ import styles from './devtools.styles.scss';
 import DevToolsPopup from './devtools-popup.component';
 import { importMapOverridden } from './import-map.component';
 
-const showDevTools = () => globalThis.spaEnv === 'development' || Boolean(localStorage.getItem('openmrs:devtools'));
+const showDevTools = () => window.spaEnv === 'development' || Boolean(localStorage.getItem('openmrs:devtools'));
 
 export default function Root(props: AppProps) {
   return showDevTools() ? <DevTools {...props} /> : null;

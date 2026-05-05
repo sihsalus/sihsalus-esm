@@ -3,6 +3,10 @@ import React from 'react';
 import * as api from '../../api';
 import ProcedureStepTable, { type ProcedureStepTableProps } from './procedureStep-details-table.component';
 
+type MockedOpenmrsFramework = {
+  showModal: jest.Mock;
+};
+
 jest.mock('../../api');
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -156,7 +160,7 @@ describe('ProcedureStepTable', () => {
       isValidating: false,
     });
 
-    (require('@openmrs/esm-framework').showModal as jest.Mock) = mockShowModal;
+    (require('@openmrs/esm-framework') as MockedOpenmrsFramework).showModal = mockShowModal;
 
     await act(async () => {
       render(<ProcedureStepTable {...defaultProps} />);

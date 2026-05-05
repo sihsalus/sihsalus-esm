@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*", "../../tools/setup-tests.ts"],
+  "include": ["src/**/*", "../../tooling/scripts/setup-tests.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

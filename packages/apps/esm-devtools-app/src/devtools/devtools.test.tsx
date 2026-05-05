@@ -26,7 +26,7 @@ const defaultProps: AppProps = {
 describe('DevTools', () => {
   beforeEach(() => {
     localStorage.clear();
-    delete window.spaEnv;
+    delete (window as Partial<Window>).spaEnv;
     jest.resetModules();
   });
 
