@@ -120,6 +120,15 @@ Repository discipline and workspace ownership expectations live in:
 - [docs/operations/monorepo-discipline-rfc.md](docs/operations/monorepo-discipline-rfc.md)
 - [docs/operations/workspace-quality-registry.md](docs/operations/workspace-quality-registry.md)
 
+### TODO RBAC, auditoria y permisos
+
+- Definir una matriz transversal de permisos por modulo y flujo, usando [@sihsalus/esm-rbac](packages/libs/esm-rbac/README.md) como punto de integracion frontend.
+- Agregar guards de RBAC en rutas, extensiones, botones, workspaces y modales de los modulos clinicos y administrativos.
+- Definir privilegios backend/content para lectura, creacion, edicion, eliminacion y acciones especiales por modulo.
+- Integrar [@sihsalus/esm-audit-logger](packages/libs/esm-audit-logger/README.md) en eventos sensibles: busqueda de paciente, apertura de historia, formulario clinico, ordenes, dispensing, FUA, billing, stock, ward y emergency.
+- Probar roles reales contra backend actualizado: usuario clinico, admision, farmacia, laboratorio, caja, administrador y solo lectura.
+- Documentar feature flags o fallback cuando un modulo no tenga permisos/content/backend listos para produccion.
+
 ### Cleaning
 
 ```bash
