@@ -41,7 +41,7 @@ describe('DrugSearchComboBox', () => {
     await user.type(screen.getByRole('combobox'), 'Aspirin');
     const aspirin81 = screen.getByText(/Aspirin 81mg/i);
     expect(aspirin81).toBeInTheDocument();
-    await aspirin81.click();
+    await user.click(aspirin81);
     expect(mockSetSelectedDrugItem).toHaveBeenCalledWith(
       expect.objectContaining({
         display: 'Aspirin 81mg',
