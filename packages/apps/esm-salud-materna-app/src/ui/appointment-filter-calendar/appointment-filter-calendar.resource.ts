@@ -24,7 +24,9 @@ export const useAppointmentsByPatient = (patientUuid: string, filters: Appointme
       }),
   );
 
-  const sourceAppointments = (data?.data ?? []).map(mapAppointmentForCalendar);
+  const sourceAppointments = (data?.data ?? [])
+    .filter((appointment) => appointment.status !== 'Cancelled')
+    .map(mapAppointmentForCalendar);
   const appointments = filters.serviceType
     ? sourceAppointments.filter((appointment) => appointment.serviceType === filters.serviceType)
     : sourceAppointments;
@@ -40,7 +42,7 @@ export const useAppointmentsByPatient = (patientUuid: string, filters: Appointme
 function mapAppointmentForCalendar(appointment: Appointment): PatientAppointment {
   return {
     ...appointment,
-    appointmentDate: appointment.startDateTime,
+    appointmentDate: String(appointment.startDateTime),
     appointmentId: appointment.uuid,
     serviceType: appointment.service?.name ?? '',
   };
