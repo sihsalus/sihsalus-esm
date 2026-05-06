@@ -124,6 +124,8 @@
   "orderIndefiniteDuration": "Indefinite duration",
   "paginationItemsCount_one": "{{pageItemsCount}} / {{count}} item",
   "paginationItemsCount_other": "{{pageItemsCount}} / {{count}} items",
+  "paginationItemsPerPageText": "Items per page",
+  "paginationPageNumberText": "Page",
   "paginationPageText_one": "of {{count}} page",
   "paginationPageText_other": "of {{count}} pages",
   "partOfFormDidntLoad": "Part of the form did not load",
