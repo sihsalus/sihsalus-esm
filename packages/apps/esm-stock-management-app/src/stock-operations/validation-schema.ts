@@ -150,6 +150,7 @@ export const getStockOperationItemFormSchema = (operationType: OperationType) =>
           purchasePrice: true,
         })
         .extend({
+          stockBatchUuid: z.string().min(1, { message: 'Required' }),
           // Override quantity to allow negative values for negative adjustment operation
           quantity: z.coerce.number().refine((value) => value !== 0, {
             message: 'Quantity cannot be zero.',
@@ -160,11 +161,15 @@ export const getStockOperationItemFormSchema = (operationType: OperationType) =>
     case OperationType.STOCK_ISSUE_OPERATION_TYPE:
     case OperationType.STOCK_TAKE_OPERATION_TYPE:
     case OperationType.TRANSFER_OUT_OPERATION_TYPE:
-      return baseStockOperationItemSchema.omit({
-        batchNo: true,
-        expiration: true,
-        purchasePrice: true,
-      });
+      return baseStockOperationItemSchema
+        .omit({
+          batchNo: true,
+          expiration: true,
+          purchasePrice: true,
+        })
+        .extend({
+          stockBatchUuid: z.string().min(1, { message: 'Required' }),
+        });
     default:
       return baseStockOperationItemSchema;
   }

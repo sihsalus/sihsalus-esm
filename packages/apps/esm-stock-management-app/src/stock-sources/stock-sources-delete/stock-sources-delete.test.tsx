@@ -1,9 +1,10 @@
-import { type FetchResponse, showModal, showSnackbar } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
-import DeleteConfirmation from '../../stock-user-role-scopes/delete-stock-user-scope.modal';
-import { handleMutate } from '../../utils';
+import { render, screen } from '@testing-library/react';
+import { type FetchResponse, showModal, showSnackbar } from '@openmrs/esm-framework';
 import { deleteStockSource } from '../stock-sources.resource';
+import { handleMutate } from '../../utils';
+import DeleteConfirmation from '../../stock-user-role-scopes/delete-stock-user-scope.modal';
 import StockSourcesDeleteActionMenu from './stock-sources-delete.component';
 
 const mockDeleteStockSource = jest.mocked(deleteStockSource);
@@ -21,7 +22,7 @@ jest.mock('../../utils', () => ({
 
 describe('StockSourcesDeleteActionMenu', () => {
   const uuid = '1234-5678';
-  const _uuids: string[] = ['1234-5678'];
+  const uuids: string[] = ['1234-5678'];
 
   it('renders the delete button correctly', () => {
     render(<StockSourcesDeleteActionMenu uuid={uuid} />);
@@ -89,7 +90,7 @@ describe('StockSourcesDeleteActionMenu', () => {
     const user = userEvent.setup();
     mockDeleteStockSource.mockResolvedValueOnce({} as FetchResponse<any>);
 
-    const _mockOnConfirmation = jest.fn();
+    const mockOnConfirmation = jest.fn();
     const mockClose = jest.fn();
 
     render(
@@ -121,7 +122,7 @@ describe('StockSourcesDeleteActionMenu', () => {
         onConfirmation={async () => {
           try {
             await deleteStockSource([uuid]);
-          } catch (_error) {
+          } catch (error) {
             showSnackbar({
               title: 'stockSourceDeleteError',
               kind: 'error',
@@ -153,7 +154,7 @@ describe('StockSourcesDeleteActionMenu', () => {
         onConfirmation={async () => {
           try {
             await deleteStockSource([uuid]);
-          } catch (_error) {
+          } catch (error) {
             showSnackbar({
               title: 'stockSourceDeleteError',
               kind: 'error',

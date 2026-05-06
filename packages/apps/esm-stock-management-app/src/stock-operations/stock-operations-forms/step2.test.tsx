@@ -1,16 +1,16 @@
-import { receiptOperationTypeMock } from '@mocks';
-import { useConfig, useSession } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { type UseFormReturn, useFormContext } from 'react-hook-form';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { useFormContext, type UseFormReturn } from 'react-hook-form';
+import { useConfig, useSession } from '@openmrs/esm-framework';
 import { formatForDatePicker } from '../../constants';
-import { type StockItemDTO } from '../../core/api/types/stockItem/StockItem';
-import { useStockItem } from '../../stock-items/stock-items.resource';
-import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
-import { useStockOperations } from '../stock-operations.resource';
+import { receiptOperationTypeMock } from '@mocks';
 import { type BaseStockOperationItemFormData } from '../validation-schema';
+import { type StockItemDTO } from '../../core/api/types/stockItem/StockItem';
 import { useFilterableStockItems } from './hooks/useFilterableStockItems';
+import { useStockItem } from '../../stock-items/stock-items.resource';
+import { useStockOperations } from '../stock-operations.resource';
+import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
 import useParties from './hooks/useParties';
 import StockOperationForm from './stock-operation-form.component';
 
@@ -238,7 +238,7 @@ describe('Stock Operation step 2 (stock operation items details)', () => {
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(
       screen.getByRole('searchbox', {
-        name(_accessibleName, element) {
+        name(accessibleName, element) {
           return element.getAttribute('id') === 'search-stock-operation-item';
         },
       }),

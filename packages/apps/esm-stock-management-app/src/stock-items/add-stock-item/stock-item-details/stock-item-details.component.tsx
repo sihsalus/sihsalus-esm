@@ -1,27 +1,27 @@
+import React, { forwardRef, useMemo } from 'react';
+import classNames from 'classnames';
 import { Button, ButtonSet, FormGroup, InlineLoading, Stack } from '@carbon/react';
 import { Save } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getCoreTranslation, restBaseUrl, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
-import classNames from 'classnames';
-import { forwardRef, useMemo } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { getCoreTranslation, restBaseUrl, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import { createStockItem, updateStockItem } from '../../stock-items.resource';
+import { expirationOptions, StockItemType } from './stock-item-details.resource';
+import { handleMutate } from '../../../utils';
+import { launchAddOrEditStockItemWorkspace } from '../../stock-item.utils';
+import { createStockItemDetailsSchema, type StockItemFormData } from '../../validationSchema';
 import { type StockItemDTO } from '../../../core/api/types/stockItem/StockItem';
+import ConceptsSelector from '../concepts-selector/concepts-selector.component';
 import ControlledNumberInput from '../../../core/components/carbon/controlled-number-input.component';
 import ControlledRadioButtonGroup from '../../../core/components/carbon/controlled-radio-button-group.component';
 import ControlledTextInput from '../../../core/components/carbon/controlled-text-input.component';
-import { handleMutate } from '../../../utils';
-import styles from '../../add-stock-item/add-stock-item.scss';
-import { launchAddOrEditStockItemWorkspace } from '../../stock-item.utils';
-import { createStockItem, updateStockItem } from '../../stock-items.resource';
-import { createStockItemDetailsSchema, type StockItemFormData } from '../../validationSchema';
-import ConceptsSelector from '../concepts-selector/concepts-selector.component';
 import DispensingUnitSelector from '../dispensing-unit-selector/dispensing-unit-selector.component';
 import DrugSelector from '../drug-selector/drug-selector.component';
 import PreferredVendorSelector from '../preferred-vendor-selector/preferred-vendor-selector.component';
 import StockItemCategorySelector from '../stock-item-category-selector/stock-item-category-selector.component';
 import StockItemUnitsEdit from '../stock-item-units-edit/stock-item-units-edit.component';
-import { expirationOptions, radioOptions, StockItemType } from './stock-item-details.resource';
+import styles from '../../add-stock-item/add-stock-item.scss';
 
 interface StockItemDetailsProps {
   stockItem?: StockItemDTO;
@@ -84,6 +84,13 @@ const StockItemDetails = forwardRef<never, StockItemDetailsProps>(
       else if (observableIsDrug === false) return StockItemType.NONE_PHARMACEUTICALS;
       return null;
     }, [observableIsDrug]);
+    const itemTypeOptions = useMemo(
+      () => [
+        { label: t('pharmaceuticals', 'Farmacéuticos'), value: true },
+        { label: t('nonPharmaceuticals', 'No Farmacéuticos'), value: false },
+      ],
+      [t],
+    );
 
     return (
       <form className={styles.formContainer}>
@@ -101,7 +108,7 @@ const StockItemDetails = forwardRef<never, StockItemDetailsProps>(
                 legendText=""
                 invalid={!!errors.isDrug}
                 invalidText={errors.isDrug && errors?.isDrug?.message}
-                options={radioOptions} // Pass radioOptions directly
+                options={itemTypeOptions}
               />
             </FormGroup>
           )}
@@ -201,7 +208,7 @@ const StockItemDetails = forwardRef<never, StockItemDetailsProps>(
             invalid={!!errors.preferredVendorUuid}
             invalidText={errors.preferredVendorUuid && errors?.preferredVendorUuid?.message}
           />
-          <StockItemCategorySelector
+          {/* <StockItemCategorySelector
             name="categoryUuid"
             controllerName="categoryUuid"
             control={control}
@@ -209,14 +216,14 @@ const StockItemDetails = forwardRef<never, StockItemDetailsProps>(
               selectedItemType === StockItemType.PHARMACEUTICALS
                 ? 'Drugs'
                 : selectedItemType === StockItemType.NONE_PHARMACEUTICALS
-                  ? 'Non Drugs'
-                  : undefined
+                ? 'Non Drugs'
+                : undefined
             }
             title={t('category', 'Category') + ':'}
             placeholder={t('chooseACategory', 'Choose a category')}
             invalid={!!errors.categoryUuid}
             invalidText={errors.categoryUuid && errors?.categoryUuid?.message}
-          />
+          /> */}
           {observableIsDrug && (
             <DispensingUnitSelector
               name="dispensingUnitUuid"

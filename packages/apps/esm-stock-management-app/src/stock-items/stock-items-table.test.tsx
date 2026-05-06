@@ -140,11 +140,11 @@ describe('StockItemsTableComponent', () => {
     const user = userEvent.setup();
     render(<StockItemsTableComponent />);
 
-    const nextPageButton = screen.getByLabelText(/next page/i);
+    const nextPageButton = screen.getByLabelText(/next page|p[aá]gina siguiente/i);
     await user.click(nextPageButton);
     expect(mockUseStockItemsPages().setCurrentPage).toHaveBeenCalled();
 
-    const pageSizeSelect = screen.getByLabelText(/items per page/i);
+    const pageSizeSelect = screen.getByLabelText(/items per page|elementos por p[aá]gina/i);
     await user.selectOptions(pageSizeSelect, '20');
     expect(mockUseStockItemsPages().setPageSize).toHaveBeenCalledWith(20);
   });

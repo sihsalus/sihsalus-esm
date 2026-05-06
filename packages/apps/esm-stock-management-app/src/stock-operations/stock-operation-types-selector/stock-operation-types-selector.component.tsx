@@ -1,9 +1,10 @@
+import React, { useCallback, useEffect } from 'react';
 import { ButtonSkeleton, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import { OverflowMenuVertical } from '@carbon/react/icons';
-import { showSnackbar } from '@openmrs/esm-framework';
-import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { showSnackbar } from '@openmrs/esm-framework';
 import { OperationType, type StockOperationType } from '../../core/api/types/stockOperation/StockOperationType';
+import { translateStockOperationType } from '../../core/utils/translationUtils';
 import { launchStockoperationAddOrEditWorkSpace } from '../stock-operation.utils';
 import useFilteredOperationTypesByRoles from '../stock-operations-forms/hooks/useFilteredOperationTypesByRoles';
 
@@ -13,8 +14,6 @@ const StockOperationTypesSelector = () => {
 
   const handleSelect = useCallback(
     (stockOperationType: StockOperationType) => {
-      const _isStockIssueOperation = stockOperationType.operationType === OperationType.STOCK_ISSUE_OPERATION_TYPE;
-
       launchStockoperationAddOrEditWorkSpace(t, stockOperationType, undefined);
     },
     [t],
@@ -38,7 +37,7 @@ const StockOperationTypesSelector = () => {
     <OverflowMenu
       renderIcon={() => (
         <>
-          Start New&nbsp;&nbsp;
+          {t('startNew', 'Start New')}&nbsp;&nbsp;
           <OverflowMenuVertical size={16} />
         </>
       )}
@@ -55,11 +54,12 @@ const StockOperationTypesSelector = () => {
       }}
     >
       {operationTypes
+        .filter((op) => op.operationType !== OperationType.STOCK_ISSUE_OPERATION_TYPE)
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((operation) => (
           <OverflowMenuItem
             key={operation.uuid}
-            itemText={operation.name}
+            itemText={translateStockOperationType(t, operation.name)}
             onClick={() => {
               handleSelect(operation);
             }}

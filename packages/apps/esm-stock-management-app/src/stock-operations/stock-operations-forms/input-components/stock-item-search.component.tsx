@@ -1,10 +1,10 @@
-import { ClickableTile, Search } from '@carbon/react';
-import { useConfig, useDebounce } from '@openmrs/esm-framework';
 import React, { useCallback, useEffect, useState } from 'react';
+import { ClickableTile, Search } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import { type ConfigObject } from '../../../config-schema';
+import { useConfig, useDebounce } from '@openmrs/esm-framework';
 import { type StockItemDTO } from '../../../core/api/types/stockItem/StockItem';
 import { useFilterableStockItems } from '../hooks/useFilterableStockItems';
+import { type ConfigObject } from '../../../config-schema';
 import styles from './input-components-styles.scss';
 
 type StockItemSearchProps = {

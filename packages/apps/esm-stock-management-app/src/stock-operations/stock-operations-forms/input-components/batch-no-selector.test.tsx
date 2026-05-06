@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { formatForDatePicker } from '../../../constants';
+import { render, screen } from '@testing-library/react';
 import { type StockBatchDTO } from '../../../core/api/types/stockItem/StockBatchDTO';
 import { type StockItemInventory } from '../../../core/api/types/stockItem/StockItemInventory';
+import { formatForDatePicker } from '../../../constants';
 import { useStockItemBatchInformationHook } from '../../../stock-items/add-stock-item/batch-information/batch-information.resource';
 import { useStockItemBatchNumbers } from '../hooks/useStockItemBatchNumbers';
 import BatchNoSelector from './batch-no-selector.component';

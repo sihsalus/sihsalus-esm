@@ -1,7 +1,8 @@
 import { Button } from '@carbon/react';
 import { Edit } from '@carbon/react/icons';
-import { launchWorkspace } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
+
+import { launchWorkspace } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
 import { type StockRule } from '../../../core/api/types/stockItem/StockRule';
 

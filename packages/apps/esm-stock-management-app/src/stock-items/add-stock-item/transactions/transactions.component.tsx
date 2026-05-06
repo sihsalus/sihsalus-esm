@@ -1,15 +1,16 @@
 import { DataTableSkeleton } from '@carbon/react';
 import { ArrowLeft } from '@carbon/react/icons';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import DataList from '../../../core/components/table/table.component';
 import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
-import StockOperationReference from '../../../stock-operations/stock-operation-reference.component';
+import { translateStockLocation, translateStockOperationType } from '../../../core/utils/translationUtils';
 import { type StockItemInventoryFilter } from '../../stock-items.resource';
 import TransactionsPrintAction from './printout/transactions-print-action.component';
 import TransactionsLocationsFilter from './transaction-filters/transaction-locations-filter.component';
 import { useStockItemsTransactions } from './transactions.resource';
+import StockOperationReference from '../../../stock-operations/stock-operation-reference.component';
 
 interface TransactionsProps {
   onSubmit?: () => void;
@@ -19,28 +20,23 @@ interface TransactionsProps {
 const Transactions: React.FC<TransactionsProps> = ({ stockItemUuid }) => {
   const { t } = useTranslation();
 
-  const [stockItemFilter, setStockItemFilter] = useState<StockItemInventoryFilter>();
-  const {
-    isLoading,
-    items,
-    tableHeaders,
-    totalCount,
-    setCurrentPage,
-    setStockItemUuid,
-    setLocationUuid,
-    binCardHeaders,
-    inventory,
-  } = useStockItemsTransactions(stockItemFilter);
-
-  useEffect(() => {
-    setStockItemUuid(stockItemUuid);
-  }, [stockItemUuid, setStockItemUuid]);
+  const [stockItemFilter, setStockItemFilter] = useState<StockItemInventoryFilter>({
+    stockItemUuid,
+  });
+  const { isLoading, items, tableHeaders, totalCount, setCurrentPage, setLocationUuid, binCardHeaders, inventory } =
+    useStockItemsTransactions(stockItemFilter);
 
   const { control } = useForm({});
 
   const tableRows = useMemo(() => {
     return items?.map((stockItemTransaction) => {
       const balance = inventory?.total ?? '';
+      const transactionType = stockItemTransaction?.isPatientTransaction
+        ? t('patientDispense', 'Dispensación a paciente')
+        : translateStockOperationType(t, stockItemTransaction.stockOperationTypeName);
+      const sourceLocation = translateStockLocation(t, stockItemTransaction.operationSourcePartyName);
+      const destinationLocation = translateStockLocation(t, stockItemTransaction.operationDestinationPartyName);
+      const partyLocation = translateStockLocation(t, stockItemTransaction?.partyName);
 
       return {
         ...stockItemTransaction,
@@ -53,36 +49,34 @@ const Transactions: React.FC<TransactionsProps> = ({ stockItemUuid }) => {
             stockItemTransaction.operationSourcePartyName === stockItemTransaction?.partyName ? (
               stockItemTransaction.quantity > 0 ? (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationSourcePartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationDestinationPartyName}
+                  <span className="transaction-location">{sourceLocation}</span>
+                  <ArrowLeft size={16} /> {destinationLocation}
                 </>
               ) : (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationSourcePartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationDestinationPartyName}
+                  <span className="transaction-location">{sourceLocation}</span>
+                  <ArrowLeft size={16} /> {destinationLocation}
                 </>
               )
             ) : stockItemTransaction.operationDestinationPartyName === stockItemTransaction?.partyName ? (
               stockItemTransaction.quantity > 0 ? (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationDestinationPartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationSourcePartyName}
+                  <span className="transaction-location">{destinationLocation}</span>
+                  <ArrowLeft size={16} /> {sourceLocation}
                 </>
               ) : (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationDestinationPartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationSourcePartyName}
+                  <span className="transaction-location">{destinationLocation}</span>
+                  <ArrowLeft size={16} /> {sourceLocation}
                 </>
               )
             ) : (
-              stockItemTransaction?.partyName
+              partyLocation
             )
           ) : (
-            stockItemTransaction?.partyName
+            partyLocation
           ),
-        transaction: stockItemTransaction?.isPatientTransaction
-          ? 'Patient Dispense'
-          : stockItemTransaction.stockOperationTypeName,
+        transaction: transactionType,
         quantity: `${stockItemTransaction?.quantity?.toLocaleString()} ${stockItemTransaction?.packagingUomName ?? ''}`,
         batch: stockItemTransaction.stockBatchNo
           ? `${stockItemTransaction.stockBatchNo}${
@@ -95,18 +89,19 @@ const Transactions: React.FC<TransactionsProps> = ({ stockItemUuid }) => {
             operationNumber={stockItemTransaction?.stockOperationNumber}
           />
         ),
-        status: stockItemTransaction?.stockOperationStatus ?? '',
+        status: t(stockItemTransaction?.stockOperationStatus ?? '', stockItemTransaction?.stockOperationStatus ?? ''),
         in:
           stockItemTransaction?.quantity >= 0
-            ? `${stockItemTransaction?.quantity?.toLocaleString()} ${stockItemTransaction?.packagingUomName ?? ''} of ${
-                stockItemTransaction.packagingUomFactor
-              }`
+            ? `${stockItemTransaction?.quantity?.toLocaleString()} ${stockItemTransaction?.packagingUomName ?? ''} ${t(
+                'of',
+                'de',
+              )} ${stockItemTransaction.packagingUomFactor}`
             : '',
         out:
           stockItemTransaction?.quantity < 0
             ? `${(-1 * stockItemTransaction?.quantity)?.toLocaleString()} ${
                 stockItemTransaction?.packagingUomName ?? ''
-              } of ${stockItemTransaction.packagingUomFactor}`
+              } ${t('of', 'de')} ${stockItemTransaction.packagingUomFactor}`
             : '',
         totalin:
           stockItemTransaction?.quantity >= 0
@@ -119,7 +114,7 @@ const Transactions: React.FC<TransactionsProps> = ({ stockItemUuid }) => {
         balance: `${balance} ${stockItemTransaction?.packagingUomName ?? ''}`,
       };
     });
-  }, [items, inventory]);
+  }, [items, inventory, t]);
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;

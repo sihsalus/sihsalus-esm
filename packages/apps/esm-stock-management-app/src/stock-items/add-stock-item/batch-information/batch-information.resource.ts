@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
 import { ResourceRepresentation } from '../../../core/api/api';
+import { useEffect, useMemo, useState } from 'react';
+import { LocationStockItemBatchNo } from '../../../core/api/types/stockItem/StockItem';
 import { type StockItemInventoryFilter, useStockItemInventory } from '../../stock-items.resource';
 
 export function useStockItemBatchInformationHook(filter?: StockItemInventoryFilter) {
@@ -10,6 +11,8 @@ export function useStockItemBatchInformationHook(filter?: StockItemInventoryFilt
     q: filter?.q,
     totalCount: true,
     includeBatchNo: true,
+    groupBy: LocationStockItemBatchNo,
+    stockItemUuid: filter?.stockItemUuid,
   });
 
   const pageSizes = [10, 20, 30, 40, 50];
@@ -35,6 +38,7 @@ export function useStockItemBatchInformationHook(filter?: StockItemInventoryFilt
       locationUuid: locationUuid,
       stockBatchUuid: stockBatchUuid,
       includeBatchNo: true,
+      groupBy: LocationStockItemBatchNo,
     });
   }, [searchString, currentPage, currentPageSize, stockItemUuid, partyUuid, locationUuid, stockBatchUuid]);
 

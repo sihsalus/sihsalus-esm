@@ -1,8 +1,9 @@
-import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
-import ImportBulkStockItemsModal from './stock-items-bulk-import.modal';
+import { render, screen } from '@testing-library/react';
+import { type FetchResponse, showSnackbar } from '@openmrs/esm-framework';
 import { uploadStockItems } from './stock-items-bulk-import.resource';
+import ImportBulkStockItemsModal from './stock-items-bulk-import.modal';
 
 const mockShowSnackbar = jest.mocked(showSnackbar);
 const mockUploadStockItems = jest.mocked(uploadStockItems);

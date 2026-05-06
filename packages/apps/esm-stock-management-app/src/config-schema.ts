@@ -35,7 +35,7 @@ export const configSchema = {
   packingUnitsUUID: {
     _type: Type.ConceptUuid,
     _description: 'UUID for the packaging unit',
-    _default: 'a6d438fe-05c1-4d4d-9755-c11cf6b0b3b9',
+    _default: '162402AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
   },
   printBalanceOnHand: {
     _type: Type.Boolean,
@@ -50,7 +50,7 @@ export const configSchema = {
   stockAdjustmentReasonUUID: {
     _type: Type.ConceptUuid,
     _description: 'UUID for the stock adjustment reasons',
-    _default: '3a9021d1-d6c1-4fc2-8e30-ca8e204e44de',
+    _default: 'a8658733-4f9e-4c23-89b5-106d9315114d',
   },
   stockItemCategoryUUID: {
     _type: Type.ConceptUuid,
@@ -60,12 +60,12 @@ export const configSchema = {
   stockSourceTypeUUID: {
     _type: Type.ConceptUuid,
     _description: 'UUID for the stock source types',
-    _default: '937a0440-95f7-42f6-aaef-16cf611fcf10',
+    _default: '0e1dc36f-2a4b-45f9-9385-c1eda87d13be',
   },
   stockTakeReasonUUID: {
     _type: Type.ConceptUuid,
     _description: 'UUID for the stock take reasons',
-    _default: 'faa466c5-0953-4d4f-8ea7-d9a06341c3f3',
+    _default: 'a8658733-4f9e-4c23-89b5-106d9315114d',
   },
   useItemCommonNameAsDisplay: {
     _type: Type.Boolean,

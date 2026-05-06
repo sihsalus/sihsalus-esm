@@ -1,21 +1,21 @@
-import { Button, ButtonSet, Form, FormGroup, Select, SelectItem, Stack, TextInput } from '@carbon/react';
+import React, { type ChangeEvent, useCallback, useState } from 'react';
+import classNames from 'classnames';
+import { Button, Form, Select, TextInput, SelectItem, ButtonSet, FormGroup, Stack } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
 import { Save } from '@carbon/react/icons';
 import {
-  type DefaultWorkspaceProps,
   getCoreTranslation,
   restBaseUrl,
   showSnackbar,
   useConfig,
   useLayoutType,
+  type DefaultWorkspaceProps,
 } from '@openmrs/esm-framework';
-import classNames from 'classnames';
-import React, { type ChangeEvent, useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { type ConfigObject } from '../../config-schema';
-import { type StockSource } from '../../core/api/types/stockOperation/StockSource';
 import { useConcept } from '../../stock-lookups/stock-lookups.resource';
-import { handleMutate } from '../../utils';
+import { type StockSource } from '../../core/api/types/stockOperation/StockSource';
 import { createOrUpdateStockSource } from '../stock-sources.resource';
+import { type ConfigObject } from '../../config-schema';
+import { handleMutate } from '../../utils';
 import styles from './add-stock-sources.scss';
 
 type AddStockSourceProps = DefaultWorkspaceProps & {

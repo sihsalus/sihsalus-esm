@@ -1,9 +1,9 @@
+import React, { type ReactNode } from 'react';
 import { ComboBox, TextInputSkeleton } from '@carbon/react';
-import { useConfig } from '@openmrs/esm-framework';
-import { type ReactNode } from 'react';
 import { type Control, Controller, type FieldValues } from 'react-hook-form';
-import { type ConfigObject } from '../../../config-schema';
+import { useConfig } from '@openmrs/esm-framework';
 import { type Concept } from '../../../core/api/types/concept/Concept';
+import { type ConfigObject } from '../../../config-schema';
 import { useConcept } from '../../../stock-lookups/stock-lookups.resource';
 
 interface DispensingUnitSelectorProps<T> {
@@ -19,11 +19,11 @@ interface DispensingUnitSelectorProps<T> {
 }
 
 const DispensingUnitSelector = <T,>(props: DispensingUnitSelectorProps<T>) => {
-  const { packingUnitsUUID } = useConfig<ConfigObject>();
+  const { dispensingUnitsUUID } = useConfig<ConfigObject>();
   const {
-    items: { answers: packingUnits },
+    items: { answers: dispensingUnits },
     isLoading,
-  } = useConcept(packingUnitsUUID);
+  } = useConcept(dispensingUnitsUUID);
 
   if (isLoading) {
     return <TextInputSkeleton />;
@@ -37,8 +37,8 @@ const DispensingUnitSelector = <T,>(props: DispensingUnitSelectorProps<T>) => {
         <ComboBox
           id={props.name}
           name={props.name}
-          items={packingUnits || []}
-          selectedItem={packingUnits?.find((p) => p.uuid === value) ?? null}
+          items={dispensingUnits || []}
+          selectedItem={dispensingUnits?.find((p) => p.uuid === value) ?? null}
           invalid={props.invalid}
           invalidText={props.invalidText}
           itemToString={(item?: Concept) => item?.display ?? ''}

@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { type Control, type FieldValues, type UseFormReturn, useFormContext } from 'react-hook-form';
+import { render, screen } from '@testing-library/react';
+import { useFormContext, type Control, type FieldValues, type UseFormReturn } from 'react-hook-form';
 import { otherUser } from '../../../core/utils/utils';
 import { useUser } from '../../../stock-lookups/stock-lookups.resource';
 import useSearchUser from '../hooks/useSearchUser';

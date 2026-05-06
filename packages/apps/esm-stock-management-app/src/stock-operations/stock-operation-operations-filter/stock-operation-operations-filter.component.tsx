@@ -1,5 +1,5 @@
-import { Dropdown, DropdownSkeleton } from '@carbon/react';
 import React from 'react';
+import { Dropdown, DropdownSkeleton } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
 import styles from './stock-operation-operations-filter.scss';

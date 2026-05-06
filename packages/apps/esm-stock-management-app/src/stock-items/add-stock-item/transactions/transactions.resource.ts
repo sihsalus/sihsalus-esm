@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
 import { ResourceRepresentation } from '../../../core/api/api';
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   type StockItemInventoryFilter,
   useStockItemInventory,
@@ -7,12 +8,14 @@ import {
 } from '../../stock-items.resource';
 
 export function useStockItemsTransactions(filter?: StockItemInventoryFilter) {
+  const { t } = useTranslation();
   const [stockItemFilter, setStockItemFilter] = useState<StockItemInventoryFilter>({
     startIndex: 0,
     v: filter?.v || ResourceRepresentation.Default,
     limit: 10,
     q: filter?.q,
     totalCount: true,
+    stockItemUuid: filter?.stockItemUuid,
   });
 
   const pageSizes = [10, 20, 30, 40, 50];
@@ -45,82 +48,31 @@ export function useStockItemsTransactions(filter?: StockItemInventoryFilter) {
 
   const tableHeaders = useMemo(
     () => [
-      {
-        key: 'date',
-        header: 'Date',
-      },
-      {
-        key: 'location',
-        header: 'Location',
-      },
-      {
-        key: 'transaction',
-        header: 'Transaction',
-      },
-      {
-        key: 'in',
-        header: 'IN',
-      },
-      {
-        key: 'out',
-        header: 'OUT',
-      },
-      {
-        key: 'batch',
-        header: 'Batch',
-      },
-      {
-        key: 'reference',
-        header: 'Reference',
-      },
-      {
-        key: 'status',
-        header: 'Status',
-      },
+      { key: 'date', header: t('date', 'Date') },
+      { key: 'location', header: t('location', 'Location') },
+      { key: 'transaction', header: t('transaction', 'Transaction') },
+      { key: 'in', header: t('in', 'IN') },
+      { key: 'out', header: t('out', 'OUT') },
+      { key: 'batch', header: t('batch', 'Batch') },
+      { key: 'reference', header: t('references', 'References') },
+      { key: 'status', header: t('status', 'Status') },
     ],
-    [],
+    [t],
   );
 
   const binCardHeaders = useMemo(
     () => [
-      {
-        key: 'date',
-        header: 'Date',
-      },
-      {
-        key: 'location',
-        header: 'Location',
-      },
-      {
-        key: 'transaction',
-        header: 'Transaction',
-      },
-      {
-        key: 'totalin',
-        header: 'IN',
-      },
-      {
-        key: 'totalout',
-        header: 'OUT',
-      },
-      {
-        key: 'batch',
-        header: 'Batch',
-      },
-      {
-        key: 'balance',
-        header: 'Balance',
-      },
-      {
-        key: 'reference',
-        header: 'Reference',
-      },
-      {
-        key: 'status',
-        header: 'Status',
-      },
+      { key: 'date', header: t('date', 'Date') },
+      { key: 'location', header: t('location', 'Location') },
+      { key: 'transaction', header: t('transaction', 'Transaction') },
+      { key: 'totalin', header: t('in', 'IN') },
+      { key: 'totalout', header: t('out', 'OUT') },
+      { key: 'batch', header: t('batch', 'Batch') },
+      { key: 'balance', header: t('balance', 'Balance') },
+      { key: 'reference', header: t('references', 'References') },
+      { key: 'status', header: t('status', 'Status') },
     ],
-    [],
+    [t],
   );
 
   return {

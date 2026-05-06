@@ -1,7 +1,8 @@
+import React, { type ReactNode } from 'react';
 import { ComboBox } from '@carbon/react';
-import { type ReactNode } from 'react';
 import { type Control, Controller, type FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { translateStockLocation } from '../../../../core/utils/translationUtils';
 import { useStockTagLocations } from '../../../../stock-lookups/stock-lookups.resource';
 
 interface BatchInformationLocationsFilterProps<T> {
@@ -34,10 +35,10 @@ const BatchInformationLocationsFilter = <T,>(props: BatchInformationLocationsFil
           items={stockLocations ?? []}
           onChange={(data: { selectedItem }) => {
             props.onLocationIdChange?.(data?.selectedItem?.id ?? '');
-            onChange(data?.selectedItem?.name || '');
+            onChange(translateStockLocation(t, data?.selectedItem?.name));
           }}
-          initialSelectedItem={`${stockLocations[0]?.name}`}
-          itemToString={(item) => (item ? item.name : '')}
+          initialSelectedItem={stockLocations[0]}
+          itemToString={(item) => (item ? translateStockLocation(t, item.name) : '')}
           shouldFilterItem={() => true}
           placeholder={props.placeholder}
           ref={ref}

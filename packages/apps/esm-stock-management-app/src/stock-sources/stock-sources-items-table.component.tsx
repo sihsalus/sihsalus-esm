@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -16,18 +17,17 @@ import {
   TableToolbarSearch,
   Tile,
 } from '@carbon/react';
-import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
+import { handleMutate } from '../utils';
 import { ResourceRepresentation } from '../core/api/api';
 import { type CustomTableHeader } from '../core/components/table/types';
-import { handleMutate } from '../utils';
 import AddStockSourceActionButton from './add-stock-source-button.component';
 import EditStockSourceActionsMenu from './edit-stock-source/edit-stock-source.component';
-import styles from './stock-sources.scss';
 import StockSourcesDeleteActionMenu from './stock-sources-delete/stock-sources-delete.component';
 import StockSourcesFilter from './stock-sources-filter/stock-sources-filter.component';
 import useStockSourcesPage from './stock-sources-items-table.resource';
+import styles from './stock-sources.scss';
 
 const StockSourcesItems: React.FC = () => {
   const { t } = useTranslation();

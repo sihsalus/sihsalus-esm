@@ -1,3 +1,4 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Button,
   DataTable,
@@ -12,20 +13,19 @@ import {
 } from '@carbon/react';
 import { Save } from '@carbon/react/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getCoreTranslation, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
-import React, { useEffect, useMemo, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { type StockItemPackagingUOMDTO } from '../../../core/api/types/stockItem/StockItemPackagingUOM';
-import ControlledNumberInput from '../../../core/components/carbon/controlled-number-input.component';
-import { type CustomTableHeader, type CustomTableRow } from '../../../core/components/table/types';
-import { handleMutate } from '../../../utils';
+import { getCoreTranslation, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
 import { createStockItemPackagingUnit, updateStockItemPackagingUnit } from '../../stock-items.resource';
-import PackagingUnitsConceptSelector from '../packaging-units-concept-selector/packaging-units-concept-selector.component';
-import DeletePackagingUnitActionButton from './delete-packaging-unit-action-button.component';
-import { useStockItemPackageUnitsHook } from './packaging-units.resource';
-import styles from './packaging-units.scss';
+import { handleMutate } from '../../../utils';
 import { type PackageUnitFormData, packageUnitSchema } from './validationSchema';
+import { type StockItemPackagingUOMDTO } from '../../../core/api/types/stockItem/StockItemPackagingUOM';
+import { useStockItemPackageUnitsHook } from './packaging-units.resource';
+import ControlledNumberInput from '../../../core/components/carbon/controlled-number-input.component';
+import DeletePackagingUnitActionButton from './delete-packaging-unit-action-button.component';
+import PackagingUnitsConceptSelector from '../packaging-units-concept-selector/packaging-units-concept-selector.component';
+import { type CustomTableHeader, type CustomTableRow } from '../../../core/components/table/types';
+import styles from './packaging-units.scss';
 
 interface PackagingUnitsProps {
   isEditing?: boolean;
@@ -35,6 +35,7 @@ interface PackagingUnitsProps {
 }
 
 const PackagingUnits: React.FC<PackagingUnitsProps> = ({ stockItemUuid, handleTabChange }) => {
+  const { t } = useTranslation();
   const { items, isLoading, setStockItemUuid, mutate } = useStockItemPackageUnitsHook();
 
   const [packagingUnits, setPackagingUnits] = useState<StockItemPackagingUOMDTO[]>(items);
@@ -57,7 +58,6 @@ const PackagingUnits: React.FC<PackagingUnitsProps> = ({ stockItemUuid, handleTa
     setPackagingUnits(items);
   }, [items]);
 
-  const { t } = useTranslation();
   const tableHeaders = useMemo<CustomTableHeader[]>(
     () => [
       {
@@ -275,6 +275,7 @@ const PackagingUnitRow: React.FC<{
   onChange?: (value: string | number) => void;
   onChangePackageUnit?: (value: { uuid: string; display: string }) => void;
 }> = ({ isEditing, row, id, onChange, onChangePackageUnit }) => {
+  const { t } = useTranslation();
   const {
     control,
     formState: { errors },
@@ -290,7 +291,7 @@ const PackagingUnitRow: React.FC<{
               row={row}
               controllerName={'packagingUomUuid'}
               name="packagingUomUuid"
-              placeholder="Filter"
+              placeholder={t('filter', 'Filtrar...')}
               control={control}
               onPackageUnitChange={(concept) => onChangePackageUnit(concept)}
               invalid={!!errors.packagingUomUuid}
@@ -309,7 +310,7 @@ const PackagingUnitRow: React.FC<{
             id={id}
             invalid={!!errors.factor}
             hideSteppers={true}
-            onChange={(_e, state) => onChange(state.value)}
+            onChange={(e, state) => onChange(state.value)}
           />
         </TableCell>
         <TableCell>

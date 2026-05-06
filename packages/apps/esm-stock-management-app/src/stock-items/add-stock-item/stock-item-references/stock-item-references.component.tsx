@@ -1,3 +1,5 @@
+import React, { useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   DataTable,
@@ -10,23 +12,21 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { Save, TrashCan } from '@carbon/react/icons';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
-import React, { useEffect, useMemo } from 'react';
+import { TrashCan, Save } from '@carbon/react/icons';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { extractErrorMessagesFromResponse } from '../../../constants';
-import { type StockItemReferenceDTO } from '../../../core/api/types/stockItem/StockItemReference';
-import ControlledTextInput from '../../../core/components/carbon/controlled-text-input.component';
-import { type CustomTableHeader, type CustomTableRow } from '../../../core/components/table/types';
-import { handleMutate } from '../../../utils';
-import { createStockItemReference, deleteStockItemReference } from '../../stock-items.resource';
-import { createStockItemDetailsSchema } from '../../validationSchema';
 import { useStockItemReferencesHook } from './stock-item-references.resource';
-import styles from './stock-item-references.scss';
-import StockSourceSelector from './stock-references-selector.component';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { type StockItemReferenceData } from './validation-schema';
+import { createStockItemDetailsSchema } from '../../validationSchema';
+import { type StockItemReferenceDTO } from '../../../core/api/types/stockItem/StockItemReference';
+import { createStockItemReference, deleteStockItemReference } from '../../stock-items.resource';
+import { restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
+import { extractErrorMessagesFromResponse } from '../../../constants';
+import { handleMutate } from '../../../utils';
+import ControlledTextInput from '../../../core/components/carbon/controlled-text-input.component';
+import StockSourceSelector from './stock-references-selector.component';
+import { type CustomTableHeader, type CustomTableRow } from '../../../core/components/table/types';
+import styles from './stock-item-references.scss';
 
 interface StockReferencesProps {
   isEditing?: boolean;

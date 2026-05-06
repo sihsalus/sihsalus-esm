@@ -1,8 +1,8 @@
-import { usePagination } from '@openmrs/esm-framework';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type StockOperationFilter } from '../stock-operations/stock-operations.resource';
+import { usePagination } from '@openmrs/esm-framework';
 import { useStockSources } from './stock-sources.resource';
+import { type StockOperationFilter } from '../stock-operations/stock-operations.resource';
 
 export default function useStockSourcesPage(filter: StockOperationFilter) {
   const { t } = useTranslation();

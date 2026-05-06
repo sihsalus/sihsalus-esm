@@ -1,10 +1,11 @@
-import { DropdownSkeleton, MultiSelect } from '@carbon/react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DropdownSkeleton, MultiSelect } from '@carbon/react';
+import { getStockOperationTypes, useConcept } from '../stock-lookups/stock-lookups.resource';
 import { StockFilters } from '../constants';
 import { StockOperationStatusTypes } from '../core/api/types/stockOperation/StockOperationStatus';
+import { translateStockOperationType } from '../core/utils/translationUtils';
 import styles from '../stock-items/stock-items-table.scss';
-import { getStockOperationTypes, useConcept } from '../stock-lookups/stock-lookups.resource';
 
 interface StockOperationFiltersProps {
   conceptUuid?: string;
@@ -17,6 +18,37 @@ const StockOperationsFilters: React.FC<StockOperationFiltersProps> = ({ conceptU
   const { items, isLoading } = useConcept(conceptUuid);
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [dataItems, setDataItems] = useState([]);
+
+  const getFilterLabel = (name: string) => {
+    switch (name) {
+      case StockFilters.STATUS:
+        return t('status', 'Estado');
+      case StockFilters.SOURCES:
+        return t('source', 'Fuente');
+      case StockFilters.OPERATION:
+        return t('operationType', 'Tipo de Operacion');
+      default:
+        return name;
+    }
+  };
+
+  const getItemDisplay = (item) => {
+    if (!item) {
+      return t('notSet', 'No Definido');
+    }
+
+    if (filterName === StockFilters.STATUS) {
+      return t(item.display, item.display);
+    }
+
+    if (filterName === StockFilters.OPERATION) {
+      return translateStockOperationType(t, item.display);
+    }
+
+    return item.display;
+  };
+
+  const translatedFilterLabel = getFilterLabel(filterName);
 
   useEffect(() => {
     setIsDataLoading(true);
@@ -41,10 +73,12 @@ const StockOperationsFilters: React.FC<StockOperationFiltersProps> = ({ conceptU
           setIsDataLoading(true);
           if (response.data?.results.length) {
             setDataItems(
-              response.data.results.map((result) => ({
-                uuid: result.uuid,
-                display: result.name,
-              })),
+              response.data.results
+                .filter((result) => !['issue', 'stock issue'].includes(result.name?.trim().toLowerCase()))
+                .map((result) => ({
+                  uuid: result.uuid,
+                  display: result.name,
+                })),
             );
           }
 
@@ -64,10 +98,10 @@ const StockOperationsFilters: React.FC<StockOperationFiltersProps> = ({ conceptU
       className={styles.filtersAlign}
       disabled={!dataItems.length}
       id="multiSelect"
-      label={filterName}
+      label={translatedFilterLabel}
       labelInline
       items={dataItems}
-      itemToString={(item) => (item ? item.display : t('notSet', 'Not Set'))}
+      itemToString={getItemDisplay}
       onChange={({ selectedItems }) => {
         if (selectedItems) {
           onFilterChange(
@@ -76,7 +110,7 @@ const StockOperationsFilters: React.FC<StockOperationFiltersProps> = ({ conceptU
           );
         }
       }}
-      placeholder={t('filterBy', 'Filter by {{filterName}}', { filterName })}
+      placeholder={t('filterBy', 'Filtrar por {{filterName}}', { filterName: translatedFilterLabel })}
     />
   );
 };

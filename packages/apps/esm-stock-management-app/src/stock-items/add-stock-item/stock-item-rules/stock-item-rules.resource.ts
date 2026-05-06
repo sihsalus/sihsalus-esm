@@ -1,8 +1,10 @@
-import { usePagination } from '@openmrs/esm-framework';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type StockRuleFilter, useStockRules } from '../../stock-items.resource';
+import { usePagination } from '@openmrs/esm-framework';
 
 export function useStockItemRules(filter: StockRuleFilter) {
+  const { t } = useTranslation();
   const { items, isLoading, error } = useStockRules(filter);
 
   const pageSizes = [10, 20, 30, 40, 50];
@@ -11,45 +13,17 @@ export function useStockItemRules(filter: StockRuleFilter) {
 
   const tableHeaders = useMemo(
     () => [
-      {
-        key: 'location',
-        header: 'Location',
-      },
-      {
-        key: 'name',
-        header: 'Name',
-      },
-      {
-        key: 'quantity',
-        header: 'Quantity Threshold',
-      },
-      {
-        key: 'evaluationFrequency',
-        header: 'Frequency Check',
-      },
-      {
-        key: 'actionFrequency',
-        header: 'Notification Frequency',
-      },
-      {
-        key: 'alertRole',
-        header: 'Alert Role',
-      },
-      {
-        key: 'mailRole',
-        header: 'Mail Role',
-      },
-      {
-        key: 'enabled',
-        header: 'Enabled?',
-      },
-      {
-        // id: 4,
-        header: 'actions',
-        key: 'actions',
-      },
+      { key: 'location', header: t('location', 'Location') },
+      { key: 'name', header: t('name', 'Name') },
+      { key: 'quantity', header: t('quantityThreshold', 'Quantity threshold') },
+      { key: 'evaluationFrequency', header: t('evaluationFrequencyHeader', 'Frequency Check') },
+      { key: 'actionFrequency', header: t('notificationFrequency', 'Notification Frequency') },
+      { key: 'alertRole', header: t('alertRole', 'Alert Role') },
+      { key: 'mailRole', header: t('mailRole', 'Mail Role') },
+      { key: 'enabled', header: t('enabled', 'Enabled?') },
+      { key: 'actions', header: t('actions', 'Actions') },
     ],
-    [],
+    [t],
   );
 
   return {

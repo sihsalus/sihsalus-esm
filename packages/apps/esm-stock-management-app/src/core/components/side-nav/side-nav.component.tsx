@@ -1,8 +1,8 @@
-import { SideNav, SideNavItems, SideNavLink } from '@carbon/react';
-import { navigate } from '@openmrs/esm-framework';
 import React from 'react';
-import styles from './side-nav.scss';
 import { type SideNavItem } from './types';
+import { SideNav, SideNavItems, SideNavLink } from '@carbon/react';
+import styles from './side-nav.scss';
+import { navigate } from '@openmrs/esm-framework';
 
 interface SideNavProps {
   tabs: SideNavItem[];

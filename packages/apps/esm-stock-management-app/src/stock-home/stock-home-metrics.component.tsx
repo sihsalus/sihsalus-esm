@@ -1,16 +1,16 @@
-import { ErrorState } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { ErrorState } from '@openmrs/esm-framework';
 import { ResourceRepresentation } from '../core/api/api';
-import MetricsCard from '../core/components/card/metrics-card-component';
-import { type StockOperationFilter } from '../stock-operations/stock-operations.resource';
-import styles from './stock-home.scss';
+import { useDisposalList } from './useDisposalList';
 import { useStockInventory } from './stock-home-inventory-expiry.resource';
 import { useStockInventoryItems } from './stock-home-inventory-items.resource';
-import { useDisposalList } from './useDisposalList';
+import { type StockOperationFilter } from '../stock-operations/stock-operations.resource';
 import useStockList from './useStockList';
+import MetricsCard from '../core/components/card/metrics-card-component';
+import styles from './stock-home.scss';
 
-const StockManagementMetrics: React.FC = (_filter: StockOperationFilter) => {
+const StockManagementMetrics: React.FC = (filter: StockOperationFilter) => {
   const { t } = useTranslation();
   const { stockList: allStocks, error } = useStockList();
   const { items: expiryItems } = useStockInventory();

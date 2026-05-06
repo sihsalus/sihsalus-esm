@@ -1,6 +1,7 @@
-import { type FetchResponse, useConfig } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { type FetchResponse, useConfig } from '@openmrs/esm-framework';
 import { type StockSource } from '../../core/api/types/stockOperation/StockSource';
 import { createOrUpdateStockSource } from '../stock-sources.resource';
 import StockSourcesAddOrUpdate from './add-stock-sources.workspace';

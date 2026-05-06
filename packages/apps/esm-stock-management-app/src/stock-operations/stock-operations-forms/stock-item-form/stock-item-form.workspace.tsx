@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import {
   Button,
   ButtonSet,
@@ -9,12 +10,11 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useConfig, useLayoutType } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useConfig, useLayoutType } from '@openmrs/esm-framework';
 import { type z } from 'zod';
 import { type ConfigObject } from '../../../config-schema';
 import { DATE_PICKER_CONTROL_FORMAT, DATE_PICKER_FORMAT, formatForDatePicker, today } from '../../../constants';
@@ -32,11 +32,18 @@ import styles from './stock-item-form.scss';
 export interface StockItemFormProps {
   stockOperationType: StockOperationType;
   stockOperationItem: BaseStockOperationItemFormData;
+  partyUuid?: string;
   onSave?: (data: BaseStockOperationItemFormData) => void;
   onBack?: () => void;
 }
 
-const StockItemForm: React.FC<StockItemFormProps> = ({ stockOperationType, stockOperationItem, onSave, onBack }) => {
+const StockItemForm: React.FC<StockItemFormProps> = ({
+  stockOperationType,
+  stockOperationItem,
+  partyUuid,
+  onSave,
+  onBack,
+}) => {
   const isTablet = useLayoutType() === 'tablet';
   const operationType = useMemo(() => {
     return operationFromString(stockOperationType.operationType);
@@ -109,6 +116,7 @@ const StockItemForm: React.FC<StockItemFormProps> = ({ stockOperationType, stock
                 <BatchNoSelector
                   initialValue={stockOperationItem?.stockBatchUuid}
                   onValueChange={field.onChange}
+                  partyUuid={partyUuid}
                   stockItemUuid={stockOperationItem.stockItemUuid}
                   error={error?.message}
                 />

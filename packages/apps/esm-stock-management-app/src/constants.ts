@@ -165,7 +165,10 @@ export const URL_BATCH_JOB_ARTIFACT = (uuid: string, download: boolean): string 
 export function extractErrorMessagesFromResponse(errorObject) {
   const fieldErrors = errorObject?.responseBody?.error?.fieldErrors;
   if (!fieldErrors) {
-    return [errorObject?.responseBody?.error?.message ?? errorObject?.message];
+    const message = errorObject?.responseBody?.error?.message ?? errorObject?.message;
+    return [typeof message === 'string' ? message : JSON.stringify(message ?? errorObject)];
   }
-  return Object.values(fieldErrors).flatMap((errors: Array<Error>) => errors.map((error) => error.message));
+  return Object.values(fieldErrors).flatMap((errors: Array<Error>) =>
+    errors.map((error) => (typeof error.message === 'string' ? error.message : JSON.stringify(error.message))),
+  );
 }

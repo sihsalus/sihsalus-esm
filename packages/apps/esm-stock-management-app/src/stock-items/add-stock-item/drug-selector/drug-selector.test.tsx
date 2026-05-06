@@ -1,10 +1,11 @@
+import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type FieldValues, useForm } from 'react-hook-form';
 import { type Drug } from '../../../core/api/types/concept/Drug';
 import { fetchStockItem } from '../../stock-items.resource';
-import DrugSelector from './drug-selector.component';
 import { useDrugsHook } from './drug-selector.resource';
+import DrugSelector from './drug-selector.component';
 
 jest.mock('../../stock-items.resource', () => ({
   fetchStockItem: jest.fn(),
@@ -76,7 +77,7 @@ describe('DrugSelector', () => {
   it('shows a loading indicator while drugs are being fetched', () => {
     mockUseDrugsHook.mockReturnValue({ drugList: [], isLoading: true });
     render(<DrugSelectorWrapper />);
-    expect(screen.getByText('Searching...')).toBeInTheDocument();
+    expect(screen.getByText('Cargando...')).toBeInTheDocument();
   });
 
   it('displays the selected drug in read-only mode via initialDrugName placeholder', () => {
@@ -108,7 +109,7 @@ describe('DrugSelector', () => {
   });
 
   it('does not call fetchStockItem in read-only mode when a drug is selected', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     mockUseDrugsHook.mockReturnValue({ drugList: mockDrugs as Drug[], isLoading: false });
 
     const { rerender } = render(<DrugSelectorWrapper defaultDrugUuid="drug-1" initialDrugName="Aspirin" readOnly />);

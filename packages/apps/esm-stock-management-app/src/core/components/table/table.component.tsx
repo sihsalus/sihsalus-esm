@@ -183,6 +183,14 @@ const DataList: React.FC<ListProps> = ({ columns, data, children, totalItems, go
               <Pagination
                 forwardText={t('nextPage', 'Next page')}
                 backwardText={t('previousPage', 'Previous page')}
+                itemsPerPageText={t('itemsPerPage', 'Elementos por pagina:')}
+                itemRangeText={(min, max, total) =>
+                  `${min}-${max} ${t('of', 'de')} ${total} ${t('items', 'elementos')}`
+                }
+                pageNumberText={t('pageNumber', 'Numero de pagina')}
+                pageRangeText={(_current, total) =>
+                  `${t('of', 'de')} ${total} ${total === 1 ? t('page', 'pagina') : t('pages', 'paginas')}`
+                }
                 page={currentPage}
                 pageSize={currentPageSize}
                 pageSizes={pageSizes}

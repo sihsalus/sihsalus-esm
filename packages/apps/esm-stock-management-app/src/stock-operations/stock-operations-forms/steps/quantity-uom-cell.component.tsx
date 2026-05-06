@@ -1,8 +1,8 @@
+import React, { useEffect, useMemo } from 'react';
+import { useStockItem } from '../../../stock-items/stock-items.resource';
 import { InlineLoading } from '@carbon/react';
 import { showSnackbar } from '@openmrs/esm-framework';
-import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useStockItem } from '../../../stock-items/stock-items.resource';
 
 type QuantityUomCellProps = {
   stockItemPackagingUOMUuid: string;

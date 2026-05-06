@@ -1,3 +1,4 @@
+import React, { type ChangeEvent, type FC, useEffect, useMemo } from 'react';
 import {
   Button,
   Column,
@@ -10,10 +11,9 @@ import {
   TextInput,
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
-import { ErrorState } from '@openmrs/esm-framework';
-import { type ChangeEvent, type FC, useEffect, useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { ErrorState } from '@openmrs/esm-framework';
 import { DATE_PICKER_CONTROL_FORMAT, DATE_PICKER_FORMAT, MAIN_STORE_LOCATION_TAG } from '../../../constants';
 import { type Party } from '../../../core/api/types/Party';
 import { type StockOperationDTO } from '../../../core/api/types/stockOperation/StockOperationDTO';
@@ -23,6 +23,7 @@ import useOperationTypePermisions from '../hooks/useOperationTypePermisions';
 import useParties from '../hooks/useParties';
 import StockOperationReasonSelector from '../input-components/stock-operation-reason-selector.component';
 import UsersSelector from '../input-components/users-selector.component';
+import { translateStockLocation } from '../../../core/utils/translationUtils';
 import styles from '../stock-operation-form.scss';
 
 type BaseOperationDetailsFormStepProps = {
@@ -155,8 +156,8 @@ const BaseOperationDetailsFormStep: FC<BaseOperationDetailsFormStepProps> = ({
                 isStockIssueOperation
                   ? t('source', 'Source')
                   : stockOperationType?.hasDestination || stockOperation?.destinationUuid
-                    ? t('from', 'From')
-                    : t('location', 'Location')
+                  ? t('from', 'From')
+                  : t('location', 'Location')
               }
               readOnly={field.disabled}
               name={'sourceUuid'}
@@ -167,7 +168,7 @@ const BaseOperationDetailsFormStep: FC<BaseOperationDetailsFormStepProps> = ({
                 field.onChange(data.selectedItem?.uuid);
               }}
               selectedItem={sourceParties.find((p) => p.uuid === field.value)}
-              itemToString={(item?: Party) => (item && item?.name ? `${item?.name}` : '')}
+              itemToString={(item?: Party) => (item && item?.name ? translateStockLocation(t, item.name) : '')}
               shouldFilterItem={() => true}
               placeholder={
                 stockOperationType.hasDestination || stockOperation?.destinationUuid
@@ -193,8 +194,8 @@ const BaseOperationDetailsFormStep: FC<BaseOperationDetailsFormStepProps> = ({
                   isStockIssueOperation
                     ? t('destination', 'Destination')
                     : stockOperationType?.hasSource || stockOperation?.atLocationUuid
-                      ? t('to', 'To')
-                      : t('location', 'Location')
+                    ? t('to', 'To')
+                    : t('location', 'Location')
                 }
                 name={'destinationUuid'}
                 id={'destinationUuid'}
@@ -204,7 +205,7 @@ const BaseOperationDetailsFormStep: FC<BaseOperationDetailsFormStepProps> = ({
                   field.onChange(data.selectedItem?.uuid);
                 }}
                 selectedItem={destinationParties.find((p) => p.uuid === field.value)}
-                itemToString={(item?: Party) => (item && item?.name ? `${item?.name}` : '')}
+                itemToString={(item?: Party) => (item && item?.name ? translateStockLocation(t, item.name) : '')}
                 shouldFilterItem={() => true}
                 placeholder={
                   stockOperationType?.hasSource || stockOperation?.atLocationUuid

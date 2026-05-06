@@ -1,7 +1,7 @@
-import { Button, FileUploader, Form, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Form, ModalBody, ModalFooter, ModalHeader, FileUploader } from '@carbon/react';
+import { getCoreTranslation, showSnackbar } from '@openmrs/esm-framework';
 import { uploadStockItems } from './stock-items-bulk-import.resource';
 
 export interface ImportBulkStockItemsModalProps {

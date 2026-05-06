@@ -1,3 +1,6 @@
+import React, { type ChangeEvent, useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -10,15 +13,13 @@ import {
   TextInput,
 } from '@carbon/react';
 import { type DefaultWorkspaceProps, getCoreTranslation, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
-import classNames from 'classnames';
-import React, { type ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ResourceRepresentation } from '../../../core/api/api';
-import { type StockRule } from '../../../core/api/types/stockItem/StockRule';
-import { useRoles, useStockTagLocations } from '../../../stock-lookups/stock-lookups.resource';
-import { type StockItemInventoryFilter, useStockItemPackagingUOMs } from '../../stock-items.resource';
-import styles from './add-stock-rules.scss';
 import { createOrUpdateStockRule } from './stock-rules.resource';
+import { ResourceRepresentation } from '../../../core/api/api';
+import { type StockItemInventoryFilter, useStockItemPackagingUOMs } from '../../stock-items.resource';
+import { type StockRule } from '../../../core/api/types/stockItem/StockRule';
+import { translateStockLocation } from '../../../core/utils/translationUtils';
+import { useRoles, useStockTagLocations } from '../../../stock-lookups/stock-lookups.resource';
+import styles from './add-stock-rules.scss';
 
 interface AddStockRuleProps extends Partial<DefaultWorkspaceProps> {
   model?: StockRule;
@@ -57,7 +58,7 @@ const StockRulesAddOrUpdate: React.FC<AddStockRuleProps> = ({ model, stockItemUu
   });
 
   useEffect(() => {
-    if (model != null && Object.keys(model).length !== 0) {
+    if (model != null && Object.keys(model).length != 0) {
       // To prevent editing properties like date created
       const { ...rest } = model;
       const tmpFormModel = { ...rest };
@@ -180,7 +181,9 @@ const StockRulesAddOrUpdate: React.FC<AddStockRuleProps> = ({ model, stockItemUu
               >
                 <SelectItem disabled hidden value="" text={t('chooseLocation', 'Choose the location')} />
                 {stockLocations?.map((location) => {
-                  return <SelectItem key={location.id} value={location.id} text={location.name} />;
+                  return (
+                    <SelectItem key={location.id} value={location.id} text={translateStockLocation(t, location.name)} />
+                  );
                 })}
               </Select>
             </section>
