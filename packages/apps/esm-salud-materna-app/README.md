@@ -14,6 +14,7 @@ Colección de módulos microfrontend para SIH SALUS, una distribución especiali
 
 ## TODO QA/QLTY
 
+- Probar formulario por formulario en QLTY: abrir, completar campos obligatorios, guardar, recargar, editar si aplica y confirmar que el widget correspondiente lee los datos persistidos.
 - Probar en QLTY el flujo end-to-end de salud materna: abrir formulario, guardar, recargar la historia y confirmar que las tablas/widgets leen el encounter y las obs guardadas.
 - Validar prenatal: historia materna, embarazo actual, atención prenatal, suplementación, plan de parto, psicoprofilaxis y clasificación de riesgo.
 - Validar parto: resumen de labor y puerperio, parto/aborto y partograma con datos reales.

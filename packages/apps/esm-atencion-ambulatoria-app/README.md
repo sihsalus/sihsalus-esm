@@ -15,6 +15,7 @@ Colección de módulos microfrontend para SIH SALUS, una distribución especiali
 
 ## TODO QA/QLTY
 
+- Probar formulario por formulario en QLTY: abrir, completar campos obligatorios, guardar, recargar, editar si aplica y confirmar que el widget correspondiente lee los datos persistidos.
 - Probar en QLTY el flujo end-to-end de consulta externa: abrir dashboard, registrar anamnesis, diagnóstico, plan, SOAP, referencia y recargar para confirmar persistencia.
 - Validar que el dashboard lea correctamente datos de triaje, motivo de consulta, financiador, pertenencia étnica y plan de tratamiento.
 - Probar creación y edición de diagnósticos clasificados con CIE/conceptos, incluyendo eliminación o reemplazo si aplica.

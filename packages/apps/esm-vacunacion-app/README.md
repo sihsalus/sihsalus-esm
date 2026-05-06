@@ -33,6 +33,7 @@ TODO content/backend:
 
 TODO QA/QLTY:
 
+- Probar formulario por formulario en QLTY: abrir, completar campos obligatorios, guardar, recargar, editar si aplica y confirmar que FHIR2/widgets leen los datos persistidos.
 - Reprobar el endpoint FHIR2 `Immunization` en QLTY después de corregir `CIEL:1421`; debe responder bundle vacío o con recursos, no `501`.
 - Probar el flujo end-to-end de vacunación: abrir formulario, registrar vacuna, guardar, recargar y confirmar lectura por FHIR2.
 - Probar un paciente sin inmunizaciones, un paciente con esquema parcial y un paciente con dosis fuera de ventana de edad para validar advertencias MINSA.

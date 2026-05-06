@@ -28,6 +28,7 @@ Terminología de dominio: visita = consulta, encounter = atención, appointment 
 
 ## TODO QA/QLTY
 
+- Probar formulario por formulario en QLTY: abrir, completar campos obligatorios, guardar, recargar, editar si aplica y confirmar que relaciones/contactos leen los datos persistidos.
 - Probar en QLTY el flujo end-to-end de relaciones familiares: buscar familiar existente, crear relación, recargar y confirmar persistencia.
 - Probar creación de familiar nuevo desde el workspace, incluyendo identificador, parentesco, fecha de nacimiento y datos mínimos de persona.
 - Probar edición y eliminación de relaciones, incluyendo confirmación visual y recarga de dashboard.
