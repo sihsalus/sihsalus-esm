@@ -19,6 +19,7 @@ interface TabbedDashboardProps {
   titleKey: string;
   tabs: TabConfig[];
   ariaLabelKey: string;
+  translationNamespace?: string;
   pageSize?: number;
   className?: string;
   state?: Record<string, unknown>;
@@ -30,11 +31,12 @@ const TabbedDashboard: React.FC<TabbedDashboardProps> = ({
   titleKey,
   tabs,
   ariaLabelKey,
+  translationNamespace,
   pageSize = 5,
   className,
   state = {},
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(translationNamespace);
 
   const translatedTabs = useMemo(() => tabs.map((tab) => ({ ...tab, label: t(tab.labelKey) })), [tabs, t]);
 

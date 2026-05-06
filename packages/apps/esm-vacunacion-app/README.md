@@ -25,5 +25,6 @@ Configuracion de conceptos:
 
 TODO content/backend:
 
+- Corregir en backend QLTY el `501 Not Implemented` de `GET /openmrs/ws/fhir2/R4/Immunization?patient=<uuid>`. El frontend ya degrada a estado vacio para no romper la UI, pero la solucion real es habilitar/actualizar FHIR2 Immunization y sus mappings de contenido.
 - Validar en el content reference application que `CIEL:1421` exista como mapping unico para FHIR2 `Immunization`.
 - Validar que `CIEL:984` resuelva al set local correcto de vacunas, o sobreescribir `immunizationConceptSet` en config con el mapping/UUID local.

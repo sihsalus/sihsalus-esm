@@ -20,6 +20,7 @@ export const NeonatalCare: React.FC<NeonatalCareProps> = ({ patient: patientProp
   const { patient: hookPatient, patientUuid: hookPatientUuid } = usePatient();
   const patient = patientProp ?? hookPatient;
   const patientUuid = patientUuidProp ?? hookPatientUuid;
+  const translationNamespace = '@sihsalus/esm-cred-app';
   const tabs: TabConfig[] = useMemo(
     () => [
       {
@@ -67,6 +68,7 @@ export const NeonatalCare: React.FC<NeonatalCareProps> = ({ patient: patientProp
       titleKey="neonatalCare"
       tabs={tabs}
       ariaLabelKey="neonatalCareTabs"
+      translationNamespace={translationNamespace}
     />
   );
 };

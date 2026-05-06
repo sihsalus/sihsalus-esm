@@ -5,6 +5,8 @@ import type { TabConfig } from '@sihsalus/esm-sihsalus-shared';
 import { TabbedDashboard } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 
+const translationNamespace = '@sihsalus/esm-salud-materna-app';
+
 export interface PrenatalCareProps {
   patient?: fhir.Patient | null;
   patientUuid?: string | null;
@@ -46,6 +48,7 @@ export const PrenatalCare: React.FC<PrenatalCareProps> = ({ patient: patientProp
       titleKey="prenatalCare"
       tabs={tabs}
       ariaLabelKey="prenatalCareTabs"
+      translationNamespace={translationNamespace}
     />
   );
 };
