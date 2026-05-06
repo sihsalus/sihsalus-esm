@@ -13,9 +13,11 @@ COPY .yarn/ ./.yarn/
 COPY packages/ ./packages/
 
 ENV CI=true
-RUN yarn install --immutable
+RUN --mount=type=cache,target=/root/.yarn/berry/cache \
+    yarn install --immutable
 
-RUN yarn turbo run build --filter='./packages/apps/*'
+RUN --mount=type=cache,target=/app/node_modules/.cache \
+    yarn turbo run build --filter='./packages/apps/*'
 
 # Stage 2: Init container image
 # Runs at deployment time: assembles built modules into SPA_OUTPUT_DIR,
