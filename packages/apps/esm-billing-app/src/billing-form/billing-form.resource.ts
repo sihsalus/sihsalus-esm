@@ -3,10 +3,11 @@ import useSWR from 'swr';
 import { apiBasePath } from '../constants';
 
 export const useBillableItems = () => {
-  const url = `${apiBasePath}billableService?v=custom:(uuid,name,shortName,serviceStatus,serviceType:(display),servicePrices:(uuid,name,price,paymentMode))`;
+  const url = `${apiBasePath}billableService?v=custom:(uuid,name,shortName,serviceStatus,serviceType:(display),servicePrices:(uuid,name,price,paymentMode:(uuid,name)))`;
   const { data, isLoading, error } = useSWR<{ data: { results: Array<OpenmrsResource> } }>(url, openmrsFetch);
+  const allItems = data?.data?.results ?? [];
   return {
-    lineItems: data?.data?.results ?? [],
+    lineItems: allItems.filter((item: any) => item.serviceStatus === 'ENABLED'),
     isLoading,
     error,
   };
