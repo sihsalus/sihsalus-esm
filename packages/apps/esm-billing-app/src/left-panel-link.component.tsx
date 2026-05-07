@@ -1,3 +1,4 @@
+import { Money } from '@carbon/react/icons';
 import { ConfigurableLink } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +25,10 @@ export function LinkExtension({ config }: { config: LinkConfig }) {
       to={spaBasePath + '/' + name}
       className={`cds--side-nav__link ${isActive && 'active-left-nav-link'}`}
     >
-      {t(title)}
+      <span className="sihsalus-side-nav__item">
+        <Money aria-hidden="true" className="sihsalus-side-nav__icon" size={20} />
+        <span className="sihsalus-side-nav__text">{t(title)}</span>
+      </span>
     </ConfigurableLink>
   );
 }

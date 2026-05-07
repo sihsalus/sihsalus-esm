@@ -10,26 +10,60 @@
 }
 
 .actionLink {
+  --action-accent: var(--brand-01);
+  --action-surface: #f8fbff;
+  --action-illustration-muted: #dce7ff;
+  --action-illustration-strong: var(--action-accent);
+  --action-illustration-filter: none;
+  --action-illustration-scale: 1.55;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 0.875rem;
+
+  position: relative;
   display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: layout.$spacing-04;
-  min-height: 5.5rem;
+  grid-template-rows: auto minmax(8.75rem, 1fr);
+  gap: layout.$spacing-03;
+  min-height: 14rem;
   padding: layout.$spacing-05;
   color: colors.$gray-100;
   text-decoration: none;
-  background: colors.$white-0;
+  background: linear-gradient(180deg, colors.$white-0 0%, var(--action-surface) 100%);
   border: 1px solid colors.$gray-20;
-  border-radius: 0.25rem;
+  overflow: hidden;
+  transition:
+    border-color 300ms ease,
+    background-color 300ms ease,
+    box-shadow 300ms ease,
+    transform 300ms ease;
 
   &:hover {
-    color: colors.$blue-70;
-    background: colors.$gray-10;
+    color: var(--action-accent);
+    border-color: var(--action-accent);
+    box-shadow: 0 0.5rem 1.25rem rgba(22, 22, 22, 0.08);
+    transform: translateY(-1px);
+
+    .actionIllustration {
+      transform: translateY(-2px) scale(1.03);
+    }
   }
 
   &:focus {
-    outline: 2px solid colors.$blue-60;
+    outline: 2px solid var(--action-accent);
     outline-offset: -2px;
+  }
+}
+
+.actionHeader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: layout.$spacing-04;
+  min-width: 0;
+  z-index: 1;
+
+  > svg {
+    flex-shrink: 0;
+    color: var(--action-accent);
   }
 }
 
@@ -47,4 +81,95 @@
     @include type.type-style("body-compact-01");
     color: colors.$gray-70;
   }
+}
+
+.illustrationArea {
+  display: grid;
+  place-items: center;
+  min-height: 8.75rem;
+  width: 100%;
+  z-index: 0;
+}
+
+.actionIllustration {
+  position: relative;
+  opacity: 0.94;
+  filter: var(--action-illustration-filter);
+  overflow: visible;
+  transition:
+    filter 300ms ease,
+    transform 300ms ease;
+
+  use {
+    transform: translate(var(--action-illustration-x), var(--action-illustration-y))
+      scale(var(--action-illustration-scale));
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+}
+
+.patientSearchAction {
+  --action-accent: #27348b;
+  --action-surface: #f7f8ff;
+  --action-illustration-muted: #dce2ff;
+  --action-illustration-strong: #27348b;
+  --action-illustration-filter: hue-rotate(42deg) saturate(1.18);
+  --action-illustration-scale: 1.65;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 1rem;
+}
+
+.registrationAction {
+  --action-accent: #2c7d35;
+  --action-surface: #f7fbf6;
+  --action-illustration-muted: #dff0dc;
+  --action-illustration-strong: #2c7d35;
+  --action-illustration-filter: hue-rotate(-44deg) saturate(1.08);
+  --action-illustration-scale: 1.52;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 0.875rem;
+}
+
+.queuesAction {
+  --action-accent: #007d79;
+  --action-surface: #f6fbf8;
+  --action-illustration-muted: #d8efed;
+  --action-illustration-strong: #007d79;
+  --action-illustration-filter: hue-rotate(-32deg) saturate(1.05);
+  --action-illustration-scale: 1.52;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 0.875rem;
+}
+
+.appointmentsAction {
+  --action-accent: #4154b3;
+  --action-surface: #f8f7ff;
+  --action-illustration-muted: #e2dfff;
+  --action-illustration-strong: #4154b3;
+  --action-illustration-filter: hue-rotate(58deg) saturate(1.16);
+  --action-illustration-scale: 1.65;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 1rem;
+}
+
+.laboratoryAction {
+  --action-accent: #17205f;
+  --action-surface: #f6f8ff;
+  --action-illustration-muted: #d8e0ff;
+  --action-illustration-strong: #17205f;
+  --action-illustration-filter: hue-rotate(50deg) saturate(1.12);
+  --action-illustration-scale: 1.65;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 1rem;
+}
+
+.fuaAction {
+  --action-accent: #6a7d1f;
+  --action-surface: #fafbf2;
+  --action-illustration-muted: #edf1cc;
+  --action-illustration-strong: #6a7d1f;
+  --action-illustration-filter: none;
+  --action-illustration-scale: 1.55;
+  --action-illustration-x: 1rem;
+  --action-illustration-y: 0.875rem;
 }

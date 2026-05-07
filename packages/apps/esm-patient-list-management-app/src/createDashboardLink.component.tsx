@@ -1,3 +1,4 @@
+import { ListChecked } from '@carbon/react/icons';
 import { ConfigurableLink } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
@@ -29,7 +30,10 @@ function DashboardExtension({ dashboardLinkConfig }: { dashboardLinkConfig: Dash
       })}
       to={`${spaBasePath}/${name}`}
     >
-      {t('patientLists', 'Patient lists')}
+      <span className="sihsalus-side-nav__item">
+        <ListChecked aria-hidden="true" className="sihsalus-side-nav__icon" size={20} />
+        <span className="sihsalus-side-nav__text">{t('patientLists', 'Patient lists')}</span>
+      </span>
     </ConfigurableLink>
   );
 }
