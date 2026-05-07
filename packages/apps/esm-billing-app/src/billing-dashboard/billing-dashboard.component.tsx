@@ -25,7 +25,6 @@ export function BillingDashboard() {
     <AppErrorBoundary appName="testing billing" privilegesRequired={["Get Queue Entries"]}>
       <SelectedDateContext.Provider value={{ selectedDate, setSelectedDate }}>
         <BillingHeader title={t('billing', 'Billing')} />
-        <a>TESTING HERE ---</a>
         {/**
          *
          * TODO: Add this back when the backend has an endpoint to get the metrics

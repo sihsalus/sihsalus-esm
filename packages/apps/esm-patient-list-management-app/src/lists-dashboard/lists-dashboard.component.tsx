@@ -12,6 +12,9 @@ import ListsTable from '../lists-table/lists-table.component';
 
 import styles from './lists-dashboard.scss';
 
+import { useSession } from '@openmrs/esm-framework';
+import { AppErrorBoundary } from '@sihsalus/esm-rbac';
+
 const TabIndices = {
   STARRED_LISTS: 0,
   SYSTEM_LISTS: 1,
@@ -52,6 +55,9 @@ const ListsDashboard: React.FC = () => {
     setShowCreatePatientList(false);
   };
 
+  const user = useSession();
+
+
   const tableHeaders = [
     { id: 1, key: 'display', header: t('listName', 'List name') },
     { id: 2, key: 'type', header: t('listType', 'List type') },
@@ -60,6 +66,8 @@ const ListsDashboard: React.FC = () => {
   ];
 
   return (
+    
+    <AppErrorBoundary appName="esm-patient-list-management-app" checkAccess={true} privilegesRequired={["Get Queue Entries"]} user={user}>
     <main className={classnames('omrs-main-content', styles.dashboardContainer)}>
       <section className={styles.dashboard}>
         <Header handleShowNewListOverlay={handleShowNewListOverlay} />
@@ -96,6 +104,7 @@ const ListsDashboard: React.FC = () => {
         {showCreatePatientList && <CreateEditPatientList close={handleHideNewListOverlay} onSuccess={() => mutate()} />}
       </section>
     </main>
+    </AppErrorBoundary>
   );
 };
 
