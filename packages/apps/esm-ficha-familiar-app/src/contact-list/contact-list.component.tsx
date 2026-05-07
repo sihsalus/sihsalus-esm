@@ -115,6 +115,7 @@ const ContactList: React.FC<ContactListProps> = ({ patientUuid }) => {
   const handleEditRelationship = (relationShipUuid: string) => {
     launchWorkspace('relationship-update-form', {
       relationShipUuid,
+      patientUuid,
     });
   };
 

@@ -27,11 +27,16 @@ import styles from './form.scss';
 
 interface RelationshipUpdateFormProps extends DefaultWorkspaceProps {
   relationShipUuid: string;
+  patientUuid?: string;
 }
 
 type RelationshipUpdateFormType = z.infer<typeof relationshipUpdateFormSchema>;
 
-const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({ closeWorkspace, relationShipUuid }) => {
+const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({
+  closeWorkspace,
+  relationShipUuid,
+  patientUuid,
+}) => {
   const { error, isLoading, relationship } = useRelationship(relationShipUuid);
   const { isLoading: typesLoading, error: typesError, relationshipTypes } = useRelationshipTypes();
   const { t } = useTranslation();
@@ -103,11 +108,14 @@ const RelationshipUpdateForm: React.FC<RelationshipUpdateFormProps> = ({ closeWo
     );
   }
 
+  const relativeUuid =
+    patientUuid && relationship.personA?.uuid === patientUuid ? relationship.personB?.uuid : relationship.personA?.uuid;
+
   return (
     <Form onSubmit={form.handleSubmit(onSubmit)}>
       <Stack gap={4} className={styles.grid}>
         <Column>
-          <PatientInfo patientUuid={relationship.personB.uuid} />
+          <PatientInfo patientUuid={relativeUuid ?? relationship.personB.uuid} />
         </Column>
         <Column>
           <Controller

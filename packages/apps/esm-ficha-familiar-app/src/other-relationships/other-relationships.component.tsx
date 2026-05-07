@@ -59,6 +59,7 @@ export const OtherRelationships: React.FC<OtherRelationshipsProps> = ({ patientU
   const handleEditRelationship = (relationShipUuid: string) => {
     launchWorkspace('relationship-update-form', {
       relationShipUuid,
+      patientUuid,
     });
   };
 
@@ -223,7 +224,7 @@ export const OtherRelationships: React.FC<OtherRelationshipsProps> = ({ patientU
         page={currentPage}
         pageSize={pageSize}
         pageSizes={pageSizes}
-        totalItems={relationships.length}
+        totalItems={nonFamilyRelationships.length}
         onChange={({ page, pageSize }) => {
           goTo(page);
           setPageSize(pageSize);

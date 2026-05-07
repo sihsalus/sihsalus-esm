@@ -29,7 +29,9 @@ const FamilyRelationshipForm: React.FC<RelationshipFormProps> = ({ closeWorkspac
   const familyRelationshipTypes = mappedRelationshipTypes.filter((type) => familyRelationshipTypesUUIDs.has(type.uuid));
   const session = useSession();
   const relationshipTypes = familyRelationshipTypes.map((relationship) => ({
-    id: relationship.uuid,
+    id: `${relationship.uuid}:${relationship.direction}`,
+    direction: relationship.direction,
+    uuid: relationship.uuid,
     text: relationship.display,
   }));
 
@@ -141,10 +143,17 @@ const FamilyRelationshipForm: React.FC<RelationshipFormProps> = ({ closeWorkspac
                   placeholder={t('selectRelationshipPlaceholder', 'Seleccione el tipo de relación con el paciente')}
                   items={relationshipTypes}
                   itemToString={(item) => (item ? uppercaseText(item.text) : '')}
-                  onChange={(e) => field.onChange(e.selectedItem?.id)}
+                  onChange={(e) => {
+                    field.onChange(e.selectedItem?.uuid);
+                    form.setValue('relationshipDirection', e.selectedItem?.direction);
+                  }}
                   invalid={!!fieldState.error}
                   invalidText={fieldState.error?.message}
-                  selectedItem={relationshipTypes.find((item) => item.id === field.value)}
+                  selectedItem={relationshipTypes.find(
+                    (item) =>
+                      item.uuid === field.value &&
+                      item.direction === form.watch('relationshipDirection', item.direction),
+                  )}
                 />
               )}
             />

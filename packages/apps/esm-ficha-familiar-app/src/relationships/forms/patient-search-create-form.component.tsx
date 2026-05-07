@@ -65,7 +65,7 @@ const PatientSearchCreate: React.FC<PatientSearchCreateProps> = () => {
           name="mode"
           render={({ field }) => (
             <ContentSwitcher
-              selectedIndex={field.value == 'search' ? 0 : 1}
+              selectedIndex={field.value === 'search' ? 0 : 1}
               onChange={(value) => {
                 const { name } = value;
                 field.onChange(name);

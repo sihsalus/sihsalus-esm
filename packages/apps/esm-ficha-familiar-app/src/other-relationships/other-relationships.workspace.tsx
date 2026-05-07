@@ -44,7 +44,9 @@ export const OtherRelationshipsForm: React.FC<OtherRelationshipsFormProps> = ({ 
   const otherRelationshipTypes = mappedRelationshipTypes.filter((type) => !familyRelationshipTypesUUIDs.has(type.uuid));
   const session = useSession();
   const relationshipTypes = otherRelationshipTypes.map((relationship) => ({
-    id: relationship.uuid,
+    id: `${relationship.uuid}:${relationship.direction}`,
+    direction: relationship.direction,
+    uuid: relationship.uuid,
     text: relationship.display,
   }));
 
@@ -137,9 +139,17 @@ export const OtherRelationshipsForm: React.FC<OtherRelationshipsFormProps> = ({ 
                   placeholder={t('selectRelationship', 'Select Relationship')}
                   items={relationshipTypes}
                   itemToString={(item) => (item ? uppercaseText(item.text) : '')}
-                  onChange={(e) => field.onChange(e.selectedItem?.id)}
+                  onChange={(e) => {
+                    field.onChange(e.selectedItem?.uuid);
+                    form.setValue('relationshipDirection', e.selectedItem?.direction);
+                  }}
                   invalid={!!fieldState.error}
                   invalidText={fieldState.error?.message}
+                  selectedItem={relationshipTypes.find(
+                    (item) =>
+                      item.uuid === field.value &&
+                      item.direction === form.watch('relationshipDirection', item.direction),
+                  )}
                 />
               )}
             />

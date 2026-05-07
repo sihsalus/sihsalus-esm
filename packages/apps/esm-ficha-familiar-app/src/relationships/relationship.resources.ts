@@ -71,6 +71,7 @@ export const relationshipFormSchema = z.object({
   personA: z.string().uuid('Invalid person'),
   personB: z.string().uuid('Invalid person').optional(),
   relationshipType: z.string().uuid(),
+  relationshipDirection: z.enum(['aIsToB', 'bIsToA']).optional(),
   startDate: z.date({ coerce: true }).optional().default(new Date()),
   endDate: z.date({ coerce: true }).optional(),
   mode: z.enum(['create', 'search']).default('search'),
@@ -181,9 +182,7 @@ export const saveRelationship = async (
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            attr,
-          }),
+          body: JSON.stringify(attr),
         }),
       ),
     );
@@ -224,15 +223,24 @@ export const saveRelationship = async (
 
   // Handle Relationship Creation
   try {
+    const relationshipPayload =
+      data.relationshipDirection === 'aIsToB'
+        ? {
+            ...omit(data, ['personBInfo', 'mode', 'relationshipDirection', 'personA', 'personB']),
+            personA: patient,
+            personB: data.personA,
+          }
+        : {
+            ...omit(data, ['personBInfo', 'mode', 'relationshipDirection']),
+            personB: patient,
+          };
+
     await openmrsFetch(`/ws/rest/v1/relationship`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        ...omit(data, ['personBInfo', 'mode']),
-        personB: patient,
-      }),
+      body: JSON.stringify(relationshipPayload),
     });
     showSnackbar({ title: 'Success', kind: 'success', subtitle: 'Relationship saved succesfully' });
     mutate((key) => typeof key === 'string' && key.startsWith('/ws/rest/v1/relationship'));

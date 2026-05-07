@@ -94,6 +94,7 @@ const FamilyHistory: React.FC<FamilyHistoryProps> = ({ patientUuid }) => {
   const handleEditRelationship = (relationShipUuid: string) => {
     launchWorkspace('relationship-update-form', {
       relationShipUuid,
+      patientUuid,
     });
   };
 
@@ -225,7 +226,7 @@ const FamilyHistory: React.FC<FamilyHistoryProps> = ({ patientUuid }) => {
         page={currentPage}
         pageSize={pageSize}
         pageSizes={pageSizes}
-        totalItems={relationships.length}
+        totalItems={familyRelationships.length}
         onChange={({ page, pageSize }) => {
           goTo(page);
           setPageSize(pageSize);

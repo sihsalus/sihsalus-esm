@@ -65,10 +65,14 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
   const config = useConfig<ConfigObject>();
   const { data } = useMappedRelationshipTypes();
   const pnsRelationshipTypes = data
-    ? config.pnsRelationships.map((rel) => ({
-        ...rel,
-        display: data?.find((r) => r.uuid === rel.uuid)?.display,
-      }))
+    ? data
+        .filter((relationship) => config.pnsRelationships.some((rel) => rel.uuid === relationship.uuid))
+        .map((relationship) => ({
+          id: `${relationship.uuid}:${relationship.direction}`,
+          uuid: relationship.uuid,
+          direction: relationship.direction,
+          display: relationship.display,
+        }))
     : [];
 
   const onSubmit = async (values: ContactListFormType) => {
@@ -126,14 +130,7 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
     if (!showIPVRelatedFields) {
       form.setValue('ipvOutcome', undefined);
     }
-  }, [
-    observablePhysicalAssault,
-    observableThreatened,
-    observableSexualAssault,
-    observableRelationship,
-    form,
-    showIPVRelatedFields,
-  ]);
+  }, [observablePhysicalAssault, observableThreatened, observableSexualAssault, form, showIPVRelatedFields]);
 
   return (
     <FormProvider {...form}>
@@ -217,12 +214,17 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
                   id="relationshipToPatient"
                   titleText={t('relationToPatient', 'Relation to patient')}
                   onChange={(e) => {
-                    field.onChange(e.selectedItem);
+                    field.onChange(e.selectedItem?.uuid);
+                    form.setValue('relationshipDirection', e.selectedItem?.direction);
                   }}
-                  initialSelectedItem={field.value}
+                  selectedItem={pnsRelationshipTypes.find(
+                    (item) =>
+                      item.uuid === field.value &&
+                      item.direction === form.watch('relationshipDirection', item.direction),
+                  )}
                   label={t('selectRelationship', 'Select Relationship')}
-                  items={pnsRelationshipTypes.map((r) => r.uuid)}
-                  itemToString={(item) => pnsRelationshipTypes.find((r) => r.uuid === item)?.display ?? ''}
+                  items={pnsRelationshipTypes}
+                  itemToString={(item) => item?.display ?? ''}
                 />
               )}
             />
