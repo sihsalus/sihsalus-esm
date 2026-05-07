@@ -1,6 +1,6 @@
 import { Type } from '@openmrs/esm-framework';
 
-const alternativeLogoPath = ['${openmrsSpaBase}', '/alternative-logo.png'].join('');
+const alternativeLogoPath = ['${openmrsSpaBase}', '/logo-horizontal.svg'].join('');
 
 export const esmPatientChartSchema = {
   defaultFacilityUrl: {

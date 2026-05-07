@@ -305,12 +305,27 @@ function copyAssets() {
     logWarn('assets/resources/ not found — skipping brand assets');
     return;
   }
-  for (const file of fs.readdirSync(assetsDir)) {
-    const src = path.join(assetsDir, file);
-    if (!fs.statSync(src).isFile()) continue;
-    copyFileReplacingIfNeeded(src, path.join(outDir, file));
-    logInfo(`OK assets/resources/${file} -> ${outDir}/`);
+  function copyAssetDir(srcDir, relativeDir = '') {
+    for (const file of fs.readdirSync(srcDir)) {
+      const src = path.join(srcDir, file);
+      const relativePath = path.join(relativeDir, file);
+      const stat = fs.statSync(src);
+
+      if (stat.isDirectory()) {
+        copyAssetDir(src, relativePath);
+        continue;
+      }
+
+      if (!stat.isFile()) continue;
+
+      const dest = path.join(outDir, relativePath);
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      copyFileReplacingIfNeeded(src, dest);
+      logInfo(`OK assets/resources/${relativePath.replace(/\\/g, '/')} -> ${outDir}/`);
+    }
   }
+
+  copyAssetDir(assetsDir);
 }
 
 // ── Phase 7: Patch index.html — port of startup.sh envsubst logic ─────

@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { type ConfigSchema } from '../config-schema';
-import Footer from '../footer.component';
 import Logo from '../logo.component';
 
 import styles from './login.scss';
@@ -39,6 +38,11 @@ const Login: React.FC = () => {
   const [showPasswordField, setShowPasswordField] = useState(false);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const usernameInputRef = useRef<HTMLInputElement>(null);
+  const loginImageSrc = `${globalThis.getOpenmrsSpaBase()}login.png`;
+  const loginVideoSrc = `${globalThis.getOpenmrsSpaBase()}videos/login-hero.mp4`;
+  const githubLogoSrc = `${globalThis.getOpenmrsSpaBase()}logos/logo-github.svg`;
+  const openmrsLogoSrc = `${globalThis.getOpenmrsSpaBase()}logos/logo-openmrs.svg`;
+  const pucpLogoSrc = `${globalThis.getOpenmrsSpaBase()}logos/logo-pucp.svg`;
 
   useEffect(() => {
     if (!user) {
@@ -157,115 +161,149 @@ const Login: React.FC = () => {
   if (!loginProvider || loginProvider.type === 'basic') {
     return (
       <div className={styles.container}>
-        <Tile className={styles.loginCard}>
-          {errorMessage && (
-            <div className={styles.errorMessage}>
-              <InlineNotification
-                kind="error"
-                subtitle={t(errorMessage)}
-                title={getCoreTranslation('error')}
-                onClick={() => setErrorMessage('')}
-              />
-            </div>
-          )}
-          <div className={styles.center}>
-            <Logo t={t} />
+        <div className={styles.loginLayout}>
+          <div className={styles.imagePanel} aria-hidden="true">
+            <video className={styles.loginMedia} poster={loginImageSrc} autoPlay muted loop playsInline>
+              <source src={loginVideoSrc} type="video/mp4" />
+            </video>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className={styles.inputGroup}>
-              <TextInput
-                id="username"
-                type="text"
-                name="username"
-                autoComplete="username"
-                labelText={t('username', 'Username')}
-                value={username}
-                onChange={changeUsername}
-                ref={usernameInputRef}
-                required
-                autoFocus
-              />
-              {showPasswordOnSeparateScreen ? (
-                <>
-                  <div className={showPasswordField ? undefined : styles.hiddenPasswordField}>
-                    <PasswordInput
-                      id="password"
-                      labelText={t('password', 'Password')}
-                      name="password"
-                      autoComplete="current-password"
-                      onChange={changePassword}
-                      ref={passwordInputRef}
-                      required
-                      value={password}
-                      showPasswordLabel={t('showPassword', 'Show password')}
-                      invalidText={t('validValueRequired', 'A valid value is required')}
-                      aria-hidden={!showPasswordField}
-                      tabIndex={showPasswordField ? 0 : -1}
+          <div className={styles.formPanel}>
+            <Tile className={styles.loginCard}>
+              <div className={styles.center}>
+                <Logo t={t} />
+              </div>
+              <form onSubmit={handleSubmit}>
+                <div className={styles.inputGroup}>
+                  <TextInput
+                    id="username"
+                    type="text"
+                    name="username"
+                    autoComplete="username"
+                    labelText={t('username', 'Username')}
+                    value={username}
+                    onChange={changeUsername}
+                    ref={usernameInputRef}
+                    required
+                    autoFocus
+                  />
+                  {showPasswordOnSeparateScreen ? (
+                    <>
+                      <div className={showPasswordField ? undefined : styles.hiddenPasswordField}>
+                        <PasswordInput
+                          id="password"
+                          labelText={t('password', 'Password')}
+                          name="password"
+                          autoComplete="current-password"
+                          onChange={changePassword}
+                          ref={passwordInputRef}
+                          required
+                          value={password}
+                          showPasswordLabel={t('showPassword', 'Show password')}
+                          invalidText={t('validValueRequired', 'A valid value is required')}
+                          aria-hidden={!showPasswordField}
+                          tabIndex={showPasswordField ? 0 : -1}
+                        />
+                      </div>
+                      {showPasswordField ? (
+                        <Button
+                          type="submit"
+                          className={styles.continueButton}
+                          renderIcon={(props) => <ArrowRightIcon size={24} {...props} />}
+                          iconDescription={t('loginButtonIconDescription', 'Log in button')}
+                          disabled={!isLoginEnabled || isLoggingIn}
+                        >
+                          {isLoggingIn ? (
+                            <InlineLoading
+                              className={styles.loader}
+                              description={t('loggingIn', 'Logging in') + '...'}
+                            />
+                          ) : (
+                            t('login', 'Log in')
+                          )}
+                        </Button>
+                      ) : (
+                        <Button
+                          type="submit"
+                          className={styles.continueButton}
+                          renderIcon={(props) => <ArrowRightIcon size={24} {...props} />}
+                          iconDescription={t('continueToPassword', 'Continue to password')}
+                          onClick={(evt) => {
+                            evt.preventDefault();
+                            continueLogin();
+                          }}
+                          disabled={!isLoginEnabled}
+                        >
+                          {t('continue', 'Continue')}
+                        </Button>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <PasswordInput
+                        id="password"
+                        labelText={t('password', 'Password')}
+                        name="password"
+                        autoComplete="current-password"
+                        onChange={changePassword}
+                        ref={passwordInputRef}
+                        required
+                        value={password}
+                        showPasswordLabel={t('showPassword', 'Show password')}
+                        invalidText={t('validValueRequired', 'A valid value is required')}
+                      />
+                      <Button
+                        type="submit"
+                        className={styles.continueButton}
+                        renderIcon={(props) => <ArrowRightIcon size={24} {...props} />}
+                        iconDescription={t('loginButtonIconDescription', 'Log in button')}
+                        disabled={!isLoginEnabled || isLoggingIn}
+                      >
+                        {isLoggingIn ? (
+                          <InlineLoading className={styles.loader} description={t('loggingIn', 'Logging in') + '...'} />
+                        ) : (
+                          t('login', 'Log in')
+                        )}
+                      </Button>
+                    </>
+                  )}
+                </div>
+                {errorMessage && (
+                  <div className={styles.errorMessage}>
+                    <InlineNotification
+                      kind="error"
+                      subtitle={t(errorMessage)}
+                      title={getCoreTranslation('error')}
+                      onClick={() => setErrorMessage('')}
                     />
                   </div>
-                  {showPasswordField ? (
-                    <Button
-                      type="submit"
-                      className={styles.continueButton}
-                      renderIcon={(props) => <ArrowRightIcon size={24} {...props} />}
-                      iconDescription={t('loginButtonIconDescription', 'Log in button')}
-                      disabled={!isLoginEnabled || isLoggingIn}
-                    >
-                      {isLoggingIn ? (
-                        <InlineLoading className={styles.loader} description={t('loggingIn', 'Logging in') + '...'} />
-                      ) : (
-                        t('login', 'Log in')
-                      )}
-                    </Button>
-                  ) : (
-                    <Button
-                      type="submit"
-                      className={styles.continueButton}
-                      renderIcon={(props) => <ArrowRightIcon size={24} {...props} />}
-                      iconDescription={t('continueToPassword', 'Continue to password')}
-                      onClick={(evt) => {
-                        evt.preventDefault();
-                        continueLogin();
-                      }}
-                      disabled={!isLoginEnabled}
-                    >
-                      {t('continue', 'Continue')}
-                    </Button>
-                  )}
-                </>
-              ) : (
-                <>
-                  <PasswordInput
-                    id="password"
-                    labelText={t('password', 'Password')}
-                    name="password"
-                    autoComplete="current-password"
-                    onChange={changePassword}
-                    ref={passwordInputRef}
-                    required
-                    value={password}
-                    showPasswordLabel={t('showPassword', 'Show password')}
-                    invalidText={t('validValueRequired', 'A valid value is required')}
-                  />
-                  <Button
-                    type="submit"
-                    className={styles.continueButton}
-                    renderIcon={(props) => <ArrowRightIcon size={24} {...props} />}
-                    iconDescription={t('loginButtonIconDescription', 'Log in button')}
-                    disabled={!isLoginEnabled || isLoggingIn}
-                  >
-                    {isLoggingIn ? (
-                      <InlineLoading className={styles.loader} description={t('loggingIn', 'Logging in') + '...'} />
-                    ) : (
-                      t('login', 'Log in')
-                    )}
-                  </Button>
-                </>
-              )}
+                )}
+              </form>
+            </Tile>
+            <div className={styles.partnerSection}>
+              <div className={styles.partnerLinks}>
+                <a href="https://openmrs.org" target="_blank" rel="noopener noreferrer" aria-label="OpenMRS">
+                  <img src={openmrsLogoSrc} alt={t('openmrsLogo', 'OpenMRS Logo')} />
+                </a>
+                <a
+                  href="https://inform.pucp.edu.pe/santaclotilde/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Proyecto Santa Clotilde PUCP"
+                >
+                  <img src={pucpLogoSrc} alt="" />
+                </a>
+                <a
+                  href="https://github.com/sihsalus"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="SIH Salus en GitHub"
+                >
+                  <img src={githubLogoSrc} alt="" />
+                </a>
+              </div>
             </div>
-          </form>
-        </Tile>
-        <Footer />
+          </div>
+        </div>
       </div>
     );
   }
