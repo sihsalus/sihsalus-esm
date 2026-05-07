@@ -72,13 +72,13 @@ export const offlineToolsPatientChartActions = getSyncLifecycle(offlineToolsPati
 export const offlineToolsPatientChartActionsDashboardLink = getSyncLifecycle(
   createDashboardLink({
     ...dashboardMeta,
-    // t('offline_actions_link', 'Offline Actions')
+    // t('offline_actions_link', 'Acciones sin internet')
     title: () =>
       Promise.resolve(
         globalThis.i18next?.t('offline_actions_link', {
-          defaultValue: 'Offline Actions',
+          defaultValue: 'Acciones sin internet',
           ns: moduleName,
-        }) ?? 'Offline Actions',
+        }) ?? 'Acciones sin internet',
       ),
   }),
   options,

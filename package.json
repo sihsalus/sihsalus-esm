@@ -21,6 +21,8 @@
     "package:spa": "yarn build:apps && yarn assemble && yarn validate:spa",
     "dev": "turbo run dev",
     "start": "node packages/tooling/scripts/start-dev.js",
+    "start:dev": "cross-env SIHSALUS_BACKEND_URL=http://hii1sc-dev.inf.pucp.edu.pe SIHSALUS_FHIR_BASE=http://hii1sc-dev.inf.pucp.edu.pe/openmrs/ws/fhir2/R4 node packages/tooling/scripts/start-dev.js",
+    "start:qlty": "cross-env SIHSALUS_BACKEND_URL=http://hii1sc-qlty.inf.pucp.edu.pe SIHSALUS_FHIR_BASE=http://hii1sc-qlty.inf.pucp.edu.pe/openmrs/ws/fhir2/R4 node packages/tooling/scripts/start-dev.js",
     "serve": "turbo run build --filter=openmrs --filter='./packages/apps/*' && openmrs start",
     "serve:prod": "turbo run build && node packages/tooling/scripts/assemble-importmap.js && openmrs start",
     "test": "cross-env TZ=UTC turbo run test --concurrency=1",

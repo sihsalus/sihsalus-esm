@@ -49,7 +49,7 @@ export const caseEncounterDashboardLink = getSyncLifecycle(
       icon: 'omrs-icon-group',
       slot: 'patient-chart-case-encounter-slot',
       columns: 1,
-      title: 'Case Encounter',
+      title: 'Atenciones de gestión de casos',
       path: 'case-encounter-dashboard',
       config: {},
     },

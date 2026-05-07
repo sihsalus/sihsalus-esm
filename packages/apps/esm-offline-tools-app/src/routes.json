@@ -120,7 +120,7 @@
       "component": "offlineToolsPatientChartActionsDashboardLink",
       "meta": {
         "columns": 1,
-        "title": "Offline Actions"
+        "title": "Acciones sin internet"
       },
       "order": 12,
       "online": true,
