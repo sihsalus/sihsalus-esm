@@ -1,21 +1,25 @@
 #!/usr/bin/env node
 
-require('dotenv').config({ quiet: true });
 const { spawn, spawnSync } = require('child_process');
 const { existsSync, statSync } = require('fs');
 const net = require('net');
 const { resolve } = require('path');
+
+const envPath = resolve(process.cwd(), '.env');
+const hadBackendBeforeDotenv = Boolean(process.env.SIHSALUS_BACKEND_URL);
+const dotenvResult = require('dotenv').config({ path: envPath, quiet: true });
 
 const chalk = require('chalk');
 const logInfo = (msg) => console.log(`${chalk.green.bold('[start-dev]')} ${msg}`);
 const logWarn = (msg) => console.warn(`${chalk.yellow.bold('[start-dev]')} ${chalk.yellow(msg)}`);
 const logFail = (msg) => console.error(`${chalk.red.bold('[start-dev]')} ${chalk.red(msg)}`);
 
-const backend = process.env.SIHSALUS_BACKEND_URL || 'http://hii1sc-dev.inf.pucp.edu.pe';
-
-if (!process.env.SIHSALUS_BACKEND_URL) {
-  logWarn(`SIHSALUS_BACKEND_URL not set, using default: ${backend}`);
-}
+const defaultBackend = 'http://hii1sc-dev.inf.pucp.edu.pe';
+const backend = process.env.SIHSALUS_BACKEND_URL || defaultBackend;
+const backendSource = hadBackendBeforeDotenv ? 'shell' : dotenvResult.parsed?.SIHSALUS_BACKEND_URL ? '.env' : 'default';
+const authMode = process.env.SIHSALUS_AUTH_MODE || 'openmrs';
+const fhirBase = process.env.SIHSALUS_FHIR_BASE || `${backend}/openmrs/ws/fhir2/R4`;
+const proxyPort = Number(process.env.SIHSALUS_PORT) || 8080;
 
 // SIHSALUS_DEV_APPS=esm-login-app,esm-home-app  → hot-reload those apps
 // Unset → serve pre-assembled importmap (no recompilation, just shell + proxy)
@@ -27,10 +31,32 @@ const distSpa = resolve(__dirname, '..', '..', '..', 'dist', 'spa');
 const frontendConfig = resolve(__dirname, '..', '..', '..', 'config', 'frontend.json');
 const spaPath = '/openmrs/spa';
 
+function logStartupSummary({ mode, apps = [] }) {
+  console.log();
+  console.log(chalk.cyan.bold('SIH Salus local frontend'));
+  logInfo(`${chalk.bold('Backend')} ${chalk.cyan.underline(backend)} ${chalk.dim(`(${backendSource})`)}`);
+  logInfo(`${chalk.bold('FHIR R4')} ${chalk.cyan.underline(fhirBase)}`);
+  logInfo(`${chalk.bold('Auth')} ${authMode}`);
+  logInfo(`${chalk.bold('Mode')} ${mode}`);
+  logInfo(`${chalk.bold('Local SPA')} ${chalk.cyan.underline(`http://localhost:${proxyPort}${spaPath}`)}`);
+
+  if (apps.length > 0) {
+    logInfo(`${chalk.bold('Hot reload apps')} ${apps.join(', ')}`);
+  } else {
+    logInfo(`${chalk.bold('Hot reload apps')} none ${chalk.dim('(serving pre-assembled SPA)')}`);
+  }
+
+  if (backendSource === 'default') {
+    logWarn(`SIHSALUS_BACKEND_URL not set, using default: ${backend}`);
+  }
+  console.log();
+}
+
 function findFreePort() {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const srv = net.createServer();
-    srv.listen(0, () => {
+    srv.on('error', reject);
+    srv.listen(0, '127.0.0.1', () => {
       const port = srv.address().port;
       srv.close(() => resolve(port));
     });
@@ -146,13 +172,21 @@ async function startWithProxy(cliArgs) {
     }),
   );
 
-  const proxyPort = Number(process.env.SIHSALUS_PORT) || 8080;
-  app.listen(proxyPort, () => {
+  const server = app.listen(proxyPort, '127.0.0.1', () => {
     logInfo(`Proxy :${proxyPort} → internal CLI :${cliPort}`);
     logInfo(`SPA → ${chalk.cyan.underline(`http://localhost:${proxyPort}${spaPath}`)}`);
+    startCli(['--port', String(cliPort), '--open', 'false', ...cliArgs]);
   });
 
-  startCli(['--port', String(cliPort), '--open', 'false', ...cliArgs]);
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      logFail(`Port ${proxyPort} is already in use.`);
+      logFail(`  Stop the process using it or run with SIHSALUS_PORT=<free-port>.`);
+    } else {
+      logFail(`Could not start local proxy on port ${proxyPort}: ${error.message}`);
+    }
+    process.exit(1);
+  });
 }
 
 if (devAppsEnv) {
@@ -168,6 +202,7 @@ if (devAppsEnv) {
     }
     return ['--sources', dir];
   });
+  logStartupSummary({ mode: 'hot reload', apps });
 
   if (existsSync(assembledImportmap) && existsSync(assembledRoutes)) {
     const importmapAge = Date.now() - statSync(assembledImportmap).mtimeMs;
@@ -211,6 +246,7 @@ if (devAppsEnv) {
     logFail('  Or set SIHSALUS_DEV_APPS=esm-login-app,... for hot-reload');
     process.exit(1);
   }
+  logStartupSummary({ mode: 'pre-assembled SPA' });
   logInfo('Serving pre-assembled SPA (no hot-reload). Set SIHSALUS_DEV_APPS for development.');
   // The OpenMRS CLI still requires at least one --sources workspace even when
   // the proxy serves a fully assembled importmap. Use a neutral tooling

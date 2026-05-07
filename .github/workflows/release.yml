@@ -86,7 +86,7 @@ jobs:
 
       - name: Notify sihsalus deployment
         if: github.ref == 'refs/heads/main' && env.HAS_DEPLOY_TOKEN == 'true'
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.DEPLOY_TOKEN }}
           repository: sihsalus/sihsalus

@@ -61,7 +61,7 @@ export const configSchema = {
   logo: {
     src: {
       _type: Type.String,
-      _default: '${openmrsSpaBase}/login-logo.svg',
+      _default: '${openmrsSpaBase}/sihsalus-vertical.svg',
       _description:
         'The path or URL to the logo image. If set to an empty string, the default OpenMRS SVG sprite will be used.',
       _validators: [validators.isUrl],

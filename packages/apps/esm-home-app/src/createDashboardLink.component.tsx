@@ -1,3 +1,4 @@
+import { Home } from '@carbon/react/icons';
 import { ConfigurableLink } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +27,10 @@ const DashboardLink = ({ dashboardLinkConfig }: { dashboardLinkConfig: Dashboard
       className={`cds--side-nav__link ${navLink === 'home' && 'active-left-nav-link'}`}
     >
       {/* t('home', 'Home') */}
-      {t(name)}
+      <span className="sihsalus-side-nav__item">
+        <Home aria-hidden="true" className="sihsalus-side-nav__icon" size={20} />
+        <span className="sihsalus-side-nav__text">{t(name)}</span>
+      </span>
     </ConfigurableLink>
   );
 };
