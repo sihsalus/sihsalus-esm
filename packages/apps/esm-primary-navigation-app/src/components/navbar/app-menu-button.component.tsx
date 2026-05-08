@@ -4,17 +4,18 @@ import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import AppMenuPanel from '../navbar-header-panels/app-menu-panel.component';
+import AppModuleSwitcher from '../app-module-switcher/app-module-switcher.component';
 
 import styles from './navbar.scss';
 import { type MenuButtonProps } from './types';
 
-/**
- * This component displays the app menu button and the menu itself (when toggled on)
- */
 const AppMenuButton: React.FC<MenuButtonProps> = ({ isActivePanel, togglePanel, hidePanel }) => {
   const appMenuItems = useAssignedExtensions('app-menu-slot');
-  const showAppMenu = useMemo(() => appMenuItems.length > 0, [appMenuItems.length]);
+  const appMenuCardItems = useAssignedExtensions('app-menu-item-slot');
+  const showAppMenu = useMemo(
+    () => appMenuItems.length > 0 || appMenuCardItems.length > 0,
+    [appMenuItems.length, appMenuCardItems.length],
+  );
   const { t } = useTranslation();
   const appMenuRef = useOnClickOutside<HTMLDivElement>(hidePanel('appMenu'), isActivePanel('appMenu'));
 
@@ -29,14 +30,12 @@ const AppMenuButton: React.FC<MenuButtonProps> = ({ isActivePanel, togglePanel, 
             [styles.activePanel]: !isActivePanel('appMenu'),
           })}
           isActive={isActivePanel('appMenu')}
-          onClick={() => {
-            togglePanel('appMenu');
-          }}
+          onClick={() => togglePanel('appMenu')}
           tooltipAlignment="end"
         >
           {isActivePanel('appMenu') ? <CloseIcon size={20} /> : <SwitcherIcon size={20} />}
         </HeaderGlobalAction>
-        <AppMenuPanel expanded={isActivePanel('appMenu')} hidePanel={hidePanel('appMenu')} />
+        {isActivePanel('appMenu') && <AppModuleSwitcher />}
       </div>
     )
   );

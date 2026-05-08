@@ -145,7 +145,7 @@
     },
     {
       "name": "stock-management-app-menu-link",
-      "slot": "app-menu-slot",
+      "slot": "app-menu-item-slot",
       "component": "stockManagementAppMenuLink"
     },
     {

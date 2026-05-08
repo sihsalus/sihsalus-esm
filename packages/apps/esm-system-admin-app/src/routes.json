@@ -11,6 +11,11 @@
       "component": "systemAdminAppMenuLink"
     },
     {
+      "name": "system-administration-app-menu-item",
+      "slot": "app-menu-item-slot",
+      "component": "systemAdminAppMenuItem"
+    },
+    {
       "name": "system-admin-page-link",
       "slot": "system-admin-page-card-link-slot",
       "component": "legacySystemAdminPageCardLink",

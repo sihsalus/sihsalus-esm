@@ -1,12 +1,18 @@
-import { ConfigurableLink } from '@openmrs/esm-framework';
+import { ClickableTile } from '@carbon/react';
+import { InventoryManagement } from '@carbon/react/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import styles from './stock-app-menu-item/item.scss';
+
 export default function StockManagementAppMenuLink() {
   const { t } = useTranslation();
+  const openmrsSpaBase = window['getOpenmrsSpaBase']();
+
   return (
-    <ConfigurableLink to={`${globalThis.spaBase}/stock-management`}>
-      {t('stockManagement', 'Gestión de Inventario')}
-    </ConfigurableLink>
+    <ClickableTile className={styles.customTile} href={`${openmrsSpaBase}stock-management`}>
+      <InventoryManagement size={32} className={styles.customTileTitle} />
+      <span>{t('stockManagement', 'Gestión de Inventario')}</span>
+    </ClickableTile>
   );
 }
