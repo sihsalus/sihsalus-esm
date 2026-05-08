@@ -48,6 +48,14 @@ export const deletePackagingUnitModal = getAsyncLifecycle(
   },
 );
 
+export const deleteStockRuleModal = getAsyncLifecycle(
+  () => import('./stock-items/add-stock-item/stock-item-rules/delete-stock-rule.modal'),
+  {
+    featureName: 'delete-stock-rule-modal',
+    moduleName,
+  },
+);
+
 export const deletePackagingUnitButton = getSyncLifecycle(deletePackagingUnitModalButtonComponent, {
   featureName: 'delete-packaging-unit-button',
   moduleName,
