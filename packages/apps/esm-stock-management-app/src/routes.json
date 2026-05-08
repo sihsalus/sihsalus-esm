@@ -144,12 +144,9 @@
       "component": "stockManagementAdminCardLink"
     },
     {
-      "name": "stock-management-app-menu-item",
-      "component": "stockManagementAppMenuItem",
-      "slot": "app-menu-item-slot",
-      "meta": {
-        "name": " Stock Management"
-      }
+      "name": "stock-management-app-menu-link",
+      "slot": "app-menu-slot",
+      "component": "stockManagementAppMenuLink"
     },
     {
       "name": "delete-packaging-unit-button",
