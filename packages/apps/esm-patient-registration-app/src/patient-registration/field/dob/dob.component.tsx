@@ -5,6 +5,7 @@ import React, { type ChangeEvent, useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type RegistrationConfig } from '../../../config-schema';
+import { moduleName } from '../../../constants';
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import styles from '../field.scss';
 
@@ -22,7 +23,7 @@ const calcBirthdate = (yearDelta, monthDelta, dateOfBirth) => {
 };
 
 export const DobField: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const {
     fieldConfigurations: { dateOfBirth },
   } = useConfig<RegistrationConfig>();

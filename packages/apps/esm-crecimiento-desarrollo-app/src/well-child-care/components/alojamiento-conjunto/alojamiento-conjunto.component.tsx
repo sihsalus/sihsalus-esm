@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter';
+import { formEntryWorkspace } from '../../../types';
 import {
   ADMISSION_DATE_TIME_UUID,
   DELIVERY_TYPE_AC_UUID,
@@ -50,7 +51,7 @@ const AlojamientoConjunto: React.FC<AlojamientoConjuntoProps> = ({ patientUuid }
     }
 
     try {
-      launchWorkspace2('patient-form-entry-workspace-v2', {
+      launchWorkspace2(formEntryWorkspace, {
         form: { uuid: config.formsList.roomingIn },
         encounterUuid: encounter?.uuid || '',
       });

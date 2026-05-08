@@ -5,7 +5,7 @@ export interface PrintLogoData {
 }
 
 export const GetPrintLogo = async (): Promise<PrintLogoData | null> => {
-  const config = await getConfig('@sihsalus/esm-stock-management-app');
+  const config = await getConfig('@openmrs/esm-stock-management-app');
   const printLogoUrl = config?.logo?.src;
   return new Promise((resolve, reject) => {
     if (!printLogoUrl) {
@@ -44,7 +44,7 @@ export const GetPrintLogo = async (): Promise<PrintLogoData | null> => {
         })
         .catch((error) => {
           console.error('Error fetching print logo: ', error);
-          reject(new Error('Error fetching print logo'));
+          reject('Error fetching print logo');
         });
     } else {
       const img = new Image();
@@ -63,7 +63,7 @@ export const GetPrintLogo = async (): Promise<PrintLogoData | null> => {
             }
             resolve({ image: dataURL, isSvg: false });
           } else {
-            reject(new Error('Failed to allocate canvas context for print logo'));
+            reject('Failed to allocate canvas context for print logo');
           }
         } catch (e) {
           reject(e);

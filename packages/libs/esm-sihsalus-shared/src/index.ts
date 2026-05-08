@@ -70,3 +70,6 @@ export { default as PatientSummaryTable } from './ui/patient-summary-table/patie
 export { default as SummaryCard } from './ui/summary-card/summary-card.component';
 // UI: tabbed dashboard
 export { default as TabbedDashboard, type TabConfig } from './ui/tabbed-dashboard/tabbed-dashboard.component';
+
+// Identifier utilities
+export { getPreferredIdentifier, preferredIdentifierNames } from './utils/identifiers';

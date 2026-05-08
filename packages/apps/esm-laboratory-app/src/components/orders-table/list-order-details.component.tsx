@@ -7,11 +7,11 @@ import {
   StructuredListWrapper,
 } from '@carbon/react';
 import { ExtensionSlot, formatDate, parseDate } from '@openmrs/esm-framework';
-import { capitalize } from 'lodash-es';
 import type { ReactNode } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { type GroupedOrders } from '../../types';
+import { getFulfillerStatusDisplay, getOrderUrgencyDisplay } from '../../utils/order-display';
 import styles from './list-order-details.scss';
 
 type OrderDetailsRowProps = {
@@ -49,7 +49,7 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = ({ groupedOrders }) =
                 label={t('urgencyStatus', 'Urgency:')}
                 value={
                   <div className={styles.priorityPill} data-urgency={order.urgency?.replace('_', ' ')}>
-                    {capitalize(order.urgency?.replace(/_/g, ' '))}
+                    {getOrderUrgencyDisplay(order.urgency, t)}
                   </div>
                 }
               />
@@ -61,7 +61,7 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = ({ groupedOrders }) =
                     className={styles.statusPill}
                     data-status={(order.fulfillerStatus ?? 'Order not picked').replace('_', ' ')}
                   >
-                    {capitalize(order.fulfillerStatus?.replace('_', ' ')) || t('orderNotPicked', 'Order not picked')}
+                    {getFulfillerStatusDisplay(order.fulfillerStatus, t)}
                   </div>
                 }
               />

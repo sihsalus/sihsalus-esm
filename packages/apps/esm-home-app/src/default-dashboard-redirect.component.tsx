@@ -11,8 +11,7 @@ export function DefaultDashboardRedirect() {
   const { defaultDashboardPerRole } = useConfig<HomeConfig>();
   const session = useSession();
   const roles = session?.user?.roles;
-  const defaultDashboard =
-    roles?.map((role) => defaultDashboardPerRole[role.display]).filter(Boolean)[0] ?? 'service-queues';
+  const defaultDashboard = roles?.map((role) => defaultDashboardPerRole[role.display]).filter(Boolean)[0] ?? 'home';
 
   const ungroupedDashboards = assignedExtensions.map((e) => e.meta).filter((e) => Object.keys(e).length) || [];
   const dashboards = ungroupedDashboards as Array<DashboardConfig>;

@@ -1,5 +1,4 @@
 import { screen } from '@testing-library/react';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { mockOrderStockData, renderWithSwr } from 'test-utils';
 
@@ -25,7 +24,7 @@ describe('OrderStockDetailsComponent', () => {
   beforeEach(() => {
     jest.resetAllMocks();
     mockUseTranslation.mockImplementation(() => ({
-      t: (key: string, fallback: string) => fallback,
+      t: (_key: string, fallback: string) => fallback,
     }));
   });
 

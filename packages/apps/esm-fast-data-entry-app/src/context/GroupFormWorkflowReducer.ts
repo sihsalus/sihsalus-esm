@@ -27,7 +27,7 @@ const reducer = (state, action) => {
     case 'INITIALIZE_WORKFLOW_STATE': {
       const savedData = localStorage.getItem(fdeGroupWorkflowStorageName + ':' + action.userUuid);
       const savedDataObject = savedData ? JSON.parse(savedData) : {};
-      let newState: { [key: string]: unknown };
+      let newState: { [key: string]: unknown } = {};
       if (savedData && savedDataObject['_storageVersion'] === fdeGroupWorkflowStorageVersion) {
         // there is localStorage data and it is still valid
         const thisSavedForm = savedDataObject.forms?.[action.activeFormUuid];
@@ -175,16 +175,14 @@ const reducer = (state, action) => {
     case 'SAVE_ENCOUNTER': {
       const thisForm = state.forms[state.activeFormUuid];
       if (thisForm.workflowState === 'SUBMIT_FOR_COMPLETE') {
-        const formRest = { ...state.forms };
-        delete formRest[state.activeFormUuid];
+        const { [state.activeFormUuid]: activeForm, ...formRest } = state.forms;
         const newState = {
           ...state,
           forms: formRest,
           activeFormUuid: null,
         };
         persistData(newState);
-
-        navigate({ to: '${openmrsSpaBase}/forms' });
+        navigate({ to: '$' + '{openmrsSpaBase}/forms' });
         return newState;
       } else if (thisForm.workflowState === 'SUBMIT_FOR_NEXT') {
         const nextPatientUuid = state.nextPatientUuid
@@ -235,7 +233,7 @@ const reducer = (state, action) => {
     }
     case 'VALIDATE_FOR_NEXT':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -274,7 +272,7 @@ const reducer = (state, action) => {
 
     case 'SUBMIT_FOR_NEXT':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -296,7 +294,7 @@ const reducer = (state, action) => {
       };
     case 'SUBMIT_FOR_REVIEW':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -318,7 +316,7 @@ const reducer = (state, action) => {
 
     case 'VALIDATE_FOR_COMPLETE':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -339,7 +337,7 @@ const reducer = (state, action) => {
       };
     case 'SUBMIT_FOR_COMPLETE':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -366,7 +364,7 @@ const reducer = (state, action) => {
           [state.activeFormUuid]: {
             ...state.forms[state.activeFormUuid],
             activeEncounterUuid: null,
-            activVisitUuid: null,
+            activeVisitUuid: null,
             activePatientUuid: null,
             activeSessionUuid: null,
             workflowState: 'REVIEW',
@@ -377,16 +375,14 @@ const reducer = (state, action) => {
       return newState;
     }
     case 'DESTROY_SESSION': {
-      const formRest = { ...state.forms };
-      delete formRest[state.activeFormUuid];
+      const { [state.activeFormUuid]: activeForm, ...formRest } = state.forms;
       const newState = {
         ...state,
         forms: formRest,
         activeFormUuid: null,
       };
       persistData(newState);
-
-      navigate({ to: '${openmrsSpaBase}/forms' });
+      navigate({ to: '$' + '{openmrsSpaBase}/forms' });
       return { ...newState, formDestroyed: true };
     }
     case 'CLOSE_SESSION': {
@@ -395,8 +391,7 @@ const reducer = (state, action) => {
         activeFormUuid: null,
       };
       persistData(newState);
-
-      navigate({ to: '${openmrsSpaBase}/forms' });
+      navigate({ to: '$' + '{openmrsSpaBase}/forms' });
       return newState;
     }
     default:

@@ -7,6 +7,7 @@ import { editObs, hasPreviousObsValueChanged } from './obs-adapter';
 
 export const ObsCommentAdapter: FormFieldValueAdapter = {
   transformFieldValue: function (field: FormField, value: unknown, context: FormContextProps) {
+    // NOSONAR: comment fields mutate their target obs and do not submit their own value.
     if (!isStringValue(field.meta.targetField)) {
       return null;
     }

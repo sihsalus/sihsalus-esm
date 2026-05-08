@@ -1,6 +1,6 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
 
 .container {
   height: layout.$spacing-11;
@@ -25,7 +25,7 @@
 }
 
 .groupName {
-  @include type.type-style('heading-03');
+  @include type.type-style("heading-03");
   font-weight: 600;
 }
 
@@ -40,12 +40,12 @@
   & > button {
     min-height: layout.$spacing-07;
   }
-  @include type.type-style('body-compact-02');
+  @include type.type-style("body-compact-02");
   color: colors.$gray-70;
   column-gap: 0.8rem;
 }
 .sessionNotesLabel {
-  @include type.type-style('label-01');
+  @include type.type-style("label-01");
   margin-bottom: layout.$spacing-01;
 }
 

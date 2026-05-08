@@ -23,7 +23,7 @@ export const createCompositionQuery = (compositionQuery: string) => {
 
   searchTokens.forEach((eachToken) => {
     if (eachToken.match(/\d/)) {
-      const history = JSON.parse(globalThis.sessionStorage.getItem('openmrsHistory'));
+      const history = JSON.parse(window.sessionStorage.getItem('openmrsHistory'));
       const operandQuery = history[parseInt(eachToken, 10) - 1];
 
       const jsonRequestObject = operandQuery.parameters;

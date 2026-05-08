@@ -1,13 +1,9 @@
 /** @module @category UI */
 
 import { InlineLoading } from '@carbon/react';
-import {
-  ConfigurableLink,
-  type CoreTranslationKey,
-  getCoreTranslation,
-  parseDate,
-  usePatient,
-} from '@openmrs/esm-framework/src/internal';
+import { ConfigurableLink, usePatient } from '@openmrs/esm-react-utils';
+import { type CoreTranslationKey, getCoreTranslation } from '@openmrs/esm-translations';
+import { parseDate } from '@openmrs/esm-utils';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import styles from './patient-banner-contact-details.module.scss';
@@ -78,7 +74,7 @@ const Address: React.FC<{ patientId: string }> = ({ patientId }) => {
       <ul>
         {address ? (
           Object.entries(address)
-            .filter(([key]) => key !== 'id' && key !== 'use')
+            .filter(([key]) => key !== 'id' && key !== 'use' && key !== 'postalCode')
             .map(([key, value]) =>
               key === 'extension' ? (
                 address.extension?.[0]?.extension?.map((add, i) => (
@@ -111,7 +107,7 @@ const Contact: React.FC<{ patientUuid: string; deceased?: boolean }> = ({ patien
     () =>
       contactAttributes
         ? [
-            ...contactAttributes?.map((contact) => [
+            ...contactAttributes.map((contact) => [
               contact.attributeType.display
                 ? getCoreTranslation(
                     /** TODO: We should probably add translation strings for some of these */

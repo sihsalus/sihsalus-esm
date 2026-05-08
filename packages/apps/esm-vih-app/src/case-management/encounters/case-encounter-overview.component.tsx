@@ -7,6 +7,7 @@ import type { KeyedMutator } from 'swr';
 
 import type { ConfigObject } from '../../config-schema';
 import GenericTable from '../../specialized-clinics/generic-nav-links/generic-table.component';
+import { patientFormEntryWorkspace } from '../../utils/constants';
 
 import styles from './case-encounter-header.scss';
 import { deleteEncounter, useInfiniteVisits } from './case-encounter-table.resource';
@@ -27,7 +28,7 @@ const CaseEncounterHeader = ({ patientUuid, mutate, onFilterChange }: CaseEncoun
   const { caseManagementForms } = useConfig<ConfigObject>();
 
   const handleOpenOrEditClinicalEncounterForm = (formUuid: string, encounterUUID = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'Clinical Encounter',
       mutateForm: mutate,
       formInfo: {
@@ -136,7 +137,7 @@ const CaseEncounterOverviewComponent = ({ patientUuid }: CaseEncounterOverviewCo
     const encounterTypeUuid = encounter.encounterType?.uuid ?? '';
     const formUuid = encounter.form?.uuid ?? '';
 
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle,
       mutateForm: mutateVisits,
       formInfo: {

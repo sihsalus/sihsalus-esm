@@ -1,6 +1,6 @@
 import { Type } from '@openmrs/esm-framework';
 
-const alternativeLogoPath = ['${openmrsSpaBase}', '/alternative-logo.png'].join('');
+const alternativeLogoPath = ['${openmrsSpaBase}', '/logo-horizontal.svg'].join('');
 
 export const esmPatientChartSchema = {
   defaultFacilityUrl: {
@@ -183,6 +183,31 @@ export const esmPatientChartSchema = {
       },
     ],
   },
+  defaultVisitAttributesFromPersonAttributes: {
+    _type: Type.Array,
+    _description:
+      'Mappings used to prefill visit attributes from patient person attributes when starting a visit. Values remain editable in the form.',
+    _elements: {
+      personAttributeTypeUuid: {
+        _type: Type.UUID,
+        _description: 'UUID of the person attribute type used as source',
+      },
+      visitAttributeTypeUuid: {
+        _type: Type.UUID,
+        _description: 'UUID of the visit attribute type used as target',
+      },
+    },
+    _default: [
+      {
+        personAttributeTypeUuid: '56188294-b42c-481d-a987-4b495116c580',
+        visitAttributeTypeUuid: '3a988e33-a6c0-4b76-b924-01abb998944b',
+      },
+      {
+        personAttributeTypeUuid: '374b130f-7457-476f-87b1-f182aa77c434',
+        visitAttributeTypeUuid: 'aac48226-d143-4274-80e0-264db4e368ee',
+      },
+    ],
+  },
   visitDiagnosisConceptUuid: {
     _default: '159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
     _type: Type.ConceptUuid,
@@ -247,6 +272,10 @@ export interface ChartConfig {
     required: boolean;
     showWhenExpression?: string;
     uuid: string;
+  }>;
+  defaultVisitAttributesFromPersonAttributes: Array<{
+    personAttributeTypeUuid: string;
+    visitAttributeTypeUuid: string;
   }>;
   visitDiagnosisConceptUuid: string;
   requireActiveVisitForEncounterTile: boolean;

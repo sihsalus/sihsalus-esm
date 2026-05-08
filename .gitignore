@@ -50,5 +50,9 @@ artifacts/
 *.tmp
 *~
 
+# Local dev server logs
+dev-server*.log
+dev-server*.err.log
+
 # Codex
 .codex

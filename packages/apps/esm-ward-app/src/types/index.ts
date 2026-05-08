@@ -1,31 +1,36 @@
 import type {
   Concept,
-  DefaultWorkspaceProps,
+  Diagnosis,
   Location,
   OpenmrsResource,
   OpenmrsResourceStrict,
+  Order,
   Patient,
   Person,
   Visit,
+  Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
 import type React from 'react';
-
 import type { useWardPatientGrouping } from '../hooks/useWardPatientGrouping';
 
 interface WardPatientCardProps {
   wardPatient: WardPatient;
 }
 
-export type WardPatientCardType = React.FC<WardPatientCardProps>;
+export type WardPatientCardType = React.ComponentType<WardPatientCardProps>;
 
 // WardPatient is a patient admitted to a ward, and/or in a bed on a ward
 export type WardPatient = {
   /**
-   * The patient and their current visit. These values are taken either
-   * from either the inpatientAdmission object, the inpatientRequest object
+   * Taken either from the inpatientAdmission object, the inpatientRequest object
    * or the admissionLocation object (which contains the bed)
    */
   patient: Patient;
+
+  /**
+   * Taken either from the inpatientAdmission object, the inpatientRequest object
+   * or the admissionLocation object (which contains the bed)
+   */
   visit: Visit;
 
   /**
@@ -47,9 +52,27 @@ export type WardPatient = {
   inpatientRequest: InpatientRequest;
 };
 
-export interface WardPatientWorkspaceProps extends DefaultWorkspaceProps {
+export interface WardPatientWorkspaceProps {
   wardPatient: WardPatient;
+
+  /**
+   * Related patients that are in the same bed as wardPatient. On transfer or bed swap
+   * these related patients have the option to be transferred / swapped together
+   */
+  relatedTransferPatients?: WardPatient[];
 }
+
+/**
+ * props type of workspaces in the 'ward-patient` workspace group.
+ */
+export type WardPatientWorkspaceDefinition = Workspace2DefinitionProps<
+  {},
+  {},
+  {
+    wardPatient: WardPatient;
+    relatedTransferPatients?: WardPatient[];
+  }
+>;
 
 // server-side types defined in openmrs-module-bedmanagement:
 
@@ -187,11 +210,11 @@ export interface Encounter extends OpenmrsResourceStrict {
   form?: OpenmrsResource;
   encounterType?: EncounterType;
   obs?: Array<Observation>;
-  orders?: Array<unknown>;
+  orders?: Array<Order>;
   voided?: boolean;
   visit?: Visit;
   encounterProviders?: Array<EncounterProvider>;
-  diagnoses?: Array<unknown>;
+  diagnoses?: Array<Diagnosis>;
 }
 
 export interface EncounterProvider extends OpenmrsResourceStrict {
@@ -215,10 +238,22 @@ export interface EncounterRole extends OpenmrsResourceStrict {
 export interface WardMetrics {
   patients: string;
   freeBeds: string;
-  capacity: string;
+  totalBeds: string;
+  femalesOfReproductiveAge?: string; // used in Maternal Ward View
+  newborns?: string; // used in Maternal Ward View
+}
+
+export enum WardMetricType {
+  PATIENTS = 'patients',
+  FREE_BEDS = 'freeBeds',
+  TOTAL_BEDS = 'totalBeds',
+  PENDING_OUT = 'pendingOut',
+  FEMALES_OF_REPRODUCTIVE_AGE = 'femalesOfReproductiveAge',
+  NEWBORNS = 'newborns',
 }
 
 export interface EncounterPayload {
+  uuid?: string;
   encounterDatetime?: string;
   encounterType: string;
   patient: string;
@@ -226,20 +261,23 @@ export interface EncounterPayload {
   encounterProviders?: Array<{ encounterRole: string; provider: string }>;
   obs: Array<ObsPayload>;
   form?: string;
-  orders?: Array<unknown>;
+  orders?: Array<Order>;
   visit?: string;
 }
 
 export interface ObsPayload {
   concept: Concept | string;
-  value?: string | OpenmrsResource;
+  value?: string | number | boolean | OpenmrsResource;
   groupMembers?: Array<ObsPayload>;
 }
 
 export type WardPatientGroupDetails = ReturnType<typeof useWardPatientGrouping>;
 export interface WardViewContext {
   wardPatientGroupDetails: WardPatientGroupDetails;
-  WardPatientHeader: WardPatientCardType;
+  WardPatientHeader: React.ComponentType<WardPatientCardProps>;
+  [key: string]: unknown;
+  [key: number]: unknown;
+  [key: symbol]: unknown;
 }
 
 export interface PatientAndAdmission {
@@ -255,6 +293,22 @@ export interface MotherChildRelationships {
 
 export interface MaternalWardViewContext {
   motherChildRelationships: MotherChildRelationships;
+  [key: string]: unknown;
+  [key: number]: unknown;
+  [key: symbol]: unknown;
 }
 
-export type PatientWorkspaceAdditionalProps = Omit<WardPatientWorkspaceProps, keyof DefaultWorkspaceProps>;
+// Carbon Tag color types
+export type CarbonTagType =
+  | 'red'
+  | 'magenta'
+  | 'purple'
+  | 'blue'
+  | 'cyan'
+  | 'teal'
+  | 'green'
+  | 'gray'
+  | 'cool-gray'
+  | 'warm-gray'
+  | 'high-contrast'
+  | 'outline';

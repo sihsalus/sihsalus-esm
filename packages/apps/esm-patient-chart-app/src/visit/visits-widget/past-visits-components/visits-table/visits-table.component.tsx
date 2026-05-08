@@ -85,7 +85,9 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
     });
   }, []);
 
-  const encounterTypes = [...new Set(visits.map((encounter) => encounter.encounterType))].sort();
+  const encounterTypes = [...new Set(visits.map((encounter) => encounter.encounterType))].sort((a, b) =>
+    a.localeCompare(b),
+  );
 
   const [filter, setFilter] = useState('');
 

@@ -3,13 +3,14 @@ import camelCase from 'lodash-es/camelCase';
 import escapeRegExp from 'lodash-es/escapeRegExp';
 import find from 'lodash-es/find';
 import React from 'react';
-
+import { type RegistrationConfig } from './config-schema';
 import { cacheForOfflineHeaders, moduleName } from './constants';
 import type {
   AddressTemplate,
   FetchedPatientIdentifierType,
   PatientIdentifierType,
 } from './patient-registration/patient-registration.types';
+import { getEffectiveRegistrationConfig } from './patient-registration/peru-registration-config';
 
 export interface Resources {
   addressTemplate: AddressTemplate;
@@ -36,7 +37,7 @@ export async function fetchAllRelationshipTypes() {
 }
 
 export async function fetchAllFieldDefinitionTypes() {
-  const config = await getConfig(moduleName);
+  const config = getEffectiveRegistrationConfig((await getConfig(moduleName)) as RegistrationConfig);
 
   if (!config.fieldDefinitions) {
     return;
@@ -57,17 +58,16 @@ export async function fetchAllFieldDefinitionTypes() {
 }
 
 async function fetchFieldDefinitionType(fieldDefinition) {
-  let apiUrl = '';
-
   if (fieldDefinition.type === 'person attribute') {
-    apiUrl = `${restBaseUrl}/personattributetype/${fieldDefinition.uuid}`;
+    const { data } = await cacheAndFetch(`${restBaseUrl}/personattributetype/${fieldDefinition.uuid}`);
+    return data;
   }
 
   if (fieldDefinition.answerConceptSetUuid) {
     await cacheAndFetch(`${restBaseUrl}/concept/${fieldDefinition.answerConceptSetUuid}`);
   }
-  const { data } = await cacheAndFetch(apiUrl);
-  return data;
+
+  return null;
 }
 
 export async function fetchPatientIdentifierTypesWithSources(): Promise<Array<PatientIdentifierType>> {
@@ -109,15 +109,12 @@ async function fetchPatientIdentifierTypes(): Promise<Array<FetchedPatientIdenti
     const patientIdentifierTypes = patientIdentifierTypesResponse?.data?.results;
 
     const primaryIdentifierTypeUuid = primaryIdentifierTypeResponse?.data?.results?.[0]?.metadataUuid;
+    const primaryIdentifierType = patientIdentifierTypes?.find((type) => type.uuid === primaryIdentifierTypeUuid);
 
-    const identifierTypes = primaryIdentifierTypeResponse?.ok
-      ? [
-          mapPatientIdentifierType(
-            patientIdentifierTypes?.find((type) => type.uuid === primaryIdentifierTypeUuid),
-            true,
-          ),
-        ]
-      : [];
+    const identifierTypes =
+      primaryIdentifierTypeResponse?.ok && primaryIdentifierType
+        ? [mapPatientIdentifierType(primaryIdentifierType, true)]
+        : [];
 
     patientIdentifierTypes.forEach((type) => {
       if (type.uuid !== primaryIdentifierTypeUuid) {

@@ -1,7 +1,7 @@
 import { Button } from '@carbon/react';
 import { Add, Close } from '@carbon/react/icons';
 import { ExtensionSlot, interpolateUrl, navigate, showSnackbar, useConfig, useSession } from '@openmrs/esm-framework';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import FormWorkflowContext from '../../context/FormWorkflowContext';
@@ -11,7 +11,7 @@ import styles from './styles.scss';
 
 const PatientSearchHeader = () => {
   const [patientLocationMismatchModalOpen, setPatientLocationMismatchModalOpen] = useState(false);
-  const [selectedPatientUuid, setSelectedPatientUuid] = useState<string | undefined>(undefined);
+  const [selectedPatientUuid, setSelectedPatientUuid] = useState();
   const { hsuIdentifier } = useHsuIdIdentifier(selectedPatientUuid);
   const { sessionLocation } = useSession();
   const config = useConfig();

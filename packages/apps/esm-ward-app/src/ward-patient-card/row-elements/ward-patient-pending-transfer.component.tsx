@@ -1,10 +1,9 @@
 import { IconButton } from '@carbon/react';
 import { Movement } from '@carbon/react/icons';
-import { CloseOutlineIcon, launchWorkspace } from '@openmrs/esm-framework';
+import { CloseOutlineIcon, launchWorkspace2 } from '@openmrs/esm-framework';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { type WardPatient, type WardPatientWorkspaceProps } from '../../types';
+import { type WardPatient } from '../../types';
 import styles from '../ward-patient-card.scss';
 
 export interface WardPatientTransferProps {
@@ -14,7 +13,7 @@ export interface WardPatientTransferProps {
 const WardPatientPendingTransfer: React.FC<WardPatientTransferProps> = ({ wardPatient }) => {
   const { t } = useTranslation();
 
-  const { dispositionType, dispositionLocation } = wardPatient?.inpatientRequest ?? {};
+  const { dispositionType, dispositionLocation } = wardPatient.inpatientRequest ?? {};
   const message = useMemo(() => {
     if (dispositionType === 'TRANSFER') {
       if (dispositionLocation) {
@@ -29,9 +28,14 @@ const WardPatientPendingTransfer: React.FC<WardPatientTransferProps> = ({ wardPa
   }, [dispositionType, dispositionLocation, t]);
 
   const launchCancelAdmissionForm = () => {
-    launchWorkspace<WardPatientWorkspaceProps>('cancel-admission-request-workspace', {
-      wardPatient,
-    });
+    launchWorkspace2(
+      'ward-patient-cancel-admission-request-workspace',
+      {},
+      {},
+      {
+        wardPatient,
+      },
+    );
   };
 
   if (!(dispositionType === 'TRANSFER' || dispositionType === 'DISCHARGE')) return null;

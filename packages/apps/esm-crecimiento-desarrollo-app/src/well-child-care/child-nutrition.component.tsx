@@ -4,6 +4,8 @@ import type { TabConfig } from '@sihsalus/esm-sihsalus-shared';
 import { TabbedDashboard } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 
+const translationNamespace = '@sihsalus/esm-cred-app';
+
 interface ChildNutritionProps {
   patient?: fhir.Patient | null;
   patientUuid?: string | null;
@@ -48,6 +50,7 @@ export const ChildNutrition: React.FC<ChildNutritionProps> = ({
       titleKey="childNutrition"
       tabs={tabs}
       ariaLabelKey="childNutritionTabs"
+      translationNamespace={translationNamespace}
     />
   );
 };

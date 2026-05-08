@@ -1,5 +1,5 @@
-import { Layer } from '@carbon/react';
 import React from 'react';
+import { Layer } from '@carbon/react';
 import styles from './stepper.scss';
 
 export type Step = {

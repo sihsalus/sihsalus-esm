@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type StockOperationDTO } from '../core/api/types/stockOperation/StockOperationDTO';
 import { OperationType, type StockOperationType } from '../core/api/types/stockOperation/StockOperationType';
+import { translateStockOperationType } from '../core/utils/translationUtils';
 import useStockOperationLinks from './stock-operations-forms/hooks/useStockOperationLinks';
-import StockOperationRelatedLink from './stock-operations-forms/stock-operation-related-link.component';
 import styles from './stock-operations-table.scss';
+import StockOperationRelatedLink from './stock-operations-forms/stock-operation-related-link.component';
 
 type Props = {
   stockOperation: StockOperationDTO;
@@ -11,6 +13,7 @@ type Props = {
 };
 
 const StockOperationLinks: React.FC<Props> = ({ stockOperation, stockOperationType }) => {
+  const { t } = useTranslation();
   const requisitionOperationUuid = useMemo(() => {
     if (
       stockOperationType?.operationType === OperationType.REQUISITION_OPERATION_TYPE ||
@@ -29,12 +32,12 @@ const StockOperationLinks: React.FC<Props> = ({ stockOperation, stockOperationTy
       {' '}
       {operationLinks && operationLinks.length > 0 && (
         <div>
-          <h6 className={styles.relatedTransactionHeader}>Related Transactions:</h6>
+          <h6 className={styles.relatedTransactionHeader}>{t('relatedTransactions', 'Related Transactions')}:</h6>
           {operationLinks.map(
             (item) =>
               (stockOperation.uuid === item?.parentUuid || stockOperationType?.uuid === item?.parentUuid) && (
                 <React.Fragment key={item.uuid}>
-                  <span>{item?.childOperationTypeName}</span>
+                  <span>{translateStockOperationType(t, item?.childOperationTypeName)}</span>
                   <span className={item?.childVoided ? 'voided' : ''}>
                     {' '}
                     {item?.childVoided && item?.childOperationNumber}
@@ -47,7 +50,7 @@ const StockOperationLinks: React.FC<Props> = ({ stockOperation, stockOperationTy
                       </span>
                     )}
                   </span>{' '}
-                  <span>[{item?.childStatus}]</span>
+                  <span>[{t(item?.childStatus, item?.childStatus)}]</span>
                 </React.Fragment>
               ),
           )}
@@ -56,7 +59,7 @@ const StockOperationLinks: React.FC<Props> = ({ stockOperation, stockOperationTy
             (item) =>
               (stockOperation.uuid === item?.childUuid || stockOperationType.uuid === item?.childUuid) && (
                 <React.Fragment key={item.uuid}>
-                  <span>{item?.parentOperationTypeName}</span>
+                  <span>{translateStockOperationType(t, item?.parentOperationTypeName)}</span>
                   <span className={item?.parentVoided ? 'voided' : ''}>
                     {' '}
                     {item?.parentVoided && item?.parentOperationNumber}
@@ -69,7 +72,7 @@ const StockOperationLinks: React.FC<Props> = ({ stockOperation, stockOperationTy
                       </span>
                     )}
                   </span>{' '}
-                  <span>[{item?.parentStatus}]</span>
+                  <span>[{t(item?.parentStatus, item?.parentStatus)}]</span>
                 </React.Fragment>
               ),
           )}

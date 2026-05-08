@@ -15,8 +15,6 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ExtensionSlot, OpenmrsDatePicker, useConfig, useLayoutType, useSession } from '@openmrs/esm-framework';
 import {
-  type DefaultPatientWorkspaceProps,
-  launchPatientWorkspace,
   type OrderBasketItem,
   type OrderUrgency,
   priorityOptions,
@@ -24,7 +22,7 @@ import {
   useOrderType,
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, type ControllerRenderProps, type FieldErrors, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -34,22 +32,18 @@ import { ordersEqual, prepOrderPostData } from '../resources';
 
 import styles from './general-order-form.scss';
 
-export interface OrderFormProps extends DefaultPatientWorkspaceProps {
+export interface OrderFormProps {
   initialOrder: OrderBasketItem;
   orderTypeUuid: string;
   orderableConceptSets: Array<string>;
+  promptBeforeClosing: (callback: () => boolean) => void;
+  returnToOrderBasket: (discardUnsavedChanges?: boolean) => void;
 }
 
 // Designs:
 //   https://app.zeplin.io/project/60d5947dd636aebbd63dce4c/screen/640b06c440ee3f7af8747620
 //   https://app.zeplin.io/project/60d5947dd636aebbd63dce4c/screen/640b06d286e0aa7b0316db4a
-export function OrderForm({
-  initialOrder,
-  closeWorkspace,
-  closeWorkspaceWithSavedChanges,
-  promptBeforeClosing,
-  orderTypeUuid,
-}: OrderFormProps) {
+export function OrderForm({ initialOrder, promptBeforeClosing, orderTypeUuid, returnToOrderBasket }: OrderFormProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const session = useSession();
@@ -122,21 +116,15 @@ export function OrderForm({
 
       setOrders(newOrders);
 
-      closeWorkspaceWithSavedChanges({
-        onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-        closeWorkspaceGroup: false,
-      });
+      returnToOrderBasket(true);
     },
-    [orders, setOrders, session?.currentProvider?.uuid, closeWorkspaceWithSavedChanges, initialOrder],
+    [orders, setOrders, session?.currentProvider?.uuid, initialOrder, returnToOrderBasket],
   );
 
   const cancelOrder = useCallback(() => {
     setOrders(orders.filter((order) => order.concept.uuid !== defaultValues.concept.conceptUuid));
-    closeWorkspace({
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-      closeWorkspaceGroup: false,
-    });
-  }, [closeWorkspace, orders, setOrders, defaultValues]);
+    returnToOrderBasket(true);
+  }, [orders, setOrders, defaultValues, returnToOrderBasket]);
 
   const onError = (errors: FieldErrors<OrderBasketItem>) => {
     if (errors) {

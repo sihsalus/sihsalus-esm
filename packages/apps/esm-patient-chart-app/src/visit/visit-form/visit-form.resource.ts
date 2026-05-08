@@ -1,6 +1,14 @@
-import { openmrsFetch, restBaseUrl, useConnectivity, useVisitTypes, type Visit } from '@openmrs/esm-framework';
+import {
+  type FetchResponse,
+  openmrsFetch,
+  restBaseUrl,
+  useConnectivity,
+  useVisitTypes,
+  type Visit,
+} from '@openmrs/esm-framework';
 import { type amPm } from '@openmrs/esm-patient-common-lib';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import useSWR from 'swr';
 
 import { useOfflineVisitType } from '../hooks/useOfflineVisitType';
 
@@ -33,8 +41,40 @@ export interface VisitFormCallbacks {
   onVisitCreatedOrUpdated: (visit: Visit) => Promise<unknown>;
 }
 
+interface PersonAttributeResponse {
+  uuid: string;
+  value:
+    | string
+    | {
+        uuid: string;
+        display: string;
+      };
+  attributeType: {
+    uuid: string;
+    format: 'org.openmrs.Concept' | string;
+  };
+}
+
 export function useVisitFormCallbacks() {
   return useState<Map<string, VisitFormCallbacks>>(new Map());
+}
+
+export function usePersonAttributesForVisitDefaults(patientUuid?: string) {
+  const { data, error, isLoading } = useSWR<FetchResponse<{ results: Array<PersonAttributeResponse> }>, Error>(
+    patientUuid
+      ? `${restBaseUrl}/person/${patientUuid}/attribute?v=custom:(uuid,attributeType:(uuid,format),value)`
+      : null,
+    openmrsFetch,
+  );
+
+  return useMemo(
+    () => ({
+      attributes: data?.data?.results ?? [],
+      error,
+      isLoading,
+    }),
+    [data?.data?.results, error, isLoading],
+  );
 }
 
 export function createVisitAttribute(visitUuid: string, attributeType: string, value: string) {

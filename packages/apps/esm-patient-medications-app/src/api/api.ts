@@ -1,21 +1,24 @@
 import { type FetchResponse, openmrsFetch, restBaseUrl, useConfig } from '@openmrs/esm-framework';
-import type { DrugOrderPost, PatientOrderFetchResponse } from '@openmrs/esm-patient-common-lib';
+import {
+  careSettingUuid,
+  type DrugOrderBasketItem,
+  type DrugOrderPost,
+  type Order,
+  type OrderAction,
+  type PatientOrderFetchResponse,
+} from '@openmrs/esm-patient-common-lib';
 import { useCallback, useMemo } from 'react';
-import useSWR, { mutate } from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import useSWRImmutable from 'swr/immutable';
-
 import { type ConfigObject } from '../config-schema';
-import { type DrugOrderBasketItem } from '../types';
-
-export const careSettingUuid = '6f0c9a92-6f24-11e3-af88-005056821db0';
 
 const customRepresentation =
   'custom:(uuid,dosingType,orderNumber,accessionNumber,' +
   'patient:ref,action,careSetting:ref,previousOrder:ref,dateActivated,scheduledDate,dateStopped,autoExpireDate,' +
-  'orderType:ref,encounter:ref,orderer:(uuid,display,person:(display)),orderReason,orderReasonNonCoded,orderType,urgency,instructions,' +
-  'commentToFulfiller,drug:(uuid,display,strength,dosageForm:(display,uuid),concept),dose,doseUnits:ref,' +
+  'orderType:ref,encounter:(uuid,display,visit),orderer:(uuid,display,person:(display)),orderReason,orderReasonNonCoded,orderType,urgency,instructions,' +
+  'commentToFulfiller,fulfillerStatus,drug:(uuid,display,strength,dosageForm:(display,uuid),concept),dose,doseUnits:ref,' +
   'frequency:ref,asNeeded,asNeededCondition,quantity,quantityUnits:ref,numRefills,dosingInstructions,' +
-  'duration,durationUnits:ref,route:ref,brandName,dispenseAsWritten)';
+  'duration,durationUnits:ref,route:ref,brandName,dispenseAsWritten,concept)';
 
 /**
  * Sorts orders by date activated in descending order.
@@ -23,11 +26,10 @@ const customRepresentation =
  * @param orders The orders to sort.
  * @returns The sorted orders.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function sortOrdersByDateActivated(orders: any[]) {
-  return orders
-    ?.slice()
-    .sort((order1, order2) => new Date(order2.dateActivated).getTime() - new Date(order1.dateActivated).getTime());
+function sortOrdersByDateActivated(orders: Order[]) {
+  return orders?.sort(
+    (order1, order2) => new Date(order2.dateActivated).getTime() - new Date(order1.dateActivated).getTime(),
+  );
 }
 
 /**
@@ -37,6 +39,7 @@ function sortOrdersByDateActivated(orders: any[]) {
  */
 export function usePatientOrders(patientUuid: string) {
   const { drugOrderTypeUUID } = useConfig<ConfigObject>();
+  const { mutate } = useSWRConfig();
 
   const ordersUrl = `${restBaseUrl}/order?patient=${patientUuid}&careSetting=${careSettingUuid}&orderTypes=${drugOrderTypeUUID}&v=${customRepresentation}&excludeDiscontinueOrders=true`;
 
@@ -46,8 +49,13 @@ export function usePatientOrders(patientUuid: string) {
   );
 
   const mutateOrders = useCallback(
-    () => mutate((key) => typeof key === 'string' && key.startsWith(`${restBaseUrl}/order?patient=${patientUuid}`)),
-    [patientUuid],
+    () =>
+      mutate(
+        (key) => typeof key === 'string' && key.startsWith(`${restBaseUrl}/order?patient=${patientUuid}`),
+        undefined,
+        { revalidate: true },
+      ),
+    [mutate, patientUuid],
   );
 
   const drugOrders = useMemo(() => sortOrdersByDateActivated(data?.data?.results) ?? null, [data]);
@@ -68,6 +76,8 @@ export function usePatientOrders(patientUuid: string) {
  */
 export function useActivePatientOrders(patientUuid: string) {
   const { drugOrderTypeUUID } = useConfig<ConfigObject>();
+  const { mutate } = useSWRConfig();
+
   const ordersUrl = useMemo(
     () =>
       patientUuid
@@ -120,18 +130,52 @@ export function usePastPatientOrders(patientUuid: string) {
   };
 }
 
-export function prepMedicationOrderPostData(
+/**
+ * Converts a DrugOrderBasketItem into an Order POST payload
+ */
+export const prepMedicationOrderPostData = (
   order: DrugOrderBasketItem,
   patientUuid: string,
   encounterUuid: string | null,
-): DrugOrderPost {
-  if (order.action === 'NEW' || order.action === 'RENEW') {
+  orderingProviderUuid?: string,
+): DrugOrderPost => {
+  const orderer = orderingProviderUuid ?? order.orderer;
+
+  if (order.action === 'NEW') {
     return {
       action: 'NEW',
       patient: patientUuid,
       type: 'drugorder',
-      careSetting: order.careSetting,
-      orderer: order.orderer,
+      careSetting: careSettingUuid,
+      orderer,
+      encounter: encounterUuid,
+      drug: order.drug.uuid,
+      dose: order.dosage,
+      doseUnits: order.unit?.valueCoded,
+      route: order.route?.valueCoded,
+      frequency: order.frequency?.valueCoded,
+      asNeeded: order.asNeeded,
+      asNeededCondition: order.asNeededCondition,
+      numRefills: order.numRefills,
+      quantity: order.pillsDispensed,
+      quantityUnits: order.quantityUnits?.valueCoded,
+      duration: order.duration,
+      durationUnits: order.durationUnit?.valueCoded,
+      dosingType: order.isFreeTextDosage
+        ? 'org.openmrs.FreeTextDosingInstructions'
+        : 'org.openmrs.SimpleDosingInstructions',
+      dosingInstructions: order.isFreeTextDosage ? order.freeTextDosage : order.patientInstructions,
+      concept: order.drug.concept.uuid,
+      orderReasonNonCoded: order.indication,
+    };
+  } else if (order.action === 'RENEW') {
+    return {
+      action: 'NEW',
+      previousOrder: order.previousOrder,
+      patient: patientUuid,
+      type: 'drugorder',
+      careSetting: careSettingUuid,
+      orderer,
       encounter: encounterUuid,
       drug: order.drug.uuid,
       dose: order.dosage,
@@ -158,8 +202,8 @@ export function prepMedicationOrderPostData(
       patient: patientUuid,
       type: 'drugorder',
       previousOrder: order.previousOrder,
-      careSetting: order.careSetting,
-      orderer: order.orderer,
+      careSetting: careSettingUuid,
+      orderer,
       encounter: encounterUuid,
       drug: order.drug.uuid,
       dose: order.dosage,
@@ -186,9 +230,9 @@ export function prepMedicationOrderPostData(
       type: 'drugorder',
       previousOrder: order.previousOrder,
       patient: patientUuid,
-      careSetting: order.careSetting,
+      careSetting: careSettingUuid,
       encounter: encounterUuid,
-      orderer: order.orderer,
+      orderer,
       concept: order.drug.concept.uuid,
       drug: order.drug.uuid,
       orderReasonNonCoded: null,
@@ -196,6 +240,70 @@ export function prepMedicationOrderPostData(
   } else {
     throw new Error(`Unknown order action ${order.action}. This is a development error.`);
   }
+};
+
+/**
+ * The inverse of prepMedicationOrderPostData - converts an Order into a DrugOrderBasketItem
+ * See also the same function defined in esm-patient-orders-app/src/utils/index.ts
+ */
+export function buildMedicationOrder(order: Order, action: OrderAction): DrugOrderBasketItem {
+  if (!order.drug) {
+    throw new Error('Drug order is missing drug information.');
+  }
+
+  return {
+    uuid: order.uuid,
+    display: order.drug.display,
+    previousOrder: action !== 'NEW' ? order.uuid : null,
+    action: action,
+    drug: order.drug,
+    dosage: order.dose ?? null,
+    unit: order.doseUnits
+      ? {
+          value: order.doseUnits.display,
+          valueCoded: order.doseUnits.uuid,
+        }
+      : null,
+    frequency: order.frequency
+      ? {
+          valueCoded: order.frequency.uuid,
+          value: order.frequency.display,
+          // Not available from the Order resource; auto-calc requires the user to re-select a frequency
+          frequencyPerDay: null,
+        }
+      : null,
+    route: order.route
+      ? {
+          valueCoded: order.route.uuid,
+          value: order.route.display,
+        }
+      : null,
+    commonMedicationName: order.drug.display,
+    isFreeTextDosage: order.dosingType === 'org.openmrs.FreeTextDosingInstructions',
+    freeTextDosage: order.dosingType === 'org.openmrs.FreeTextDosingInstructions' ? order.dosingInstructions : '',
+    patientInstructions: order.dosingType !== 'org.openmrs.FreeTextDosingInstructions' ? order.dosingInstructions : '',
+    asNeeded: order.asNeeded,
+    asNeededCondition: order.asNeededCondition ?? null,
+    startDate: action === 'DISCONTINUE' ? order.dateActivated : new Date(),
+    duration: order.duration,
+    durationUnit: order.durationUnits
+      ? {
+          valueCoded: order.durationUnits.uuid,
+          value: order.durationUnits.display,
+        }
+      : null,
+    pillsDispensed: order.quantity,
+    numRefills: order.numRefills,
+    indication: order.orderReasonNonCoded,
+    quantityUnits: order.quantityUnits
+      ? {
+          value: order.quantityUnits.display,
+          valueCoded: order.quantityUnits.uuid,
+        }
+      : null,
+    encounterUuid: order.encounter?.uuid,
+    visit: order.encounter.visit,
+  };
 }
 
 /**

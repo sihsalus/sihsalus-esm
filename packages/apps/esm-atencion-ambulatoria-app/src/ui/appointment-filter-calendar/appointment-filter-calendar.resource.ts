@@ -1,7 +1,7 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 
-import type { PatientAppointment } from '../../types';
+import type { Appointment, PatientAppointment } from '../../types';
 
 type AppointmentFilters = {
   startDate: string;
@@ -9,15 +9,27 @@ type AppointmentFilters = {
 };
 
 export const useAppointmentsByPatient = (patientUuid: string, filters: AppointmentFilters) => {
-  const { data, error, isLoading, isValidating } = useSWR<{ data: { results: Array<PatientAppointment> } }>(
-    `${restBaseUrl}/appointments/search?patient=${patientUuid}&startDate=${filters.startDate}`, //Modify with the correct path
-    openmrsFetch,
+  const { data, error, isLoading, isValidating } = useSWR<{ data: Array<Appointment> }, Error>(
+    patientUuid ? [`${restBaseUrl}/appointments/search`, patientUuid, filters.startDate] : null,
+    ([url]) =>
+      openmrsFetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: {
+          patientUuid,
+          startDate: filters.startDate,
+        },
+      }),
   );
 
-  const fetchedAppointments = data?.data.results ?? [];
+  const sourceAppointments = (data?.data ?? [])
+    .filter((appointment) => appointment.status !== 'Cancelled')
+    .map(mapAppointmentForCalendar);
   const appointments = filters.serviceType
-    ? fetchedAppointments.filter((appointment) => appointment.serviceType === filters.serviceType)
-    : fetchedAppointments;
+    ? sourceAppointments.filter((appointment) => appointment.serviceType === filters.serviceType)
+    : sourceAppointments;
 
   return {
     appointments,
@@ -26,3 +38,12 @@ export const useAppointmentsByPatient = (patientUuid: string, filters: Appointme
     isValidating,
   };
 };
+
+function mapAppointmentForCalendar(appointment: Appointment): PatientAppointment {
+  return {
+    ...appointment,
+    appointmentDate: String(appointment.startDateTime),
+    appointmentId: appointment.uuid,
+    serviceType: appointment.service?.name ?? '',
+  };
+}

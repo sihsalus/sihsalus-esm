@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    branches: [main, pre-release]
     tags: ['v*']
 
 concurrency:
@@ -15,19 +15,27 @@ jobs:
     permissions:
       contents: write
       packages: write
+      security-events: write
+    env:
+      HAS_DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v6
+      # Only needed for `changeset publish` on tag builds
+      - name: Setup Node
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
       - name: Enable Corepack
+        if: startsWith(github.ref, 'refs/tags/v')
         run: corepack enable
 
       - name: Install dependencies
+        if: startsWith(github.ref, 'refs/tags/v')
         run: HUSKY=0 yarn install --immutable
 
       - uses: docker/setup-buildx-action@v4
@@ -41,23 +49,49 @@ jobs:
       - uses: docker/metadata-action@v6
         id: meta
         with:
-          images: ghcr.io/sihsalus/sihsalus-esm
+          images: ghcr.io/sihsalus/sihsalus-frontend
           tags: |
-            type=sha,prefix=sha-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-,format=long
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=next,enable=${{ github.ref == 'refs/heads/pre-release' }}
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
       - uses: docker/build-push-action@v7
         with:
           context: .
-          target: init
+          target: secure-init
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          cache-from: type=gha,scope=release-amd64
+          cache-to: type=gha,scope=release-amd64,mode=max
+
+      - name: Scan published image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ghcr.io/sihsalus/sihsalus-frontend:sha-${{ github.sha }}
+          format: sarif
+          output: trivy-release-results.sarif
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          vuln-type: os,library
+
+      - name: Upload Trivy scan
+        uses: github/codeql-action/upload-sarif@v4
+        if: always()
+        with:
+          sarif_file: trivy-release-results.sarif
+
+      - name: Notify sihsalus deployment
+        if: github.ref == 'refs/heads/main' && env.HAS_DEPLOY_TOKEN == 'true'
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          repository: sihsalus/sihsalus
+          event-type: frontend-published
+          client-payload: '{"image":"ghcr.io/sihsalus/sihsalus-frontend:latest","sha":"${{ github.sha }}"}'
 
       - name: Create Release (on tags)
         if: startsWith(github.ref, 'refs/tags/v')

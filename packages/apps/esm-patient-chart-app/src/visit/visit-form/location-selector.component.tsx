@@ -10,7 +10,7 @@ import {
 import classNames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import React, { useEffect, useState } from 'react';
-import { type Control, Controller } from 'react-hook-form';
+import { type Control, Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { type ChartConfig } from '../../config-schema';
@@ -27,6 +27,9 @@ interface LocationSelectorProps {
 const LocationSelector: React.FC<LocationSelectorProps> = ({ control }) => {
   const { t } = useTranslation();
   const config = useConfig<ChartConfig>();
+  const {
+    formState: { errors },
+  } = useFormContext<VisitFormData>();
   const [searchTerm, setSearchTerm] = useState('');
   const sessionLocation = useSession().sessionLocation;
   const isEmrApiModuleInstalled = useFeatureFlag('emrapi-module');
@@ -65,6 +68,7 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({ control }) => {
               <ComboBox
                 aria-label={t('selectLocation', 'Select a location')}
                 id="location"
+                invalid={!!errors.visitLocation?.uuid}
                 invalidText={t('required', 'Required')}
                 items={locationsToShow}
                 itemToString={(location: Location) => location?.display}

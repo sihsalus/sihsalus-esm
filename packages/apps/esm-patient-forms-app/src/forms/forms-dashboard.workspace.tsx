@@ -14,7 +14,11 @@ import styles from './forms-dashboard-workspace.scss';
 
 void React;
 
-type Workspace2FormsWorkspaceProps = PatientWorkspace2DefinitionProps<object, object>;
+interface FormsWorkspaceWindowProps {
+  formEntryWorkspaceName?: string;
+}
+
+type Workspace2FormsWorkspaceProps = PatientWorkspace2DefinitionProps<object, FormsWorkspaceWindowProps>;
 type LegacyFormsWorkspaceProps = DefaultPatientWorkspaceProps;
 type FormsWorkspaceProps = Workspace2FormsWorkspaceProps | LegacyFormsWorkspaceProps;
 
@@ -31,6 +35,9 @@ export default function FormsWorkspace(props: FormsWorkspaceProps) {
   const { currentVisit } = useVisitOrOfflineVisit(patientUuid);
   const resolvedPatient = patientFromStore ?? patient;
   const resolvedVisitContext = visitContextFromStore ?? currentVisit;
+  const formEntryWorkspaceName = isWorkspace2Props(props)
+    ? (props.windowProps?.formEntryWorkspaceName ?? 'patient-form-entry-workspace-v2')
+    : 'patient-form-entry-workspace';
 
   const content = (
     <div className={styles.container}>
@@ -41,10 +48,13 @@ export default function FormsWorkspace(props: FormsWorkspaceProps) {
           visitContext={resolvedVisitContext}
           handleFormOpen={(form: Form, encounterUuid?: string, handlePostResponse?: () => void) => {
             if (isWorkspace2Props(props)) {
-              void props.launchChildWorkspace('patient-form-entry-workspace-v2', {
+              void props.launchChildWorkspace(formEntryWorkspaceName, {
                 form,
                 encounterUuid,
                 handlePostResponse,
+                additionalProps: {
+                  openClinicalFormsWorkspaceOnFormClose: false,
+                },
               });
             } else {
               launchPatientWorkspace('patient-form-entry-workspace', {

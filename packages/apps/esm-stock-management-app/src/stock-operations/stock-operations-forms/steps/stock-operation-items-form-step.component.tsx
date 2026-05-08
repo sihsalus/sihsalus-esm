@@ -1,3 +1,5 @@
+import React, { useCallback, useId, useMemo } from 'react';
+import { ArrowLeft, ArrowRight, Edit, TrashCan } from '@carbon/react/icons';
 import {
   Button,
   DataTable,
@@ -9,14 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { ArrowLeft, ArrowRight, Edit, TrashCan } from '@carbon/react/icons';
-import { showSnackbar } from '@openmrs/esm-framework';
-import React, { useId, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { showSnackbar } from '@openmrs/esm-framework';
 import { type StockOperationDTO } from '../../../core/api/types/stockOperation/StockOperationDTO';
 import { type StockOperationType } from '../../../core/api/types/stockOperation/StockOperationType';
-import { type CustomTableHeader } from '../../../core/components/table/types';
 import { getStockOperationUniqueId } from '../../stock-operation.utils';
 import { type BaseStockOperationItemFormData, type StockOperationItemDtoSchema } from '../../validation-schema';
 import useOperationTypePermisions from '../hooks/useOperationTypePermisions';
@@ -26,6 +25,7 @@ import StockAvailability from './stock-availability-cell.component';
 import StockOperationItemBatchNoCell from './stock-operation-item-batch-no-cell.component';
 import StockOperationItemCell from './stock-operation-item-cell.component';
 import StockoperationItemExpiryCell from './stock-operation-item-expiry-cell.component';
+import { type CustomTableHeader } from '../../../core/components/table/types';
 import styles from './stock-operation-items-form-step.scc.scss';
 
 type StockOperationItemsFormStepProps = {
@@ -48,6 +48,14 @@ const StockOperationItemsFormStep: React.FC<StockOperationItemsFormStepProps> = 
 
   const form = useFormContext<StockOperationItemDtoSchema>();
   const observableOperationItems = form.watch('stockOperationItems');
+  const sourceUuid = form.watch('sourceUuid');
+
+  const handleDeleteStockOperationItem = useCallback(
+    (item: BaseStockOperationItemFormData) => {
+      form.setValue('stockOperationItems', observableOperationItems.filter((i) => i.uuid !== item.uuid) as any);
+    },
+    [form, observableOperationItems],
+  );
   const headers = useMemo(() => {
     return [
       {
@@ -69,15 +77,7 @@ const StockOperationItemsFormStep: React.FC<StockOperationItemsFormStepProps> = 
             },
           ]
         : []),
-      ...(operationTypePermision.requiresActualBatchInfo
-        ? [
-            {
-              key: 'expiry',
-              header: t('expiry', 'Expiry'),
-            },
-          ]
-        : []),
-      ...(operationTypePermision.requiresBatchUuid
+      ...(operationTypePermision.requiresActualBatchInfo || operationTypePermision.requiresBatchUuid
         ? [
             {
               key: 'expiry',
@@ -122,7 +122,7 @@ const StockOperationItemsFormStep: React.FC<StockOperationItemsFormStepProps> = 
       return {
         id: uuid || `${uniqueId}-${index}`,
         item: stockItemUuid ? <StockOperationItemCell stockItemUuid={stockItemUuid} /> : '--',
-        itemDetails: stockItemUuid ? <StockAvailability stockItemUuid={stockItemUuid} /> : '--',
+        itemDetails: stockItemUuid ? <StockAvailability partyUuid={sourceUuid} stockItemUuid={stockItemUuid} /> : '--',
         batch: (
           <StockOperationItemBatchNoCell
             operation={stockOperationType}
@@ -167,14 +167,22 @@ const StockOperationItemsFormStep: React.FC<StockOperationItemsFormStepProps> = 
               kind="ghost"
               renderIcon={TrashCan}
               onClick={() => {
-                onLaunchItemsForm?.(item);
+                handleDeleteStockOperationItem(item);
               }}
             />
           </>
         ),
       };
     });
-  }, [observableOperationItems, onLaunchItemsForm, stockOperationType, t, uniqueId]);
+  }, [
+    observableOperationItems,
+    onLaunchItemsForm,
+    handleDeleteStockOperationItem,
+    sourceUuid,
+    stockOperationType,
+    t,
+    uniqueId,
+  ]);
 
   const handleNext = async () => {
     const valid = await form.trigger(['stockOperationItems']);
@@ -183,11 +191,11 @@ const StockOperationItemsFormStep: React.FC<StockOperationItemsFormStepProps> = 
     } else {
       showSnackbar({
         kind: 'error',
-        title: 'Validation error',
+        title: t('error', 'Error'),
         subtitle:
           observableOperationItems && observableOperationItems.length > 0
-            ? 'You must update batch infomation for items'
-            : 'You must add atleast one item',
+            ? t('mustUpdateBatchInfo', 'You must update batch information for items')
+            : t('mustAddAtLeastOneItem', 'You must add at least one item'),
       });
     }
   };

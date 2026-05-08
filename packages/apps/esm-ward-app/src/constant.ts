@@ -1,1 +1,1 @@
-export const moduleName = '@sihsalus/esm-ward-app';
+export const moduleName = '@openmrs/esm-ward-app';

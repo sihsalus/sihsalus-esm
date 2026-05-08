@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ModalBody,
   ModalHeader,
@@ -12,14 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 interface IssuingStockModalProps {
-  issuingStock: Array<{
-    status?: string;
-    sourceName?: string;
-    destinationName?: string;
-    stockItemName?: string;
-    stockItemPackagingUOMName?: string;
-    quantity?: number | string;
-  }>;
+  issuingStock: any[];
   closeModal: () => void;
 }
 
@@ -27,12 +21,12 @@ const IssuingStockModal = ({ issuingStock, closeModal }: IssuingStockModalProps)
   const { t } = useTranslation();
 
   const headers = [
-    { key: 'status', header: 'Status' },
-    { key: 'sourceName', header: 'Source' },
-    { key: 'destinationName', header: 'Destination' },
-    { key: 'stockItemName', header: 'Stock Item' },
-    { key: 'stockItemPackagingUOMName', header: 'Unit' },
-    { key: 'quantity', header: 'Quantity' },
+    { key: 'status', header: t('status', 'Status') },
+    { key: 'sourceName', header: t('source', 'Source') },
+    { key: 'destinationName', header: t('destination', 'Destination') },
+    { key: 'stockItemName', header: t('stockItem', 'Stock Item') },
+    { key: 'stockItemPackagingUOMName', header: t('unit', 'Unit') },
+    { key: 'quantity', header: t('quantity', 'Quantity') },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
 import { ExtensionSlot, useSession } from '@openmrs/esm-framework';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuid } from 'uuid';
 import CancelModal from '../CancelModal';

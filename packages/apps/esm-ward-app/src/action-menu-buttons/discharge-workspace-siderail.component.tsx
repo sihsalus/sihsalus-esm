@@ -1,19 +1,24 @@
 import { Exit } from '@carbon/react/icons';
-import { ActionMenuButton, launchWorkspace } from '@openmrs/esm-framework';
+import { ActionMenuButton2, useConfig, useSession } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
+import { type DischargeWorkspaceSiderailConfig } from './discharge-workspace-siderail-config-schema';
 
 export default function PatientDischargeSideRailIcon() {
   const { t } = useTranslation();
-  const handler = () => {
-    launchWorkspace('patient-discharge-workspace');
-  };
+  const { sessionLocation } = useSession();
+  const { allowedSessionLocationUuids } = useConfig<DischargeWorkspaceSiderailConfig>();
+
+  if (allowedSessionLocationUuids.length > 0 && !allowedSessionLocationUuids.includes(sessionLocation?.uuid)) {
+    return null;
+  }
+
   return (
-    <ActionMenuButton
-      getIcon={(props) => <Exit {...props} />}
+    <ActionMenuButton2
+      icon={(props) => <Exit {...props} />}
       label={t('discharge', 'Discharge')}
-      iconDescription={t('discharge', 'Discharge')}
-      handler={handler}
-      type="ward-patient-discharge"
+      workspaceToLaunch={{
+        workspaceName: 'patient-discharge-workspace',
+      }}
     />
   );
 }

@@ -121,7 +121,7 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
               labelText={t('selectQueueLocation', 'Select a queue location')}
               id="queueLocation"
               name="queueLocation"
-              invalidText="Required"
+              invalidText={t('required', 'Required')}
               value={selectedQueueLocation}
               onChange={(event) => setSelectedQueueLocation(event.target.value)}
             >
@@ -156,7 +156,7 @@ const QueueFields: React.FC<QueueFieldsProps> = ({ setOnSubmit }) => {
             labelText={t('selectService', 'Select a service')}
             id="service"
             name="service"
-            invalidText="Required"
+            invalidText={t('required', 'Required')}
             value={selectedService}
             onChange={(event) => setSelectedService(event.target.value)}
           >

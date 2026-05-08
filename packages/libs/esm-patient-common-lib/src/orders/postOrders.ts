@@ -92,7 +92,7 @@ export async function postOrders(encounterUuid: string, abortController: AbortCo
   return erroredItems;
 }
 
-function postOrder(body: OrderPost, abortController?: AbortController) {
+export function postOrder(body: OrderPost, abortController?: AbortController) {
   return openmrsFetch(`${restBaseUrl}/order`, {
     method: 'POST',
     signal: abortController?.signal,

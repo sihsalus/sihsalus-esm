@@ -1,3 +1,5 @@
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -19,17 +21,16 @@ import {
 } from '@carbon/react';
 import { ArrowDownLeft, ArrowLeft } from '@carbon/react/icons';
 import { isDesktop, restBaseUrl, useSession } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { URL_USER_ROLE_SCOPE } from '../constants';
-import { ResourceRepresentation } from '../core/api/api';
 import { formatDisplayDate } from '../core/utils/datetimeUtils';
+import { translateStockLocation, translateStockOperationType } from '../core/utils/translationUtils';
 import { handleMutate } from '../utils';
+import { ResourceRepresentation } from '../core/api/api';
+import { URL_USER_ROLE_SCOPE } from '../constants';
 import AddStockUserRoleScopeActionButton from './add-stock-user-role-scope-button.component';
-import StockUserScopeDeleteActionMenu from './delete-stock-user-scope/delete-stock-user-scope.component';
 import EditStockUserRoleActionsMenu from './edit-stock-user-scope/edit-stock-user-scope-action-menu.component';
-import styles from './stock-user-role-scopes.scss';
+import StockUserScopeDeleteActionMenu from './delete-stock-user-scope/delete-stock-user-scope.component';
 import useStockUserRoleScopesPage from './stock-user-role-scopes-items-table.resource';
+import styles from './stock-user-role-scopes.scss';
 
 function StockUserRoleScopesItems() {
   const { t } = useTranslation();
@@ -120,7 +121,7 @@ function StockUserRoleScopesItems() {
           const key = `loc-${userRoleScope?.uuid}-${location.locationUuid}`;
           return (
             <span key={key}>
-              {location?.locationName}
+              {translateStockLocation(t, location?.locationName)}
               {location?.enableDescendants ? (
                 <ArrowDownLeft className={styles.arrowIcon} key={`${key}-${index}-0`} size={12} />
               ) : (
@@ -131,7 +132,7 @@ function StockUserRoleScopesItems() {
         }),
         stockOperations: userRoleScope?.operationTypes
           ?.map((operation) => {
-            return operation?.operationTypeName;
+            return translateStockOperationType(t, operation?.operationTypeName);
           })
           ?.join(', '),
         permanent: userRoleScope?.permanent ? t('yes', 'Yes') : t('no', 'No'),

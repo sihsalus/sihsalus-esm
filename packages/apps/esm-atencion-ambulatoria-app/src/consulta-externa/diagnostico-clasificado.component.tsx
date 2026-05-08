@@ -18,6 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { useDiagnosisHistory } from '../hooks/useDiagnosisHistory';
+import { patientFormEntryWorkspace } from '../utils/constants';
 
 import styles from './consulta-externa-dashboard.scss';
 
@@ -66,7 +67,7 @@ const DiagnosticoClasificado: React.FC<DiagnosticoClasificadoProps> = ({ patient
   }));
 
   const handleLaunchForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       formInfo: {
         formUuid: config.formsList?.consultaExternaForm,
       },

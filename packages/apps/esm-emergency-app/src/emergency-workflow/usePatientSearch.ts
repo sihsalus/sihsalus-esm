@@ -160,7 +160,7 @@ const patientSearchCustomRepresentation = `custom:(${patientProperties.join(',')
 /**
  * Hook for searching patients with infinite scroll capability
  *
- * @param searchQuery - The search term (name, ID, or DNI)
+ * @param searchQuery - The search term (name, HCE, or identity document)
  * @param includeDead - Whether to include deceased patients
  * @param isSearching - Whether search is active
  * @param resultsToFetch - Number of results per page

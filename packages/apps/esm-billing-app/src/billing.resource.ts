@@ -3,6 +3,7 @@ import {
   openmrsFetch,
   parseDate,
   type SessionLocation,
+  useConfig,
   useOpenmrsFetchAll,
   useOpenmrsPagination,
   useSession,
@@ -10,6 +11,7 @@ import {
 } from '@openmrs/esm-framework';
 import sortBy from 'lodash-es/sortBy';
 import useSWR from 'swr';
+import type { BillingConfig } from './config-schema';
 import { apiBasePath } from './constants';
 import type {
   BillableItem,
@@ -136,14 +138,18 @@ export function useDefaultFacility(): { data: SessionLocation | null } {
 }
 
 export const usePatientPaymentInfo = (patientUuid: string) => {
+  const { patientCategory } = useConfig<BillingConfig>();
   const { currentVisit } = useVisit(patientUuid);
   const attributes = currentVisit?.attributes ?? [];
+  const paymentAttributeTypeUuids = new Set([patientCategory.insuranceScheme, patientCategory.policyNumber]);
+
   const paymentInformation = attributes
     .map((attribute) => ({
       name: attribute.attributeType.name,
+      uuid: attribute.attributeType.uuid,
       value: attribute.value,
     }))
-    .filter(({ name }) => name === 'Insurance scheme' || name === 'Policy Number');
+    .filter(({ uuid }) => paymentAttributeTypeUuids.has(uuid));
 
   return paymentInformation;
 };

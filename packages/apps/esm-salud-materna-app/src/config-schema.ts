@@ -130,8 +130,8 @@ export const configSchema = {
 
       // Assessment Forms
       riskInterview0to30: '(Página 19) PRIMERA ENTREVISTA EN BUSCA DE FACTORES DE RIESGO (0 - 30 meses)',
-      childFeeding0to5: '(Página 20) Evaluación de la alimentación del niño_niña (0 - 5 meses)',
-      childFeeding6to42: '(Página 20) Evaluación de la alimentación del niño_niña (6 - 42 meses)',
+      childFeeding0to5: '(Página 20) Evaluación de la alimentación del niño/niña (0 - 5 meses)',
+      childFeeding6to42: '(Página 20) Evaluación de la alimentación del niño/niña (6 - 42 meses)',
       childAbuseScreening: '(Página 37) Ficha de Tamizaje Violencia y maltrato infantil',
 
       // Clinical Forms
@@ -161,7 +161,7 @@ export const configSchema = {
       birthSummary: 'HOSP-007-RESUMEN DE PARTO-POSTPARTO',
       puerperiumEpicrisis: '(Página 12) Puerperio - Epicrisis',
       puerperiumDischarge: '(Página 14) Puerperio - Informe de Alta',
-      clinicalHistory: 'HOSP-003-HISTORIA CLÍNICA OBSTÉTRICA-PARTO',
+      clinicalHistory: 'HOSP-003-HISTORIA CLÍNICA OBSTÉTRICA - PARTO',
 
       // CRED Seguimiento Forms
       anemiaScreeningForm: 'CRED-001-TAMIZAJE DE ANEMIA',

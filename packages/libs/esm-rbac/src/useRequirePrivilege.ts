@@ -1,27 +1,41 @@
-import { userHasAccess, useSession } from '@openmrs/esm-framework';
+import { Privilege } from "@openmrs/esm-framework";
 
 export type UseRequirePrivilegeResult =
   | { status: 'authorized' }
-  | { status: 'unauthorized'; missingPrivilege: string | string[] }
+  | { status: 'unauthorized'; missingPrivilege: string[] }
   | { status: 'unauthenticated' };
 
-export function useRequirePrivilege(privilege: string | string[], requireAll = true): UseRequirePrivilegeResult {
-  const session = useSession();
+export type UserPrivilege = {
+  uuid: string;
+  display: string;
+  name: string;
+  resourceVersion: string;
+};
 
-  if (!session?.authenticated || !session.user) {
-    return { status: 'unauthenticated' };
+export function checkRequirePrivilege(
+  privileges: Privilege[],
+  privilegesRequired: string[] | undefined,
+  requireAll = true,
+): UseRequirePrivilegeResult {
+  if (!privilegesRequired || privilegesRequired.length === 0) {
+    return { status: 'authorized' };
   }
 
-  const privileges = Array.isArray(privilege) ? privilege : [privilege];
-  const user = session.user;
-
-  const hasAccess = requireAll
-    ? privileges.every((p) => userHasAccess(p, user))
-    : privileges.some((p) => userHasAccess(p, user));
+  const privilegeNames = privileges.map((p) => p.name);
+  const missing = privilegesRequired.filter((p) => !privilegeNames.includes(p));
+  const hasAccess = requireAll ? missing.length === 0 : missing.length < privilegesRequired.length;
 
   if (hasAccess) {
     return { status: 'authorized' };
   }
 
-  return { status: 'unauthorized', missingPrivilege: privilege };
+  return { status: 'unauthorized', missingPrivilege: missing };
+}
+
+export function useRequirePrivilege(
+  privileges: Privilege[],
+  privilegesRequired: string[] | undefined,
+  requireAll = true,
+): UseRequirePrivilegeResult {
+  return checkRequirePrivilege(privileges, privilegesRequired, requireAll);
 }

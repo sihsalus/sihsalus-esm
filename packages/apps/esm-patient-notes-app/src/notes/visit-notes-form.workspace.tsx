@@ -364,7 +364,7 @@ const VisitNotesForm: React.FC<PatientWorkspace2DefinitionProps<VisitNotesFormPr
 
         setValue('images', currentImages ? [...currentImages, file] : [file]);
         close();
-        return Promise.resolve();
+        return;
       },
       closeModal: () => {
         close();
@@ -499,7 +499,7 @@ const VisitNotesForm: React.FC<PatientWorkspace2DefinitionProps<VisitNotesFormPr
               }),
             );
           } else {
-            return Promise.resolve([]);
+            return [];
           }
         })
         .then(() => {

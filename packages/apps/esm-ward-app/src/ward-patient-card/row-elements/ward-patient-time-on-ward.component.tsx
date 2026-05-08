@@ -1,8 +1,8 @@
+import { type Encounter } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { type Encounter } from '../../types';
 
 dayjs.extend(duration);
 
@@ -14,6 +14,7 @@ const WardPatientTimeOnWard: React.FC<WardPatientTimeOnWardProps> = ({
   encounterAssigningToCurrentInpatientLocation,
 }) => {
   const { t } = useTranslation();
+
   if (!encounterAssigningToCurrentInpatientLocation?.encounterDatetime) {
     return null;
   }
@@ -23,6 +24,7 @@ const WardPatientTimeOnWard: React.FC<WardPatientTimeOnWardProps> = ({
   const hours = dur.hours();
   const minutes = dur.minutes();
   const seconds = dur.seconds();
+
   const parts = [];
 
   if (days > 0) {
@@ -34,7 +36,6 @@ const WardPatientTimeOnWard: React.FC<WardPatientTimeOnWardProps> = ({
       }),
     );
   }
-
   if (hours > 0) {
     parts.push(
       t('hours', {
@@ -44,7 +45,6 @@ const WardPatientTimeOnWard: React.FC<WardPatientTimeOnWardProps> = ({
       }),
     );
   }
-
   if (minutes > 0) {
     parts.push(
       t('minutes', {
@@ -54,7 +54,6 @@ const WardPatientTimeOnWard: React.FC<WardPatientTimeOnWardProps> = ({
       }),
     );
   }
-
   if (seconds > 0 && parts.length === 0) {
     parts.push(
       t('seconds', {

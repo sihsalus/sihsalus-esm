@@ -29,7 +29,7 @@ export abstract class FormProcessor {
     _context: Partial<FormProcessorContextProps>,
     _setContext: React.Dispatch<React.SetStateAction<FormProcessorContextProps>>,
   ): Promise<Record<string, unknown>> {
-    return Promise.resolve({});
+    return {};
   }
 
   abstract getHistoricalValue(field: FormField, context: FormContextProps): Promise<ValueAndDisplay>;

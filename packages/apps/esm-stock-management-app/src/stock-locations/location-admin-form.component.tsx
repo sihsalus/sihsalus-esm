@@ -1,3 +1,7 @@
+import React, { useState } from 'react';
+import { z } from 'zod';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   ComposedModal,
@@ -10,12 +14,8 @@ import {
   Stack,
   TextInput,
 } from '@carbon/react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { getCoreTranslation } from '@openmrs/esm-framework';
-import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 import { type locationData } from '../stock-items/types';
 import { useLocationTags } from './stock-locations-table.resource';
 import styles from './stock-locations-table.scss';

@@ -1,10 +1,12 @@
 import { Button, ButtonSet, Form, InlineNotification, Select, SelectItem, TextArea } from '@carbon/react';
-import { OpenmrsDatePicker, showSnackbar, useLayoutType } from '@openmrs/esm-framework';
+import { OpenmrsDatePicker, showSnackbar, useConfig, useLayoutType, useSession } from '@openmrs/esm-framework';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import type { ConfigObject } from '../../../config-schema';
 import type { DefaultPatientWorkspaceProps } from '../../../types';
 
+import { saveAdverseReaction } from './adverse-reaction.resource';
 import styles from './adverse-reaction-form.scss';
 
 interface AdverseReaction {
@@ -26,9 +28,17 @@ const VACCINE_OPTIONS = [
   'Varicela',
 ];
 
-const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspace }) => {
+const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({
+  closeWorkspace,
+  patientUuid: patientUuidProp,
+  workspaceProps,
+}) => {
   const { t } = useTranslation();
+  const config = useConfig<ConfigObject>();
+  const session = useSession();
   const isTablet = useLayoutType() === 'tablet';
+  const patientUuid = patientUuidProp ?? workspaceProps?.patientUuid;
+  const locationUuid = session?.sessionLocation?.uuid;
   const [formData, setFormData] = useState<AdverseReaction>({
     vaccineName: '',
     reactionDescription: '',
@@ -36,6 +46,7 @@ const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ 
     occurrenceDate: null,
   });
   const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = useCallback((field: keyof AdverseReaction, value: string | boolean | Date | null) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -59,14 +70,33 @@ const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ 
       setError(t('dateRequired', 'Debe seleccionar la fecha de ocurrencia'));
       return false;
     }
+    if (!patientUuid || !locationUuid) {
+      setError(t('missingPatientOrLocation', 'No se pudo resolver el paciente o la ubicación de sesión'));
+      return false;
+    }
     return true;
-  }, [formData, t]);
+  }, [formData, locationUuid, patientUuid, t]);
 
   const handleSubmit = useCallback(
-    (event: React.FormEvent) => {
+    async (event: React.FormEvent) => {
       event.preventDefault();
-      if (validateForm()) {
-        // TODO: Save to backend via REST API
+
+      if (!validateForm()) {
+        return;
+      }
+
+      setIsSubmitting(true);
+      try {
+        await saveAdverseReaction({
+          patientUuid,
+          locationUuid,
+          vaccineName: formData.vaccineName,
+          reactionDescription: formData.reactionDescription,
+          severity: formData.severity as Exclude<AdverseReaction['severity'], ''>,
+          occurrenceDate: formData.occurrenceDate,
+          config,
+        });
+
         showSnackbar({
           kind: 'success',
           title: t('reactionSaved', 'Reacción registrada'),
@@ -74,9 +104,18 @@ const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ 
           isLowContrast: true,
         });
         closeWorkspace({ discardUnsavedChanges: true });
+      } catch (error) {
+        showSnackbar({
+          kind: 'error',
+          title: t('reactionSaveError', 'Error al registrar reacción'),
+          subtitle: (error as Error)?.message ?? t('unexpectedError', 'Ocurrió un error inesperado'),
+          isLowContrast: false,
+        });
+      } finally {
+        setIsSubmitting(false);
       }
     },
-    [closeWorkspace, validateForm, t],
+    [closeWorkspace, config, formData, locationUuid, patientUuid, validateForm, t],
   );
 
   return (
@@ -143,7 +182,7 @@ const AdverseReactionFormWorkspace: React.FC<DefaultPatientWorkspaceProps> = ({ 
         <Button kind="secondary" onClick={() => closeWorkspace()}>
           {t('cancel', 'Cancel')}
         </Button>
-        <Button kind="primary" type="submit">
+        <Button kind="primary" type="submit" disabled={isSubmitting}>
           {t('registerReaction', 'Registrar Reacción')}
         </Button>
       </ButtonSet>

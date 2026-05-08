@@ -1,9 +1,10 @@
 import { Button, SkeletonText } from '@carbon/react';
 import { ArrowRight, TrashCan } from '@carbon/react/icons';
 import { isDesktop, UserHasAccess, useConfig, useLayoutType } from '@openmrs/esm-framework';
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { type RegistrationConfig } from '../../../config-schema';
+import { moduleName } from '../../../constants';
 import { ResourcesContext } from '../../../offline.resources';
 import IdentifierInput from '../../input/custom-input/identifier/identifier-input.component';
 import type {
@@ -13,8 +14,8 @@ import type {
   PatientIdentifierValue,
 } from '../../patient-registration.types';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+import { getEffectiveRegistrationConfig } from '../../peru-registration-config';
 import styles from '../field.scss';
-
 import IdentifierSelectionOverlay from './identifier-selection-overlay.component';
 
 export function setIdentifierSource(
@@ -64,20 +65,16 @@ export const Identifiers: React.FC = () => {
   const { identifierTypes } = useContext(ResourcesContext);
   const isLoading = !identifierTypes?.length;
   const { values, setFieldValue, initialFormValues, isOffline } = useContext(PatientRegistrationContext);
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const layout = useLayoutType();
   const [showIdentifierOverlay, setShowIdentifierOverlay] = useState(false);
-  const config = useConfig();
+  const config = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   const { defaultPatientIdentifierTypes } = config;
-
-  // Usamos una referencia para rastrear si ya agregamos el DNI inicialmente
-  const initialDniAdded = useRef(false);
 
   useEffect(() => {
     if (identifierTypes) {
       const identifiers = {};
 
-      // Agregamos los identificadores predeterminados según las reglas existentes
       identifierTypes
         .filter(
           (type) =>
@@ -94,34 +91,6 @@ export const Identifiers: React.FC = () => {
             values.identifiers[type.uuid] ?? initialFormValues.identifiers[type.uuid] ?? {},
           );
         });
-
-      // Solo agregamos el DNI en la inicialización inicial
-      if (!initialDniAdded.current) {
-        // Agregamos el identificador DNI por defecto
-        if (!values.identifiers['dni']) {
-          const dniIdentifierType = identifierTypes.find(
-            (type) => type.name === 'DNI' || type.uuid === '550e8400-e29b-41d4-a716-446655440001',
-          );
-
-          if (dniIdentifierType) {
-            identifiers['dni'] = initializeIdentifier(dniIdentifierType, {});
-          } else {
-            identifiers['dni'] = {
-              identifierTypeUuid: '550e8400-e29b-41d4-a716-446655440001',
-              identifierName: 'DNI',
-              preferred: false,
-              initialValue: '',
-              required: true,
-              identifierValue: '',
-              autoGeneration: false,
-              selectedSource: null,
-            };
-          }
-        }
-
-        // Marcamos que ya hemos agregado el DNI inicialmente
-        initialDniAdded.current = true;
-      }
 
       if (Object.keys(identifiers).length) {
         setFieldValue('identifiers', {

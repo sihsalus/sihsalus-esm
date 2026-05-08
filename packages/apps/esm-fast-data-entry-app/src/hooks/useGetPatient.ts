@@ -5,14 +5,23 @@ const useGetPatient = (patientUuid) => {
   const [patient, setPatient] = useState(null);
 
   useEffect(() => {
-    if (!patientUuid) {
-      setPatient(null);
-    } else {
-      getPatient(patientUuid);
+    let cancelled = false;
+    setPatient(null);
+
+    if (patientUuid) {
+      fetchCurrentPatient(patientUuid).then((result) => {
+        if (!cancelled) {
+          setPatient(result);
+        }
+      });
     }
+
+    return () => {
+      cancelled = true;
+    };
   }, [patientUuid]);
 
-  const getPatient = async (uuid) => {
+  const _getPatient = async (uuid) => {
     const result = await fetchCurrentPatient(uuid);
     setPatient(result);
   };

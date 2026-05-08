@@ -139,7 +139,7 @@ export const configSchema = {
       },
       {
         id: 'physiotherapy-clinic',
-        title: 'Terapia Fisica',
+        title: 'Terapia Física',
         formUuid: 'fdada8da-75fe-44c6-93e1-782d41e5565b',
         encounterTypeUuid: '465a92f2-baf8-42e9-9612-53064be868e8',
       },

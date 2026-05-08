@@ -6,9 +6,11 @@ import { showSnackbar } from '@openmrs/esm-framework';
 import { act } from '@testing-library/react';
 import * as api from '../../api';
 
+const mockT = (_key: string, defaultValue: string) => defaultValue;
+
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string, defaultValue: string) => defaultValue,
+    t: mockT,
   }),
 }));
 

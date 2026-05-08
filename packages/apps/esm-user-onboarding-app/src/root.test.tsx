@@ -98,7 +98,7 @@ describe('RootComponent', () => {
       });
     });
 
-    expect(getByTestId('joyride').getAttribute('data-step-index')).toBe('1');
+    expect(getByTestId('joyride').dataset.stepIndex).toBe('1');
   });
 
   it('decrements the step index on STEP_AFTER with PREV action', () => {
@@ -130,7 +130,7 @@ describe('RootComponent', () => {
       });
     });
 
-    expect(getByTestId('joyride').getAttribute('data-step-index')).toBe('0');
+    expect(getByTestId('joyride').dataset.stepIndex).toBe('0');
   });
 
   it('resets the step index and hides the tutorial on TOUR_END', () => {
@@ -160,8 +160,8 @@ describe('RootComponent', () => {
       });
     });
 
-    expect(getByTestId('joyride').getAttribute('data-step-index')).toBe('0');
-    expect(getByTestId('joyride').getAttribute('data-run')).toBe('false');
+    expect(getByTestId('joyride').dataset.stepIndex).toBe('0');
+    expect(getByTestId('joyride').dataset.run).toBe('false');
   });
 
   it('polls for the target element on TOUR_START', () => {

@@ -1,5 +1,5 @@
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import React from 'react';
 import styles from './workspace2-close-prompt.module.scss';
 

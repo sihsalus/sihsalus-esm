@@ -1,17 +1,20 @@
-import { getPatientName, launchWorkspaceGroup } from '@openmrs/esm-framework';
-import { getPatientChartStore } from '@openmrs/esm-patient-common-lib';
+import { getPatientName, launchWorkspace2 } from '@openmrs/esm-framework';
 import React, { type ReactNode } from 'react';
-
 import { type WardPatient } from '../types';
-
 import styles from './ward-patient-card.scss';
 
 interface Props {
   children: ReactNode;
   wardPatient: WardPatient;
+
+  /**
+   * Related patients that are in the same bed as wardPatient. On transfer or bed swap
+   * these related patients have the option to be transferred / swapped together
+   */
+  relatedTransferPatients?: WardPatient[];
 }
 
-const WardPatientCard: React.FC<Props> = ({ children, wardPatient }) => {
+const WardPatientCard: React.FC<Props> = ({ children, wardPatient, relatedTransferPatients }) => {
   const { patient } = wardPatient;
 
   return (
@@ -21,31 +24,17 @@ const WardPatientCard: React.FC<Props> = ({ children, wardPatient }) => {
         type="button"
         className={styles.wardPatientCardButton}
         onClick={() => {
-          launchWorkspaceGroup('ward-patient', {
-            state: {
+          launchWorkspace2(
+            'ward-patient-workspace',
+            {},
+            {},
+            {
               wardPatient,
-              patient,
-              patientUuid: patient.uuid,
+              relatedTransferPatients,
             },
-            onWorkspaceGroupLaunch: () => {
-              const store = getPatientChartStore();
-              store.setState({
-                patientUuid: patient.uuid,
-              });
-            },
-            workspaceToLaunch: {
-              name: 'ward-patient-workspace',
-            },
-            workspaceGroupCleanup: () => {
-              const store = getPatientChartStore();
-              store.setState({
-                patientUuid: undefined,
-              });
-            },
-          });
+          );
         }}
       >
-        {/* Name will not be displayed; just there for a11y */}
         {getPatientName(patient.person)}
       </button>
     </div>

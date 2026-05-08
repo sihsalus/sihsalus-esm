@@ -436,7 +436,7 @@ describe('Updating an existing patient record', () => {
         deathTime: undefined,
         deathTimeFormat: 'AM',
         familyName: mockPatient.name.split(' ')[1],
-        familyName2: '',
+        familyName2: 'Materno',
         gender: 'male',
         givenName: mockPatient.name.split(' ')[0],
         identifiers: {
@@ -519,7 +519,7 @@ describe('Updating an existing patient record', () => {
         deathTime: undefined,
         deathTimeFormat: 'AM',
         familyName: 'Wilson',
-        familyName2: '',
+        familyName2: 'Materno',
         gender: 'male',
         givenName: 'John',
         identifiers: {
@@ -557,7 +557,7 @@ describe('Updating an existing patient record', () => {
       expect.anything(),
       expect.anything(),
       null,
-      undefined,
+      '',
       expect.anything(),
       expect.anything(),
       expect.anything(),

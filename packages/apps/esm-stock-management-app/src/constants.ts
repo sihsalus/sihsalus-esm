@@ -87,9 +87,9 @@ export const INVENTORY_ADMINISTRATOR_ROLE_UUID = '2083fd40-3391-11ed-a667-507b9d
 
 export const STOCK_OPERATION_PRINT_DISABLE_BALANCE_ON_HAND = true;
 export const STOCK_OPERATION_PRINT_DISABLE_COSTS = true;
-export const HEALTH_CENTER_NAME = 'SANTA CLOTILE';
+export const HEALTH_CENTER_NAME = 'Health Center';
 export const PRINT_LOGO = 'moduleResources/stockmanagement/assets/print-logo.svg';
-export const PRINT_LOGO_TEXT = 'MINSA ';
+export const PRINT_LOGO_TEXT = 'Ministry of Health';
 
 export const MAIN_STORE_LOCATION_TAG = 'Main Store';
 export const BASE_OPENMRS_APP_URL = '/openmrs/';
@@ -165,7 +165,10 @@ export const URL_BATCH_JOB_ARTIFACT = (uuid: string, download: boolean): string 
 export function extractErrorMessagesFromResponse(errorObject) {
   const fieldErrors = errorObject?.responseBody?.error?.fieldErrors;
   if (!fieldErrors) {
-    return [errorObject?.responseBody?.error?.message ?? errorObject?.message];
+    const message = errorObject?.responseBody?.error?.message ?? errorObject?.message;
+    return [typeof message === 'string' ? message : JSON.stringify(message ?? errorObject)];
   }
-  return Object.values(fieldErrors).flatMap((errors: Array<Error>) => errors.map((error) => error.message));
+  return Object.values(fieldErrors).flatMap((errors: Array<Error>) =>
+    errors.map((error) => (typeof error.message === 'string' ? error.message : JSON.stringify(error.message))),
+  );
 }

@@ -4,6 +4,8 @@ import type { TabConfig } from '@sihsalus/esm-sihsalus-shared';
 import { TabbedDashboard } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 
+const translationNamespace = '@sihsalus/esm-cred-app';
+
 export interface ChildImmunizationProps {
   patient?: fhir.Patient | null;
   patientUuid?: string | null;
@@ -43,6 +45,7 @@ export const ChildImmunizationSchedule: React.FC<ChildImmunizationProps> = ({
       titleKey="childImmunizationSchedule"
       tabs={tabs}
       ariaLabelKey="immunizationTabs"
+      translationNamespace={translationNamespace}
     />
   );
 };

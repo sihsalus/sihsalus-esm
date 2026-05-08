@@ -1,93 +1,12 @@
-import { receiptOperationTypeMock, returnOperationTypeMock, stockIssueOperationtypeMock } from '@mocks';
-import { useConfig, useSession } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { useConfig, useSession } from '@openmrs/esm-framework';
+import { receiptOperationTypeMock, returnOperationTypeMock, stockIssueOperationtypeMock } from '@mocks';
 import { useStockOperations } from '../stock-operations.resource';
+import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
 import useParties from './hooks/useParties';
 import StockOperationForm from './stock-operation-form.component';
-
-jest.mock('./steps/base-operation-details-form-step', () => ({
-  __esModule: true,
-  default: ({ onNext }: { onNext?: () => void }) => (
-    <button type="button" onClick={onNext}>
-      Next
-    </button>
-  ),
-}));
-
-jest.mock('./steps/stock-operation-items-form-step.component', () => ({
-  __esModule: true,
-  default: ({ onNext, onPrevious }: { onNext?: () => void; onPrevious?: () => void }) => (
-    <div>
-      <button type="button" onClick={onNext}>
-        Next
-      </button>
-      <button type="button" data-testid="previous-btn" onClick={onPrevious}>
-        Previous
-      </button>
-    </div>
-  ),
-}));
-
-jest.mock('./steps/stock-operation-submission-form-step.component', () => {
-  const React = require('react');
-
-  return {
-    __esModule: true,
-    default: ({
-      onPrevious,
-      stockOperationType,
-    }: {
-      onPrevious?: () => void;
-      stockOperationType: { operationType?: string };
-    }) => {
-      const [approvalRequired, setApprovalRequired] = React.useState(null as boolean | null);
-      const requiresDispatchAcknowledgement = stockOperationType?.operationType !== 'receipt';
-
-      return (
-        <div>
-          <label>
-            <input
-              type="radio"
-              name="approval-required"
-              value="yes"
-              aria-label="Yes"
-              onClick={() => setApprovalRequired(true)}
-            />
-            Yes
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="approval-required"
-              value="no"
-              aria-label="No"
-              onClick={() => setApprovalRequired(false)}
-            />
-            No
-          </label>
-          <button type="button">Save</button>
-          {approvalRequired === true && <button type="button">Submit For Review</button>}
-          {approvalRequired === false && !requiresDispatchAcknowledgement && (
-            <button type="button" data-testid="complete-button">
-              Complete
-            </button>
-          )}
-          {approvalRequired === false && requiresDispatchAcknowledgement && (
-            <button type="button" data-testid="dipatch-button">
-              Dispatch
-            </button>
-          )}
-          <button type="button" data-testid="previous-btn" onClick={onPrevious}>
-            Previous
-          </button>
-        </div>
-      );
-    },
-  };
-});
 
 const mockUseParties = jest.mocked(useParties);
 const mockUseStockOperationTypes = jest.mocked(useStockOperationTypes);

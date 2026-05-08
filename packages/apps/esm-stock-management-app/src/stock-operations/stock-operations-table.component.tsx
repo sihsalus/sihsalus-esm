@@ -1,3 +1,4 @@
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -24,18 +25,18 @@ import {
   Tile,
 } from '@carbon/react';
 import { ArrowRight } from '@carbon/react/icons';
-import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
-import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
 import { DATE_PICKER_CONTROL_FORMAT, DATE_PICKER_FORMAT, StockFilters } from '../constants';
-import { ResourceRepresentation } from '../core/api/api';
 import { formatDisplayDate } from '../core/utils/datetimeUtils';
+import { translateStockLocation, translateStockOperationType } from '../core/utils/translationUtils';
 import { handleMutate } from '../utils';
-import StockOperationExpandedRow from './add-stock-operation/stock-operations-expanded-row/stock-operation-expanded-row.component';
+import { ResourceRepresentation } from '../core/api/api';
+import { useStockOperationPages } from './stock-operations-table.resource';
 import EditStockOperationActionMenu from './edit-stock-operation/edit-stock-operation-action-menu.component';
 import StockOperationTypesSelector from './stock-operation-types-selector/stock-operation-types-selector.component';
 import StockOperationsFilters from './stock-operations-filters.component';
-import { useStockOperationPages } from './stock-operations-table.resource';
+import StockOperationExpandedRow from './add-stock-operation/stock-operations-expanded-row/stock-operation-expanded-row.component';
 import styles from './stock-operations-table.scss';
 
 interface StockOperationsTableProps {
@@ -109,7 +110,7 @@ const StockOperations: React.FC<StockOperationsTableProps> = () => {
           ...stockOperation,
           id: stockOperation?.uuid,
           key: `key-${stockOperation?.uuid}`,
-          operationTypeName: `${stockOperation?.operationTypeName}`,
+          operationTypeName: translateStockOperationType(t, stockOperation?.operationTypeName),
           operationNumber: (
             <EditStockOperationActionMenu stockOperation={stockOperation} showIcon={false} showprops={true} />
           ),
@@ -117,18 +118,18 @@ const StockOperations: React.FC<StockOperationsTableProps> = () => {
             commonNames,
             more: itemCountGreaterThanThreshhold ? stockOperation?.stockOperationItems?.length - threshHold : 0,
           },
-          status: `${stockOperation?.status}`,
-          source: `${stockOperation?.sourceName ?? ''}`,
-          destination: `${stockOperation?.destinationName ?? ''}`,
+          status: t(stockOperation?.status, stockOperation?.status),
+          source: translateStockLocation(t, stockOperation?.sourceName),
+          destination: translateStockLocation(t, stockOperation?.destinationName),
           location: (
             <>
-              {stockOperation?.sourceName ?? ''}
+              {translateStockLocation(t, stockOperation?.sourceName)}
               {stockOperation?.sourceName && stockOperation?.destinationName ? (
                 <ArrowRight className={styles.arrowIcon} key={`${index}-0`} size={12} />
               ) : (
                 ''
               )}{' '}
-              {stockOperation?.destinationName ?? ''}
+              {translateStockLocation(t, stockOperation?.destinationName)}
             </>
           ),
           responsiblePerson: `${
@@ -138,7 +139,7 @@ const StockOperations: React.FC<StockOperationsTableProps> = () => {
           actions: <EditStockOperationActionMenu stockOperation={stockOperation} showIcon={true} showprops={false} />,
         };
       }),
-    [items],
+    [items, t],
   );
 
   if (isLoading && !filterApplied) {
@@ -235,7 +236,7 @@ const StockOperations: React.FC<StockOperationsTableProps> = () => {
               <TableBody>
                 {rows?.map((row: any, index) => {
                   const props = getRowProps({ row });
-                  const _expandedRowProps = getExpandedRowProps({ row });
+                  const expandedRowProps = getExpandedRowProps({ row });
                   return (
                     <React.Fragment key={row.id}>
                       <TableExpandRow className={isDesktop ? styles.desktopRow : styles.tabletRow} {...props}>
@@ -245,7 +246,9 @@ const StockOperations: React.FC<StockOperationsTableProps> = () => {
                               <span>
                                 <span>{cell.value.commonNames}</span>
                                 {cell.value.more > 0 && (
-                                  <Link onClick={() => expandRow(row.id)}>{`...(${cell.value.more} more)`}</Link>
+                                  <Link onClick={() => expandRow(row.id)}>
+                                    {t('moreItems', '...({{count}} more)', { count: cell.value.more })}
+                                  </Link>
                                 )}
                               </span>
                             ) : (
@@ -286,7 +289,15 @@ const StockOperations: React.FC<StockOperationsTableProps> = () => {
       </DataTable>
       {items.length > 0 && (
         <Pagination
+          backwardText={t('previousPage', 'Previous page')}
+          forwardText={t('nextPage', 'Next page')}
+          itemRangeText={(min, max, total) =>
+            t('itemRangeText', '{{min}}-{{max}} de {{total}} elementos', { min, max, total })
+          }
+          itemsPerPageText={t('itemsPerPage', 'Elementos por página:')}
           page={currentPage}
+          pageNumberText={t('pageNumber', 'Número de página')}
+          pageRangeText={(_, total) => t('pageRangeText', 'de {{total}} páginas', { total })}
           pageSize={currentPageSize}
           pageSizes={pageSizes}
           totalItems={totalItems}

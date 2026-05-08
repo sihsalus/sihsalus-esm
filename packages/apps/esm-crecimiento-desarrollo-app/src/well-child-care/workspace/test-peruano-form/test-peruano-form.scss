@@ -1,6 +1,6 @@
-@use '@carbon/styles/scss/spacing';
-@use '@carbon/styles/scss/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/styles/scss/spacing";
+@use "@carbon/styles/scss/type";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 // Carbon v11 tokens not exported by esm-styleguide _vars.scss
 $text-primary: #161616;
@@ -23,7 +23,7 @@ $notification-background-info: #edf5ff;
   flex-direction: column;
 
   .title {
-    @include type.type-style('heading-04');
+    @include type.type-style("heading-04");
     color: $text-primary;
     margin-bottom: spacing.$spacing-03;
     border-bottom: 2px solid $brand-teal-01;
@@ -31,7 +31,7 @@ $notification-background-info: #edf5ff;
   }
 
   .subtitle {
-    @include type.type-style('body-01');
+    @include type.type-style("body-01");
     color: $text-secondary;
     margin-bottom: spacing.$spacing-05;
     font-style: italic;
@@ -80,21 +80,21 @@ $notification-background-info: #edf5ff;
         }
 
         h5 {
-          @include type.type-style('heading-compact-01');
+          @include type.type-style("heading-compact-01");
           color: $text-primary;
           margin-bottom: spacing.$spacing-03;
           font-weight: 600;
         }
 
         p {
-          @include type.type-style('body-compact-01');
+          @include type.type-style("body-compact-01");
           color: $text-secondary;
           margin-bottom: spacing.$spacing-02;
           font-weight: 500;
         }
 
         .percentile {
-          @include type.type-style('label-01');
+          @include type.type-style("label-01");
           color: $text-primary;
           font-weight: 600;
           background: $layer-accent-01;
@@ -122,13 +122,13 @@ $notification-background-info: #edf5ff;
       padding: spacing.$spacing-04;
 
       h5 {
-        @include type.type-style('heading-compact-01');
+        @include type.type-style("heading-compact-01");
         color: $text-primary;
         margin-bottom: spacing.$spacing-02;
       }
 
       p {
-        @include type.type-style('body-01');
+        @include type.type-style("body-01");
         color: $text-secondary;
         line-height: 1.5;
       }
@@ -142,7 +142,7 @@ $notification-background-info: #edf5ff;
     border: 1px solid $border-subtle-01;
 
     .areaTitle {
-      @include type.type-style('heading-compact-02');
+      @include type.type-style("heading-compact-02");
       color: $text-primary;
       margin-bottom: spacing.$spacing-04;
       padding-bottom: spacing.$spacing-02;
@@ -151,7 +151,7 @@ $notification-background-info: #edf5ff;
       align-items: center;
 
       &::before {
-        content: '';
+        content: "";
         width: 4px;
         height: 20px;
         background: $brand-teal-01;
@@ -180,7 +180,7 @@ $notification-background-info: #edf5ff;
 
       .itemCheckbox {
         .cds--checkbox-label-text {
-          @include type.type-style('body-01');
+          @include type.type-style("body-01");
           color: $text-primary;
           line-height: 1.4;
           font-weight: 500;
@@ -193,11 +193,10 @@ $notification-background-info: #edf5ff;
       }
 
       .instruction {
-        @include type.type-style('helper-text-01');
+        @include type.type-style("helper-text-01");
         color: $text-secondary;
         font-style: italic;
         margin-top: spacing.$spacing-02;
-        padding-left: spacing.$spacing-06;
         border-left: 2px solid $border-subtle-02;
         background: $layer-02;
         border-radius: 0 4px 4px 0;
@@ -232,7 +231,13 @@ $notification-background-info: #edf5ff;
     }
 
     &.bilingue {
-      background: linear-gradient(90deg, #d4122a 0%, #d4122a 50%, #ff6b0a 50%, #ffa726 100%);
+      background: linear-gradient(
+        90deg,
+        #d4122a 0%,
+        #d4122a 50%,
+        #ff6b0a 50%,
+        #ffa726 100%
+      );
     }
 
     color: white;
@@ -296,32 +301,56 @@ $notification-background-info: #edf5ff;
 .classification {
   &.superior {
     border-color: #8a3ffc;
-    background: linear-gradient(135deg, rgba(138, 63, 252, 0.1) 0%, rgba(138, 63, 252, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(138, 63, 252, 0.1) 0%,
+      rgba(138, 63, 252, 0.05) 100%
+    );
   }
 
   &.normal_alto {
     border-color: #0f62fe;
-    background: linear-gradient(135deg, rgba(15, 98, 254, 0.1) 0%, rgba(15, 98, 254, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(15, 98, 254, 0.1) 0%,
+      rgba(15, 98, 254, 0.05) 100%
+    );
   }
 
   &.normal {
     border-color: #24a148;
-    background: linear-gradient(135deg, rgba(36, 161, 72, 0.1) 0%, rgba(36, 161, 72, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(36, 161, 72, 0.1) 0%,
+      rgba(36, 161, 72, 0.05) 100%
+    );
   }
 
   &.normal_bajo {
     border-color: #f1c21b;
-    background: linear-gradient(135deg, rgba(241, 194, 27, 0.1) 0%, rgba(241, 194, 27, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(241, 194, 27, 0.1) 0%,
+      rgba(241, 194, 27, 0.05) 100%
+    );
   }
 
   &.limite {
     border-color: #ff832b;
-    background: linear-gradient(135deg, rgba(255, 131, 43, 0.1) 0%, rgba(255, 131, 43, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 131, 43, 0.1) 0%,
+      rgba(255, 131, 43, 0.05) 100%
+    );
   }
 
   &.retraso {
     border-color: #da1e28;
-    background: linear-gradient(135deg, rgba(218, 30, 40, 0.1) 0%, rgba(218, 30, 40, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(218, 30, 40, 0.1) 0%,
+      rgba(218, 30, 40, 0.05) 100%
+    );
   }
 }
 
@@ -391,7 +420,13 @@ $notification-background-info: #edf5ff;
     }
 
     &.bilingue {
-      background: linear-gradient(90deg, #ff6b6b 0%, #ff6b6b 50%, #ffa726 50%, #ffcc02 100%);
+      background: linear-gradient(
+        90deg,
+        #ff6b6b 0%,
+        #ff6b6b 50%,
+        #ffa726 50%,
+        #ffcc02 100%
+      );
     }
   }
 }

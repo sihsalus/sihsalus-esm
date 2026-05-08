@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
-
 import { createAndGetWardPatientGrouping } from '../ward-view/ward-view.resource';
-
 import { useAdmissionLocation } from './useAdmissionLocation';
 import { useInpatientAdmission } from './useInpatientAdmission';
 import { useInpatientAdmissionByPatients } from './useInpatientAdmissionByPatients';
@@ -81,11 +79,14 @@ export function useWardPatientGrouping() {
       inpatientAdmissionAtCurrentLocationResponse.isLoading ||
       inpatientRequestResponse.isLoading ||
       inpatientAdmissionsAtOtherLocationsResponse.isLoading,
-    mutate() {
-      admissionLocationResponse?.mutate();
-      inpatientAdmissionAtCurrentLocationResponse?.mutate();
-      inpatientRequestResponse?.mutate();
-      inpatientAdmissionsAtOtherLocationsResponse?.mutate();
+    async mutate() {
+      // Run all mutations in parallel and wait for them to complete
+      await Promise.all([
+        admissionLocationResponse?.mutate?.(),
+        inpatientAdmissionAtCurrentLocationResponse?.mutate?.(),
+        inpatientRequestResponse?.mutate?.(),
+        inpatientAdmissionsAtOtherLocationsResponse?.mutate?.(),
+      ]);
     },
   };
 }

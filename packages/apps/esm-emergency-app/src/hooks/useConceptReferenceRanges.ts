@@ -18,7 +18,7 @@ export interface ConceptReferenceRange {
  * Returns a Record keyed by concept UUID for O(1) lookups.
  */
 export function useConceptReferenceRanges(patientUuid: string, conceptUuids: string[]) {
-  const conceptParam = useMemo(() => [...conceptUuids].sort().join(','), [conceptUuids]);
+  const conceptParam = useMemo(() => [...conceptUuids].sort((a, b) => a.localeCompare(b)).join(','), [conceptUuids]);
 
   const apiUrl =
     patientUuid && conceptParam

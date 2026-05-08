@@ -2,6 +2,7 @@ import { Button } from '@carbon/react';
 import { Add } from '@carbon/react/icons';
 import { launchWorkspace2 } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
+import { formEntryWorkspace } from '../../types';
 
 type ConfiguredFormButtonProps = {
   formUuid: string;
@@ -15,7 +16,7 @@ const ConfiguredFormButton: React.FC<ConfiguredFormButtonProps> = ({ formUuid, l
       return;
     }
 
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formUuid },
       encounterUuid: '',
     });

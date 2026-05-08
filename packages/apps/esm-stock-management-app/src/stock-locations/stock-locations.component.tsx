@@ -1,3 +1,4 @@
+import React from 'react';
 import StockLocationsItems from './stock-locations-table.component';
 
 function StockLocations() {

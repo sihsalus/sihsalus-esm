@@ -9,7 +9,7 @@ import {
 } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import camelCase from 'lodash-es/camelCase';
-import { type Dispatch, useEffect, useMemo, useState } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { v4 } from 'uuid';
 
@@ -41,7 +41,7 @@ interface DeathInfoResults {
   causeOfDeathNonCoded: string | null;
 }
 
-export function useInitialFormValues(patientUuid: string): [FormValues, Dispatch<FormValues>] {
+export function useInitialFormValues(patientUuid: string): [FormValues, Dispatch<SetStateAction<FormValues>>] {
   const { freeTextFieldConceptUuid } = useConfig<RegistrationConfig>();
   const { isLoading: isLoadingPatientToEdit, patient: patientToEdit } = usePatient(patientUuid);
   const { data: deathInfo, isLoading: isLoadingDeathInfo } = useInitialPersonDeathInfo(patientUuid);

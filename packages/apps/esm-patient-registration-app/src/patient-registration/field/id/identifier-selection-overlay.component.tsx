@@ -2,7 +2,8 @@ import { Button, ButtonSet, Checkbox, RadioButton, RadioButtonGroup, Search } fr
 import { isDesktop, useConfig, useLayoutType } from '@openmrs/esm-framework';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { type RegistrationConfig } from '../../../config-schema';
+import { moduleName } from '../../../constants';
 import { ResourcesContext } from '../../../offline.resources';
 import {
   isUniqueIdentifierTypeForOffline,
@@ -10,8 +11,8 @@ import {
 } from '../../input/custom-input/identifier/utils';
 import { type FormValues, type PatientIdentifierType, PatientIdentifierValue } from '../../patient-registration.types';
 import { PatientRegistrationContext } from '../../patient-registration-context';
+import { getEffectiveRegistrationConfig } from '../../peru-registration-config';
 import Overlay from '../../ui-components/overlay/overlay.component';
-
 import { initializeIdentifier, setIdentifierSource } from './id-field.component';
 import styles from './identifier-selection.scss';
 
@@ -26,8 +27,8 @@ const PatientIdentifierOverlay: React.FC<PatientIdentifierOverlayProps> = ({ clo
   const { isOffline, values, initialFormValues } = useContext(PatientRegistrationContext);
   const [unsavedIdentifierTypes, setUnsavedIdentifierTypes] = useState<FormValues['identifiers']>(values.identifiers);
   const [searchString, setSearchString] = useState('');
-  const { t } = useTranslation();
-  const { defaultPatientIdentifierTypes } = useConfig();
+  const { t } = useTranslation(moduleName);
+  const { defaultPatientIdentifierTypes } = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   const defaultPatientIdentifierTypesMap = useMemo(() => {
     const map = {};
     defaultPatientIdentifierTypes?.forEach((typeUuid) => {

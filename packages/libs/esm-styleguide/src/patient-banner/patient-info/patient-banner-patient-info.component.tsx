@@ -1,12 +1,8 @@
 /** @module @category UI */
 
-import {
-  age,
-  ExtensionSlot,
-  formatPartialDate,
-  getCoreTranslation,
-  getPatientName,
-} from '@openmrs/esm-framework/src/internal';
+import { ExtensionSlot } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
+import { age, formatPartialDate, getPatientName } from '@openmrs/esm-utils';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { GenderFemaleIcon, GenderMaleIcon, GenderOtherIcon, GenderUnknownIcon } from '../../icons';
@@ -66,7 +62,6 @@ const getGender = (gender: string) => {
 export function PatientBannerPatientInfo({ patient, renderedFrom }: PatientBannerPatientInfoProps) {
   const name = getPatientName(patient);
   const genderInfo = patient?.gender && getGender(patient.gender);
-  const showExtensionSlots = renderedFrom !== 'patient-search';
 
   const extensionState = useMemo(
     () => ({ patientUuid: patient.id, patient, renderedFrom }),
@@ -86,9 +81,7 @@ export function PatientBannerPatientInfo({ patient, renderedFrom }: PatientBanne
             </div>
           )}
 
-          {showExtensionSlots ? (
-            <ExtensionSlot className={styles.tagsSlot} name="patient-banner-tags-slot" state={extensionState} />
-          ) : null}
+          <ExtensionSlot className={styles.tagsSlot} name="patient-banner-tags-slot" state={extensionState} />
         </div>
       </div>
       <div className={styles.demographics}>
@@ -101,9 +94,7 @@ export function PatientBannerPatientInfo({ patient, renderedFrom }: PatientBanne
           </>
         )}
         <PatientBannerPatientIdentifiers identifiers={patient.identifier} showIdentifierLabel />
-        {showExtensionSlots ? (
-          <ExtensionSlot className={styles.extensionSlot} name="patient-banner-bottom-slot" state={extensionState} />
-        ) : null}
+        <ExtensionSlot className={styles.extensionSlot} name="patient-banner-bottom-slot" state={extensionState} />
       </div>
     </div>
   );

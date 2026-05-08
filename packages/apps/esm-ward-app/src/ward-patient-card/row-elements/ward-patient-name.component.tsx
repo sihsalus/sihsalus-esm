@@ -1,6 +1,5 @@
 import { type Patient } from '@openmrs/esm-framework';
 import React from 'react';
-
 import styles from '../ward-patient-card.scss';
 
 export interface WardPatientNameProps {

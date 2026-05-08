@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { ArrowRightIcon, formatDate, showModal, useLayoutType } from '@openmrs/esm-framework';
+import { ArrowRightIcon, formatDate, parseDate, showModal, useLayoutType } from '@openmrs/esm-framework';
 import { getPatientUuidFromStore, type OBSERVATION_INTERPRETATION } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
 import React, { type ComponentProps, useCallback, useMemo } from 'react';
@@ -137,7 +137,7 @@ const IndividualResultsTable: React.FC<IndividualResultsTableProps> = ({ isLoadi
             <div className={styles.cardTitle}>
               <h4 className={styles.resultType}>{headerTitle}</h4>
               <div className={styles.displayFlex}>
-                <span className={styles.date}>{formatDate(new Date(subRows.date), { mode: 'standard' })}</span>
+                <span className={styles.date}>{formatDate(parseDate(subRows.date), { mode: 'standard' })}</span>
                 <Button
                   className={styles.viewTimeline}
                   iconDescription="view timeline"
@@ -153,9 +153,14 @@ const IndividualResultsTable: React.FC<IndividualResultsTableProps> = ({ isLoadi
             <Table className={styles.table} {...getTableProps()} size={isDesktop ? 'md' : 'sm'}>
               <TableHead>
                 <TableRow>
-                  {headers.map((header) => (
-                    <TableHeader {...getHeaderProps({ header })}>{header.header}</TableHeader>
-                  ))}
+                  {headers.map((header) => {
+                    const { key, ...headerProps } = getHeaderProps({ header });
+                    return (
+                      <TableHeader key={key} {...headerProps}>
+                        {header.header}
+                      </TableHeader>
+                    );
+                  })}
                 </TableRow>
               </TableHead>
               <TableBody>

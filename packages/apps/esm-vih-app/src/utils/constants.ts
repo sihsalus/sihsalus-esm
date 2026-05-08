@@ -38,3 +38,6 @@ export const omrsDateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZZ';
 
 // ── App info ──
 export const moduleName = '@sihsalus/esm-vih-app';
+
+// ── Workspace names ──
+export const patientFormEntryWorkspace = 'patient-form-entry-workspace';

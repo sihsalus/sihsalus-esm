@@ -1,34 +1,33 @@
 import { type FetchResponse, type OpenmrsResource, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { useMemo } from 'react';
 import useSWRImmutable from 'swr/immutable';
-
 import type { DispositionType } from '../types';
 
 interface LocationTag extends OpenmrsResource {
   name: string;
 }
 
-interface EmrApiConfigurationResponse {
-  admissionEncounterType: OpenmrsResource;
-  clinicianEncounterRole: OpenmrsResource;
-  consultFreeTextCommentsConcept: OpenmrsResource;
-  visitNoteEncounterType: OpenmrsResource;
-  inpatientNoteEncounterType: OpenmrsResource;
-  transferRequestEncounterType: OpenmrsResource;
-  transferWithinHospitalEncounterType: OpenmrsResource;
-  exitFromInpatientEncounterType: OpenmrsResource;
-  supportsTransferLocationTag: LocationTag;
-  supportsAdmissionLocationTag: LocationTag;
-  supportsLoginLocationTag: LocationTag;
-  supportsVisitsLocationTag: LocationTag;
-  dispositionDescriptor: {
+export interface EmrApiConfigurationResponse {
+  admissionEncounterType?: OpenmrsResource;
+  clinicianEncounterRole?: OpenmrsResource;
+  consultFreeTextCommentsConcept?: OpenmrsResource;
+  visitNoteEncounterType?: OpenmrsResource;
+  inpatientNoteEncounterType?: OpenmrsResource;
+  transferRequestEncounterType?: OpenmrsResource;
+  transferWithinHospitalEncounterType?: OpenmrsResource;
+  exitFromInpatientEncounterType?: OpenmrsResource;
+  supportsTransferLocationTag?: LocationTag;
+  supportsAdmissionLocationTag?: LocationTag;
+  supportsLoginLocationTag?: LocationTag;
+  supportsVisitsLocationTag?: LocationTag;
+  dispositionDescriptor?: {
     admissionLocationConcept: OpenmrsResource;
     dateOfDeathConcept: OpenmrsResource;
     dispositionConcept: OpenmrsResource;
     internalTransferLocationConcept: OpenmrsResource;
     dispositionSetConcept: OpenmrsResource;
   };
-  dispositions: Array<{
+  dispositions?: Array<{
     encounterTypes: null;
     keepsVisitOpen: null;
     additionalObs: null;
@@ -40,10 +39,10 @@ interface EmrApiConfigurationResponse {
     excludedEncounterTypes: Array<string>;
     uuid: string;
   }>;
-  bedAssignmentEncounterType: OpenmrsResource;
-  cancelADTRequestEncounterType: OpenmrsResource;
-  denyAdmissionConcept: OpenmrsResource;
-  admissionDecisionConcept: OpenmrsResource;
+  bedAssignmentEncounterType?: OpenmrsResource;
+  cancelADTRequestEncounterType?: OpenmrsResource;
+  denyAdmissionConcept?: OpenmrsResource;
+  admissionDecisionConcept?: OpenmrsResource;
   // There are many more keys to this object, but we only need these for now
   // Add more keys as needed
 }

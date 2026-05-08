@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ConfigObject } from '../../../config-schema';
 import { useLatestValidEncounter } from '../../../hooks/useLatestEncounter'; // Ajusta la ruta
+import { formEntryWorkspace } from '../../../types';
 import {
   APGAR_1_MIN_UUID,
   APGAR_5_MIN_UUID,
@@ -63,7 +64,7 @@ const NeonatalAttention: React.FC<ImmediateNewbornAttentionProps> = ({ patientUu
   }, [encounter]);
 
   const handleLaunchForm = () => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: config.formsList.atencionImmediataNewborn },
       encounterUuid: encounter?.uuid || '',
     });

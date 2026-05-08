@@ -1,5 +1,5 @@
 import { Layer, Tile } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import React from 'react';
 import { CardHeader } from '../cards';
 import styles from './error-state.module.scss';

@@ -238,14 +238,18 @@ const TimelineDataGroup: React.FC<TimelineDataGroupProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
-  const el: HTMLElement | null = ref.current;
-  if (el) {
-    el.scrollLeft = xScroll;
-  }
+  useEffect(() => {
+    const el: HTMLElement | null = ref.current;
+    if (el) {
+      el.scrollLeft = xScroll;
+    }
+  }, [xScroll]);
 
-  if (groupNumber === 1 && panelName === '') {
-    setPanelName(parent.display);
-  }
+  useEffect(() => {
+    if (groupNumber === 1 && panelName === '') {
+      setPanelName(parent.display);
+    }
+  }, [groupNumber, panelName, parent.display, setPanelName]);
 
   useEffect(() => {
     const handleScroll = makeThrottled((event: Event) => {
@@ -304,7 +308,7 @@ export const GroupedTimeline: React.FC<{ patientUuid: string }> = ({ patientUuid
 
   useEffect(() => {
     setPanelName('');
-  }, [rowData]);
+  }, []);
 
   if (rowData && rowData?.length === 0) {
     return <EmptyState displayText={t('data', 'data')} headerTitle={t('dataTimelineText', 'Data timeline')} />;

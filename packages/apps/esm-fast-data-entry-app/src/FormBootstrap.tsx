@@ -1,5 +1,5 @@
 import { detach, ExtensionSlot } from '@openmrs/esm-framework';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import GroupFormWorkflowContext from './context/GroupFormWorkflowContext';
 import useGetPatient from './hooks/useGetPatient';
 
@@ -130,6 +130,7 @@ const FormBootstrap = ({
   hidePatientBanner,
 }: FormParams) => {
   const patient = useGetPatient(patientUuid);
+  const isPatientMatch = patient?.id === patientUuid;
   const { activeSessionMeta } = useContext(GroupFormWorkflowContext);
 
   useEffect(() => {
@@ -146,9 +147,11 @@ const FormBootstrap = ({
     }, 1);
   };
 
+  const isReady = showForm && formUuid && patientUuid && patient && isPatientMatch;
+
   return (
     <div>
-      {showForm && formUuid && patientUuid && patient && (
+      {isReady && (
         <ExtensionSlot
           name="form-widget-slot"
           state={{

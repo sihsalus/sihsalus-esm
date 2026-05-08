@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { InlineNotification, ModalBody, ModalHeader, Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import { type FetchResponse, type UploadedFile } from '@openmrs/esm-framework';
 import { useAllowedFileExtensions } from '@openmrs/esm-patient-common-lib';
@@ -111,7 +109,7 @@ const CameraMediaUploadTabs: React.FC<CameraMediaUploadTabsProps> = ({ title }) 
     mediaStream.current?.getTracks().forEach((t) => {
       t.stop();
     });
-  }, [mediaStream]);
+  }, []);
 
   useEffect(() => {
     return () => {

@@ -13,7 +13,7 @@ import { isTrue } from '../utils/boolean-utils';
 import { getResourceUuid, gracefullySetSubmission, isPlainObject, isStringValue } from '../utils/common-utils';
 import { isEmpty } from '../validators/form-validator';
 
-export let assignedDiagnosesIds: string[] = [];
+export const assignedDiagnosesIds: string[] = [];
 
 export const EncounterDiagnosisAdapter: FormFieldValueAdapter = {
   transformFieldValue: function (field: FormField, value: unknown, context: FormContextProps): DiagnosisPayload | null {
@@ -75,7 +75,7 @@ export const EncounterDiagnosisAdapter: FormFieldValueAdapter = {
     return field.questionOptions.answers?.find((option) => option.concept === value)?.label || value;
   },
   tearDown: function (): void {
-    assignedDiagnosesIds = [];
+    assignedDiagnosesIds.length = 0;
   },
 };
 

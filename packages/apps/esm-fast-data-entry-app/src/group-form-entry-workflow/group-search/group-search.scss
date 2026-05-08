@@ -1,6 +1,6 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
 
 .searchResultsContainer {
   width: 100%;
@@ -8,7 +8,7 @@
 
   a {
     text-decoration: none;
-    @include type.type-style('heading-02');
+    @include type.type-style("heading-02");
     color: colors.$gray-70;
     margin: 0rem;
   }
@@ -28,12 +28,12 @@
 }
 
 .searchTerm {
-  @include type.type-style('heading-03');
+  @include type.type-style("heading-03");
   margin-top: 0.375rem;
 }
 
 .resultsText {
-  @include type.type-style('label-01');
+  @include type.type-style("label-01");
   color: colors.$gray-70;
   line-height: layout.$spacing-05;
   margin: layout.$spacing-03 layout.$spacing-05;
@@ -45,14 +45,14 @@
 }
 
 .emptyResultText {
-  @include type.type-style('heading-compact-01');
+  @include type.type-style("heading-compact-01");
   color: colors.$gray-70;
   margin-top: layout.$spacing-05;
   margin-bottom: 0.313rem;
 }
 
 .actionText {
-  @include type.type-style('body-01');
+  @include type.type-style("body-01");
   color: colors.$gray-70;
 }
 
@@ -73,14 +73,14 @@
 }
 
 .errorMessage {
-  @include type.type-style('heading-compact-02');
+  @include type.type-style("heading-compact-02");
   margin-top: 2.25rem;
   margin-bottom: layout.$spacing-03;
 }
 
 .errorCopy {
   margin-bottom: layout.$spacing-03;
-  @include type.type-style('body-01');
+  @include type.type-style("body-01");
   color: colors.$gray-70;
 }
 

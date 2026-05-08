@@ -620,7 +620,7 @@ export function simpleHash(str: string): number {
   for (let i = 0; i < str.length; i++) {
     const char = str.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-    hash |= 0;
+    hash = Math.trunc(hash);
   }
   return hash;
 }

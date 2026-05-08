@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { useTreatmentPlan } from '../hooks/useTreatmentPlan';
+import { patientFormEntryWorkspace } from '../utils/constants';
 
 import styles from './consulta-externa-dashboard.scss';
 
@@ -34,7 +35,7 @@ const PlanTratamiento: React.FC<PlanTratamientoProps> = ({ patientUuid }) => {
   );
 
   const handleLaunchForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       formInfo: {
         formUuid: config.formsList?.consultaExternaForm,
       },

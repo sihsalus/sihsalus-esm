@@ -88,7 +88,7 @@ export interface PatientRegistration {
     formValues: FormValues;
     patientUuidMap: PatientUuidMapType;
     initialAddressFieldValues: Record<string, any>;
-    capturePhotoProps: CapturePhotoProps;
+    capturePhotoProps: CapturePhotoProps | null;
     currentLocation: string;
     initialIdentifierValues: FormValues['identifiers'];
     currentUser: Session;

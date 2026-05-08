@@ -29,7 +29,7 @@ export const useUrlQueryParams = () => {
 };
 
 export function getStockOperationUniqueId() {
-  return `${Date.now()}-${Math.random().toString(36).substring(2, 16)}`;
+  return `${new Date().getTime()}-${Math.random().toString(36).substring(2, 16)}`;
 }
 
 export const launchStockOperationsModal = (title: string, requireReason: boolean, operation: StockOperationDTO) => {

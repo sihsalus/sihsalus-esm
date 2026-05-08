@@ -1,13 +1,7 @@
 import { Header, HeaderGlobalAction, HeaderGlobalBar, HeaderMenuButton, HeaderName } from '@carbon/react';
 import { DownToBottom, Maximize, Minimize } from '@carbon/react/icons';
-import {
-  ComponentContext,
-  ExtensionSlot,
-  getCoreTranslation,
-  isDesktop,
-  useBodyScrollLock,
-  useLayoutType,
-} from '@openmrs/esm-framework/src/internal';
+import { ComponentContext, ExtensionSlot, isDesktop, useBodyScrollLock, useLayoutType } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classNames from 'classnames';
 import React, { type ReactNode, Suspense, useCallback, useContext, useEffect, useMemo } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';

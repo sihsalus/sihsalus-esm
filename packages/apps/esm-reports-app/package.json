@@ -57,6 +57,6 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "openmrs": "*",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.0"
   }
 }

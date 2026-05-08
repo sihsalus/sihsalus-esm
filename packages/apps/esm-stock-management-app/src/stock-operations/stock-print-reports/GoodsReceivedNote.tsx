@@ -1,7 +1,7 @@
 import { CLOSE_PRINT_AFTER_PRINT } from '../../constants';
+import { formatDisplayDate } from '../../core/utils/datetimeUtils';
 import { GetHeaderSection, GetPrintTemplate } from '../../core/print/PrintTemplate';
 import { printDocument } from '../../core/print/printUtils';
-import { formatDisplayDate } from '../../core/utils/datetimeUtils';
 import { type StockOperationPrintData } from './StockOperationReport';
 
 export const FormatGoodsReceivedDocument = async (data: StockOperationPrintData): Promise<string> => {
@@ -65,8 +65,8 @@ export const FormatGoodsReceivedDocument = async (data: StockOperationPrintData)
                     <td valign="middle" class="center">${p.batchNumber ?? ''}</td>                    
                     <td valign="middle" class="center">${formatDisplayDate(p.expiryDate)}</td>                    
                     <td valign="middle" class="center">${p.quantityRequired?.toLocaleString() ?? ''} ${
-                      p.quantityRequiredUoM ?? ''
-                    }</td>
+                        p.quantityRequiredUoM ?? ''
+                      }</td>
                     <td valign="middle" class="center">${p.purchasePrice?.toLocaleString() ?? ''}</td>
                 </tr> 
                 `;
@@ -79,7 +79,7 @@ export const FormatGoodsReceivedDocument = async (data: StockOperationPrintData)
                 ? Array(emptyRowCount)
                     .fill(0)
                     .map(
-                      (_p) => `
+                      (p) => `
         <tr class="data-row">
             <td valign="middle">&nbsp;</td>
             <td valign="middle">&nbsp;</td>

@@ -305,12 +305,27 @@ function copyAssets() {
     logWarn('assets/resources/ not found — skipping brand assets');
     return;
   }
-  for (const file of fs.readdirSync(assetsDir)) {
-    const src = path.join(assetsDir, file);
-    if (!fs.statSync(src).isFile()) continue;
-    copyFileReplacingIfNeeded(src, path.join(outDir, file));
-    logInfo(`OK assets/resources/${file} -> ${outDir}/`);
+  function copyAssetDir(srcDir, relativeDir = '') {
+    for (const file of fs.readdirSync(srcDir)) {
+      const src = path.join(srcDir, file);
+      const relativePath = path.join(relativeDir, file);
+      const stat = fs.statSync(src);
+
+      if (stat.isDirectory()) {
+        copyAssetDir(src, relativePath);
+        continue;
+      }
+
+      if (!stat.isFile()) continue;
+
+      const dest = path.join(outDir, relativePath);
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      copyFileReplacingIfNeeded(src, dest);
+      logInfo(`OK assets/resources/${relativePath.replace(/\\/g, '/')} -> ${outDir}/`);
+    }
   }
+
+  copyAssetDir(assetsDir);
 }
 
 // ── Phase 7: Patch index.html — port of startup.sh envsubst logic ─────
@@ -333,9 +348,12 @@ function patchIndexHtml() {
 
   let html = fs.readFileSync(indexPath, 'utf8');
 
-  // 1. IMPORTMAP_URL — replace "$SPA_PATH/importmap.json" with the override URL
-  if (importmapUrl && spaPath) {
-    html = html.replace(/(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g, `$1${importmapUrl}$1`);
+  // 1. Normalize importmap URL — replace both template variables and any hardcoded absolute URL
+  //    (e.g. https://dev3.openmrs.org/openmrs/spa/importmap.json from upstream builds)
+  const resolvedImportmapUrl = importmapUrl || (spaPath ? `${spaPath}/importmap.json` : '');
+  if (resolvedImportmapUrl) {
+    html = html.replace(/(['"])https?:\/\/[^'"]*\/importmap\.json\1/g, `$1${resolvedImportmapUrl}$1`);
+    html = html.replace(/(['"])(?:\$\{SPA_PATH\}|\$SPA_PATH)\/importmap\.json\1/g, `$1${resolvedImportmapUrl}$1`);
   }
 
   // 2. SPA_CONFIG_URLS — convert comma-separated list to JS array elements

@@ -1,6 +1,6 @@
-@use '@carbon/type';
-@use '@carbon/layout';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/type";
+@use "@carbon/layout";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 .admissionRequestsContainer {
   background-color: $color-gray-70;
@@ -42,6 +42,9 @@
 }
 
 .content {
-  @include type.type-style('heading-compact-01');
-  margin-right: layout.$spacing-03;
+  @include type.type-style("heading-compact-01");
+}
+
+.manageButton {
+  margin: 0 layout.$spacing-03;
 }

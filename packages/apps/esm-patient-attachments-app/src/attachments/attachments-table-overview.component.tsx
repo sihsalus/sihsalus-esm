@@ -115,7 +115,7 @@ const AttachmentsTableOverview: React.FC<AttachmentsTableOverviewProps> = ({
   if (isLoading) {
     return (
       <div className={styles.attachmentTable}>
-        <DataTableSkeleton className={styles.dataTableSkeleton} zebra />
+        <DataTableSkeleton className={styles.dataTableSkeleton} size={isDesktop ? 'sm' : 'lg'} zebra />
       </div>
     );
   }
@@ -140,27 +140,26 @@ const AttachmentsTableOverview: React.FC<AttachmentsTableOverviewProps> = ({
           <Table {...getTableProps()} useZebraStyles>
             <TableHead>
               <TableRow>
-                {headers.map((header) => {
-                  const { key, ...headerProps } = getHeaderProps({ header });
-                  return (
-                    <TableHeader key={key} {...headerProps}>
-                      {header.header}
-                    </TableHeader>
-                  );
-                })}
+                {headers.map((header) => (
+                  <TableHeader
+                    key={header.key}
+                    {...getHeaderProps({
+                      header,
+                    })}
+                  >
+                    {header.header}
+                  </TableHeader>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => {
-                const { key, ...rowProps } = getRowProps({ row });
-                return (
-                  <TableRow key={key} {...rowProps}>
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
-                    ))}
-                  </TableRow>
-                );
-              })}
+              {rows.map((row) => (
+                <TableRow key={row.id} {...getRowProps({ row })}>
+                  {row.cells.map((cell) => (
+                    <TableCell key={cell.id}>{cell.value?.content ?? cell.value}</TableCell>
+                  ))}
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

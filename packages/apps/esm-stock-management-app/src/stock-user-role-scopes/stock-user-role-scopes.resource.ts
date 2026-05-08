@@ -1,8 +1,8 @@
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
 import { type ResourceFilterCriteria, toQueryParams } from '../core/api/api';
-import { type UserRoleScope } from '../core/api/types/identity/UserRoleScope';
 import { type PageableResult } from '../core/api/types/PageableResult';
+import { type UserRoleScope } from '../core/api/types/identity/UserRoleScope';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
 export type UserRoleScopeFilter = ResourceFilterCriteria;
 
@@ -53,8 +53,8 @@ export function deleteUserRoleScopes(ids: string[]) {
 // createOrUpdateUserRoleScope
 export function createOrUpdateUserRoleScope(item: UserRoleScope) {
   const abortController = new AbortController();
-  const isNew = item.uuid != null;
-  const apiUrl = `${restBaseUrl}/stockmanagement/userrolescope${isNew ? '/' + item.uuid : ''}`;
+  const isUpdate = item.uuid != null;
+  const apiUrl = `${restBaseUrl}/stockmanagement/userrolescope${isUpdate ? '/' + item.uuid : ''}`;
   return openmrsFetch(apiUrl, {
     method: 'POST',
     headers: {

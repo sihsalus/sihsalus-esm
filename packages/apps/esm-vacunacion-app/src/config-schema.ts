@@ -28,7 +28,16 @@ export const configSchema = {
   immunizationConceptSet: {
     _type: Type.String,
     _default: 'CIEL:984',
-    _description: 'A UUID or concept mapping which will have all the possible vaccines as set-members.',
+    _description:
+      'A UUID or concept mapping for the vaccine concept set. The default CIEL:984 is resolved through REST and should have all selectable vaccines as answers.',
+  },
+  fhirConceptMappings: {
+    _type: Type.Object,
+    _description:
+      'Concept mappings expected by the OpenMRS FHIR2 Immunization resource. These values must exist uniquely in the content package for FHIR reads/writes to work.',
+    _default: {
+      immunizationResourceConcept: 'CIEL:1421',
+    },
   },
   supplementalVaccines: {
     _type: Type.Array,
@@ -361,6 +370,9 @@ export interface ImmunizationConfigObject {
     notes?: string;
   };
   immunizationConceptSet: string;
+  fhirConceptMappings: {
+    immunizationResourceConcept: string;
+  };
   supplementalVaccines?: Array<{
     uuid: string;
     display: string;

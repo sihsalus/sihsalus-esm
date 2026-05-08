@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { type InpatientAdmission } from '../../types';
 
 export interface WardPatientIdentifierProps {

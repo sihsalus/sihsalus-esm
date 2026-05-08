@@ -12,9 +12,9 @@ import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../../config-schema';
 import { useNutritionalAssessment } from '../../../../hooks/useNutritionalAssessment';
+import { formEntryWorkspace } from '../../../../types';
 
 import styles from './nutritional-assessment.scss';
 
@@ -34,7 +34,7 @@ const NutritionalAssessment: React.FC<NutritionalAssessmentProps> = ({ patientUu
   const handleAdd = useCallback(() => {
     const formUuid = config.formsList.nutritionalAssessmentForm;
     if (!formUuid) return;
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formUuid },
       encounterUuid: '',
     });

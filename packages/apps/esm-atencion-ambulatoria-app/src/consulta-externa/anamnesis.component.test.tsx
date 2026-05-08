@@ -1,8 +1,8 @@
 import { launchWorkspace, useConfig } from '@openmrs/esm-framework';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { useAnamnesis } from '../hooks/useAnamnesis';
+import { patientFormEntryWorkspace } from '../utils/constants';
 import Anamnesis from './anamnesis.component';
 
 jest.mock('../hooks/useAnamnesis', () => ({
@@ -81,7 +81,7 @@ describe('Anamnesis', () => {
 
     await user.click(screen.getByRole('button', { name: 'Registrar Anamnesis' }));
 
-    expect(mockLaunchWorkspace).toHaveBeenCalledWith('patient-form-entry-workspace', {
+    expect(mockLaunchWorkspace).toHaveBeenCalledWith(patientFormEntryWorkspace, {
       formInfo: {
         formUuid: 'CE-ANAM-001-ANAMNESIS',
       },

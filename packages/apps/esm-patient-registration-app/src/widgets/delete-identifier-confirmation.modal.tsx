@@ -1,7 +1,7 @@
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../constants';
 import styles from './delete-identifier-confirmation.scss';
 
 interface DeleteIdentifierConfirmationModalProps {
@@ -17,7 +17,7 @@ const DeleteIdentifierConfirmationModal: React.FC<DeleteIdentifierConfirmationMo
   identifierName,
   identifierValue,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
 
   return (
     <>

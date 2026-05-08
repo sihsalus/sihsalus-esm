@@ -1,15 +1,10 @@
 import { Header, HeaderGlobalAction, HeaderGlobalBar, HeaderName } from '@carbon/react';
 import { DownToBottom, Maximize, Minimize } from '@carbon/react/icons';
-import {
-  ComponentContext,
-  ExtensionSlot,
-  getCoreTranslation,
-  getOpenedWindowIndexByWorkspace,
-  isDesktop,
-  useLayoutType,
-} from '@openmrs/esm-framework/src/internal';
+import { getOpenedWindowIndexByWorkspace } from '@openmrs/esm-extensions';
+import { isDesktop, useLayoutType } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classNames from 'classnames';
-import React, { type ReactNode, useContext, useEffect } from 'react';
+import React, { type ReactNode, useEffect } from 'react';
 import { ArrowRightIcon, CloseIcon } from '../icons';
 import { closeWorkspaceGroup2, useWorkspace2Context, useWorkspace2Store } from './workspace2';
 import styles from './workspace2.module.scss';
@@ -87,7 +82,6 @@ export const Workspace2: React.FC<Workspace2Props> = ({ title, children, hasUnsa
     isMostRecentlyOpenedWindowHidden,
   } = useWorkspace2Store();
   const { workspaceName, isRootWorkspace, closeWorkspace, showActionMenu } = useWorkspace2Context();
-  const { featureName } = useContext(ComponentContext);
 
   const openedWindowIndex = getOpenedWindowIndexByWorkspace(workspaceName);
 
@@ -166,7 +160,6 @@ export const Workspace2: React.FC<Workspace2Props> = ({ title, children, hasUnsa
           <Header aria-label={getCoreTranslation('workspaceHeader')} className={styles.header}>
             <HeaderName prefix="">{title}</HeaderName>
             <div className={styles.overlayHeaderSpacer} />
-            {featureName ? <ExtensionSlot name={`workspace-header-${featureName}-slot`} /> : null}
             <HeaderGlobalBar className={styles.headerButtons}>
               {isDesktop(layout) ? (
                 <>

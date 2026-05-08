@@ -1,57 +1,89 @@
 import { Button, Search } from '@carbon/react';
-import { ResponsiveWrapper, useConfig, useDebounce, useLayoutType } from '@openmrs/esm-framework';
-import React, { useCallback, useRef, useState } from 'react';
+import {
+  ExtensionSlot,
+  ResponsiveWrapper,
+  useConfig,
+  useDebounce,
+  useLayoutType,
+  type Visit,
+  type Workspace2DefinitionProps,
+} from '@openmrs/esm-framework';
+import { type DrugOrderBasketItem } from '@openmrs/esm-patient-common-lib';
+import { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { type ConfigObject } from '../../config-schema';
-import { type DrugOrderBasketItem } from '../../types';
 import styles from './order-basket-search.scss';
 import OrderBasketSearchResults from './order-basket-search-results.component';
 
 export interface DrugSearchProps {
   openOrderForm: (searchResult: DrugOrderBasketItem) => void;
-  returnToOrderBasket: () => void;
+  closeWorkspace: Workspace2DefinitionProps['closeWorkspace'];
+  patient: fhir.Patient;
+  visit: Visit;
+  searchTerm: string;
+  onSearchTermChange: (term: string) => void;
 }
 
-export default function DrugSearch({ openOrderForm, returnToOrderBasket }: DrugSearchProps) {
+export default function DrugSearch({
+  closeWorkspace,
+  openOrderForm,
+  patient,
+  visit,
+  searchTerm,
+  onSearchTermChange,
+}: DrugSearchProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
-  const [searchTerm, setSearchTerm] = useState('');
-  const { debounceDelayInMs } = useConfig<ConfigObject>();
+  const { debounceDelayInMs, daysDurationUnit } = useConfig<ConfigObject>();
   const debouncedSearchTerm = useDebounce(searchTerm, debounceDelayInMs ?? 300);
   const searchInputRef = useRef(null);
 
-  const focusAndClearSearchInput = () => {
-    setSearchTerm('');
-    searchInputRef.current?.focus();
-  };
+  const handleSearchTermChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      onSearchTermChange(event.target.value ?? '');
+    },
+    [onSearchTermChange],
+  );
 
-  const handleSearchTermChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setSearchTerm(event.target.value ?? '');
+  const focusAndClearSearchInput = useCallback(() => {
+    onSearchTermChange('');
+    searchInputRef.current?.focus();
+  }, [onSearchTermChange]);
 
   return (
     <div className={styles.searchPopupContainer}>
+      <ExtensionSlot name="allergy-list-pills-slot" state={{ patientUuid: patient?.id }} />
       <ResponsiveWrapper>
         <Search
           autoFocus
-          size="lg"
-          placeholder={t('searchFieldPlaceholder', 'Search for a drug or orderset (e.g. "Aspirin")')}
+          className={styles.searchInput}
           labelText={t('searchFieldPlaceholder', 'Search for a drug or orderset (e.g. "Aspirin")')}
           onChange={handleSearchTermChange}
+          placeholder={t('searchFieldPlaceholder', 'Search for a drug or orderset (e.g. "Aspirin")')}
           ref={searchInputRef}
+          size="lg"
           value={searchTerm}
         />
       </ResponsiveWrapper>
+      <ExtensionSlot
+        name="drug-search-slot"
+        state={{ openOrderForm, isSearching: Boolean(debouncedSearchTerm), visit, daysDurationUnit }}
+      />
       <OrderBasketSearchResults
         searchTerm={debouncedSearchTerm}
+        closeWorkspace={closeWorkspace}
         openOrderForm={openOrderForm}
         focusAndClearSearchInput={focusAndClearSearchInput}
-        returnToOrderBasket={returnToOrderBasket}
+        patient={patient}
+        visit={visit}
       />
       {isTablet && (
         <div className={styles.separatorContainer}>
-          <p className={styles.separator}>{t('or', 'or')}</p>
-          <Button iconDescription="Return to order basket" kind="ghost" onClick={returnToOrderBasket}>
+          <Button
+            iconDescription={t('returnToOrderBasket', 'Return to order basket')}
+            kind="ghost"
+            onClick={() => closeWorkspace()}
+          >
             {t('returnToOrderBasket', 'Return to order basket')}
           </Button>
         </div>

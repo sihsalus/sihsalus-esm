@@ -11,8 +11,8 @@ import {
   TableHeader,
   TableRow,
 } from '@carbon/react';
-import { AddIcon, formatDate, parseDate, useLayoutType } from '@openmrs/esm-framework';
-import { CardHeader, EmptyState, ErrorState, launchPatientWorkspace } from '@openmrs/esm-patient-common-lib';
+import { AddIcon, formatDate, launchWorkspace2, parseDate, useLayoutType } from '@openmrs/esm-framework';
+import { CardHeader, EmptyState, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { patientAllergiesFormWorkspace } from '../constants';
@@ -29,11 +29,11 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
   const layout = useLayoutType();
   const { allergies, error, isLoading, isValidating } = useAllergies(patient.id);
   const isTablet = layout === 'tablet';
-  const _isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
+  const isDesktop = layout === 'small-desktop' || layout === 'large-desktop';
   const displayText = t('allergyIntolerances', 'allergy intolerances');
   const headerTitle = t('allergies', 'Allergies');
 
-  const launchAllergiesForm = useCallback(() => launchPatientWorkspace(patientAllergiesFormWorkspace), []);
+  const launchAllergiesForm = useCallback(() => launchWorkspace2(patientAllergiesFormWorkspace), []);
 
   const tableHeaders = [
     { key: 'display', header: t('allergen', 'Allergen') },
@@ -61,7 +61,7 @@ const AllergiesDetailedSummary: React.FC<AllergiesDetailedSummaryProps> = ({ pat
   );
 
   if (isLoading) {
-    return <DataTableSkeleton role="progressbar" zebra />;
+    return <DataTableSkeleton role="progressbar" size={isDesktop ? 'sm' : 'lg'} zebra />;
   }
 
   if (error) {

@@ -15,7 +15,7 @@ export const composeJson = (searchParameters) => {
       delete searchParameters[field];
       continue;
     }
-    if (searchParameters[field] !== 'all' && searchParameters[field] !== '') {
+    if (searchParameters[field] !== 'all' && searchParameters !== '') {
       query.rowFilters[counter] = {};
       query.rowFilters[counter].key = getDefinitionLibraryKey(field, searchParameters[field]);
     }
@@ -107,11 +107,15 @@ export const addColumnsToDisplay = () => {
 };
 
 export const addToHistory = (description: string, patients: Patient[], parameters: {}) => {
-  const oldHistory = JSON.parse(globalThis.sessionStorage.getItem('openmrsHistory'));
-  const newHistory = oldHistory
-    ? [...oldHistory, { description, patients, parameters }]
-    : [{ description, patients, parameters }];
-  globalThis.sessionStorage.setItem('openmrsHistory', JSON.stringify(newHistory));
+  const oldHistory = JSON.parse(window.sessionStorage.getItem('openmrsHistory'));
+  let newHistory = [];
+
+  if (oldHistory) {
+    newHistory = [...oldHistory, { description, patients, parameters }];
+  } else {
+    newHistory = [{ description, patients, parameters }];
+  }
+  window.sessionStorage.setItem('openmrsHistory', JSON.stringify(newHistory));
 };
 
 export const formatDate = (dateString: string) => {

@@ -30,14 +30,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openmrs/openmrs-esm-stock-management-app.git"
+    "url": "git+https://github.com/openmrs/openmrs-esm-stock-management.git"
   },
-  "homepage": "https://github.com/openmrs/openmrs-esm-stock-management-app#readme",
+  "homepage": "https://github.com/openmrs/openmrs-esm-stock-management#readme",
   "publishConfig": {
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/openmrs/openmrs-esm-stock-management-app/issues"
+    "url": "https://github.com/openmrs/openmrs-esm-stock-management/issues"
   },
   "dependencies": {
     "@carbon/react": "^1.92.1",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@openmrs/esm-framework": "9.0.2",
-    "@openmrs/esm-styleguide": "patch:@openmrs/esm-styleguide@npm%3A9.0.2#~/.yarn/patches/@openmrs-esm-styleguide-npm-9.0.2-fc8ffda76a.patch",
+    "@openmrs/esm-styleguide": "workspace:*",
     "@rspack/cli": "1.7.11",
     "@swc/cli": "^0.1.62",
     "@swc/core": "1.15.21",
@@ -97,7 +97,7 @@
     "swc-loader": "^0.2.3",
     "swr": "^2.2.4",
     "turbo": "^2.9.1",
-    "typescript": "^5.8.3",
+    "typescript": "^6.0.0",
     "yup": "^1.2.0"
   }
 }

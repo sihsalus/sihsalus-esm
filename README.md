@@ -120,6 +120,24 @@ Repository discipline and workspace ownership expectations live in:
 - [docs/operations/monorepo-discipline-rfc.md](docs/operations/monorepo-discipline-rfc.md)
 - [docs/operations/workspace-quality-registry.md](docs/operations/workspace-quality-registry.md)
 
+### TODO RBAC, auditoria y permisos
+
+- Definir una matriz transversal de permisos por modulo y flujo, usando [@sihsalus/esm-rbac](packages/libs/esm-rbac/README.md) como punto de integracion frontend.
+- Agregar guards de RBAC en rutas, extensiones, botones, workspaces y modales de los modulos clinicos y administrativos.
+- Definir privilegios backend/content para lectura, creacion, edicion, eliminacion y acciones especiales por modulo.
+- Integrar [@sihsalus/esm-audit-logger](packages/libs/esm-audit-logger/README.md) en eventos sensibles: busqueda de paciente, apertura de historia, formulario clinico, ordenes, dispensing, FUA, billing, stock, ward y emergency.
+- Probar roles reales contra backend actualizado: usuario clinico, admision, farmacia, laboratorio, caja, administrador y solo lectura.
+- Documentar feature flags o fallback cuando un modulo no tenga permisos/content/backend listos para produccion.
+
+### TODO hardening transversal
+
+- Auditar `routes.json` de todos los paquetes que usan `fhirBaseUrl`, `useFhirFetchAll` o `useFhirPagination` y declarar `fhir2` como dependencia backend cuando el flujo dependa de FHIR.
+- Revisar paquetes con endpoints `/ws/module/*` y documentar si requieren OMOD obligatorio, OMOD opcional con feature flag, o si deben ocultarse cuando el backend no lo tenga.
+- Agregar pruebas smoke por workspace contra backend actualizado: carga de ruta, carga de datos inicial, apertura de workspace principal y accion de guardado cuando aplique.
+- Identificar configs con `_default: ''` que representan conceptos, forms, encounter types o endpoints obligatorios, y convertirlos en defaults reales o feature flags.
+- Validar que cada app SIHSALUS custom tenga README propio con limites funcionales, dependencias backend/content, permisos y eventos auditables.
+- Agregar owners reales y warning budget a los workspaces custom prioritarios: atencion ambulatoria, CRED, salud materna, vacunacion, orders, dispensing, FUA, indicadores, ward, emergency, stock y billing.
+
 ### Cleaning
 
 ```bash

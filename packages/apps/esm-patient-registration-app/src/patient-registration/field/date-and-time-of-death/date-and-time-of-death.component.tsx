@@ -5,12 +5,13 @@ import dayjs from 'dayjs';
 import { useField } from 'formik';
 import React, { useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { moduleName } from '../../../constants';
 import type { FormValues } from '../../patient-registration.types';
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import styles from '../field.scss';
 
 export const DateAndTimeOfDeathField: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
 
   return (
     <div className={classNames(styles.dodField, styles.halfWidthInDesktopView)}>
@@ -26,7 +27,7 @@ export const DateAndTimeOfDeathField: React.FC = () => {
 function DeathDateField() {
   const { values, setFieldValue } = useContext(PatientRegistrationContext);
   const [deathDate, deathDateMeta] = useField<keyof FormValues>('deathDate');
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const today = dayjs().hour(23).minute(59).second(59).toDate();
   const onDateChange = useCallback(
     (selectedDate: Date) => {
@@ -55,7 +56,7 @@ function DeathDateField() {
 }
 
 function DeathTimeField() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const [deathTimeField, deathTimeMeta] = useField<keyof FormValues>('deathTime');
   const [deathTimeFormatField, deathTimeFormatMeta] = useField<keyof FormValues>('deathTimeFormat');
 

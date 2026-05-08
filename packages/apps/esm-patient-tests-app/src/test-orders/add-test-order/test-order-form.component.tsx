@@ -24,7 +24,7 @@ import {
   useOrderType,
 } from '@openmrs/esm-patient-common-lib';
 import classNames from 'classnames';
-import React, { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { type ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, type ControllerRenderProps, type FieldErrors, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -40,6 +40,8 @@ export interface LabOrderFormProps extends DefaultPatientWorkspaceProps {
   initialOrder: TestOrderBasketItem;
   orderTypeUuid: string;
   orderableConceptSets: Array<string>;
+  orderBasketWorkspaceName?: string;
+  returnToOrderBasketOnClose?: boolean;
 }
 
 // Designs:
@@ -51,6 +53,8 @@ export function LabOrderForm({
   closeWorkspaceWithSavedChanges,
   promptBeforeClosing,
   orderTypeUuid,
+  orderBasketWorkspaceName = 'order-basket',
+  returnToOrderBasketOnClose = true,
 }: LabOrderFormProps) {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -151,20 +155,30 @@ export function LabOrderForm({
       setOrders(newOrders);
 
       closeWorkspaceWithSavedChanges({
-        onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
+        onWorkspaceClose: returnToOrderBasketOnClose
+          ? () => launchPatientWorkspace(orderBasketWorkspaceName)
+          : undefined,
         closeWorkspaceGroup: false,
       });
     },
-    [orders, setOrders, session?.currentProvider?.uuid, closeWorkspaceWithSavedChanges, initialOrder],
+    [
+      orders,
+      setOrders,
+      session?.currentProvider?.uuid,
+      closeWorkspaceWithSavedChanges,
+      initialOrder,
+      orderBasketWorkspaceName,
+      returnToOrderBasketOnClose,
+    ],
   );
 
   const cancelOrder = useCallback(() => {
     setOrders(orders.filter((order) => order.testType.conceptUuid !== defaultValues.testType.conceptUuid));
     closeWorkspace({
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
+      onWorkspaceClose: returnToOrderBasketOnClose ? () => launchPatientWorkspace(orderBasketWorkspaceName) : undefined,
       closeWorkspaceGroup: false,
     });
-  }, [closeWorkspace, orders, setOrders, defaultValues]);
+  }, [closeWorkspace, orders, setOrders, defaultValues, orderBasketWorkspaceName, returnToOrderBasketOnClose]);
 
   const onError = (errors: FieldErrors<TestOrderBasketItem>) => {
     if (errors) {

@@ -68,7 +68,7 @@ export function fetchDiagnosisConceptsByName(searchTerm: string, diagnosisConcep
   const customRepresentation = 'custom:(uuid,display)';
   const url = `${restBaseUrl}/concept?name=${searchTerm}&searchType=fuzzy&class=${diagnosisConceptClass}&v=${customRepresentation}`;
 
-  return openmrsFetch<Array<Concept>>(url).then(({ data }) => Promise.resolve(data['results']));
+  return openmrsFetch<Array<Concept>>(url).then(({ data }) => data['results']);
 }
 
 export function saveVisitNote(abortController: AbortController, payload: VisitNotePayload) {

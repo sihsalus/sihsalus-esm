@@ -12,9 +12,9 @@ import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../../config-schema';
 import { useStimulationSessions } from '../../../../hooks/useStimulationSessions';
+import { formEntryWorkspace } from '../../../../types';
 
 import styles from './stimulation-sessions.scss';
 
@@ -34,7 +34,7 @@ const StimulationSessions: React.FC<StimulationSessionsProps> = ({ patientUuid }
       console.warn('Form UUID not configured for stimulationSessionForm');
       return;
     }
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formUuid },
       encounterUuid: '',
     });

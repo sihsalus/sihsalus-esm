@@ -1,9 +1,15 @@
 import '@testing-library/jest-dom';
 
 class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  observe() {
+    // Test environment no-op.
+  }
+  unobserve() {
+    // Test environment no-op.
+  }
+  disconnect() {
+    // Test environment no-op.
+  }
 }
 
 if (!global.ResizeObserver) {

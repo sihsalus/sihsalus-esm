@@ -1,17 +1,17 @@
+import React, { useCallback, useMemo, useState } from 'react';
 import { Button, Column, InlineLoading, RadioButton, RadioButtonGroup, Stack } from '@carbon/react';
 import { ArrowLeft, ArrowRight, Departure, ListChecked, Save, SendFilled } from '@carbon/react/icons';
-import { restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
-import React, { useCallback, useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
+import { createStockOperation, deleteStockOperationItem, updateStockOperation } from '../../stock-operations.resource';
 import { extractErrorMessagesFromResponse } from '../../../constants';
-import { type StockOperationDTO } from '../../../core/api/types/stockOperation/StockOperationDTO';
-import { type StockOperationItemDTO } from '../../../core/api/types/stockOperation/StockOperationItemDTO';
+import { handleMutate } from '../../../utils';
 import { OperationType, type StockOperationType } from '../../../core/api/types/stockOperation/StockOperationType';
 import { otherUser } from '../../../core/utils/utils';
-import { handleMutate } from '../../../utils';
 import { launchStockOperationsModal } from '../../stock-operation.utils';
-import { createStockOperation, deleteStockOperationItem, updateStockOperation } from '../../stock-operations.resource';
+import { type StockOperationDTO } from '../../../core/api/types/stockOperation/StockOperationDTO';
+import { type StockOperationItemDTO } from '../../../core/api/types/stockOperation/StockOperationItemDTO';
 import { type StockOperationItemDtoSchema } from '../../validation-schema';
 import useOperationTypePermisions from '../hooks/useOperationTypePermisions';
 import styles from '../stock-operation-form.scss';
@@ -117,7 +117,6 @@ const StockOperationSubmissionFormStep: React.FC<StockOperationSubmissionFormSte
           kind: 'error',
           isLowContrast: true,
         });
-        throw error;
       }
     })(); // Call handleSubmit to trigger validation and submission
     return result; // Return the result after handleSubmit completes
@@ -125,17 +124,23 @@ const StockOperationSubmissionFormStep: React.FC<StockOperationSubmissionFormSte
 
   const handleComplete = useCallback(() => {
     handleSave().then((operation) => {
-      launchStockOperationsModal('Complete', false, { ...operation, status: 'COMPLETED' });
+      if (operation) {
+        launchStockOperationsModal('Complete', false, { ...operation, status: 'COMPLETED' });
+      }
     });
   }, [handleSave]);
   const handleSubmitForReview = useCallback(() => {
     handleSave().then((operation) => {
-      launchStockOperationsModal('Submit', false, { ...operation, status: 'SUBMITTED' });
+      if (operation) {
+        launchStockOperationsModal('Submit', false, { ...operation, status: 'SUBMITTED' });
+      }
     });
   }, [handleSave]);
   const handleDispatch = useCallback(() => {
     handleSave().then((operation) => {
-      launchStockOperationsModal('Dispatch', false, { ...operation, status: 'DISPATCHED' });
+      if (operation) {
+        launchStockOperationsModal('Dispatch', false, { ...operation, status: 'DISPATCHED' });
+      }
     });
   }, [handleSave]);
 
@@ -155,7 +160,7 @@ const StockOperationSubmissionFormStep: React.FC<StockOperationSubmissionFormSte
           legendText={t('doesThisTransactionRequireApproval', 'Does the transaction require approval ?')}
           onChange={(value) => handleRadioButtonChange(value === 'true')}
           readOnly={!editable}
-          valueSelected={approvalRequired == null ? null : approvalRequired ? 'true' : 'false'}
+          valueSelected={approvalRequired === true ? 'true' : approvalRequired === false ? 'false' : null}
         >
           <RadioButton value="true" id="rbgApprovelRequired-true" labelText={t('yes', 'Yes')} />
           <RadioButton value="false" id="rbgApprovelRequired-false" labelText={t('no', 'No')} />

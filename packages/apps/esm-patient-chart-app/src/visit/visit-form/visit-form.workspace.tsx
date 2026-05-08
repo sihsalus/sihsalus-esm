@@ -67,6 +67,7 @@ import {
   deleteVisitAttribute,
   updateVisitAttribute,
   useConditionalVisitTypes,
+  usePersonAttributesForVisitDefaults,
   useVisitFormCallbacks,
   type VisitFormCallbacks,
   type VisitFormData,
@@ -118,6 +119,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
   const { mutate: mutateCurrentVisit } = useVisit(patientUuid);
   const { mutateVisits: mutateInfiniteVisits } = useInfiniteVisits(patientUuid);
   const allVisitTypes = useConditionalVisitTypes();
+  const { attributes: personAttributesForVisitDefaults } = usePersonAttributesForVisitDefaults(patientUuid);
 
   const [errorFetchingResources, setErrorFetchingResources] = useState<{
     blockSavingForm: boolean;
@@ -187,8 +189,12 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
         programType: z.string().optional(),
         visitType: z.string().refine((value) => !!value, t('visitTypeRequired', 'Visit type is required')),
         visitLocation: z.object({
-          display: z.string(),
-          uuid: z.string(),
+          display: z.string().optional(),
+          uuid: z
+            .string({
+              required_error: t('visitLocationRequired', 'Visit location is required'),
+            })
+            .min(1, t('visitLocationRequired', 'Visit location is required')),
         }),
         visitAttributes: z.object(visitAttributes),
       })
@@ -224,7 +230,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
         visitToEdit?.attributes.reduce<Record<string, string>>((acc, curr) => {
           acc[curr.attributeType.uuid] = typeof curr.value === 'object' ? curr?.value?.uuid : `${curr.value ?? ''}`;
           return acc;
-        }, {}) ?? {},
+        }, {}) ?? getDefaultVisitAttributesFromPersonAttributes(),
     };
 
     if (visitStopDate) {
@@ -236,8 +242,40 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
       };
     }
 
+    function getDefaultVisitAttributesFromPersonAttributes() {
+      const configuredVisitAttributeUuids = new Set(config.visitAttributeTypes?.map(({ uuid }) => uuid));
+
+      return (config.defaultVisitAttributesFromPersonAttributes ?? []).reduce<Record<string, string>>(
+        (defaults, { personAttributeTypeUuid, visitAttributeTypeUuid }) => {
+          if (!configuredVisitAttributeUuids.has(visitAttributeTypeUuid)) {
+            return defaults;
+          }
+
+          const personAttribute = personAttributesForVisitDefaults.find(
+            (attribute) => attribute.attributeType.uuid === personAttributeTypeUuid,
+          );
+          const value = personAttribute?.value;
+          const normalizedValue = typeof value === 'object' ? value?.uuid : value;
+
+          if (normalizedValue) {
+            defaults[visitAttributeTypeUuid] = normalizedValue;
+          }
+
+          return defaults;
+        },
+        {},
+      );
+    }
+
     return defaultValues;
-  }, [visitToEdit, defaultVisitLocation, emrConfiguration]);
+  }, [
+    visitToEdit,
+    defaultVisitLocation,
+    emrConfiguration,
+    config.visitAttributeTypes,
+    config.defaultVisitAttributesFromPersonAttributes,
+    personAttributesForVisitDefaults,
+  ]);
 
   const methods = useForm<VisitFormData>({
     mode: 'all',
@@ -256,7 +294,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
 
   // default values are cached so form needs to be reset when they change (e.g. when default visit location finishes loading)
   useEffect(() => {
-    reset(defaultValues);
+    reset(defaultValues, { keepDirtyValues: true });
   }, [defaultValues, reset]);
 
   useEffect(() => {
@@ -375,7 +413,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
                     isLowContrast: false,
                     subtitle: err?.message,
                   });
-                  return Promise.reject(err); // short-circuit promise chain
+                  throw err; // short-circuit promise chain
                 }),
               );
             } else {
@@ -390,7 +428,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
                     isLowContrast: false,
                     subtitle: err?.message,
                   });
-                  return Promise.reject(err); // short-circuit promise chain
+                  throw err; // short-circuit promise chain
                 }),
               );
             }
@@ -407,7 +445,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
                   isLowContrast: false,
                   subtitle: err?.message,
                 });
-                return Promise.reject(err); // short-circuit promise chain
+                throw err; // short-circuit promise chain
               }),
             );
           }
@@ -522,7 +560,7 @@ const StartVisitForm: React.FC<StartVisitFormProps> = ({
               isLowContrast: false,
               subtitle: error?.message,
             });
-            return Promise.reject(error); // short-circuit promise chain
+            throw error; // short-circuit promise chain
           })
           .then((response) => {
             // now that visit is created / updated, we run post-submit actions

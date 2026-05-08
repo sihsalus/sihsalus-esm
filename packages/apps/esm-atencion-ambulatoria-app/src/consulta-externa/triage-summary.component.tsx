@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { type TriageVitals, useTriageVitals } from '../hooks/useTriageVitals';
+import { patientFormEntryWorkspace } from '../utils/constants';
 
 import styles from './consulta-externa-dashboard.scss';
 
@@ -86,9 +87,9 @@ const TriageSummary: React.FC<TriageSummaryProps> = ({ patientUuid }) => {
   );
 
   const handleLaunchForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       formInfo: {
-        formUuid: config.formsList?.consultaExternaForm,
+        formUuid: config.vitals?.formUuid,
       },
     });
   };

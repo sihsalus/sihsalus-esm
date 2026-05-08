@@ -1,9 +1,9 @@
-import { Tag, type TagProps } from '@carbon/react';
+import { Tag } from '@carbon/react';
 import { type OpenmrsResource, type Patient, type Visit } from '@openmrs/esm-framework';
 import React, { type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useObs } from '../../hooks/useObs';
+import { type CarbonTagType } from '../../types';
 import { useElementConfig } from '../../ward-view/ward-view.resource';
 import {
   getObsEncounterString,
@@ -19,8 +19,6 @@ interface WardPatientCodedObsTagsRowProps {
   patient: Patient;
   visit: Visit;
 }
-
-type TagType = NonNullable<TagProps<'div'>['type']>;
 
 /**
  * The WardPatientCodedObsTags displays observations of coded values of a particular concept in the active visit as tags.
@@ -68,7 +66,7 @@ const CodedObsTagsRow: React.FC<WardPatientCodedObsTagsRowProps> = ({ id, patien
         if (color) {
           return (
             <WardPatientResponsiveTooltip tooltipContent={getObsEncounterString(o, t)}>
-              <Tag type={color as TagType} key={`ward-coded-obs-tag-${o.uuid}`}>
+              <Tag type={color as CarbonTagType} key={`ward-coded-obs-tag-${o.uuid}`}>
                 {display}
               </Tag>
             </WardPatientResponsiveTooltip>
@@ -91,7 +89,7 @@ const CodedObsTagsRow: React.FC<WardPatientCodedObsTagsRowProps> = ({ id, patien
             {coloredOpsTags}
             {summaryTagTooltipText.length > 0 ? (
               <WardPatientResponsiveTooltip tooltipContent={summaryTagTooltipText}>
-                <Tag type={summaryLabelColor as TagType}>
+                <Tag type={summaryLabelColor as CarbonTagType}>
                   {t('countItems', '{{count}} {{item}}', {
                     count: summaryTagTooltipText.length,
                     item: summaryLabelToDisplay,

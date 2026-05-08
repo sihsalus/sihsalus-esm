@@ -1,14 +1,9 @@
 /** @module @category Workspace */
 
 import { IconButton } from '@carbon/react';
-import {
-  ComponentContext,
-  ExtensionSlot,
-  getCoreTranslation,
-  isDesktop,
-  useLayoutType,
-} from '@openmrs/esm-framework/src/internal';
 import { type WorkspaceGroupDefinition2 } from '@openmrs/esm-globals';
+import { ComponentContext, ExtensionSlot, isDesktop, useLayoutType } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import React from 'react';
 import { CloseIcon } from '../../icons';
 import { closeWorkspaceGroup2 } from '../workspace2';
@@ -28,7 +23,7 @@ export function ActionMenu({ workspaceGroup, groupProps }: ActionMenuProps) {
   const layout = useLayoutType();
   const { persistence } = workspaceGroup;
 
-  const isClosable = persistence === 'closable';
+  const isClosable = persistence == 'closable';
 
   return (
     <aside className={styles.sideRail}>

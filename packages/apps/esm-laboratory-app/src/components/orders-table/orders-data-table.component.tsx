@@ -27,6 +27,7 @@ import { useTranslation } from 'react-i18next';
 import { type Config } from '../../config-schema';
 import { useLabOrders } from '../../laboratory.resource';
 import { type FlattenedOrder, type FulfillerStatus, type Order } from '../../types';
+import { getFulfillerStatusDisplay } from '../../utils/order-display';
 import ListOrderDetails from './list-order-details.component';
 import styles from './orders-data-table.scss';
 import { OrdersDateRangePicker } from './orders-date-range-picker.component';
@@ -164,12 +165,12 @@ const OrdersDataTable: React.FC<OrdersDataTableProps> = (props) => {
 
   const orderStatuses = [
     { value: null, display: t('all', 'All') },
-    { value: 'RECEIVED', display: t('receivedStatus', 'RECEIVED') },
-    { value: 'IN_PROGRESS', display: t('inProgressStatus', 'IN_PROGRESS') },
-    { value: 'COMPLETED', display: t('completedStatus', 'COMPLETED') },
-    { value: 'EXCEPTION', display: t('exceptionStatus', 'EXCEPTION') },
-    { value: 'ON_HOLD', display: t('onHoldStatus', 'ON_HOLD') },
-    { value: 'DECLINED', display: t('declinedStatus', 'DECLINED') },
+    { value: 'RECEIVED', display: getFulfillerStatusDisplay('RECEIVED', t) },
+    { value: 'IN_PROGRESS', display: getFulfillerStatusDisplay('IN_PROGRESS', t) },
+    { value: 'COMPLETED', display: getFulfillerStatusDisplay('COMPLETED', t) },
+    { value: 'EXCEPTION', display: getFulfillerStatusDisplay('EXCEPTION', t) },
+    { value: 'ON_HOLD', display: getFulfillerStatusDisplay('ON_HOLD', t) },
+    { value: 'DECLINED', display: getFulfillerStatusDisplay('DECLINED', t) },
   ];
 
   const columns = useMemo(() => {

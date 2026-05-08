@@ -3,11 +3,11 @@ import useSWR from 'swr';
 import { type ResourceFilterCriteria, toQueryParams } from '../core/api/api';
 import { type PageableResult } from '../core/api/types/PageableResult';
 import { type InventoryGroupBy } from '../core/api/types/stockItem/StockItem';
-import { type StockItemInventory } from '../core/api/types/stockItem/StockItemInventory';
 import { type StopOperationAction } from '../core/api/types/stockOperation/StockOperationAction';
 import { type StockOperationDTO } from '../core/api/types/stockOperation/StockOperationDTO';
-import { type StockOperationItemCost } from '../core/api/types/stockOperation/StockOperationItemCost';
 import { type StockOperationItemDtoSchema } from './validation-schema';
+import { type StockOperationItemCost } from '../core/api/types/stockOperation/StockOperationItemCost';
+import { type StockItemInventory } from '../core/api/types/stockItem/StockItemInventory';
 
 export interface StockOperationFilter extends ResourceFilterCriteria {
   status?: string | null | undefined;

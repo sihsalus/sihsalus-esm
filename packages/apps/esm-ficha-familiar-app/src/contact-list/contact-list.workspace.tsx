@@ -391,31 +391,30 @@ const ContactListForm: React.FC<ContactListFormProps> = ({
               </Column>
             </>
           )}
-        </Stack>
-
-        <span className={styles.sectionHeader}>{t('dataProtection', 'Consentimiento (Ley 29733)')}</span>
-        <Column>
-          <Controller
-            control={form.control}
-            name="dataConsent"
-            render={({ field, fieldState: { error } }) => (
-              <>
-                <Checkbox
-                  id="dataConsent"
-                  labelText={t(
-                    'dataConsentLabel',
-                    'El titular autoriza el registro y tratamiento de sus datos personales de salud para fines de atención sanitaria, según la Ley N° 29733 — Protección de Datos Personales.',
+          <span className={styles.sectionHeader}>{t('dataProtection', 'Consentimiento (Ley 29733)')}</span>
+          <Column>
+            <Controller
+              control={form.control}
+              name="dataConsent"
+              render={({ field, fieldState: { error } }) => (
+                <>
+                  <Checkbox
+                    id="dataConsent"
+                    labelText={t(
+                      'dataConsentLabel',
+                      'El titular autoriza el registro y tratamiento de sus datos personales de salud para fines de atención sanitaria, según la Ley N° 29733 — Protección de Datos Personales.',
+                    )}
+                    checked={field.value ?? false}
+                    onChange={(_, { checked }) => field.onChange(checked)}
+                  />
+                  {error && (
+                    <p style={{ color: '#da1e28', fontSize: '0.75rem', marginTop: '0.25rem' }}>{error.message}</p>
                   )}
-                  checked={field.value ?? false}
-                  onChange={(_, { checked }) => field.onChange(checked)}
-                />
-                {error && (
-                  <p style={{ color: '#da1e28', fontSize: '0.75rem', marginTop: '0.25rem' }}>{error.message}</p>
-                )}
-              </>
-            )}
-          />
-        </Column>
+                </>
+              )}
+            />
+          </Column>
+        </Stack>
 
         <ButtonSet className={styles.buttonSet}>
           <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>

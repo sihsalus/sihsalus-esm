@@ -1,9 +1,10 @@
-import { ConfigurableLink, MaybeIcon } from '@openmrs/esm-framework/src/internal';
+import { ConfigurableLink } from '@openmrs/esm-react-utils';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import { type IconId } from '../icons';
+import { MaybeIcon } from '../icons/icons';
 import styles from './dashboard.module.scss';
 
 export interface DashboardExtensionProps {

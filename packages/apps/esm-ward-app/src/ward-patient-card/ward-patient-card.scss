@@ -1,18 +1,15 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 .wardPatientCard {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
   color: $text-02;
-
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: layout.$spacing-02;
   background-color: $ui-02;
-
   position: relative; // this allows positioning the button correctly
 }
 
@@ -21,7 +18,7 @@
   padding: 0;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -42,7 +39,7 @@
 
 .activeWardPatientCardButton {
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -104,16 +101,16 @@
 }
 
 .wardPatientName {
-  @include type.type-style('heading-compact-02');
+  @include type.type-style("heading-compact-02");
   color: $text-02;
 
   &::before {
-    content: '' !important;
+    content: "" !important;
   }
 }
 
 .wardPatientBedNumber {
-  @include type.type-style('heading-compact-01');
+  @include type.type-style("heading-compact-01");
   border-radius: 50vh;
   color: $ui-02;
   background-color: $color-blue-60-2;
@@ -185,7 +182,7 @@
     align-items: center;
 
     &::before {
-      content: '·';
+      content: "·";
       padding: 0 layout.$spacing-02;
     }
   }

@@ -11,7 +11,7 @@ import {
   TableRow,
 } from '@carbon/react';
 import { Edit } from '@carbon/react/icons';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddGroupModal from '../../add-group-modal/AddGroupModal';
 import GroupFormWorkflowContext from '../../context/GroupFormWorkflowContext';
@@ -22,7 +22,7 @@ const PatientRow = ({ patient }) => {
   const familyName = patient?.name?.[0]?.family;
   const identifier = patient?.identifier?.[0]?.value;
 
-  const handleOnChange = (e, { checked }) => {
+  const handleOnChange = (_e, { checked }) => {
     if (checked) {
       addPatientUuid(patient.id);
     } else {

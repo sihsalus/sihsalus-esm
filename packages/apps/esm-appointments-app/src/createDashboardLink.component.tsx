@@ -1,3 +1,4 @@
+import { Calendar } from '@carbon/react/icons';
 import { ConfigurableLink } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import { useMemo } from 'react';
@@ -28,7 +29,10 @@ function DashboardExtension({ dashboardLinkConfig }: { dashboardLinkConfig: Dash
       })}
       to={`${spaBasePath}/${name}`}
     >
-      {t('appointments', 'Appointments')}
+      <span className="sihsalus-side-nav__item">
+        <Calendar aria-hidden="true" className="sihsalus-side-nav__icon" size={20} />
+        <span className="sihsalus-side-nav__text">{t('appointments', 'Appointments')}</span>
+      </span>
     </ConfigurableLink>
   );
 }

@@ -3,10 +3,8 @@ import { type Patient } from '@openmrs/esm-framework';
 import React from 'react';
 import { type FieldError } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
 import useWardLocation from '../hooks/useWardLocation';
 import { type BedLayout } from '../types';
-
 import styles from './bed-selector.scss';
 
 interface BedSelectorProps {
@@ -88,7 +86,12 @@ const BedSelector: React.FC<BedSelectorProps> = ({
         items={bedDropdownItems}
         itemToString={(bedDropdownItem: BedDropdownItem) => bedDropdownItem.label}
         selectedItem={selectedItem}
-        onChange={({ selectedItem }) => onChange((selectedItem as BedDropdownItem | null)?.bedId ?? 0)}
+        onChange={(data) => {
+          const selectedDropdownItem = data.selectedItem as BedDropdownItem;
+          if (selectedDropdownItem) {
+            onChange(selectedDropdownItem.bedId);
+          }
+        }}
         invalid={!!error}
         invalidText={error?.message}
       />
@@ -98,7 +101,7 @@ const BedSelector: React.FC<BedSelectorProps> = ({
       <RadioButtonGroup
         name="bedId"
         className={styles.radioButtonGroup}
-        onChange={(value) => onChange(Number(value))}
+        onChange={onChange}
         invalid={!!error}
         invalidText={error?.message}
       >

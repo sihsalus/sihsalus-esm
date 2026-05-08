@@ -13,10 +13,13 @@ export const configSchema = {
     _description: 'Configurable appointment status (status of appointments)',
     _default: ['Requested', 'Scheduled', 'CheckedIn', 'Completed', 'Cancelled', 'Missed'],
   },
+  // TODO(SIHSALUS): move the MINSA appointment entry-condition catalog to a shared frontend/backend contract.
+  // Frontend should only render labels; backend should own validation, persistence values, and migrations.
   appointmentTypes: {
     _type: Type.Array,
-    _description: 'Configurable appointment types (types of appointments)',
-    _default: ['Scheduled'],
+    _description:
+      'Configurable appointment types. MINSA/HIS uses patient entry condition: Nuevo, Continuador, Reingresante',
+    _default: ['Nuevo', 'Continuador', 'Reingresante'],
   },
   checkInButton: {
     enabled: {

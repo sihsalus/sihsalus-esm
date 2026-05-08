@@ -402,16 +402,71 @@
       "type": "form"
     },
     {
-      "name": "tepsi-form",
-      "component": "tepsiFormWorkspace",
-      "title": "Evaluación TEPSI",
-      "type": "form"
-    },
-    {
       "name": "test-peruano-form",
       "component": "testPeruanoFormWorkspace",
       "title": "Test Peruano de Desarrollo",
       "type": "form"
+    }
+  ],
+  "workspaces2": [
+    {
+      "name": "adverse-reaction-form-workspace",
+      "component": "adverseReactionFormWorkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "antecedentes-patologicos-form-workspace",
+      "component": "antecedentesPatologicosFormWorkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "conditions-filter-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "maternal-conditions-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "forms-selector-workspace",
+      "component": "formsSelectorWorkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "newborn-anthropometric-form",
+      "component": "newbornAnthropometricsworkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "newborn-fluidBalance-form",
+      "component": "newbornFluidBalanceworkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "perinatal-register-form",
+      "component": "perinatalRegisterworkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "wellchild-control-form",
+      "component": "wellchildControlsworkspace",
+      "window": "patient-chart-well-child-care-forms"
+    },
+    {
+      "name": "test-peruano-form",
+      "component": "testPeruanoFormWorkspace",
+      "window": "patient-chart-well-child-care-forms"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "patient-chart-well-child-care-forms",
+      "group": "patient-chart",
+      "order": 8,
+      "width": "extra-wide",
+      "canMaximize": true
     }
   ]
 }

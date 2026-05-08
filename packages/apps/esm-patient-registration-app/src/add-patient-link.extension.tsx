@@ -5,9 +5,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './add-patient-link.scss';
+import { moduleName } from './constants';
 
 export default function Root() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const addPatient = React.useCallback(() => navigate({ to: '${openmrsSpaBase}/patient-registration' }), []);
 
   return (

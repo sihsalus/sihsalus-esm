@@ -37,16 +37,16 @@ const StockOperationRelatedLink: React.FC<StockOperationRelatedLinkProps> = ({
   if (isLoading || error || stockOperationError || isStockOperationLoading) return null;
   return (
     <button
+      type="button"
       onClick={handleEdit}
       style={{
-        cursor: 'pointer',
-        textDecoration: 'underline',
         background: 'none',
-        border: 'none',
-        padding: 0,
+        border: 0,
         color: 'inherit',
+        cursor: 'pointer',
+        padding: 0,
+        textDecoration: 'underline',
       }}
-      type="button"
     >
       {operationNumber}
     </button>

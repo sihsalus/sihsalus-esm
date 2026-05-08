@@ -1,10 +1,10 @@
 import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle } from '@openmrs/esm-framework';
 import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
-
 import activeMedicationsComponent from './active-medications/active-medications.component';
 import { configSchema } from './config-schema';
 import { dashboardMeta, moduleName } from './dashboard.meta';
 import medicationsSummaryComponent from './medications-summary/medications-summary.component';
+import pastMedicationsComponent from './past-medications/past-medications.component';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
@@ -21,6 +21,8 @@ export const medicationsSummary = getSyncLifecycle(medicationsSummaryComponent, 
 
 export const activeMedications = getSyncLifecycle(activeMedicationsComponent, options);
 
+export const pastMedications = getSyncLifecycle(pastMedicationsComponent, options);
+
 export const drugOrderPanel = getAsyncLifecycle(
   () => import('./drug-order-basket-panel/drug-order-basket-panel.extension'),
   options,
@@ -31,13 +33,16 @@ export const medicationsDashboardLink =
   getSyncLifecycle(
     createDashboardLink({
       ...dashboardMeta,
-      moduleName,
     }),
     options,
   );
 
-// t('addDrugOrderWorkspaceTitle', 'Add drug order')
 export const addDrugOrderWorkspace = getAsyncLifecycle(
   () => import('./add-drug-order/add-drug-order.workspace'),
+  options,
+);
+
+export const exportedAddDrugOrderWorkspace = getAsyncLifecycle(
+  () => import('./add-drug-order/exported-add-drug-order.workspace'),
   options,
 );

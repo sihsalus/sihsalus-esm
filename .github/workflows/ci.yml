@@ -137,8 +137,8 @@ jobs:
       - name: Install dependencies
         run: HUSKY=0 yarn install --immutable
 
-      - name: Assemble
-        run: yarn assemble
+      - name: Assemble and validate SPA artifact
+        run: yarn package:spa
 
   security-audit:
     runs-on: ubuntu-latest

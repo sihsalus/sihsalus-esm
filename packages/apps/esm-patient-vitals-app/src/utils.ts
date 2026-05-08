@@ -12,8 +12,13 @@ import { patientVitalsBiometricsFormWorkspace } from './constants';
  * @param encounterUuid The current encounter, if any
  * @param formName The name of the form to use
  */
-export function launchFormEntry(formUuid: string, encounterUuid?: string, formName?: string) {
-  launchPatientWorkspace('patient-form-entry-workspace', {
+export function launchFormEntry(
+  formUuid: string,
+  encounterUuid?: string,
+  formName?: string,
+  formEntryWorkspaceName = 'patient-form-entry-workspace',
+) {
+  launchPatientWorkspace(formEntryWorkspaceName, {
     workspaceTitle: formName,
     formInfo: { formUuid, encounterUuid },
     mutateForm: invalidateCachedVitalsAndBiometrics,
@@ -25,15 +30,15 @@ export function launchFormEntry(formUuid: string, encounterUuid?: string, formNa
  * @param currentVisit - The current visit.
  * @param config - The configuration object.
  */
-export function launchVitalsAndBiometricsForm(currentVisit: Visit, config: ConfigObject) {
+export function launchVitalsAndBiometricsForm(currentVisit: Visit | null | undefined, config: ConfigObject) {
   if (!currentVisit) {
     launchStartVisitPrompt();
     return;
   }
 
   if (config.vitals.useFormEngine) {
-    const { formUuid, formName } = config.vitals;
-    launchFormEntry(formUuid, '', formName);
+    const { formUuid, formName, formEntryWorkspaceName } = config.vitals;
+    launchFormEntry(formUuid, '', formName, formEntryWorkspaceName);
   } else {
     launchPatientWorkspace(patientVitalsBiometricsFormWorkspace);
   }

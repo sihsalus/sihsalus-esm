@@ -1,14 +1,13 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
-import { useMemo } from 'react';
-import useSWRImmutable from 'swr/immutable';
-
 import {
   type DosingUnit,
   type DurationUnit,
   type MedicationFrequency,
   type MedicationRoute,
   type QuantityUnit,
-} from '../types';
+} from '@openmrs/esm-patient-common-lib';
+import { useMemo } from 'react';
+import useSWRImmutable from 'swr/immutable';
 
 export interface ConceptName {
   uuid: string;
@@ -17,6 +16,7 @@ export interface ConceptName {
 export interface CommonConfigProps {
   uuid: string;
   display: string;
+  frequencyPerDay?: number;
   concept?: {
     names: ConceptName[];
   };
@@ -50,7 +50,7 @@ export function useOrderConfig(): {
     error: frequencyError,
     isLoading: frequencyLoading,
   } = useSWRImmutable<{ data: OrderConfig }, Error>(
-    `${restBaseUrl}/orderentryconfig?v=custom:(uuid,display,concept:(names:(display,uuid)))`,
+    `${restBaseUrl}/orderentryconfig?v=custom:(uuid,display,frequencyPerDay,concept:(names:(display,uuid)))`,
     openmrsFetch,
   );
 
@@ -73,13 +73,12 @@ export function useOrderConfig(): {
           valueCoded: uuid,
           value: display,
         })),
-        orderFrequencies: frequencyData?.data?.orderFrequencies?.map(({ uuid, display, concept }) => {
-          return {
-            valueCoded: uuid,
-            value: display,
-            names: concept.names.map((name) => name.display),
-          };
-        }),
+        orderFrequencies: frequencyData?.data?.orderFrequencies?.map(({ uuid, display, frequencyPerDay, concept }) => ({
+          valueCoded: uuid,
+          value: display,
+          frequencyPerDay: frequencyPerDay ?? null,
+          names: concept.names.map((name) => name.display),
+        })),
       },
       isLoading: isLoading || frequencyLoading,
       error: error || frequencyError,

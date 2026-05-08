@@ -1,10 +1,15 @@
-import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 
 interface StockList {
   uuid: string;
   hasExpiration: boolean;
   expiryNotice: number;
+  results: {
+    uuid: string;
+    hasExpiration: boolean;
+    expiryNotice: number;
+  };
 }
 
 const useStockList = () => {
@@ -19,7 +24,7 @@ const useStockList = () => {
   }));
 
   return {
-    stockList: stocks ?? [],
+    stockList: (stocks as Array<any>) ?? [],
     isLoading,
     error,
   };

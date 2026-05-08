@@ -1,5 +1,5 @@
-import { createContext, useContext, type ReactNode } from 'react';
 import { type DefaultWorkspaceProps } from '@openmrs/esm-framework';
+import { createContext, type ReactNode, useContext } from 'react';
 
 export interface AdmissionRequestsWorkspaceContextProps extends DefaultWorkspaceProps {
   wardPendingPatients: ReactNode;

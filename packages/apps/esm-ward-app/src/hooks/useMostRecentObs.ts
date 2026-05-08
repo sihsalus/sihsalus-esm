@@ -1,6 +1,5 @@
 import { type Link, openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
-
 import { type Observation } from '../types';
 
 interface ObsSearchCriteria {

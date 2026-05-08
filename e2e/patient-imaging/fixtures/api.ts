@@ -14,7 +14,6 @@ import type { APIRequestContext, PlaywrightWorkerArgs, WorkerFixture } from '@pl
  * ```
  */
 export const api: WorkerFixture<APIRequestContext, PlaywrightWorkerArgs> = async ({ playwright }, use) => {
-  console.log('user name', process.env.E2E_USER_ADMIN_USERNAME);
   const ctx = await playwright.request.newContext({
     baseURL: `${process.env.E2E_BASE_URL}/ws/rest/v1/`,
     httpCredentials: {

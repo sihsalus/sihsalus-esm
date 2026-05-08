@@ -1,5 +1,4 @@
 import React, { type ReactNode } from 'react';
-
 import type { WardPatient } from '../../types';
 import styles from './admission-request-card.scss';
 import AdmissionRequestCardActions from './admission-request-card-actions.component';

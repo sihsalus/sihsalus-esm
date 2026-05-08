@@ -1,15 +1,15 @@
-import { Button, Form, InlineLoading, ModalBody, ModalFooter, ModalHeader, TextArea } from '@carbon/react';
-import { getCoreTranslation, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { extractErrorMessagesFromResponse } from '../../constants';
+import { Button, Form, InlineLoading, ModalBody, ModalFooter, ModalHeader, TextArea } from '@carbon/react';
+import { getCoreTranslation, restBaseUrl, showSnackbar } from '@openmrs/esm-framework';
+import { type StockOperationDTO } from '../../core/api/types/stockOperation/StockOperationDTO';
 import {
   type StopOperationAction,
   type StopOperationActionType,
 } from '../../core/api/types/stockOperation/StockOperationAction';
-import { type StockOperationDTO } from '../../core/api/types/stockOperation/StockOperationDTO';
-import { handleMutate } from '../../utils';
 import { executeStockOperationAction } from '../stock-operations.resource';
+import { extractErrorMessagesFromResponse } from '../../constants';
+import { handleMutate } from '../../utils';
 import styles from './stock-operations.scss';
 
 interface StockOperationsModalProps {

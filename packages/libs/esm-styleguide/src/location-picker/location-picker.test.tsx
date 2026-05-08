@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 import { type LoggedInUser, type Session } from '@openmrs/esm-api';
 import { type FHIRLocationResource } from '@openmrs/esm-emr-api';
-import { useConfig, useSession } from '@openmrs/esm-framework/src/internal';
+import { useConfig, useSession } from '@openmrs/esm-react-utils';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockConfig } from '../../__mocks__/config.mock';

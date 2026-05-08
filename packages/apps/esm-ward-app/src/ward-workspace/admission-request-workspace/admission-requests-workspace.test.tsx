@@ -1,26 +1,30 @@
-import { useAppContext } from '@openmrs/esm-framework';
+import { useAppContext, useWorkspace2Context, type Workspace2DefinitionProps } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
-
-import { renderWithSwr } from 'test-utils';
-import { mockWardViewContext } from '../../../test-utils/mock';
+import { renderWithSwr } from 'tools';
+import { mockWardViewContext } from '../../../mock';
 import useEmrConfiguration from '../../hooks/useEmrConfiguration';
 import { type WardViewContext } from '../../types';
 import DefaultWardPendingPatients from '../../ward-view/default-ward/default-ward-pending-patients.component';
-import { type AdmissionRequestsWorkspaceContextProps } from './admission-requests-context';
-
-import AdmissionRequestsWorkspace from './admission-requests.workspace';
+import AdmissionRequestsWorkspace, { type AdmissionRequestsWorkspaceProps } from './admission-requests.workspace';
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);
+const mockUseWorkspace2Context = jest.mocked(useWorkspace2Context);
 
 jest.mock('../../hooks/useEmrConfiguration', () => jest.fn());
 const mockedUseEmrConfiguration = jest.mocked(useEmrConfiguration);
 
-const workspaceProps: AdmissionRequestsWorkspaceContextProps = {
+const workspaceProps: Workspace2DefinitionProps<AdmissionRequestsWorkspaceProps> = {
   closeWorkspace: jest.fn(),
-  promptBeforeClosing: jest.fn(),
-  closeWorkspaceWithSavedChanges: jest.fn(),
-  setTitle: jest.fn(),
-  wardPendingPatients: <DefaultWardPendingPatients />,
+  launchChildWorkspace: jest.fn(),
+  workspaceProps: {
+    wardPendingPatients: <DefaultWardPendingPatients />,
+  },
+  windowProps: undefined,
+  groupProps: undefined,
+  workspaceName: '',
+  windowName: '',
+  isRootWorkspace: false,
+  showActionMenu: false,
 };
 
 describe('Admission Requests Workspace', () => {
@@ -28,7 +32,6 @@ describe('Admission Requests Workspace', () => {
     mockedUseEmrConfiguration.mockReturnValue({
       isLoadingEmrConfiguration: false,
       errorFetchingEmrConfiguration: null,
-      // @ts-expect-error - we only need these keys for now
       emrConfiguration: {
         admissionEncounterType: {
           uuid: 'admission-encounter-type-uuid',
@@ -43,6 +46,17 @@ describe('Admission Requests Workspace', () => {
         },
       },
       mutateEmrConfiguration: jest.fn(),
+    });
+    mockUseWorkspace2Context.mockReturnValue({
+      closeWorkspace: jest.fn(),
+      launchChildWorkspace: jest.fn(),
+      workspaceProps: undefined,
+      windowProps: undefined,
+      groupProps: undefined,
+      workspaceName: '',
+      windowName: '',
+      isRootWorkspace: false,
+      showActionMenu: false,
     });
   });
 

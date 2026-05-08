@@ -1,6 +1,5 @@
 import { type Location, useSession } from '@openmrs/esm-framework';
 import { useParams } from 'react-router-dom';
-
 import useLocation from './useLocation';
 
 export default function useWardLocation(): {

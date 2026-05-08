@@ -118,6 +118,7 @@
   "priorityIsRequired": "Priority is required",
   "provider": "Provider",
   "quantity": "Quantity",
+  "required": "Required",
   "queueConceptRequired": "Queue concept is required",
   "queueEntryAddedSuccessfully": "Queue entry added successfully",
   "queueEntryDeleteFailed": "Error deleting queue entry",

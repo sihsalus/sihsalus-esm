@@ -14,7 +14,6 @@ export default function useRestPatient(patientUuid: string, rep = defaultRep) {
     patientUuid ? `${restBaseUrl}/patient/${patientUuid}?v=${rep}` : null,
     openmrsFetch,
   );
-
   return {
     patient: data?.data,
     ...rest,

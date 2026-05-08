@@ -24,6 +24,7 @@ export interface NewRowStartCellProps {
   patientUuid: string;
   shadow?: boolean;
   isString?: boolean;
+  zebra?: boolean;
 }
 
 export interface TimelineCellProps {
@@ -36,11 +37,12 @@ export interface TimelineDataGroupProps {
   patientUuid: string;
   parent: TreeNode;
   subRows: Array<RowData>;
-  panelName: string;
-  setPanelName: (name: string) => void;
+  panelName?: string;
+  setPanelName?: (name: string) => void;
   xScroll: number;
   setXScroll: (x: number) => void;
   groupNumber: number;
+  inOverlay?: boolean;
 }
 
 export interface DataRowsProps {

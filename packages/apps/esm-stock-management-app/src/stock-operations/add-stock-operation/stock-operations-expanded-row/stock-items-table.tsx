@@ -1,3 +1,5 @@
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   Pagination,
@@ -11,8 +13,6 @@ import {
   Tile,
 } from '@carbon/react';
 import { formatDate, parseDate, usePagination } from '@openmrs/esm-framework';
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { type StockOperationItemDTO } from '../../../core/api/types/stockOperation/StockOperationItemDTO';
 import styles from './stock-items-table.scss';
 
@@ -99,7 +99,15 @@ const StockItemsTable: React.FC<Props> = ({ items }) => {
         )}
       </DataTable>
       <Pagination
+        backwardText={t('previousPage', 'Previous page')}
+        forwardText={t('nextPage', 'Next page')}
+        itemRangeText={(min, max, total) =>
+          t('itemRangeText', '{{min}}-{{max}} de {{total}} elementos', { min, max, total })
+        }
+        itemsPerPageText={t('itemsPerPage', 'Elementos por página:')}
         page={currentPage}
+        pageNumberText={t('pageNumber', 'Número de página')}
+        pageRangeText={(_, total) => t('pageRangeText', 'de {{total}} páginas', { total })}
         pageSize={pageSize}
         pageSizes={pageSizesOptions}
         totalItems={filtered.length}

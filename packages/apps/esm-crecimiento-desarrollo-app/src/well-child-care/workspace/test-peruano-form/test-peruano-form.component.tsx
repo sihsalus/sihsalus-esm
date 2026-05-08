@@ -578,6 +578,20 @@ const TestPeruanoForm: React.FC<DefaultPatientWorkspaceProps> = ({ closeWorkspac
         obs.push({ concept: tp.observacionesUuid, value: data.observations });
       }
 
+      if (obs.length === 0) {
+        showSnackbar({
+          title: t('testPeruanoSaveError', 'Error saving Test Peruano'),
+          kind: 'error',
+          isLowContrast: false,
+          subtitle: t(
+            'testPeruanoMissingConcepts',
+            'No hay conceptos configurados para guardar el Test Peruano. Revise la configuración del módulo.',
+          ),
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       const abortController = new AbortController();
 
       try {

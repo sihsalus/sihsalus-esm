@@ -1,24 +1,26 @@
-import { Button, ButtonSet, Form, InlineNotification } from '@carbon/react';
+import { Button, ButtonSet, Checkbox, CheckboxGroup, Form, InlineNotification, Stack } from '@carbon/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showSnackbar, useAppContext } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-
-import type { WardPatientWorkspaceProps, WardViewContext } from '../../types';
+import { type WardViewContext } from '../../types';
 import { assignPatientToBed, removePatientFromBed, useCreateEncounter } from '../../ward.resource';
+import WardPatientIdentifier from '../../ward-patient-card/row-elements/ward-patient-identifier.component';
+import WardPatientName from '../../ward-patient-card/row-elements/ward-patient-name.component';
 import BedSelector from '../bed-selector.component';
-
+import { type PatientAdmitOrTransferFormProps } from './patient-admit-or-transfer-request-form.component';
 import styles from './patient-transfer-swap.scss';
 
 export default function PatientBedSwapForm({
-  promptBeforeClosing,
-  closeWorkspaceWithSavedChanges,
   wardPatient,
-}: WardPatientWorkspaceProps) {
-  const { patient, visit } = wardPatient;
+  relatedTransferPatients = [],
+  onCancel,
+  onSuccess,
+}: PatientAdmitOrTransferFormProps) {
+  const { patient } = wardPatient;
   const { t } = useTranslation();
   const [showErrorNotifications, setShowErrorNotifications] = useState(false);
   const { createEncounter, emrConfiguration, isLoadingEmrConfiguration, errorFetchingEmrConfiguration } =
@@ -26,6 +28,7 @@ export default function PatientBedSwapForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { wardPatientGroupDetails } = useAppContext<WardViewContext>('ward-view-context') ?? {};
   const { isLoading } = wardPatientGroupDetails?.admissionLocationResponse ?? {};
+  const [selectedRelatedPatient, setCheckedRelatedPatient] = useState<string[]>([]);
 
   const zodSchema = useMemo(
     () =>
@@ -40,15 +43,10 @@ export default function PatientBedSwapForm({
   type FormValues = z.infer<typeof zodSchema>;
 
   const {
-    formState: { errors, isDirty },
+    formState: { errors },
     control,
     handleSubmit,
   } = useForm<FormValues>({ resolver: zodResolver(zodSchema) });
-
-  useEffect(() => {
-    promptBeforeClosing(() => isDirty);
-    return () => promptBeforeClosing(null);
-  }, [isDirty, promptBeforeClosing]);
 
   const beds = useMemo(() => wardPatientGroupDetails?.bedLayouts ?? [], [wardPatientGroupDetails]);
 
@@ -57,45 +55,75 @@ export default function PatientBedSwapForm({
       const bedSelected = beds.find((bed) => bed.bedId === values.bedId);
       setIsSubmitting(true);
       setShowErrorNotifications(false);
-      createEncounter(patient, emrConfiguration.bedAssignmentEncounterType, visit.uuid)
-        .then(async (response) => {
+
+      const wardPatientsToSwap = [
+        wardPatient,
+        ...relatedTransferPatients.filter((rp) => selectedRelatedPatient.includes(rp.patient.uuid)),
+      ];
+
+      Promise.allSettled(
+        wardPatientsToSwap.map(async (wardPatientToSwap) => {
+          const { patient: patientToSwap, visit: patientToSwapVisit } = wardPatientToSwap;
+
+          const response = await createEncounter(
+            patientToSwap,
+            emrConfiguration.bedAssignmentEncounterType,
+            patientToSwapVisit.uuid,
+          );
           if (response.ok) {
             if (bedSelected) {
-              return assignPatientToBed(values.bedId, patient.uuid, response.data.uuid);
+              return assignPatientToBed(values.bedId, patientToSwap.uuid, response.data.uuid);
             } else {
               // get the bed that the patient is currently assigned to
               const bedAssignedToPatient = beds.find((bed) =>
-                bed.patients.some((bedPatient) => bedPatient.uuid === patient.uuid),
+                bed.patients.some((bedPatient) => bedPatient.uuid === patientToSwap.uuid),
               );
               if (bedAssignedToPatient) {
-                return removePatientFromBed(bedAssignedToPatient.bedId, patient.uuid);
+                return removePatientFromBed(bedAssignedToPatient.bedId, patientToSwap.uuid);
               } else {
                 // no-op
                 return Promise.resolve({ ok: true });
               }
             }
           }
-        })
-        .then((response) => {
-          if (response && response?.ok) {
-            if (bedSelected) {
+        }),
+      )
+        .then((results) => {
+          results.forEach((result, i) => {
+            const patientName = wardPatientsToSwap[i].patient.person.preferredName.display;
+            if (result.status === 'fulfilled' && result.value?.ok) {
               showSnackbar({
                 kind: 'success',
-                title: t('patientAssignedNewBed', 'Patient assigned to new bed'),
-                subtitle: t('patientAssignedNewBedDetail', '{{patientName}} assigned to bed {{bedNumber}}', {
-                  patientName: patient.person.preferredName.display,
-                  bedNumber: bedSelected.bedNumber,
-                }),
+                title: bedSelected
+                  ? t('patientAssignedNewBed', 'Patient assigned to new bed')
+                  : t('patientUnassignedFromBed', 'Patient unassigned from bed'),
+                subtitle: bedSelected
+                  ? t('patientAssignedNewBedDetail', '{{patientName}} assigned to bed {{bedNumber}}', {
+                      patientName,
+                      bedNumber: bedSelected.bedNumber,
+                    })
+                  : t('patientUnassignedFromBedDetail', '{{patientName}} is now unassigned from bed', {
+                      patientName,
+                    }),
               });
             } else {
+              const error = result.status === 'rejected' ? result.reason : null;
               showSnackbar({
-                kind: 'success',
-                title: t('patientUnassignedFromBed', 'Patient unassigned from bed'),
-                subtitle: t('patientUnassignedFromBedDetail', '{{patientName}} is now unassigned from bed', {
-                  patientName: patient.person.preferredName.display,
-                }),
+                kind: 'error',
+                title: t(
+                  'errorChangingPatientBedAssignmentForPatient',
+                  'Error changing bed assignment for {{patientName}}',
+                  {
+                    patientName,
+                  },
+                ),
+                subtitle: error?.message,
               });
             }
+          });
+
+          if (results.some((result) => result.status === 'fulfilled' && result.value?.ok)) {
+            onSuccess();
           }
         })
         .catch((error: Error) => {
@@ -108,18 +136,18 @@ export default function PatientBedSwapForm({
         .finally(() => {
           setIsSubmitting(false);
           wardPatientGroupDetails.mutate();
-          closeWorkspaceWithSavedChanges();
         });
     },
     [
       beds,
       createEncounter,
-      patient,
-      visit,
       emrConfiguration,
       t,
       wardPatientGroupDetails,
-      closeWorkspaceWithSavedChanges,
+      onSuccess,
+      selectedRelatedPatient,
+      relatedTransferPatients,
+      wardPatient,
     ],
   );
 
@@ -127,13 +155,16 @@ export default function PatientBedSwapForm({
     setShowErrorNotifications(true);
   }, []);
 
-  if (!wardPatientGroupDetails) return <></>;
+  if (!wardPatientGroupDetails) {
+    return null;
+  }
+
   return (
     <Form
       onSubmit={handleSubmit(onSubmit, onError)}
       className={classNames(styles.formContainer, styles.workspaceContent)}
     >
-      <div>
+      <Stack gap={4}>
         {errorFetchingEmrConfiguration && (
           <div className={styles.formError}>
             <InlineNotification
@@ -148,31 +179,60 @@ export default function PatientBedSwapForm({
             />
           </div>
         )}
-        <h2 className={styles.productiveHeading02}>{t('selectABed', 'Select a bed')}</h2>
-        <Controller
-          name="bedId"
-          control={control}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
-            <BedSelector
-              beds={beds}
-              isLoadingBeds={isLoading}
-              currentPatient={patient}
-              selectedBedId={value}
-              error={error}
-              onChange={onChange}
-            />
-          )}
-        />
+        {relatedTransferPatients?.length > 0 && (
+          <div>
+            <CheckboxGroup legendText={t('alsoSwap', 'Also swap:')}>
+              {relatedTransferPatients?.map(({ patient: relatedPatient }) => (
+                <div key={'also-swap-' + relatedPatient.uuid}>
+                  <Checkbox
+                    checked={selectedRelatedPatient.includes(relatedPatient.uuid)}
+                    className={styles.checkbox}
+                    id={relatedPatient.uuid}
+                    labelText={
+                      <div className={styles.relatedPatientTransferSwapOption}>
+                        <WardPatientName patient={relatedPatient} />
+                        <WardPatientIdentifier id="patient-identifier" patient={relatedPatient} />
+                      </div>
+                    }
+                    onChange={(_event, { checked, id }) => {
+                      const currentValue = selectedRelatedPatient;
+                      setCheckedRelatedPatient(
+                        checked ? [...currentValue, id] : currentValue.filter((item) => item !== id),
+                      );
+                    }}
+                  />
+                </div>
+              ))}
+            </CheckboxGroup>
+          </div>
+        )}
+        <div className={styles.field}>
+          <h2 className={styles.productiveHeading02}>{t('selectABed', 'Select a bed')}</h2>
+          <Controller
+            name="bedId"
+            control={control}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <BedSelector
+                beds={beds}
+                isLoadingBeds={isLoading}
+                currentPatient={patient}
+                selectedBedId={value}
+                error={error}
+                onChange={onChange}
+              />
+            )}
+          />
+        </div>
         {showErrorNotifications && (
           <div className={styles.notifications}>
-            {Object.entries(errors).map(([fieldName, error]) => (
-              <InlineNotification key={fieldName} lowContrast subtitle={error.message} />
+            {Object.values(errors).map((error) => (
+              <InlineNotification lowContrast subtitle={error.message} />
             ))}
           </div>
         )}
-      </div>
+      </Stack>
       <ButtonSet className={styles.buttonSet}>
-        <Button size="xl" kind="secondary" onClick={() => closeWorkspaceWithSavedChanges()}>
+        <Button size="xl" kind="secondary" onClick={onCancel}>
           {t('cancel', 'Cancel')}
         </Button>
         <Button

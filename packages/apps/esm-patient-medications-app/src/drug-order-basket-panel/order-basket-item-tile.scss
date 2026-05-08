@@ -1,7 +1,7 @@
-@use '@carbon/colors';
-@use '@carbon/layout';
-@use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/colors";
+@use "@carbon/layout";
+@use "@carbon/type";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 .clickableTileDesktop {
   padding: layout.$spacing-03 layout.$spacing-04;
@@ -18,11 +18,15 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+
+  > div:first-child {
+    min-width: 0;
+  }
 }
 
 .label {
   display: inline-block;
-  @include type.type-style('label-01');
+  @include type.type-style("label-01");
   margin-bottom: layout.$spacing-03;
 }
 
@@ -58,26 +62,26 @@
 }
 
 .doseCaption {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
   color: $text-02;
 }
 
 .dosageLabel {
-  @include type.type-style('heading-compact-01');
+  @include type.type-style("heading-compact-01");
 }
 
 .dosageInfo {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
   color: black;
 }
 
 .drugName {
-  @include type.type-style('heading-compact-01');
+  @include type.type-style("heading-compact-01");
   color: black;
 }
 
 .indicationLabel {
-  @include type.type-style('body-compact-01');
+  @include type.type-style("body-compact-01");
   color: $text-02;
 }
 
@@ -86,15 +90,7 @@
 }
 
 .label01 {
-  @include type.type-style('label-01');
-}
-
-.clipTextWithEllipsis {
-  font-size: layout.$spacing-05;
-  line-height: 1.5;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  @include type.type-style("label-01");
 }
 
 .additionalInfoContainer {

@@ -10,12 +10,12 @@ vi.mock('./usePatientPhoto', () => ({
   usePatientPhoto: vi.fn(),
 }));
 
-const mockToDataUri = vi.fn().mockReturnValue('data:image/svg+xml;base64,mockpattern');
+const mockToDataUrl = vi.fn().mockReturnValue('data:image/svg+xml;base64,mockpattern');
 
 vi.mock('geopattern', () => ({
   default: {
     generate: vi.fn(() => ({
-      toDataUri: mockToDataUri,
+      toDataUrl: mockToDataUrl,
     })),
   },
 }));
@@ -123,7 +123,7 @@ describe('PatientPhoto', () => {
 
     const avatarImage = screen.getByRole('img', { name: 'Profile photo of Freddy Mercury' });
     expect(avatarImage).toBeInTheDocument();
-    expect(avatarImage).toHaveAttribute('src', 'valid-image.jpg');
+    expect(avatarImage).toHaveAttribute('src', '/valid-image.jpg');
     expect(avatarImage).toHaveAttribute('alt', 'Profile photo of Freddy Mercury');
 
     // Restore the original Image constructor

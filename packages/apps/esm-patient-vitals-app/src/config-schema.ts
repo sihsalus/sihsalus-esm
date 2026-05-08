@@ -98,6 +98,11 @@ export const configSchema = {
       _type: Type.String,
       _default: 'Vitals',
     },
+    formEntryWorkspaceName: {
+      _type: Type.String,
+      _default: 'patient-form-entry-workspace',
+      _description: 'Workspace name used when launching the form engine vitals form.',
+    },
     useMuacColors: {
       _type: Type.Boolean,
       _default: false,
@@ -150,6 +155,7 @@ export interface ConfigObject {
     };
     formUuid: string;
     formName: string;
+    formEntryWorkspaceName: string;
     useMuacColors: boolean;
     showPrintButton: boolean;
   };

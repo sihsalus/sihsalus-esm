@@ -1,6 +1,5 @@
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import useSWR from 'swr';
-
 import { type BedDetail } from '../types';
 
 export function useAssignedBedByPatient(patientUuid: string) {

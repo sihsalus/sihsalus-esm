@@ -1,4 +1,4 @@
-import { useOnClickOutside } from '@openmrs/esm-framework/src/internal';
+import { useOnClickOutside } from '@openmrs/esm-react-utils';
 import React, { useContext } from 'react';
 import { DatePickerStateContext, DateRangePickerStateContext, Dialog } from 'react-aria-components';
 import styles from './datepicker.module.scss';

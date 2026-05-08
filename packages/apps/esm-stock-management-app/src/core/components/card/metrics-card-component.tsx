@@ -1,9 +1,9 @@
-import { Tile } from '@carbon/react';
+import React from 'react';
 import dayjs from 'dayjs';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
-import { isEmpty } from 'lodash-es';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { isEmpty } from 'lodash-es';
+import { Tile } from '@carbon/react';
 import styles from './metrics-card.scss';
 
 dayjs.extend(isSameOrBefore);
@@ -13,9 +13,9 @@ interface MetricsCardProps {
   value: number;
   headerLabel: string;
   children?: React.ReactNode;
-  count?: { expiry6months: Array<unknown> };
-  outOfStockCount?: { itemsBelowMin: Array<unknown>; itemsAboveMax: Array<unknown> };
-  disposedCount?: { expired: Array<unknown>; poorQuality: Array<unknown> };
+  count?: { expiry6months: Array<any> };
+  outOfStockCount?: { itemsBelowMin: Array<any>; itemsAboveMax: Array<any> };
+  disposedCount?: { expired: Array<any>; poorQuality: Array<any> };
 }
 const MetricsCard: React.FC<MetricsCardProps> = ({
   label,

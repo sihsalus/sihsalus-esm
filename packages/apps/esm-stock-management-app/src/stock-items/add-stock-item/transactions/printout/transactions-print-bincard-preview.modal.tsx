@@ -1,8 +1,8 @@
-import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework';
 import React, { useRef } from 'react';
+import { ModalBody, ModalHeader, ModalFooter, Button } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
+import { getCoreTranslation } from '@openmrs/esm-framework';
 import TransactionsBincardPrintout from './transactions-bincard-printout.component';
 
 type TransactionsBincardPrintPreviewModalProps = {
@@ -24,7 +24,7 @@ const TransactionsBincardPrintPreviewModal: React.FC<TransactionsBincardPrintPre
   const ref = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
-    contentRef: ref,
+    content: () => ref.current,
   });
   return (
     <>

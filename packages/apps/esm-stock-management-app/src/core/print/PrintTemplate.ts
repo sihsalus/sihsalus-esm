@@ -1,7 +1,7 @@
-import { getConfig } from '@openmrs/esm-framework';
+import { PrintCss } from './PrintStyles';
 import { PRINT_LOGO } from '../../constants';
 import { GetPrintLogo, type PrintLogoData } from '../utils/imageUtils';
-import { PrintCss } from './PrintStyles';
+import { getConfig } from '@openmrs/esm-framework';
 
 export const GetPrintTemplate = (
   body: string,
@@ -26,7 +26,7 @@ ${PrintCss}
 };
 
 export const GetLogoSection = async () => {
-  const config = await getConfig('@sihsalus/esm-stock-management-app');
+  const config = await getConfig('@openmrs/esm-stock-management-app');
   const logoText = config?.logo?.name;
   let printLogoData: PrintLogoData | null = null;
   if (PRINT_LOGO) {

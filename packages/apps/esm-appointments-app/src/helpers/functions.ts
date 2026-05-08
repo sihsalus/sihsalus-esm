@@ -1,6 +1,6 @@
 import dayjs, { type Dayjs } from 'dayjs';
 
-import { type AppointmentCountMap, type AppointmentSummary } from '../types';
+import { type AppointmentCountMap, AppointmentStatus, type AppointmentSummary } from '../types';
 
 type AppointmentServiceLoadSummary = {
   serviceName: string;
@@ -83,4 +83,23 @@ export const getGender = (gender: string, t: (key: string, defaultValue: string)
     default:
       return gender;
   }
+};
+
+/**
+ * Return whether we can transition from one appointment status to another,
+ * based on logic in backend. See:
+ * https://github.com/Bahmni/openmrs-module-appointments/blob/master/api/src/main/java/org/openmrs/module/appointments/model/AppointmentStatus.java
+ * https://github.com/Bahmni/openmrs-module-appointments/blob/master/api/src/main/java/org/openmrs/module/appointments/validator/impl/DefaultAppointmentStatusChangeValidator.java
+ */
+export const canTransition = (fromStatus: AppointmentStatus, toStatus: AppointmentStatus): boolean => {
+  const sequences = {
+    [AppointmentStatus.REQUESTED]: 0,
+    [AppointmentStatus.SCHEDULED]: 1,
+    [AppointmentStatus.CHECKEDIN]: 3,
+    [AppointmentStatus.COMPLETED]: 4,
+    [AppointmentStatus.CANCELLED]: 4,
+    [AppointmentStatus.MISSED]: 4,
+  };
+
+  return sequences[fromStatus] < sequences[toStatus] || toStatus === AppointmentStatus.SCHEDULED;
 };

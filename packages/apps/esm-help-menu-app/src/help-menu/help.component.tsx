@@ -1,12 +1,15 @@
 import { Button } from '@carbon/react';
 import { Help } from '@carbon/react/icons';
 import { useAssignedExtensions, useSession } from '@openmrs/esm-framework';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './help.styles.scss';
 import HelpMenuPopup from './help-popup.component';
 
 export default function HelpMenu() {
+  const { t } = useTranslation();
   const { user } = useSession();
+  const helpMenuLabel = t('helpMenu', 'Help menu');
   const [helpMenuOpen, setHelpMenuOpen] = useState(false);
   const helpMenuButtonRef = useRef(null);
   const popupRef = useRef(null);
@@ -44,11 +47,13 @@ export default function HelpMenu() {
     <>
       {user && (
         <Button
+          aria-label={helpMenuLabel}
           className={styles.helpMenuButton}
           kind="ghost"
           onClick={toggleHelpMenu}
           ref={helpMenuButtonRef}
           size="md"
+          title={helpMenuLabel}
         >
           <Help size={20} />
         </Button>

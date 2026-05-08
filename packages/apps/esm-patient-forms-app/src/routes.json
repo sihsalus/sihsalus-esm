@@ -43,6 +43,11 @@
       "window": "patient-chart-clinical-forms"
     },
     {
+      "name": "patient-form-entry-workspace",
+      "component": "patientFormEntryWorkspace",
+      "window": "patient-chart-clinical-forms"
+    },
+    {
       "name": "patient-form-entry-workspace-v2",
       "component": "patientFormEntryWorkspace",
       "window": "patient-chart-clinical-forms"

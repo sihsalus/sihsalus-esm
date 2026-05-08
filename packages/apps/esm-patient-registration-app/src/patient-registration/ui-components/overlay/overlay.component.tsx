@@ -3,7 +3,7 @@ import { ArrowLeft, Close } from '@carbon/react/icons';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../../../constants';
 import styles from './overlay.scss';
 
 interface OverlayProps {
@@ -14,7 +14,7 @@ interface OverlayProps {
 }
 
 const Overlay: React.FC<OverlayProps> = ({ close, children, header, buttonsGroup }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const layout = useLayoutType();
 
   return (

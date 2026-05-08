@@ -27,7 +27,10 @@ describe('offline form helpers', () => {
 
     const entries = await getDynamicFormDataEntriesFor('user-a');
 
-    expect(entries.map((entry) => entry.identifier).sort()).toEqual(['form-a', 'form-shared']);
+    expect(entries.map((entry) => entry.identifier).sort((a, b) => a.localeCompare(b))).toEqual([
+      'form-a',
+      'form-shared',
+    ]);
   });
 
   it('adds and removes user membership without duplicating rows', async () => {

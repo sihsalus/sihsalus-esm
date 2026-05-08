@@ -4,11 +4,11 @@ import { SideNav, type SideNavProps } from '@carbon/react';
 import {
   ComponentContext,
   ExtensionSlot,
-  getCoreTranslation,
   RenderIfValueIsTruthy,
   useAssignedExtensions,
   useLeftNavStore,
-} from '@openmrs/esm-framework/src/internal';
+} from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import React from 'react';
 import styles from './left-nav.module.scss';
 
@@ -22,7 +22,6 @@ interface LeftNavMenuProps extends SideNavProps {
    * When false, it renders an empty fragment.
    */
   isChildOfHeader?: boolean;
-  inert?: boolean;
 }
 
 /**
@@ -36,39 +35,6 @@ export const LeftNavMenu = React.forwardRef<HTMLElement, LeftNavMenuProps>((prop
   const { slotName, basePath, componentContext, state } = useLeftNavStore();
   const currentPath = window.location ?? { pathname: '' };
   const navMenuItems = useAssignedExtensions(slotName ?? '');
-  const { inert, ...restProps } = props;
-  const sideNavRef = React.useRef<HTMLElement | null>(null);
-
-  const setRefs = React.useCallback(
-    (node: HTMLElement | null) => {
-      sideNavRef.current = node;
-
-      if (typeof ref === 'function') {
-        ref(node);
-      } else if (ref) {
-        ref.current = node;
-      }
-    },
-    [ref],
-  );
-
-  React.useEffect(() => {
-    if (!sideNavRef.current) {
-      return;
-    }
-
-    if (typeof inert === 'boolean') {
-      if (inert) {
-        sideNavRef.current.setAttribute('inert', '');
-      } else {
-        sideNavRef.current.removeAttribute('inert');
-      }
-      return;
-    }
-
-    sideNavRef.current.removeAttribute('inert');
-  }, [inert]);
-
   if (props.isChildOfHeader && slotName && navMenuItems.length > 0) {
     return (
       <SideNav
@@ -76,8 +42,8 @@ export const LeftNavMenu = React.forwardRef<HTMLElement, LeftNavMenuProps>((prop
         className={styles.leftNav}
         expanded
         isFixedNav
-        ref={setRefs}
-        {...restProps}
+        ref={ref}
+        {...props}
       >
         <ExtensionSlot name="global-nav-menu-slot" />
         {slotName ? (

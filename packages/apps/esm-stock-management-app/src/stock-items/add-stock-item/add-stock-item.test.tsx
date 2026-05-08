@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import { type StockItemDTO } from '../../core/api/types/stockItem/StockItem';
 import AddEditStockItem from './add-stock-item.component';
 
@@ -9,14 +10,6 @@ jest.mock('@carbon/react/icons', () => ({
 
 jest.mock('./stock-item-details/stock-item-details.component', () => ({ stockItem }) => (
   <div data-testid="stock-item-details">Stock Item Details: {stockItem?.uuid}</div>
-));
-
-jest.mock('./stock-item-rules/stock-item-rules.component', () => ({ stockItemUuid }) => (
-  <div data-testid="stock-rules">Rules: {stockItemUuid || 'N/A'}</div>
-));
-
-jest.mock('./stock-item-references/stock-item-references.component', () => ({ stockItemUuid }) => (
-  <div data-testid="stock-references">References: {stockItemUuid || 'N/A'}</div>
 ));
 
 jest.mock('./packaging-units/packaging-units.component', () => ({ stockItemUuid }) => (
@@ -122,19 +115,26 @@ describe('AddEditStockItem', () => {
     const user = userEvent.setup();
     render(<AddEditStockItem stockItem={mockModel} />);
 
-    await user.click(screen.getByRole('button', { name: /rules/i }));
-    expect(screen.getByTestId('stock-rules')).toBeInTheDocument();
-    expect(screen.getByText('Rules: test-uuid-123')).toBeInTheDocument();
+    await user.click(screen.getByText(/packaging units/i));
+    expect(screen.getByTestId('packaging-units')).toBeInTheDocument();
+    expect(screen.getByText('Packaging Units: test-uuid-123')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /references/i }));
-    expect(screen.getByTestId('stock-references')).toBeInTheDocument();
-    expect(screen.getByText('References: test-uuid-123')).toBeInTheDocument();
+    await user.click(screen.getByText(/transactions/i));
+    expect(screen.getByTestId('transactions')).toBeInTheDocument();
+    expect(screen.getByText('Transactions: test-uuid-123')).toBeInTheDocument();
   });
 
   it('disables tabs when isEditing is false', () => {
     render(<AddEditStockItem />);
 
-    const disabledTabs = [/references/i, /rules/i];
+    const disabledTabs = [
+      /batch information/i,
+      /packaging units/i,
+      /quantities/i,
+      /references/i,
+      /rules/i,
+      /transactions/i,
+    ];
     disabledTabs.forEach((tabName) => {
       const tab = screen.getByRole('button', { name: tabName });
       expect(tab).toHaveAttribute('aria-disabled', 'true');
@@ -144,7 +144,14 @@ describe('AddEditStockItem', () => {
   it('enables tabs when isEditing is true', () => {
     render(<AddEditStockItem stockItem={mockModel} />);
 
-    const enabledTabs = [/references/i, /rules/i];
+    const enabledTabs = [
+      /batch information/i,
+      /packaging units/i,
+      /quantities/i,
+      /references/i,
+      /rules/i,
+      /transactions/i,
+    ];
     enabledTabs.forEach((tabName) => {
       const tab = screen.getByRole('button', { name: tabName });
       expect(tab).toHaveAttribute('aria-disabled', 'false');
@@ -157,22 +164,38 @@ describe('AddEditStockItem', () => {
 
     expect(screen.getByText('Stock Item Details: test-uuid-123')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /rules/i }));
+    await user.click(screen.getByText(/packaging units/i));
+    expect(screen.getByText('Packaging Units: test-uuid-123')).toBeInTheDocument();
+
+    await user.click(screen.getByText(/transactions/i));
+    expect(screen.getByText('Transactions: test-uuid-123')).toBeInTheDocument();
+
+    await user.click(screen.getByText(/batch information/i));
+    expect(screen.getByText('Batch Information: test-uuid-123')).toBeInTheDocument();
+
+    await user.click(screen.getByText(/quantities/i));
+    expect(screen.getByText('Quantities: test-uuid-123')).toBeInTheDocument();
+
+    await user.click(screen.getByText(/rules/i));
     expect(screen.getByText('Rules: test-uuid-123')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /references/i }));
+    await user.click(screen.getByText(/references/i));
     expect(screen.getByText('References: test-uuid-123')).toBeInTheDocument();
-
-    await user.click(screen.getByRole('button', { name: /stock item details/i }));
-    expect(screen.getByText('Stock Item Details: test-uuid-123')).toBeInTheDocument();
   });
 
   it('translates tab names correctly', () => {
     render(<AddEditStockItem stockItem={mockModel} />);
 
-    const tabNames = [/stock item details/i, /references/i, /rules/i];
+    const tabNames = [
+      /batch information/i,
+      /packaging units/i,
+      /quantities/i,
+      /references/i,
+      /rules/i,
+      /transactions/i,
+    ];
     tabNames.forEach((tabName) => {
-      expect(screen.getByRole('button', { name: tabName })).toBeInTheDocument();
+      expect(screen.getByText(tabName)).toBeInTheDocument();
     });
   });
 });

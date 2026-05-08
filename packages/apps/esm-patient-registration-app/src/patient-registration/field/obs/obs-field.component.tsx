@@ -6,11 +6,11 @@ import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type FieldDefinition, type RegistrationConfig } from '../../../config-schema';
+import { moduleName } from '../../../constants';
 import { Input } from '../../input/basic-input/input/input.component';
 import { type ConceptResponse } from '../../patient-registration.types';
 import { PatientRegistrationContext } from '../../patient-registration-context';
 import { useConcept, useConceptAnswers } from '../field.resource';
-
 import styles from './../field.scss';
 
 export interface ObsFieldProps {
@@ -18,7 +18,7 @@ export interface ObsFieldProps {
 }
 
 export function ObsField({ fieldDefinition }: ObsFieldProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const { data: concept, isLoading } = useConcept(fieldDefinition.uuid);
   const config = useConfig<RegistrationConfig>();
 
@@ -94,7 +94,7 @@ interface TextObsFieldProps {
 }
 
 function TextObsField({ concept, validationRegex, label, required }: TextObsFieldProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
 
   const validateInput = (value: string) => {
     if (!value || !validationRegex || validationRegex === '' || typeof validationRegex !== 'string' || value === '') {
@@ -166,7 +166,7 @@ interface DateObsFieldProps {
 }
 
 function DateObsField({ concept, label, required, allowPastDates, allowFutureDates }: DateObsFieldProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const fieldName = `obs.${concept.uuid}`;
   const { setFieldValue } = useContext(PatientRegistrationContext);
   const futureDatesAllowed = allowFutureDates ?? true;
@@ -213,7 +213,7 @@ interface CodedObsFieldProps {
 }
 
 function CodedObsField({ concept, answerConceptSetUuid, label, required, customConceptAnswers }: CodedObsFieldProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const fieldName = `obs.${concept.uuid}`;
 
   const { data: conceptAnswers, isLoading: isLoadingConceptAnswers } = useConceptAnswers(

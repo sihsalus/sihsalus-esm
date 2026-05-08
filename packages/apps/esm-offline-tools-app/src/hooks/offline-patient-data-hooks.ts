@@ -12,7 +12,7 @@ function useSynchronizationItems<T>(type: string) {
 }
 
 function useFhirPatients(ids: Array<string>) {
-  const stableIds = useMemo(() => [...ids].sort(), [ids]);
+  const stableIds = useMemo(() => [...ids].sort((a, b) => a.localeCompare(b)), [ids]);
   return useSWR(['fhirPatients', stableIds], () =>
     Promise.all(stableIds.map((patientId) => fetchCurrentPatient(patientId, undefined, false))),
   );

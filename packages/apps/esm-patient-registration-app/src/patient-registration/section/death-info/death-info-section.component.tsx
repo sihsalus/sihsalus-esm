@@ -2,10 +2,9 @@ import { Checkbox, Layer } from '@carbon/react';
 import { useField } from 'formik';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../../../constants';
 import { Field } from '../../field/field.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
-
 import styles from './../section.scss';
 
 export interface DeathInfoSectionProps {
@@ -13,7 +12,7 @@ export interface DeathInfoSectionProps {
 }
 
 export const DeathInfoSection: React.FC<DeathInfoSectionProps> = ({ fields }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const { values, setFieldValue } = useContext(PatientRegistrationContext);
   const [deathDate, deathDateMeta] = useField('deathDate');
   const today = new Date();

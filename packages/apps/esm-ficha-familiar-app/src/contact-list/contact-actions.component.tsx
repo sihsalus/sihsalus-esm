@@ -1,9 +1,10 @@
 import { Button, ButtonSkeleton, Row } from '@carbon/react';
 import { Microscope } from '@carbon/react/icons';
 import { launchWorkspace, useConfig } from '@openmrs/esm-framework';
+import { launchStartVisitPrompt, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import React from 'react';
-
 import type { ConfigObject } from '../config-schema';
+import { patientFormEntryWorkspace } from '../constants';
 import useRelativeHivEnrollment from '../hooks/useRelativeHivEnrollment';
 import useRelativeHTSEncounter from '../hooks/useRelativeHTSEncounter';
 
@@ -17,6 +18,7 @@ interface ContactActionsProps {
 const ContactActions: React.FC<ContactActionsProps> = ({ relativeUuid, baseLineHIVStatus }) => {
   const { enrollment, isLoading } = useRelativeHivEnrollment(relativeUuid);
   const { encounters, isLoading: encounterLoading } = useRelativeHTSEncounter(relativeUuid);
+  const { currentVisit } = useVisitOrOfflineVisit(relativeUuid);
 
   const {
     formsList: { htsInitialTest },
@@ -32,11 +34,22 @@ const ContactActions: React.FC<ContactActionsProps> = ({ relativeUuid, baseLineH
   }
 
   const hivStatus = getHivStatusBasedOnEnrollmentAndHTSEncounters(encounters, enrollment);
-  //todo update to ask for visit first
+
   const handleLauchHTSInitialForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    if (!currentVisit) {
+      launchStartVisitPrompt();
+      return;
+    }
+
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'HTS Initial form',
-      formInfo: { encounterUuid: '', formUuid: htsInitialTest },
+      formInfo: {
+        encounterUuid: '',
+        formUuid: htsInitialTest,
+        patientUuid: relativeUuid,
+        visitTypeUuid: currentVisit.visitType?.uuid ?? '',
+        visitUuid: currentVisit.uuid,
+      },
     });
   };
 

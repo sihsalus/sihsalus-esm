@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next';
 import useSWR from 'swr';
 
 import type { OdontogramConfig } from '../config-schema';
+import { patientFormEntryWorkspace } from '../constants';
 import DentalEmptyState from '../ui/dental-empty-state.component';
 import { deleteEncounter, type EncountersResponse, getDentalAttentionUrl } from './odontologia-attention.resource';
 
@@ -67,7 +68,7 @@ const OdontologiaAttentionDashboard: React.FC<OdontologiaAttentionDashboardProps
   );
 
   const launchDentalForm = (encounterUuid = '') => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: t('dentalAttention', 'Atención odontológica'),
       mutateForm: mutate,
       formInfo: {

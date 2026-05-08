@@ -8,6 +8,7 @@ import { isNewSubmissionEffective } from './obs-comment-adapter';
 
 export const InlineDateAdapter: FormFieldValueAdapter = {
   transformFieldValue: function (field: FormField, value: unknown, context: FormContextProps) {
+    // NOSONAR: inline date fields mutate their target field and do not submit their own value.
     if (!isStringValue(field.meta.targetField)) {
       return null;
     }

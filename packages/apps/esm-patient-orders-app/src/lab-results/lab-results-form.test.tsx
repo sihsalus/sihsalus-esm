@@ -1,7 +1,6 @@
 import { type Order } from '@openmrs/esm-patient-common-lib';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 
 import { type Encounter } from '../types/encounter';
 import {

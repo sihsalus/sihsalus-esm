@@ -1,14 +1,7 @@
 import { Button, ButtonSkeleton, SkeletonText, Tile } from '@carbon/react';
 import { ShoppingCartArrowUp } from '@carbon/react/icons';
+import { ArrowRightIcon, ShoppingCartArrowDownIcon, useLayoutType, useSession } from '@openmrs/esm-framework';
 import {
-  ArrowRightIcon,
-  type DefaultWorkspaceProps,
-  ShoppingCartArrowDownIcon,
-  useLayoutType,
-  useSession,
-} from '@openmrs/esm-framework';
-import {
-  launchPatientWorkspace,
   type OrderableConcept,
   type OrderBasketItem,
   useOrderableConceptSets,
@@ -29,7 +22,7 @@ interface OrderableConceptSearchResultsProps {
   cancelOrder: () => void;
   orderableConceptSets: Array<string>;
   orderTypeUuid: string;
-  closeWorkspace: DefaultWorkspaceProps['closeWorkspace'];
+  returnToOrderBasket: (discardUnsavedChanges?: boolean) => void;
 }
 
 const OrderableConceptSearchResults: React.FC<OrderableConceptSearchResultsProps> = ({
@@ -39,7 +32,7 @@ const OrderableConceptSearchResults: React.FC<OrderableConceptSearchResultsProps
   cancelOrder,
   orderableConceptSets,
   orderTypeUuid,
-  closeWorkspace,
+  returnToOrderBasket,
 }) => {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -90,7 +83,7 @@ const OrderableConceptSearchResults: React.FC<OrderableConceptSearchResultsProps
                 openOrderForm={openOrderForm}
                 concept={concept}
                 orderTypeUuid={orderTypeUuid}
-                closeWorkspace={closeWorkspace}
+                returnToOrderBasket={returnToOrderBasket}
               />
             ))}
           </div>
@@ -155,14 +148,14 @@ interface TestTypeSearchResultItemProps {
   concept: OrderableConcept;
   openOrderForm: (searchResult: OrderBasketItem) => void;
   orderTypeUuid: string;
-  closeWorkspace: DefaultWorkspaceProps['closeWorkspace'];
+  returnToOrderBasket: (discardUnsavedChanges?: boolean) => void;
 }
 
 const TestTypeSearchResultItem: React.FC<TestTypeSearchResultItemProps> = ({
   concept,
   openOrderForm,
   orderTypeUuid,
-  closeWorkspace,
+  returnToOrderBasket,
 }) => {
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
@@ -185,12 +178,8 @@ const TestTypeSearchResultItem: React.FC<TestTypeSearchResultItemProps> = ({
     const orderBasketItem = createOrderBasketItem(concept);
     orderBasketItem.isOrderIncomplete = true;
     setOrders([...orders, orderBasketItem]);
-    closeWorkspace({
-      ignoreChanges: true,
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-      closeWorkspaceGroup: false,
-    });
-  }, [orders, setOrders, createOrderBasketItem, concept, closeWorkspace]);
+    returnToOrderBasket(true);
+  }, [orders, setOrders, createOrderBasketItem, concept, returnToOrderBasket]);
 
   const removeFromBasket = useCallback(() => {
     setOrders(orders.filter((order) => order?.concept?.uuid !== concept?.uuid));

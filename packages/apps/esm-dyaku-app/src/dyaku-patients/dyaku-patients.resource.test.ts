@@ -1,5 +1,9 @@
 import { syncDyakuPatientsToOpenMRS, validateAndFixPeruvianDNI } from './dyaku-patients.resource';
 
+type MockedOpenmrsFramework = {
+  openmrsFetch: jest.Mock;
+};
+
 jest.mock('@openmrs/esm-framework', () => ({
   openmrsFetch: jest.fn(),
   useConfig: jest.fn(),
@@ -87,7 +91,7 @@ describe('syncDyakuPatientsToOpenMRS', () => {
       }),
     });
 
-    const { openmrsFetch } = require('@openmrs/esm-framework');
+    const { openmrsFetch } = require('@openmrs/esm-framework') as MockedOpenmrsFramework;
     // findPatientByIdentifier → not found
     openmrsFetch.mockResolvedValue({ data: { results: [] } });
     // createPatientInOpenMRS POST → success
@@ -120,7 +124,7 @@ describe('syncDyakuPatientsToOpenMRS', () => {
       }),
     });
 
-    const { openmrsFetch } = require('@openmrs/esm-framework');
+    const { openmrsFetch } = require('@openmrs/esm-framework') as MockedOpenmrsFramework;
     // All openmrsFetch calls throw
     openmrsFetch.mockRejectedValue(new Error('Network error'));
 

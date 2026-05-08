@@ -2,6 +2,7 @@ import { navigate, showModal } from '@openmrs/esm-framework';
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { moduleName } from '../constants';
 
 function getUrlWithoutPrefix(url: string) {
   return url.split(window['getOpenmrsSpaBase']())?.[1];
@@ -13,7 +14,7 @@ interface BeforeSavePromptProps {
 }
 
 const BeforeSavePrompt: React.FC<BeforeSavePromptProps> = ({ when, redirect }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const ref = useRef<boolean>(false);
   const [localTarget, setTarget] = useState<string | undefined>();
   const target = localTarget || redirect;

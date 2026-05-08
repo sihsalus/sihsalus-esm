@@ -1,6 +1,5 @@
 import { ErrorState, useAppContext } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
-
 import { type InpatientRequest, type WardViewContext } from '../../types';
 import AdmissionRequestNoteRow from '../../ward-patient-card/card-rows/admission-request-note-row.component';
 import WardPatientSkeletonText from '../../ward-patient-card/row-elements/ward-patient-skeleton-text.component';
@@ -22,7 +21,7 @@ function DefaultWardPendingPatients() {
     <ErrorState headerTitle={t('admissionRequests', 'Admission requests')} error={errorFetchingInpatientRequests} />
   ) : (
     <>
-      {inpatientRequests?.map((request: InpatientRequest) => {
+      {inpatientRequests?.map((request: InpatientRequest, i) => {
         const wardPatient = {
           patient: request.patient,
           visit: request.visit,
@@ -33,7 +32,7 @@ function DefaultWardPendingPatients() {
 
         return (
           <AdmissionRequestCard
-            key={`admission-request-card-${request.visit.uuid}`}
+            key={`admission-request-card-${i}`}
             wardPatient={{
               patient: request.patient,
               visit: request.visit,

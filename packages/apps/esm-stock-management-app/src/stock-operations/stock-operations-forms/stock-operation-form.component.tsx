@@ -8,14 +8,13 @@ import { type ConfigObject } from '../../config-schema';
 import { today } from '../../constants';
 import { type StockOperationDTO } from '../../core/api/types/stockOperation/StockOperationDTO';
 import {
-  OperationType,
   operationFromString,
+  OperationType,
   type StockOperationType,
   StockOperationTypeIsStockIssue,
 } from '../../core/api/types/stockOperation/StockOperationType';
 import { type TabItem } from '../../core/components/tabs/types';
 import { otherUser, pick } from '../../core/utils/utils';
-import { useStockOperationAndItems } from '../stock-operations.resource';
 import {
   type BaseStockOperationItemFormData,
   getStockOperationFormSchema,
@@ -29,6 +28,7 @@ import StockOperationItemsFormStep from './steps/stock-operation-items-form-step
 import StockOperationSubmissionFormStep from './steps/stock-operation-submission-form-step.component';
 import StockItemForm, { type StockItemFormProps } from './stock-item-form/stock-item-form.workspace';
 import StockOperationStepper from './stock-operation-stepper/stock-operation-stepper.component';
+import { useStockOperationAndItems } from '../stock-operations.resource';
 
 /**
  * Props interface for the StockOperationForm component
@@ -126,6 +126,7 @@ const StockOperationForm: React.FC<StockOperationFormProps> = ({
       setItemFormProps({
         stockOperationType,
         stockOperationItem,
+        partyUuid: form.getValues('sourceUuid'),
         onSave: (data) => {
           const items = (form.getValues('stockOperationItems') ?? []) as BaseStockOperationItemFormData[];
           const index = items.findIndex((i) => i.uuid === data.uuid);
@@ -148,12 +149,12 @@ const StockOperationForm: React.FC<StockOperationFormProps> = ({
       });
       setRenderItemForm(true);
     },
-    [stockOperationType, form],
+    [stockOperationType, form, setItemFormProps, setRenderItemForm],
   );
   const steps: TabItem[] = useMemo(() => {
     return [
       {
-        name: stockOperation ? `${stockOperationType?.name} Details` : `${stockOperationType?.name} Details`,
+        name: `${stockOperationType?.name} - ${t('details', 'Details')}`,
         component: (
           <BaseOperationDetailsFormStep
             stockOperation={stockOperation}
@@ -177,7 +178,9 @@ const StockOperationForm: React.FC<StockOperationFormProps> = ({
         disabled: !stockOperation,
       },
       {
-        name: operationTypePermision?.requiresDispatchAcknowledgement ? 'Submit/Dispatch' : 'Submit/Complete',
+        name: operationTypePermision?.requiresDispatchAcknowledgement
+          ? t('submitAndDispatch', 'Submit/Dispatch')
+          : t('submitAndComplete', 'Submit/Complete'),
         component: (
           <StockOperationSubmissionFormStep
             stockOperation={stockOperation}
@@ -265,7 +268,7 @@ const StockOperationForm: React.FC<StockOperationFormProps> = ({
         <StockItemForm {...itemsFormProps} />
       ) : (
         <StockOperationStepper
-          steps={steps.map((tab, _index) => ({
+          steps={steps.map((tab, index) => ({
             title: tab.name,
             component: tab.component,
             disabled: tab.disabled,

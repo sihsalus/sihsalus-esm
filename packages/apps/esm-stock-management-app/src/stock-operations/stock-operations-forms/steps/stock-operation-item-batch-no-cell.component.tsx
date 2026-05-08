@@ -26,7 +26,8 @@ const StockOperationItemBatchNoCell: React.FC<StockOperationitemBatchNoCellProps
     [stockItemBatchNos, stockBatchUuid],
   );
 
-  if (isLoading) <InlineLoading description={t('loading', 'Loading')} iconDescription={t('loading', 'Loading')} />;
+  if (isLoading)
+    return <InlineLoading description={t('loading', 'Loading')} iconDescription={t('loading', 'Loading')} />;
 
   if (operationTypePermision.requiresBatchUuid && !operationTypePermision.requiresActualBatchInfo)
     return <p>{_batchno ?? '--'}</p>;

@@ -2,7 +2,6 @@ import { type Location, type Patient, showNotification, useConfig } from '@openm
 import type { TFunction } from 'i18next';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import {
   type AdmissionRequestNoteElementConfig,
   type ColoredObsTagsElementConfig,
@@ -22,6 +21,7 @@ import type {
   WardMetrics,
   WardPatientGroupDetails,
 } from '../types';
+import { filterFemale, filterNewborns, filterReproductiveAge } from '../utils';
 
 // the server side has 2 slightly incompatible types for Bed
 export function bedLayoutToBed(bedLayout: BedLayout): Bed {
@@ -47,28 +47,32 @@ export function filterBeds(admissionLocation: AdmissionLocationFetchResponse): B
   return bedLayouts;
 }
 
-export function getWardMetrics(bedLayouts: BedLayout[], wardPatientGroup: WardPatientGroupDetails): WardMetrics {
-  const bedMetrics = {
-    patients: '--',
-    freeBeds: '--',
-    capacity: '--',
-  };
-  if (bedLayouts == null || bedLayouts.length === 0) return bedMetrics;
-  const total = bedLayouts.length;
-  const occupiedBeds = bedLayouts.filter((bed) => bed.patients.length > 0);
-  const patients = occupiedBeds.length;
-  const freeBeds = total - patients;
-  const capacity = total !== 0 ? Math.trunc((wardPatientGroup.totalPatientsCount / total) * 100) : 0;
+export function getWardMetrics(wardPatientGroup: WardPatientGroupDetails): WardMetrics {
+  // pull all the patients out of the three constructs they are stored in: unadmitted but in a bed, admitted and in a bed, and admitted but not in a bed
+  const allPatients = [
+    ...(wardPatientGroup.wardUnadmittedPatientsWithBed?.values() ?? []),
+    ...[...(wardPatientGroup.wardAdmittedPatientsWithBed?.values() ?? [])].map((admission) => admission.patient),
+    ...(wardPatientGroup.wardUnassignedPatientsList?.map((admission) => admission.patient) ?? []),
+  ];
+
+  const patientCount = allPatients?.length ?? 0;
+  const newborns = filterNewborns(allPatients)?.length ?? 0;
+  const femalesOfReproductiveAge = filterReproductiveAge(filterFemale(allPatients))?.length ?? 0;
+  const totalBeds = wardPatientGroup.bedLayouts?.length ?? 0;
+  const occupiedBeds = wardPatientGroup.bedLayouts?.filter((bed) => bed.patients?.length > 0).length ?? 0;
   return {
-    patients: wardPatientGroup?.totalPatientsCount.toString() ?? '--',
-    freeBeds: freeBeds.toString(),
-    capacity: capacity.toString(),
+    patients: patientCount.toString(),
+    freeBeds: (totalBeds - occupiedBeds).toString(),
+    totalBeds: totalBeds.toString(),
+    newborns: newborns.toString(), // used by maternal ward only
+    femalesOfReproductiveAge: femalesOfReproductiveAge.toString(), // used by maternal ward only
   };
 }
 
 export function getInpatientAdmissionsUuidMap(inpatientAdmissions: InpatientAdmission[]) {
   const map = new Map<string, InpatientAdmission>();
   for (const inpatientAdmission of inpatientAdmissions ?? []) {
+    // TODO: inpatientAdmission is undefined sometimes, why?
     if (inpatientAdmission?.patient) {
       map.set(inpatientAdmission.patient.uuid, inpatientAdmission);
     }
@@ -119,10 +123,8 @@ export function createAndGetWardPatientGrouping(
       );
     }) ?? [];
 
-  //excluding inpatientRequests
-  const totalPatientsCount = allWardPatientUuids.size;
-
   for (const inpatientRequest of inpatientRequests ?? []) {
+    // TODO: inpatientRequest is undefined sometimes, why?
     if (inpatientRequest?.patient) {
       allWardPatientUuids.add(inpatientRequest.patient.uuid);
     }
@@ -135,7 +137,6 @@ export function createAndGetWardPatientGrouping(
     bedLayouts,
     wardUnassignedPatientsList,
     allWardPatientUuids,
-    totalPatientsCount,
     inpatientAdmissionsByPatientUuid,
   };
 }
@@ -146,23 +147,14 @@ export function getWardMetricNameTranslation(name: string, t: TFunction) {
       return t('patients', 'Patients');
     case 'freeBeds':
       return t('freeBeds', 'Free beds');
-    case 'capacity':
-      return t('capacity', 'Capacity');
+    case 'totalBeds':
+      return t('totalBeds', 'Total beds');
     case 'pendingOut':
       return t('pendingOut', 'Pending out');
-  }
-}
-
-export function getWardMetricValueTranslation(name: string, t: TFunction, value: string) {
-  switch (name) {
-    case 'patients':
-      return t('patientsMetricValue', '{{ metricValue }}', { metricValue: value });
-    case 'freeBeds':
-      return t('freeBedsMetricValue', '{{ metricValue }}', { metricValue: value });
-    case 'capacity':
-      return t('capacityMetricValue', '{{ metricValue }} %', { metricValue: value });
-    case 'pendingOut':
-      return t('pendingOutMetricValue', '{{ metricValue }}', { metricValue: value });
+    case 'femalesOfReproductiveAge':
+      return t('mothers', 'Mothers');
+    case 'newborns':
+      return t('infants', 'Infants');
   }
 }
 
@@ -178,7 +170,7 @@ export function useElementConfig(elementType, id: string): object {
 
   try {
     return config?.patientCardElements?.[elementType]?.find((elementConfig) => elementConfig?.id === id);
-  } catch {
+  } catch (_e) {
     showNotification({
       title: t('errorConfiguringPatientCard', 'Error configuring patient card'),
       kind: 'error',

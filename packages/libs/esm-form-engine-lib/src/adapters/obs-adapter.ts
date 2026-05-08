@@ -34,7 +34,7 @@ interface FetchedAttachment {
   bytesContentFamily?: string;
 }
 
-export let assignedObsIds: string[] = [];
+export const assignedObsIds: string[] = [];
 
 export const ObsAdapter: FormFieldValueAdapter = {
   async getInitialValue(
@@ -119,7 +119,7 @@ export const ObsAdapter: FormFieldValueAdapter = {
   },
 
   tearDown: (): void => {
-    assignedObsIds = [];
+    assignedObsIds.length = 0;
   },
 };
 

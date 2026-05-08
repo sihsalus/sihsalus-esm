@@ -26,6 +26,7 @@ import {
   createVisitAttribute,
   deleteVisitAttribute,
   updateVisitAttribute,
+  usePersonAttributesForVisitDefaults,
   useVisitFormCallbacks,
 } from './visit-form.resource';
 import StartVisitForm from './visit-form.workspace';
@@ -162,6 +163,7 @@ jest.mocked(useVisitFormCallbacks).mockReturnValue([
 const mockCreateVisitAttribute = jest.mocked(createVisitAttribute).mockResolvedValue({} as unknown as FetchResponse);
 const mockUpdateVisitAttribute = jest.mocked(updateVisitAttribute).mockResolvedValue({} as unknown as FetchResponse);
 const mockDeleteVisitAttribute = jest.mocked(deleteVisitAttribute).mockResolvedValue({} as unknown as FetchResponse);
+const mockUsePersonAttributesForVisitDefaults = jest.mocked(usePersonAttributesForVisitDefaults);
 
 jest.mock('@openmrs/esm-patient-common-lib', () => ({
   ...jest.requireActual('@openmrs/esm-patient-common-lib'),
@@ -244,6 +246,7 @@ jest.mock('./visit-form.resource', () => {
   return {
     ...requireActual,
     useVisitFormCallbacks: jest.fn(),
+    usePersonAttributesForVisitDefaults: jest.fn(),
     createVisitAttribute: jest.fn(),
     updateVisitAttribute: jest.fn(),
     deleteVisitAttribute: jest.fn(),
@@ -309,6 +312,11 @@ describe('Visit form', () => {
       isLoadingEmrConfiguration: false,
       errorFetchingEmrConfiguration: null,
       mutateEmrConfiguration: null,
+    });
+    mockUsePersonAttributesForVisitDefaults.mockReturnValue({
+      attributes: [],
+      error: null,
+      isLoading: false,
     });
   });
 
@@ -483,6 +491,43 @@ describe('Visit form', () => {
       title: expect.stringContaining('Additional visit information updated successfully'),
       kind: 'success',
     });
+  });
+
+  it('prefills visit attributes from matching patient person attributes', async () => {
+    const user = userEvent.setup();
+
+    mockUsePersonAttributesForVisitDefaults.mockReturnValue({
+      attributes: [
+        {
+          uuid: 'patient-insurance-code-attribute-uuid',
+          attributeType: {
+            uuid: '374b130f-7457-476f-87b1-f182aa77c434',
+            format: 'java.lang.String',
+          },
+          value: 'SIS-183299',
+        },
+      ],
+      error: null,
+      isLoading: false,
+    });
+
+    renderVisitForm();
+
+    const insuranceNumberInput = screen.getByRole('textbox', { name: 'Insurance Policy Number (optional)' });
+    expect(insuranceNumberInput).toHaveValue('SIS-183299');
+
+    await user.click(screen.getByLabelText(/Outpatient visit/i));
+
+    const locationPicker = screen.getByRole('combobox', { name: /Select a location/i });
+    await user.selectOptions(locationPicker, 'Inpatient Ward');
+
+    await user.click(screen.getByRole('button', { name: /Start visit/i }));
+
+    expect(mockCreateVisitAttribute).toHaveBeenCalledWith(
+      visitUuid,
+      visitAttributes.insurancePolicyNumber.uuid,
+      'SIS-183299',
+    );
   });
 
   it('updates visit attributes when editing an existing visit', async () => {

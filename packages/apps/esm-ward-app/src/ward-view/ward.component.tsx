@@ -3,11 +3,9 @@ import { useAppContext, useFeatureFlag } from '@openmrs/esm-framework';
 import classNames from 'classnames';
 import { type ReactNode, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import EmptyBedSkeleton from '../beds/empty-bed-skeleton.component';
 import useWardLocation from '../hooks/useWardLocation';
 import { type WardViewContext } from '../types';
-
 import styles from './ward-view.scss';
 
 const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardUnassignedPatients: ReactNode }) => {
@@ -15,11 +13,9 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
   const { t } = useTranslation();
 
   const { wardPatientGroupDetails } = useAppContext<WardViewContext>('ward-view-context') ?? {};
-  const { bedLayouts } = wardPatientGroupDetails ?? {};
-  const { isLoading: isLoadingAdmissionLocation, error: errorLoadingAdmissionLocation } =
-    wardPatientGroupDetails?.admissionLocationResponse ?? {};
+  const { bedLayouts, isLoading } = wardPatientGroupDetails ?? {};
+  const { error: errorLoadingAdmissionLocation } = wardPatientGroupDetails?.admissionLocationResponse ?? {};
   const {
-    isLoading: isLoadingInpatientAdmissions,
     error: errorLoadingInpatientAdmissions,
     hasMore: hasMoreInpatientAdmissions,
     loadMore: loadMoreInpatientAdmissions,
@@ -29,17 +25,11 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
   const scrollToLoadMoreTrigger = useRef<HTMLDivElement>(null);
   useEffect(
     function scrollToLoadMore() {
-      const triggerElement = scrollToLoadMoreTrigger.current;
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              if (
-                hasMoreInpatientAdmissions &&
-                !errorLoadingInpatientAdmissions &&
-                !isLoadingInpatientAdmissions &&
-                loadMoreInpatientAdmissions
-              ) {
+              if (hasMoreInpatientAdmissions && !errorLoadingInpatientAdmissions && !isLoading) {
                 loadMoreInpatientAdmissions();
               }
             }
@@ -48,29 +38,33 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
         { threshold: 1 },
       );
 
-      if (triggerElement) {
-        observer.observe(triggerElement);
+      if (scrollToLoadMoreTrigger.current) {
+        observer.observe(scrollToLoadMoreTrigger.current);
       }
 
       return () => {
-        if (triggerElement) {
-          observer.unobserve(triggerElement);
+        if (scrollToLoadMoreTrigger.current) {
+          // TODO: Fix this more meaningfully
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          observer.unobserve(scrollToLoadMoreTrigger.current);
         }
       };
     },
-    [
-      errorLoadingInpatientAdmissions,
-      hasMoreInpatientAdmissions,
-      isLoadingInpatientAdmissions,
-      loadMoreInpatientAdmissions,
-    ],
+    [errorLoadingInpatientAdmissions, hasMoreInpatientAdmissions, loadMoreInpatientAdmissions, isLoading],
   );
 
   if (!wardPatientGroupDetails) return <></>;
 
   return (
     <div className={classNames(styles.wardViewMain, styles.verticalTiling)}>
-      {wardBeds}
+      {isLoading ? (
+        <EmptyBeds />
+      ) : (
+        <>
+          {wardBeds}
+          {wardUnassignedPatients}
+        </>
+      )}
       {bedLayouts?.length === 0 && isBedManagementModuleInstalled && (
         <InlineNotification
           kind="warning"
@@ -78,8 +72,6 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
           title={t('noBedsConfigured', 'No beds configured for this location')}
         />
       )}
-      {wardUnassignedPatients}
-      {(isLoadingAdmissionLocation || isLoadingInpatientAdmissions) && <EmptyBeds />}
       {errorLoadingAdmissionLocation && (
         <InlineNotification
           kind="error"
@@ -87,9 +79,7 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
           title={t('errorLoadingWardLocation', 'Error loading ward location')}
           subtitle={
             errorLoadingAdmissionLocation?.message ??
-            t('invalidWardLocation', 'Invalid ward location: {{location}}', {
-              location: location.display,
-            })
+            t('invalidWardLocation', 'Invalid ward location: {{location}}', { location: location.display })
           }
         />
       )}
@@ -106,14 +96,14 @@ const Ward = ({ wardBeds, wardUnassignedPatients }: { wardBeds: ReactNode; wardU
   );
 };
 
-const emptyBedSkeletonKeys = Array.from({ length: 20 }, (_, index) => `empty-bed-${index}`);
-
 const EmptyBeds = () => {
   return (
     <>
-      {emptyBedSkeletonKeys.map((key) => (
-        <EmptyBedSkeleton key={key} />
-      ))}
+      {Array(20)
+        .fill(0)
+        .map((_, i) => (
+          <EmptyBedSkeleton key={i} />
+        ))}
     </>
   );
 };

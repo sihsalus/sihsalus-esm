@@ -4,10 +4,9 @@ import classNames from 'classnames';
 import { Field } from 'formik';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../../../constants';
 import { type PersonAttributeTypeResponse } from '../../patient-registration.types';
 import { useConceptAnswers } from '../field.resource';
-
 import styles from './../field.scss';
 
 export interface CodedPersonAttributeFieldProps {
@@ -31,9 +30,11 @@ export function CodedPersonAttributeField({
     customConceptAnswers.length ? '' : answerConceptSetUuid,
   );
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const fieldName = `attributes.${personAttributeType.uuid}`;
   const [error, setError] = useState(false);
+  const displayLabel = label ?? personAttributeType?.display;
+  const labelText = required ? displayLabel : `${displayLabel} (${t('optional', 'optional')})`;
 
   useEffect(() => {
     if (!answerConceptSetUuid && !customConceptAnswers.length) {
@@ -102,7 +103,7 @@ export function CodedPersonAttributeField({
                   <Select
                     id={id}
                     name={`person-attribute-${personAttributeType.uuid}`}
-                    labelText={label ?? personAttributeType?.display}
+                    labelText={labelText}
                     invalid={errors[fieldName] && touched[fieldName]}
                     required={required}
                     {...field}

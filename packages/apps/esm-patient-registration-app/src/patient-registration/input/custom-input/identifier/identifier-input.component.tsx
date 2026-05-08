@@ -4,14 +4,15 @@ import { showModal, UserHasAccess, useConfig } from '@openmrs/esm-framework';
 import { useField } from 'formik';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { type RegistrationConfig } from '../../../../config-schema';
+import { moduleName } from '../../../../constants';
 import { ResourcesContext } from '../../../../offline.resources';
 import { deleteIdentifierType, setIdentifierSource } from '../../../field/id/id-field.component';
 import { type PatientIdentifierValue } from '../../../patient-registration.types';
 import { PatientRegistrationContext } from '../../../patient-registration-context';
+import { getEffectiveRegistrationConfig } from '../../../peru-registration-config';
 import { Input } from '../../basic-input/input/input.component';
 import styles from '../../input.scss';
-
 import { shouldBlockPatientIdentifierInOfflineMode } from './utils';
 
 interface IdentifierInputProps {
@@ -20,8 +21,8 @@ interface IdentifierInputProps {
 }
 
 const IdentifierInput: React.FC<IdentifierInputProps> = ({ patientIdentifier, fieldName }) => {
-  const { t } = useTranslation();
-  const { defaultPatientIdentifierTypes } = useConfig();
+  const { t } = useTranslation(moduleName);
+  const { defaultPatientIdentifierTypes } = getEffectiveRegistrationConfig(useConfig() as RegistrationConfig);
   const { identifierTypes } = useContext(ResourcesContext);
   const { isOffline, values, setFieldValue } = useContext(PatientRegistrationContext);
   const identifierType = useMemo(

@@ -2,10 +2,9 @@ import classNames from 'classnames';
 import { Field } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../../../constants';
 import { Input } from '../../input/basic-input/input/input.component';
 import { type PersonAttributeTypeResponse } from '../../patient-registration.types';
-
 import styles from './../field.scss';
 
 export interface TextPersonAttributeFieldProps {
@@ -23,7 +22,7 @@ export function TextPersonAttributeField({
   label,
   required,
 }: TextPersonAttributeFieldProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
 
   const validateInput = (value: string) => {
     if (!value || !validationRegex || validationRegex === '' || typeof validationRegex !== 'string' || value === '') {

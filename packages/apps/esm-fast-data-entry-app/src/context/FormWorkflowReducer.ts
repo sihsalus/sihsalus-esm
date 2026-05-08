@@ -20,7 +20,7 @@ const reducer = (state, action) => {
     case 'INITIALIZE_WORKFLOW_STATE': {
       const savedData = localStorage.getItem(fdeWorkflowStorageName + ':' + action.userUuid);
       const savedDataObject = savedData ? JSON.parse(savedData) : {};
-      let newState: { [key: string]: unknown };
+      let newState: { [key: string]: unknown } = {};
       const newPatient = action.newPatientUuid
         ? {
             activePatientUuid: action.newPatientUuid,
@@ -102,16 +102,14 @@ const reducer = (state, action) => {
     }
     case 'SAVE_ENCOUNTER': {
       if (state.forms[state.activeFormUuid].workflowState === 'SUBMIT_FOR_COMPLETE') {
-        const formRest = { ...state.forms };
-        delete formRest[state.activeFormUuid];
+        const { [state.activeFormUuid]: activeForm, ...formRest } = state.forms;
         const newState = {
           ...state,
           forms: formRest,
           activeFormUuid: null,
         };
         persistData(newState);
-
-        navigate({ to: '${openmrsSpaBase}/forms' });
+        navigate({ to: '$' + '{openmrsSpaBase}/forms' });
         return newState;
       } else {
         const newState = {
@@ -157,7 +155,7 @@ const reducer = (state, action) => {
     }
     case 'SUBMIT_FOR_NEXT':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -178,7 +176,7 @@ const reducer = (state, action) => {
       };
     case 'SUBMIT_FOR_REVIEW':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -199,7 +197,7 @@ const reducer = (state, action) => {
       };
     case 'SUBMIT_FOR_COMPLETE':
       // this state should not be persisted
-      globalThis.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('ampath-form-action', {
           detail: {
             formUuid: state.activeFormUuid,
@@ -235,16 +233,14 @@ const reducer = (state, action) => {
       return newState;
     }
     case 'DESTROY_SESSION': {
-      const formRest = { ...state.forms };
-      delete formRest[state.activeFormUuid];
+      const { [state.activeFormUuid]: activeForm, ...formRest } = state.forms;
       const newState = {
         ...state,
         forms: formRest,
         activeFormUuid: null,
       };
       persistData(newState);
-
-      navigate({ to: '${openmrsSpaBase}/forms' });
+      navigate({ to: '$' + '{openmrsSpaBase}/forms' });
       return newState;
     }
     case 'CLOSE_SESSION': {
@@ -253,8 +249,7 @@ const reducer = (state, action) => {
         activeFormUuid: null,
       };
       persistData(newState);
-
-      navigate({ to: '${openmrsSpaBase}/forms' });
+      navigate({ to: '$' + '{openmrsSpaBase}/forms' });
       return newState;
     }
     default:

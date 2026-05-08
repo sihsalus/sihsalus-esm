@@ -113,15 +113,17 @@ const FuaActionsCell: React.FC<FuaActionsCellProps> = ({
   </div>
 );
 
-/** Resolves visitUuid → patient name + DNI inline with SWR */
+/** Resolves visitUuid -> patient name + preferred identity document inline with SWR */
 const PatientCell: React.FC<{ visitUuid: string }> = ({ visitUuid }) => {
-  const { patient, dni, isLoading } = useVisit(visitUuid);
+  const { patient, patientIdentifier, isLoading } = useVisit(visitUuid);
   if (isLoading) return <span>—</span>;
   if (!patient) return <span title={visitUuid}>—</span>;
   return (
     <div>
       <div>{patient.display}</div>
-      {dni && <div style={{ fontSize: '0.75rem', color: 'var(--cds-text-secondary)' }}>{dni}</div>}
+      {patientIdentifier && (
+        <div style={{ fontSize: '0.75rem', color: 'var(--cds-text-secondary)' }}>{patientIdentifier}</div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,10 @@
+import React, { useState } from 'react';
 import { IconButton, InlineLoading } from '@carbon/react';
+import { useTranslation } from 'react-i18next';
 import { TrashCan } from '@carbon/react/icons';
 import { restBaseUrl, showModal, showSnackbar } from '@openmrs/esm-framework';
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { handleMutate } from '../../utils';
 import { deleteUserRoleScopes } from '../stock-user-role-scopes.resource';
+import { handleMutate } from '../../utils';
 
 interface StockUserScopDeleteActionMenuProps {
   uuid: string;

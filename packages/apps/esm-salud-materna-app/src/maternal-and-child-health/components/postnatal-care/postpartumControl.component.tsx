@@ -16,9 +16,9 @@ import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { usePostpartumControlTable } from '../../../hooks/usePostpartumControl';
+import { formEntryWorkspace } from '../../../types';
 
 import styles from './postnatalCareChart.scss';
 
@@ -43,12 +43,12 @@ const PostpartumControlTable: React.FC<ProgramsDetailedSummaryProps> = ({ patien
   const isTablet = layout === 'tablet';
   const headerTitle = t('controlPuerperio', 'Control Puerperio');
   const config = useConfig() as ConfigObject;
-  const { prenatalEncounters, error, isValidating, mutate } = usePostpartumControlTable(patientUuid);
+  const { prenatalEncounters, isValidating } = usePostpartumControlTable(patientUuid);
 
   const formPrenatalUuid = config.formsList.postpartumControl;
 
   const handleAddPrenatalAttention = () => {
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formPrenatalUuid },
       encounterUuid: '',
     });

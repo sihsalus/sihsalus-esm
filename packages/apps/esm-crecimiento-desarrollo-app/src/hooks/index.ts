@@ -19,7 +19,6 @@ export { default as useEncountersCRED } from './useEncountersCRED';
 // Child nutrition
 export { useFeedingAssessment } from './useFeedingAssessment';
 export { useImmediateNewbornAttentions } from './useImmediateNewbornAttentions';
-export { useIndicators } from './useIndicators';
 export { useLatestValidEncounter } from './useLatestEncounter';
 export { useLaunchCREDForm } from './useLaunchCREDForm';
 export { useNeonatalSummary } from './useNeonatalSummary';

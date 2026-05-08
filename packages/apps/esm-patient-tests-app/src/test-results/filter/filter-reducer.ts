@@ -24,6 +24,16 @@ const computeParents = (
   const leaves: Array<string> = [];
   const tests: Array<[string, TreeNode]> = [];
   const lowestParents: Array<LowestNode> = [];
+
+  if (!node?.subSets?.length) {
+    if (Array.isArray(node?.obs) && node.obs.length > 0) {
+      leaves.push(node.flatName);
+      tests.push([node.flatName, node]);
+    }
+    parents[node.flatName] = leaves;
+    return { parents, leaves, tests, lowestParents };
+  }
+
   if (node?.subSets?.length && node.subSets[0].obs) {
     // lowest parent
     const activeLeaves: Array<string> = [];
@@ -80,10 +90,21 @@ function reducer(state: ReducerState, action: ReducerAction): ReducerState {
         lowestParents = [...lowestParents, ...newLP];
       });
 
-      const flatTests = Object.fromEntries(tests);
+      const flatTests = tests.reduce((acc, [flatName, test]) => {
+        const existingTest = acc[flatName];
+        acc[flatName] = existingTest
+          ? {
+              ...existingTest,
+              ...test,
+              obs: [...(existingTest.obs ?? []), ...(test.obs ?? [])],
+            }
+          : test;
+        return acc;
+      }, {});
+      const checkboxes = Object.fromEntries(leaves?.map((leaf) => [leaf, state.checkboxes?.[leaf] ?? false])) || {};
 
       return {
-        checkboxes: Object.fromEntries(leaves?.map((leaf) => [leaf, false])) || {},
+        checkboxes,
         parents: parents,
         roots: action.trees,
         tests: flatTests,
@@ -101,7 +122,7 @@ function reducer(state: ReducerState, action: ReducerAction): ReducerState {
     }
 
     case ReducerActionType.UDPATEPARENT: {
-      const affectedLeaves = state.parents[action.name];
+      const affectedLeaves = state.parents[action.name] ?? [];
       const checkboxes = JSON.parse(JSON.stringify(state.checkboxes));
       const allChecked = affectedLeaves.every((leaf) => checkboxes[leaf]);
       affectedLeaves.forEach((leaf) => {

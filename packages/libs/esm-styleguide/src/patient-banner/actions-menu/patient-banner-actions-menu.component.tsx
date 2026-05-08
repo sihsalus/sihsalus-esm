@@ -1,13 +1,8 @@
 /** @module @category UI */
 
 import { OverflowMenuVertical } from '@carbon/react/icons';
-import {
-  ExtensionSlot,
-  getCoreTranslation,
-  useExtensionSlot,
-  useLayoutType,
-  useOnClickOutside,
-} from '@openmrs/esm-framework/src/internal';
+import { ExtensionSlot, useExtensionSlot, useLayoutType, useOnClickOutside } from '@openmrs/esm-react-utils';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import customOverflowMenuStyles from '../../custom-overflow-menu/custom-overflow-menu.module.scss';

@@ -30,6 +30,9 @@ jest.mock('../hooks/useImmunizationsConceptSet', () => ({
 beforeEach(() => {
   return mockUseConfig.mockReturnValue({
     immunizationConceptSet: '',
+    fhirConceptMappings: {
+      immunizationResourceConcept: 'CIEL:1421',
+    },
     sequenceDefinitions: [],
   });
 });

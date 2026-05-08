@@ -17,6 +17,7 @@ export * from './orders';
 export * from './pagination';
 export * from './patient-summary/patient-summary-extension-order';
 export * from './programs/usePatientProgramEnrollment';
+export * from './results';
 export * from './store/patient-chart-store';
 export * from './time-helper';
 export * from './types';

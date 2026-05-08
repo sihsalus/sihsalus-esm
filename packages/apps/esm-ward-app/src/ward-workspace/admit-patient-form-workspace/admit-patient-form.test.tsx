@@ -1,20 +1,24 @@
 import {
-  type DefaultWorkspaceProps,
   showSnackbar,
   useAppContext,
   useFeatureFlag,
   useSession,
+  type Workspace2DefinitionProps,
 } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-import { mockInpatientRequestAlice, mockLocationInpatientWard, mockPatientAlice, renderWithSwr } from 'test-utils';
-import { mockWardPatientGroupDetails, mockWardViewContext } from '../../../test-utils/mock';
+import { mockInpatientRequestAlice, mockLocationInpatientWard, mockPatientAlice } from '__mocks__';
+import { renderWithSwr } from 'tools';
+import { mockWardPatientGroupDetails, mockWardViewContext } from '../../../mock';
 import { useAssignedBedByPatient } from '../../hooks/useAssignedBedByPatient';
 import useWardLocation from '../../hooks/useWardLocation';
-import type { WardPatient, WardViewContext } from '../../types';
-import { assignPatientToBed, removePatientFromBed, useAdmitPatient } from '../../ward.resource';
-
+import type { WardPatient, WardPatientWorkspaceProps, WardViewContext } from '../../types';
+import {
+  assignPatientToBed,
+  getAssignedBedByPatient,
+  removePatientFromBed,
+  useAdmitPatient,
+} from '../../ward.resource';
 import AdmitPatientFormWorkspace from './admit-patient-form.workspace';
 
 jest.mock('../../hooks/useAdmissionLocation', () => ({
@@ -43,6 +47,7 @@ jest.mock('../../ward.resource', () => ({
   useAdmitPatient: jest.fn(),
   assignPatientToBed: jest.fn(),
   removePatientFromBed: jest.fn(),
+  getAssignedBedByPatient: jest.fn(),
 }));
 
 const mockedUseWardLocation = jest.mocked(useWardLocation);
@@ -53,6 +58,7 @@ const mockedUseAssignedBedByPatient = jest.mocked(useAssignedBedByPatient);
 const mockedAssignPatientToBed = jest.mocked(assignPatientToBed);
 const mockedRemovePatientFromBed = jest.mocked(removePatientFromBed);
 const mockedUseAdmitPatient = jest.mocked(useAdmitPatient);
+const mockedGetAssignedBedByPatient = jest.mocked(getAssignedBedByPatient);
 
 jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext);
 
@@ -64,13 +70,6 @@ const mockUseAdmitPatientObj: ReturnType<typeof useAdmitPatient> = {
 };
 jest.mocked(useAdmitPatient).mockReturnValue(mockUseAdmitPatientObj);
 
-const mockWorkspaceProps: DefaultWorkspaceProps = {
-  closeWorkspaceWithSavedChanges: jest.fn(),
-  promptBeforeClosing: jest.fn(),
-  setTitle: jest.fn(),
-  closeWorkspace: jest.fn(),
-};
-
 const mockWardPatientAliceProps: WardPatient = {
   visit: mockInpatientRequestAlice.visit,
   patient: mockPatientAlice,
@@ -79,18 +78,26 @@ const mockWardPatientAliceProps: WardPatient = {
   inpatientRequest: mockInpatientRequestAlice,
 };
 
+const mockWorkspaceProps: Workspace2DefinitionProps<WardPatientWorkspaceProps, {}, {}> = {
+  closeWorkspace: jest.fn(),
+  launchChildWorkspace: jest.fn(),
+  workspaceProps: {
+    wardPatient: mockWardPatientAliceProps,
+  },
+  windowProps: {},
+  groupProps: {},
+  workspaceName: '',
+  windowName: '',
+  isRootWorkspace: false,
+  showActionMenu: false,
+};
+
 function renderAdmissionForm() {
-  renderWithSwr(
-    <AdmitPatientFormWorkspace
-      {...{ ...mockWorkspaceProps, wardPatient: mockWardPatientAliceProps, WardPatientHeader: jest.fn() }}
-    />,
-  );
+  renderWithSwr(<AdmitPatientFormWorkspace {...mockWorkspaceProps} />);
 }
 
 describe('Testing AdmitPatientForm', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-
     mockedUseAdmitPatient.mockReturnValue(mockUseAdmitPatientObj);
 
     mockedUseSession.mockReturnValue({
@@ -101,6 +108,7 @@ describe('Testing AdmitPatientForm', () => {
       authenticated: true,
       sessionId: 'session-id',
     });
+
     mockedUseFeatureFlag.mockReturnValue(true);
 
     mockedUseWardLocation.mockReturnValue({
@@ -110,6 +118,7 @@ describe('Testing AdmitPatientForm', () => {
       errorFetchingLocation: null,
     });
 
+    // @ts-expect-error - we don't need to mock the entire object
     mockedUseAssignedBedByPatient.mockReturnValue({
       data: {
         data: {
@@ -124,22 +133,32 @@ describe('Testing AdmitPatientForm', () => {
           ],
         },
       },
-    } as ReturnType<typeof useAssignedBedByPatient>);
+      isLoading: false,
+    });
 
     mockedAdmitPatient.mockResolvedValue({
       ok: true,
       data: {
         uuid: 'encounter-uuid',
       },
-    } as Awaited<ReturnType<typeof mockedAdmitPatient>>);
+    });
 
+    // @ts-expect-error - we only need the ok key for now
     mockedAssignPatientToBed.mockResolvedValue({
       ok: true,
-    } as Awaited<ReturnType<typeof assignPatientToBed>>);
+    });
 
+    // @ts-expect-error - we only need the ok key for now
     mockedRemovePatientFromBed.mockResolvedValue({
       ok: true,
-    } as Awaited<ReturnType<typeof removePatientFromBed>>);
+    });
+
+    // @ts-expect-error - we only need the data key for now
+    mockedGetAssignedBedByPatient.mockResolvedValue({
+      data: {
+        results: [{ bedId: 1 }],
+      },
+    });
   });
 
   it('should render admit patient form', async () => {
@@ -147,9 +166,7 @@ describe('Testing AdmitPatientForm', () => {
     renderAdmissionForm();
     const cancelButton = screen.getByRole('button', { name: 'Cancel' });
     await user.click(cancelButton);
-    expect(mockWorkspaceProps.closeWorkspace).toHaveBeenCalledWith({
-      ignoreChanges: true,
-    });
+    expect(mockWorkspaceProps.closeWorkspace).toHaveBeenCalledWith();
     screen.getByText('Admit');
     expect(screen.getByText('Select a bed')).toBeInTheDocument();
 
@@ -189,7 +206,7 @@ describe('Testing AdmitPatientForm', () => {
     const admitButton = screen.getByRole('button', { name: 'Admit' });
     expect(admitButton).toBeEnabled();
     await user.click(admitButton);
-    expect(mockedAdmitPatient).toHaveBeenCalledWith(mockPatientAlice, 'ADMIT', mockWardPatientAliceProps.visit.uuid);
+    expect(mockedAdmitPatient).toHaveBeenCalledWith(mockPatientAlice, 'ADMIT', mockInpatientRequestAlice.visit.uuid);
     expect(mockedAssignPatientToBed).toHaveBeenCalledWith(3, mockPatientAlice.uuid, 'encounter-uuid');
     expect(mockedShowSnackbar).toHaveBeenCalledWith({
       kind: 'success',
@@ -209,7 +226,7 @@ describe('Testing AdmitPatientForm', () => {
     await user.click(admitButton);
     expect(mockedShowSnackbar).toHaveBeenCalledWith({
       kind: 'error',
-      title: 'Failed to admit patient',
+      title: 'Failed to admit Alice Johnson',
       subtitle: 'Failed to create encounter',
     });
   });
@@ -227,7 +244,7 @@ describe('Testing AdmitPatientForm', () => {
     expect(mockedShowSnackbar).toHaveBeenCalledWith({
       kind: 'warning',
       title: 'Patient admitted successfully',
-      subtitle: 'Patient admitted successfully but fail to assign bed to patient',
+      subtitle: 'Alice Johnson admitted successfully but failed to assign bed',
     });
   });
 
@@ -237,11 +254,11 @@ describe('Testing AdmitPatientForm', () => {
     const admitButton = screen.getByRole('button', { name: 'Admit' });
     expect(admitButton).toBeEnabled();
     await user.click(admitButton);
-    expect(mockedAdmitPatient).toHaveBeenCalledWith(mockPatientAlice, 'ADMIT', mockWardPatientAliceProps.visit.uuid);
+    expect(mockedAdmitPatient).toHaveBeenCalledWith(mockPatientAlice, 'ADMIT', mockInpatientRequestAlice.visit.uuid);
     expect(mockedRemovePatientFromBed).toHaveBeenCalledWith(1, mockPatientAlice.uuid);
     expect(mockedShowSnackbar).toHaveBeenCalledWith({
       kind: 'success',
-      subtitle: 'Patient admitted successfully to Inpatient Ward',
+      subtitle: 'Alice Johnson admitted successfully to Inpatient Ward',
       title: 'Patient admitted successfully',
     });
   });

@@ -309,5 +309,26 @@
       "title": "Agregar Condición",
       "type": "form"
     }
+  ],
+  "workspaces2": [
+    {
+      "name": "maternal-health-conditions-filter-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "window": "patient-chart-maternal-health-forms"
+    },
+    {
+      "name": "maternal-health-maternal-conditions-form-workspace",
+      "component": "conditionsFilterWorkspace",
+      "window": "patient-chart-maternal-health-forms"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "patient-chart-maternal-health-forms",
+      "group": "patient-chart",
+      "order": 9,
+      "width": "extra-wide",
+      "canMaximize": true
+    }
   ]
 }

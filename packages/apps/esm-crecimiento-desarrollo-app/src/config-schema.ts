@@ -127,8 +127,8 @@ export const configSchema = {
 
       // Assessment Forms
       riskInterview0to30: '(Página 19) PRIMERA ENTREVISTA EN BUSCA DE FACTORES DE RIESGO (0 - 30 meses)',
-      childFeeding0to5: '(Página 20) Evaluación de la alimentación del niño_niña (0 - 5 meses)',
-      childFeeding6to42: '(Página 20) Evaluación de la alimentación del niño_niña (6 - 42 meses)',
+      childFeeding0to5: '(Página 20) Evaluación de la alimentación del niño/niña (0 - 5 meses)',
+      childFeeding6to42: '(Página 20) Evaluación de la alimentación del niño/niña (6 - 42 meses)',
       childAbuseScreening: '(Página 37) Ficha de Tamizaje Violencia y maltrato infantil',
 
       // Clinical Forms
@@ -158,7 +158,7 @@ export const configSchema = {
       birthSummary: 'HOSP-007-RESUMEN DE PARTO-POSTPARTO',
       puerperiumEpicrisis: '(Página 12) Puerperio - Epicrisis',
       puerperiumDischarge: '(Página 14) Puerperio - Informe de Alta',
-      clinicalHistory: 'HOSP-003-HISTORIA CLÍNICA OBSTÉTRICA-PARTO',
+      clinicalHistory: 'HOSP-003-HISTORIA CLÍNICA OBSTÉTRICA - PARTO',
 
       // CRED Seguimiento Forms
       anemiaScreeningForm: 'CRED-001-TAMIZAJE DE ANEMIA',
@@ -176,6 +176,21 @@ export const configSchema = {
       autismScreeningForm: 'CRED-010-TAMIZAJE TEA',
       childMentalHealthForm: 'CRED-011-SALUD MENTAL NIÑO Y CUIDADOR',
       adverseReactionForm: 'INMU-002-REPORTE ESAVI',
+    },
+  },
+
+  adverseReactionReporting: {
+    _type: Type.Object,
+    _description: 'Configuration for ESAVI/adverse vaccine reaction reporting as a normal OpenMRS encounter.',
+    _default: {
+      vaccineNameConceptUuid: 'f0000017-0000-4000-8000-000000000017',
+      severityConceptUuid: 'f0000019-0000-4000-8000-000000000019',
+      reactionDescriptionConceptUuid: 'f0000002-0000-4000-8000-000000000002',
+      severityAnswers: {
+        mild: 'f0000161-0000-4000-8000-000000000161',
+        moderate: 'f0000162-0000-4000-8000-000000000162',
+        severe: 'f0000163-0000-4000-8000-000000000163',
+      },
     },
   },
 
@@ -1416,6 +1431,16 @@ export interface ConfigObject {
     autismScreeningForm: string;
     childMentalHealthForm: string;
     adverseReactionForm: string;
+  };
+  adverseReactionReporting: {
+    vaccineNameConceptUuid: string;
+    severityConceptUuid: string;
+    reactionDescriptionConceptUuid: string;
+    severityAnswers: {
+      mild: string;
+      moderate: string;
+      severe: string;
+    };
   };
   clinicalEncounterUuid: string;
   concepts: Record<string, string>;

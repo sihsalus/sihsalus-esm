@@ -9,14 +9,14 @@ import {
   usePatientPhoto,
 } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import { Form, Formik, type FormikHelpers } from 'formik';
+import { Form, Formik, type FormikErrors, type FormikHelpers } from 'formik';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { builtInSections, type RegistrationConfig, type SectionDefinition } from '../config-schema';
+import { moduleName } from '../constants';
 import { ResourcesContext } from '../offline.resources';
-
 import BeforeSavePrompt from './before-save-prompt';
 import { type SavePatientForm, SavePatientTransactionManager } from './form-manager';
 import { DummyDataInput } from './input/dummy-data/dummy-data-input.component';
@@ -25,10 +25,24 @@ import { type CapturePhotoProps, type FormValues } from './patient-registration.
 import { PatientRegistrationContext } from './patient-registration-context';
 import { useInitialAddressFieldValues, useInitialFormValues, usePatientUuidMap } from './patient-registration-hooks';
 import { cancelRegistration, filterOutUndefinedPatientIdentifiers, scrollIntoView } from './patient-registration-utils';
+import { getEffectiveRegistrationConfig } from './peru-registration-config';
 import { SectionWrapper } from './section/section-wrapper.component';
 import { getValidationSchema } from './validation/patient-registration-validation';
 
-let exportedInitialFormValuesForTesting = {} as FormValues;
+export const initialFormValues = {} as FormValues;
+
+interface RegistrationSubmitError {
+  responseBody?: {
+    error?: {
+      globalErrors?: Array<{ message?: string }>;
+      message?: string;
+    };
+  };
+}
+
+function isRegistrationSubmitError(error: unknown): error is RegistrationSubmitError {
+  return typeof error === 'object' && error !== null && 'responseBody' in error;
+}
 
 export interface PatientRegistrationProps {
   savePatientForm: SavePatientForm;
@@ -38,17 +52,22 @@ export interface PatientRegistrationProps {
 export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePatientForm, isOffline }) => {
   const { currentSession, identifierTypes } = useContext(ResourcesContext);
   const { search } = useLocation();
-  const config = useConfig() as RegistrationConfig;
+  const configuredRegistrationConfig = useConfig() as RegistrationConfig;
+  const config = useMemo(
+    () => getEffectiveRegistrationConfig(configuredRegistrationConfig),
+    [configuredRegistrationConfig],
+  );
   const [target, setTarget] = useState<undefined | string>();
   const { patientUuid: uuidOfPatientToEdit } = useParams();
-  const { isLoading: isLoadingPatientToEdit, patient: patientToEdit } = usePatient(uuidOfPatientToEdit);
-  const { t } = useTranslation();
+  const patientUuidToEdit = uuidOfPatientToEdit ?? '';
+  const { isLoading: isLoadingPatientToEdit, patient: patientToEdit } = usePatient(patientUuidToEdit);
+  const { t } = useTranslation(moduleName);
   const [capturePhotoProps, setCapturePhotoProps] = useState<CapturePhotoProps | null>(null);
-  const [initialFormValues, setInitialFormValues] = useInitialFormValues(uuidOfPatientToEdit);
-  const [initialAddressFieldValues] = useInitialAddressFieldValues(uuidOfPatientToEdit);
-  const [patientUuidMap] = usePatientUuidMap(uuidOfPatientToEdit);
+  const [initialFormValuesState, setInitialFormValues] = useInitialFormValues(patientUuidToEdit);
+  const [initialAddressFieldValues] = useInitialAddressFieldValues(patientUuidToEdit);
+  const [patientUuidMap] = usePatientUuidMap(patientUuidToEdit);
   const location = currentSession?.sessionLocation?.uuid;
-  const inEditMode = isLoadingPatientToEdit ? undefined : !!(uuidOfPatientToEdit && patientToEdit);
+  const inEditMode = !isLoadingPatientToEdit && !!(uuidOfPatientToEdit && patientToEdit);
   const showDummyData = useMemo(() => localStorage.getItem('openmrs:devtools') === 'true' && !inEditMode, [inEditMode]);
   const { data: photo } = usePatientPhoto(patientToEdit?.id);
   const savePatientTransactionManager = useRef(new SavePatientTransactionManager());
@@ -56,8 +75,11 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
   const validationSchema = getValidationSchema(config);
 
   useEffect(() => {
-    exportedInitialFormValuesForTesting = initialFormValues;
-  }, [initialFormValues]);
+    Object.keys(initialFormValues).forEach((key) => {
+      Reflect.deleteProperty(initialFormValues, key);
+    });
+    Object.assign(initialFormValues, initialFormValuesState);
+  }, [initialFormValuesState]);
 
   const sections: Array<SectionDefinition> = useMemo(() => {
     return config.sections
@@ -81,8 +103,8 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
         patientUuidMap,
         initialAddressFieldValues,
         capturePhotoProps,
-        location,
-        initialFormValues['identifiers'],
+        location ?? '',
+        initialFormValuesState['identifiers'],
         currentSession,
         config,
         savePatientTransactionManager.current,
@@ -109,18 +131,18 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
       const redirectUrl = interpolateUrl(afterUrl || config.links.submitButton, { patientUuid: values.patientUuid });
 
       setTarget(redirectUrl);
-    } catch (error) {
-      if (error.responseBody?.error?.globalErrors) {
-        error.responseBody.error.globalErrors.forEach((error) => {
+    } catch (error: unknown) {
+      if (isRegistrationSubmitError(error) && error.responseBody?.error?.globalErrors) {
+        error.responseBody.error.globalErrors.forEach((globalError) => {
           showSnackbar({
             title: inEditMode
               ? t('updatePatientErrorSnackbarTitle', 'Patient Details Update Failed')
               : t('registrationErrorSnackbarTitle', 'Patient Registration Failed'),
-            subtitle: error.message,
+            subtitle: globalError.message,
             kind: 'error',
           });
         });
-      } else if (error.responseBody?.error?.message) {
+      } else if (isRegistrationSubmitError(error) && error.responseBody?.error?.message) {
         showSnackbar({
           title: inEditMode
             ? t('updatePatientErrorSnackbarTitle', 'Patient Details Update Failed')
@@ -136,7 +158,7 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
     }
   };
 
-  const getDescription = (errors) => {
+  const getDescription = (errors: FormikErrors<FormValues>) => {
     return (
       <ul style={{ listStyle: 'inside' }}>
         {Object.keys(errors).map((error, index) => {
@@ -146,7 +168,7 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
     );
   };
 
-  const displayErrors = (errors) => {
+  const displayErrors = (errors: FormikErrors<FormValues>) => {
     if (errors && typeof errors === 'object' && !!Object.keys(errors).length) {
       showSnackbar({
         isLowContrast: true,
@@ -160,7 +182,7 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
   return (
     <Formik
       enableReinitialize
-      initialValues={initialFormValues}
+      initialValues={initialFormValuesState}
       validationSchema={validationSchema}
       onSubmit={onFormSubmit}
     >
@@ -178,9 +200,9 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
                 {showDummyData && <DummyDataInput setValues={props.setValues} />}
                 <p className={styles.label01}>{t('jumpTo', 'Jump to')}</p>
                 {sections.map((section) => (
-                  <div className={classNames(styles.space05, styles.touchTarget)} key={section.name}>
+                  <div className={classNames(styles.space05, styles.touchTarget)} key={section.id}>
                     <Link className={styles.linkName} onClick={() => scrollIntoView(section.id)}>
-                      <XAxis size={16} /> {t(`${section.id}Section`, section.name)}
+                      <XAxis size={16} /> {t(`${section.id}Section`, section.name ?? section.id)}
                     </Link>
                   </div>
                 ))}
@@ -220,7 +242,7 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
                   setFieldValue: props.setFieldValue,
                   setFieldTouched: props.setFieldTouched,
                   setCapturePhotoProps,
-                  currentPhoto: photo?.imageSrc,
+                  currentPhoto: photo?.imageSrc ?? null,
                   isOffline,
                   initialFormValues: props.initialValues,
                   setInitialFormValues,
@@ -246,4 +268,3 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
  * @internal
  * Just exported for testing
  */
-export { exportedInitialFormValuesForTesting as initialFormValues };

@@ -1,6 +1,5 @@
 import { type Patient } from '@openmrs/esm-framework';
 import React from 'react';
-
 import { useElementConfig } from '../../ward-view/ward-view.resource';
 
 export interface WardPatientAddressProps {
@@ -14,12 +13,8 @@ const WardPatientAddress: React.FC<WardPatientAddressProps> = ({ patient, id }) 
 
   return (
     <>
-      {config?.fields?.map((field) =>
-        preferredAddress?.[field] ? (
-          <div key={String(field)}>{preferredAddress?.[field] as string}</div>
-        ) : (
-          <div key={String(field)} />
-        ),
+      {config?.fields?.map((field, i) =>
+        preferredAddress?.[field] ? <div key={i}>{preferredAddress?.[field] as string}</div> : <div key={i}></div>,
       )}
     </>
   );

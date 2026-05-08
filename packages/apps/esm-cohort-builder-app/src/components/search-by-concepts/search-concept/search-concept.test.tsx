@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { type Concept } from '../../../types';
 import { SearchConcept } from './search-concept.component';
 import { getConcepts } from './search-concept.resource';
@@ -50,47 +49,29 @@ const concepts: Concept[] = [
   },
 ];
 
-const SearchConceptTestHarness = () => {
-  const [searchText, setSearchText] = React.useState('');
-
-  return (
-    <SearchConcept
-      concept={null}
-      setConcept={jest.fn()}
-      searchText={searchText}
-      setSearchText={setSearchText as React.Dispatch<React.SetStateAction<String>>}
-    />
-  );
-};
-
 describe('Test the concept search component', () => {
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
   it('should be able to search for a concept', async () => {
-    jest.useFakeTimers();
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const user = userEvent.setup();
     mockGetConcepts.mockResolvedValue(concepts);
 
-    render(<SearchConceptTestHarness />);
+    let searchText = '';
+    const setSearchText = jest.fn().mockImplementation((search: string) => (searchText = search));
+    render(
+      <SearchConcept concept={null} setConcept={jest.fn()} searchText={searchText} setSearchText={setSearchText} />,
+    );
     const searchInput = screen.getByPlaceholderText('Search Concepts');
-    await user.click(searchInput);
-    await user.type(searchInput, 'blood s');
+    await waitFor(() => user.click(searchInput));
+    await waitFor(() => user.type(searchInput, 'blood s'));
 
-    await React.act(async () => {
-      jest.advanceTimersByTime(500);
-    });
-
-    await waitFor(() => expect(mockGetConcepts).toHaveBeenCalledWith('blood s'));
-    expect(await screen.findByText(concepts[0].name)).toBeInTheDocument();
-    expect(await screen.findByText(concepts[1].name)).toBeInTheDocument();
+    await waitFor(() => expect(mockGetConcepts).toBeCalledWith(searchText));
+    expect(screen.getByText(concepts[0].name)).toBeInTheDocument();
+    expect(screen.getByText(concepts[1].name)).toBeInTheDocument();
   });
 
   it('should be able to clear the current search value', async () => {
     const user = userEvent.setup();
 
-    render(<SearchConceptTestHarness />);
+    render(<SearchConcept concept={null} setConcept={jest.fn()} searchText={''} setSearchText={jest.fn()} />);
 
     const searchInput = screen.getByPlaceholderText('Search Concepts');
     await user.click(searchInput);

@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { formatForDatePicker } from '../../../constants';
+import { render, screen } from '@testing-library/react';
 import { type StockBatchDTO } from '../../../core/api/types/stockItem/StockBatchDTO';
 import { type StockItemInventory } from '../../../core/api/types/stockItem/StockItemInventory';
+import { formatForDatePicker } from '../../../constants';
 import { useStockItemBatchInformationHook } from '../../../stock-items/add-stock-item/batch-information/batch-information.resource';
 import { useStockItemBatchNumbers } from '../hooks/useStockItemBatchNumbers';
 import BatchNoSelector from './batch-no-selector.component';
@@ -115,8 +116,9 @@ describe('BatchNoSelector', () => {
 
     const combobox = screen.getByRole('combobox');
     await user.click(combobox);
+    await user.type(combobox, 'BATCH-001');
 
-    const option = await screen.findByText(`BATCH-001 | Qty: 10 | Expiry: ${formatForDatePicker(mockExpiration)}`);
+    const option = screen.getByText(`BATCH-001 | Qty: 10 | Expiry: ${formatForDatePicker(mockExpiration)}`);
 
     await user.click(option);
 

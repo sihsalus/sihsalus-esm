@@ -1,4 +1,5 @@
 import { DocumentPdf, DocumentUnknown } from '@carbon/react/icons';
+import React from 'react';
 import styles from './attachment-thumbnail.scss';
 
 type AttachmentThumbnailProps = {

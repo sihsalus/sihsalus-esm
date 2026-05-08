@@ -18,6 +18,45 @@
       "component": "homeNavMenu",
       "online": true,
       "offline": true
+    },
+    {
+      "name": "home-widget-db-link",
+      "slot": "homepage-dashboard-slot",
+      "component": "homeWidgetDbLink",
+      "meta": {
+        "name": "home",
+        "slot": "home-dashboard-slot",
+        "title": ""
+      },
+      "order": 0,
+      "online": true,
+      "offline": true
+    },
+    {
+      "name": "page-header",
+      "slot": "home-dashboard-slot",
+      "component": "homePageHeader"
+    },
+    {
+      "name": "peru-home-actions",
+      "slot": "home-dashboard-slot",
+      "component": "peruHomeActions",
+      "online": true,
+      "offline": true
+    },
+    {
+      "name": "metrics-slot",
+      "slot": "home-dashboard-slot",
+      "component": "metrics",
+      "online": true,
+      "offline": true
+    },
+    {
+      "name": "home-widget-dashboard",
+      "slot": "home-dashboard-slot",
+      "component": "homeWidgetDashboard",
+      "online": true,
+      "offline": true
     }
   ]
 }

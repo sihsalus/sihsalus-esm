@@ -2,6 +2,7 @@ import { Layer, Select, SelectItem } from '@carbon/react';
 import { useField } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { moduleName } from '../../../../constants';
 
 interface SelectInputProps {
   name: string;
@@ -12,7 +13,7 @@ interface SelectInputProps {
 
 export const SelectInput: React.FC<SelectInputProps> = ({ name, options, label, required }) => {
   const [field] = useField(name);
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const selectOptions = [
     <SelectItem disabled hidden text={`Select ${label}`} key="" value="" />,
     ...options.map((currentOption, index) => <SelectItem text={currentOption} value={currentOption} key={index} />),

@@ -1,5 +1,4 @@
 import { restBaseUrl, useOpenmrsFetchAll } from '@openmrs/esm-framework';
-
 import { type InpatientAdmission } from '../types';
 
 /**

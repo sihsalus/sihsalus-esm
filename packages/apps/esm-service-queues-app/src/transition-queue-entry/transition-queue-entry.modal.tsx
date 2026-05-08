@@ -23,14 +23,33 @@ enum priorityComment {
   REQUEUED = 'Requeued',
 }
 
+import { preferredIdentifierNames } from '@sihsalus/esm-sihsalus-shared';
+
+function getPreferredIdentifiers(
+  identifiers: MappedVisitQueueEntry['identifiers'] = [],
+  configuredIdentifierTypeUuids: Array<string>,
+) {
+  const configuredIdentifiers = identifiers.filter((identifier) =>
+    configuredIdentifierTypeUuids.includes(identifier?.identifierType?.uuid),
+  );
+
+  const sortedIdentifiers = preferredIdentifierNames
+    .map((identifierName) =>
+      configuredIdentifiers.find(
+        (identifier) => identifier?.identifierType?.display?.toLowerCase() === identifierName.toLowerCase(),
+      ),
+    )
+    .filter(Boolean);
+
+  return sortedIdentifiers.length ? sortedIdentifiers : configuredIdentifiers;
+}
+
 const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ closeModal, queueEntry }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
   const defaultTransitionStatus = config.concepts.defaultTransitionStatus;
 
-  const preferredIdentifiers = queueEntry?.identifiers.filter((identifier) =>
-    config.defaultIdentifierTypes.includes(identifier?.identifierType?.uuid),
-  );
+  const preferredIdentifiers = getPreferredIdentifiers(queueEntry?.identifiers, config.defaultIdentifierTypes);
 
   const { mutateQueueEntries } = useMutateQueueEntries();
 

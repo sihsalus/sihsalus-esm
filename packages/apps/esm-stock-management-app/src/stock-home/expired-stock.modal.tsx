@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ModalBody,
   ModalHeader,
@@ -13,27 +14,21 @@ import { useTranslation } from 'react-i18next';
 
 interface ExpiredStockModalProps {
   closeModal: () => void;
-  expiredStock: Array<{
-    drugName?: string;
-    batchNo?: string;
-    quantity?: number | string;
-    dispensingUnitName?: string;
-    expiration?: string | Date;
-  }>;
+  expiredStock: any[];
 }
 
 const ExpiredStockModal = ({ closeModal, expiredStock }: ExpiredStockModalProps) => {
   const { t } = useTranslation();
 
   const headers = [
-    { key: 'drugName', header: 'Drug Name' },
-    { key: 'batchNo', header: 'Batch No' },
-    { key: 'quantity', header: 'Quantity' },
-    { key: 'dispensingUnitName', header: 'Unit' },
-    { key: 'expiration', header: 'Expiration Date' },
+    { key: 'drugName', header: t('drugName', 'Drug Name') },
+    { key: 'batchNo', header: t('batchNo', 'Batch number') },
+    { key: 'quantity', header: t('quantity', 'Quantity') },
+    { key: 'dispensingUnitName', header: t('unit', 'Unit') },
+    { key: 'expiration', header: t('expirationDate', 'Expiration Date') },
   ];
 
-  const formatDate = (dateString?: string | Date) => {
+  const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-GB', {

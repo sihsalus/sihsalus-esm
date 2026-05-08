@@ -1,5 +1,5 @@
 import { getLocalTimeZone } from '@internationalized/date';
-import { formatDate } from '@openmrs/esm-framework/src/internal';
+import { formatDate } from '@openmrs/esm-utils';
 import React, { forwardRef, type HTMLAttributes, type PropsWithChildren, useCallback, useContext } from 'react';
 import {
   Button,

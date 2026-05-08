@@ -14,7 +14,6 @@ import {
   type PatientWorkspace2DefinitionProps,
   useOrderBasket,
   useOrderType,
-  usePatientChartStore,
 } from '@openmrs/esm-patient-common-lib';
 import React, { type ComponentProps, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -27,18 +26,20 @@ import styles from './orderable-concept-search.scss';
 import OrderableConceptSearchResults from './search-results.component';
 
 interface LegacyOrderableConceptSearchWorkspaceProps extends DefaultWorkspaceProps {
-  order: OrderBasketItem;
+  order?: OrderBasketItem;
   orderTypeUuid: string;
-  orderableConceptClasses: Array<string>;
-  orderableConceptSets: Array<string>;
+  orderableConceptClasses?: Array<string>;
+  orderableConceptSets?: Array<string>;
+  orderBasketWorkspaceName?: string;
 }
 
 type Workspace2OrderableConceptSearchWorkspaceProps = PatientWorkspace2DefinitionProps<
   {
-    order: OrderBasketItem;
+    order?: OrderBasketItem;
     orderTypeUuid: string;
-    orderableConceptClasses: Array<string>;
-    orderableConceptSets: Array<string>;
+    orderableConceptClasses?: Array<string>;
+    orderableConceptSets?: Array<string>;
+    orderBasketWorkspaceName?: string;
   },
   object
 >;
@@ -63,10 +64,16 @@ export function ordersEqual(order1: DrugsOrOrders, order2: DrugsOrOrders) {
 
 const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceProps> = (props) => {
   const { t } = useTranslation();
-  const { order: initialOrder, orderTypeUuid } = isWorkspace2Props(props) ? props.workspaceProps : props;
+  const {
+    order: initialOrder,
+    orderTypeUuid,
+    orderableConceptSets: propOrderableConceptSets,
+  } = isWorkspace2Props(props) ? props.workspaceProps : props;
+  const orderBasketWorkspaceName = isWorkspace2Props(props)
+    ? (props.workspaceProps.orderBasketWorkspaceName ?? 'order-basket')
+    : (props.orderBasketWorkspaceName ?? 'order-basket');
   const isTablet = useLayoutType() === 'tablet';
   const { orders } = useOrderBasket<OrderBasketItem>(orderTypeUuid, prepOrderPostData);
-  const { patientUuid } = usePatientChartStore(isWorkspace2Props(props) ? props.groupProps.patientUuid : undefined);
   const { orderTypes } = useConfig<ConfigObject>();
   const [currentOrder, setCurrentOrder] = useState(initialOrder);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -83,26 +90,24 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
     [props],
   );
 
-  const handleCloseWorkspace = useCallback(
-    (options?: Parameters<DefaultWorkspaceProps['closeWorkspace']>[0]) => {
+  const returnToOrderBasket = useCallback(
+    (discardUnsavedChanges = false) => {
       if (isWorkspace2Props(props)) {
-        void props.closeWorkspace({ discardUnsavedChanges: options?.ignoreChanges });
-        options?.onWorkspaceClose?.();
-      } else {
-        props.closeWorkspace(options);
+        if (discardUnsavedChanges) {
+          setHasUnsavedChanges(false);
+        }
+        void props.closeWorkspace({ discardUnsavedChanges });
+        return;
       }
-    },
-    [props],
-  );
 
-  const handleCloseWorkspaceWithSavedChanges = useCallback(() => {
-    if (isWorkspace2Props(props)) {
-      setHasUnsavedChanges(false);
-      void props.closeWorkspace({ discardUnsavedChanges: true });
-    } else {
-      props.closeWorkspaceWithSavedChanges();
-    }
-  }, [props]);
+      props.closeWorkspace({
+        ignoreChanges: discardUnsavedChanges,
+        onWorkspaceClose: () => launchPatientWorkspace(orderBasketWorkspaceName),
+        closeWorkspaceGroup: false,
+      });
+    },
+    [orderBasketWorkspaceName, props],
+  );
 
   const handlePromptBeforeClosing = useCallback(
     (callback: () => boolean) => {
@@ -126,16 +131,12 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
   }, [handleSetTitle, orderType, t]);
 
   const orderableConceptSets = useMemo(
-    () => orderTypes.find((orderType) => orderType.orderTypeUuid === orderTypeUuid).orderableConceptSets,
-    [orderTypeUuid, orderTypes],
+    () =>
+      orderTypes.find((orderType) => orderType.orderTypeUuid === orderTypeUuid)?.orderableConceptSets ??
+      propOrderableConceptSets ??
+      [],
+    [orderTypeUuid, orderTypes, propOrderableConceptSets],
   );
-
-  const cancelDrugOrder = useCallback(() => {
-    handleCloseWorkspace({
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-      closeWorkspaceGroup: false,
-    });
-  }, [handleCloseWorkspace]);
 
   const openOrderForm = useCallback(
     (order: OrderBasketItem) => {
@@ -156,7 +157,7 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
           <Button
             iconDescription="Return to order basket"
             kind="ghost"
-            onClick={cancelDrugOrder}
+            onClick={() => returnToOrderBasket()}
             renderIcon={(props: ComponentProps<typeof ArrowLeftIcon>) => <ArrowLeftIcon size={24} {...props} />}
             size="sm"
           >
@@ -167,18 +168,15 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
       {currentOrder ? (
         <OrderForm
           initialOrder={currentOrder}
-          closeWorkspace={handleCloseWorkspace}
-          closeWorkspaceWithSavedChanges={handleCloseWorkspaceWithSavedChanges}
           promptBeforeClosing={handlePromptBeforeClosing}
           orderTypeUuid={orderTypeUuid}
           orderableConceptSets={orderableConceptSets}
-          patientUuid={patientUuid}
-          setTitle={handleSetTitle}
+          returnToOrderBasket={returnToOrderBasket}
         />
       ) : (
         <ConceptSearch
           openOrderForm={openOrderForm}
-          closeWorkspace={handleCloseWorkspace}
+          returnToOrderBasket={returnToOrderBasket}
           orderableConceptSets={orderableConceptSets}
           orderTypeUuid={orderTypeUuid}
         />
@@ -198,25 +196,24 @@ const OrderableConceptSearchWorkspace: React.FC<OrderableConceptSearchWorkspaceP
 };
 
 interface ConceptSearchProps {
-  closeWorkspace: DefaultWorkspaceProps['closeWorkspace'];
+  returnToOrderBasket: (discardUnsavedChanges?: boolean) => void;
   openOrderForm: (search: OrderBasketItem) => void;
   orderTypeUuid: string;
   orderableConceptSets: Array<string>;
 }
 
-function ConceptSearch({ closeWorkspace, orderTypeUuid, openOrderForm, orderableConceptSets }: ConceptSearchProps) {
+function ConceptSearch({
+  returnToOrderBasket,
+  orderTypeUuid,
+  openOrderForm,
+  orderableConceptSets,
+}: ConceptSearchProps) {
   const { t } = useTranslation();
   const { orderType } = useOrderType(orderTypeUuid);
   const isTablet = useLayoutType() === 'tablet';
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
-
-  const cancelDrugOrder = useCallback(() => {
-    closeWorkspace({
-      onWorkspaceClose: () => launchPatientWorkspace('order-basket'),
-    });
-  }, [closeWorkspace]);
 
   const focusAndClearSearchInput = () => {
     setSearchTerm('');
@@ -247,15 +244,15 @@ function ConceptSearch({ closeWorkspace, orderTypeUuid, openOrderForm, orderable
         searchTerm={debouncedSearchTerm}
         openOrderForm={openOrderForm}
         focusAndClearSearchInput={focusAndClearSearchInput}
-        closeWorkspace={closeWorkspace}
+        returnToOrderBasket={returnToOrderBasket}
         orderTypeUuid={orderTypeUuid}
-        cancelOrder={() => {}}
+        cancelOrder={() => returnToOrderBasket()}
         orderableConceptSets={orderableConceptSets}
       />
       {isTablet && (
         <div className={styles.separatorContainer}>
           <p className={styles.separator}>{t('or', 'or')}</p>
-          <Button iconDescription="Return to order basket" kind="ghost" onClick={cancelDrugOrder}>
+          <Button iconDescription="Return to order basket" kind="ghost" onClick={() => returnToOrderBasket()}>
             {t('returnToOrderBasket', 'Return to order basket')}
           </Button>
         </div>

@@ -1,16 +1,12 @@
+import React, { useEffect, useMemo, useState } from 'react';
 import { ComboButton, MenuItem } from '@carbon/react';
 import { Printer } from '@carbon/react/icons';
-import { showModal, useConfig } from '@openmrs/esm-framework';
-import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type ConfigObject } from '../../../../config-schema';
+import { useStockItem, useStockItemInventory } from '../../../stock-items.resource';
+import { showModal, useConfig } from '@openmrs/esm-framework';
+import { type StockItemInventoryFilter, useStockItemTransactions } from '../../../stock-items.resource';
 import { ResourceRepresentation } from '../../../../core/api/api';
-import {
-  type StockItemInventoryFilter,
-  useStockItem,
-  useStockItemInventory,
-  useStockItemTransactions,
-} from '../../../stock-items.resource';
+import { type ConfigObject } from '../../../../config-schema';
 
 type Props = {
   itemUuid: string;
@@ -24,7 +20,7 @@ const TransactionsPrintAction: React.FC<Props> = ({ columns, data, itemUuid, fil
 
   const { enablePrintButton } = useConfig<ConfigObject>();
 
-  const [stockCardItemFilter, _setStockCardItemFilter] = useState<StockItemInventoryFilter>({
+  const [stockCardItemFilter, setStockCardItemFilter] = useState<StockItemInventoryFilter>({
     startIndex: 0,
     totalCount: true,
     v: ResourceRepresentation.Full,
@@ -94,44 +90,17 @@ const TransactionsPrintAction: React.FC<Props> = ({ columns, data, itemUuid, fil
 
   const stockCardHeaders = useMemo(
     () => [
-      {
-        key: 'patientId',
-        header: 'Patient ID',
-      },
-      {
-        key: 'patientName',
-        header: 'Patient Name',
-      },
-      {
-        key: 'patientIdentifier',
-        header: 'Patient Identifier',
-      },
-      {
-        key: 'date',
-        header: 'Date',
-      },
-      {
-        key: 'location',
-        header: 'Location',
-      },
-      {
-        key: 'transaction',
-        header: 'Transaction',
-      },
-      {
-        key: 'balance',
-        header: 'Balance',
-      },
-      {
-        key: 'totalout',
-        header: 'OUT',
-      },
-      {
-        key: 'batch',
-        header: 'Batch',
-      },
+      { key: 'patientId', header: t('patientId', 'Patient ID') },
+      { key: 'patientName', header: t('patientName', 'Patient Name') },
+      { key: 'patientIdentifier', header: t('patientIdentifier', 'Patient Identifier') },
+      { key: 'date', header: t('date', 'Date') },
+      { key: 'location', header: t('location', 'Location') },
+      { key: 'transaction', header: t('transaction', 'Transaction') },
+      { key: 'balance', header: t('balance', 'Balance') },
+      { key: 'totalout', header: t('out', 'OUT') },
+      { key: 'batch', header: t('batch', 'Batch') },
     ],
-    [],
+    [t],
   );
 
   const handleBincardClick = () => {
@@ -155,7 +124,7 @@ const TransactionsPrintAction: React.FC<Props> = ({ columns, data, itemUuid, fil
   return (
     <>
       {enablePrintButton && (
-        <ComboButton label="Print">
+        <ComboButton label={t('print', 'Print')}>
           <MenuItem
             label={t('printStockCard', 'Print Stock Card')}
             renderIcon={(props) => <Printer size={24} {...props} />}

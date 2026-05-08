@@ -65,7 +65,7 @@ const GenericConditionsOverview: React.FC<GenericConditionsOverviewProps> = ({
   patientUuid,
   conceptSetUuid,
   title,
-  workspaceFormId = 'conditions-filter-form-workspace',
+  workspaceFormId = 'maternal-health-conditions-filter-form-workspace',
   enableAdd = true,
   urlPath = 'Conditions',
 }) => {

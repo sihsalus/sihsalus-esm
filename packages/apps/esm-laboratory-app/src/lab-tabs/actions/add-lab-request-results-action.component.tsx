@@ -10,6 +10,9 @@ interface AddLabRequestResultsActionProps {
   order: Order;
 }
 
+const labAppTestResultsFormWorkspaceName = 'lab-app-test-results-form-workspace';
+const labAppTestResultsAddLabOrderWorkspaceName = 'lab-app-test-results-add-lab-order-workspace';
+
 const AddLabRequestResultsAction: React.FC<AddLabRequestResultsActionProps> = ({ order }) => {
   const { t } = useTranslation();
   const { laboratoryOrderTypeUuid } = useConfig<Config>();
@@ -22,12 +25,12 @@ const AddLabRequestResultsAction: React.FC<AddLabRequestResultsActionProps> = ({
 
   const launchTestResultsWorkspace = () => {
     launchWorkspace2(
-      'lab-app-test-results-form-workspace',
+      labAppTestResultsFormWorkspaceName,
       {
         patient: order.patient,
         order,
         invalidateLabOrders,
-        labOrderWorkspaceName: 'lab-app-test-results-add-lab-order-workspace',
+        labOrderWorkspaceName: labAppTestResultsAddLabOrderWorkspaceName,
       },
       {
         patient: order.patient,

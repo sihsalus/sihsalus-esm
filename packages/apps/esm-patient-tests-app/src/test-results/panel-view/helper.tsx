@@ -4,6 +4,31 @@ import { type Concept, type ConceptMeta, type FHIRObservationResource, observati
 
 import styles from './result-panel.scss';
 
+const labConceptClassNames = new Set([
+  'test',
+  'labset',
+  'lab set',
+  'prueba',
+  'examen',
+  'analisis',
+  'conjunto de laboratorio',
+  'grupo de laboratorio',
+  'panel de laboratorio',
+]);
+
+const normalizeConceptClassName = (value?: string) =>
+  value
+    ?.normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim() ?? '';
+
+export const isLabConcept = (concept: Concept) =>
+  [concept.conceptClass?.display, concept.conceptClass?.name].some((value) =>
+    labConceptClassNames.has(normalizeConceptClassName(value)),
+  );
+
 export const getConceptUuid = (obs: FHIRObservationResource) => obs?.code.coding[0].code;
 
 export const getClass = (interpretation: OBSERVATION_INTERPRETATION) => {

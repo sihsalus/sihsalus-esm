@@ -75,7 +75,7 @@ const ActiveVisitsTable = () => {
   );
 
   const searchResults = useMemo(() => {
-    const displayRows = activeVisits.map(transformVisitForDisplay);
+    const displayRows = activeVisits.map((visit) => transformVisitForDisplay(visit));
     if (!displayRows.length) return displayRows;
 
     const trimmed = searchString?.trim();

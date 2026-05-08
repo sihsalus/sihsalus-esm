@@ -2,6 +2,7 @@ import { Layer, TextInput } from '@carbon/react';
 import { useField } from 'formik';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { moduleName } from '../../../../constants';
 
 // FIXME Temporarily imported here
 export interface TextInputProps
@@ -129,7 +130,7 @@ interface InputProps extends TextInputProps {
 
 export const Input: React.FC<InputProps> = ({ checkWarning, ...props }) => {
   const [field, meta] = useField(props.name);
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
 
   /*
     Do not remove these comments

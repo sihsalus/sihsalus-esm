@@ -8,7 +8,7 @@
   "source": true,
   "scripts": {
     "lint": "node ../../tooling/scripts/run-biome.js lint src",
-    "test": "cross-env TZ=UTC jest --config jest.config.js --verbose false --passWithNoTests",
+    "test": "TZ=UTC yarn exec jest --config jest.config.js --verbose false --passWithNoTests",
     "typescript": "tsc"
   },
   "browserslist": [
@@ -41,6 +41,6 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
-    "typescript": "^5.8.3"
+    "typescript": "^6.0.0"
   }
 }

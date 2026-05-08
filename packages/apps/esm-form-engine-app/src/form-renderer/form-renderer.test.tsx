@@ -7,11 +7,15 @@ import FormRenderer from './form-renderer.component';
 
 const mockUseFormSchema = jest.mocked(useFormSchema);
 
-jest.mock('@sihsalus/esm-form-engine-lib', () => ({
-  FormEngine: jest
-    .fn()
-    .mockImplementation(() => React.createElement('div', { 'data-testid': 'openmrs form' }, 'FORM ENGINE LIB')),
-}));
+jest.mock(
+  '@sihsalus/esm-form-engine-lib',
+  () => ({
+    FormEngine: jest
+      .fn()
+      .mockImplementation(() => React.createElement('div', { 'data-testid': 'openmrs form' }, 'FORM ENGINE LIB')),
+  }),
+  { virtual: true },
+);
 
 jest.mock('../hooks/useFormSchema', () => ({
   __esModule: true,
@@ -53,5 +57,29 @@ describe('FormRenderer', () => {
     render(<FormRenderer {...defaultProps} />);
     expect(await screen.findByText(/form engine lib/i)).toBeInTheDocument();
     expect(mockUseFormSchema).toHaveBeenCalledWith('test-form-uuid');
+  });
+
+  test('fallback submit closes only the current workspace', async () => {
+    const closeWorkspace = jest.fn();
+    const handlePostResponse = jest.fn();
+    const { FormEngine } = jest.requireMock('@sihsalus/esm-form-engine-lib');
+
+    mockUseFormSchema.mockReturnValue({ schema: { uuid: 'test-schema' }, isLoading: false, error: null } as ReturnType<
+      typeof useFormSchema
+    >);
+
+    render(
+      <FormRenderer
+        {...defaultProps}
+        closeWorkspace={closeWorkspace}
+        closeWorkspaceWithSavedChanges={undefined}
+        handlePostResponse={handlePostResponse}
+      />,
+    );
+
+    FormEngine.mock.calls.at(-1)[0].onSubmit([{ uuid: 'submitted-encounter-uuid' }]);
+
+    expect(closeWorkspace).toHaveBeenCalledWith({ ignoreChanges: true, closeWorkspaceGroup: false });
+    expect(handlePostResponse).toHaveBeenCalledWith({ uuid: 'submitted-encounter-uuid' });
   });
 });

@@ -1,9 +1,11 @@
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { type Encounter } from '../../types';
 
+dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
 export interface WardPatientTimeSinceAdmissionProps {
@@ -14,7 +16,8 @@ const WardPatientTimeSinceAdmission: React.FC<WardPatientTimeSinceAdmissionProps
   firstAdmissionOrTransferEncounter,
 }) => {
   const { t } = useTranslation();
-  if (!firstAdmissionOrTransferEncounter?.encounterDatetime) {
+
+  if (!firstAdmissionOrTransferEncounter) {
     return null;
   }
 

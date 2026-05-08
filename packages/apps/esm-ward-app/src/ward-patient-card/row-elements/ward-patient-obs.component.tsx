@@ -2,12 +2,10 @@ import { SkeletonText } from '@carbon/react';
 import { type OpenmrsResource, type Patient, type Visit } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { type ObsElementConfig } from '../../config-schema';
 import { useObs } from '../../hooks/useObs';
 import { useElementConfig } from '../../ward-view/ward-view.resource';
 import styles from '../ward-patient-card.scss';
-
 import { getObsEncounterString, obsCustomRepresentation } from './ward-patient-obs.resource';
 import WardPatientResponsiveTooltip from './ward-patient-responsive-tooltip.component';
 
@@ -46,10 +44,7 @@ const WardPatientObs: React.FC<WardPatientObsProps> = ({ id, configOverride, pat
 
     const obsNodes = obsToDisplay?.map((o) => {
       const { value } = o;
-      const display =
-        typeof value === 'object' && value !== null
-          ? ((value as OpenmrsResource).display ?? '')
-          : String(o.value ?? '');
+      const display = (value as OpenmrsResource)?.display ?? String(value);
 
       const tooltipContent = getObsEncounterString(o, t);
       return (

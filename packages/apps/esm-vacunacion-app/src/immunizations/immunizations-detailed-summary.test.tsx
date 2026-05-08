@@ -24,38 +24,33 @@ jest.mock('@openmrs/esm-patient-common-lib', () => ({
   useVisitOrOfflineVisit: jest.fn(),
 }));
 
-type VaccinationConfig = {
-  immunizationsConfig: ImmunizationConfigObject;
-};
-
 const mockUseImmunizations = jest.mocked(useImmunizations);
 const mockLaunchWorkspace = launchWorkspace2 as jest.Mock;
-const mockUseConfig = jest.mocked(useConfig<VaccinationConfig>);
+const mockUseConfig = jest.mocked(useConfig<ImmunizationConfigObject>);
 const mockUsePatientChartStore = jest.mocked(usePatientChartStore);
 const mockUseVisitOrOfflineVisit = jest.mocked(useVisitOrOfflineVisit);
 
-mockUseConfig.mockReturnValue({
-  immunizationsConfig: getDefaultsFromConfigSchema(configSchema),
-} as VaccinationConfig);
+mockUseConfig.mockReturnValue(getDefaultsFromConfigSchema(configSchema));
 
 mockLaunchWorkspace.mockImplementation(jest.fn());
 
 mockUseConfig.mockReturnValue({
-  immunizationsConfig: {
-    immunizationConceptSet: 'CIEL:984',
-    sequenceDefinitions: [
-      {
-        vaccineConceptUuid: 'polio-uuid',
-        sequences: [
-          {
-            sequenceLabel: 'Primary Series',
-            sequenceNumber: 1,
-          },
-        ],
-      },
-    ],
+  immunizationConceptSet: 'CIEL:984',
+  fhirConceptMappings: {
+    immunizationResourceConcept: 'CIEL:1421',
   },
-} as VaccinationConfig);
+  sequenceDefinitions: [
+    {
+      vaccineConceptUuid: 'polio-uuid',
+      sequences: [
+        {
+          sequenceLabel: 'Primary Series',
+          sequenceNumber: 1,
+        },
+      ],
+    },
+  ],
+} as ImmunizationConfigObject);
 
 const mockImmunizationData = [
   {
@@ -80,21 +75,22 @@ const mockImmunizationData = [
 describe('ImmunizationsDetailedSummary', () => {
   beforeEach(() => {
     mockUseConfig.mockReturnValue({
-      immunizationsConfig: {
-        immunizationConceptSet: 'CIEL:984',
-        sequenceDefinitions: [
-          {
-            vaccineConceptUuid: 'polio-uuid',
-            sequences: [
-              {
-                sequenceLabel: 'Primary Series',
-                sequenceNumber: 1,
-              },
-            ],
-          },
-        ],
+      immunizationConceptSet: 'CIEL:984',
+      fhirConceptMappings: {
+        immunizationResourceConcept: 'CIEL:1421',
       },
-    } as VaccinationConfig);
+      sequenceDefinitions: [
+        {
+          vaccineConceptUuid: 'polio-uuid',
+          sequences: [
+            {
+              sequenceLabel: 'Primary Series',
+              sequenceNumber: 1,
+            },
+          ],
+        },
+      ],
+    } as ImmunizationConfigObject);
     mockUseVisitOrOfflineVisit.mockReturnValue({ currentVisit: null } as VisitReturnType);
     mockUsePatientChartStore.mockReturnValue({
       patientUuid: 'patient-123',

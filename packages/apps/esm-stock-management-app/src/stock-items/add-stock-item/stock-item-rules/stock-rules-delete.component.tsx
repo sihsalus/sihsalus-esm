@@ -1,9 +1,9 @@
-import { Button, InlineLoading } from '@carbon/react';
-import { TrashCan } from '@carbon/react/icons';
-import { showModal, showSnackbar } from '@openmrs/esm-framework';
 import React, { useState } from 'react';
+import { Button, InlineLoading } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
+import { TrashCan } from '@carbon/react/icons';
 import { deleteStockRule } from '../../stock-items.resource';
+import { showModal, showSnackbar } from '@openmrs/esm-framework';
 
 interface StockRulesDeleteActionMenuProps {
   uuid: string;

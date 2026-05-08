@@ -1,5 +1,4 @@
 import { restBaseUrl, useOpenmrsFetchAll } from '@openmrs/esm-framework';
-
 import { type Bed, type BedStatus } from '../types/index';
 
 interface BedSearchCriteria {

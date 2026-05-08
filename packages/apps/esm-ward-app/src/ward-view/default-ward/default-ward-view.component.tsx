@@ -1,10 +1,9 @@
 import { useDefineAppContext } from '@openmrs/esm-framework';
-
 import { useWardPatientGrouping } from '../../hooks/useWardPatientGrouping';
 import { type WardViewContext } from '../../types';
+import WardMetrics from '../../ward-view-header/ward-metrics.component';
 import WardViewHeader from '../../ward-view-header/ward-view-header.component';
 import Ward from '../ward.component';
-
 import DefaultWardBeds from './default-ward-beds.component';
 import DefaultWardPatientCardHeader from './default-ward-patient-card-header.component';
 import DefaultWardPendingPatients from './default-ward-pending-patients.component';
@@ -18,12 +17,13 @@ const DefaultWardView = () => {
   });
 
   const wardBeds = <DefaultWardBeds />;
+  const wardMetrics = <WardMetrics />;
   const wardUnassignedPatients = <DefaultWardUnassignedPatients />;
   const wardPendingPatients = <DefaultWardPendingPatients />;
 
   return (
     <>
-      <WardViewHeader {...{ wardPendingPatients }} />
+      <WardViewHeader {...{ wardPendingPatients, wardMetrics }} />
       <Ward {...{ wardBeds, wardUnassignedPatients }} />
     </>
   );

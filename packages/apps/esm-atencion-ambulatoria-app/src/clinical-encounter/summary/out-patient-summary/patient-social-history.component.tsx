@@ -26,6 +26,7 @@ import {
   Alcohol_Use_Duration_UUID,
   Alcohol_Use_UUID,
   Other_Substance_Abuse_UUID,
+  patientFormEntryWorkspace,
   Smoking_Duration_UUID,
   Smoking_UUID,
 } from '../../../utils/constants';
@@ -54,7 +55,7 @@ const OutPatientSocialHistory: React.FC<OutPatientSocialHistoryProps> = ({
 
   const headerTitle = t('socialHistory', 'Social History');
   const handleOpenOrEditClinicalEncounterForm = (encounterUUID = clinicalEncounterUuid) => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       workspaceTitle: 'Historia Social',
       mutateForm: mutate(
         (key) => typeof key === 'string' && key.startsWith('/openmrs/ws/rest/v1/kenyaemr/flags'),

@@ -64,6 +64,18 @@ mockUseConfig.mockReturnValue({
 } as ConfigObject);
 
 describe('VitalsHeader', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockUseWorkspaces.mockReturnValue({ workspaces: [] } as WorkspacesInfo);
+    mockUseConfig.mockReturnValue({
+      ...getDefaultsFromConfigSchema(configSchema),
+      ...mockVitalsConfig,
+    } as ConfigObject);
+    mockUseVitalsAndBiometrics.mockReturnValue({
+      data: formattedVitals,
+    } as ReturnType<typeof useVitalsAndBiometrics>);
+  });
+
   it('renders an empty state view when there are no vitals data to show', async () => {
     mockUseVitalsAndBiometrics.mockReturnValue({
       data: [],
@@ -216,6 +228,49 @@ describe('VitalsHeader', () => {
       workspaceTitle: 'Triage',
       mutateForm: invalidateCachedVitalsAndBiometrics,
     });
+  });
+
+  it('should launch configured Form Entry workspace for vitals and biometrics', async () => {
+    const user = userEvent.setup();
+
+    mockUseConfig.mockReturnValue({
+      ...(getDefaultsFromConfigSchema(configSchema) as Record<string, unknown>),
+      vitals: {
+        ...mockVitalsConfig.vitals,
+        useFormEngine: true,
+        formName: 'Ward vitals',
+        formEntryWorkspaceName: 'ward-patient-form-entry-workspace',
+      },
+    } as unknown as ConfigObject);
+
+    renderWithSwr(<VitalsHeader {...testProps} />);
+
+    await waitForLoadingToFinish();
+
+    await user.click(screen.getByText(/Record vitals/i));
+
+    expect(mockLaunchPatientWorkspace).toHaveBeenCalledWith('ward-patient-form-entry-workspace', {
+      formInfo: {
+        encounterUuid: '',
+        formUuid: '9f26aad4-244a-46ca-be49-1196df1a8c9a',
+      },
+      workspaceTitle: 'Ward vitals',
+      mutateForm: invalidateCachedVitalsAndBiometrics,
+    });
+  });
+
+  it('uses custom vitals form launcher when provided by a workspace host', async () => {
+    const user = userEvent.setup();
+    const launchCustomVitalsForm = jest.fn();
+
+    renderWithSwr(<VitalsHeader {...testProps} launchCustomVitalsForm={launchCustomVitalsForm} />);
+
+    await waitForLoadingToFinish();
+
+    await user.click(screen.getByText(/Record vitals/i));
+
+    expect(launchCustomVitalsForm).toHaveBeenCalledTimes(1);
+    expect(mockLaunchPatientWorkspace).not.toHaveBeenCalled();
   });
 
   it('should show links in vitals header by default', async () => {

@@ -7,7 +7,6 @@ import {
 import { orderBasketStore } from '@openmrs/esm-patient-common-lib/src/orders/store';
 import { render, renderHook, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { mockPatient } from 'test-utils';
 
 import OrderBasketActionButton from './order-basket-action-button.extension';
@@ -20,7 +19,7 @@ const mockUseLaunchWorkspaceRequiringVisit = useLaunchWorkspaceRequiringVisit as
 const mockFhirPatient = mockPatient as unknown as fhir.Patient;
 
 MockActionMenuButton.mockImplementation(({ handler, label, tagContent }) => (
-  <button onClick={handler}>
+  <button type="button" onClick={handler}>
     {tagContent} {label}
   </button>
 ));

@@ -1,5 +1,4 @@
 import { ExtensionSlot } from '@openmrs/esm-framework';
-import React from 'react';
 import { GroupFormWorkflowProvider } from '../context/GroupFormWorkflowContext';
 import GroupSessionWorkspace from './GroupSessionWorkspace';
 import GroupDisplayHeader from './group-display-header';

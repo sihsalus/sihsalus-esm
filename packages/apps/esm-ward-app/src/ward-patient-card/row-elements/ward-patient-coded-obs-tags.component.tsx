@@ -1,12 +1,11 @@
-import { Tag, type TagProps } from '@carbon/react';
+import { Tag } from '@carbon/react';
 import { type OpenmrsResource, type Patient, type Visit } from '@openmrs/esm-framework';
 import React, { type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { useObs } from '../../hooks/useObs';
+import { type CarbonTagType } from '../../types';
 import { useElementConfig } from '../../ward-view/ward-view.resource';
 import styles from '../ward-patient-card.scss';
-
 import { getObsEncounterString, obsCustomRepresentation, useConceptToTagColorMap } from './ward-patient-obs.resource';
 import WardPatientResponsiveTooltip from './ward-patient-responsive-tooltip.component';
 import WardPatientSkeletonText from './ward-patient-skeleton-text.component';
@@ -16,8 +15,6 @@ interface WardPatientCodedObsTagsProps {
   patient: Patient;
   visit: Visit;
 }
-
-type TagType = NonNullable<TagProps<'div'>['type']>;
 
 /**
  * The WardPatientCodedObsTags displays observations of coded values of a particular concept in the active visit as tags.
@@ -65,7 +62,7 @@ const WardPatientCodedObsTags: React.FC<WardPatientCodedObsTagsProps> = ({ id, p
         if (color) {
           return (
             <WardPatientResponsiveTooltip tooltipContent={getObsEncounterString(o, t)}>
-              <Tag type={color as TagType} key={`ward-coded-obs-tag-${o.uuid}`}>
+              <Tag type={color as CarbonTagType} key={`ward-coded-obs-tag-${o.uuid}`}>
                 {display}
               </Tag>
             </WardPatientResponsiveTooltip>
@@ -88,7 +85,7 @@ const WardPatientCodedObsTags: React.FC<WardPatientCodedObsTagsProps> = ({ id, p
             {coloredOpsTags}
             {summaryTagTooltipText.length > 0 ? (
               <WardPatientResponsiveTooltip tooltipContent={summaryTagTooltipText}>
-                <Tag type={summaryLabelColor as TagType}>
+                <Tag type={summaryLabelColor as CarbonTagType}>
                   {t('countItems', '{{count}} {{item}}', {
                     count: summaryTagTooltipText.length,
                     item: summaryLabelToDisplay,

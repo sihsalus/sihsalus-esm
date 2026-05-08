@@ -19,7 +19,7 @@ export function ConfigTree({ config }: ConfigTreeProps) {
     <Accordion align="start">
       {config &&
         Object.keys(config)
-          .sort()
+          .sort((a, b) => a.localeCompare(b))
           .map((moduleName) => {
             const moduleConfig = config[moduleName];
             return Object.keys(moduleConfig).length ? (

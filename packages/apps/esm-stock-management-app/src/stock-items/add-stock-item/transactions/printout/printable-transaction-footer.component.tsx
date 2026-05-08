@@ -1,7 +1,8 @@
-import { formatDate, useSession } from '@openmrs/esm-framework';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import styles from './printable-transaction-footer.scss';
+import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
+import { formatDate, useSession } from '@openmrs/esm-framework';
 
 type PrintableFooterProps = {
   title: string;

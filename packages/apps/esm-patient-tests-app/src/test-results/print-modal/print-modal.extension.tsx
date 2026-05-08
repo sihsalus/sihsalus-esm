@@ -18,7 +18,7 @@ import {
 } from '@carbon/react';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-import React, { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useReactToPrint } from 'react-to-print';
 
@@ -208,17 +208,17 @@ function PrintModal({ patientUuid, closeDialog }) {
                     <Table {...getTableProps()}>
                       <TableHead>
                         <TableRow>
-                          {headers.map((header) => (
-                            <TableHeader
-                              className={styles.heading}
-                              {...getHeaderProps({
-                                header,
-                                isSortable: header.isSortable,
-                              })}
-                            >
-                              {header.header}
-                            </TableHeader>
-                          ))}
+                          {headers.map((header) => {
+                            const { key, ...headerProps } = getHeaderProps({
+                              header,
+                              isSortable: header.isSortable,
+                            });
+                            return (
+                              <TableHeader key={key} className={styles.heading} {...headerProps}>
+                                {header.header}
+                              </TableHeader>
+                            );
+                          })}
                         </TableRow>
                       </TableHead>
                       <TableBody>

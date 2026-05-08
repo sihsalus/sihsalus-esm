@@ -1,6 +1,6 @@
-@use '@carbon/type';
-@use '@carbon/layout';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/type";
+@use "@carbon/layout";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 .flexWrapper {
   height: 100%;
@@ -45,7 +45,7 @@
 }
 
 .productiveHeading02 {
-  @include type.type-style('heading-compact-02');
+  @include type.type-style("heading-compact-02");
 }
 
 .formContainer {
@@ -58,7 +58,8 @@
 .buttonSet {
   display: flex;
   align-items: center;
-  margin: 0 (-(layout.$spacing-05)) (-(layout.$spacing-05)) (-(layout.$spacing-05));
+  margin: 0 (-(layout.$spacing-05)) (-(layout.$spacing-05))
+    (-(layout.$spacing-05));
 
   button {
     max-width: unset !important;
@@ -84,4 +85,10 @@
 
 .notifications {
   margin-top: layout.$spacing-05;
+}
+
+.relatedPatientTransferSwapOption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: layout.$spacing-05;
 }

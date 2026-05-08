@@ -84,7 +84,7 @@
     },
     {
       "name": "dispensing-patient-search-workspace",
-      "component": "@openmrs/esm-patient-search-app#patientSearchWorkspace2",
+      "component": "@sihsalus/esm-patient-search-app#patientSearchWorkspace2",
       "window": "fill-prescription-window"
     },
     {
@@ -94,12 +94,12 @@
     },
     {
       "name": "dispensing-order-basket-workspace",
-      "component": "@sihsalus/esm-patient-orders-app#exportedOrderBasketWorkspace",
+      "component": "@sihsalus/esm-patient-orders-app#orderBasketWorkspace",
       "window": "fill-prescription-window"
     },
     {
       "name": "dispensing-order-basket-add-drug-order-workspace",
-      "component": "@openmrs/esm-patient-medications-app#exportedAddDrugOrderWorkspace",
+      "component": "@sihsalus/esm-patient-medications-app#exportedAddDrugOrderWorkspace",
       "window": "fill-prescription-window"
     }
   ],

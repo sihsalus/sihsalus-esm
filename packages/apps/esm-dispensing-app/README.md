@@ -50,6 +50,16 @@ Note that following privileges need to be installed and assigned to roles:
 - `Task: dispensing.delete.dispense` - Allows user to delete an existing Medication Dispense
 - `Task: dispensing.delete.dispense.ifCreator` - Allows user to delete an existing Medication Dispense, *but only* if they created it originally
 
+## TODO SIHSALUS hardening
+
+- Mapear estos privilegios a roles SIHSALUS reales: farmacia, tecnico farmacia, medico, enfermeria, administrador y auditor.
+- Integrar `@sihsalus/esm-rbac` en botones y workspaces sensibles: dispensar, modificar detalles, pausar, cerrar, editar y eliminar.
+- Integrar `@sihsalus/esm-audit-logger` para lectura de prescripciones, dispensacion, pausa, cierre, edicion, eliminacion y errores de sincronizacion.
+- Probar contra backend actualizado que existan los FHIR concept sources y value sets requeridos para `MedicationDispense`.
+- Probar el flujo desde Order Basket/Fill Prescription con los workspaces SIHSALUS configurados, incluyendo start visit y add drug order.
+- Definir fallback cuando no exista stock/pharmacy location asociada: mensaje de configuracion faltante, no error silencioso.
+- Agregar pruebas de permisos: usuario sin permiso de dispensar, usuario que puede dispensar sin modificar detalles, usuario que puede editar/eliminar.
+
 ## Optional Configuration
 
 ### Default filter locations

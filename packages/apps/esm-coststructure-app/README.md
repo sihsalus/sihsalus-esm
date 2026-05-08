@@ -35,3 +35,10 @@ See the [Medication dispensing app](https://github.com/openmrs/openmrs-esm-dispe
 ## Integration
 
 See [Creating a Frontend Module](https://openmrs.atlassian.net/wiki/x/rIIBCQ) for details on how to integrate your custom frontend module into the OpenMRS reference application.
+
+## TODO backend/integración
+
+- Confirmar si el backend actualizado incluye el OMOD de coststructure. La app usa `ws/module/coststructure` y fallará si el módulo no está instalado.
+- Validar que `config-schema.ts` permita sobreescribir la ruta base del API antes de usar la app en ambientes MINSA.
+- Probar listado, edición y eliminación contra backend real; el código todavía tiene TODOs explícitos para edición y eliminación.
+- Reemplazar esta documentación scaffold de OpenMRS por documentación real del módulo SIHSALUS si la app seguirá habilitada.

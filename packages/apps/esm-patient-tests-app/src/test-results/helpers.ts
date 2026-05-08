@@ -1,4 +1,4 @@
-import { navigate } from '@openmrs/esm-framework';
+import { formatDate, navigate, parseDate } from '@openmrs/esm-framework';
 
 import { dashboardMeta } from './dashboard.meta';
 
@@ -41,3 +41,5 @@ export const navigateToTrendline = (basePath: string, panelUuid: string, testUui
 export const navigateToResults = (basePath: string) => navigate({ to: `${testResultsBasePath(basePath)}` });
 
 export const testResultsBasePath = (basePath: string) => `${globalThis.spaBase}${basePath}/${dashboardMeta.path}`;
+
+export const formatResultDate = (date: string) => formatDate(parseDate(date), { mode: 'wide', time: true });

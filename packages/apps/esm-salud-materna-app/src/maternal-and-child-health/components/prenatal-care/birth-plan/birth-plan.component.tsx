@@ -3,9 +3,9 @@ import { Add, CheckmarkFilled, Edit, WarningFilled } from '@carbon/react/icons';
 import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../../config-schema';
 import { useBirthPlan } from '../../../../hooks/useBirthPlan';
+import { formEntryWorkspace } from '../../../../types';
 
 import styles from './birth-plan.scss';
 
@@ -21,8 +21,7 @@ interface BirthPlanProps {
 const BirthPlan: React.FC<BirthPlanProps> = ({ patientUuid }) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
-  const { hasBirthPlan, planDate, referenceHospital, encounterUuid, isLoading, error, mutate } =
-    useBirthPlan(patientUuid);
+  const { hasBirthPlan, planDate, referenceHospital, encounterUuid, isLoading, error } = useBirthPlan(patientUuid);
 
   const handleLaunchBirthPlanForm = useCallback(() => {
     const formUuid = config.birthPlan?.formUuid || config.formsList?.birthPlanForm;
@@ -31,7 +30,7 @@ const BirthPlan: React.FC<BirthPlanProps> = ({ patientUuid }) => {
       return;
     }
 
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formUuid },
       encounterUuid: encounterUuid ?? '',
     });

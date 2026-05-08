@@ -199,6 +199,149 @@ export const assessValue =
     return 'NORMAL';
   };
 
+type ObservationReferenceRange = {
+  low?: {
+    value?: number;
+  };
+  high?: {
+    value?: number;
+  };
+  type?: {
+    coding?: Array<{
+      system?: string;
+      code?: string;
+    }>;
+  };
+};
+
+type ObservationInterpretation = {
+  coding?: Array<{
+    code?: string;
+    display?: string;
+  }>;
+  text?: string;
+};
+
+type ObservationWithFhirMetadata = ObsRecord & {
+  referenceRange?: Array<ObservationReferenceRange>;
+  valueQuantity?: {
+    unit?: string;
+  };
+  interpretation?: Array<ObservationInterpretation>;
+};
+
+const normalizeDisplayValue = (value?: string) =>
+  value
+    ?.normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim() ?? '';
+
+const interpretationCodeMap: Record<string, OBSERVATION_INTERPRETATION> = {
+  LL: 'CRITICALLY_LOW',
+  HH: 'CRITICALLY_HIGH',
+  L: 'LOW',
+  H: 'HIGH',
+  N: 'NORMAL',
+  LU: 'OFF_SCALE_LOW',
+  HU: 'OFF_SCALE_HIGH',
+};
+
+const interpretationDisplayMap = new Map<string, OBSERVATION_INTERPRETATION>([
+  ['critically low', 'CRITICALLY_LOW'],
+  ['criticamente bajo', 'CRITICALLY_LOW'],
+  ['critico bajo', 'CRITICALLY_LOW'],
+  ['critically high', 'CRITICALLY_HIGH'],
+  ['criticamente alto', 'CRITICALLY_HIGH'],
+  ['critico alto', 'CRITICALLY_HIGH'],
+  ['low', 'LOW'],
+  ['bajo', 'LOW'],
+  ['high', 'HIGH'],
+  ['alto', 'HIGH'],
+  ['normal', 'NORMAL'],
+  ['off scale low', 'OFF_SCALE_LOW'],
+  ['fuera de escala bajo', 'OFF_SCALE_LOW'],
+  ['off scale high', 'OFF_SCALE_HIGH'],
+  ['fuera de escala alto', 'OFF_SCALE_HIGH'],
+]);
+
+export function extractObservationReferenceRanges(observation: ObservationWithFhirMetadata): Partial<ObsMetaInfo> {
+  const referenceRanges = observation.referenceRange;
+  if (!referenceRanges?.length) {
+    return undefined;
+  }
+
+  const ranges: Partial<ObsMetaInfo> = {};
+  let hasRangeValue = false;
+
+  for (const referenceRange of referenceRanges) {
+    const coding = referenceRange.type?.coding?.[0];
+    const system = coding?.system ?? '';
+    const code = normalizeDisplayValue(coding?.code);
+    const low = referenceRange.low?.value;
+    const high = referenceRange.high?.value;
+
+    if (system === 'http://terminology.hl7.org/CodeSystem/referencerange-meaning' && code === 'normal') {
+      if (typeof low === 'number') {
+        ranges.lowNormal = low;
+        hasRangeValue = true;
+      }
+      if (typeof high === 'number') {
+        ranges.hiNormal = high;
+        hasRangeValue = true;
+      }
+    }
+
+    if (system === 'http://terminology.hl7.org/CodeSystem/referencerange-meaning' && code === 'treatment') {
+      if (typeof low === 'number') {
+        ranges.lowCritical = low;
+        hasRangeValue = true;
+      }
+      if (typeof high === 'number') {
+        ranges.hiCritical = high;
+        hasRangeValue = true;
+      }
+    }
+
+    if (system === 'http://fhir.openmrs.org/ext/obs/reference-range' && code === 'absolute') {
+      if (typeof low === 'number') {
+        ranges.lowAbsolute = low;
+        hasRangeValue = true;
+      }
+      if (typeof high === 'number') {
+        ranges.hiAbsolute = high;
+        hasRangeValue = true;
+      }
+    }
+  }
+
+  if (!hasRangeValue) {
+    return undefined;
+  }
+
+  ranges.units = observation.valueQuantity?.unit;
+  return ranges;
+}
+
+export function extractObservationInterpretation(
+  observation: ObservationWithFhirMetadata,
+): OBSERVATION_INTERPRETATION | undefined {
+  const interpretation = observation.interpretation?.[0];
+  if (!interpretation) {
+    return undefined;
+  }
+
+  const coding = interpretation.coding?.[0];
+  const code = coding?.code?.trim().toUpperCase();
+  if (code && interpretationCodeMap[code]) {
+    return interpretationCodeMap[code];
+  }
+
+  return interpretationDisplayMap.get(normalizeDisplayValue(coding?.display ?? interpretation.text));
+}
+
 export function extractMetaInformation(concepts: Array<ConceptRecord>): Record<ConceptUuid, ObsMetaInfo> {
   return Object.fromEntries(
     concepts.map((concept) => {

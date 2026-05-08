@@ -50,7 +50,7 @@ function useCustomHooks(context: Partial<FormProcessorContextProps>): CustomHook
     () =>
       (patientPrograms ?? [])
         .map((program) => program.uuid)
-        .sort()
+        .sort((a, b) => a.localeCompare(b))
         .join(','),
     [patientPrograms],
   );
@@ -73,7 +73,7 @@ function useCustomHooks(context: Partial<FormProcessorContextProps>): CustomHook
         const previousPatientPrograms = asPatientPrograms(context.customDependencies?.patientPrograms);
         const previousPatientProgramUuids = previousPatientPrograms
           .map((program) => program.uuid)
-          .sort()
+          .sort((a, b) => a.localeCompare(b))
           .join(',');
 
         if (

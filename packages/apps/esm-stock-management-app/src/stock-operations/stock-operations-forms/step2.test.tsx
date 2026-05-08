@@ -1,80 +1,18 @@
-import { receiptOperationTypeMock } from '@mocks';
-import { useConfig, useSession } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { type UseFormReturn, useFormContext } from 'react-hook-form';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { useFormContext, type UseFormReturn } from 'react-hook-form';
+import { useConfig, useSession } from '@openmrs/esm-framework';
 import { formatForDatePicker } from '../../constants';
-import { type StockItemDTO } from '../../core/api/types/stockItem/StockItem';
-import { useStockItem } from '../../stock-items/stock-items.resource';
-import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
-import { useStockOperations } from '../stock-operations.resource';
+import { receiptOperationTypeMock } from '@mocks';
 import { type BaseStockOperationItemFormData } from '../validation-schema';
+import { type StockItemDTO } from '../../core/api/types/stockItem/StockItem';
 import { useFilterableStockItems } from './hooks/useFilterableStockItems';
+import { useStockItem } from '../../stock-items/stock-items.resource';
+import { useStockOperations } from '../stock-operations.resource';
+import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
 import useParties from './hooks/useParties';
 import StockOperationForm from './stock-operation-form.component';
-
-jest.mock('./steps/base-operation-details-form-step', () => ({
-  __esModule: true,
-  default: ({ onNext }: { onNext?: () => void }) => (
-    <button type="button" onClick={onNext}>
-      Next
-    </button>
-  ),
-}));
-
-jest.mock('./steps/stock-operation-items-form-step.component', () => ({
-  __esModule: true,
-  default: ({ onNext, onPrevious }: { onNext?: () => void; onPrevious?: () => void }) => {
-    const React = require('react');
-    const { useFormContext } = require('react-hook-form');
-    const { useFilterableStockItems } = require('./hooks/useFilterableStockItems');
-
-    const form = useFormContext();
-    const { stockItemsList, setSearchString } = useFilterableStockItems();
-    const [selectedItemName, setSelectedItemName] = React.useState(null as string | null);
-    const items = form.watch('stockOperationItems') ?? [];
-
-    return (
-      <div>
-        <input
-          id="search-stock-operation-item"
-          type="search"
-          aria-label="Search"
-          onChange={(event) => setSearchString(event.target.value)}
-        />
-        <table aria-label="Stock operation items" />
-        {selectedItemName == null &&
-          stockItemsList?.map((item: { uuid: string; commonName?: string; drugName?: string }) => {
-            const label = item.commonName ?? item.drugName ?? 'No common name available';
-
-            return (
-              <button key={item.uuid} type="button" onClick={() => setSelectedItemName(label)}>
-                {label}
-              </button>
-            );
-          })}
-        {selectedItemName && <div>{selectedItemName}</div>}
-        {items.map((item: { uuid?: string; quantity?: number; expiration?: Date | string }, index: number) => (
-          <div key={item.uuid ?? `item-${index}`}>
-            {typeof item.quantity === 'number' ? <span>{item.quantity.toLocaleString()}</span> : null}
-            {item.expiration ? (
-              <span>
-                {formatForDatePicker(item.expiration instanceof Date ? item.expiration : new Date(item.expiration))}
-              </span>
-            ) : null}
-          </div>
-        ))}
-        <button type="button" onClick={onNext}>
-          Next
-        </button>
-        <button type="button" data-testid="previous-btn" onClick={onPrevious}>
-          Previous
-        </button>
-      </div>
-    );
-  },
-}));
 
 const mockUseConfig = jest.mocked(useConfig);
 const mockUseFilterableStockItems = jest.mocked(useFilterableStockItems);
@@ -300,7 +238,7 @@ describe('Stock Operation step 2 (stock operation items details)', () => {
     expect(screen.getByRole('table')).toBeInTheDocument();
     expect(
       screen.getByRole('searchbox', {
-        name(_accessibleName, element) {
+        name(accessibleName, element) {
           return element.getAttribute('id') === 'search-stock-operation-item';
         },
       }),

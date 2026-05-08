@@ -7,7 +7,18 @@
     "!**/e2e/**"
   ],
   "transform": {
-    "^.+\\.m?[jt]sx?$": ["@swc/jest"]
+    "^.+\\.m?[jt]sx?$": [
+      "@swc/jest",
+      {
+        "jsc": {
+          "transform": {
+            "react": {
+              "runtime": "automatic"
+            }
+          }
+        }
+      }
+    ]
   },
   "transformIgnorePatterns": ["/node_modules/(?!(@openmrs|dexie|uuid)/)"],
   "moduleNameMapper": {

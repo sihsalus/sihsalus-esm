@@ -2,7 +2,7 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { usePatient } from '@openmrs/esm-framework/src/internal';
+import { usePatient } from '@openmrs/esm-react-utils';
 import { screen } from '@testing-library/react';
 import { renderWithSwr } from '../../test-utils';
 import { PatientBannerContactDetails } from './patient-banner-contact-details.component';
@@ -143,6 +143,8 @@ describe('ContactDetails', () => {
     expect(screen.getByText(/patient lists/i)).toBeInTheDocument();
     expect(screen.getByText(/Test patient List-47/)).toBeInTheDocument();
     expect(screen.getByText(/List three/)).toBeInTheDocument();
+    expect(screen.queryByText(/postal code/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/00100/)).not.toBeInTheDocument();
   });
 
   it('patient related name should be a link', async () => {

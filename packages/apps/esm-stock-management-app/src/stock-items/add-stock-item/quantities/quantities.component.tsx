@@ -1,10 +1,11 @@
-import { DataTableSkeleton } from '@carbon/react';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ResourceRepresentation } from '../../../core/api/api';
-import DataList from '../../../core/components/table/table.component';
 import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
+import { translateStockLocation } from '../../../core/utils/translationUtils';
+import { DataTableSkeleton } from '@carbon/react';
 import { useStockItemQuantitiesHook } from './quantities.resource';
+import DataList from '../../../core/components/table/table.component';
 
 interface StockQuantitiesProps {
   onSubmit?: () => void;
@@ -12,14 +13,11 @@ interface StockQuantitiesProps {
 }
 
 const StockQuantities: React.FC<StockQuantitiesProps> = ({ stockItemUuid }) => {
-  const { isLoading, items, totalCount, setCurrentPage, setStockItemUuid } = useStockItemQuantitiesHook(
+  const { isLoading, items, totalCount, setCurrentPage } = useStockItemQuantitiesHook(
     ResourceRepresentation.Default,
+    stockItemUuid,
   );
   const { t } = useTranslation();
-
-  useEffect(() => {
-    setStockItemUuid(stockItemUuid);
-  }, [stockItemUuid, setStockItemUuid]);
 
   const tableHeaders = useMemo(
     () => [
@@ -46,12 +44,12 @@ const StockQuantities: React.FC<StockQuantitiesProps> = ({ stockItemUuid }) => {
       key: `${row.partyUuid}${row.stockBatchUuid}${index}`,
       uuid: `${row.partyUuid}${row.stockBatchUuid}${index}`,
       expires: formatDisplayDate(row?.expiration),
-      location: row?.partyName,
+      location: translateStockLocation(t, row?.partyName),
       quantity: row?.quantity?.toLocaleString() ?? '',
       batch: row.batchNumber ?? '',
-      packaging: `${row.quantityUoM ?? ''} of ${row.quantityFactor ?? ''}`,
+      packaging: `${row.quantityUoM ?? ''} ${t('of', 'de')} ${row.quantityFactor ?? ''}`,
     }));
-  }, [items]);
+  }, [items, t]);
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;

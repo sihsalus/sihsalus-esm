@@ -1,13 +1,15 @@
 import { Layer, TextInput } from '@carbon/react';
 import classNames from 'classnames';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
+import { moduleName } from '../../../constants';
 import styles from '../input.scss';
-
 import SelectionTick from './selection-tick.component';
 
 interface ComboInputProps {
   entries: Array<string>;
+  error?: Error;
+  isLoading?: boolean;
   name: string;
   fieldProps: {
     value: string;
@@ -18,7 +20,21 @@ interface ComboInputProps {
   handleSelection: (newSelection: string) => void;
 }
 
-const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInputChange, handleSelection }) => {
+const ComboMenuItem: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="cds--list-box__menu-item">
+    <div className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption)}>{children}</div>
+  </div>
+);
+
+const ComboInput: React.FC<ComboInputProps> = ({
+  entries,
+  error,
+  isLoading,
+  fieldProps,
+  handleInputChange,
+  handleSelection,
+}) => {
+  const { t } = useTranslation(moduleName);
   const [highlightedEntry, setHighlightedEntry] = useState(-1);
   const { value = '' } = fieldProps;
   const [showEntries, setShowEntries] = useState(false);
@@ -40,8 +56,7 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
   }, [entries, value]);
 
   const handleOptionClick = useCallback(
-    (newSelection: string, event?: React.KeyboardEvent<HTMLInputElement>) => {
-      event?.preventDefault();
+    (newSelection: string) => {
       handleSelection(newSelection);
       setShowEntries(false);
     },
@@ -50,7 +65,7 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      const totalResults = filteredEntries.length ?? 0;
+      const totalResults = filteredEntries.length;
 
       if (event.key === 'Tab') {
         setShowEntries(false);
@@ -61,8 +76,11 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
         setHighlightedEntry((prev) => Math.max(-1, prev - 1));
       } else if (event.key === 'ArrowDown') {
         setHighlightedEntry((prev) => Math.min(totalResults - 1, prev + 1));
-      } else if (event.key === 'Enter' && highlightedEntry > -1) {
-        handleOptionClick(filteredEntries[highlightedEntry], event);
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        if (highlightedEntry > -1) {
+          handleOptionClick(filteredEntries[highlightedEntry]);
+        }
       }
     },
     [highlightedEntry, handleOptionClick, filteredEntries, setHighlightedEntry, setShowEntries],
@@ -79,7 +97,38 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
     return () => {
       globalThis.removeEventListener('click', listener);
     };
-  });
+  }, []);
+
+  const renderDropdownContent = () => {
+    if (isLoading) return <ComboMenuItem>{t('searching', 'Searching...')}</ComboMenuItem>;
+    if (error) return <ComboMenuItem>{t('errorFetchingResults', 'Error fetching results')}</ComboMenuItem>;
+    if (filteredEntries.length > 0) {
+      return filteredEntries.map((entry, indx) => (
+        <div
+          className={classNames('cds--list-box__menu-item', {
+            'cds--list-box__menu-item--highlighted': indx === highlightedEntry,
+          })}
+          key={indx}
+          id={`downshift-1-item-${indx}`}
+          role="option"
+          tabIndex={-1}
+          aria-selected={entry === value}
+          onClick={() => handleOptionClick(entry)}
+        >
+          <div
+            className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption, {
+              'cds--list-box__menu-item--active': entry === value,
+            })}
+          >
+            {entry}
+            {entry === value && <SelectionTick />}
+          </div>
+        </div>
+      ));
+    }
+    if (value) return <ComboMenuItem>{t('noMatchingResults', 'No matching results')}</ComboMenuItem>;
+    return null;
+  };
 
   return (
     <div className={styles.comboInput} ref={comboInputRef}>
@@ -100,28 +149,7 @@ const ComboInput: React.FC<ComboInputProps> = ({ entries, fieldProps, handleInpu
         {showEntries && (
           <div className="cds--combo-box cds--list-box cds--list-box--expanded">
             <div id="downshift-1-menu" className="cds--list-box__menu" role="listbox">
-              {filteredEntries.map((entry, indx) => (
-                <div
-                  className={classNames('cds--list-box__menu-item', {
-                    'cds--list-box__menu-item--highlighted': indx === highlightedEntry,
-                  })}
-                  key={indx}
-                  id="downshift-1-item-0"
-                  role="option"
-                  tabIndex={-1}
-                  aria-selected="true"
-                  onClick={() => handleOptionClick(entry)}
-                >
-                  <div
-                    className={classNames('cds--list-box__menu-item__option', styles.comboInputItemOption, {
-                      'cds--list-box__menu-item--active': entry === value,
-                    })}
-                  >
-                    {entry}
-                    {entry === value && <SelectionTick />}
-                  </div>
-                </div>
-              ))}
+              {renderDropdownContent()}
             </div>
           </div>
         )}

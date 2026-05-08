@@ -1,5 +1,4 @@
 import { Button, ComposedModal, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const CompleteModal = ({ open, setOpen, context, validateFirst = false }) => {

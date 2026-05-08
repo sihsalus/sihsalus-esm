@@ -27,6 +27,9 @@ const emptyObsTree: ObsTreeNode = {
   obs: [],
 };
 
+const getFetchData = (responseData: FetchResponse<ObsTreeNode> | ObsTreeNode | undefined): ObsTreeNode =>
+  ((responseData as FetchResponse<ObsTreeNode>)?.data ?? responseData ?? emptyObsTree) as ObsTreeNode;
+
 const augmentObstreeData = (node: ObsTreeNode, prefix: string | undefined): ObsTreeNode => {
   const outData: ObsTreeNode = JSON.parse(JSON.stringify(node));
   outData.flatName = getName(prefix, node.display);
@@ -43,23 +46,44 @@ const augmentObstreeData = (node: ObsTreeNode, prefix: string | undefined): ObsT
   }
   if (outData?.obs?.length) {
     const assess = assessValue(outData);
-    outData.obs = outData.obs.map((ob) => ({ ...ob, interpretation: assess(ob.value) }));
+    outData.obs = outData.obs.map((ob) => ({
+      ...ob,
+      interpretation: assess(ob.value),
+      range: exist((ob as ObservationData & ObsTreeNode).hiNormal, (ob as ObservationData & ObsTreeNode).lowNormal)
+        ? `${(ob as ObservationData & ObsTreeNode).lowNormal} – ${(ob as ObservationData & ObsTreeNode).hiNormal}`
+        : outData.range,
+    }));
     outData.hasData = true;
   }
 
   return outData;
 };
 
-const useGetObstreeData = (conceptUuid: string) => {
-  const { patientUuid } = usePatientChartStore();
+const filterTreeWithData = (node: ObsTreeNode): ObsTreeNode => {
+  if (!node.subSets?.length) {
+    return node;
+  }
+
+  return {
+    ...node,
+    subSets: node.subSets
+      .map(filterTreeWithData)
+      .filter((subNode) => subNode.hasData || Boolean(subNode.subSets?.length)),
+  };
+};
+
+const useGetObstreeData = (patientUuidOrConceptUuid: string, maybeConceptUuid?: string) => {
+  const { patientUuid: chartPatientUuid } = usePatientChartStore();
+  const patientUuid = maybeConceptUuid ? patientUuidOrConceptUuid : chartPatientUuid;
+  const conceptUuid = maybeConceptUuid ?? patientUuidOrConceptUuid;
   const response = useSWR<FetchResponse<ObsTreeNode>, Error>(
-    `${restBaseUrl}/obstree?patient=${patientUuid}&concept=${conceptUuid}`,
+    patientUuid ? `${restBaseUrl}/obstree?patient=${patientUuid}&concept=${conceptUuid}` : null,
     openmrsFetch,
   );
   const result = useMemo(() => {
     if (response.data) {
       const { data, ...rest } = response;
-      const newData = augmentObstreeData(data?.data ?? emptyObsTree, '');
+      const newData = augmentObstreeData(getFetchData(data), '');
       return { ...rest, loading: false, data: newData };
     } else {
       return {
@@ -72,8 +96,10 @@ const useGetObstreeData = (conceptUuid: string) => {
   return result;
 };
 
-const useGetManyObstreeData = (uuidArray: Array<string>) => {
-  const { patientUuid } = usePatientChartStore();
+const useGetManyObstreeData = (patientUuidOrUuidArray: string | Array<string>, maybeUuidArray?: Array<string>) => {
+  const { patientUuid: chartPatientUuid } = usePatientChartStore();
+  const patientUuid = Array.isArray(patientUuidOrUuidArray) ? chartPatientUuid : patientUuidOrUuidArray;
+  const uuidArray = Array.isArray(patientUuidOrUuidArray) ? patientUuidOrUuidArray : (maybeUuidArray ?? []);
   const getObstreeUrl = (index: number) => {
     if (index < uuidArray.length && patientUuid) {
       return `${restBaseUrl}/obstree?patient=${patientUuid}&concept=${uuidArray[index]}`;
@@ -88,10 +114,14 @@ const useGetManyObstreeData = (uuidArray: Array<string>) => {
 
   const result = useMemo(() => {
     return (
-      data?.map((resp) => {
+      data?.map((resp, index) => {
         if (resp?.data) {
           const { data, ...rest } = resp;
-          const newData = augmentObstreeData(data ?? emptyObsTree, '');
+          const root = filterTreeWithData(augmentObstreeData(getFetchData(data), ''));
+          const newData = {
+            ...root,
+            conceptUuid: typeof root.conceptUuid === 'string' ? root.conceptUuid : uuidArray[index],
+          };
           return { ...rest, loading: false, data: newData };
         } else {
           return {
@@ -108,7 +138,7 @@ const useGetManyObstreeData = (uuidArray: Array<string>) => {
         },
       ]
     );
-  }, [data]);
+  }, [data, uuidArray]);
   const roots = result.map((item) => item.data);
   const isLoading = result.some((item) => item.loading);
 

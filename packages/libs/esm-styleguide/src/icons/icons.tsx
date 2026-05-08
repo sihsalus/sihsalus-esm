@@ -1,8 +1,8 @@
 /** @category Icons */
 
-import { RenderIfValueIsTruthy } from '@openmrs/esm-framework/src/internal';
+import { RenderIfValueIsTruthy } from '@openmrs/esm-react-utils';
 import classNames, { type Argument } from 'classnames';
-import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, memo, useEffect, useImperativeHandle, useRef } from 'react';
 import style from './icons.module.scss';
 
 /** Array of all available OpenMRS icon IDs that can be used with the Icon component. */
@@ -21,6 +21,7 @@ export const iconIds = [
   'omrs-icon-caret-right',
   'omrs-icon-caret-up',
   'omrs-icon-chart-average',
+  'omrs-icon-chart-line',
   'omrs-icon-checkmark-filled',
   'omrs-icon-checkmark-outline',
   'omrs-icon-chemistry',
@@ -215,6 +216,14 @@ export const CaretUpIcon = memo(
 export const ChartAverageIcon = memo(
   forwardRef<SVGSVGElement, IconProps>(function ChartAverageIcon(props, ref) {
     return <Icon ref={ref} icon="omrs-icon-chart-average" iconProps={props} />;
+  }),
+);
+
+/**
+ */
+export const ChartLineIcon = memo(
+  forwardRef<SVGSVGElement, IconProps>(function ChartLineIcon(props, ref) {
+    return <Icon ref={ref} icon="omrs-icon-chart-line" iconProps={props} />;
   }),
 );
 
@@ -556,7 +565,7 @@ export const OverflowMenuHorizontalIcon = memo(
  */
 export const OverflowMenuVerticalIcon = memo(
   forwardRef<SVGSVGElement, IconProps>(function OverflowMenuVerticalIcon(props, ref) {
-    return <Icon ref={ref} icon="omrs-icon-overflow-menu--vertical" iconProps={props} />;
+    return <Icon ref={ref} icon="omrs-icon-overflow-menu--horizontal" iconProps={props} />;
   }),
 );
 
@@ -657,7 +666,7 @@ export const SearchIcon = memo(
 /**
  */
 export const SettingsIcon = memo(
-  forwardRef<SVGSVGElement, IconProps>(function SettingsIcon(props, ref) {
+  forwardRef<SVGSVGElement, IconProps>(function SaveIcon(props, ref) {
     return <Icon ref={ref} icon="omrs-icon-settings" iconProps={props} />;
   }),
 );
@@ -868,22 +877,14 @@ export const MaybeIcon = memo(
     { icon, fallback, ...iconProps },
     ref,
   ) {
-    const [iconEl, setIconEl] = useState(() => (icon ? document.getElementById(icon) : null));
+    const iconRef = useRef(icon ? document.getElementById(icon) : undefined);
 
     useEffect(() => {
-      if (icon) {
-        const el = document.getElementById(icon);
-        if (el) {
-          setIconEl(el);
-          return;
-        }
-      }
-
       const container = document.getElementById('omrs-svgs-container');
       const callback: MutationCallback = (mutationList) => {
         for (const mutation of mutationList) {
           if (mutation.type === 'childList') {
-            setIconEl(icon ? document.getElementById(icon) : null);
+            iconRef.current = icon ? document.getElementById(icon) : undefined;
           }
         }
       };
@@ -893,11 +894,11 @@ export const MaybeIcon = memo(
         observer.observe(container, { childList: true });
       }
 
-      return (): void => observer.disconnect();
+      return () => observer.disconnect();
     }, [icon]);
 
     return (
-      <RenderIfValueIsTruthy value={iconEl} fallback={fallback}>
+      <RenderIfValueIsTruthy value={iconRef.current} fallback={fallback}>
         <Icon ref={ref} icon={icon as IconId} iconProps={iconProps} />
       </RenderIfValueIsTruthy>
     );
@@ -913,9 +914,8 @@ export type SvgIconProps = {
  * This is a utility type for custom icons that use the svg-sprite-loader to bundle custom icons
  */
 export const Icon = memo(
-  forwardRef<SVGSVGElement, SvgIconProps>(function Icon({ icon, iconProps }, ref): React.JSX.Element {
-    const { className, fill } = Object.assign({}, { fill: 'currentColor', size: 20 }, iconProps);
-    let { size } = Object.assign({}, { fill: 'currentColor', size: 20 }, iconProps);
+  forwardRef<SVGSVGElement, SvgIconProps>(function Icon({ icon, iconProps }, ref) {
+    let { className, fill, size } = Object.assign({}, { fill: 'currentColor', size: 20 }, iconProps);
     if (size <= 0 || size > 72) {
       console.error(`Invalid size '${size}' specified for ${icon}. Defaulting to 20.`);
       size = 20;
@@ -930,7 +930,7 @@ export const Icon = memo(
           iconRef.current.style.setProperty('--omrs-icon-fill', fill);
         }
       }
-    }, [fill]);
+    }, []);
 
     return (
       <svg

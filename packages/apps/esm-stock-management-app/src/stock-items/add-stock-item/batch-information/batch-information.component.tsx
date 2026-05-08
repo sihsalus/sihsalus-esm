@@ -1,12 +1,13 @@
-import { DataTableSkeleton } from '@carbon/react';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import DataList from '../../../core/components/table/table.component';
+import { useForm } from 'react-hook-form';
 import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
+import { DataTableSkeleton } from '@carbon/react';
 import { type StockItemInventoryFilter } from '../../stock-items.resource';
 import { useStockItemBatchInformationHook } from './batch-information.resource';
 import BatchInformationLocationsFilter from './batch-information-locations/batch-information-locations-filter.component';
+import DataList from '../../../core/components/table/table.component';
+import { translateStockLocation } from '../../../core/utils/translationUtils';
 
 interface BatchInformationProps {
   onSubmit?: () => void;
@@ -14,16 +15,14 @@ interface BatchInformationProps {
 }
 
 const BatchInformation: React.FC<BatchInformationProps> = ({ stockItemUuid }) => {
-  const [stockItemFilter, setStockItemFilter] = useState<StockItemInventoryFilter>();
+  const [stockItemFilter, setStockItemFilter] = useState<StockItemInventoryFilter>({
+    stockItemUuid,
+  });
 
-  const { isLoading, items, totalCount, setCurrentPage, setStockItemUuid, setLocationUuid } =
+  const { isLoading, items, totalCount, setCurrentPage, setLocationUuid } =
     useStockItemBatchInformationHook(stockItemFilter);
   const { t } = useTranslation();
   const { control } = useForm({});
-
-  useEffect(() => {
-    setStockItemUuid(stockItemUuid);
-  }, [stockItemUuid, setStockItemUuid]);
   const tableHeaders = useMemo(
     () => [
       {
@@ -57,12 +56,12 @@ const BatchInformation: React.FC<BatchInformationProps> = ({ stockItemUuid }) =>
       key: `${row.partyUuid}${row.stockBatchUuid}${index}`,
       uuid: `${row.partyUuid}${row.stockBatchUuid}${index}`,
       expires: formatDisplayDate(row?.expiration),
-      location: row?.partyName,
+      location: translateStockLocation(t, row?.partyName),
       quantity: row?.quantity?.toLocaleString() ?? '',
       batch: row.batchNumber ?? '',
-      packaging: `${row.quantityUoM ?? ''} of ${row.quantityFactor ?? ''}`,
+      packaging: `${row.quantityUoM ?? ''} ${t('of', 'de')} ${row.quantityFactor ?? ''}`,
     }));
-  }, [items]);
+  }, [items, t]);
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;

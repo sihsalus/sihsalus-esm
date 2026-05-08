@@ -1,9 +1,11 @@
 /** @module @category Workspace */
 
 import { Button, IconButton } from '@carbon/react';
-import { ComponentContext, type OpenedWindow, useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { type OpenedWindow } from '@openmrs/esm-extensions';
+import { ComponentContext, useLayoutType } from '@openmrs/esm-react-utils';
 import classNames from 'classnames';
 import React, { useContext } from 'react';
+import { SingleSpaContext } from 'single-spa-react';
 import { launchWorkspace2, useWorkspace2Store } from '../workspace2';
 import styles from './action-menu-button2.module.scss';
 

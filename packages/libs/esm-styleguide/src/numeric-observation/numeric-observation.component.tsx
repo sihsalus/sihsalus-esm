@@ -1,6 +1,6 @@
 /** @module @category UI */
 
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import classNames from 'classnames';
 import React, { useId, useMemo } from 'react';
 import {
@@ -52,7 +52,7 @@ export const NumericObservation: React.FC<NumericObservationProps> = ({
   const generatedId = useId();
 
   const { referenceRange: fetchedReferenceRange, isLoading: isLoadingConcept } = useConceptReferenceRange(
-    providedReferenceRange ? undefined : conceptUuid,
+    providedReferenceRange || providedInterpretation ? undefined : conceptUuid,
     patientUuid,
   );
 
@@ -85,7 +85,8 @@ export const NumericObservation: React.FC<NumericObservationProps> = ({
   const valueId = `omrs-numeric-obs-value-${generatedId}`;
   const unitId = `omrs-numeric-obs-unit-${generatedId}`;
 
-  const displayValue = value || getCoreTranslation('notAvailable', 'Not available');
+  const hasValue = value != null && value !== '';
+  const displayValue = hasValue ? value : getCoreTranslation('notAvailable', 'Not available');
 
   const interpretationClasses = classNames({
     [styles['critically-low']]: interpretation === 'critically_low' || interpretation === 'off_scale_low',
@@ -111,7 +112,8 @@ export const NumericObservation: React.FC<NumericObservationProps> = ({
   if (variant === 'cell') {
     return (
       <div className={cellClasses}>
-        {displayValue} {unit ? ` ${unit}` : ''}
+        {displayValue}
+        {hasValue && unit ? ` ${unit}` : ''}
       </div>
     );
   }
@@ -132,14 +134,10 @@ export const NumericObservation: React.FC<NumericObservationProps> = ({
         </div>
       )}
       <div className={styles['value-container']}>
-        <span
-          id={valueId}
-          aria-labelledby={labelId && unitId ? `${labelId} ${unitId}` : labelId || unitId || undefined}
-          className={styles.value}
-        >
+        <span id={valueId} className={styles.value}>
           {displayValue}
         </span>
-        {value && unit && (
+        {hasValue && unit && (
           <span id={unitId} className={styles.units}>
             {unit}
           </span>

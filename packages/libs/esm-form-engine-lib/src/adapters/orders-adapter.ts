@@ -10,7 +10,7 @@ import {
   isStringValue,
 } from '../utils/common-utils';
 
-export let assignedOrderIds: string[] = [];
+export const assignedOrderIds: string[] = [];
 const defaultOrderType = 'testorder';
 const defaultCareSetting = '6f0c9a92-6f24-11e3-af88-005056821db0';
 
@@ -63,7 +63,7 @@ export const OrdersAdapter: FormFieldValueAdapter = {
     return field.questionOptions.answers?.find((option) => option.concept === value)?.label || value;
   },
   tearDown: function (): void {
-    assignedOrderIds = [];
+    assignedOrderIds.length = 0;
   },
 };
 

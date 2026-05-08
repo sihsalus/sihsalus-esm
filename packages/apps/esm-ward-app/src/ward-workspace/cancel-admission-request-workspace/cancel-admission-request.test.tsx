@@ -1,13 +1,12 @@
-import { type DefaultWorkspaceProps, useAppContext } from '@openmrs/esm-framework';
+import { useAppContext } from '@openmrs/esm-framework';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { mockInpatientRequestAlice, mockLocationInpatientWard, mockPatientAlice, renderWithSwr } from 'test-utils';
-
-import { mockWardViewContext } from '../../../test-utils/mock';
+import { mockInpatientRequestAlice, mockLocationInpatientWard, mockPatientAlice } from '__mocks__';
+import { renderWithSwr } from 'tools';
+import { mockWardViewContext } from '../../../mock';
 import useWardLocation from '../../hooks/useWardLocation';
 import type { WardPatient, WardViewContext } from '../../types';
 import { useCreateEncounter } from '../../ward.resource';
-
 import CancelAdmissionRequestWorkspace from './cancel-admission-request.workspace';
 
 jest.mock('../../hooks/useWardLocation', () => jest.fn());
@@ -50,14 +49,7 @@ mockedUseWardLocation.mockReturnValue({
   errorFetchingLocation: null,
 });
 
-const mockWorkspaceProps: DefaultWorkspaceProps = {
-  closeWorkspaceWithSavedChanges: jest.fn(),
-  promptBeforeClosing: jest.fn(),
-  setTitle: jest.fn(),
-  closeWorkspace: jest.fn(),
-};
-
-const mockWardPatientAliceProps: WardPatient = {
+const mockWardPatientAlice: WardPatient = {
   visit: mockInpatientRequestAlice.visit,
   patient: mockPatientAlice,
   bed: null,
@@ -70,7 +62,17 @@ jest.mocked(useAppContext<WardViewContext>).mockReturnValue(mockWardViewContext)
 function renderCancelAdmissionRequestWorkspace() {
   renderWithSwr(
     <CancelAdmissionRequestWorkspace
-      {...{ ...mockWorkspaceProps, wardPatient: mockWardPatientAliceProps, WardPatientHeader: jest.fn() }}
+      launchChildWorkspace={jest.fn()}
+      closeWorkspace={jest.fn()}
+      workspaceProps={{
+        wardPatient: mockWardPatientAlice,
+      }}
+      windowProps={undefined}
+      groupProps={undefined}
+      workspaceName={''}
+      windowName={''}
+      isRootWorkspace={false}
+      showActionMenu={false}
     />,
   );
 }

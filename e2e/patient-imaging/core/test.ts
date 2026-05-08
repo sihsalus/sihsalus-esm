@@ -1,8 +1,8 @@
 import type { APIRequestContext, Page } from '@playwright/test';
 import { test as base } from '@playwright/test';
-import { api } from '../fixtures';
-import type { Patient } from '../commands/types';
 import { deletePatient, generateRandomPatient } from '../commands/patient-operations';
+import type { Patient } from '../commands/types';
+import { api } from '../fixtures';
 
 // This file sets up our custom test harness using the custom fixtures.
 // See https://playwright.dev/docs/test-fixtures#creating-a-fixture for details.
@@ -25,7 +25,6 @@ export const test = base.extend<CustomTestFixtures, CustomWorkerFixtures>({
   patient: [
     async ({ api }, use) => {
       const patient = await generateRandomPatient(api);
-      console.log('Random patient: ', patient.uuid);
       await use(patient);
       await deletePatient(api, patient.uuid);
     },

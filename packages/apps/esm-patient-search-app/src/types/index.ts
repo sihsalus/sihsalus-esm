@@ -56,7 +56,7 @@ export interface FHIRPatientType {
     use: string;
     city: string;
     state: string;
-    postalCode: string;
+    postalCode?: string;
     country: string;
   }>;
 }

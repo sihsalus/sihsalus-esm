@@ -1,6 +1,6 @@
 import { Button, InlineLoading, Tag, Toggletip, ToggletipButton, ToggletipContent } from '@carbon/react';
 import { ArrowRight, Information } from '@carbon/react/icons';
-import { type Visit, ConfigurableLink, formatDate, parseDate, useConfig } from '@openmrs/esm-framework';
+import { ConfigurableLink, formatDate, parseDate, useConfig, type Visit } from '@openmrs/esm-framework';
 import { ErrorState, useVisitOrOfflineVisit } from '@openmrs/esm-patient-common-lib';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
@@ -27,9 +27,16 @@ interface VitalsHeaderProps {
 
   patient?: fhir.Patient;
   visitContext?: Visit;
+  launchCustomVitalsForm?: () => void;
 }
 
-const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = false, patient, visitContext }) => {
+const VitalsHeader: React.FC<VitalsHeaderProps> = ({
+  patientUuid,
+  hideLinks = false,
+  patient,
+  visitContext,
+  launchCustomVitalsForm,
+}) => {
   const { t } = useTranslation();
   const config = useConfig<ConfigObject>();
   const { data: conceptUnits, conceptMetadata, conceptRangeMap, error: conceptsError } = useVitalsConceptMetadata();
@@ -42,9 +49,13 @@ const VitalsHeader: React.FC<VitalsHeaderProps> = ({ patientUuid, hideLinks = fa
   const launchVitalsAndBiometricsForm = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
-      launchForm(currentVisit, config);
+      if (launchCustomVitalsForm) {
+        launchCustomVitalsForm();
+        return;
+      }
+      launchForm(visitContext && !visitContext.stopDatetime ? visitContext : currentVisit, config);
     },
-    [config, currentVisit],
+    [config, currentVisit, launchCustomVitalsForm, visitContext],
   );
 
   const showBmi = shouldShowBmi(patient, config.biometrics);

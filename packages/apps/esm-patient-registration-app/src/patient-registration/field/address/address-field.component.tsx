@@ -2,7 +2,7 @@ import { InlineNotification, SkeletonText } from '@carbon/react';
 import { useConfig, useConnectivity } from '@openmrs/esm-framework';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../../../constants';
 import { ResourcesContext } from '../../../offline.resources';
 import { Input } from '../../input/basic-input/input/input.component';
 import { PatientRegistrationContext } from '../../patient-registration-context';
@@ -37,7 +37,7 @@ export const AddressComponent: React.FC = () => {
     });
   }, [addressTemplate]);
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const config = useConfig();
   const isOnline = useConnectivity();
   const {
@@ -141,7 +141,7 @@ export const AddressComponent: React.FC = () => {
 };
 
 const AddressComponentContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   return (
     <div>
       <h4 className={styles.productiveHeading02Light}>{t('addressHeader', 'Address')}</h4>

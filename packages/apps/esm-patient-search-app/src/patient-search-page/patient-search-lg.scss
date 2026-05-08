@@ -1,6 +1,6 @@
-@use '@carbon/layout';
-@use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/layout";
+@use "@carbon/type";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 .searchResultsDesktop {
   height: calc(100vh - layout.$spacing-10);
@@ -27,7 +27,7 @@
 }
 
 .productiveHeading02 {
-  @include type.type-style('heading-02');
+  @include type.type-style("heading-02");
   align-self: center;
 }
 
@@ -38,14 +38,13 @@
 }
 
 .emptyResultText {
-  @include type.type-style('heading-02');
+  @include type.type-style("heading-02");
   color: $text-02;
   margin-top: layout.$spacing-03;
 }
 
 .actionText {
-  margin-top: layout.$spacing-03;
-  @include type.type-style('body-01');
+  @include type.type-style("body-01");
   color: $text-02;
   margin: layout.$spacing-03 auto 0;
   max-width: 13.75rem;
@@ -62,14 +61,14 @@
 }
 
 .errorMessage {
-  @include type.type-style('heading-compact-02');
+  @include type.type-style("heading-compact-02");
   margin-top: 2.25rem;
   margin-bottom: layout.$spacing-03;
 }
 
 .errorCopy {
   margin-bottom: layout.$spacing-03;
-  @include type.type-style('body-01');
+  @include type.type-style("body-01");
   color: $text-02;
 }
 

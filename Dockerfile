@@ -13,9 +13,11 @@ COPY .yarn/ ./.yarn/
 COPY packages/ ./packages/
 
 ENV CI=true
-RUN yarn install --immutable
+RUN --mount=type=cache,target=/root/.yarn/berry/cache \
+    yarn install --immutable
 
-RUN yarn turbo run build --filter='./packages/apps/*' --filter='!@sihsalus/esm-form-entry-react-app'
+RUN --mount=type=cache,target=/app/node_modules/.cache \
+    yarn turbo run build --filter='./packages/apps/*'
 
 # Stage 2: Init container image
 # Runs at deployment time: assembles built modules into SPA_OUTPUT_DIR,
@@ -54,3 +56,26 @@ COPY --chown=node:node assets/ ./assets/
 USER node
 
 CMD ["node", "packages/tooling/scripts/assemble-importmap.js"]
+
+# Stage 4: Precompiled SPA artifact
+# Produces a self-contained /app/dist/spa tree suitable for static nginx serving.
+FROM builder AS spa-artifact
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV SPA_OUTPUT_DIR=/app/dist/spa
+ENV API_URL=/openmrs
+ENV SPA_PATH=/openmrs/spa
+ENV SPA_CONFIG_URLS=/openmrs/spa/frontend.json
+ENV SPA_DEFAULT_LOCALE=es
+
+COPY config/ ./config/
+COPY assets/ ./assets/
+
+RUN yarn assemble && yarn validate:spa
+
+# Stage 5: Lightweight precompiled SPA server
+FROM nginx:1.27-alpine AS spa-nginx
+
+COPY nginx.spa.conf /etc/nginx/conf.d/default.conf
+COPY --from=spa-artifact /app/dist/spa/ /usr/share/nginx/html/

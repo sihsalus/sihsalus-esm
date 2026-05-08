@@ -1,5 +1,4 @@
 import { type OpenmrsResource, openmrsFetch, type Patient, restBaseUrl, useSession } from '@openmrs/esm-framework';
-
 import useEmrConfiguration from './hooks/useEmrConfiguration';
 import useWardLocation from './hooks/useWardLocation';
 import type { DispositionType, Encounter, ObsPayload } from './types';
@@ -22,7 +21,7 @@ export function useCreateEncounter() {
       encounterProviders: [
         {
           provider: currentProvider?.uuid,
-          encounterRole: emrConfiguration.clinicianEncounterRole.uuid,
+          encounterRole: emrConfiguration?.clinicianEncounterRole?.uuid,
         },
       ],
       obs,
@@ -39,6 +38,12 @@ export function useCreateEncounter() {
   };
 
   return { createEncounter, emrConfiguration, isLoadingEmrConfiguration, errorFetchingEmrConfiguration };
+}
+
+export function deleteEncounter(encounterUuid: string) {
+  return openmrsFetch(`${restBaseUrl}/encounter/${encounterUuid}`, {
+    method: 'DELETE',
+  });
 }
 
 export function useAdmitPatient() {
@@ -75,4 +80,8 @@ export function removePatientFromBed(bedId: number, patientUuid: string) {
   return openmrsFetch(`${restBaseUrl}/beds/${bedId}?patientUuid=${patientUuid}`, {
     method: 'DELETE',
   });
+}
+
+export function getAssignedBedByPatient(patientUuid: string) {
+  return openmrsFetch<{ results: Array<{ bedId: number }> }>(`${restBaseUrl}/beds?patientUuid=${patientUuid}`);
 }

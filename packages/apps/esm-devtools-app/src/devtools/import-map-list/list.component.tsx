@@ -15,11 +15,10 @@ import fuzzy from 'fuzzy';
 import React, { type Dispatch, forwardRef, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import type { ImportMapOverridesApi } from '../import-map-overrides.types';
 import styles from './list.scss';
 import type { Module } from './types';
 
-const importMapOverrides = globalThis.importMapOverrides as unknown as ImportMapOverridesApi;
+const importMapOverrides = globalThis.importMapOverrides;
 
 interface ImportMapListState {
   notOverriddenMap: ImportMap;
@@ -84,7 +83,7 @@ function updateToNext(dispatch: Dispatch<ImportMapDispatchAction>) {
   };
 }
 
-function reducer(state: ImportMapListState, action: ImportMapDispatchAction) {
+function reducer(state: ImportMapListState, action: ImportMapDispatchAction): ImportMapListState {
   switch (action.type) {
     case 'set_default_map':
       return { ...state, notOverriddenMap: action.notOverriddenMap };
@@ -167,7 +166,7 @@ const ImportMapList = forwardRef<HTMLDivElement>((props, ref) => {
   const disabledModules = importMapOverrides.getDisabledOverrides();
 
   const searchableKeys = [...new Set([...notOverriddenKeys, ...Object.keys(overrideMap)])];
-  searchableKeys.sort();
+  searchableKeys.sort((a, b) => a.localeCompare(b));
 
   const searchResults = fuzzy.filter(searchVal, searchableKeys) as Array<{ original: string; score: number }>;
   searchResults.forEach((searchResult) => {
@@ -368,7 +367,7 @@ function sorter(obj1: { order: number }, obj2: { order: number }) {
   return obj1.order - obj2.order;
 }
 
-const currentBase = (document.querySelector('base') && document.querySelector('base').href) || location.origin + '/';
+const currentBase = document.querySelector('base')?.href ?? location.origin + '/';
 
 function toDomain(mod: Module) {
   const urlStr = toUrlStr(mod);
@@ -382,8 +381,8 @@ function toFileName(mod: Module) {
   return url ? url.pathname.slice(url.pathname.lastIndexOf('/') + 1) : urlStr;
 }
 
-function toUrlStr(mod: Module) {
-  return mod.overrideUrl || mod.defaultUrl;
+function toUrlStr(mod: Module): string {
+  return mod.overrideUrl ?? mod.defaultUrl ?? '';
 }
 
 function toURL(urlStr: string) {

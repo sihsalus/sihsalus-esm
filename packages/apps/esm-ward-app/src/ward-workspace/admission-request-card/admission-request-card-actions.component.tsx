@@ -1,28 +1,30 @@
 import { Button } from '@carbon/react';
-import { launchWorkspace, useLayoutType } from '@openmrs/esm-framework';
+import { closeWorkspaceGroup2, useLayoutType, useWorkspace2Context } from '@openmrs/esm-framework';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import type { WardPatientCardType, WardPatientWorkspaceProps } from '../../types';
-import { useAdmissionRequestsWorkspaceContext } from '../admission-request-workspace/admission-requests-context';
+import type { WardPatient } from '../../types';
 import AdmitPatientButton from '../admit-patient-button.component';
-
 import styles from './admission-request-card.scss';
 
-const AdmissionRequestCardActions: WardPatientCardType = ({ wardPatient }) => {
+interface AdmissionRequestCardActionsProps {
+  wardPatient: WardPatient;
+  relatedTransferPatients?: WardPatient[];
+}
+
+const AdmissionRequestCardActions: React.FC<AdmissionRequestCardActionsProps> = ({
+  wardPatient,
+  relatedTransferPatients,
+}) => {
   const { t } = useTranslation();
   const responsiveSize = useLayoutType() === 'tablet' ? 'lg' : 'md';
-  const { closeWorkspaceWithSavedChanges } = useAdmissionRequestsWorkspaceContext();
+  const { closeWorkspace, launchChildWorkspace } = useWorkspace2Context();
 
   const launchPatientTransferForm = () => {
-    launchWorkspace<WardPatientWorkspaceProps>('patient-transfer-request-workspace', {
-      wardPatient,
-    });
+    launchChildWorkspace('transfer-elsewhere-workspace', { wardPatient, relatedTransferPatients });
   };
 
   const launchCancelAdmissionForm = () => {
-    launchWorkspace<WardPatientWorkspaceProps>('cancel-admission-request-workspace', {
-      wardPatient,
-    });
+    launchChildWorkspace('cancel-admission-request-workspace', { wardPatient, relatedTransferPatients });
   };
 
   const isTransfer = wardPatient.inpatientRequest.dispositionType === 'TRANSFER';
@@ -37,8 +39,12 @@ const AdmissionRequestCardActions: WardPatientCardType = ({ wardPatient }) => {
       </Button>
       <AdmitPatientButton
         wardPatient={wardPatient}
+        relatedTransferPatients={relatedTransferPatients}
         dispositionType={wardPatient.inpatientRequest.dispositionType}
-        onAdmitPatientSuccess={() => closeWorkspaceWithSavedChanges()}
+        onAdmitPatientSuccess={async () => {
+          await closeWorkspace({ discardUnsavedChanges: true });
+          closeWorkspaceGroup2();
+        }}
       />
     </div>
   );

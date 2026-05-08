@@ -1,6 +1,5 @@
 import { type Concept, restBaseUrl, useOpenmrsFetchAll } from '@openmrs/esm-framework';
 import { type TFunction } from 'i18next';
-
 import { type ColoredObsTagConfig } from '../../config-schema';
 import { type Observation } from '../../types';
 

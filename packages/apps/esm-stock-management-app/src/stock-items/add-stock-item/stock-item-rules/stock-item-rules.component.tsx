@@ -1,3 +1,5 @@
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -17,18 +19,17 @@ import {
   Tile,
 } from '@carbon/react';
 import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ResourceRepresentation } from '../../../core/api/api';
-import { type StockRule } from '../../../core/api/types/stockItem/StockRule';
 import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
+import { translateStockLocation } from '../../../core/utils/translationUtils';
+import { ResourceRepresentation } from '../../../core/api/api';
 import { handleMutate } from '../../../utils';
-import styles from '../../stock-items-table.scss';
+import { type StockRule } from '../../../core/api/types/stockItem/StockRule';
+import { useStockItemRules } from './stock-item-rules.resource';
 import AddStockRuleActionButton from './add-stock-rule-button.component';
 import EditStockRuleActionsMenu from './edit-stock-rule.component';
-import { useStockItemRules } from './stock-item-rules.resource';
 import StockRulesDeleteActionMenu from './stock-rules-delete.component';
 import StockRulesFilter from './stock-rules-filter.component';
+import styles from '../../stock-items-table.scss';
 
 interface StockItemRulesProps {
   onSubmit?: () => void;
@@ -57,7 +58,7 @@ const StockItemRules: React.FC<StockItemRulesProps> = ({ stockItemUuid, model, c
       key: `key-${stockRule?.uuid}`,
       uuid: `${stockRule?.uuid}`,
       dateCreated: formatDisplayDate(stockRule?.dateCreated),
-      location: stockRule?.locationName,
+      location: translateStockLocation(t, stockRule?.locationName),
       quantity: `${stockRule?.quantity?.toLocaleString()} ${stockRule?.packagingUomName ?? ''}`,
       name: `${stockRule?.name}`,
       description: `${stockRule?.description}`,
@@ -73,7 +74,7 @@ const StockItemRules: React.FC<StockItemRulesProps> = ({ stockItemUuid, model, c
         </>
       ),
     }));
-  }, [items]);
+  }, [items, t]);
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;
@@ -92,7 +93,12 @@ const StockItemRules: React.FC<StockItemRulesProps> = ({ stockItemUuid, model, c
               }}
             >
               <TableToolbarContent className={styles.toolbarContent}>
-                <TableToolbarSearch persistent onChange={onInputChange} />
+                <TableToolbarSearch
+                  persistent
+                  onChange={onInputChange}
+                  labelText={t('searchThisList', 'Buscar en esta lista')}
+                  placeholder={t('searchThisList', 'Buscar en esta lista')}
+                />
                 <div
                   style={{
                     display: 'flex',
@@ -159,6 +165,14 @@ const StockItemRules: React.FC<StockItemRulesProps> = ({ stockItemUuid, model, c
         )}
       </DataTable>
       <Pagination
+        backwardText={t('previousPage', 'Pagina anterior')}
+        forwardText={t('nextPage', 'Pagina siguiente')}
+        itemsPerPageText={t('itemsPerPage', 'Elementos por pagina:')}
+        itemRangeText={(min, max, total) => `${min}-${max} ${t('of', 'de')} ${total} ${t('items', 'elementos')}`}
+        pageNumberText={t('pageNumber', 'Numero de pagina')}
+        pageRangeText={(current, total) =>
+          `${t('of', 'de')} ${total} ${total === 1 ? t('page', 'pagina') : t('pages', 'paginas')}`
+        }
         page={currentPage}
         pageSize={currentPageSize}
         pageSizes={pageSizes}

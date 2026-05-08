@@ -1,11 +1,10 @@
 import { Toggletip, ToggletipButton, ToggletipContent, Tooltip } from '@carbon/react';
 import { isDesktop, useLayoutType } from '@openmrs/esm-framework';
 import React, { type ReactNode } from 'react';
-
 import styles from '../ward-patient-card.scss';
 
 interface WardPatientResponsiveTooltipProps {
-  children: React.ReactElement;
+  children: ReactNode;
   tooltipContent: ReactNode;
 }
 
@@ -17,7 +16,7 @@ const WardPatientResponsiveTooltip: React.FC<WardPatientResponsiveTooltipProps> 
   if (isDesktop(layout)) {
     return (
       <Tooltip description={tooltipContent} className={styles.responsiveTooltip}>
-        {children}
+        <span>{children}</span>
       </Tooltip>
     );
   } else {

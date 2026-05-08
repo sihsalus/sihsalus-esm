@@ -97,10 +97,10 @@ export const configSchema = {
       htsRetest: 'b08471f6-0892-4bf7-ab2b-bf79797b8ea4',
 
       // Consulta Externa Forms
-      consultaExternaForm: 'CE-001-CONSULTA EXTERNA',
-      anamnesisForm: 'CE-ANAM-001-ANAMNESIS',
-      soapNoteForm: 'CE-SOAP-001-NOTA SOAP',
-      referralForm: 'CE-REF-001-REFERENCIA-CONTRARREFERENCIA',
+      consultaExternaForm: 'e375206e-186b-3357-9cbf-fdae409f7949',
+      anamnesisForm: 'e375206e-186b-3357-9cbf-fdae409f7949',
+      soapNoteForm: 'e375206e-186b-3357-9cbf-fdae409f7949',
+      referralForm: 'a7379846-a7f9-3fc9-9c8f-f95973fd4c88',
 
       // Hospital Forms
       medicalProgress: 'HOSP-004-EVOLUCIÓN MÉDICA',
@@ -143,7 +143,7 @@ export const configSchema = {
       },
       {
         id: 'physiotherapy-clinic',
-        title: 'Terapia Fisica',
+        title: 'Terapia Física',
         formUuid: 'fdada8da-75fe-44c6-93e1-782d41e5565b',
         encounterTypeUuid: '465a92f2-baf8-42e9-9612-53064be868e8',
       },
@@ -164,7 +164,7 @@ export const configSchema = {
     },
     formUuid: {
       _type: Type.UUID,
-      _default: '9f26aad4-244a-46ca-be49-1196df1a8c9a',
+      _default: '630ce515-ce70-3635-b8e4-5cc27510bdaa',
     },
     formName: {
       _type: Type.String,

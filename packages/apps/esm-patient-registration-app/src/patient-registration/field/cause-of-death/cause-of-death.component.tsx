@@ -6,11 +6,12 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type RegistrationConfig } from '../../../config-schema';
+import { moduleName } from '../../../constants';
 import { useConceptAnswers } from '../field.resource';
 import styles from '../field.scss';
 
 export const CauseOfDeathField: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   const { fieldConfigurations, freeTextFieldConceptUuid } = useConfig<RegistrationConfig>();
   const [deathCause, deathCauseMeta] = useField('deathCause');
 

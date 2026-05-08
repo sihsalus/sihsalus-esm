@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { type FieldDefinition } from '../../../config-schema';
+import { moduleName } from '../../../constants';
 import { Input } from '../../input/basic-input/input/input.component';
 import styles from '../field.scss';
 
@@ -12,7 +13,7 @@ export interface AddressFieldProps {
 }
 
 export const AddressField: React.FC<AddressFieldProps> = ({ fieldDefinition }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
 
   return (
     <div className={classNames(styles.customField, styles.halfWidthInDesktopView)}>

@@ -1,8 +1,6 @@
 import { type FetchResponse, openmrsFetch, restBaseUrl, useFeatureFlag } from '@openmrs/esm-framework';
 import useSWR from 'swr';
-
 import { type AdmissionLocationFetchResponse } from '../types/index';
-
 import useWardLocation from './useWardLocation';
 
 const requestRep =

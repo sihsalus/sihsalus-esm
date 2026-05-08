@@ -143,7 +143,7 @@ const AttributeTypeField: React.FC<AttributeTypeFieldProps> = ({
             value={fieldProps.value ?? ''}
           >
             <SelectItem text={t('selectAnOption', 'Select an option')} value={''} />
-            {answers.map((ans) => (
+            {(answers ?? []).map((ans) => (
               <SelectItem key={ans.uuid} text={ans.display} value={ans.uuid} />
             ))}
           </Select>

@@ -1,3 +1,5 @@
+import React, { useMemo, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -20,18 +22,16 @@ import {
 } from '@carbon/react';
 import { Edit } from '@carbon/react/icons';
 import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ResourceRepresentation } from '../core/api/api';
-import { type CustomTableHeader } from '../core/components/table/types';
-import { useDebounce } from '../core/hooks/debounce-hook';
 import { handleMutate } from '../utils';
-import AddStockItemsBulktImportActionButton from './add-bulk-stock-item/add-stock-items-bulk-import-action-button.component';
-import AddStockItemActionButton from './add-stock-item/add-stock-action-button.component';
-import FilterStockItems from './components/filter-stock-items/filter-stock-items.component';
-import EditStockItemActionsMenu from './edit-stock-item/edit-stock-item-action-menu.component';
 import { launchAddOrEditStockItemWorkspace } from './stock-item.utils';
+import { ResourceRepresentation } from '../core/api/api';
+import { useDebounce } from '../core/hooks/debounce-hook';
 import { useStockItemsPages } from './stock-items-table.resource';
+import AddStockItemActionButton from './add-stock-item/add-stock-action-button.component';
+import AddStockItemsBulktImportActionButton from './add-bulk-stock-item/add-stock-items-bulk-import-action-button.component';
+import EditStockItemActionsMenu from './edit-stock-item/edit-stock-item-action-menu.component';
+import FilterStockItems from './components/filter-stock-items/filter-stock-items.component';
+import { type CustomTableHeader } from '../core/components/table/types';
 import styles from './stock-items-table.scss';
 
 interface StockItemsTableProps {
@@ -258,6 +258,14 @@ const StockItemsTableComponent: React.FC<StockItemsTableProps> = () => {
       </DataTable>
       <Pagination
         className={styles.paginationOverride}
+        backwardText={t('previousPage', 'Pagina anterior')}
+        forwardText={t('nextPage', 'Pagina siguiente')}
+        itemsPerPageText={t('itemsPerPage', 'Elementos por pagina:')}
+        itemRangeText={(min, max, total) => `${min}-${max} ${t('of', 'de')} ${total} ${t('items', 'elementos')}`}
+        pageNumberText={t('pageNumber', 'Numero de pagina')}
+        pageRangeText={(current, total) =>
+          `${t('of', 'de')} ${total} ${total === 1 ? t('page', 'pagina') : t('pages', 'paginas')}`
+        }
         onChange={({ page, pageSize }) => {
           setCurrentPage(page);
           setPageSize(pageSize);

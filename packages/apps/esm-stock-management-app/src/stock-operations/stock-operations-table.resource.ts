@@ -1,7 +1,7 @@
-import { usePagination } from '@openmrs/esm-framework';
-import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { type StockOperationFilter, useStockOperations } from './stock-operations.resource';
+import { useMemo, useState } from 'react';
+import { usePagination } from '@openmrs/esm-framework';
+import { useTranslation } from 'react-i18next';
 
 export function useStockOperationPages(filter: StockOperationFilter) {
   const { items, isLoading, error } = useStockOperations(filter);
@@ -47,7 +47,7 @@ export function useStockOperationPages(filter: StockOperationFilter) {
       },
       {
         id: 6,
-        header: t('date', 'Date'),
+        header: t('date', 'Fecha'),
         key: 'operationDate',
       },
       {

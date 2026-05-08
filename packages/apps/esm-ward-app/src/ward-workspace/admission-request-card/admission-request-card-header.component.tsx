@@ -1,12 +1,10 @@
 import { formatDatetime, getLocale } from '@openmrs/esm-framework';
 import classNames from 'classnames';
-
 import { type WardPatientCardType } from '../../types';
 import WardPatientAge from '../../ward-patient-card/row-elements/ward-patient-age.component';
 import WardPatientGender from '../../ward-patient-card/row-elements/ward-patient-gender.component';
 import WardPatientIdentifier from '../../ward-patient-card/row-elements/ward-patient-identifier.component';
 import WardPatientName from '../../ward-patient-card/row-elements/ward-patient-name.component';
-
 import styles from './admission-request-card.scss';
 
 const AdmissionRequestCardHeader: WardPatientCardType = ({ wardPatient }) => {

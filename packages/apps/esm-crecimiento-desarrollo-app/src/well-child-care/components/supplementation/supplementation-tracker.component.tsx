@@ -4,9 +4,9 @@ import { launchWorkspace2, useConfig } from '@openmrs/esm-framework';
 import { CardHeader, ErrorState } from '@openmrs/esm-patient-common-lib';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import type { ConfigObject } from '../../../config-schema';
 import { useSupplementationTracker } from '../../../hooks/useSupplementationTracker';
+import { formEntryWorkspace } from '../../../types';
 
 import styles from './supplementation-tracker.scss';
 
@@ -26,7 +26,7 @@ const SupplementationTracker: React.FC<SupplementationTrackerProps> = ({ patient
       console.warn('Form UUID not configured for supplementationForm');
       return;
     }
-    launchWorkspace2('patient-form-entry-workspace-v2', {
+    launchWorkspace2(formEntryWorkspace, {
       form: { uuid: formUuid },
       encounterUuid: '',
     });

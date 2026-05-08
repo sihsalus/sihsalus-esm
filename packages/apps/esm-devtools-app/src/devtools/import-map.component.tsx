@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './import-map.styles.css';
 import ImportMapList from './import-map-list/list.component';
-import type { ImportMapOverridesApi } from './import-map-overrides.types';
 
 type ImportMapProps = {
   toggleOverridden: (overridden: boolean) => void;
 };
 
 const IMPORT_MAP_CHANGE_EVENT = 'import-map-overrides:change';
-const importMapOverrides = globalThis.importMapOverrides as unknown as ImportMapOverridesApi;
+const importMapOverrides = globalThis.importMapOverrides;
 
 export default function ImportMap({ toggleOverridden }: ImportMapProps) {
   const importMapListRef = useRef<HTMLDivElement>(null);

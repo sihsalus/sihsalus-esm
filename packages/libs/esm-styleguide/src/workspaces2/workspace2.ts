@@ -1,15 +1,14 @@
 import {
-  type Actions,
   getGroupByWindowName,
   getOpenedWindowIndexByWorkspace,
   getWindowByWorkspaceName,
   type OpenedWindow,
   type OpenedWorkspace,
-  shallowEqual,
-  useStoreWithActions,
   type WorkspaceStoreState2,
   workspace2Store,
-} from '@openmrs/esm-framework/src/internal';
+} from '@openmrs/esm-extensions';
+import { type Actions, useStoreWithActions } from '@openmrs/esm-react-utils';
+import { shallowEqual } from '@openmrs/esm-utils';
 import { type Context, useContext } from 'react';
 import { SingleSpaContext } from 'single-spa-react';
 import { v4 as uuidV4 } from 'uuid';
@@ -273,7 +272,7 @@ export async function launchWorkspace2<
         return false;
       }
     }
-  } else if (groupDef.persistence === 'closable') {
+  } else if (groupDef.persistence == 'closable') {
     const okToCloseWorkspaces = await promptForClosingWorkspaces({
       reason: 'CLOSE_OTHER_WINDOWS',
       explicit: false,

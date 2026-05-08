@@ -10,7 +10,7 @@ import {
   type ObsRecord,
 } from '../../types';
 
-import { extractMetaInformation, getConceptUuid } from './helper';
+import { extractMetaInformation, getConceptUuid, isLabConcept } from './helper';
 
 export function useObservations() {
   const { patientUuid } = usePatient();
@@ -84,9 +84,7 @@ function useConcepts(conceptUuids: Array<string>) {
   const results = useMemo(() => {
     const concepts: Array<Concept> = data ? [].concat(data?.map((resp) => resp.data)) : null;
     return {
-      concepts: concepts
-        ? concepts.filter((c) => c.conceptClass.display === 'Test' || c.conceptClass.display === 'LabSet')
-        : null,
+      concepts: concepts ? concepts.filter(isLabConcept) : null,
       // If there are no observations, hence no concept UUIDS, then it should return isLoading as false
       isLoading: conceptUuids?.length === 0 ? false : isLoading,
     };

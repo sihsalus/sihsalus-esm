@@ -488,11 +488,15 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                               <TableHead>
                                 <TableRow>
                                   <TableExpandHeader enableToggle {...getExpandHeaderProps()} />
-                                  {headers.map((header: DataTableHeader) => (
-                                    <TableHeader key={header.key} {...getHeaderProps({ header })}>
-                                      {header.header}
-                                    </TableHeader>
-                                  ))}
+                                  {headers.map((header: DataTableHeader) => {
+                                    const { key, ...headerProps } = getHeaderProps({ header });
+
+                                    return (
+                                      <TableHeader key={key} {...headerProps}>
+                                        {header.header}
+                                      </TableHeader>
+                                    );
+                                  })}
                                   <TableExpandHeader />
                                 </TableRow>
                               </TableHead>
@@ -500,9 +504,12 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                                 {rows.map((row: DataTableRow<string[]>) => {
                                   const matchingOrder = allOrders?.find((order) => order.uuid === row.id);
 
+                                  const { key, ...rowProps } = getRowProps({ row });
+                                  const { key: _expandedRowKey, ...expandedRowProps } = getExpandedRowProps({ row });
+
                                   return (
                                     <React.Fragment key={row.id}>
-                                      <TableExpandRow className={styles.row} {...getRowProps({ row })}>
+                                      <TableExpandRow key={key} className={styles.row} {...rowProps}>
                                         {row.cells.map((cell) => (
                                           <TableCell className={styles.tableCell} key={cell.id}>
                                             {getCellContent(cell.value)}
@@ -532,10 +539,9 @@ const OrderDetailsTable: React.FC<OrderDetailsProps> = ({ patientUuid, showAddBu
                                       </TableExpandRow>
                                       {row.isExpanded ? (
                                         <TableExpandedRow
+                                          key={`${row.id}-expanded`}
                                           colSpan={headers.length + 2}
-                                          {...getExpandedRowProps({
-                                            row,
-                                          })}
+                                          {...expandedRowProps}
                                         >
                                           <>
                                             {matchingOrder?.type === 'drugorder' ? (

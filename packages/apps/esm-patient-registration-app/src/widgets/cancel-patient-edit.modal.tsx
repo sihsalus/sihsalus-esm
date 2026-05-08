@@ -1,7 +1,7 @@
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { moduleName } from '../constants';
 import styles from './cancel-patient-edit.scss';
 
 interface CancelPatientEditPropsModal {
@@ -10,7 +10,7 @@ interface CancelPatientEditPropsModal {
 }
 
 const CancelPatientEditModal: React.FC<CancelPatientEditPropsModal> = ({ close, onConfirm }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(moduleName);
   return (
     <>
       <ModalHeader

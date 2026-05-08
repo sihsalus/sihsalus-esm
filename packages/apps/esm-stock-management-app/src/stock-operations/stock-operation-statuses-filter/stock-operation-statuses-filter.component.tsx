@@ -1,5 +1,5 @@
-import { Dropdown } from '@carbon/react';
 import React from 'react';
+import { Dropdown } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import styles from './stock-operation-statuses-filter.scss';
 

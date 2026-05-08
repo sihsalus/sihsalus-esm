@@ -87,7 +87,7 @@ const FormRenderer: React.FC<FormRendererComponentProps> = (props) => {
       if (closeWorkspaceWithSavedChanges) {
         closeWorkspaceWithSavedChanges();
       } else {
-        props.closeWorkspace?.({ ignoreChanges: true, closeWorkspaceGroup: true });
+        props.closeWorkspace?.({ ignoreChanges: true, closeWorkspaceGroup: false });
       }
 
       const submittedEncounter = data.find(

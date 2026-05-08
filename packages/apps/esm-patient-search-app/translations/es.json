@@ -34,7 +34,7 @@
   "refineSearchTabletBannerText": "¿No puede encontrar a la persona que está buscando?",
   "resetFields": "Restablecer campos",
   "search": "Buscar",
-  "searchForPatient": "Buscar un paciente por nombre o número de identificación",
+  "searchForPatient": "Buscar paciente por nombre o dato de identificación",
   "searchingText": "Buscando...",
   "searchLocationPersonAttribute": "Buscar ubicación",
   "searchPatient": "Buscar paciente",
@@ -44,7 +44,7 @@
   "searchResultsCount_other": "{{count}} resultados de búsqueda",
   "selectOption": "Seleccione una opción",
   "sex": "Sexo",
-  "trySearchWithPatientUniqueID": "Intente buscar nuevamente usando el número de identificación único del paciente",
+  "trySearchWithPatientUniqueID": "Intente buscar nuevamente usando un dato de identificación del paciente",
   "unknown": "Desconocido",
   "unsupportedAttributeFormat": "Formato de atributo no soportado: {{format}}",
   "yearOfBirth": "Año de Nacimiento"

@@ -20,7 +20,9 @@ const BillingCheckInForm: React.FC<BillingCheckInFormProps> = ({ patientUuid, se
   const [attributes, setAttributes] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState<any>();
   const lineList = paymentMethod
-    ? lineItems.filter((e) => e.servicePrices.some((p) => p.paymentMode && p.paymentMode.uuid === paymentMethod))
+    ? lineItems.filter((e) =>
+        (e.servicePrices ?? []).some((p) => p.paymentMode && p.paymentMode.uuid === paymentMethod),
+      )
     : [];
 
   const handleCreateExtraVisitInfo = useCallback(
@@ -57,7 +59,7 @@ const BillingCheckInForm: React.FC<BillingCheckInFormProps> = ({ patientUuid, se
           billableService: itemUuid,
           quantity: 1,
           price: priceForPaymentMode ? priceForPaymentMode.price : '0.000',
-          priceName: 'Default',
+          priceName: priceForPaymentMode?.name ?? '',
           priceUuid: priceForPaymentMode ? priceForPaymentMode.uuid : '',
           lineItemOrder: 0,
           paymentStatus: PENDING_PAYMENT_STATUS,

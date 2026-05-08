@@ -1,10 +1,9 @@
 /** @module @category UI */
 
 import { SkeletonIcon } from '@carbon/react';
-import { getCoreTranslation } from '@openmrs/esm-framework/src/internal';
+import { getCoreTranslation } from '@openmrs/esm-translations';
 import GeoPattern from 'geopattern';
 import React, { useEffect, useMemo, useState } from 'react';
-import Avatar from 'react-avatar';
 import styles from './patient-photo.module.scss';
 import PlaceholderIcon from './placeholder-icon.component';
 import { usePatientPhoto } from './usePatientPhoto';
@@ -13,6 +12,15 @@ export interface PatientPhotoProps {
   patientName: string;
   patientUuid: string;
   alt?: string;
+}
+
+function getInitials(name: string, maxInitials = 3): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, maxInitials)
+    .map((part) => part[0])
+    .join('');
 }
 
 /**
@@ -26,12 +34,14 @@ export function PatientPhoto({ patientUuid, patientName, alt }: PatientPhotoProp
 
   useEffect(() => {
     if (photo?.imageSrc) {
+      const imageSrc = new URL(photo.imageSrc, window.location.origin).pathname;
+
       setIsValidating(true);
       let cancelled = false;
       const img = new Image();
       img.onload = () => {
         if (!cancelled) {
-          setValidImageSrc(photo.imageSrc);
+          setValidImageSrc(imageSrc);
           setIsValidating(false);
         }
       };
@@ -41,7 +51,7 @@ export function PatientPhoto({ patientUuid, patientName, alt }: PatientPhotoProp
           setIsValidating(false);
         }
       };
-      img.src = photo.imageSrc;
+      img.src = imageSrc;
 
       return () => {
         cancelled = true;
@@ -76,25 +86,27 @@ export function PatientPhoto({ patientUuid, patientName, alt }: PatientPhotoProp
     );
   }
 
+  if (validImageSrc) {
+    return (
+      <div>
+        <img className={styles.avatar} src={validImageSrc} alt={altText} title={patientName} />
+      </div>
+    );
+  }
+
   return (
-    <div aria-label={altText}>
-      <Avatar
-        alt={altText}
-        color="rgba(0,0,0,0)"
-        maxInitials={3}
-        name={patientName}
-        size="56"
-        src={validImageSrc ?? undefined}
-        style={
-          !validImageSrc
-            ? {
-                backgroundImage: pattern.toDataUri(),
-                backgroundRepeat: 'round',
-              }
-            : undefined
-        }
-        textSizeRatio={2}
-      />
+    <div role="img" aria-label={altText}>
+      <div
+        className={styles.avatar}
+        title={patientName}
+        style={{
+          backgroundImage: pattern.toDataUrl(),
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      >
+        <span className={styles.initials}>{getInitials(patientName)}</span>
+      </div>
     </div>
   );
 }

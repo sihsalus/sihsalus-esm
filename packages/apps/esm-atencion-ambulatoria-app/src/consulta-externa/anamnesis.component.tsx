@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../config-schema';
 import { useAnamnesis } from '../hooks/useAnamnesis';
+import { patientFormEntryWorkspace } from '../utils/constants';
 import styles from './consulta-externa-dashboard.scss';
 
 interface AnamnesisProps {
@@ -22,7 +23,7 @@ const Anamnesis: React.FC<AnamnesisProps> = ({ patientUuid }) => {
   );
 
   const handleLaunchForm = () => {
-    launchWorkspace('patient-form-entry-workspace', {
+    launchWorkspace(patientFormEntryWorkspace, {
       formInfo: {
         formUuid: config.formsList?.anamnesisForm ?? config.formsList?.consultaExternaForm,
       },

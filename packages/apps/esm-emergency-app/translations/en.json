@@ -81,10 +81,11 @@
   "enterCompanionAge": "Years",
   "enterCompanionName": "Companion name",
   "enterDni": "Enter DNI",
+  "enterIdentityDocument": "Enter identity document",
   "enterFirstName": "Enter first name",
   "enterInsuranceCode": "Insurance code",
   "enterMaternalLastName": "Enter maternal last name",
-  "enterNameIdOrDni": "Enter name, ID, or DNI...",
+  "enterNameIdOrDni": "Enter name, HCE, or document...",
   "enterPaternalLastName": "Enter paternal last name",
   "enterRelationship": "E.g.: Father, Mother",
   "enterVillage": "Town",
@@ -284,5 +285,7 @@
   "waitingTriage": "Waiting triage",
   "weight": "Weight (kg)",
   "years": "years",
+  "identityDocumentOptional": "Identity document (optional)",
+  "identityDocumentType": "Document type",
   "yes": "Yes"
 }

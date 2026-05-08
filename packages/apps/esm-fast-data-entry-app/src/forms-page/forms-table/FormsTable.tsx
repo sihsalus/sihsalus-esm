@@ -14,7 +14,7 @@ import {
   TableToolbarSearch,
 } from '@carbon/react';
 import { ErrorState } from '@openmrs/esm-framework';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import EmptyState from '../../empty-state/EmptyState';

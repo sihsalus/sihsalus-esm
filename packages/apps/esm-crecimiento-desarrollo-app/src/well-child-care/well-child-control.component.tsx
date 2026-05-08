@@ -4,6 +4,8 @@ import type { TabConfig } from '@sihsalus/esm-sihsalus-shared';
 import { TabbedDashboard } from '@sihsalus/esm-sihsalus-shared';
 import React, { useMemo } from 'react';
 
+const translationNamespace = '@sihsalus/esm-cred-app';
+
 interface WellChildControlProps {
   patient?: fhir.Patient | null;
   patientUuid?: string | null;
@@ -53,6 +55,7 @@ export const WellChildControl: React.FC<WellChildControlProps> = ({
       titleKey="wellChildCare"
       tabs={tabs}
       ariaLabelKey="wellChildCareTabs"
+      translationNamespace={translationNamespace}
     />
   );
 };

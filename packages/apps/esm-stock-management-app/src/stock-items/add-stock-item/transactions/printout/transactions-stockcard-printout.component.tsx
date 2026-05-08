@@ -11,10 +11,12 @@ import {
 import { ArrowLeft } from '@carbon/react/icons';
 import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { formatDisplayDate } from '../../../../core/utils/datetimeUtils';
+import { translateStockLocation, translateStockOperationType } from '../../../../core/utils/translationUtils';
 import PrintableStockcardTransactionHeader from './printable-stockcard-transaction-header.component';
-import styles from './printable-transaction.scss';
 import PrintableTransactionFooter from './printable-transaction-footer.component';
+import styles from './printable-transaction.scss';
 
 type Props = {
   title: string;
@@ -23,6 +25,7 @@ type Props = {
 };
 
 const TransactionsStockcardPrintout: React.FC<Props> = ({ columns, items, title }) => {
+  const { t } = useTranslation();
   const [mappedData, setMappedData] = useState([]);
   const [patientData, setPatientData] = useState({});
 
@@ -55,6 +58,12 @@ const TransactionsStockcardPrintout: React.FC<Props> = ({ columns, items, title 
     // Map items with patient data
     const data = items.map((stockItemTransaction) => {
       const patient = stockItemTransaction.patientUuid ? patientData[stockItemTransaction.patientUuid] : null;
+      const transactionType = stockItemTransaction?.isPatientTransaction
+        ? t('patientDispense', 'Dispensación a paciente')
+        : translateStockOperationType(t, stockItemTransaction.stockOperationTypeName);
+      const sourceLocation = translateStockLocation(t, stockItemTransaction.operationSourcePartyName);
+      const destinationLocation = translateStockLocation(t, stockItemTransaction.operationDestinationPartyName);
+      const partyLocation = translateStockLocation(t, stockItemTransaction?.partyName);
 
       return {
         ...stockItemTransaction,
@@ -67,36 +76,34 @@ const TransactionsStockcardPrintout: React.FC<Props> = ({ columns, items, title 
             stockItemTransaction.operationSourcePartyName === stockItemTransaction?.partyName ? (
               stockItemTransaction.quantity > 0 ? (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationSourcePartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationDestinationPartyName}
+                  <span className="transaction-location">{sourceLocation}</span>
+                  <ArrowLeft size={16} /> {destinationLocation}
                 </>
               ) : (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationSourcePartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationDestinationPartyName}
+                  <span className="transaction-location">{sourceLocation}</span>
+                  <ArrowLeft size={16} /> {destinationLocation}
                 </>
               )
             ) : stockItemTransaction.operationDestinationPartyName === stockItemTransaction?.partyName ? (
               stockItemTransaction.quantity > 0 ? (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationDestinationPartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationSourcePartyName}
+                  <span className="transaction-location">{destinationLocation}</span>
+                  <ArrowLeft size={16} /> {sourceLocation}
                 </>
               ) : (
                 <>
-                  <span className="transaction-location">{stockItemTransaction.operationDestinationPartyName}</span>
-                  <ArrowLeft size={16} /> {stockItemTransaction.operationSourcePartyName}
+                  <span className="transaction-location">{destinationLocation}</span>
+                  <ArrowLeft size={16} /> {sourceLocation}
                 </>
               )
             ) : (
-              stockItemTransaction?.partyName
+              partyLocation
             )
           ) : (
-            stockItemTransaction?.partyName
+            partyLocation
           ),
-        transaction: stockItemTransaction?.isPatientTransaction
-          ? 'Patient Dispense'
-          : stockItemTransaction.stockOperationTypeName,
+        transaction: transactionType,
         quantity: `${stockItemTransaction?.quantity?.toLocaleString()} ${stockItemTransaction?.packagingUomName ?? ''}`,
         batch: stockItemTransaction.stockBatchNo
           ? `${stockItemTransaction.stockBatchNo}${
@@ -121,7 +128,7 @@ const TransactionsStockcardPrintout: React.FC<Props> = ({ columns, items, title 
     });
 
     setMappedData(data);
-  }, [items, patientData]);
+  }, [items, patientData, t]);
 
   return (
     <div>

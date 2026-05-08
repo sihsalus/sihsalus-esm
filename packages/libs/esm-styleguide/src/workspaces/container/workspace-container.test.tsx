@@ -1,7 +1,8 @@
 import React from 'react';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { ComponentContext, isDesktop, registerWorkspace, useLayoutType } from '@openmrs/esm-framework/src/internal';
+import { registerWorkspace } from '@openmrs/esm-extensions';
+import { ComponentContext, isDesktop, useLayoutType } from '@openmrs/esm-react-utils';
 import { act, render, renderHook, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type DefaultWorkspaceProps, launchWorkspace, useWorkspaces, WorkspaceContainer } from '..';
@@ -40,7 +41,6 @@ describe('WorkspaceContainer in window mode', () => {
       title: 'clinicalForm',
       load: vi.fn(),
       moduleName: '@openmrs/foo',
-      component: 'test',
       canHide: true,
       canMaximize: true,
     });
@@ -50,7 +50,6 @@ describe('WorkspaceContainer in window mode', () => {
       title: 'orderBasket',
       load: vi.fn(),
       moduleName: '@openmrs/bar',
-      component: 'test',
       canHide: true,
       canMaximize: true,
     });
@@ -223,7 +222,6 @@ describe('WorkspaceContainer in overlay mode', () => {
       title: 'Patient Search',
       load: vi.fn(),
       moduleName: '@openmrs/foo',
-      component: 'test',
     });
   });
 
@@ -242,7 +240,7 @@ describe('WorkspaceContainer in overlay mode', () => {
     await user.click(closeButton);
 
     // toHaveAttribute() cannot do either partial or regex matches
-
+    // eslint-disable-next-line jest-dom/prefer-to-have-attribute
     expect(screen.getByRole('complementary').getAttribute('class')).toContain('hiddenRelative');
   });
 });

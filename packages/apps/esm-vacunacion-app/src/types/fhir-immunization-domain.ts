@@ -74,6 +74,9 @@ export type ImmunizationWidgetConfigObject = {
     notes?: string;
   };
   immunizationConceptSet: string;
+  fhirConceptMappings: {
+    immunizationResourceConcept: string;
+  };
   supplementalVaccines?: Array<{
     uuid: string;
     display: string;
