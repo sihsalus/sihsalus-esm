@@ -29,9 +29,8 @@ export function useEncounterRows(
     openmrsFetch,
   );
 
-  // Sort and filter directly in the render
   const sortedAndFilteredEncounters = useMemo(() => {
-    if (isNull(data?.data?.results) || !isLoading) {
+    if (!isLoading && !isNull(data?.data?.results)) {
       const sortedEncounters = sortEncounters(data?.data?.results);
       return encounterFilter ? sortedEncounters.filter(encounterFilter) : sortedEncounters;
     }
