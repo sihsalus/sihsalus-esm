@@ -90,5 +90,6 @@
   "unknownParameterType": "Tipo de parámetro desconocido: {type} para el parámetro: {label}",
   "view": "Ver",
   "viewReports": "Vista web de reportes",
-  "yes": "Sí"
+  "yes": "Sí",
+  "reportsAppMenuLink": "Informes y Estadísticas"
 }

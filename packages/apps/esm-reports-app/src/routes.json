@@ -8,6 +8,11 @@
   },
   "extensions": [
     {
+      "name": "reports-app-menu-link",
+      "slot": "app-menu-slot",
+      "component": "reportsAppMenuLink"
+    },
+    {
       "name": "admin-report-link",
       "slot": "system-admin-page-card-link-slot",
       "component": "reportsLink"
