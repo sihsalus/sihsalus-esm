@@ -1,4 +1,3 @@
-import React, { useMemo } from 'react';
 import {
   DataTable,
   DataTableSkeleton,
@@ -17,17 +16,18 @@ import {
   TableToolbarSearch,
   Tile,
 } from '@carbon/react';
-import { useTranslation } from 'react-i18next';
 import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
-import { handleMutate } from '../utils';
+import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ResourceRepresentation } from '../core/api/api';
 import { type CustomTableHeader } from '../core/components/table/types';
+import { handleMutate } from '../utils';
 import AddStockSourceActionButton from './add-stock-source-button.component';
 import EditStockSourceActionsMenu from './edit-stock-source/edit-stock-source.component';
+import styles from './stock-sources.scss';
 import StockSourcesDeleteActionMenu from './stock-sources-delete/stock-sources-delete.component';
 import StockSourcesFilter from './stock-sources-filter/stock-sources-filter.component';
 import useStockSourcesPage from './stock-sources-items-table.resource';
-import styles from './stock-sources.scss';
 
 const StockSourcesItems: React.FC = () => {
   const { t } = useTranslation();
@@ -143,15 +143,16 @@ const StockSourcesItems: React.FC = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row) => {
+                  const { key, ...rowProps } = getRowProps({ row }) as React.HTMLAttributes<HTMLTableRowElement> & {
+                    key: React.Key;
+                  };
+
                   return (
-                    <React.Fragment key={row.id}>
-                      <TableRow className={isDesktop ? styles.desktopRow : styles.tabletRow} {...getRowProps({ row })}>
-                        {row.cells.map(
-                          (cell) =>
-                            cell?.info?.header !== 'details' && <TableCell key={cell.id}>{cell.value}</TableCell>,
-                        )}
-                      </TableRow>
-                    </React.Fragment>
+                    <TableRow key={key} className={isDesktop ? styles.desktopRow : styles.tabletRow} {...rowProps}>
+                      {row.cells.map(
+                        (cell) => cell?.info?.header !== 'details' && <TableCell key={cell.id}>{cell.value}</TableCell>,
+                      )}
+                    </TableRow>
                   );
                 })}
               </TableBody>

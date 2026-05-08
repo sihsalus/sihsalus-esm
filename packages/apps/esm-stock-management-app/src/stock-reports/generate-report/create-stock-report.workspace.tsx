@@ -1,6 +1,3 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
 import {
   Button,
   ButtonSet,
@@ -18,6 +15,7 @@ import {
   SelectItem,
   Stack,
 } from '@carbon/react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   type ConfigObject,
   type DefaultWorkspaceProps,
@@ -27,8 +25,17 @@ import {
   useConfig,
   useLayoutType,
 } from '@openmrs/esm-framework';
+import classNames from 'classnames';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
+import { DATE_PICKER_CONTROL_FORMAT, DATE_PICKER_FORMAT, formatForDatePicker, today } from '../../constants';
+import { BatchJobTypeReport } from '../../core/api/types/BatchJob';
+import { type Concept } from '../../core/api/types/concept/Concept';
+import { formatDisplayDate } from '../../core/utils/datetimeUtils';
+import { createBatchJob } from '../../stock-batch/stock-batch.resource';
+import { useConcept, useStockTagLocations } from '../../stock-lookups/stock-lookups.resource';
+import { handleMutate } from '../../utils';
 import {
   getParamDefaultLimit,
   getReportEndDateLabel,
@@ -36,14 +43,7 @@ import {
   getReportStartDateLabel,
   ReportParameter,
 } from '../ReportType';
-import { DATE_PICKER_CONTROL_FORMAT, DATE_PICKER_FORMAT, formatForDatePicker, today } from '../../constants';
-import { BatchJobTypeReport } from '../../core/api/types/BatchJob';
-import { createBatchJob } from '../../stock-batch/stock-batch.resource';
-import { formatDisplayDate } from '../../core/utils/datetimeUtils';
-import { handleMutate } from '../../utils';
-import { type Concept } from '../../core/api/types/concept/Concept';
-import { type StockReportSchema, reportSchema } from '../report-validation-schema';
-import { useConcept, useStockTagLocations } from '../../stock-lookups/stock-lookups.resource';
+import { reportSchema, type StockReportSchema } from '../report-validation-schema';
 import { useReportTypes } from '../stock-reports.resource';
 import styles from './create-stock-report.scss';
 
@@ -158,13 +158,13 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
   const stockItemCategories = useMemo(() => {
     return [
       {
-        display: 'All Categories',
-        name: 'All Categories',
+        display: t('allCategories', 'All categories'),
+        name: t('allCategories', 'All categories'),
         uuid: '',
       } as unknown as Concept,
       ...((items && items?.answers?.length > 0 ? items?.answers : items?.setMembers) ?? []),
     ];
-  }, [items]);
+  }, [items, t]);
   const {
     handleSubmit,
     control,
@@ -176,7 +176,13 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
   });
 
   if (isLoading) {
-    return <InlineLoading status="active" iconDescription="Loading" description="Loading data..." />;
+    return (
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading')}
+        description={t('loadingData', 'Loading data...')}
+      />
+    );
   }
 
   const handleSave = async (report: StockReportSchema) => {
@@ -192,7 +198,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.Fullfillment,
           (report.fullFillment ?? ['All']).join(','),
-          (report.fullFillment ?? ['All']).join(', '),
+          (report.fullFillment ?? [t('all', 'All')]).join(', '),
           t('fulfillment', 'Fulfillment'),
           newLine,
         );
@@ -201,7 +207,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.Patient,
           report.patientUuid ?? '',
-          report.patientName?.trim() ?? 'All Patients',
+          report.patientName?.trim() ?? t('allPatients', 'All patients'),
           t('patients', 'Patients'),
           newLine,
         );
@@ -210,7 +216,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.StockItem,
           report.stockItemUuid ?? '',
-          report.stockItemName?.trim() ?? 'All Stock Items',
+          report.stockItemName?.trim() ?? t('allStockItems', 'All stock items'),
           t('stockItem', 'Stock Item'),
           newLine,
         );
@@ -219,7 +225,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.StockItemCategory,
           report.stockItemCategoryConceptUuid ?? '',
-          report.stockItemCategory?.trim() ?? 'All Categories',
+          report.stockItemCategory?.trim() ?? t('allCategories', 'All categories'),
           t('stockItemCategory', 'Stock Item Category'),
           newLine,
         );
@@ -245,7 +251,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
           parameters += getReportParameter(
             ReportParameter.ChildLocations,
             report.childLocations ? 'true' : 'false',
-            report.childLocations ? 'Yes' : 'No',
+            report.childLocations ? t('yes', 'Yes') : t('no', 'No'),
             t('includeChildLocations', 'Include Child Locations'),
             newLine,
           );
@@ -264,7 +270,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.StockSource,
           report.stockSourceUuid ?? '',
-          report.stockSource?.trim() ?? 'All Sources',
+          report.stockSource?.trim() ?? t('allSources', 'All sources'),
           t('stockSource', 'Stock source'),
           newLine,
         );
@@ -273,7 +279,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.StockSourceDestination,
           report.stockSourceDestinationUuid ?? '',
-          report.stockSourceDestination?.trim() ?? 'All Destinations',
+          report.stockSourceDestination?.trim() ?? t('allDestinations', 'All destinations'),
           t('stockSourceDestination', 'Stock source destination'),
           newLine,
         );
@@ -282,7 +288,7 @@ const CreateReport: React.FC<CreateReportProps> = ({ model, closeWorkspace }) =>
         parameters += getReportParameter(
           ReportParameter.MostLeastMoving,
           report.mostLeastMoving ?? 'MostMoving',
-          report.mostLeastMovingName?.trim() ?? 'Most Moving',
+          report.mostLeastMovingName?.trim() ?? t('mostMoving', 'Most moving'),
           t('mostMoving', 'Most moving'),
           newLine,
         );

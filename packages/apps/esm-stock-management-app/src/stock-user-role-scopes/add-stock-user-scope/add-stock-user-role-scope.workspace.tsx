@@ -1,5 +1,3 @@
-import React, { type ChangeEvent, useEffect, useState } from 'react';
-import classNames from 'classnames';
 import {
   Button,
   ButtonSet,
@@ -17,7 +15,6 @@ import {
   Toggle,
 } from '@carbon/react';
 import { Save } from '@carbon/react/icons';
-import { useTranslation } from 'react-i18next';
 import {
   type DefaultWorkspaceProps,
   getCoreTranslation,
@@ -26,18 +23,9 @@ import {
   useLayoutType,
   useSession,
 } from '@openmrs/esm-framework';
-import {
-  useRoles,
-  useStockOperationTypes,
-  useStockTagLocations,
-  useUser,
-  useUsers,
-} from '../../stock-lookups/stock-lookups.resource';
-import { ResourceRepresentation } from '../../core/api/api';
-import { type UserRoleScope } from '../../core/api/types/identity/UserRoleScope';
-import { createOrUpdateUserRoleScope } from '../stock-user-role-scopes.resource';
-import { type UserRoleScopeOperationType } from '../../core/api/types/identity/UserRoleScopeOperationType';
-import { type UserRoleScopeLocation } from '../../core/api/types/identity/UserRoleScopeLocation';
+import classNames from 'classnames';
+import React, { type ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   DATE_PICKER_CONTROL_FORMAT,
   DATE_PICKER_FORMAT,
@@ -49,11 +37,23 @@ import {
   INVENTORY_REPORTING_ROLE_UUID,
   today,
 } from '../../constants';
+import { ResourceRepresentation } from '../../core/api/api';
 import { type Role } from '../../core/api/types/identity/Role';
-import { type StockOperationType } from '../../core/api/types/stockOperation/StockOperationType';
 import { type User } from '../../core/api/types/identity/User';
+import { type UserRoleScope } from '../../core/api/types/identity/UserRoleScope';
+import { type UserRoleScopeLocation } from '../../core/api/types/identity/UserRoleScopeLocation';
+import { type UserRoleScopeOperationType } from '../../core/api/types/identity/UserRoleScopeOperationType';
+import { type StockOperationType } from '../../core/api/types/stockOperation/StockOperationType';
 import { translateStockLocation, translateStockOperationType } from '../../core/utils/translationUtils';
+import {
+  useRoles,
+  useStockOperationTypes,
+  useStockTagLocations,
+  useUser,
+  useUsers,
+} from '../../stock-lookups/stock-lookups.resource';
 import { handleMutate } from '../../utils';
+import { createOrUpdateUserRoleScope } from '../stock-user-role-scopes.resource';
 import styles from './add-stock-user-role-scope.scss';
 
 const MinDate: Date = today();
@@ -248,7 +248,11 @@ const AddStockUserRoleScope: React.FC<AddStockUserRoleScopeProps> = ({ model, ed
 
   if (isLoading || loadingRoles || loadingUsers || isLoadingStockLocations) {
     return (
-      <InlineLoading status="active" iconDescription="Loading" description={t('loadingData', 'Loading data...')} />
+      <InlineLoading
+        status="active"
+        iconDescription={t('loading', 'Loading')}
+        description={t('loadingData', 'Loading data...')}
+      />
     );
   }
 
