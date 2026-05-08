@@ -1,6 +1,6 @@
 import type { Session } from '@openmrs/esm-framework';
 import { openmrsFetch, restBaseUrl, showModal, showSnackbar } from '@openmrs/esm-framework';
-import omit from 'lodash/omit';
+import omit from 'lodash-es/omit';
 import { mutate } from 'swr';
 import { z } from 'zod';
 

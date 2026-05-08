@@ -4,11 +4,11 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 import { formatDate, parseDate } from '@openmrs/esm-framework/src/internal';
-import filter from 'lodash/filter';
-import findIndex from 'lodash/findIndex';
-import first from 'lodash/first';
-import forEach from 'lodash/forEach';
-import last from 'lodash/last';
+import filter from 'lodash-es/filter';
+import findIndex from 'lodash-es/findIndex';
+import first from 'lodash-es/first';
+import forEach from 'lodash-es/forEach';
+import last from 'lodash-es/last';
 import * as apiFunctions from '../api';
 import { type FormField } from '../types';
 import { isEmpty as isValueEmpty } from '../validators/form-validator';

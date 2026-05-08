@@ -1,6 +1,6 @@
 import { createGlobalStore, fhirBaseUrl, parseDate, useStore } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
-import template from 'lodash/template';
+import template from 'lodash-es/template';
 import { mutate } from 'swr';
 import {
   OPENMRS_FHIR_EXT_DISPENSE_RECORDED,

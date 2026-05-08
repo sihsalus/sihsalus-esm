@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import mapValues from 'lodash/mapValues';
+import mapValues from 'lodash-es/mapValues';
 import * as Yup from 'yup';
 
 import { type RegistrationConfig } from '../../config-schema';

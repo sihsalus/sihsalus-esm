@@ -1,5 +1,5 @@
 import type { Session } from '@openmrs/esm-framework';
-import omit from 'lodash/omit';
+import omit from 'lodash-es/omit';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
