@@ -39,7 +39,7 @@ export function startupApp(): void {
 export const caseManagementDashboardLink = getSyncLifecycle(
   createLeftPanelLink({
     name: 'case-management',
-    title: 'Seguimiento de Pacientes',
+    title: 'Patient Tracking',
   }),
   options,
 );
@@ -49,7 +49,7 @@ export const caseEncounterDashboardLink = getSyncLifecycle(
       icon: 'omrs-icon-group',
       slot: 'patient-chart-case-encounter-slot',
       columns: 1,
-      title: 'Atenciones de gestión de casos',
+      title: 'Case management encounters',
       path: 'case-encounter-dashboard',
       config: {},
     },

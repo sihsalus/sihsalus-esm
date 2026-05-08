@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
 import { WatsonHealthStressBreathEditor } from '@carbon/react/icons';
-import { launchWorkspace, useSession } from '@openmrs/esm-framework';
+import { launchWorkspace } from '@openmrs/esm-framework';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -12,11 +12,9 @@ interface MetricsHeaderProps {
 
 const MetricsHeader: React.FC<MetricsHeaderProps> = ({ activeTabIndex }) => {
   const { t } = useTranslation();
-  const { user } = useSession();
-  const metricsTitle = t('caseManager', 'Case Manager');
   const handleAddCase = () => {
     launchWorkspace('case-management-form', {
-      workspaceTitle: t('caseManagementFormTitle', 'Formulario de Seguimiento de Pacientes'),
+      workspaceTitle: t('caseManagementFormTitle', 'Patient Tracking Form'),
     });
   };
 
