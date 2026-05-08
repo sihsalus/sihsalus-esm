@@ -3,6 +3,7 @@ import { getPreferredIdentifier } from '@sihsalus/esm-sihsalus-shared';
 import useSWR from 'swr';
 
 import { ModuleFuaRestURL } from '../constant';
+import { revalidateFuaRequestCaches } from './useFuaRequests';
 
 export interface VisitSummary {
   uuid?: string;
@@ -56,8 +57,11 @@ export function useVisits() {
   };
 }
 
-export function generateFuaFromVisit(visitUuid: string) {
-  return openmrsFetch(`${ModuleFuaRestURL}/generateFromVisit/${visitUuid}`, {
+export async function generateFuaFromVisit(visitUuid: string) {
+  const response = await openmrsFetch(`${ModuleFuaRestURL}/generateFromVisit/${visitUuid}`, {
     method: 'POST',
   });
+
+  await revalidateFuaRequestCaches();
+  return response;
 }

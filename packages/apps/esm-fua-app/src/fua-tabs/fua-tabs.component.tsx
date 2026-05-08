@@ -2,6 +2,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@carbon/react';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import FuaFormatTable from '../fua/fuaFormatTable';
 import FuaRequestTable from '../fua/fuaRequestTable';
 import VisitTable from '../fua/visitTable';
 
@@ -30,7 +31,7 @@ const FuaOrdersTabs: React.FC = () => {
               <VisitTable />
             </TabPanel>
             <TabPanel className={styles.tabPanel}>
-              <FuaRequestTable statusFilter="completed" />
+              <FuaFormatTable />
             </TabPanel>
             <TabPanel className={styles.tabPanel}>
               <FuaRequestTable statusFilter="all" />

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import FuaRequestTable from '../../fua/fuaRequestTable';
+import FuaFormatTable from '../../fua/fuaFormatTable';
 
 const CompletedFuaRequestsTable: React.FC = () => {
-  return <FuaRequestTable statusFilter="completed" />;
+  return <FuaFormatTable />;
 };
 
 export default CompletedFuaRequestsTable;

@@ -100,6 +100,7 @@ const VisitTable: React.FC = () => {
           title: t('success', 'Exito'),
           subtitle: t('fuaGeneratedSuccessfully', 'El FUA se genero correctamente'),
         });
+        mutate();
       } catch (error) {
         showSnackbar({
           kind: 'error',
@@ -111,7 +112,7 @@ const VisitTable: React.FC = () => {
         setGeneratingVisitUuid(null);
       }
     },
-    [t],
+    [mutate, t],
   );
 
   if (isLoading) {
