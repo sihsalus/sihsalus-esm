@@ -11,6 +11,7 @@ import clinicalFormActionMenuComponent from './clinical-form-action-menu.compone
 import { configSchema } from './config-schema';
 import { setupDynamicFormDataHandler, setupPatientFormSync } from './offline';
 import OfflineForms from './offline-forms/offline-forms.component';
+import OfflineToolsNavLink from './offline-forms/offline-tools-nav-link.component';
 
 const moduleName = '@sihsalus/esm-patient-forms-app';
 
@@ -90,11 +91,12 @@ export const offlineFormOverviewCard = getAsyncLifecycle(
   options,
 );
 
-export const offlineFormsNavLink = getAsyncLifecycle(
+export const offlineFormsNavLink = getSyncLifecycle(
   () =>
-    import('./offline-forms/offline-tools-nav-link.component').then(
-      (mod) => mod.default({ page: 'forms', title: 'Offline forms' }) as never,
-    ),
+    OfflineToolsNavLink({
+      page: 'forms',
+      title: 'offlineForms',
+    }),
   options,
 );
 

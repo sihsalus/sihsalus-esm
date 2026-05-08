@@ -1,5 +1,5 @@
 import { Button, Layer, SkeletonText, Tile } from '@carbon/react';
-import { ArrowRightIcon, navigate } from '@openmrs/esm-framework';
+import { ArrowRightIcon, navigate, useSession } from '@openmrs/esm-framework';
 import React, { type ComponentProps, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,9 @@ import styles from './offline-forms-overview-card.scss';
 
 const OfflineFormsOverviewCard: React.FC = () => {
   const { t } = useTranslation();
-  const { data, error } = useDynamicFormDataEntries();
+  const session = useSession();
+  const { data, error } = useDynamicFormDataEntries(session?.user?.uuid);
+  const isLoading = Boolean(session?.user?.uuid) && !error && !data;
 
   return (
     <Layer>
@@ -28,9 +30,9 @@ const OfflineFormsOverviewCard: React.FC = () => {
         <div className={styles.contentContainer}>
           <HeaderedQuickInfo
             header={t('offlineFormsOverviewCardAvailableOffline', 'Available offline')}
-            isLoading={!error && !data}
+            isLoading={isLoading}
           >
-            {error ? 'Unknown' : data?.length}
+            {error ? t('unknown', 'Unknown') : (data?.length ?? 0)}
           </HeaderedQuickInfo>
         </div>
       </Tile>
