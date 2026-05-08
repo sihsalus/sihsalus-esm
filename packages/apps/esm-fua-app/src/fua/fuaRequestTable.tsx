@@ -26,7 +26,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ModuleFuaRestURL } from '../constant';
-import useFuaRequests, { type FuaRequest, setFuaEstado } from '../hooks/useFuaRequests';
+import useFuaRequests, { type FuaRequest, revalidateFuaRequestCaches, setFuaEstado } from '../hooks/useFuaRequests';
 import { useVisit } from '../hooks/useVisit';
 import { FUA_ESTADOS } from '../modals/change-fua-status.modal';
 import { exportFuasToExcel } from '../utils/fua-export';
@@ -209,27 +209,21 @@ const FuaRequestTable: React.FC<FuaRequestTableProps> = ({ statusFilter = 'all' 
     [t],
   );
 
-  const handleChangeStatus = useCallback(
-    (fuaRequest: FuaRequest) => {
-      const dispose = showModal('change-fua-status-modal', {
-        fuaRequest,
-        onStatusChanged: () => mutate(),
-        closeModal: () => dispose(),
-      });
-    },
-    [mutate],
-  );
+  const handleChangeStatus = useCallback((fuaRequest: FuaRequest) => {
+    const dispose = showModal('change-fua-status-modal', {
+      fuaRequest,
+      onStatusChanged: () => revalidateFuaRequestCaches(),
+      closeModal: () => dispose(),
+    });
+  }, []);
 
-  const handleCancelFua = useCallback(
-    (fuaRequest: FuaRequest) => {
-      const dispose = showModal('cancel-fua-modal', {
-        fuaRequest,
-        onCancelled: () => mutate(),
-        closeModal: () => dispose(),
-      });
-    },
-    [mutate],
-  );
+  const handleCancelFua = useCallback((fuaRequest: FuaRequest) => {
+    const dispose = showModal('cancel-fua-modal', {
+      fuaRequest,
+      onCancelled: () => revalidateFuaRequestCaches(),
+      closeModal: () => dispose(),
+    });
+  }, []);
 
   const handleViewHistorial = useCallback((fuaRequest: FuaRequest) => {
     const dispose = showModal('fua-historial-modal', {

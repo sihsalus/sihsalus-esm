@@ -1,7 +1,7 @@
 import { openmrsFetch, useAppContext } from '@openmrs/esm-framework';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
-import useSWR from 'swr';
+import useSWR, { mutate as mutateSwr } from 'swr';
 
 import { ModuleFuaRestURL } from '../constant';
 
@@ -64,6 +64,12 @@ function mapStatus(status: string): string {
   return STATUS_NOMBRE_MAP[status] ?? status;
 }
 
+export function revalidateFuaRequestCaches() {
+  return mutateSwr((key) => typeof key === 'string' && key.startsWith(ModuleFuaRestURL), undefined, {
+    revalidate: true,
+  });
+}
+
 /**
  * Custom hook for retrieving FUA requests.
  *
@@ -115,8 +121,8 @@ export function useFuaRequests(params: Partial<UseFuaRequestsParams> = useFuaReq
  * Update the estado of a FUA.
  * OMOD endpoint: PUT /module/fua/estado/update/{fuaId}
  */
-export function setFuaEstado(fuaId: number, estadoId: number, abortController: AbortController) {
-  return openmrsFetch(`${ModuleFuaRestURL}/estado/update/${fuaId}`, {
+export async function setFuaEstado(fuaId: number, estadoId: number, abortController: AbortController) {
+  const response = await openmrsFetch(`${ModuleFuaRestURL}/estado/update/${fuaId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -124,6 +130,9 @@ export function setFuaEstado(fuaId: number, estadoId: number, abortController: A
     signal: abortController.signal,
     body: { estadoId },
   });
+
+  await revalidateFuaRequestCaches();
+  return response;
 }
 
 /**
@@ -131,9 +140,9 @@ export function setFuaEstado(fuaId: number, estadoId: number, abortController: A
  * Uses estadoId=6 (CANCELADO) which requires the OMOD to have that estado defined.
  * Falls back semantics: if the OMOD doesn't support id=6, the server will return an error.
  */
-export function cancelFuaRequest(fuaId: number, comment: string, abortController: AbortController) {
+export async function cancelFuaRequest(fuaId: number, comment: string, abortController: AbortController) {
   const CANCELADO_ID = 6;
-  return openmrsFetch(`${ModuleFuaRestURL}/estado/update/${fuaId}`, {
+  const response = await openmrsFetch(`${ModuleFuaRestURL}/estado/update/${fuaId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -141,6 +150,9 @@ export function cancelFuaRequest(fuaId: number, comment: string, abortController
     signal: abortController.signal,
     body: { estadoId: CANCELADO_ID, comentario: comment },
   });
+
+  await revalidateFuaRequestCaches();
+  return response;
 }
 
 /**

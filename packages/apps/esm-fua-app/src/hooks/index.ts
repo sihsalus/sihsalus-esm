@@ -3,7 +3,10 @@ export {
   type DateFilterContext,
   type FuaEstado,
   type FuaRequest,
+  revalidateFuaRequestCaches,
   setFuaEstado,
   type UseFuaRequestsParams,
   useFuaRequests,
 } from './useFuaRequests';
+
+export { type FuaFormat, type FuaFormatResponse, useFuaFormats } from './useFuaFormats';
