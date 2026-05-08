@@ -45,7 +45,7 @@
   },
   "peerDependencies": {
     "@carbon/react": "1.x",
-    "@openmrs/esm-framework": "workspace:*",
+    "@openmrs/esm-framework": "*",
     "@openmrs/esm-patient-common-lib": "*",
     "react": "18.x",
     "react-hook-form": "^7.56.1",

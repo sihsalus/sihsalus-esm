@@ -44,7 +44,7 @@
     "swr": "^2.2.5"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "workspace:*",
+    "@openmrs/esm-framework": "*",
     "dayjs": "1.x",
     "react": "18.x",
     "react-dom": "18.x",

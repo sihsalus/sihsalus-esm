@@ -40,7 +40,7 @@
   },
   "peerDependencies": {
     "@carbon/react": "1.x",
-    "@openmrs/esm-framework": "workspace:*",
+    "@openmrs/esm-framework": "*",
     "lodash-es": "4.x",
     "react": "18.x",
     "react-dom": "18.x",

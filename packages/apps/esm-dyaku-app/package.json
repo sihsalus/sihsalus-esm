@@ -52,7 +52,7 @@
     "@carbon/layout": "1.x",
     "@carbon/react": "1.x",
     "@carbon/styles": "1.x",
-    "@openmrs/esm-framework": "workspace:*",
+    "@openmrs/esm-framework": "*",
     "@openmrs/esm-patient-common-lib": "*",
     "dayjs": "1.x",
     "react": "18.x",

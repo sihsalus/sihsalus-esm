@@ -68,7 +68,10 @@ export const PatientRegistration: React.FC<PatientRegistrationProps> = ({ savePa
   const [patientUuidMap] = usePatientUuidMap(patientUuidToEdit);
   const location = currentSession?.sessionLocation?.uuid;
   const inEditMode = !isLoadingPatientToEdit && !!(uuidOfPatientToEdit && patientToEdit);
-  const showDummyData = useMemo(() => localStorage.getItem('openmrs:devtools') === 'true' && !inEditMode, [inEditMode]);
+  const showDummyData = useMemo(
+    () => window.spaEnv === 'development' && localStorage.getItem('openmrs:devtools') === 'true' && !inEditMode,
+    [inEditMode],
+  );
   const { data: photo } = usePatientPhoto(patientToEdit?.id);
   const savePatientTransactionManager = useRef(new SavePatientTransactionManager());
   const fieldDefinition = config?.fieldDefinitions?.filter((def) => def.type === 'address');
