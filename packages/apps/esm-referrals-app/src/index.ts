@@ -16,5 +16,6 @@ export function startupApp(): void {
 
 export const referralsRoot = getAsyncLifecycle(() => import('./referrals-root.component'), options);
 export const referralsAppMenuLink = getAsyncLifecycle(() => import('./referrals-app-menu-link.component'), options);
+export const referralsAppMenuItem = getAsyncLifecycle(() => import('./referrals-app-menu-item.component'), options);
 export const referralReasonsDialogPopup = getAsyncLifecycle(() => import('./referral-reasons.modal'), options);
 export const facilityReferralForm = getAsyncLifecycle(() => import('./facility-referral.workspace'), options);

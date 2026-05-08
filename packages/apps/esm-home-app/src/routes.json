@@ -13,6 +13,14 @@
   ],
   "extensions": [
     {
+      "name": "home-app-menu-item",
+      "slot": "app-menu-item-slot",
+      "component": "homeAppMenuItem",
+      "order": 0,
+      "online": true,
+      "offline": true
+    },
+    {
       "name": "home-nav-menu",
       "slot": "home-sidebar-slot",
       "component": "homeNavMenu",

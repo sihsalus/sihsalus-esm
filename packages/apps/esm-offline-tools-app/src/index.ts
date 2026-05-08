@@ -15,6 +15,7 @@ import offlineToolsPatientChartComponent from './offline-actions/offline-actions
 import { setupSynchronizingOfflineActionsNotifications } from './offline-actions/synchronizing-notification';
 import offlineToolsPatientsComponent from './offline-patients/offline-patients.component';
 import offlineToolsPatientsCardComponent from './offline-patients/patients-overview-card.component';
+import offlineToolsAppMenuItemComponent from './offline-tools-app-menu-item.component';
 import offlineToolsLinkComponent from './offline-tools-app-menu-link.component';
 import offlineToolsComponent from './root.component';
 
@@ -31,6 +32,8 @@ const startupKey = Symbol.for('sihsalus.esm-offline-tools-app.startup-complete')
 export const offlineTools = getSyncLifecycle(offlineToolsComponent, options);
 
 export const offlineToolsLink = getSyncLifecycle(offlineToolsLinkComponent, options);
+
+export const offlineToolsAppMenuItem = getSyncLifecycle(offlineToolsAppMenuItemComponent, options);
 
 export const offlineToolsNavItems = getSyncLifecycle(offlineToolsNavItemsComponent, {
   featureName: 'nav-items',

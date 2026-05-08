@@ -139,14 +139,10 @@
       "component": "stockSettings"
     },
     {
-      "name": "stock-management-admin-card-link",
-      "slot": "system-admin-page-card-link-slot",
-      "component": "stockManagementAdminCardLink"
-    },
-    {
-      "name": "stock-management-app-menu-link",
+      "name": "stock-management-app-menu-item",
       "slot": "app-menu-item-slot",
-      "component": "stockManagementAppMenuLink"
+      "component": "stockManagementAppMenuItem",
+      "order": 30
     },
     {
       "name": "delete-packaging-unit-button",

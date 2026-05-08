@@ -13,9 +13,10 @@
   ],
   "extensions": [
     {
-      "name": "offline-tools-link",
-      "slot": "app-menu-slot",
-      "component": "offlineToolsLink",
+      "name": "offline-tools-app-menu-item",
+      "slot": "app-menu-item-slot",
+      "component": "offlineToolsAppMenuItem",
+      "order": 80,
       "online": true,
       "offline": true
     },

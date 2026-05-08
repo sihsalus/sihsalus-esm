@@ -1,0 +1,23 @@
+.tile {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  min-height: 110px;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  color: #525252;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: #161616;
+  word-break: break-word;
+}

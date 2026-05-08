@@ -11,9 +11,9 @@
   ],
   "extensions": [
     {
-      "name": "referrals-app-menu-link",
-      "component": "referralsAppMenuLink",
-      "slot": "app-menu-slot",
+      "name": "referrals-app-menu-item",
+      "component": "referralsAppMenuItem",
+      "slot": "app-menu-item-slot",
       "order": 15
     }
   ],

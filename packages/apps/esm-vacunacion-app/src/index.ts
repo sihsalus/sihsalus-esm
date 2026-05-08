@@ -5,6 +5,7 @@ import { dashboardMeta } from './dashboard.meta';
 import immunizationHistorySummaryComponent from './immunizations/immunization-history-dashboard.component';
 import immunizationsDetailedSummaryComponent from './immunizations/immunizations-detailed-summary.component';
 import immunizationsOverviewComponent from './immunizations/immunizations-overview.component';
+import vaccinationScheduleAppMenuItemComponent from './vaccination-schedule-app-menu-item.component';
 
 const moduleName = '@sihsalus/esm-vacunacion-app';
 
@@ -20,6 +21,8 @@ export function startupApp() {
 }
 
 export const immunizationsOverview = getSyncLifecycle(immunizationsOverviewComponent, options);
+
+export const vaccinationScheduleAppMenuItem = getSyncLifecycle(vaccinationScheduleAppMenuItemComponent, options);
 
 export const immunizationsDetailedSummary = getSyncLifecycle(immunizationsDetailedSummaryComponent, options);
 

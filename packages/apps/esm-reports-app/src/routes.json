@@ -8,19 +8,10 @@
   },
   "extensions": [
     {
-      "name": "reports-app-menu-link",
-      "slot": "app-menu-slot",
-      "component": "reportsAppMenuLink"
-    },
-    {
       "name": "reports-app-menu-item",
       "slot": "app-menu-item-slot",
-      "component": "reportsAppMenuItem"
-    },
-    {
-      "name": "admin-report-link",
-      "slot": "system-admin-page-card-link-slot",
-      "component": "reportsLink"
+      "component": "reportsAppMenuItem",
+      "order": 50
     },
     {
       "name": "run-report",
