@@ -75,11 +75,13 @@ const HeaderItems: React.FC = () => {
             isActive={!showDesktopRailToggle && isActivePanel('sideMenu')}
           />
         )}
-        <ConfigurableLink to={config.logo.link}>
-          <div className={showHamburger ? '' : styles.spacedLogo}>
-            <Logo />
-          </div>
-        </ConfigurableLink>
+        <div className={styles.logoWrapper}>
+          <ConfigurableLink to={config.logo.link}>
+            <div className={showHamburger ? '' : styles.spacedLogo}>
+              <Logo />
+            </div>
+          </ConfigurableLink>
+        </div>
         <div className={styles.divider} />
         <ExtensionSlot name="top-nav-info-slot" className={styles.topNavInfoSlot} />
         <HeaderGlobalBar className={styles.headerGlobalBar}>

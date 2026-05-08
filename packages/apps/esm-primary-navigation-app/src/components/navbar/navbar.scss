@@ -1,5 +1,5 @@
-@use '@carbon/layout';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use "@carbon/layout";
+@use "@openmrs/esm-styleguide/src/vars" as *;
 
 .topNavActionsSlot {
   display: flex;
@@ -35,6 +35,11 @@
   margin-inline-start: layout.$spacing-05;
 }
 
+.logoWrapper {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
 .divider {
   width: 1px;
   height: layout.$spacing-06;
@@ -48,4 +53,11 @@
 
 .panelWrapper {
   display: contents;
+}
+
+@media (max-width: 24rem) {
+  .logoWrapper,
+  .divider {
+    display: none;
+  }
 }

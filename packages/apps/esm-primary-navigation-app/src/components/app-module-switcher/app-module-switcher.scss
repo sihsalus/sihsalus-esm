@@ -1,4 +1,5 @@
 @use "@carbon/layout";
+@use "@carbon/styles/scss/theme";
 @use "@openmrs/esm-styleguide/src/vars" as *;
 
 .overlay {
@@ -15,8 +16,8 @@
       ) -
       #{layout.$spacing-05}
   );
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
+  background-color: theme.$background;
+  border: 1px solid theme.$border-subtle-00;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   overflow: hidden;
   z-index: 9000;
@@ -45,9 +46,9 @@
 
 .footer {
   flex: 0 0 auto;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid theme.$border-subtle-00;
   padding: layout.$spacing-03 layout.$spacing-04;
-  background-color: #fff;
+  background-color: theme.$background;
 }
 
 .logoutButton {
@@ -61,16 +62,20 @@
     top: calc(
       var(--omrs-topnav-height) + var(--omrs-offline-banner-height, 0px)
     );
-    right: layout.$spacing-03;
-    left: layout.$spacing-03;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: auto;
-    max-height: calc(
+    max-height: none;
+    height: calc(
       100dvh - var(--omrs-topnav-height) - var(
           --omrs-offline-banner-height,
           0px
-        ) -
-        #{layout.$spacing-06}
+        )
     );
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
   }
 
   .cardGrid {
