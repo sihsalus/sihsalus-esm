@@ -1,6 +1,7 @@
 import { ConfigurableLink } from '@openmrs/esm-framework';
 import last from 'lodash-es/last';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 
 export interface LinkConfig {
@@ -14,6 +15,7 @@ function getOpenmrsSpaBase(): string {
 }
 
 function LinkExtension({ config }: { config: LinkConfig }) {
+  const { t } = useTranslation();
   const { name, title } = config;
   const location = useLocation();
 
@@ -36,7 +38,7 @@ function LinkExtension({ config }: { config: LinkConfig }) {
       to={`${getOpenmrsSpaBase()}bed-management${name && name !== 'bed-management' ? `/${name}` : ''}`}
       className={`cds--side-nav__link ${name === urlSegment && 'active-left-nav-link'}`}
     >
-      {title}
+      {t(title, title)}
     </ConfigurableLink>
   );
 }
