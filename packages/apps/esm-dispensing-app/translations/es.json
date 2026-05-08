@@ -41,7 +41,7 @@
   "dispensedBy": "Entregado por",
   "dispensedMedication": "Medicamentos dispensados",
   "dispensePrescription": "Dispensar receta",
-  "dispensing": "Dispensación de Medicamentos",
+  "dispensing": "Dispensación",
   "dispensingAppError": "Error en la aplicación de dispensación",
   "dispensingAppMisconfigurationMessage": "Por favor, contacte con la administración del sistema: Configuración incorrecta - 'restrictTotalQuantityDispensed' no puede ser habilitado si 'allowModifyingPrescription' está habilitado.",
   "dose": "Dosis",
