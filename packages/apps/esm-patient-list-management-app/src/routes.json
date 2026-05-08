@@ -34,5 +34,26 @@
       "name": "add-patient-to-patient-list-modal",
       "component": "addPatientToListModal"
     }
+  ],
+  "workspaces2": [
+    {
+      "name": "patient-list-form-workspace",
+      "component": "patientListFormWorkspace",
+      "window": "patient-list-form-window"
+    }
+  ],
+  "workspaceWindows2": [
+    {
+      "name": "patient-list-form-window",
+      "group": "patient-list-form-workspace-group",
+      "width": "wider"
+    }
+  ],
+  "workspaceGroups2": [
+    {
+      "name": "patient-list-form-workspace-group",
+      "scopePattern": "/home/patient-lists",
+      "overlay": false
+    }
   ]
 }

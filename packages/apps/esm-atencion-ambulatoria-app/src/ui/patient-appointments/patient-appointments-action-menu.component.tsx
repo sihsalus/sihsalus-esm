@@ -1,5 +1,5 @@
 import { Layer, OverflowMenu, OverflowMenuItem } from '@carbon/react';
-import { launchWorkspace, showModal, useLayoutType } from '@openmrs/esm-framework';
+import { launchWorkspace2, showModal, useLayoutType } from '@openmrs/esm-framework';
 import { useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -23,14 +23,15 @@ export const PatientAppointmentsActionMenu = ({ appointment, patientUuid }: appo
       workspaceTitle: t('editAppointment', 'Edit an appointment'),
       appointment,
       context: 'editing',
+      patientUuid,
     };
-    launchWorkspace(
+    launchWorkspace2(
       patientAppointmentContext === PatientAppointmentContextTypes.PATIENT_CHART
         ? 'appointments-form-workspace'
-        : 'edit-appointments-form',
+        : 'appointments-form-workspace',
       workspaceConfig,
     );
-  }, [appointment, patientAppointmentContext, t]);
+  }, [appointment, patientAppointmentContext, patientUuid, t]);
 
   const launchCancelAppointmentDialog = () => {
     const dispose = showModal('patient-appointment-cancel-confirmation-dialog', {

@@ -1,14 +1,20 @@
 import { Modal, OverflowMenuItem } from '@carbon/react';
 import { OverflowMenuVertical } from '@carbon/react/icons';
-import { CustomOverflowMenu, formatDate, navigate, parseDate, showSnackbar } from '@openmrs/esm-framework';
+import {
+  CustomOverflowMenu,
+  formatDate,
+  launchWorkspace2,
+  navigate,
+  parseDate,
+  showSnackbar,
+} from '@openmrs/esm-framework';
 import classNames from 'classnames';
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import { deletePatientList } from '../api/api-remote';
 import { usePatientListDetails, usePatientListMembers } from '../api/hooks';
-import CreateEditPatientList from '../create-edit-patient-list/create-edit-list.component';
 import ListDetailsTable from '../list-details-table/list-details-table.component';
 
 import styles from './list-details.scss';
@@ -38,7 +44,6 @@ const ListDetails = () => {
     currentPageSize,
   );
 
-  const [showEditPatientListDetailOverlay, setEditPatientListDetailOverlay] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
 
   const patients: Array<ListDetailsRow> = useMemo(
@@ -95,6 +100,14 @@ const ListDetails = () => {
     setShowDeleteConfirmationModal(true);
   }, []);
 
+  const handleEdit = useCallback(() => {
+    launchWorkspace2('patient-list-form-workspace', {
+      isEditing: true,
+      patientListDetails: listDetails,
+      onSuccess: mutateListDetails,
+    });
+  }, [listDetails, mutateListDetails]);
+
   const confirmDeletePatientList = useCallback(() => {
     deletePatientList(patientListUuid)
       .then(() => {
@@ -141,7 +154,7 @@ const ListDetails = () => {
             <OverflowMenuItem
               className={styles.menuItem}
               itemText={t('editNameDescription', 'Edit name or description')}
-              onClick={() => setEditPatientListDetailOverlay(true)}
+              onClick={handleEdit}
             />
             <OverflowMenuItem
               className={styles.menuItem}
@@ -175,14 +188,6 @@ const ListDetails = () => {
             }}
           />
         </div>
-        {showEditPatientListDetailOverlay && (
-          <CreateEditPatientList
-            close={() => setEditPatientListDetailOverlay(false)}
-            isEditing
-            patientListDetails={listDetails}
-            onSuccess={mutateListDetails}
-          />
-        )}
         {showDeleteConfirmationModal && (
           <Modal
             className={styles.modal}

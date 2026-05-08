@@ -25,7 +25,7 @@ import {
   formatDate,
   formatDatetime,
   isDesktop,
-  launchWorkspace,
+  launchWorkspace2,
   useConfig,
   useLayoutType,
   usePagination,
@@ -145,7 +145,7 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
             ? t('appointmentsScheduledForToday', 'appointments scheduled for today')
             : `${t(tableHeading)} ${t('appointments_lower', 'appointments')}`
         }`}
-        launchForm={() => launchWorkspace('search-patient')}
+        launchForm={() => launchWorkspace2('appointments-patient-search-workspace')}
       />
     );
   }
@@ -251,7 +251,7 @@ const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                                       className={styles.menuItem}
                                       itemText={t('editAppointment', 'Edit appointment')}
                                       onClick={() =>
-                                        launchWorkspace('appointments-form-workspace', {
+                                        launchWorkspace2('appointments-form-workspace', {
                                           patientUuid: matchingAppointment.patient.uuid,
                                           appointment: matchingAppointment,
                                           context: 'editing',

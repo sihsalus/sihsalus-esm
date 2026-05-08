@@ -1,13 +1,12 @@
 import { Tab, TabList, Tabs } from '@carbon/react';
-import { useSession } from '@openmrs/esm-framework';
+import { launchWorkspace2, useSession } from '@openmrs/esm-framework';
 import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import classnames from 'classnames';
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useAllPatientLists } from '../api/hooks';
 import { type PatientListFilter, PatientListType } from '../api/types';
-import CreateEditPatientList from '../create-edit-patient-list/create-edit-list.component';
 import Header from '../header/header.component';
 import ListsTable from '../lists-table/lists-table.component';
 import styles from './lists-dashboard.scss';
@@ -43,14 +42,17 @@ const ListsDashboard: React.FC = () => {
   const patientListFilter = usePatientListFilterForCurrentTab(selectedTab);
   const { patientLists, isLoading, error, mutate } = useAllPatientLists(patientListFilter);
   const { search } = useLocation();
-  const [showCreatePatientList, setShowCreatePatientList] = useState(!!search);
-  const handleShowNewListOverlay = () => {
-    setShowCreatePatientList(true);
-  };
+  const handleShowNewListOverlay = useCallback(() => {
+    launchWorkspace2('patient-list-form-workspace', {
+      onSuccess: mutate,
+    });
+  }, [mutate]);
 
-  const handleHideNewListOverlay = () => {
-    setShowCreatePatientList(false);
-  };
+  useEffect(() => {
+    if (search) {
+      handleShowNewListOverlay();
+    }
+  }, [handleShowNewListOverlay, search]);
 
   const user = useSession();
 
@@ -99,11 +101,6 @@ const ListsDashboard: React.FC = () => {
               />
             </div>
           </div>
-        </section>
-        <section>
-          {showCreatePatientList && (
-            <CreateEditPatientList close={handleHideNewListOverlay} onSuccess={() => mutate()} />
-          )}
         </section>
       </main>
     </AppErrorBoundary>
