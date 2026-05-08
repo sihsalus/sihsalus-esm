@@ -38,6 +38,7 @@
     "audit:workspaces:report": "node packages/tooling/scripts/audit-workspaces.js --report-only",
     "verify": "cross-env TZ=UTC turbo run lint typescript test",
     "verify:changed": "node packages/tooling/scripts/verify-changed.js",
+    "verify:openmrs-core": "cross-env TZ=UTC node packages/tooling/scripts/verify-openmrs-core.js",
     "extract-translations": "turbo run extract-translations",
     "clean": "node packages/tooling/scripts/clean-monorepo.js",
     "clean:dry-run": "node packages/tooling/scripts/clean-monorepo.js --dry-run",

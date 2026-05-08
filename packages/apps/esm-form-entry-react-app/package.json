@@ -32,7 +32,7 @@
     "react-error-boundary": "^4.0.13"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "9.0.2",
+    "@openmrs/esm-framework": "workspace:*",
     "@openmrs/esm-patient-common-lib": "*",
     "dayjs": "1.x",
     "i18next": "25.x",

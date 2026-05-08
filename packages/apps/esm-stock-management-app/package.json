@@ -54,7 +54,7 @@
     "zod": "^3.22.2"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "9.0.2",
+    "@openmrs/esm-framework": "workspace:*",
     "dayjs": "1.x",
     "react": "18.x",
     "react-i18next": "16.x",
@@ -63,7 +63,7 @@
     "swr": "2.x"
   },
   "devDependencies": {
-    "@openmrs/esm-framework": "9.0.2",
+    "@openmrs/esm-framework": "workspace:*",
     "@openmrs/esm-styleguide": "workspace:*",
     "@rspack/cli": "1.7.11",
     "@swc/cli": "^0.1.62",

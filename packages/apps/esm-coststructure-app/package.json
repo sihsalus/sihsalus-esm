@@ -52,7 +52,7 @@
   },
   "peerDependencies": {
     "@carbon/react": "1.x",
-    "@openmrs/esm-framework": "9.0.2",
+    "@openmrs/esm-framework": "workspace:*",
     "dayjs": "1.x",
     "react": "18.x",
     "react-i18next": "16.x",
@@ -60,7 +60,7 @@
     "rxjs": "6.x"
   },
   "devDependencies": {
-    "@openmrs/esm-framework": "9.0.2",
+    "@openmrs/esm-framework": "workspace:*",
     "@openmrs/esm-styleguide": "workspace:*",
     "@playwright/test": "^1.58.2",
     "@rspack/cli": "1.7.11",

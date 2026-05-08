@@ -44,7 +44,7 @@
     "url": "https://github.com/openmrs/openmrs-esm-cohortbuilder-app/issues"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "9.x",
+    "@openmrs/esm-framework": "workspace:*",
     "react": "18.x",
     "react-dom": "18.x",
     "react-i18next": "^16.0.0"
@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@carbon/react": "^1.83.0",
-    "@openmrs/esm-framework": "*",
+    "@openmrs/esm-framework": "workspace:*",
     "@openmrs/esm-styleguide": "workspace:*",
     "@playwright/test": "^1.52.0",
     "@swc/cli": "^0.1.61",

@@ -58,7 +58,7 @@
     "sass": "^1.67.0"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "9.x",
+    "@openmrs/esm-framework": "workspace:*",
     "dayjs": "1.x",
     "i18next": "25.x",
     "react": "18.x",
@@ -72,7 +72,7 @@
     "@dnd-kit/modifiers": "^6.0.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@openmrs/esm-framework": "*",
+    "@openmrs/esm-framework": "workspace:*",
     "@openmrs/esm-styleguide": "workspace:*",
     "@playwright/test": "^1.50.1",
     "@swc/cli": "^0.1.65",

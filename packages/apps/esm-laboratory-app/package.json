@@ -45,14 +45,14 @@
     "react-hook-form": "^7.52.1"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "9.x",
+    "@openmrs/esm-framework": "workspace:*",
     "dayjs": "1.x",
     "react": "18.x",
     "react-i18next": "16.x",
     "react-router-dom": "6.x"
   },
   "devDependencies": {
-    "@openmrs/esm-framework": "*",
+    "@openmrs/esm-framework": "workspace:*",
     "@playwright/test": "^1.52.0",
     "@swc/cli": "^0.1.62",
     "@swc/core": "1.15.21",

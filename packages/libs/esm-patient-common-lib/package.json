@@ -35,7 +35,7 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "@openmrs/esm-framework": "9.x",
+    "@openmrs/esm-framework": "workspace:*",
     "react": "18.x",
     "single-spa": "6.x"
   },
