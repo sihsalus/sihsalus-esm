@@ -23,7 +23,8 @@
         "name": "ward",
         "slot": "ward-dashboard-slot",
         "title": "Hospitalization"
-      }
+      },
+      "order": 60
     },
     {
       "component": "root",

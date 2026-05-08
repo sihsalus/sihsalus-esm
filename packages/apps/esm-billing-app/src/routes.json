@@ -19,7 +19,8 @@
         "name": "billing",
         "title": "billing",
         "slot": "billing-dashboard-slot"
-      }
+      },
+      "order": 90
     },
     {
       "component": "root",

@@ -34,7 +34,8 @@
         "title": "HIV Patient Tracking",
         "slot": "case-management-dashboard-slot",
         "path": "/vih/case-management"
-      }
+      },
+      "order": 70
     },
     {
       "name": "vih-wrap-component-view",

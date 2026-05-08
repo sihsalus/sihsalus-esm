@@ -42,7 +42,8 @@
         "name": "dispensing",
         "slot": "dispensing-dashboard-slot",
         "title": "dispensing"
-      }
+      },
+      "order": 40
     },
     {
       "name": "dispense-action-button",

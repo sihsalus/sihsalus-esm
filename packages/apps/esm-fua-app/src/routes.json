@@ -27,7 +27,8 @@
         "name": "fua-request",
         "slot": "fua-dashboard-slot",
         "title": "fua"
-      }
+      },
+      "order": 50
     },
     {
       "name": "all-fua-requests-tile",
