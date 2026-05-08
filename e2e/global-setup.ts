@@ -3,9 +3,14 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const BASE_URL = process.env.E2E_BASE_URL ?? 'http://localhost:8080/openmrs';
+const SPA_BASE_URL = process.env.E2E_BASE_URL ?? 'http://localhost:8080/openmrs/spa';
+const API_BASE_URL = process.env.E2E_API_BASE_URL ?? SPA_BASE_URL.replace(/\/spa\/?$/, '').replace(/\/$/, '');
 
 async function globalSetup() {
+  if (process.env.E2E_SKIP_AUTH === 'true') {
+    return;
+  }
+
   const username = process.env.E2E_USER_ADMIN_USERNAME ?? 'admin';
   const password = process.env.E2E_USER_ADMIN_PASSWORD ?? 'Admin123';
   const locationUuid = process.env.E2E_LOGIN_DEFAULT_LOCATION_UUID ?? '44c3efb0-2583-4c80-a79e-1f756a03c0a1';
@@ -13,7 +18,7 @@ async function globalSetup() {
   const ctx = await request.newContext();
   const token = Buffer.from(`${username}:${password}`).toString('base64');
 
-  const res = await ctx.post(`${BASE_URL}/ws/rest/v1/session`, {
+  const res = await ctx.post(`${API_BASE_URL}/ws/rest/v1/session`, {
     data: {
       sessionLocation: locationUuid,
       locale: 'es',

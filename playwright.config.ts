@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const BASE_URL = process.env.E2E_BASE_URL ?? 'http://localhost:8080/openmrs/spa';
+const configuredBaseUrl = process.env.E2E_BASE_URL ?? 'http://localhost:8080/openmrs/spa';
+const BASE_URL = configuredBaseUrl.endsWith('/') ? configuredBaseUrl : `${configuredBaseUrl}/`;
+const storageState = process.env.E2E_SKIP_AUTH === 'true' ? undefined : 'e2e/storage-state.json';
 
 export default defineConfig({
   testDir: './e2e/tests',
@@ -13,7 +15,7 @@ export default defineConfig({
   globalSetup: './e2e/global-setup.ts',
   use: {
     baseURL: BASE_URL,
-    storageState: 'e2e/storage-state.json',
+    storageState,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -24,7 +26,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'yarn start',
-    url: `${BASE_URL}/login`,
+    url: `${BASE_URL}login`,
     timeout: 120_000,
     reuseExistingServer: !!process.env.CI,
   },

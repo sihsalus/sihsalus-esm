@@ -176,7 +176,8 @@ const Login: React.FC = () => {
   if (!loginProvider || loginProvider.type === 'basic') {
     return (
       <div className={styles.container}>
-        <div className={styles.loginLayout}>
+        <main className={styles.loginLayout}>
+          <h1 className={styles.srOnly}>{t('login', 'Log in')}</h1>
           <div className={styles.imagePanel} aria-hidden="true">
             <video className={styles.loginMedia} poster={loginImageSrc} autoPlay muted loop playsInline>
               <source src={loginVideoSrc} type="video/mp4" />
@@ -319,7 +320,7 @@ const Login: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     );
   }

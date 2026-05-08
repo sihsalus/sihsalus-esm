@@ -1,6 +1,6 @@
 import { Button } from '@carbon/react';
 import { ChevronDownIcon, TranslateIcon } from '@openmrs/esm-framework';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styles from './login.scss';
