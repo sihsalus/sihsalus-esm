@@ -36,11 +36,18 @@
       "inputs": [
         "src/**",
         "__mocks__/**",
+        "$TURBO_ROOT$/packages/jest.config.js",
+        "$TURBO_ROOT$/packages/tooling/configs/**",
+        "$TURBO_ROOT$/packages/tooling/scripts/setup-tests.ts",
+        "jest.config.js",
+        "jest.config.json",
         "mock.ts",
         "mock-jest.ts",
         "mock-jest.tsx",
+        "setup-tests.ts",
+        "src/setup-tests.ts",
         "vitest.config.ts",
-        "setup-tests.ts"
+        "vitest.config.js"
       ],
       "env": ["TZ"]
     },

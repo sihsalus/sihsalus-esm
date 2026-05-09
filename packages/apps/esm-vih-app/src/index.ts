@@ -35,6 +35,7 @@ export function startupApp(): void {
 // ================================================================================
 // CASE MANAGEMENT EXPORTS
 // ================================================================================
+// t('patientTracking', 'Patient tracking')
 export const caseManagementDashboardLink = getSyncLifecycle(
   createLeftPanelLink({
     name: 'case-management',
@@ -42,6 +43,7 @@ export const caseManagementDashboardLink = getSyncLifecycle(
   }),
   options,
 );
+// t('Case management encounters', 'Case management encounters')
 export const caseEncounterDashboardLink = getSyncLifecycle(
   createDashboardLink({
     ...{

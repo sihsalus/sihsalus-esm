@@ -5,7 +5,6 @@
     "includes": [
       "**",
       "!**/.claude",
-      "!**/.claude/**",
       "!**/node_modules",
       "!**/dist",
       "!**/build",

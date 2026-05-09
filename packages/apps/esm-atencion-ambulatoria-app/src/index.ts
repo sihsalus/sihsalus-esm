@@ -48,6 +48,7 @@ export const genericConditionsOverview = getAsyncLifecycle(
 // CONSULTA EXTERNA EXPORTS
 // ================================================================================
 export const consultaExternaDashboard = getSyncLifecycle(ConsultaExternaDashboard, options);
+// t('consultaExternaTooltip', 'Consulta externa')
 export const consultaExternaDashboardLink = getSyncLifecycle(
   createDashboardLink({ ...consultaExternaDashboardMeta, moduleName }),
   options,
@@ -56,6 +57,7 @@ export const consultaExternaDashboardLink = getSyncLifecycle(
 // ================================================================================
 // SOCIAL HISTORY EXPORTS
 // ================================================================================
+// t('socialHistoryTooltip', 'Historia social')
 export const socialHistoryDashboardLink = getSyncLifecycle(
   createDashboardLink({ ...socialHistoryDashboardMeta, moduleName }),
   options,

@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import DataList from '../../../core/components/table/table.component';
 import { formatDisplayDate } from '../../../core/utils/datetimeUtils';
 import { translateStockLocation, translateStockOperationType } from '../../../core/utils/translationUtils';
+import StockOperationReference from '../../../stock-operations/stock-operation-reference.component';
 import { type StockItemInventoryFilter } from '../../stock-items.resource';
 import TransactionsPrintAction from './printout/transactions-print-action.component';
 import TransactionsLocationsFilter from './transaction-filters/transaction-locations-filter.component';
 import { useStockItemsTransactions } from './transactions.resource';
-import StockOperationReference from '../../../stock-operations/stock-operation-reference.component';
 
 interface TransactionsProps {
   onSubmit?: () => void;

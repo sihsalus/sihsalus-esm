@@ -41,6 +41,9 @@
   },
   "scripts": {
     "build": "rspack build -c rspack.config.cjs",
+    "test": "cross-env TZ=UTC vitest run --passWithNoTests",
+    "test:watch": "cross-env TZ=UTC vitest watch --passWithNoTests",
+    "coverage": "cross-env TZ=UTC vitest run --coverage --passWithNoTests",
     "typescript": "tsc --noEmit && tsc -p tsconfig.build.json"
   },
   "dependencies": {

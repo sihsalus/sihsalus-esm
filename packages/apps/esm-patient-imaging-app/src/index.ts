@@ -18,6 +18,7 @@ export function startupApp() {
 }
 
 // t('Medical Imaging', 'Medical Imaging')
+// t('imagingTooltip', 'Medical Imaging')
 export const imagingDashboardLink = getSyncLifecycle(
   createDashboardLink({
     ...dashboardMeta,

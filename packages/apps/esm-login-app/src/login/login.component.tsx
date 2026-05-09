@@ -24,6 +24,9 @@ export interface LoginReferrer {
 
 type LoginErrorKey = 'invalidCredentials' | 'serverUnavailable' | 'sessionEndpointNotFound';
 
+// t('invalidCredentials', 'Invalid username or password')
+// t('serverUnavailable', 'The authentication server is not responding. Please try again later.')
+// t('sessionEndpointNotFound', 'The login service is not available at this backend address. Please contact support or try a different environment.')
 const loginErrorFallbacks = {
   invalidCredentials: 'Invalid username or password',
   serverUnavailable: 'The authentication server is not responding. Please try again later.',

@@ -1,10 +1,10 @@
 import {
+  type AgeGroup,
   calculateAgeInDays,
   calculateAgeInMonths,
   getAgeGroup,
   getAgeGroupFromBirthDate,
   getAgeGroupInDays,
-  type AgeGroup,
 } from './age-group-utils';
 
 describe('age-group-utils', () => {

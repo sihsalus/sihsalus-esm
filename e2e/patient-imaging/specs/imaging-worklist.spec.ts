@@ -1,17 +1,17 @@
 import { expect } from '@playwright/test';
 import {
-  deleteProcedureStep,
-  getOrthancConfigurations,
-  createRequest,
-  getRequestsByPatient,
-  deleteRequest,
-  createProcedureStep,
-  getProcedureSteps,
-  previewInstance,
   cleanOrthanc,
+  createProcedureStep,
+  createRequest,
+  deleteProcedureStep,
+  deleteRequest,
+  getOrthancConfigurations,
+  getProcedureSteps,
+  getRequestsByPatient,
+  previewInstance,
 } from '../commands/imaging-operations';
+import type { CreateRequestProcedure, CreateRequestProcedureStep, RequestProcedure } from '../commands/types';
 import { test } from '../core';
-import type { RequestProcedure, CreateRequestProcedure, CreateRequestProcedureStep } from '../commands/types';
 
 let patientUuid: string;
 
