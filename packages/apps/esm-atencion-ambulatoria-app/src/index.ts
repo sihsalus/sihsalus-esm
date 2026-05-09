@@ -3,7 +3,6 @@ import { createDashboardLink } from '@openmrs/esm-patient-common-lib';
 import { FormsSelectorWorkspace } from '@sihsalus/esm-sihsalus-shared';
 
 import ClinicalEncounterDashboard from './clinical-encounter/dashboard/clinical-encounter-dashboard.component';
-import ClinicalViewSection from './clinical-view-group/clinical-view-section.component';
 import { configSchema } from './config-schema';
 import ConsultaExternaDashboard from './consulta-externa/consulta-externa-dashboard.component';
 import { consultaExternaDashboardMeta, socialHistoryDashboardMeta } from './dashboard.meta';
@@ -23,7 +22,6 @@ export function startupApp(): void {
 // ================================================================================
 // CLINICAL ENCOUNTERS EXPORTS
 // ================================================================================
-export const clinicalViewPatientDashboard = getSyncLifecycle(ClinicalViewSection, options);
 export const inPatientClinicalEncounter = getSyncLifecycle(ClinicalEncounterDashboard, options);
 
 // ================================================================================

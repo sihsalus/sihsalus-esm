@@ -59,7 +59,9 @@
   "vaccinationDateCannotBeBeforeBirthDate": "La fecha de vacunacion no puede ser anterior a la fecha de nacimiento",
   "vaccinationDateCannotBeInTheFuture": "La fecha de vacunacion no puede ser futura",
   "vaccinationSaved": "Vacunación guardada exitosamente",
+  "vaccination": "Vacunación",
   "vaccinationScheduleBuilder": "Gestor del calendario de vacunación",
+  "vaccinationTooltip": "Revisa y registra vacunas según esquema nacional MINSA, rescate, campañas o indicación especial.",
   "vaccine": "Vacuna",
   "vaccineBatchInformation": "Informacion del lote de vacuna",
   "vaccineRequired": "La vacuna es obligatoria"

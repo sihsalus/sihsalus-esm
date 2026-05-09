@@ -40,7 +40,7 @@
       "name": "billing-summary-dashboard-link",
       "component": "billingSummaryDashboardLink",
       "slot": "patient-chart-dashboard-slot",
-      "order": 11,
+      "order": 22,
       "meta": {
         "columns": 1,
         "columnSpan": 1,

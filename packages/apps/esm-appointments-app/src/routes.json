@@ -69,7 +69,7 @@
       "name": "patient-appointments-summary-dashboard",
       "component": "patientAppointmentsSummaryDashboardLink",
       "slot": "patient-chart-dashboard-slot",
-      "order": 11,
+      "order": 21,
       "meta": {
         "columns": 1,
         "columnSpan": 1,

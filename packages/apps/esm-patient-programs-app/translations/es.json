@@ -33,6 +33,7 @@
   "programEnrollmentsLower": "program enrollments",
   "programEnrollmentWorkspaceTitle": "Registrar la inscripción al programa",
   "programName": "Nombre del programa",
+  "programsTooltip": "Gestiona inscripción, seguimiento y egreso de programas o estrategias sanitarias del paciente.",
   "programRequired": "El programa es obligatorio",
   "Programs": "Programas",
   "programStatus": "Estado del programa",

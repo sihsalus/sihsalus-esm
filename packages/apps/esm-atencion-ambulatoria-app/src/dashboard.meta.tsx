@@ -4,6 +4,7 @@ export const consultaExternaDashboardMeta = {
   columns: 1,
   title: 'consultaExterna',
   path: 'consulta-externa',
+  tooltip: 'consultaExternaTooltip',
   config: {},
 } as const;
 
@@ -13,5 +14,6 @@ export const socialHistoryDashboardMeta = {
   columns: 1,
   title: 'socialHistory',
   path: 'social-history-dashboard',
+  tooltip: 'socialHistoryTooltip',
   config: {},
 } as const;

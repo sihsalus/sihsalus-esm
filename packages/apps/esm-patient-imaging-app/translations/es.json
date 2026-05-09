@@ -63,6 +63,7 @@
   "time": "Hora",
   "upload": "Subir",
   "Medical Imaging": "Imágenes médicas",
+  "imagingTooltip": "Consulta solicitudes, estudios e imágenes diagnósticas asociadas a la atención del paciente.",
   "worklist": "Lista de trabajo",
   "worklistNoFoundMessage": "No se encontró lista de trabajo"
 }

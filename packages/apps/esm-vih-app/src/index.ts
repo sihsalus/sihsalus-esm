@@ -19,7 +19,6 @@ import {
   htsDashboardMeta,
 } from './specialized-clinics/hiv-care-and-treatment-services/hiv-care-and-treatment-dashboard.meta';
 import HivTestingEncountersList from './specialized-clinics/hiv-care-and-treatment-services/hiv-testing-services/views/hiv-testing/hiv-testing-services.component';
-import { specialClinicsNavGroup } from './specialized-clinics/special-clinic-dashboard.meta';
 
 const moduleName = '@sihsalus/esm-vih-app';
 const options = {
@@ -65,7 +64,6 @@ export const wrapComponent = getSyncLifecycle(WrapComponent, options);
 // ================================================================================
 // SPECIALIZED CLINICS / HIV EXPORTS
 // ================================================================================
-export const specialClinicsSideNavGroup = getSyncLifecycle(createDashboardGroup(specialClinicsNavGroup), options);
 export const genericDashboard = getSyncLifecycle(GenericDashboard, options);
 export const genericNavLinks = getSyncLifecycle(GenericNavLinks, options);
 export const hivCareAndTreatMentSideNavGroup = getSyncLifecycle(

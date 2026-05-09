@@ -11,6 +11,8 @@
   "caseManagementFormTitle": "Formulario de Seguimiento de Pacientes",
   "caseManagemet": "Gestión de casos",
   "caseManager": "Gestor de casos",
+  "physiotherapy-clinicTooltip": "Registra evaluación funcional, terapia física, rehabilitación y seguimiento del plan terapéutico.",
+  "psicologia-clinicTooltip": "Registra evaluación, consejería y seguimiento de salud mental dentro de la atención integral.",
   "clientEligibility": "Elegibilidad del paciente",
   "clinicalViews": "Módulos MINSA",
   "contacted": "Contactado",

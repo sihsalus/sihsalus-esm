@@ -10,6 +10,7 @@
   "dateTime": "Fecha y hora",
   "delete": "Delete",
   "dentalAttention": "Atención odontológica",
+  "dentalAttentionTooltip": "Registra evaluación odontológica, odontograma, procedimientos y seguimiento de salud bucal.",
   "dentalAttentionDeleted": "La atención odontológica fue eliminada.",
   "dentalAttentionDeleteError": "No se pudo eliminar la atención odontológica.",
   "dentalAttentionEmptyDescription": "No hay registros de atención odontológica para mostrar para este paciente.",
