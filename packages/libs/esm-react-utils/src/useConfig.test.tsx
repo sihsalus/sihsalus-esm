@@ -1,6 +1,3 @@
-/* eslint-disable -- Test file uses React Testing Library patterns that conflict
-   with current ESLint rules. TODO: Investigate updating test patterns or ESLint config */
-
 import {
   type ConfigInternalStore,
   configInternalStore,

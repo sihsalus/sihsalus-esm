@@ -29,6 +29,7 @@ export const root = getSyncLifecycle(rootComponent, options);
 // ================================================================================
 // DASHBOARD LINK
 // ================================================================================
+// t('fua', 'FUA')
 export const fuaDashboardLink = getSyncLifecycle(
   createLeftPanelLink({
     name: 'fua-request',

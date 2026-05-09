@@ -5,10 +5,10 @@ import { type ImmunizationSequenceDefinition } from '../types/fhir-immunization-
 export const immunizationFormSub = new BehaviorSubject<ImmunizationFormState | null>(null);
 
 export const linkConfiguredSequences = (
-  existingImmunizations: Array<ImmunizationGrouped>,
+  existingImmunizations: Array<ImmunizationGrouped> | null | undefined,
   configuredSequences: Array<ImmunizationSequenceDefinition>,
 ): Array<ImmunizationGrouped> => {
-  return existingImmunizations.map((immunization) => {
+  return (existingImmunizations ?? []).map((immunization) => {
     const matchingSequenceDef = configuredSequences.find(
       (sequencesDef) => sequencesDef.vaccineConceptUuid === immunization.vaccineUuid,
     );

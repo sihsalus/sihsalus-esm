@@ -289,9 +289,7 @@ export async function evaluateAsTypeAsync<T>(
   typePredicate: (result: unknown) => result is T,
 ): Promise<T> {
   if (typeof expression !== 'string' && (typeof expression !== 'object' || !expression || !('type' in expression))) {
-    return Promise.reject(
-      `Unknown expression type ${expression}. Expressions must either be a string or pre-compiled string.`,
-    );
+    throw `Unknown expression type ${expression}. Expressions must either be a string or pre-compiled string.`;
   }
 
   if (typeof expression === 'string' && expression.trim().length === 0) {

@@ -168,11 +168,9 @@ export async function preloadImport(jsPackage: string, importMap?: ImportMap) {
         });
       }
 
-      return Promise.reject(err);
+      throw err;
     }
   }
-
-  return Promise.resolve();
 }
 
 /**

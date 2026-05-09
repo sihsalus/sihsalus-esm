@@ -46,23 +46,15 @@
       "offline": false
     },
     {
-      "name": "vih-special-clinics-dashboard-group-link",
-      "component": "specialClinicsSideNavGroup",
-      "slot": "patient-chart-dashboard-slot",
-      "meta": {
-        "slot": "special-clinics-slot",
-        "isFolder": true
-      }
-    },
-    {
       "name": "vih-patient-chart-special-clinic-dashboard-slot",
       "slot": "patient-chart-special-clinic-dashboard-slot",
       "component": "genericDashboard"
     },
     {
       "name": "vih-generic-nav-links",
-      "slot": "special-clinics-slot",
+      "slot": "patient-chart-dashboard-slot",
       "component": "genericNavLinks",
+      "order": 13,
       "meta": {
         "columns": 1,
         "columnSpan": 1,

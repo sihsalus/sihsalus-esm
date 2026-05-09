@@ -32,6 +32,18 @@ type Action = {
   toneClass: string;
 };
 
+// t('searchPatient', 'Search patient')
+// t('searchPatientDescription', 'Find an existing patient record')
+// t('registerPatient', 'Register patient')
+// t('registerPatientDescription', 'Create a new patient record')
+// t('careQueues', 'Care queues')
+// t('careQueuesDescription', 'Manage patient service queues')
+// t('appointments', 'Appointments')
+// t('appointmentsDescription', 'View and manage appointments')
+// t('laboratory', 'Laboratory')
+// t('laboratoryDescription', 'Review lab orders and results')
+// t('fua', 'FUA')
+// t('fuaDescription', 'Manage Formato Unico de Atencion')
 const actions = [
   {
     key: 'searchPatient',

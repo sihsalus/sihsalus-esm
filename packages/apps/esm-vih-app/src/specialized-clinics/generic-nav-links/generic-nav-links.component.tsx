@@ -1,18 +1,30 @@
-import { ConfigurableLink, useConfig, usePatient } from '@openmrs/esm-framework';
+import { Tooltip } from '@carbon/react';
+import { ConfigurableLink, useConfig } from '@openmrs/esm-framework';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { ConfigObject } from '../../config-schema';
 
-export const basePath = '${openmrsSpaBase}/patient/';
+const specialClinicsDashboardPath = 'vih-special-clinics-dashboard';
 
-const GenericNavLinks: React.FC = () => {
+interface GenericNavLinksProps {
+  basePath: string;
+}
+
+const GenericNavLinks: React.FC<GenericNavLinksProps> = ({ basePath }) => {
   const { specialClinics } = useConfig<ConfigObject>();
-  const { patientUuid } = usePatient();
+  const { t } = useTranslation();
 
   return (
     <>
       {specialClinics.map((clinic) => (
-        <GenericLink key={clinic.id} title={clinic.title} path={clinic.id} patientUuid={patientUuid} />
+        <GenericLink
+          key={clinic.id}
+          title={clinic.title}
+          path={clinic.id}
+          basePath={basePath}
+          tooltip={t(`${clinic.id}Tooltip`, getDefaultTooltip(clinic.id))}
+        />
       ))}
     </>
   );
@@ -20,14 +32,38 @@ const GenericNavLinks: React.FC = () => {
 
 export default GenericNavLinks;
 
-const GenericLink: React.FC<{ title: string; path: string; patientUuid: string }> = ({ title, path, patientUuid }) => {
-  return (
+const GenericLink: React.FC<{ title: string; path: string; basePath: string; tooltip: string }> = ({
+  title,
+  path,
+  basePath,
+  tooltip,
+}) => {
+  const link = (
     <ConfigurableLink
-      style={{ paddingLeft: '2rem' }}
       className={`cds--side-nav__link`}
-      to={`${basePath}${patientUuid}/chart/${encodeURIComponent('special-clinics-dashboard')}?clinic=${path}`}
+      to={`${basePath}/${encodeURIComponent(specialClinicsDashboardPath)}?clinic=${path}`}
+      title={tooltip}
     >
       {title}
     </ConfigurableLink>
   );
+
+  return (
+    <div>
+      <Tooltip align="right" label={tooltip} enterDelayMs={400} leaveDelayMs={100}>
+        {link}
+      </Tooltip>
+    </div>
+  );
 };
+
+function getDefaultTooltip(clinicId: string) {
+  switch (clinicId) {
+    case 'psicologia-clinic':
+      return 'Registra evaluación, consejería y seguimiento de salud mental dentro de la atención integral.';
+    case 'physiotherapy-clinic':
+      return 'Registra evaluación funcional, terapia física, rehabilitación y seguimiento del plan terapéutico.';
+    default:
+      return 'Registra y revisa atenciones especializadas del paciente.';
+  }
+}

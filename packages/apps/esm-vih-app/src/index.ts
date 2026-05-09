@@ -19,7 +19,6 @@ import {
   htsDashboardMeta,
 } from './specialized-clinics/hiv-care-and-treatment-services/hiv-care-and-treatment-dashboard.meta';
 import HivTestingEncountersList from './specialized-clinics/hiv-care-and-treatment-services/hiv-testing-services/views/hiv-testing/hiv-testing-services.component';
-import { specialClinicsNavGroup } from './specialized-clinics/special-clinic-dashboard.meta';
 
 const moduleName = '@sihsalus/esm-vih-app';
 const options = {
@@ -36,6 +35,7 @@ export function startupApp(): void {
 // ================================================================================
 // CASE MANAGEMENT EXPORTS
 // ================================================================================
+// t('patientTracking', 'Patient tracking')
 export const caseManagementDashboardLink = getSyncLifecycle(
   createLeftPanelLink({
     name: 'case-management',
@@ -43,6 +43,7 @@ export const caseManagementDashboardLink = getSyncLifecycle(
   }),
   options,
 );
+// t('Case management encounters', 'Case management encounters')
 export const caseEncounterDashboardLink = getSyncLifecycle(
   createDashboardLink({
     ...{
@@ -50,7 +51,7 @@ export const caseEncounterDashboardLink = getSyncLifecycle(
       slot: 'patient-chart-case-encounter-slot',
       columns: 1,
       title: 'Case management encounters',
-      path: 'case-encounter-dashboard',
+      path: 'vih-case-management-encounters',
       config: {},
     },
     moduleName,
@@ -65,7 +66,6 @@ export const wrapComponent = getSyncLifecycle(WrapComponent, options);
 // ================================================================================
 // SPECIALIZED CLINICS / HIV EXPORTS
 // ================================================================================
-export const specialClinicsSideNavGroup = getSyncLifecycle(createDashboardGroup(specialClinicsNavGroup), options);
 export const genericDashboard = getSyncLifecycle(GenericDashboard, options);
 export const genericNavLinks = getSyncLifecycle(GenericNavLinks, options);
 export const hivCareAndTreatMentSideNavGroup = getSyncLifecycle(

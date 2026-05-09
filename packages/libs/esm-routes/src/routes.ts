@@ -95,42 +95,31 @@ function addRouteOverrideInternal(moduleName: string, routes: OpenmrsAppRoutes |
  * @returns true if the routes value is an OpenmrsAppRoutes
  */
 export function isOpenmrsAppRoutes(routes: OpenmrsAppRoutes | unknown): routes is OpenmrsAppRoutes {
-  if (routes && typeof routes === 'object') {
-    const hasOwnProperty = Object.prototype.hasOwnProperty;
-    // we cast maybeRoutes as OpenmrsAppRoutes mainly so we can refer to the properties it should
-    // have without repeated casts
-    const maybeRoutes = routes as OpenmrsAppRoutes;
-
-    if (hasOwnProperty.call(routes, 'pages')) {
-      if (!maybeRoutes.pages || !Array.isArray(maybeRoutes.pages)) {
-        return false;
-      }
-    }
-
-    if (hasOwnProperty.call(routes, 'extensions')) {
-      if (!maybeRoutes.extensions || !Array.isArray(maybeRoutes.extensions)) {
-        return false;
-      }
-    }
-
-    if (hasOwnProperty.call(routes, 'workspaces')) {
-      if (!maybeRoutes.workspaces || !Array.isArray(maybeRoutes.workspaces)) {
-        return false;
-      }
-    }
-
-    if (hasOwnProperty.call(routes, 'modals')) {
-      if (!maybeRoutes.modals || !Array.isArray(maybeRoutes.modals)) {
-        return false;
-      }
-    }
-
-    // Notice that we're essentially testing for things that cannot be treated as an OpenmrsAppRoutes
-    // object. This is because a completely empty object is a valid OpenmrsAppRoutes object.
-    return true;
+  if (!routes || typeof routes !== 'object') {
+    return false;
   }
 
-  return false;
+  // we cast maybeRoutes as OpenmrsAppRoutes mainly so we can refer to the properties it should
+  // have without repeated casts
+  const hasOwnProperty = Object.prototype.hasOwnProperty;
+  const maybeRoutes = routes as OpenmrsAppRoutes;
+
+  if (hasOwnProperty.call(routes, 'pages') && !Array.isArray(maybeRoutes.pages)) {
+    return false;
+  }
+  if (hasOwnProperty.call(routes, 'extensions') && !Array.isArray(maybeRoutes.extensions)) {
+    return false;
+  }
+  if (hasOwnProperty.call(routes, 'workspaces') && !Array.isArray(maybeRoutes.workspaces)) {
+    return false;
+  }
+  if (hasOwnProperty.call(routes, 'modals') && !Array.isArray(maybeRoutes.modals)) {
+    return false;
+  }
+
+  // Notice that we're essentially testing for things that cannot be treated as an OpenmrsAppRoutes
+  // object. This is because a completely empty object is a valid OpenmrsAppRoutes object.
+  return true;
 }
 
 /**

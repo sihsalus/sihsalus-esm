@@ -91,6 +91,54 @@ const time12HourFormatRegexPattern = '^(1[0-2]|0?[1-9]):[0-5][0-9]$';
 
 const isValidTime = (timeStr: string) => timeStr.match(new RegExp(time12HourFormatRegexPattern));
 
+interface AppointmentFormDefaults {
+  defaultTimeFormat: 'AM' | 'PM';
+  defaultStartDate: Date;
+  defaultEndDate: Date | null;
+  defaultEndDateText: string;
+  defaultStartDateText: string;
+  defaultAppointmentStartTime: string;
+  defaultDuration: number | undefined;
+  defaultRecurringPatternType: 'DAY' | 'WEEK';
+  defaultRecurringPatternPeriod: number;
+  defaultRecurringPatternDaysOfWeek: string[];
+}
+
+function resolveAppointmentFormDefaults(
+  appointment: Appointment | undefined,
+  recurringPattern: RecurringPattern | undefined,
+  selectedDate: string | Date | undefined,
+): AppointmentFormDefaults {
+  const editedTimeFormat: 'AM' | 'PM' = new Date(appointment?.startDateTime).getHours() >= 12 ? 'PM' : 'AM';
+  const currentTimeFormat: 'AM' | 'PM' = new Date().getHours() >= 12 ? 'PM' : 'AM';
+
+  return {
+    defaultTimeFormat: appointment?.startDateTime ? editedTimeFormat : currentTimeFormat,
+    defaultStartDate: appointment?.startDateTime
+      ? new Date(appointment.startDateTime)
+      : selectedDate
+        ? new Date(selectedDate)
+        : new Date(),
+    defaultEndDate: recurringPattern?.endDate ? new Date(recurringPattern.endDate) : null,
+    defaultEndDateText: recurringPattern?.endDate ? dayjs(new Date(recurringPattern.endDate)).format(dateFormat) : '',
+    defaultStartDateText: appointment?.startDateTime
+      ? dayjs(new Date(appointment.startDateTime)).format(dateFormat)
+      : selectedDate
+        ? dayjs(selectedDate).format(dateFormat)
+        : dayjs(new Date()).format(dateFormat),
+    defaultAppointmentStartTime: appointment?.startDateTime
+      ? dayjs(new Date(appointment.startDateTime)).format('hh:mm')
+      : dayjs(new Date()).format('hh:mm'),
+    defaultDuration:
+      appointment?.startDateTime && appointment?.endDateTime
+        ? dayjs(appointment.endDateTime).diff(dayjs(appointment.startDateTime), 'minutes')
+        : undefined,
+    defaultRecurringPatternType: (recurringPattern?.type || 'DAY') as 'DAY' | 'WEEK',
+    defaultRecurringPatternPeriod: recurringPattern?.period || 1,
+    defaultRecurringPatternDaysOfWeek: recurringPattern?.daysOfWeek || [],
+  };
+}
+
 const AppointmentsForm: React.FC<
   AppointmentsFormProps &
     Partial<Workspace2DefinitionProps<AppointmentsFormProps, object>> & {
@@ -111,12 +159,6 @@ const AppointmentsForm: React.FC<
   const promptBeforeClosing = props.promptBeforeClosing;
   const { patient } = usePatient(patientUuid);
   const { mutateAppointments } = useMutateAppointments();
-  const editedAppointmentTimeFormat = new Date(appointment?.startDateTime).getHours() >= 12 ? 'PM' : 'AM';
-  const defaultTimeFormat = appointment?.startDateTime
-    ? editedAppointmentTimeFormat
-    : new Date().getHours() >= 12
-      ? 'PM'
-      : 'AM';
   const { t } = useTranslation();
   const isTablet = useLayoutType() === 'tablet';
   const locations = useLocations(appointmentLocationTagName);
@@ -133,36 +175,22 @@ const AppointmentsForm: React.FC<
 
   const [isRecurringAppointment, setIsRecurringAppointment] = useState(false);
   const [isAllDayAppointment, setIsAllDayAppointment] = useState(false);
-  const defaultRecurringPatternType = recurringPattern?.type || 'DAY';
-  const defaultRecurringPatternPeriod = recurringPattern?.period || 1;
-  const defaultRecurringPatternDaysOfWeek = recurringPattern?.daysOfWeek || [];
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // TODO can we clean this all up to be more consistent between using Date and dayjs?
-  const defaultStartDate = appointment?.startDateTime
-    ? new Date(appointment?.startDateTime)
-    : selectedDate
-      ? new Date(selectedDate)
-      : new Date();
-  const defaultEndDate = recurringPattern?.endDate ? new Date(recurringPattern?.endDate) : null;
-  const defaultEndDateText = recurringPattern?.endDate
-    ? dayjs(new Date(recurringPattern.endDate)).format(dateFormat)
-    : '';
-  const defaultStartDateText = appointment?.startDateTime
-    ? dayjs(new Date(appointment.startDateTime)).format(dateFormat)
-    : selectedDate
-      ? dayjs(selectedDate).format(dateFormat)
-      : dayjs(new Date()).format(dateFormat);
-
-  const defaultAppointmentStartTime = appointment?.startDateTime
-    ? dayjs(new Date(appointment?.startDateTime)).format('hh:mm')
-    : dayjs(new Date()).format('hh:mm');
-
-  const defaultDuration =
-    appointment?.startDateTime && appointment?.endDateTime
-      ? dayjs(appointment.endDateTime).diff(dayjs(appointment.startDateTime), 'minutes')
-      : undefined;
+  const {
+    defaultTimeFormat,
+    defaultStartDate,
+    defaultEndDate,
+    defaultEndDateText,
+    defaultStartDateText,
+    defaultAppointmentStartTime,
+    defaultDuration,
+    defaultRecurringPatternType,
+    defaultRecurringPatternPeriod,
+    defaultRecurringPatternDaysOfWeek,
+  } = resolveAppointmentFormDefaults(appointment, recurringPattern, selectedDate);
 
   // t('durationErrorMessage', 'Duration should be greater than zero')
   const appointmentsFormSchema = z

@@ -1,10 +1,10 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
-import { useConfig, useSession } from '@openmrs/esm-framework';
 import { receiptOperationTypeMock, returnOperationTypeMock, stockIssueOperationtypeMock } from '@mocks';
-import { useStockOperations } from '../stock-operations.resource';
+import { useConfig, useSession } from '@openmrs/esm-framework';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { useStockOperationTypes } from '../../stock-lookups/stock-lookups.resource';
+import { useStockOperations } from '../stock-operations.resource';
 import useParties from './hooks/useParties';
 import StockOperationForm from './stock-operation-form.component';
 

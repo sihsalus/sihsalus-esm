@@ -42,7 +42,7 @@ const GenericDashboard: React.FC<GenericDashboardProps> = ({ patientUuid }) => {
     };
   }, []);
 
-  const clinicalFormTitle = capitalize(clinic.replace('-', ' '));
+  const clinicalFormTitle = clinicInfo?.title ?? capitalize(clinic.replace('-', ' '));
 
   const handleWorkspaceForm = () => {
     launchWorkspace(patientFormEntryWorkspace, {

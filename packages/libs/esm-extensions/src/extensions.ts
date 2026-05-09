@@ -20,7 +20,7 @@ import {
   getExtensionSlotsConfigStore,
   getExtensionsConfigStore,
 } from '@openmrs/esm-config';
-import { evaluateAsBoolean } from '@openmrs/esm-expression-evaluator';
+import { evaluateAsBoolean, type VariablesMap } from '@openmrs/esm-expression-evaluator';
 import { type FeatureFlagsStore, featureFlagsStore } from '@openmrs/esm-feature-flags';
 import { subscribeConnectivityChanged } from '@openmrs/esm-globals';
 import { isOnline as isOnlineFn } from '@openmrs/esm-utils';
@@ -335,6 +335,33 @@ function getOrder(
   }
 }
 
+function extensionMeetsPrivilegeRequirements(requiredPrivileges: string | string[], session: Session | null): boolean {
+  const hasPrivileges =
+    requiredPrivileges &&
+    (typeof requiredPrivileges === 'string' || (Array.isArray(requiredPrivileges) && requiredPrivileges.length > 0));
+  if (!hasPrivileges) {
+    return true;
+  }
+  return !!session?.user && userHasAccess(requiredPrivileges, session.user);
+}
+
+function extensionMeetsDisplayCondition(
+  expression: string | undefined,
+  expressionContext: VariablesMap,
+  name: string,
+  slotName: string,
+): boolean {
+  if (!expression || typeof expression !== 'string' || expression.trim().length === 0) {
+    return true;
+  }
+  try {
+    return evaluateAsBoolean(expression, expressionContext);
+  } catch (e) {
+    console.error(`Error while evaluating expression '${expression}' for extension ${name} in slot ${slotName}`, e);
+    return false;
+  }
+}
+
 function getAssignedExtensionsFromSlotData(
   slotName: string,
   internalState: ExtensionInternalStore,
@@ -361,61 +388,39 @@ function getAssignedExtensionsFromSlotData(
     const extension = internalState.extensions[name];
 
     // if the extension has not been registered yet, do not include it
-    if (extension) {
-      const requiredPrivileges = extensionConfig?.['Display conditions']?.privileges ?? extension.privileges ?? [];
-      if (
-        requiredPrivileges &&
-        (typeof requiredPrivileges === 'string' || (Array.isArray(requiredPrivileges) && requiredPrivileges.length > 0))
-      ) {
-        if (!session?.user) {
-          continue;
-        }
-
-        if (!userHasAccess(requiredPrivileges, session.user)) {
-          continue;
-        }
-      }
-
-      const displayConditionExpression =
-        extensionConfig?.['Display conditions']?.expression || extension.displayExpression;
-
-      if (
-        displayConditionExpression !== undefined &&
-        typeof displayConditionExpression === 'string' &&
-        displayConditionExpression.trim().length > 0
-      ) {
-        try {
-          if (!evaluateAsBoolean(displayConditionExpression, expressionContext)) {
-            continue;
-          }
-        } catch (e) {
-          console.error(
-            `Error while evaluating expression '${displayConditionExpression}' for extension ${name} in slot ${slotName}`,
-            e,
-          );
-          continue;
-        }
-      }
-
-      if (extension.featureFlag && !enabledFeatureFlags.includes(extension.featureFlag)) {
-        continue;
-      }
-
-      if (window.offlineEnabled && !checkStatusFor(isOnline, extension.online, extension.offline)) {
-        continue;
-      }
-
-      extensions.push({
-        id,
-        name,
-        moduleName: extension.moduleName,
-        config: extensionConfig,
-        featureFlag: extension.featureFlag,
-        meta: extension.meta,
-        online: extensionConfig?.['Display conditions']?.online ?? extension.online ?? true,
-        offline: extensionConfig?.['Display conditions']?.offline ?? extension.offline ?? false,
-      });
+    if (!extension) {
+      continue;
     }
+
+    const requiredPrivileges = extensionConfig?.['Display conditions']?.privileges ?? extension.privileges ?? [];
+    if (!extensionMeetsPrivilegeRequirements(requiredPrivileges, session)) {
+      continue;
+    }
+
+    const displayConditionExpression =
+      extensionConfig?.['Display conditions']?.expression || extension.displayExpression;
+    if (!extensionMeetsDisplayCondition(displayConditionExpression, expressionContext, name, slotName)) {
+      continue;
+    }
+
+    if (extension.featureFlag && !enabledFeatureFlags.includes(extension.featureFlag)) {
+      continue;
+    }
+
+    if (window.offlineEnabled && !checkStatusFor(isOnline, extension.online, extension.offline)) {
+      continue;
+    }
+
+    extensions.push({
+      id,
+      name,
+      moduleName: extension.moduleName,
+      config: extensionConfig,
+      featureFlag: extension.featureFlag,
+      meta: extension.meta,
+      online: extensionConfig?.['Display conditions']?.online ?? extension.online ?? true,
+      offline: extensionConfig?.['Display conditions']?.offline ?? extension.offline ?? false,
+    });
   }
 
   return extensions;

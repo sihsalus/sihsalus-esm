@@ -1,7 +1,6 @@
 import { type FetchResponse, type Order, showNotification, showSnackbar } from '@openmrs/esm-framework';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { rejectLabOrder, useInvalidateLabOrders } from '../../laboratory.resource';
 import RejectLabRequestModal from './reject-lab-request-modal.component';
 

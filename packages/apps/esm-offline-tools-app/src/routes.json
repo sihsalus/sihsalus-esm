@@ -126,7 +126,7 @@
         "slot": "patient-chart-offline-actions-dashboard-slot",
         "icon": "omrs-icon-renew"
       },
-      "order": 12,
+      "order": 24,
       "online": true,
       "offline": true
     },

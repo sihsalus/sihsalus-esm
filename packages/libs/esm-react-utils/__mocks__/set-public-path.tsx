@@ -1,1 +1,1 @@
-export function setPublicPath() {}
+export function setPublicPath() {} // NOSONAR

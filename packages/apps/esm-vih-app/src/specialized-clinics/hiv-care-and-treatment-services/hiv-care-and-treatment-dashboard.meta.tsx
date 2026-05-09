@@ -3,7 +3,7 @@ export const htsDashboardMeta = {
   slot: 'patient-chart-hts-dashboard-slot',
   columns: 1,
   title: 'HIV Testing Services',
-  path: 'hts-dashboard',
+  path: 'vih-hts-dashboard',
 } as const;
 
 export const defaulterTracingDashboardMeta = {
@@ -11,7 +11,7 @@ export const defaulterTracingDashboardMeta = {
   slot: 'patient-chart-defaulter-tracing-dashboard-slot',
   columns: 1,
   title: 'Defaulter Tracing',
-  path: 'defaulter-tracing-dashboard',
+  path: 'vih-defaulter-tracing-dashboard',
 } as const;
 
 export const hivCareAndTreatmentNavGroup = {

@@ -1,16 +1,16 @@
 import { expect, request } from '@playwright/test';
 import {
-  getStudiesByPatient,
-  getStudiesByConfig,
   assignStudy,
-  getOrthancConfigurations,
-  uploadStudies,
+  cleanOrthanc,
   deleteStudy,
+  getOrthancConfigurations,
+  getStudiesByConfig,
+  getStudiesByPatient,
+  getStudyInstances,
+  getStudySeries,
   linkStudies,
   previewInstance,
-  cleanOrthanc,
-  getStudySeries,
-  getStudyInstances,
+  uploadStudies,
 } from '../commands/imaging-operations';
 import { test } from '../core';
 

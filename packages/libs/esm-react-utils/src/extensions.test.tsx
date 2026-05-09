@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useReducer } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';

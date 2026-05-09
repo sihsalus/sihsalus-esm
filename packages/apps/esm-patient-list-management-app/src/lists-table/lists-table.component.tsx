@@ -80,7 +80,7 @@ const ListsTable: React.FC<PatientListTableProps> = ({
 
   const { toggleStarredList, starredLists } = useStarredLists();
 
-  function customSortRow(listA, listB, { sortDirection, sortStates: _sortStates, ...props }) {
+  function customSortRow(_listA, _listB, { sortDirection, sortStates: _sortStates, ...props }) {
     const { key } = props;
     setSortParams({ key, order: sortDirection });
     return 0;
@@ -181,7 +181,7 @@ const ListsTable: React.FC<PatientListTableProps> = ({
               <TableBody className={styles.tableBody}>
                 {rows.map((row) => {
                   const currentList = patientLists?.find((list) => list?.id === row.id);
-                  const listDetailsPageUrl = '${openmrsSpaBase}/home/patient-lists/${listUuid}';
+                  const listDetailsPageUrl = globalThis.spaBase + `/home/patient-lists/${currentList?.id}`;
 
                   return (
                     <TableRow
@@ -273,7 +273,7 @@ function useStarredLists() {
   const setInitialStarredLists = useCallback(() => {
     const starredPatientLists = currentUser?.userProperties?.starredPatientLists ?? '';
     setStarredLists(starredPatientLists.split(','));
-  }, [currentUser?.userProperties?.starredPatientLists, setStarredLists]);
+  }, [currentUser?.userProperties?.starredPatientLists]);
 
   const updateUserProperties = useCallback(
     (newStarredLists: Array<string>) => {
@@ -311,7 +311,7 @@ function useStarredLists() {
       const timeout = setTimeout(() => updateUserProperties(newStarredLists), 1500);
       setStarHandleTimeout(timeout);
     },
-    [starredLists, starhandleTimeout, setStarredLists, setStarHandleTimeout, updateUserProperties],
+    [starredLists, starhandleTimeout, updateUserProperties],
   );
 
   useEffect(() => {

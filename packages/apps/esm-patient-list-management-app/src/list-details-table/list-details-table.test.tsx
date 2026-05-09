@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 
 import ListDetailsTable from './list-details-table.component';
 

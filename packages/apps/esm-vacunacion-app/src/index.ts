@@ -29,6 +29,8 @@ export const immunizationsDetailedSummary = getSyncLifecycle(immunizationsDetail
 export const immunizationHistorySummary = getSyncLifecycle(immunizationHistorySummaryComponent, options);
 export const immunizationsDashboardLink =
   // t('Immunizations', 'Immunizations')
+  // t('vaccination', 'Vaccination')
+  // t('vaccinationTooltip', 'Vaccination')
   getSyncLifecycle(
     createDashboardLink({
       ...dashboardMeta,

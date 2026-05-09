@@ -1,5 +1,5 @@
-import { type TFunction } from 'i18next';
 import { launchWorkspace } from '@openmrs/esm-framework';
+import { type TFunction } from 'i18next';
 import { type StockItemDTO } from '../core/api/types/stockItem/StockItem';
 
 export const launchAddOrEditStockItemWorkspace = (t: TFunction, stockItem?: StockItemDTO) => {

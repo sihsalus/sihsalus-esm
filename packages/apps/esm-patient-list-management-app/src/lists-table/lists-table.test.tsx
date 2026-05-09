@@ -1,7 +1,6 @@
 import { getDefaultsFromConfigSchema, useConfig, useSession } from '@openmrs/esm-framework';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import { mockSession } from 'test-utils';
 
 import type { PatientList } from '../api/types';

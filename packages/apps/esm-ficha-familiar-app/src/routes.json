@@ -32,7 +32,7 @@
       "name": "relationships-link",
       "component": "relationshipsLink",
       "slot": "patient-chart-dashboard-slot",
-      "order": 15,
+      "order": 11,
       "meta": {
         "columns": 1,
         "columnSpan": 1,

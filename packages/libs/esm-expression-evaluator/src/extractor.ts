@@ -151,7 +151,7 @@ function visitTemplateLiteral(expression: TemplateLiteral, context: EvaluationCo
   expression.quasis?.map(handleNullableExpression(context));
 }
 
-function visitTemplateElement(_expression: TemplateElement, _context: EvaluationContext) {}
+function visitTemplateElement(_expression: TemplateElement, _context: EvaluationContext) {} // NOSONAR
 
 function visitIdentifier(expression: jsep.Identifier, context: EvaluationContext) {
   if (!(expression.name in context.globals)) {
@@ -163,7 +163,7 @@ function visitIdentifier(expression: jsep.Identifier, context: EvaluationContext
   }
 }
 
-function visitLiteral(_expression: jsep.Literal, _context: EvaluationContext) {}
+function visitLiteral(_expression: jsep.Literal, _context: EvaluationContext) {} // NOSONAR
 
 // Internals
 interface EvaluationContext {

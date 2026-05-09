@@ -1,6 +1,6 @@
-import React from 'react';
-import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { type StockItemDTO } from '../../core/api/types/stockItem/StockItem';
 import AddEditStockItem from './add-stock-item.component';
 

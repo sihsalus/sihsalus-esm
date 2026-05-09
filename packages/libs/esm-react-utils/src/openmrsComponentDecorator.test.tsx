@@ -15,7 +15,7 @@ describe.skip('openmrs-component-decorator', () => {
     const DecoratedComp = openmrsComponentDecorator(opts)(CompThatWorks);
     render(<DecoratedComp />);
 
-    expect(await screen.findByText('The button')).toBeInTheDocument();
+    expect(await screen.findByText('The button')).toBeDefined();
   });
 
   it('catches any errors in the component tree and renders a ui explaining something bad happened', () => {
@@ -68,7 +68,7 @@ function CompWithConfig() {
 }
 
 class UnsafeComponent extends Component<any, any> {
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() {} // NOSONAR
 
   render() {
     return <h1>This is Unsafe Component</h1>;

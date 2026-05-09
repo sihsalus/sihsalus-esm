@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals';
 import { createGlobalStore } from '@openmrs/esm-state/mock';
 import * as utils from '@openmrs/esm-utils';
+import { type ConfigSchema } from './src/types';
 
 export { validator, validators } from './src/index';
 
@@ -20,17 +21,19 @@ export enum Type {
   UUID = 'UUID',
 }
 
-export let configSchema = {};
+export let configSchema: ConfigSchema = {}; // NOSONAR
 
 export const getConfig = jest
   .fn()
-  .mockImplementation(() => Promise.resolve(utils.getDefaultsFromConfigSchema(configSchema)));
+  .mockImplementation(() =>
+    Promise.resolve(utils.getDefaultsFromConfigSchema(configSchema as unknown as Record<PropertyKey, unknown>)),
+  );
 
-export function defineConfigSchema(_moduleName, schema) {
+export function defineConfigSchema(_moduleName: string, schema: ConfigSchema) {
   configSchema = schema;
 }
 
-export function defineExtensionConfigSchema(_extensionName, schema) {
+export function defineExtensionConfigSchema(_extensionName: string, schema: ConfigSchema) {
   configSchema = schema;
 }
 

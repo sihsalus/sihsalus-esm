@@ -1,11 +1,11 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import { type FieldValues, useForm } from 'react-hook-form';
 import { type Drug } from '../../../core/api/types/concept/Drug';
 import { fetchStockItem } from '../../stock-items.resource';
-import { useDrugsHook } from './drug-selector.resource';
 import DrugSelector from './drug-selector.component';
+import { useDrugsHook } from './drug-selector.resource';
 
 jest.mock('../../stock-items.resource', () => ({
   fetchStockItem: jest.fn(),

@@ -398,14 +398,14 @@ export function proxyImportmapAndRoutes(
   spaPath: string,
 ) {
   const { importMap: importMapDecl, routes: routesDecl, watchedRoutesPaths } = importmapAndRoutes;
-  if (importMapDecl.type != 'inline') {
+  if (importMapDecl.type !== 'inline') {
     throw new Error(
       'proxyImportmapAndRoutes called on non-inline import map. This is a programming error. Value: ' +
         importMapDecl.value,
     );
   }
 
-  if (routesDecl.type != 'inline') {
+  if (routesDecl.type !== 'inline') {
     throw new Error(
       'proxyImportmapAndRoutes called on non-inline routes. This is a programming error. Value: ' + routesDecl.value,
     );

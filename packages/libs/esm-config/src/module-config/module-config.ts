@@ -546,6 +546,36 @@ function getProvidedConfigs(configState: ConfigInternalStore, tempConfigState: T
   return [...configState.providedConfigs.map((c) => c.config), tempConfigState.config];
 }
 
+function validateReservedConfigKeys(moduleName: string, thisKeyPath: string, updateMessage: string) {
+  if (thisKeyPath === 'Display conditions') {
+    console.error(
+      `${moduleName} declares a configuration option called "Display conditions"; the "Display conditions" option is a reserved name. ${updateMessage}`,
+    );
+  }
+  if (thisKeyPath === 'Translation overrides') {
+    console.error(
+      `${moduleName} declares a configuration option called "Translation overrides"; the "Translation overrides" option is a reserved name. ${updateMessage}`,
+    );
+  }
+}
+
+function validateSchemaPartValidators(
+  moduleName: string,
+  thisKeyPath: string,
+  validators: Array<unknown>,
+  updateMessage: string,
+) {
+  for (const v of validators) {
+    if (typeof v !== 'function') {
+      console.error(
+        `${moduleName} has invalid validator for key '${thisKeyPath}' ${updateMessage}.` +
+          `\n\nIf you're the maintainer: validators must be functions that return either ` +
+          `undefined or an error string. Received ${v}.`,
+      );
+    }
+  }
+}
+
 /**
  * Validates the config schema for a module. Since problems identified here are programming errors
  * that hopefully will be caught during development, this function logs errors to the console directly;
@@ -558,17 +588,7 @@ function validateConfigSchema(moduleName: string, schema: ConfigSchema, keyPath 
     const thisKeyPath = keyPath + (keyPath && '.') + key;
     const schemaPart = schema[key] as ConfigSchema;
 
-    if (thisKeyPath === 'Display conditions') {
-      console.error(
-        `${moduleName} declares a configuration option called "Display conditions"; the "Display conditions" option is a reserved name. ${updateMessage}`,
-      );
-    }
-
-    if (thisKeyPath === 'Translation overrides') {
-      console.error(
-        `${moduleName} declares a configuration option called "Translation overrides"; the "Translation overrides" option is a reserved name. ${updateMessage}`,
-      );
-    }
+    validateReservedConfigKeys(moduleName, thisKeyPath, updateMessage);
 
     if (!isOrdinaryObject(schemaPart)) {
       console.error(`${moduleName} has bad config schema definition for key '${thisKeyPath}'. ${updateMessage}`);
@@ -586,15 +606,7 @@ function validateConfigSchema(moduleName: string, schema: ConfigSchema, keyPath 
     }
 
     if (schemaPart._validators) {
-      for (const validator of schemaPart._validators) {
-        if (typeof validator !== 'function') {
-          console.error(
-            `${moduleName} has invalid validator for key '${thisKeyPath}' ${updateMessage}.` +
-              `\n\nIf you're the maintainer: validators must be functions that return either ` +
-              `undefined or an error string. Received ${validator}.`,
-          );
-        }
-      }
+      validateSchemaPartValidators(moduleName, thisKeyPath, schemaPart._validators, updateMessage);
     }
 
     const valueType = schemaPart._type;
@@ -732,6 +744,23 @@ function validateArrayStructure(arraySchema: ConfigSchema, value: ConfigObject, 
   }
 }
 
+function runValidatorsForObjectChildren(schema: ConfigSchema, config: ConfigObject, keyPath: string) {
+  for (const key of Object.keys(config)) {
+    const value = config[key];
+    const thisKeyPath = keyPath + '.' + key;
+    const childSchema =
+      schema._type === Type.Object && schema._elements ? schema._elements : (schema[key] as ConfigSchema);
+    runAllValidatorsInConfigTree(childSchema, value, thisKeyPath);
+  }
+}
+
+function runValidatorsForArrayChildren(elementsSchema: ConfigSchema, config: ConfigObject, keyPath: string) {
+  const arr = config as unknown as Array<ConfigObject>;
+  for (let i = 0; i < arr.length; i++) {
+    runAllValidatorsInConfigTree(elementsSchema, arr[i], `${keyPath}[${i}]`);
+  }
+}
+
 /**
  * Run all the validators in the config tree. This should be run
  * on the config object after it has been filled in with all the defaults, since
@@ -739,27 +768,16 @@ function validateArrayStructure(arraySchema: ConfigSchema, value: ConfigObject, 
  */
 function runAllValidatorsInConfigTree(schema: ConfigSchema, config: ConfigObject, keyPath = '') {
   // If `!schema`, there should have been a structural validation error printed already.
-  if (schema) {
-    if (config !== schema._default) {
-      runValidators(keyPath, schema._validators, config);
-    }
-
-    if (isOrdinaryObject(config)) {
-      for (const key of Object.keys(config)) {
-        const value = config[key];
-        const thisKeyPath = keyPath + '.' + key;
-        const schemaPart = schema[key] as ConfigSchema;
-        if (schema._type === Type.Object && schema._elements) {
-          runAllValidatorsInConfigTree(schema._elements, value, thisKeyPath);
-        } else {
-          runAllValidatorsInConfigTree(schemaPart, value, thisKeyPath);
-        }
-      }
-    } else if (Array.isArray(config) && schema._elements) {
-      for (let i = 0; i < config.length; i++) {
-        runAllValidatorsInConfigTree(schema._elements, config[i], `${keyPath}[${i}]`);
-      }
-    }
+  if (!schema) {
+    return;
+  }
+  if (config !== schema._default) {
+    runValidators(keyPath, schema._validators, config);
+  }
+  if (isOrdinaryObject(config)) {
+    runValidatorsForObjectChildren(schema, config, keyPath);
+  } else if (Array.isArray(config) && schema._elements) {
+    runValidatorsForArrayChildren(schema._elements, config as unknown as ConfigObject, keyPath);
   }
 }
 
@@ -814,6 +832,20 @@ function runValidators(keyPath: string, validators: Array<Function> | undefined,
   return returnValue;
 }
 
+function applyElementDefaults(config: Config, key: string, configPart: Config, schemaPart: ConfigSchema) {
+  const elements = schemaPart._elements;
+  if (!configPart || !hasObjectSchema(elements)) {
+    return;
+  }
+  if (schemaPart._type === Type.Array && Array.isArray(configPart)) {
+    config[key] = (configPart as Array<Config>).map((conf) => setDefaults(elements, conf));
+  } else if (schemaPart._type === Type.Object) {
+    for (const objectKey of Object.keys(configPart)) {
+      (configPart as Config)[objectKey] = setDefaults(elements, (configPart as Config)[objectKey]);
+    }
+  }
+}
+
 // Recursively fill in the config with values from the schema.
 const setDefaults = (schema: ConfigSchema, inputConfig: Config) => {
   const config = structuredClone(inputConfig);
@@ -837,20 +869,8 @@ const setDefaults = (schema: ConfigSchema, inputConfig: Config) => {
       if (!Object.hasOwn(config, key)) {
         (config[key] as any) = schemaPart['_default'];
       }
-
       // We also check if it is an object or array with object elements, in which case we recurse
-      const elements = schemaPart._elements;
-
-      if (configPart && hasObjectSchema(elements)) {
-        if (schemaPart._type === Type.Array && Array.isArray(configPart)) {
-          const configWithDefaults = configPart.map((conf: Config) => setDefaults(elements, conf));
-          config[key] = configWithDefaults;
-        } else if (schemaPart._type === Type.Object) {
-          for (const objectKey of Object.keys(configPart)) {
-            configPart[objectKey] = setDefaults(elements, configPart[objectKey]);
-          }
-        }
-      }
+      applyElementDefaults(config, key, configPart, schemaPart);
     } else if (isOrdinaryObject(schemaPart)) {
       // Since schemaPart has no property "_type", if it's an ordinary object
       // (unlike, importantly, the validators array), we assume it is a parent config property.

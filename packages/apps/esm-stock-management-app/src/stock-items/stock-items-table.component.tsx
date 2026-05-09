@@ -1,5 +1,3 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   DataTable,
   DataTableSkeleton,
@@ -22,16 +20,18 @@ import {
 } from '@carbon/react';
 import { Edit } from '@carbon/react/icons';
 import { isDesktop, restBaseUrl } from '@openmrs/esm-framework';
-import { handleMutate } from '../utils';
-import { launchAddOrEditStockItemWorkspace } from './stock-item.utils';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ResourceRepresentation } from '../core/api/api';
-import { useDebounce } from '../core/hooks/debounce-hook';
-import { useStockItemsPages } from './stock-items-table.resource';
-import AddStockItemActionButton from './add-stock-item/add-stock-action-button.component';
-import AddStockItemsBulktImportActionButton from './add-bulk-stock-item/add-stock-items-bulk-import-action-button.component';
-import EditStockItemActionsMenu from './edit-stock-item/edit-stock-item-action-menu.component';
-import FilterStockItems from './components/filter-stock-items/filter-stock-items.component';
 import { type CustomTableHeader } from '../core/components/table/types';
+import { useDebounce } from '../core/hooks/debounce-hook';
+import { handleMutate } from '../utils';
+import AddStockItemsBulktImportActionButton from './add-bulk-stock-item/add-stock-items-bulk-import-action-button.component';
+import AddStockItemActionButton from './add-stock-item/add-stock-action-button.component';
+import FilterStockItems from './components/filter-stock-items/filter-stock-items.component';
+import EditStockItemActionsMenu from './edit-stock-item/edit-stock-item-action-menu.component';
+import { launchAddOrEditStockItemWorkspace } from './stock-item.utils';
+import { useStockItemsPages } from './stock-items-table.resource';
 import styles from './stock-items-table.scss';
 
 interface StockItemsTableProps {
