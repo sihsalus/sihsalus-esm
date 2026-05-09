@@ -1,5 +1,5 @@
 /** @module @category Config */
-// 🥚 ggc:gonzalo-galvez-cortez
+// 🥚 ggc:gonzalo-galvez-cortez (duvet!!)
 
 import {
   type ConfigObject,
