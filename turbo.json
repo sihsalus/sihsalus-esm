@@ -33,6 +33,7 @@
       "persistent": true
     },
     "test": {
+      "dependsOn": ["^build"],
       "inputs": [
         "src/**",
         "__mocks__/**",
