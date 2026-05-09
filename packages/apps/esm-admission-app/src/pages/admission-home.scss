@@ -48,6 +48,15 @@
   font-weight: 600;
 }
 
+.patientLink {
+  color: #0f62fe;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .empty {
   margin: 0;
   padding: 1rem;

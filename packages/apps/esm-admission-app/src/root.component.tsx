@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { basePath } from './constants';
 import AdmissionHome from './pages/admission-home.component';
 import PatientMerge from './pages/patient-merge.component';
+import PatientAdmissionDetail from './patient/patient-admission-detail.component';
 
 export default function Root() {
   return (
@@ -12,6 +13,7 @@ export default function Root() {
         <Routes>
           <Route index element={<AdmissionHome />} />
           <Route path="merge" element={<PatientMerge />} />
+          <Route path="patient/:patientUuid" element={<PatientAdmissionDetail />} />
         </Routes>
       </BrowserRouter>
     </AppErrorBoundary>
