@@ -2,7 +2,7 @@ import { Grid, Row } from '@carbon/react';
 import { ExtensionSlot, useConnectivity, useSession } from '@openmrs/esm-framework';
 import { AppErrorBoundary } from '@sihsalus/esm-rbac';
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import useSWRImmutable from 'swr/immutable';
 
@@ -12,6 +12,7 @@ import {
   fetchPatientIdentifierTypesWithSources,
   ResourcesContext,
 } from './offline.resources';
+import PatientMerge from './patient-merge/patient-merge.component';
 import { FormManager } from './patient-registration/form-manager';
 import { PatientRegistration } from './patient-registration/patient-registration.component';
 import styles from './root.scss';
@@ -58,6 +59,7 @@ export default function Root() {
                   path="patient/:patientUuid/edit"
                   element={<PatientRegistration savePatientForm={savePatientForm} isOffline={!isOnline} />}
                 />
+                <Route path="patient-merge" element={<PatientMerge />} />
               </Routes>
             </BrowserRouter>
           </ResourcesContext.Provider>

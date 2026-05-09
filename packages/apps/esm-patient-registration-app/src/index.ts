@@ -3,6 +3,7 @@ import { defineConfigSchema, getAsyncLifecycle, getSyncLifecycle, registerBreadc
 import addPatientLinkComponent from './add-patient-link.extension';
 import { esmPatientRegistrationSchema } from './config-schema';
 import { moduleName, patientRegistration } from './constants';
+import mergePatientsLinkComponent from './merge-patients-link.extension';
 import { setupOffline } from './offline';
 
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
@@ -40,6 +41,17 @@ export function startupApp() {
         ),
       parent: `${globalThis.spaBase}/patient/:patientUuid/chart`,
     },
+    {
+      path: `${globalThis.spaBase}/patient-merge`,
+      title: () =>
+        Promise.resolve(
+          globalThis.i18next.t('mergeDuplicatePatientRecords', {
+            defaultValue: 'Merge duplicate patient records',
+            ns: moduleName,
+          }),
+        ),
+      parent: `${globalThis.spaBase}/home`,
+    },
   ]);
 
   setupOffline();
@@ -50,6 +62,10 @@ export const root = getAsyncLifecycle(() => import('./root.component'), options)
 export const editPatient = getAsyncLifecycle(() => import('./root.component'), options);
 
 export const addPatientLink = getSyncLifecycle(addPatientLinkComponent, options);
+
+export const mergePatientsLink = getSyncLifecycle(mergePatientsLinkComponent, options);
+
+export const patientMerge = getAsyncLifecycle(() => import('./patient-merge/patient-merge.component'), options);
 
 export const cancelPatientEditModal = getAsyncLifecycle(() => import('./widgets/cancel-patient-edit.modal'), options);
 

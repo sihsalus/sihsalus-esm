@@ -15,6 +15,12 @@
       "routeRegex": "patient\\/([a-zA-Z0-9\\-]+)\\/edit",
       "online": true,
       "offline": true
+    },
+    {
+      "component": "patientMerge",
+      "route": "patient-merge",
+      "online": true,
+      "offline": false
     }
   ],
   "extensions": [
@@ -24,6 +30,13 @@
       "slot": "top-nav-actions-slot",
       "online": true,
       "offline": true
+    },
+    {
+      "component": "mergePatientsLink",
+      "name": "merge-patients-action",
+      "slot": "top-nav-actions-slot",
+      "online": true,
+      "offline": false
     },
     {
       "component": "patientPhotoExtension",

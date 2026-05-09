@@ -1,8 +1,13 @@
 import { type FieldDefinition, type RegistrationConfig, type SectionDefinition } from '../config-schema';
 
-const dniIdentifierTypeUuid = '550e8400-e29b-41d4-a716-446655440001';
+const peruDefaultPatientIdentifierTypeUuids = [
+  '550e8400-e29b-41d4-a716-446655440001', // DNI
+  '550e8400-e29b-41d4-a716-446655440002', // Carné de Extranjería
+  '550e8400-e29b-41d4-a716-446655440003', // Pasaporte
+  '8d793bee-c2cc-11de-8d13-0010c6dffd0f', // Documento de Identidad Extranjero
+];
 
-const peruSections = ['filiation', 'insurance', 'responsiblePerson'];
+const peruSections = ['filiation', 'medicalRecord', 'insurance', 'responsiblePerson'];
 const minorResponsibleRelationshipTypes = [
   '8d91a210-c2cc-11de-8d13-0010c6dffdff/aIsToB',
   '8d91a210-c2cc-11de-8d13-0010c6dffd0f/aIsToB',
@@ -21,13 +26,19 @@ const peruSectionDefinitions: Array<SectionDefinition> = [
       'occupation',
       'educationLevel',
       'religion',
-      'bloodType',
+      'bloodGroup',
+      'rhFactor',
     ],
+  },
+  {
+    id: 'medicalRecord',
+    name: 'Historia clínica',
+    fields: ['medicalRecordStatus', 'medicalRecordArchiveType'],
   },
   {
     id: 'insurance',
     name: 'Seguro',
-    fields: ['insuranceType', 'insuranceCode'],
+    fields: ['insuranceType', 'insuranceCode', 'insuranceAccreditationStatus', 'insuranceAccreditationCheckedAt'],
   },
   {
     id: 'responsiblePerson',
@@ -106,12 +117,51 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     showHeading: false,
   },
   {
-    id: 'bloodType',
+    id: 'bloodGroup',
     type: 'person attribute',
-    uuid: 'b4c7d8e9-f0a1-4b2c-8d3e-5f6789abcdef',
-    label: 'Tipo de sangre',
+    uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1001',
+    label: 'Grupo sanguíneo',
     showHeading: false,
-    answerConceptSetUuid: '3f6056ed-17e9-4b3b-98a7-18dc431a7e99',
+    answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2001',
+  },
+  {
+    id: 'rhFactor',
+    type: 'person attribute',
+    uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1002',
+    label: 'Factor Rh',
+    showHeading: false,
+    answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2002',
+  },
+  {
+    id: 'medicalRecordStatus',
+    type: 'person attribute',
+    uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1003',
+    label: 'Estado de historia clínica',
+    showHeading: false,
+    answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2003',
+  },
+  {
+    id: 'medicalRecordArchiveType',
+    type: 'person attribute',
+    uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1004',
+    label: 'Tipo de archivo de historia clínica',
+    showHeading: false,
+    answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2004',
+  },
+  {
+    id: 'insuranceAccreditationStatus',
+    type: 'person attribute',
+    uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1005',
+    label: 'Estado de acreditación de seguro',
+    showHeading: false,
+    answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2005',
+  },
+  {
+    id: 'insuranceAccreditationCheckedAt',
+    type: 'person attribute',
+    uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1006',
+    label: 'Fecha/hora de acreditación',
+    showHeading: false,
   },
   {
     id: 'companionName',
@@ -176,9 +226,10 @@ export function getEffectiveRegistrationConfig(config: RegistrationConfig): Regi
     }
   });
 
-  const defaultPatientIdentifierTypes = config.defaultPatientIdentifierTypes.includes(dniIdentifierTypeUuid)
-    ? config.defaultPatientIdentifierTypes
-    : [...config.defaultPatientIdentifierTypes, dniIdentifierTypeUuid];
+  const defaultPatientIdentifierTypes = [
+    ...config.defaultPatientIdentifierTypes,
+    ...peruDefaultPatientIdentifierTypeUuids.filter((uuid) => !config.defaultPatientIdentifierTypes.includes(uuid)),
+  ];
 
   return {
     ...config,

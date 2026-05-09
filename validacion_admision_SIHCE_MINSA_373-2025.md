@@ -1,0 +1,79 @@
+# Validacion inicial - Perfil Admision SIHCE MINSA 373-2025
+
+Fuente de requisitos: `requerimientos_admision_SIHCE_MINSA_373-2025.csv`.
+
+## Resumen
+
+- Cumple: 8
+- Parcial: 8
+- No encontrado: 8
+
+## Cambios implementados para admision
+
+- Se separo `Tipo de sangre` en `Grupo sanguineo` y `Factor Rh`.
+- Se agrego seccion `Historia clinica` con `Estado de historia clinica` y `Tipo de archivo de historia clinica`.
+- Se agrego acreditacion manual de seguro: `Estado de acreditacion de seguro` y `Fecha/hora de acreditacion`.
+- Se agregaron como identificadores visibles por defecto: DNI, CE, pasaporte y documento de identidad extranjero.
+- Se agrego entrada SPA para fusion de historias duplicadas que abre el flujo legacy de OpenMRS `mergePatients.form`.
+- En el content package se agregaron los `personattributetypes` y conceptos requeridos para los nuevos campos.
+
+## Puntaje estimado tras estos cambios
+
+- Cumple proyectado al desplegar metadata: 14/24.
+- Parcial proyectado: 5/24.
+- No encontrado proyectado: 5/24.
+- Aun no alcanza 20. Para llegar a 20 faltan al menos 6 criterios adicionales, principalmente integraciones externas o reportes/evidencia funcional nueva.
+
+## Prueba en ambiente
+
+- Fecha: 2026-05-09.
+- Comando: `CI=1 yarn playwright test e2e/tests/admission-validation.spec.ts --project=desktop`.
+- Resultado: 1/1 test paso contra `E2E_BASE_URL` y `E2E_API_BASE_URL` del `.env`.
+- Alcance probado: login, apertura autenticada de registro de paciente, campos visibles de filiacion, seguro, responsable, identificadores, nacimiento, paciente no identificado, boton de guardado, API de tipos de identificador y ubicacion de sesion.
+- Observacion: `E2E_LOGIN_DEFAULT_LOCATION_UUID=44c3efb0-2583-4c80-a79e-1f756a03c0a1` devuelve 404 en QLTY. La prueba uso fallback a una ubicacion activa (`Casita Azul`, UUID `35d2234e-129a-4c40-abb2-1ae0b72c1603`) para poder validar el flujo.
+
+## Puntaje estimado
+
+- Criterios de admision evaluados: 24.
+- Cumple con evidencia suficiente: 8.
+- Parcial: 8.
+- No encontrado: 8.
+- Lectura estricta para acreditacion: 8/24; no alcanza 20.
+- Lectura optimista contando parciales como avance: 16/24; tampoco alcanza 20.
+
+## Matriz
+
+| Codigo | Estado | Evidencia / brecha |
+| --- | --- | --- |
+| N1.ADM.01.01 | Parcial | Registro guarda datos estructurados del paciente y atributos configurables. Evidencia: `FormManager.getPatientToCreate` mapea nombres, genero, nacimiento, atributos y direccion. Falta evidencia especifica de historial de ingresos/referencias. |
+| N1.ADM.01.02 | Cumple proyectado | Hay campos de seguro en registro (`insuranceType`, `insuranceCode`) y atributos de visita en billing (`insuranceScheme`, `policyNumber`). Se agrego registro manual de estado y fecha/hora de acreditacion de seguro; sigue pendiente integracion automatica IAFAS/SIS para N1.ADM.01.03. |
+| N1.ADM.01.03 | No encontrado | No se encontro integracion/consulta a servicios de IAFAS, SIS o aseguradores. |
+| N1.ADM.02.01 | Cumple | Colas registran servicio, ubicacion, prioridad, estado y origen/destino mediante `visit-queue-entry`; `queueComingFrom` se conserva al transferir. |
+| N1.ADM.02.02 | Cumple | Permite paciente no identificado: toggle de nombre desconocido usa nombres por defecto y atributo `unidentifiedPatientAttributeTypeUuid`. |
+| N1.ADM.02.03 | Cumple | Permite multiples identificadores configurables y seleccionables por tipo. |
+| N1.ADM.02.04 | Parcial | Hay autogeneracion de identificadores por IdGen. Falta confirmar que el identificador generado sea el codigo estandar MINSA/RENHICE de usuario de salud. |
+| N1.ADM.02.05 | Cumple | Identificadores se guardan junto con el paciente y cada visita/cola referencia `patientUuid`; el backend conserva el vinculo con atenciones. |
+| N1.ADM.02.06 | Cumple proyectado | Se agrego entrada SPA para fusionar historias duplicadas usando el flujo legacy de OpenMRS (`/admin/patients/mergePatients.form`). OpenMRS core soporta `PatientService.mergePatients`. |
+| N1.ADM.02.07 | Cumple | Busqueda y pantallas de cola usan identificadores/UUID de paciente para recuperar partes del registro. |
+| N1.ADM.02.08 | Cumple proyectado | Se agrego atributo de persona `Estado de historia clinica` con valores activa, pasiva y eliminada. |
+| N1.ADM.03.01 | Parcial | Datos demograficos/personales se guardan en `patient.person`; la separacion fisica respecto a datos clinicos depende del modelo OpenMRS/backend, no esta demostrada en frontend. |
+| N1.ADM.03.02 | No encontrado | No se encontro consulta RENIEC para DNI. |
+| N1.ADM.03.03 | Cumple | Captura manual de identidad: nombres, genero, fecha de nacimiento, direccion, telefono e identificadores. |
+| N1.ADM.03.04 | Cumple proyectado | CE, pasaporte y documento de identidad extranjero quedan como tipos de identificador por defecto junto con DNI. No incluye validacion automatica con Migraciones. |
+| N1.ADM.03.05 | Cumple | Config Peru agrega filiacion complementaria: lugar de nacimiento, estado civil, etnia, idioma, ocupacion, educacion, religion, grupo sanguineo, seguro y responsable. |
+| N1.ADM.03.06 | Parcial | Vistas de cola muestran nombre, identificadores, edad/fecha nacimiento y numero de cola. Falta validar que cada interaccion clinica muestre el set minimo completo exigido. |
+| N1.ADM.03.07 | Cumple | Edad se calcula desde fecha de nacimiento; el formulario tambien calcula fecha a partir de edad estimada. |
+| N1.ADM.03.08 | Cumple proyectado | Se separo la captura en `Grupo sanguineo` y `Factor Rh`, respaldados por atributos y conceptos discretos en el content package. |
+| N1.ADM.04.01 | Parcial | Hay historial de visitas/atenciones y citas; falta reporte especifico de admisiones por UPS anteriores en el modulo de admision. |
+| N1.ADM.04.02 | Cumple proyectado | Se agrego atributo de persona `Tipo de archivo de historia clinica` con valores comun y especial. |
+| N1.ADM.05.01 | Cumple | La cola/admisión operativa captura ubicacion y servicio/UPS mediante `queueLocation` y `service`. |
+| N1.ADM.05.02 | Cumple | Citas, visitas y entradas de cola manejan fecha/hora en campos discretos (`startDateTime`, `startedAt`, `endedAt`). |
+| N1.ADM.05.03 | Parcial | Appointments permite crear citas y consultar conflictos/disponibilidad basica; falta evidencia de programacion completa de turnos con prestadores desde admision. |
+
+## Brechas principales
+
+1. Integracion externa: RENIEC, Migraciones, IAFAS/SIS y RENHICE no aparecen implementados en frontend.
+2. Gestion de estado documental de HC: activa/pasiva/eliminada y archivo comun/especial no aparece.
+3. Fusion o vinculacion controlada de historias duplicadas no aparece.
+4. Grupo sanguineo/Rh esta modelado como un solo atributo `bloodType`; podria no cumplir si exigen campos discretos separados.
+5. Algunos criterios dependen del backend OpenMRS o configuracion de metadata; falta validar contra ambiente real.
