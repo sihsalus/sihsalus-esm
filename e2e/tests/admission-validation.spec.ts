@@ -98,7 +98,7 @@ test.describe('MINSA admission accreditation checks', () => {
   });
 
   test('duplicate patient merge entry point opens the legacy merge flow', async ({ page }) => {
-    await page.goto('patient-merge', { waitUntil: 'domcontentloaded' });
+    await page.goto('admission/merge', { waitUntil: 'domcontentloaded' });
 
     await expect(page).not.toHaveURL(/\/login/);
     await expect(
@@ -108,5 +108,26 @@ test.describe('MINSA admission accreditation checks', () => {
       'href',
       /\/openmrs\/admin\/patients\/mergePatients\.form$/,
     );
+  });
+
+  test('admission report by UPS exposes the required columns', async ({ page }) => {
+    await page.goto('admission', { waitUntil: 'domcontentloaded' });
+
+    await expect(page).not.toHaveURL(/\/login/);
+    await expect(
+      page.getByRole('heading', { name: /Reporte de admisiones por UPS|Admissions report by UPS/i }),
+    ).toBeVisible();
+
+    for (const column of [
+      /Fecha|Date/i,
+      /Hora|Time/i,
+      /Paciente|Patient/i,
+      /^HC$|MRN/i,
+      /UPS\/servicio|UPS\/service/i,
+      /Ubicación|Location/i,
+      /Estado|Status/i,
+    ]) {
+      await expect(page.getByRole('columnheader', { name: column })).toBeVisible();
+    }
   });
 });

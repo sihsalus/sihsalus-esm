@@ -9091,6 +9091,47 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sihsalus/esm-admission-app@workspace:packages/apps/esm-admission-app":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/esm-admission-app@workspace:packages/apps/esm-admission-app"
+  dependencies:
+    "@openmrs/esm-framework": "workspace:*"
+    "@openmrs/esm-styleguide": "workspace:*"
+    "@rspack/cli": "npm:1.7.11"
+    "@sihsalus/esm-rbac": "workspace:*"
+    "@swc/cli": "npm:^0.3.12"
+    "@swc/core": "npm:1.15.21"
+    "@swc/jest": "npm:^0.2.36"
+    "@testing-library/dom": "npm:^10.1.0"
+    "@testing-library/jest-dom": "npm:^6.4.5"
+    "@testing-library/react": "npm:^16.3.2"
+    "@types/jest": "npm:^29.5.12"
+    "@types/react": "npm:^18.3.21"
+    "@types/react-dom": "npm:^18.3.0"
+    "@types/webpack-env": "npm:^1.18.1"
+    dayjs: "npm:^1.11.13"
+    identity-obj-proxy: "npm:^3.0.0"
+    jest: "npm:^29.7.0"
+    jest-environment-jsdom: "npm:^29.7.0"
+    openmrs: "npm:*"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    react-i18next: "npm:^16.0.0"
+    react-router-dom: "npm:^6.14.1"
+    rxjs: "npm:^6.6.7"
+    swr: "npm:^2.3.6"
+    typescript: "npm:^6.0.0"
+  peerDependencies:
+    "@carbon/react": 1.x
+    "@openmrs/esm-framework": "*"
+    dayjs: 1.x
+    react: 18.x
+    react-i18next: 16.x
+    react-router-dom: 6.x
+    rxjs: 6.x
+  languageName: unknown
+  linkType: soft
+
 "@sihsalus/esm-appointments-app@workspace:packages/apps/esm-appointments-app":
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-appointments-app@workspace:packages/apps/esm-appointments-app"

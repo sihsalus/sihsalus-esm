@@ -11,7 +11,7 @@ export default function PatientMerge() {
   const { t } = useTranslation(moduleName);
 
   return (
-    <section className={styles.container}>
+    <main className={styles.container}>
       <div className={styles.header}>
         <h1>{t('mergeDuplicatePatientRecords', 'Fusionar historias clínicas duplicadas')}</h1>
         <Button kind="primary" renderIcon={Launch} href={legacyMergeUrl}>
@@ -24,6 +24,6 @@ export default function PatientMerge() {
           'Use esta opción cuando dos historias clínicas pertenezcan al mismo paciente y una deba conservarse como historia preferida.',
         )}
       </p>
-    </section>
+    </main>
   );
 }

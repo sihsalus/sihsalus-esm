@@ -12,7 +12,6 @@ import {
   fetchPatientIdentifierTypesWithSources,
   ResourcesContext,
 } from './offline.resources';
-import PatientMerge from './patient-merge/patient-merge.component';
 import { FormManager } from './patient-registration/form-manager';
 import { PatientRegistration } from './patient-registration/patient-registration.component';
 import styles from './root.scss';
@@ -59,7 +58,6 @@ export default function Root() {
                   path="patient/:patientUuid/edit"
                   element={<PatientRegistration savePatientForm={savePatientForm} isOffline={!isOnline} />}
                 />
-                <Route path="patient-merge" element={<PatientMerge />} />
               </Routes>
             </BrowserRouter>
           </ResourcesContext.Provider>
