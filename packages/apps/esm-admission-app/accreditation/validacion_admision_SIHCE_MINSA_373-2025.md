@@ -1,6 +1,6 @@
 # Validacion inicial - Perfil Admision SIHCE MINSA 373-2025
 
-Fuente de requisitos: `requerimientos_admision_SIHCE_MINSA_373-2025.csv`.
+Fuente de requisitos: [`requerimientos_admision_SIHCE_MINSA_373-2025.csv`](requerimientos_admision_SIHCE_MINSA_373-2025.csv).
 
 ## Resumen
 
@@ -35,7 +35,8 @@ Fuente de requisitos: `requerimientos_admision_SIHCE_MINSA_373-2025.csv`.
 - Alcance probado: login, apertura autenticada de registro de paciente, campos visibles de filiacion, seguro, responsable, identificadores, nacimiento, paciente no identificado, boton de guardado, API de tipos de identificador y ubicacion de sesion.
 - Observacion: `E2E_LOGIN_DEFAULT_LOCATION_UUID=44c3efb0-2583-4c80-a79e-1f756a03c0a1` devuelve 404 en QLTY. La prueba uso fallback a una ubicacion activa (`Casita Azul`, UUID `35d2234e-129a-4c40-abb2-1ae0b72c1603`) para poder validar el flujo.
 - Validacion tecnica posterior: `yarn turbo run typescript --filter=@sihsalus/esm-admission-app --filter=@sihsalus/esm-patient-registration-app --concurrency=1` paso 22/22 tareas.
-- La prueba E2E ahora incluye la ruta `/admission/merge` y la vista `/admission` con columnas requeridas para N1.ADM.04.01; debe correrse con la app de admision incluida en el dev/import map.
+- Build posterior: `yarn turbo run build --filter=@sihsalus/esm-admission-app --concurrency=1` paso 23/23 tareas; el paquete `sihsalus-esm-admission-app.js` compilo correctamente.
+- Prueba E2E posterior: `CI=1 E2E_BASE_URL=http://localhost:8080/openmrs/spa E2E_API_BASE_URL=http://localhost:8080/openmrs yarn playwright test e2e/tests/admission-validation.spec.ts --project=desktop -g "duplicate patient merge|admission report"` paso 2/2 con `SIHSALUS_DEV_APPS=esm-admission-app,esm-patient-registration-app`.
 - La prueba completa con campos nuevos requiere desplegar primero el content package, porque QLTY aun no tiene los nuevos `personattributetypes`.
 
 ## Puntaje estimado

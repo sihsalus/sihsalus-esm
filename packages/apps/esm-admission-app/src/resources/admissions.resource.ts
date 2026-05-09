@@ -31,6 +31,7 @@ interface VisitResponse {
 
 export interface AdmissionRow {
   uuid: string;
+  patientUuid: string;
   startDatetime?: string;
   patientName: string;
   medicalRecordNumber: string;
@@ -50,6 +51,7 @@ function getMedicalRecordNumber(identifiers: Identifier[] = []) {
 function mapVisitToAdmission(visit: Visit): AdmissionRow {
   return {
     uuid: visit.uuid,
+    patientUuid: visit.patient?.uuid ?? '',
     startDatetime: visit.startDatetime,
     patientName: visit.patient?.display ?? '',
     medicalRecordNumber: getMedicalRecordNumber(visit.patient?.identifiers),
@@ -87,6 +89,97 @@ export function useActiveVisitSummary(patientUuid?: string) {
           location: visit.location?.display ?? '',
         }
       : null,
+    error,
+    isLoading,
+  };
+}
+
+// ── Patient detail (N1.ADM.03.01 / N1.ADM.01.01) ───────────────────────────
+
+export interface PatientIdentifier {
+  identifier?: string;
+  identifierType?: { display?: string; required?: boolean };
+  preferred?: boolean;
+}
+
+export interface PersonAttribute {
+  attributeType?: { display?: string };
+  value?: string | { display?: string };
+}
+
+interface PersonAddress {
+  preferred?: boolean;
+  address1?: string;
+  cityVillage?: string;
+  stateProvince?: string;
+}
+
+export interface PatientFiliation {
+  display?: string;
+  birthdate?: string;
+  birthdateEstimated?: boolean;
+  gender?: string;
+  age?: number;
+  addresses?: PersonAddress[];
+  attributes?: PersonAttribute[];
+}
+
+export interface PatientDetail {
+  person?: PatientFiliation;
+  identifiers?: PatientIdentifier[];
+}
+
+const patientDetailRepresentation =
+  'custom:(person:(display,birthdate,birthdateEstimated,gender,age,addresses:(preferred,address1,cityVillage,stateProvince),attributes:(attributeType:(display),value)),identifiers:(identifier,identifierType:(display,required),preferred))';
+
+export function usePatientDetail(patientUuid?: string) {
+  const url = patientUuid ? `${restBaseUrl}/patient/${patientUuid}?v=${patientDetailRepresentation}` : null;
+  const { data, error, isLoading } = useSWR<{ data: PatientDetail }, Error>(url, openmrsFetch);
+
+  return {
+    patient: data?.data ?? null,
+    error,
+    isLoading,
+  };
+}
+
+export interface PatientVisitRow {
+  uuid: string;
+  startDatetime?: string;
+  stopDatetime?: string;
+  service: string;
+  location: string;
+  status: string;
+}
+
+interface VisitForHistory {
+  uuid: string;
+  startDatetime?: string;
+  stopDatetime?: string;
+  visitType?: { display?: string };
+  location?: { display?: string };
+}
+
+const visitHistoryRepresentation = 'custom:(uuid,startDatetime,stopDatetime,visitType:(display),location:(display))';
+
+export function usePatientVisitHistory(patientUuid?: string) {
+  const url = patientUuid
+    ? `${restBaseUrl}/visit?patient=${patientUuid}&includeInactive=true&v=${visitHistoryRepresentation}&limit=50`
+    : null;
+  const { data, error, isLoading } = useSWR<{ data: { results?: VisitForHistory[] } }, Error>(url, openmrsFetch);
+
+  return {
+    visits:
+      data?.data.results?.map(
+        (v): PatientVisitRow => ({
+          uuid: v.uuid,
+          startDatetime: v.startDatetime,
+          stopDatetime: v.stopDatetime,
+          service: v.visitType?.display ?? '-',
+          location: v.location?.display ?? '-',
+          status: v.stopDatetime ? 'Finalizada' : 'Activa',
+        }),
+      ) ?? [],
     error,
     isLoading,
   };

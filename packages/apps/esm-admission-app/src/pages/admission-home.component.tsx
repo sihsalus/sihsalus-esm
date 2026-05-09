@@ -2,6 +2,7 @@ import { Button, InlineLoading, InlineNotification, Layer } from '@carbon/react'
 import { Launch } from '@carbon/react/icons';
 import { useConfig } from '@openmrs/esm-framework';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { moduleName } from '../constants';
 import { useAdmissions } from '../resources/admissions.resource';
@@ -11,15 +12,14 @@ interface AdmissionConfig {
   admissionReportPageSize?: number;
 }
 
-function formatDateTime(value?: string) {
-  if (!value) {
-    return '';
-  }
+function formatDate(value?: string) {
+  if (!value) return '';
+  return new Intl.DateTimeFormat('es-PE', { dateStyle: 'short' }).format(new Date(value));
+}
 
-  return new Intl.DateTimeFormat('es-PE', {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  }).format(new Date(value));
+function formatTime(value?: string) {
+  if (!value) return '';
+  return new Intl.DateTimeFormat('es-PE', { timeStyle: 'short' }).format(new Date(value));
 }
 
 export default function AdmissionHome() {
@@ -69,9 +69,17 @@ export default function AdmissionHome() {
             <tbody>
               {admissions.map((admission) => (
                 <tr key={admission.uuid}>
-                  <td>{formatDateTime(admission.startDatetime).split(',')[0]}</td>
-                  <td>{formatDateTime(admission.startDatetime).split(',')[1]?.trim()}</td>
-                  <td>{admission.patientName}</td>
+                  <td>{formatDate(admission.startDatetime)}</td>
+                  <td>{formatTime(admission.startDatetime)}</td>
+                  <td>
+                    {admission.patientUuid ? (
+                      <Link to={`/patient/${admission.patientUuid}`} className={styles.patientLink}>
+                        {admission.patientName}
+                      </Link>
+                    ) : (
+                      admission.patientName
+                    )}
+                  </td>
                   <td>{admission.medicalRecordNumber}</td>
                   <td>{admission.service}</td>
                   <td>{admission.location}</td>
