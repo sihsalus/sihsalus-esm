@@ -53,8 +53,8 @@ export function deleteUserRoleScopes(ids: string[]) {
 // createOrUpdateUserRoleScope
 export function createOrUpdateUserRoleScope(item: UserRoleScope) {
   const abortController = new AbortController();
-  const isUpdate = item.uuid != null;
-  const apiUrl = `${restBaseUrl}/stockmanagement/userrolescope${isUpdate ? '/' + item.uuid : ''}`;
+  const hasUuid = item.uuid != null;
+  const apiUrl = `${restBaseUrl}/stockmanagement/userrolescope${hasUuid ? '/' + item.uuid : ''}`;
   return openmrsFetch(apiUrl, {
     method: 'POST',
     headers: {

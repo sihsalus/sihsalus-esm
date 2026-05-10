@@ -7,7 +7,6 @@ import {
   useConfig,
 } from '@openmrs/esm-framework';
 import type { OrderPost, PatientOrderFetchResponse, TestOrderPost } from '@openmrs/esm-patient-common-lib';
-import { chunk } from 'lodash-es';
 import { useCallback, useMemo } from 'react';
 import useSWR, { mutate } from 'swr';
 import useSWRImmutable from 'swr/immutable';
@@ -58,19 +57,25 @@ export function usePatientLabOrders(patientUuid: string, status: 'ACTIVE' | 'any
   };
 }
 
+const conceptRepresentation = 'custom:(uuid,display)';
+
 export function useOrderReasons(conceptUuids: Array<string>) {
-  const { data, error, isLoading } = useSWRImmutable<Array<FetchResponse<ConceptReferenceResponse>>, Error>(
-    conceptUuids && conceptUuids.length > 0 ? getConceptReferenceUrls(conceptUuids) : null,
-    (key: Array<string>) => Promise.all(key.map((url) => openmrsFetch<ConceptReferenceResponse>(url))),
+  const { data, error, isLoading } = useSWRImmutable<FetchResponse<ConceptReferenceResponse>, Error>(
+    conceptUuids && conceptUuids.length > 0
+      ? [`${restBaseUrl}/conceptreferences?v=${conceptRepresentation}`, conceptUuids]
+      : null,
+    ([url, refs]) =>
+      openmrsFetch<ConceptReferenceResponse>(url, {
+        headers: { 'Content-Type': 'application/json' },
+        body: { references: refs },
+        method: 'POST',
+      }),
   );
 
-  const ob: ConceptReferenceResponse = data?.reduce((acc, response) => ({ ...acc, ...response.data }), {});
-  const orderReasons = ob
-    ? Object.values(ob).map((value) => ({
-        uuid: value.uuid,
-        display: value.display,
-      }))
-    : [];
+  const orderReasons = Object.values(data?.data ?? {}).map((value) => ({
+    uuid: value.uuid,
+    display: value.display,
+  }));
 
   if (error) {
     showSnackbar({
@@ -81,12 +86,6 @@ export function useOrderReasons(conceptUuids: Array<string>) {
   }
 
   return { orderReasons: orderReasons, isLoading };
-}
-
-function getConceptReferenceUrls(conceptUuids: Array<string>) {
-  return chunk(conceptUuids, 10).map(
-    (partition) => `${restBaseUrl}/conceptreferences?references=${partition.join(',')}&v=custom:(uuid,display)`,
-  );
 }
 
 export function prepTestOrderPostData(

@@ -222,6 +222,26 @@ const AddStockUserRoleScope: React.FC<AddStockUserRoleScopeProps> = ({ model, ed
   const addStockUserRole = async (e) => {
     e.preventDefault();
 
+    if (!formModel?.userUuid) {
+      showSnackbar({
+        title: t('errorSavingUserRoleScope', 'Error Saving user role scope'),
+        kind: 'error',
+        isLowContrast: true,
+        subtitle: t('userRequired', 'User is required'),
+      });
+      return;
+    }
+
+    if (!formModel?.role) {
+      showSnackbar({
+        title: t('errorSavingUserRoleScope', 'Error Saving user role scope'),
+        kind: 'error',
+        isLowContrast: true,
+        subtitle: t('roleRequired', 'Role is required'),
+      });
+      return;
+    }
+
     createOrUpdateUserRoleScope(formModel).then(
       () => {
         handleMutate(`${restBaseUrl}/stockmanagement/userrolescope`);
@@ -238,10 +258,8 @@ const AddStockUserRoleScope: React.FC<AddStockUserRoleScopeProps> = ({ model, ed
           title: t('errorSavingUserRoleScope', 'Error Saving user role scope'),
           kind: 'error',
           isLowContrast: true,
-          subtitle: err?.message,
+          subtitle: err?.message ?? err?.cause ?? t('unknownError', 'An unknown error occurred'),
         });
-
-        closeWorkspace();
       },
     );
   };

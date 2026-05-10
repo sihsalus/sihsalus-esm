@@ -129,7 +129,7 @@ describe('BillsTable', () => {
 
     render(<BillsTable />);
 
-    // With default "Pending bills" filter, shows "No matching bills" not empty state
+    // With default "Pending confirmation" filter, shows "No matching bills" not empty state
     expect(screen.getByText(/no matching bills to display/i)).toBeInTheDocument();
     expect(screen.getByText(/check the filters above/i)).toBeInTheDocument();
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe('BillsTable', () => {
 
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
     expect(screen.getByText(/filter by/i)).toBeInTheDocument();
-    expect(screen.getByText(/pending bills/i)).toBeInTheDocument();
+    expect(screen.getByText(/pending confirmation/i)).toBeInTheDocument();
   });
 
   test('should display an error state if there is a problem loading bill data', () => {
@@ -171,7 +171,7 @@ describe('BillsTable', () => {
     expect(screen.getByText(/error state/i)).toBeInTheDocument();
     expect(screen.queryByRole('table')).not.toBeInTheDocument();
     expect(screen.getByText(/filter by/i)).toBeInTheDocument();
-    expect(screen.getByText(/pending bills/i)).toBeInTheDocument();
+    expect(screen.getByText(/pending confirmation/i)).toBeInTheDocument();
   });
 
   test('should pass search term to backend API', async () => {
@@ -200,7 +200,7 @@ describe('BillsTable', () => {
     await user.type(searchInput, 'John');
 
     await waitFor(() => {
-      expect(mockBills).toHaveBeenCalledWith(10, 'PENDING,POSTED', 'John');
+      expect(mockBills).toHaveBeenCalledWith(10, 'PENDING', 'John');
     });
 
     expect(mockGoTo).toHaveBeenCalledWith(1);
@@ -244,7 +244,7 @@ describe('BillsTable', () => {
 
     render(<BillsTable />);
 
-    const filterDropdown = screen.getByText('Pending bills');
+    const filterDropdown = screen.getByText('Pending confirmation');
     await user.click(filterDropdown);
 
     const paidBillsOption = screen.getAllByText('Paid bills')[0];

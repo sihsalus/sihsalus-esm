@@ -64,7 +64,7 @@ const BillsTable: React.FC = () => {
   const billPaymentStatusFilterItems: BillPaymentStatusFilterItem[] = useMemo(
     () => [
       { id: '', text: t('allBills', 'All bills'), status: '' },
-      { id: 'PENDING', text: t('pendingBills', 'Pending bills'), status: 'PENDING,POSTED' },
+      { id: 'PENDING', text: t('pendingConfirmationBills', 'Pending confirmation'), status: 'PENDING' },
       { id: 'PAID', text: t('paidBills', 'Paid bills'), status: 'PAID' },
     ],
     [t],

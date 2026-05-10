@@ -10,6 +10,7 @@
   "deleting": "Deleting",
   "doseNumber": "Dose {{number}}",
   "doseNumberWithinSeries": "Dose number within series",
+  "duplicateDoseWarning": "Dose {{dose}} has already been recorded for this vaccine",
   "doses": "Doses",
   "dueSoon": "Due soon",
   "empty": "Sin dosis",

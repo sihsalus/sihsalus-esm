@@ -46,7 +46,7 @@ const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string
   const isTablet = useLayoutType() === 'tablet';
   const { t } = useTranslation();
   const { immunizationsConceptSet } = useImmunizationsConceptSet(config);
-  const { data: existingImmunizations, mutate } = useImmunizations(patientUuid);
+  const { data: existingImmunizations, isLoading: isLoadingImmunizations, mutate } = useImmunizations(patientUuid);
 
   const [immunizationToEditMeta, setImmunizationToEditMeta] = useState<{
     immunizationObsUuid: string;
@@ -128,6 +128,27 @@ const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string
   const vaccineUuid = watch('vaccineUuid');
   const doseNumber = watch('doseNumber');
   const immunizationStatus = watch('status');
+
+  const duplicateDoseWarning = useMemo(() => {
+    if (!vaccineUuid || doseNumber == null) return undefined;
+
+    const isDuplicate = existingImmunizations?.some((group) => {
+      if (group.vaccineUuid !== vaccineUuid) {
+        return false;
+      }
+
+      return group.existingDoses.some(
+        (dose) =>
+          dose.doseNumber != null &&
+          Number(dose.doseNumber) === Number(doseNumber) &&
+          dose.immunizationObsUuid !== immunizationToEditMeta?.immunizationObsUuid,
+      );
+    });
+
+    return isDuplicate
+      ? t('duplicateDoseWarning', 'Dose {{dose}} has already been recorded for this vaccine', { dose: doseNumber })
+      : undefined;
+  }, [doseNumber, existingImmunizations, immunizationToEditMeta?.immunizationObsUuid, t, vaccineUuid]);
 
   const selectedSequence = useMemo(() => {
     if (!vaccineUuid || doseNumber == null) return null;
@@ -357,6 +378,7 @@ const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string
                   sequences={config.sequenceDefinitions}
                   control={control}
                   existingDoseNumbers={existingDoseNumbers}
+                  warningMessage={duplicateDoseWarning}
                 />
               </ResponsiveWrapper>
             )}
@@ -522,7 +544,12 @@ const ImmunizationsForm: React.FC<PatientWorkspace2DefinitionProps<Record<string
             <Button className={styles.button} kind="secondary" onClick={() => closeWorkspace()}>
               {getCoreTranslation('cancel')}
             </Button>
-            <Button className={styles.button} kind="primary" disabled={isSubmitting} type="submit">
+            <Button
+              className={styles.button}
+              kind="primary"
+              disabled={isSubmitting || isLoadingImmunizations}
+              type="submit"
+            >
               {isSubmitting ? (
                 <InlineLoading className={styles.spinner} description={t('saving', 'Saving') + '...'} />
               ) : (

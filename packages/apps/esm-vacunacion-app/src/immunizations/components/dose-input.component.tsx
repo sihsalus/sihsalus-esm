@@ -10,9 +10,11 @@ export const DoseInput: React.FC<{
   sequences: ImmunizationSequenceDefinition[];
   control: Control;
   existingDoseNumbers?: number[];
-}> = ({ vaccine, sequences, control, existingDoseNumbers = [] }) => {
+  warningMessage?: string;
+}> = ({ vaccine, sequences, control, existingDoseNumbers = [], warningMessage }) => {
   const { t } = useTranslation();
-  const { field } = useController({ name: 'doseNumber', control });
+  const { field, fieldState } = useController({ name: 'doseNumber', control });
+  const showWarning = !!warningMessage && !fieldState.error;
 
   const vaccineSequences = useMemo(
     () => sequences?.find((sequence) => sequence.vaccineConceptUuid === vaccine)?.sequences || [],
@@ -41,6 +43,8 @@ export const DoseInput: React.FC<{
         ) : (
           <Dropdown
             id="sequence"
+            invalid={!!fieldState.error}
+            invalidText={fieldState.error?.message}
             items={availableSequences.map((sequence) => sequence.sequenceNumber)}
             itemToString={(item) =>
               availableSequences.find((sequence) => sequence.sequenceNumber === item)?.sequenceLabel
@@ -49,6 +53,8 @@ export const DoseInput: React.FC<{
             onChange={(val) => field.onChange(parseInt(String(val.selectedItem || 0), 10))}
             selectedItem={field.value}
             titleText={t('sequence', 'Sequence')}
+            warn={showWarning}
+            warnText={warningMessage}
           />
         )
       ) : (
@@ -57,11 +63,15 @@ export const DoseInput: React.FC<{
           disableWheel
           hideSteppers
           id="doseNumber"
+          invalid={!!fieldState.error}
+          invalidText={fieldState.error?.message}
           label={t('doseNumberWithinSeries', 'Dose number within series')}
           min={1}
           onChange={handleChange}
           required
           value={field.value}
+          warn={showWarning}
+          warnText={warningMessage}
         />
       )}
     </div>
