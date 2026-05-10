@@ -1,5 +1,5 @@
 import { useConfig } from '@openmrs/esm-framework';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import { useAdmissions } from '../resources/admissions.resource';
@@ -18,6 +18,10 @@ function renderAdmissionHome() {
       <AdmissionHome />
     </BrowserRouter>,
   );
+}
+
+function getMetricValue(label: string) {
+  return screen.getByText(label).parentElement?.querySelector('strong');
 }
 
 describe('AdmissionHome', () => {
@@ -40,6 +44,16 @@ describe('AdmissionHome', () => {
           location: 'Admision Central',
           status: 'Activa',
         },
+        {
+          uuid: 'visit-2',
+          patientUuid: 'patient-2',
+          startDatetime: '2026-05-09T10:00:00.000-0500',
+          patientName: 'Grace Hopper',
+          medicalRecordNumber: 'HC-100',
+          service: 'Emergencia',
+          location: 'Topico',
+          status: 'Finalizada',
+        },
       ],
       error: undefined,
       isLoading: false,
@@ -54,11 +68,55 @@ describe('AdmissionHome', () => {
     expect(screen.getByRole('cell', { name: 'Ada Lovelace' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'HC-99' })).toBeInTheDocument();
     expect(screen.getByRole('cell', { name: 'Consulta externa' })).toBeInTheDocument();
+    expect(getMetricValue('Admisiones reportadas')).toHaveTextContent('2');
+    expect(getMetricValue('Activas')).toHaveTextContent('1');
+    expect(getMetricValue('Finalizadas')).toHaveTextContent('1');
+    expect(getMetricValue('UPS/servicios')).toHaveTextContent('2');
     expect(screen.getByRole('link', { name: /fusionar historias duplicadas/i })).toHaveAttribute(
       'href',
       '/openmrs/spa/admission/merge',
     );
     expect(mockUseAdmissions).toHaveBeenCalledWith(75);
+  });
+
+  it('filters the report by search text and status', () => {
+    mockUseAdmissions.mockReturnValue({
+      admissions: [
+        {
+          uuid: 'visit-1',
+          patientUuid: 'patient-1',
+          patientName: 'Ada Lovelace',
+          medicalRecordNumber: 'HC-99',
+          service: 'Consulta externa',
+          location: 'Admision Central',
+          status: 'Activa',
+        },
+        {
+          uuid: 'visit-2',
+          patientUuid: 'patient-2',
+          patientName: 'Grace Hopper',
+          medicalRecordNumber: 'HC-100',
+          service: 'Emergencia',
+          location: 'Topico',
+          status: 'Finalizada',
+        },
+      ],
+      error: undefined,
+      isLoading: false,
+    });
+
+    renderAdmissionHome();
+
+    fireEvent.change(screen.getByRole('textbox', { name: /buscar por paciente/i }), { target: { value: 'Grace' } });
+
+    expect(screen.queryByRole('cell', { name: 'Ada Lovelace' })).not.toBeInTheDocument();
+    expect(screen.getByRole('cell', { name: 'Grace Hopper' })).toBeInTheDocument();
+    expect(getMetricValue('Admisiones reportadas')).toHaveTextContent('1');
+
+    fireEvent.change(screen.getByLabelText(/filtrar por estado/i), { target: { value: 'Activa' } });
+
+    expect(screen.queryByRole('cell', { name: 'Grace Hopper' })).not.toBeInTheDocument();
+    expect(screen.getByText(/no se encontraron admisiones recientes/i)).toBeInTheDocument();
   });
 
   it('uses the default report page size when config is empty', () => {

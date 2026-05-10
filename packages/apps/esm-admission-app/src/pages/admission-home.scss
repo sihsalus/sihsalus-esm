@@ -24,6 +24,42 @@
   color: #525252;
 }
 
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-bottom: 1rem;
+  background: #e0e0e0;
+}
+
+.summary div {
+  min-height: 5rem;
+  padding: 1rem;
+  background: #ffffff;
+}
+
+.summary span {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #525252;
+  font-size: 0.875rem;
+}
+
+.summary strong {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) minmax(12rem, 18rem) auto;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
 .tableWrap {
   overflow-x: auto;
   background: #ffffff;
@@ -70,5 +106,10 @@
 
   .header {
     flex-direction: column;
+  }
+
+  .summary,
+  .controls {
+    grid-template-columns: 1fr;
   }
 }
