@@ -2,6 +2,18 @@ import { Workbox } from 'workbox-window';
 
 let workboxRegistration: Promise<Workbox> | undefined;
 
+function getCoreTranslation(key: string, defaultValue: string) {
+  const i18next = (globalThis as typeof globalThis & { i18next?: { t?: (key: string, options: object) => string } })
+    .i18next;
+
+  return (
+    i18next?.t?.(key, {
+      ns: 'core',
+      defaultValue,
+    }) ?? defaultValue
+  );
+}
+
 /**
  * If not yet registered, registers the application's global Service Worker.
  * Throws if registration is not possible.
@@ -17,8 +29,13 @@ export function registerOmrsServiceWorker(scriptUrl: string, registerOptions?: o
     return workboxRegistration;
   }
 
-  if (!('serviceWorker' in navigator)) {
-    throw new Error('Registering the Service Worker is not possible due to missing browser capabilities.');
+  if (!navigator.serviceWorker) {
+    throw new Error(
+      getCoreTranslation(
+        'offlineSetupMissingBrowserCapabilities',
+        'Offline setup unavailable. Offline mode could not be enabled because this browser or browsing context does not allow Service Workers. You can still sign in and work online. To use offline mode, open SIH Salus over HTTPS or localhost, use a compatible browser, and avoid private browsing or browser policies that block Service Workers.',
+      ),
+    );
   }
 
   const wb = new Workbox(scriptUrl, registerOptions);

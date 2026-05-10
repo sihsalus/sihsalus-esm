@@ -31,6 +31,8 @@
   "missing": "Faltante",
   "moduleName": "Nombre del módulo",
   "modulesWithMissingDependenciesWarning": "Algunos módulos tienen dependencias no resueltas en el backend",
+  "missingBackendDependenciesMessage": "Faltan {{missingCount}} módulo(s) backend y {{versionMismatchCount}} tienen versiones incompatibles. Consulte la pestaña Módulos Backend en las Herramientas del Implementador para más detalles. Ejemplos: {{examples}}",
+  "none": "Ninguno",
   "noConceptsFoundText": "No se encontraron conceptos que coincidan",
   "noPersonAttributeFoundText": "No se encontraron tipos de atributos de persona que coincidan",
   "numberValidationMessage": "El valor debe ser un número",

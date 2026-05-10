@@ -31,6 +31,8 @@
   "missing": "Missing",
   "moduleName": "Module name",
   "modulesWithMissingDependenciesWarning": "Some modules have unresolved backend dependencies",
+  "missingBackendDependenciesMessage": "{{missingCount}} backend module(s) are missing and {{versionMismatchCount}} have incompatible versions. Check the Backend Modules tab in the Implementer Tools for details. Examples: {{examples}}",
+  "none": "None",
   "noConceptsFoundText": "No matching concepts found",
   "noPersonAttributeFoundText": "No matching person attribute types found",
   "numberValidationMessage": "Value must be a number",
