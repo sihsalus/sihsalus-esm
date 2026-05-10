@@ -183,14 +183,7 @@ const FormDentalClinicalFindings = () => {
   const [pickerOpen, setPickerOpen] = useState(false);
   const [pickerQuery, setPickerQuery] = useState('');
 
-  const norm = useCallback(
-    (s: string) =>
-      s
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[̀-ͯ]/g, ''),
-    [],
-  );
+  const norm = useCallback((s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''), []);
 
   const filteredOpciones = useMemo(() => {
     const q = norm(pickerQuery.trim());
@@ -211,14 +204,10 @@ const FormDentalClinicalFindings = () => {
     [formActions, closePicker],
   );
 
-  const handleSelectColor = useCallback(
-    (c: FindingColor) => formActions.selectColor(c),
-    [formActions],
-  );
+  const handleSelectColor = useCallback((c: FindingColor) => formActions.selectColor(c), [formActions]);
 
   const handleSelectSuboption = useCallback(
-    (sub: FindingSuboption) =>
-      formActions.selectSuboption(selectedSuboption?.id === sub.id ? null : sub),
+    (sub: FindingSuboption) => formActions.selectSuboption(selectedSuboption?.id === sub.id ? null : sub),
     [formActions, selectedSuboption],
   );
 
@@ -324,12 +313,7 @@ const FormDentalClinicalFindings = () => {
         {/* Documentación */}
         {docsGroup && (
           <div className={styles.fieldDocs}>
-            <Button
-              kind="ghost"
-              size="md"
-              renderIcon={Information}
-              onClick={() => setShowInfo(true)}
-            >
+            <Button kind="ghost" size="md" renderIcon={Information} onClick={() => setShowInfo(true)}>
               Documentación
             </Button>
           </div>
@@ -378,13 +362,7 @@ const FormDentalClinicalFindings = () => {
       </Modal>
 
       {showInfo && docsGroup && (
-        <Modal
-          open
-          passiveModal
-          modalHeading={docsGroup.hallazgo}
-          onRequestClose={() => setShowInfo(false)}
-          size="sm"
-        >
+        <Modal open passiveModal modalHeading={docsGroup.hallazgo} onRequestClose={() => setShowInfo(false)} size="sm">
           {docsGroup.nota && <p className={styles.docsNote}>{docsGroup.nota}</p>}
           {docsGroup.siglas.length > 0 && (
             <table className={styles.docsTable}>
