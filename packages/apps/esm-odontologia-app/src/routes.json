@@ -36,8 +36,10 @@
     {
       "name": "odontologia-odontogram-form-workspace",
       "component": "odontologiaOdontogramWorkspace",
-      "type": "form",
+      "type": "clinical-form",
       "title": "odontogramWorkspaceTitle",
+      "width": "extra-wide",
+      "canMaximize": true,
       "canHide": true
     }
   ]
