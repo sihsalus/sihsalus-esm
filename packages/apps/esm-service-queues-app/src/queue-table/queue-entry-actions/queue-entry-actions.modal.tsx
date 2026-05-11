@@ -299,6 +299,7 @@ export const QueueEntryActionModal: React.FC<QueueEntryActionModalProps> = ({
                   {priorities?.map(({ uuid, display }) => (
                     <Switch
                       role="radio"
+                      aria-checked={uuid === formState.selectedPriority}
                       name={uuid}
                       text={
                         uuid == queueEntry.priority.uuid

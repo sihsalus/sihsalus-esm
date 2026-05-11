@@ -137,7 +137,7 @@ const TransitionQueueEntryModal: React.FC<TransitionQueueEntryModalProps> = ({ c
             </p>
             {preferredIdentifiers?.length
               ? preferredIdentifiers.map((identifier) => (
-                  <p className={styles.p}>
+                  <p key={identifier?.uuid ?? identifier?.identifier} className={styles.p}>
                     {identifier?.identifierType?.display} : &nbsp; {identifier?.identifier}
                   </p>
                 ))

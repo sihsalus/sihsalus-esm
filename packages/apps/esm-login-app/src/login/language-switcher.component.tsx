@@ -108,6 +108,7 @@ export function LanguageSwitcher({ locales }: LanguageSwitcherProps) {
           {availableLocales.map((option) => (
             <button
               aria-current={option.locale === activeLocale ? 'true' : undefined}
+              aria-checked={option.locale === activeLocale}
               className={styles.languageMenuItem}
               key={option.locale}
               onClick={() => changeLanguage(option.locale)}
