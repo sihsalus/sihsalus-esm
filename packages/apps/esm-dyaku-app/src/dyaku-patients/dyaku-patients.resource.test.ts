@@ -1,3 +1,10 @@
+import {
+  type ConfigObject,
+  configSchema,
+  DYAKU_FHIR_BASE_URL,
+  DYAKU_PATIENT_PROFILE_URL,
+  DYAKU_PERU_FHIR_GUIDES_BASE_URL,
+} from '../config-schema';
 import { syncDyakuPatientsToOpenMRS, validateAndFixPeruvianDNI } from './dyaku-patients.resource';
 
 type MockedOpenmrsFramework = {
@@ -7,7 +14,26 @@ type MockedOpenmrsFramework = {
 jest.mock('@openmrs/esm-framework', () => ({
   openmrsFetch: jest.fn(),
   useConfig: jest.fn(),
+  Type: {
+    Boolean: 'boolean',
+    Number: 'number',
+    Object: 'object',
+    String: 'string',
+  },
 }));
+
+describe('Dyaku configuration defaults', () => {
+  it('uses the Dyaku FHIR R4 server and Peru implementation guide as base configuration', () => {
+    expect(configSchema.dyaku.fhirBaseUrl._default).toBe(DYAKU_FHIR_BASE_URL);
+    expect(configSchema.dyaku.fhirImplementationGuideBaseUrl._default).toBe(DYAKU_PERU_FHIR_GUIDES_BASE_URL);
+    expect(configSchema.dyaku.patientProfileUrl._default).toBe(DYAKU_PATIENT_PROFILE_URL);
+    expect(configSchema.dyaku._default).toMatchObject({
+      fhirBaseUrl: 'https://dyaku.minsa.gob.pe/fhir',
+      fhirImplementationGuideBaseUrl: 'https://dyaku.minsa.gob.pe/guides/',
+      patientProfileUrl: 'https://www.gob.pe/minsa/RENHICE/fhir/StructureDefinition/PacientePe',
+    });
+  });
+});
 
 // ---------------------------------------------------------------------------
 // validateAndFixPeruvianDNI
@@ -62,9 +88,11 @@ describe('syncDyakuPatientsToOpenMRS', () => {
     birthDate: '1990-01-01',
   });
 
-  const mockConfig = {
+  const mockConfig: ConfigObject = {
     dyaku: {
       fhirBaseUrl: 'https://fhir.test',
+      fhirImplementationGuideBaseUrl: 'https://fhir.test/guides/',
+      patientProfileUrl: 'https://fhir.test/StructureDefinition/PacientePe',
       identifierSourceUuid: 'src-uuid',
       dniIdentifierTypeUuid: 'dni-uuid',
       hscIdentifierTypeUuid: 'hsc-uuid',
@@ -75,7 +103,7 @@ describe('syncDyakuPatientsToOpenMRS', () => {
       syncBatchSize: 50,
       syncIntervalMinutes: 60,
     },
-  } as any;
+  };
 
   it('calls onProgress for each patient', async () => {
     const patients = Array.from({ length: 3 }, (_, i) => makePatient(String(i + 1)));
