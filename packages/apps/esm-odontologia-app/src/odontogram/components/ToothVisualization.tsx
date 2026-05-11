@@ -25,6 +25,14 @@ const ToothVisualization = ({
   const { data, config, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
   const { selectedFindingId, selectedSuboption, selectedColor, isComplete } = formSelection;
 
+  // Close the design picker if the finding changes or the form goes read-only.
+  // Otherwise the modal stays mounted showing designs/preview that no longer
+  // match what's selected in the form.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: The picker must close whenever these external selection values change.
+  React.useEffect(() => {
+    setShowDesignSelector(false);
+  }, [selectedFindingId, readOnly]);
+
   // Opciones predefinidas que activan el marcado
   const predefinedMarkedOptions = [
     3, 4, 8, 20, 23, 38, 7, 28, 37, 36, 10, 5, 16, 27, 34, 35, 9, 14, 15, 17, 18, 19, 22, 29, 33,
@@ -99,6 +107,14 @@ const ToothVisualization = ({
     });
   };
 
+  // Findings that are rendered OUTSIDE the tooth body and must NOT be drawn here:
+  //   11 (Fusión), 12 (Geminación), 21 — rendered on the legend svg by ToothDetails
+  //   13 (Giroversión)               — rendered in the FindingRow by MainSectionOnTheCanvas
+  // They live in TOOTH_DESIGN_COMPONENT_MAP because their design components are
+  // shared, but iterating the whole map without this filter caused duplicates
+  // appearing on the tooth body in addition to their proper location.
+  const TOOTH_BODY_EXCLUDED = new Set<number>([11, 12, 13, 21]);
+
   // Renderizar todos los hallazgos
   const renderAllFindings = () => {
     if (!tooth?.findings || tooth.findings.length === 0) {
@@ -106,6 +122,10 @@ const ToothVisualization = ({
     }
 
     return tooth.findings.map((finding, index: number) => {
+      if (TOOTH_BODY_EXCLUDED.has(finding.findingId)) {
+        return null;
+      }
+
       const findingKey = String(finding.findingId);
       const designKey = String(finding.designNumber);
       const designComponents = TOOTH_DESIGN_COMPONENT_MAP[findingKey];
@@ -152,6 +172,9 @@ const ToothVisualization = ({
           <Tooth zones={toothZones} />
           {/* Renderizar todos los hallazgos */}
           {renderAllFindings()}
+          {/* Re-stroke zone lines on top so colored fill designs don't hide the
+              tooth's anatomy. */}
+          <Tooth zones={toothZones} strokesOnly />
           {/* Sombreado cuando se selecciona una opción predefinida */}
           {selectedFindingId != null && predefinedMarkedOptions.includes(selectedFindingId) && (
             <rect width="60" height="120" fill="lightgray" opacity="0.45" pointerEvents="none" />
@@ -172,6 +195,8 @@ const ToothVisualization = ({
         existingFindings={existingFindings}
         keepOpen={isMultiDesign}
         suboptions={selectedItem?.subopciones}
+        rootDesign={design}
+        position={position}
       />
     </>
   );

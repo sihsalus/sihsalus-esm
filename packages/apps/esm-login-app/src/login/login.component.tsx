@@ -2,13 +2,14 @@ import { Button, InlineLoading, InlineNotification, PasswordInput, TextInput, Ti
 import {
   ArrowRightIcon,
   getCoreTranslation,
+  interpolateUrl,
   navigate as openmrsNavigate,
   refetchCurrentUser,
   useConfig,
   useConnectivity,
   useSession,
 } from '@openmrs/esm-framework';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -58,6 +59,8 @@ function getLoginErrorKey(error: unknown): LoginErrorKey {
 
 const Login: React.FC = () => {
   const {
+    announcements = [],
+    background = { image: '', color: '' },
     languageSwitcher,
     showPasswordOnSeparateScreen,
     provider: loginProvider,
@@ -86,7 +89,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (!user) {
-      if (loginProvider.type === 'oauth2') {
+      if (loginProvider.type === 'oauth2' || loginProvider.type === 'custom') {
         openmrsNavigate({ to: loginProvider.loginUrl });
       } else if (!username && location.pathname === '/login/confirm') {
         navigate('/login');
@@ -119,6 +122,24 @@ const Login: React.FC = () => {
 
   const changeUsername = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => setUsername(evt.target.value), []);
   const changePassword = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => setPassword(evt.target.value), []);
+
+  const containerClassName = [
+    styles.container,
+    background.image ? styles.containerWithImage : '',
+    !background.image && background.color ? styles.containerWithColor : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const containerStyle = useMemo<React.CSSProperties | undefined>(() => {
+    if (background.image) {
+      return { '--login-bg-image': `url(${interpolateUrl(background.image)})` } as React.CSSProperties;
+    }
+    if (background.color) {
+      return { '--login-bg-color': background.color } as React.CSSProperties;
+    }
+    return undefined;
+  }, [background]);
 
   const handleSubmit = useCallback(
     async (evt: React.FormEvent<HTMLFormElement>) => {
@@ -195,7 +216,7 @@ const Login: React.FC = () => {
 
   if (!loginProvider || loginProvider.type === 'basic') {
     return (
-      <div className={styles.container}>
+      <div className={containerClassName} style={containerStyle} data-testid="login-container">
         <main className={styles.loginLayout}>
           <h1 className={styles.srOnly}>{t('login', 'Log in')}</h1>
           <div className={styles.imagePanel} aria-hidden="true">
@@ -205,6 +226,20 @@ const Login: React.FC = () => {
           </div>
           <div className={styles.formPanel}>
             <LanguageSwitcher locales={languageSwitcher.locales} />
+            {announcements.length > 0 && (
+              <div className={styles.announcements}>
+                {announcements.map((announcement, index) => (
+                  <InlineNotification
+                    key={`${announcement.kind}-${announcement.title}-${announcement.text}-${index}`}
+                    kind={announcement.kind}
+                    title={announcement.title ? t(announcement.title) : ''}
+                    subtitle={t(announcement.text)}
+                    lowContrast
+                    hideCloseButton
+                  />
+                ))}
+              </div>
+            )}
             <Tile className={styles.loginCard}>
               <div className={styles.center}>
                 <Logo t={t} />

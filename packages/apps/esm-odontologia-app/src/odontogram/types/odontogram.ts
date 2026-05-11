@@ -235,8 +235,6 @@ export interface FindingOptionConfig {
   renderCategory: FindingRenderCategory;
   /** Si se aplica a toda la fila (todos los dientes de la misma posición) */
   appliesToRow?: boolean;
-  /** Si tiene variantes invertidas para dientes inferiores */
-  hasInvertedLower?: boolean;
 }
 
 /**

@@ -402,57 +402,6 @@ export const Finding30Design6 = ({ strokeColor }: DesignProps) => (
   </svg>
 );
 
-export const Finding30Design1Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Línea horizontal desde la izquierda hacia el 90% del ancho */}
-    <line x1="0" y1="10" x2="54" y2="10" stroke={strokeColor} strokeWidth="1.5" />
-    {/* Línea vertical que sube desde el extremo derecho */}
-    <line x1="54" y1="10" x2="54" y2="2" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
-export const Finding30Design2Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Línea horizontal de extremo a extremo */}
-    <line x1="0" y1="10" x2="60" y2="10" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
-export const Finding30Design3Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Línea horizontal desde la derecha hacia el 10% del ancho desde la izquierda */}
-    <line x1="60" y1="10" x2="6" y2="10" stroke={strokeColor} strokeWidth="1.5" />
-    {/* Línea vertical que sube desde el extremo izquierdo */}
-    <line x1="6" y1="10" x2="6" y2="2" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
-// Diseños invertidos para espacios entre hallazgo 30 - Dientes inferiores (20x20)
-export const Finding30Design4Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20">
-    {/* Versión más pequeña - Línea horizontal desde la izquierda hacia el 90% del ancho */}
-    <line x1="0" y1="10" x2="18" y2="10" stroke={strokeColor} strokeWidth="1.5" />
-    {/* Línea vertical que sube desde el extremo derecho */}
-    <line x1="18" y1="10" x2="18" y2="2" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
-export const Finding30Design5Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20">
-    {/* Línea horizontal de extremo a extremo */}
-    <line x1="0" y1="10" x2="20" y2="10" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
-export const Finding30Design6Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20">
-    {/* Versión más pequeña - Línea horizontal desde la derecha hacia el 10% del ancho desde la izquierda */}
-    <line x1="20" y1="10" x2="2" y2="10" stroke={strokeColor} strokeWidth="1.5" />
-    {/* Línea vertical que sube desde el extremo izquierdo */}
-    <line x1="2" y1="10" x2="2" y2="2" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
 // Diseño de dos líneas horizontales para tamaño 60x20
 export const TwoHorizontalLines60x20 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="20" viewBox="0 0 60 20">
@@ -551,31 +500,6 @@ export const Finding13Design2 = ({ strokeColor }: DesignProps) => (
     <line x1="10" y1="15" x2="11" y2="7" stroke={strokeColor} strokeWidth="3" />
     {/* Punta de flecha - lado derecho - más rotación */}
     <line x1="10" y1="15" x2="18" y2="16" stroke={strokeColor} strokeWidth="3" />
-  </svg>
-);
-
-// Diseños invertidos para hallazgo 13 (Giroversión) - Para dientes inferiores
-// Diseño 1 Invertido: Flecha curva indicando giro hacia la derecha (pero hacia abajo)
-export const Finding13Design1Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Arco curvo principal invertido - ahora curva hacia abajo */}
-    <path d="M 10,5 Q 30,30 50,5" fill="none" stroke={strokeColor} strokeWidth="3" />
-    {/* Punta de flecha rotada para seguir la curva invertida */}
-    <line x1="50" y1="5" x2="49" y2="13" stroke={strokeColor} strokeWidth="3" />
-    {/* Punta de flecha - lado izquierdo - rotada para la curva invertida */}
-    <line x1="50" y1="5" x2="42" y2="4" stroke={strokeColor} strokeWidth="3" />
-  </svg>
-);
-
-// Diseño 2 Invertido: Flecha curva indicando giro hacia la izquierda (pero hacia abajo)
-export const Finding13Design2Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Arco curvo principal invertido - ahora curva hacia abajo */}
-    <path d="M 50,5 Q 30,30 10,5" fill="none" stroke={strokeColor} strokeWidth="3" />
-    {/* Punta de flecha rotada para seguir la curva invertida */}
-    <line x1="10" y1="5" x2="11" y2="13" stroke={strokeColor} strokeWidth="3" />
-    {/* Punta de flecha - lado derecho - rotada para la curva invertida */}
-    <line x1="10" y1="5" x2="18" y2="4" stroke={strokeColor} strokeWidth="3" />
   </svg>
 );
 
@@ -686,49 +610,6 @@ export const Finding39Design3 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="20" viewBox="0 0 60 20">
     {/* Curva que empieza a 3/4 partes hacia la izquierda */}
     <path d="M15,18 Q10,10 0,2" fill="none" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-export const Finding39Design1Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="20" height="20" viewBox="0 0 20 20" style={{ userSelect: 'none' }}>
-    {/* Reflejar verticalmente: invertir las coordenadas Y */}
-    {/* Curva desde abajo a arriba */}
-    <path d="M0,18 Q10,20 18,2" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" />
-
-    <path d="M20,18 Q10,20 2,2" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" />
-
-    {/* Borde izquierdo superior (reflejado) */}
-    <path
-      d="M2,7 L2,2 L7,2"
-      fill="none"
-      stroke={strokeColor}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-
-    {/* Borde derecho superior (reflejado) */}
-    <path
-      d="M13,2 L18,2 L18,7"
-      fill="none"
-      stroke={strokeColor}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-export const Finding39Design2Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Curva que empieza a 3/4 partes hacia la derecha y va hacia arriba */}
-    <path d="M45,2 Q50,10 60,18" fill="none" stroke={strokeColor} strokeWidth="1.5" />
-  </svg>
-);
-
-export const Finding39Design3Inverted = ({ strokeColor }: DesignProps) => (
-  <svg width="60" height="20" viewBox="0 0 60 20">
-    {/* Curva que empieza a 3/4 partes hacia la izquierda y va hacia arriba */}
-    <path d="M15,2 Q10,10 0,18" fill="none" stroke={strokeColor} strokeWidth="1.5" />
   </svg>
 );
 

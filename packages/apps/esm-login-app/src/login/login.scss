@@ -44,6 +44,28 @@
   background: $ui-02;
 }
 
+.containerWithImage {
+  .imagePanel {
+    background-image: var(--login-bg-image);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .loginMedia {
+    display: none;
+  }
+}
+
+.containerWithColor {
+  .imagePanel {
+    background: var(--login-bg-color);
+  }
+
+  .loginMedia {
+    display: none;
+  }
+}
+
 .center {
   text-align: center;
 }
@@ -106,6 +128,15 @@
   padding: 0;
   position: relative;
   min-height: fit-content;
+}
+
+.announcements {
+  width: 100%;
+  max-width: 26rem;
+  margin-bottom: layout.$spacing-06;
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing-03;
 }
 
 .loginLayout {
