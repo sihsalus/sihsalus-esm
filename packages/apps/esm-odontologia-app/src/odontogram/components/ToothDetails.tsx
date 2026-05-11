@@ -19,6 +19,17 @@ interface ToothDetailsProps {
   position?: 'upper' | 'lower';
 }
 
+/** Pick a font size that lets the abbreviation fit inside the 60×60 box.
+ *  Most clinical codes are 1-3 chars (CT, MB, CDP) and stay at 11px.
+ *  Longer ones like "Fluorosis" or "DAO" shrink progressively. */
+function getAnnotationFontSize(text: string): string {
+  const len = text.length;
+  if (len <= 3) return '11px';
+  if (len <= 5) return '10px';
+  if (len <= 7) return '9px';
+  return '8px';
+}
+
 // Se manejan los hallazgos 11, 12 y 21
 const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda', position = 'upper' }) => {
   const { data, config: ctxConfig, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
@@ -113,7 +124,14 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda'
               {group.items.map((ann, i) => (
                 <React.Fragment key={`${ann.findingId}-${ann.text}-${i}`}>
                   {i > 0 && <span className="tooth-annotation-sep">/</span>}
-                  <span className="tooth-annotation" style={{ color: COLOR_CSS[ann.color] ?? ann.color }}>
+                  <span
+                    className="tooth-annotation"
+                    style={{
+                      color: COLOR_CSS[ann.color] ?? ann.color,
+                      fontSize: getAnnotationFontSize(ann.text),
+                    }}
+                    title={ann.text}
+                  >
                     {ann.text}
                   </span>
                 </React.Fragment>
