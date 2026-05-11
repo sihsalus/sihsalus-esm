@@ -1,22 +1,24 @@
-.tooth-details-container {
+/* biome-ignore-all lint/correctness/noUnknownPseudoClass: :global() keeps literal odontogram class names compatible with CSS Modules. */
+
+:global(.tooth-details-container) {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.tooth-details-container--lower {
+:global(.tooth-details-container--lower) {
   flex-direction: column-reverse;
 }
 
 /* Invisible spacer used by SpaceBetweenLegends to mirror the box height
    of ToothDetails so the legend svgs share the same flex item height (90px). */
-.tooth-details-spacer {
+:global(.tooth-details-spacer) {
   width: 20px;
   height: 60px;
   flex-shrink: 0;
 }
 
-.tooth-details-box {
+:global(.tooth-details-box) {
   width: 60px;
   height: 60px;
   background-color: #ffffff;
@@ -34,16 +36,16 @@
   scrollbar-color: #cbd5e1 transparent;
 }
 
-.tooth-details-box::-webkit-scrollbar {
+:global(.tooth-details-box::-webkit-scrollbar) {
   width: 3px;
 }
 
-.tooth-details-box::-webkit-scrollbar-thumb {
+:global(.tooth-details-box::-webkit-scrollbar-thumb) {
   background: #cbd5e1;
   border-radius: 2px;
 }
 
-.tooth-details-textarea {
+:global(.tooth-details-textarea) {
   width: 100%;
   height: 100%;
   font-size: 12px;
@@ -58,7 +60,7 @@
   line-height: 1.2;
 }
 
-.tooth-details-annotations {
+:global(.tooth-details-annotations) {
   width: 100%;
   min-height: 100%;
   display: flex;
@@ -70,7 +72,7 @@
   box-sizing: border-box;
 }
 
-.tooth-annotation-group {
+:global(.tooth-annotation-group) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -81,7 +83,7 @@
   min-width: 0;
 }
 
-.tooth-annotation-sep {
+:global(.tooth-annotation-sep) {
   color: var(--cds-text-secondary, #525252);
   font-size: 10px;
   font-weight: 700;
@@ -89,7 +91,7 @@
   margin: 0 1px;
 }
 
-.tooth-annotation {
+:global(.tooth-annotation) {
   font-size: 11px;
   font-weight: 700;
   line-height: 1.1;
@@ -102,17 +104,17 @@
   text-overflow: ellipsis;
 }
 
-.tooth-details-legend {
+:global(.tooth-details-legend) {
   cursor: pointer;
   user-select: none;
 }
 
-.tooth-details-legend-text {
+:global(.tooth-details-legend-text) {
   user-select: none;
   pointer-events: none;
 }
 
-.tooth-details-cross {
+:global(.tooth-details-cross) {
   stroke: red;
   stroke-width: 1.2;
 }

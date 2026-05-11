@@ -52,13 +52,11 @@ import {
   Finding37Design4,
   Finding37Design5,
 } from '../designs/figuras';
-import type { FindingColor, FindingDesign, ToothFinding } from '../types/odontogram';
+import type { FindingColor, FindingDesign, ToothFinding, ToothRootDesign } from '../types/odontogram';
 import { COLOR_CSS } from './constants';
 import styles from './DesignSelector.module.scss';
 import Tooth from './Tooth';
 import ToothDesigns from './ToothDesigns';
-
-type ToothRootDesign = 'default' | 'design2' | 'design3' | 'design4';
 
 const TOOTH_SVG_HEIGHT = 120;
 
@@ -166,7 +164,7 @@ interface DesignSelectorProps {
   /** Suboptions config to show Tipo label on applied designs */
   suboptions?: { id: number; nombre: string }[];
   /** Tooth root design variant — drives the upper part of the preview svg */
-  rootDesign?: string;
+  rootDesign?: ToothRootDesign;
   /** Tooth arch position — lower teeth render the preview vertically flipped */
   position?: 'upper' | 'lower';
 }
@@ -187,7 +185,6 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
   position = 'upper',
 }) => {
   const toothTransform = position === 'lower' ? `scale(1,-1) translate(0,-${TOOTH_SVG_HEIGHT})` : undefined;
-  const rootDesignName = rootDesign as ToothRootDesign;
   const handleDesignClick = (design: FindingDesign) => {
     onDesignSelect(design);
     if (!keepOpen) {
@@ -222,7 +219,7 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
         <div className={styles.previewTooth} role="img" aria-label="Vista previa del hallazgo en el diente">
           <svg width="60" height={TOOTH_SVG_HEIGHT}>
             <g transform={toothTransform}>
-              <ToothDesigns design={rootDesignName} />
+              <ToothDesigns design={rootDesign} />
               <Tooth zones={toothZones} />
               {existingFindings.map((finding) => {
                 if (!finding.designNumber) return null;
@@ -286,7 +283,7 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
               <div className={styles.designSvgWrap}>
                 <svg width="60" height={TOOTH_SVG_HEIGHT}>
                   <g transform={toothTransform}>
-                    <ToothDesigns design={rootDesignName} />
+                    <ToothDesigns design={rootDesign} />
                     <Tooth zones={toothZones} />
                     <DesignComponent strokeColor={previewColor} />
                     <Tooth zones={toothZones} strokesOnly />
