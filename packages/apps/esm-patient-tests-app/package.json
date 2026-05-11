@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-patient-tests-app",
-  "version": "9.3.0-alpha.1",
+  "version": "1.0.0-alpha",
   "license": "MPL-2.0",
   "description": "Patient test order and results microfrontend for the OpenMRS SPA",
   "browser": "dist/openmrs-esm-patient-tests-app.js",

@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-patient-imaging-app",
-  "version": "9.3.0-alpha.1",
+  "version": "1.0.0-alpha",
   "license": "MPL-2.0",
   "description": "Patient imaging microfrontend for the OpenMRS SPA",
   "browser": "dist/openmrs-esm-patient-imaging-app.js",

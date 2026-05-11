@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-fast-data-entry-app",
-  "version": "9.3.0-alpha.1",
+  "version": "1.0.0-alpha",
   "license": "MPL-2.0",
   "description": "O3 frontend module for fast data entry using the OpenMRS Angular Form Engine",
   "browser": "dist/openmrs-esm-fast-data-entry-app.js",
