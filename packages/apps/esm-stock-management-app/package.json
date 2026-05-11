@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-stock-management-app",
-  "version": "3.2.0",
+  "version": "1.0.0-alpha",
   "license": "MPL-2.0",
   "description": "Stock management microfrontend for OpenMRS 3.x",
   "browser": "dist/openmrs-esm-stock-management-app.js",

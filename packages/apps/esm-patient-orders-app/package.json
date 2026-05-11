@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-patient-orders-app",
-  "version": "12.1.0",
+  "version": "1.0.0-alpha",
   "license": "MPL-2.0",
   "description": "Microfrontend for the OpenMRS SPA providing the order basket for the patient chart",
   "browser": "dist/openmrs-esm-patient-orders-app.js",

@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-bed-management-app",
-  "version": "10.0.2",
+  "version": "1.0.0-alpha",
   "description": "Bed management app for OpenMRS 3",
   "browser": "dist/openmrs-esm-bed-management-app.js",
   "main": "src/index.ts",

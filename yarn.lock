@@ -9257,19 +9257,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-dyaku-app@workspace:packages/apps/esm-dyaku-app"
   dependencies:
-    "@carbon/charts": "npm:^1.23.7"
-    "@carbon/charts-react": "npm:^1.23.7"
-    "@hookform/resolvers": "npm:^3.3.1"
     "@openmrs/esm-patient-common-lib": "workspace:*"
     "@rspack/cli": "npm:1.7.11"
-    classnames: "npm:^2.5.1"
     jest: "npm:^29.7.0"
-    lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    react-hook-form: "npm:^7.56.1"
     typescript: "npm:^6.0.0"
-    xlsx: "npm:^0.18.5"
-    zod: "npm:^3.24.1"
   peerDependencies:
     "@carbon/colors": 1.x
     "@carbon/layout": 1.x
@@ -9559,22 +9551,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-fua-app@workspace:packages/apps/esm-fua-app"
   dependencies:
-    "@carbon/charts": "npm:^1.23.7"
-    "@carbon/charts-react": "npm:^1.23.7"
-    "@hookform/resolvers": "npm:^3.3.1"
     "@openmrs/esm-patient-common-lib": "workspace:*"
     "@rspack/cli": "npm:1.7.11"
     "@sihsalus/esm-rbac": "workspace:*"
     "@sihsalus/esm-sihsalus-shared": "workspace:*"
     "@types/webpack-env": "npm:^1.18.0"
-    classnames: "npm:^2.5.1"
     jest: "npm:^29.7.0"
     lodash-es: "npm:^4.17.21"
     openmrs: "workspace:*"
-    react-hook-form: "npm:^7.56.1"
     typescript: "npm:^6.0.0"
     xlsx: "npm:^0.18.5"
-    zod: "npm:^3.24.1"
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": "*"

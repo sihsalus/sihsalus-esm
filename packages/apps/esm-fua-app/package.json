@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-fua-app",
-  "version": "1.8.0",
+  "version": "1.0.0-alpha",
   "description": "Main openmrs O3 peruhce microfrontend",
   "browser": "dist/sihsalus-esm-fua-app.js",
   "main": "src/index.ts",
@@ -38,16 +38,10 @@
     "url": "https://github.com/sihsalus/sihsalus-esm-modules/issues"
   },
   "dependencies": {
-    "@carbon/charts": "^1.23.7",
-    "@carbon/charts-react": "^1.23.7",
-    "@hookform/resolvers": "^3.3.1",
     "@sihsalus/esm-rbac": "workspace:*",
     "@sihsalus/esm-sihsalus-shared": "workspace:*",
-    "classnames": "^2.5.1",
     "lodash-es": "^4.17.21",
-    "react-hook-form": "^7.56.1",
-    "xlsx": "^0.18.5",
-    "zod": "^3.24.1"
+    "xlsx": "^0.18.5"
   },
   "peerDependencies": {
     "@carbon/react": "1.x",
