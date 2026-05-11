@@ -1,7 +1,7 @@
 import React from 'react';
 import { isMultiDesignFinding } from '../logic/findingDesignLogic';
 import { useOdontogramContext } from '../providers/OdontogramProvider';
-import type { FindingDesign } from '../types/odontogram';
+import type { FindingDesign, ToothRootDesign } from '../types/odontogram';
 import { TOOTH_DESIGN_COMPONENT_MAP } from './constants';
 import DesignSelector from './DesignSelector';
 import Tooth from './Tooth';
@@ -10,7 +10,7 @@ import ToothDesigns from './ToothDesigns';
 interface ToothVisualizationProps {
   idTooth: number;
   zones?: number;
-  design?: string;
+  design?: ToothRootDesign;
   position?: 'upper' | 'lower';
 }
 

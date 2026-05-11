@@ -165,6 +165,7 @@ export interface OdontogramData {
 
 export type ToothPosition = 'upper' | 'lower';
 export type ToothType = 'molar' | 'premolar' | 'canino' | 'incisivo';
+export type ToothRootDesign = 'default' | 'design2' | 'design3' | 'design4';
 
 /**
  * Definición de un diente en la configuración del odontograma.
@@ -180,7 +181,7 @@ export interface ToothConfig {
   /** Número de zonas del diente (4, 6 u 8) */
   zones: number;
   /** Diseño visual de la raíz ("default" = 3 raíces, "design2" = 1 raíz, etc.) */
-  rootDesign: string;
+  rootDesign: ToothRootDesign;
 }
 
 /**
