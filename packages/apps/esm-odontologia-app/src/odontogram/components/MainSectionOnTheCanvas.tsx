@@ -147,6 +147,8 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({ idTooth
           toothZones={4}
           onDesignSelect={handleDesignSelect}
           existingFindings={tooth?.findings.filter((f) => f.findingId === 13) || []}
+          rootDesign={toothConfig?.rootDesign}
+          position={isLowerTeeth ? 'lower' : 'upper'}
         />
       )}
     </>

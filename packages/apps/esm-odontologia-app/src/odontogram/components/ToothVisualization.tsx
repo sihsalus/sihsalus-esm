@@ -184,6 +184,8 @@ const ToothVisualization = ({
         existingFindings={existingFindings}
         keepOpen={isMultiDesign}
         suboptions={selectedItem?.subopciones}
+        rootDesign={design}
+        position={position}
       />
     </>
   );
