@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-patient-lists-app",
-  "version": "12.1.0",
+  "version": "9.3.0-alpha.1",
   "license": "MPL-2.0",
   "description": "An OpenMRS frontend module for managing patient lists in the Patient Chart",
   "browser": "dist/openmrs-esm-patient-lists-app.js",

@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-patient-list-management-app",
-  "version": "10.0.2",
+  "version": "9.3.0-alpha.1",
   "description": "Microfrontend for managing patient lists in O3",
   "browser": "dist/openmrs-esm-patient-list-management-app.js",
   "main": "src/index.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-indicadores-app",
-  "version": "1.8.0",
+  "version": "9.3.0-alpha.1",
   "license": "MPL-2.0",
   "description": "OpenMRS ESM Clinical Indicators - Test & Management UI for SIHSALUS",
   "browser": "dist/sihsalus-esm-indicadores-app.js",

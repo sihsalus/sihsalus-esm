@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-coststructure-app",
-  "version": "1.8.0",
+  "version": "9.3.0-alpha.1",
   "license": "MPL-2.0",
   "description": "OpenMRS ESM Cost Structure Microfrontend Module for SIHSALUS",
   "browser": "dist/sihsalus-esm-coststructure-app.js",

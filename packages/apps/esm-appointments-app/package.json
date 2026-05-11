@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-appointments-app",
-  "version": "10.0.2",
+  "version": "9.3.0-alpha.1",
   "description": "Appointments front-end module for O3",
   "browser": "dist/openmrs-esm-appointments-app.js",
   "main": "src/index.ts",

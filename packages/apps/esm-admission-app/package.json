@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-admission-app",
-  "version": "1.8.0",
+  "version": "9.3.0-alpha.1",
   "license": "MPL-2.0",
   "description": "OpenMRS ESM Admission workflows and accreditation evidence for SIHSALUS",
   "browser": "dist/sihsalus-esm-admission-app.js",

@@ -1,6 +1,6 @@
 {
   "name": "@sihsalus/esm-patient-attachments-app",
-  "version": "12.1.0",
+  "version": "9.3.0-alpha.1",
   "license": "MPL-2.0",
   "description": "Patient attachments microfrontend for the OpenMRS SPA",
   "browser": "dist/openmrs-esm-patient-attachments-app.js",
