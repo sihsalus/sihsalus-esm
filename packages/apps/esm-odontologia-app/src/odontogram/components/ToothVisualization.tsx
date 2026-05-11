@@ -171,6 +171,9 @@ const ToothVisualization = ({
           <Tooth zones={toothZones} />
           {/* Renderizar todos los hallazgos */}
           {renderAllFindings()}
+          {/* Re-stroke zone lines on top so colored fill designs don't hide the
+              tooth's anatomy. */}
+          <Tooth zones={toothZones} strokesOnly />
           {/* Sombreado cuando se selecciona una opción predefinida */}
           {selectedFindingId != null && predefinedMarkedOptions.includes(selectedFindingId) && (
             <rect width="60" height="120" fill="lightgray" opacity="0.45" pointerEvents="none" />

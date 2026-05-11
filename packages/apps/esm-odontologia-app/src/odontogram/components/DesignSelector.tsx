@@ -236,6 +236,7 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
                   </g>
                 );
               })}
+              <Tooth zones={toothZones} strokesOnly />
             </g>
           </svg>
         </div>
@@ -288,6 +289,7 @@ const DesignSelector: React.FC<DesignSelectorProps> = ({
                     <ToothDesigns design={rootDesignName} />
                     <Tooth zones={toothZones} />
                     <DesignComponent strokeColor={previewColor} />
+                    <Tooth zones={toothZones} strokesOnly />
                   </g>
                 </svg>
               </div>
