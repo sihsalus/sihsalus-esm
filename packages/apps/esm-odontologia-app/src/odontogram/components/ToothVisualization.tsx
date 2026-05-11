@@ -25,6 +25,13 @@ const ToothVisualization = ({
   const { data, config, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
   const { selectedFindingId, selectedSuboption, selectedColor, isComplete } = formSelection;
 
+  // Close the design picker if the finding changes or the form goes read-only.
+  // Otherwise the modal stays mounted showing designs/preview that no longer
+  // match what's selected in the form.
+  React.useEffect(() => {
+    setShowDesignSelector(false);
+  }, [selectedFindingId, readOnly]);
+
   // Opciones predefinidas que activan el marcado
   const predefinedMarkedOptions = [
     3, 4, 8, 20, 23, 38, 7, 28, 37, 36, 10, 5, 16, 27, 34, 35, 9, 14, 15, 17, 18, 19, 22, 29, 33,

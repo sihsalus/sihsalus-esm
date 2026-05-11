@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ToothDetails.css';
 import './spacing/SpaceBetweenStyles.css';
 import { getDesignComponentByPosition } from '../config/designMapping';
@@ -18,6 +18,14 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({ idTooth
   const { data, config, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
 
   const { selectedFindingId, selectedColor, selectedSuboption, isComplete } = formSelection;
+
+  // Close the design picker when the finding changes or the form goes read-only.
+  // Without this, switching from finding 13 to another finding leaves stale state
+  // (showDesignSelector=true) that pops the modal back open the next time the
+  // user re-selects finding 13.
+  useEffect(() => {
+    setShowDesignSelector(false);
+  }, [selectedFindingId, readOnly]);
 
   // Obtener el diente
   const tooth = data.teeth.find((t) => t.toothId === idTooth);
