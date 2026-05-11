@@ -99,6 +99,14 @@ const ToothVisualization = ({
     });
   };
 
+  // Findings that are rendered OUTSIDE the tooth body and must NOT be drawn here:
+  //   11 (Fusión), 12 (Geminación), 21 — rendered on the legend svg by ToothDetails
+  //   13 (Giroversión)               — rendered in the FindingRow by MainSectionOnTheCanvas
+  // They live in TOOTH_DESIGN_COMPONENT_MAP because their design components are
+  // shared, but iterating the whole map without this filter caused duplicates
+  // appearing on the tooth body in addition to their proper location.
+  const TOOTH_BODY_EXCLUDED = new Set<number>([11, 12, 13, 21]);
+
   // Renderizar todos los hallazgos
   const renderAllFindings = () => {
     if (!tooth?.findings || tooth.findings.length === 0) {
@@ -106,6 +114,10 @@ const ToothVisualization = ({
     }
 
     return tooth.findings.map((finding, index: number) => {
+      if (TOOTH_BODY_EXCLUDED.has(finding.findingId)) {
+        return null;
+      }
+
       const findingKey = String(finding.findingId);
       const designKey = String(finding.designNumber);
       const designComponents = TOOTH_DESIGN_COMPONENT_MAP[findingKey];

@@ -7,6 +7,14 @@
   background: #ffffff;
 }
 
+/* SVGs default to inline-block, which leaves a baseline gap that creates
+   subpixel misalignment between adjacent cells (teeth + spacing svgs). Force
+   block-level rendering so siblings line up exactly within their flex rows. */
+.adult-odontogram-container svg {
+  display: block;
+  vertical-align: top;
+}
+
 .adult-odontogram-container .odontogram-header {
   text-align: center;
   margin-bottom: 12px;

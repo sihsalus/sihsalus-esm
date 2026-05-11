@@ -16,10 +16,11 @@ interface ToothDetailsProps {
   idTooth: number;
   initialText?: string; // kept for API compat, ignored — notes come from data
   legend?: string;
+  position?: 'upper' | 'lower';
 }
 
 // Se manejan los hallazgos 11, 12 y 21
-const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda' }) => {
+const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda', position = 'upper' }) => {
   const { data, config: ctxConfig, formSelection, toothActions, readOnly, showToast } = useOdontogramContext();
 
   const { selectedFindingId, selectedSuboption, selectedColor, isComplete } = formSelection;
@@ -103,7 +104,7 @@ const ToothDetails: React.FC<ToothDetailsProps> = ({ idTooth, legend = 'Leyenda'
   };
 
   return (
-    <div className="tooth-details-container">
+    <div className={`tooth-details-container ${position === 'lower' ? 'tooth-details-container--lower' : ''}`}>
       {/* Annotations box — auto-generated abbreviations with color */}
       <div className="tooth-details-box">
         <div className="tooth-details-annotations">

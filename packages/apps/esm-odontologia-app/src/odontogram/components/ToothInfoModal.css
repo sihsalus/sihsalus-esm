@@ -360,120 +360,13 @@
   align-items: center;
 }
 
-/* Info button floating above each tooth */
-.tim-info-btn {
-  position: absolute;
-  top: -6px;
-  right: -2px;
-  z-index: 10;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1.5px solid #cbd5e1;
-  background: #fff;
-  color: #94a3b8;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition:
-    opacity 0.15s,
-    background 0.12s,
-    color 0.12s;
-  line-height: 1;
-  padding: 0;
-  font-family: system-ui, sans-serif;
-}
-.tim-tooth-col:hover .tim-info-btn,
-.tim-info-btn:focus {
-  opacity: 1;
-}
-.tim-info-btn:hover {
-  background: #4f46e5;
-  border-color: #4f46e5;
-  color: #fff;
-}
-
-/* Badge for finding count on tooth */
-.tim-badge {
-  position: absolute;
-  top: -6px;
-  left: -2px;
-  z-index: 10;
-  min-width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  background: #4f46e5;
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-  opacity: 0;
-  transition: opacity 0.15s;
-  pointer-events: none;
-}
-.tim-tooth-col:hover .tim-badge {
-  opacity: 1;
-}
-
-/* Touch-friendly eye button — shown below tooth on tablet/phone */
+/* Info button, badge and eye button — temporarily hidden.
+   Logic and DOM remain so we can re-enable a polished tooth-detail
+   entry point in a later iteration. */
+.tim-info-btn,
+.tim-badge,
 .tim-eye-btn {
-  display: none; /* hidden on pointer devices — hover "i" handles it */
-  width: 100%;
-  padding: 4px 2px 2px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  color: #94a3b8;
-  border-radius: 0 0 6px 6px;
-  transition:
-    color 0.12s,
-    background 0.12s;
-}
-.tim-eye-btn svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-}
-.tim-eye-btn:active {
-  color: #4f46e5;
-  background: #eef2ff;
-}
-.tim-eye-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 14px;
-  height: 14px;
-  font-size: 9px;
-  font-weight: 700;
-  background: #4f46e5;
-  color: #fff;
-  border-radius: 7px;
-  padding: 0 3px;
-  line-height: 1;
-}
-
-/* On touch devices: show eye btn, keep badge always visible, hide tiny i-btn */
-@media (hover: none) {
-  .tim-eye-btn {
-    display: flex;
-  }
-  .tim-badge {
-    opacity: 1;
-  }
-  .tim-info-btn {
-    display: none;
-  }
+  display: none !important;
 }
 
 /* Mobile modal adjustments */

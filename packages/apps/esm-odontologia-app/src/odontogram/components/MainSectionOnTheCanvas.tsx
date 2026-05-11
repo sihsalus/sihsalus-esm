@@ -116,27 +116,25 @@ const MainSectionOnTheCanvas: React.FC<MainSectionOnTheCanvasProps> = ({ idTooth
 
   return (
     <>
-      <div className="tooth-details-container">
-        <svg
+      <svg
+        width={ODONTOGRAM_CONFIG.dimensions.toothWidth}
+        height={ODONTOGRAM_CONFIG.dimensions.toothHeight}
+        onClick={handleClick}
+        className="tooth-details-legend interactive-svg"
+        viewBox={`0 0 ${ODONTOGRAM_CONFIG.dimensions.toothWidth} ${ODONTOGRAM_CONFIG.dimensions.toothHeight}`}
+        role={ODONTOGRAM_CONFIG.accessibility.role}
+        tabIndex={ODONTOGRAM_CONFIG.accessibility.tabIndex}
+        aria-label={`Sección de hallazgo ${optionId} para diente ${idTooth}`}
+        onKeyDown={handleKeyDown}
+        style={ODONTOGRAM_CONFIG.styles.interactiveSvg}
+      >
+        <rect
           width={ODONTOGRAM_CONFIG.dimensions.toothWidth}
           height={ODONTOGRAM_CONFIG.dimensions.toothHeight}
-          onClick={handleClick}
-          className="tooth-details-legend interactive-svg"
-          viewBox={`0 0 ${ODONTOGRAM_CONFIG.dimensions.toothWidth} ${ODONTOGRAM_CONFIG.dimensions.toothHeight}`}
-          role={ODONTOGRAM_CONFIG.accessibility.role}
-          tabIndex={ODONTOGRAM_CONFIG.accessibility.tabIndex}
-          aria-label={`Sección de hallazgo ${optionId} para diente ${idTooth}`}
-          onKeyDown={handleKeyDown}
-          style={ODONTOGRAM_CONFIG.styles.interactiveSvg}
-        >
-          <rect
-            width={ODONTOGRAM_CONFIG.dimensions.toothWidth}
-            height={ODONTOGRAM_CONFIG.dimensions.toothHeight}
-            fill={isSelected && !isSpacingOnly ? ODONTOGRAM_CONFIG.colors.selected : ODONTOGRAM_CONFIG.colors.default}
-          />
-          {renderDesign()}
-        </svg>
-      </div>
+          fill={isSelected && !isSpacingOnly ? ODONTOGRAM_CONFIG.colors.selected : ODONTOGRAM_CONFIG.colors.default}
+        />
+        {renderDesign()}
+      </svg>
 
       {isHallazgo13 && (
         <DesignSelector
