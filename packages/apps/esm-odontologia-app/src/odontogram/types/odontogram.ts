@@ -134,6 +134,25 @@ export interface LegendSpaceData {
  * - Se lee de BBDD → se pasa como prop `data`
  * - El componente emite cambios vía `onChange(newData)`
  * - Se guarda de vuelta en BBDD
+ *
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * CONTRATO DE INTEGRACIÓN — IMPORTANTE
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * Los 5 campos siguientes conforman UNA SOLA UNIDAD CLÍNICA y deben
+ * persistirse y restaurarse juntos:
+ *
+ *   1. `teeth`             → hallazgos por pieza (cara/superficie)
+ *   2. `spacingFindings`   → hallazgos entre piezas (diastemas, etc.)
+ *   3. `legendSpaces`      → hallazgos en zona de leyendas (fusiones, etc.)
+ *   4. `especificaciones`  → texto libre — detalle clínico que el gráfico
+ *                            no puede expresar (severidad, material, etc.)
+ *   5. `observaciones`     → texto libre — contexto del encuentro
+ *                            (síntomas, derivaciones, indicaciones)
+ *
+ * No persistir uno sin los otros: el odontograma clínico vive como un
+ * único registro completo. Tanto al guardar como al cargar, el round-trip
+ * debe preservar los 5 campos.
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  */
 export interface OdontogramData {
   /** Datos de cada diente con sus hallazgos */
@@ -152,10 +171,12 @@ export interface OdontogramData {
    */
   legendSpaces: LegendSpaceData[];
 
-  /** Texto libre de especificaciones (libre por el operador) */
+  /** Texto libre de especificaciones — viaja siempre con el odontograma.
+   *  Ver OdontogramTextFields.tsx para la guía clínica de uso. */
   especificaciones?: string;
 
-  /** Texto libre de observaciones (libre por el operador) */
+  /** Texto libre de observaciones — viaja siempre con el odontograma.
+   *  Ver OdontogramTextFields.tsx para la guía clínica de uso. */
   observaciones?: string;
 }
 
