@@ -23,6 +23,11 @@ export interface DevelopArgs {
   supportOffline: boolean;
 }
 
+function rewriteLocalDevSetCookie(setCookie: Array<string>): Array<string> {
+  const rewrite = (cookie: string) => cookie.replace(/;\s*Secure/gi, '');
+  return setCookie.map(rewrite);
+}
+
 export async function runDevelop(args: DevelopArgs) {
   const {
     backend,
@@ -39,6 +44,7 @@ export async function runDevelop(args: DevelopArgs) {
   } = args;
   const apiUrl = removeTrailingSlash(args.apiUrl);
   const spaPath = removeTrailingSlash(args.spaPath);
+  const allowSelfSignedTls = process.env.SIHSALUS_ALLOW_SELF_SIGNED_TLS === 'true';
   const app = express();
 
   const localConfigUrlPrefix = '__local_config__';
@@ -153,11 +159,18 @@ export async function runDevelop(args: DevelopArgs) {
       {
         target: backend,
         changeOrigin: true,
+        secure: !allowSelfSignedTls,
         onProxyReq(proxyReq) {
           if (addCookie) {
             const origCookie = proxyReq.getHeader('cookie');
             const newCookie = `${origCookie};${addCookie}`;
             proxyReq.setHeader('cookie', newCookie);
+          }
+        },
+        onProxyRes(proxyRes) {
+          const setCookie = proxyRes.headers['set-cookie'];
+          if (setCookie) {
+            proxyRes.headers['set-cookie'] = rewriteLocalDevSetCookie(setCookie);
           }
         },
       },

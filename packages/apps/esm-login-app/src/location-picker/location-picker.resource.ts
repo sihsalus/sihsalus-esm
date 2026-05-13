@@ -87,7 +87,7 @@ export function useDefaultLocation(isUpdateFlow: boolean) {
 }
 
 export function useLocationCount(useLoginLocationTag: boolean) {
-  const url = `/ws/fhir2/R4/Location?_count=1${useLoginLocationTag ? '&tag=Login%20Location' : ''}`;
+  const url = `/ws/fhir2/R4/Location?_count=1${useLoginLocationTag ? '&_tag=Login%20Location' : ''}`;
   const { data, error, isLoading } = useSwrImmutable<FetchResponse<LocationResponse>>(url, openmrsFetch, {
     shouldRetryOnError(err) {
       if (err?.response?.status) {

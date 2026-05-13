@@ -152,6 +152,11 @@ function mergeRoutes(
   return merged;
 }
 
+function rewriteLocalDevSetCookie(setCookie: Array<string>): Array<string> {
+  const rewrite = (cookie: string) => cookie.replace(/;\s*Secure/gi, '');
+  return setCookie.map(rewrite);
+}
+
 export async function runStart(args: StartArgs) {
   const { backend, host, port, open, addCookie } = args;
   const expressApp = express();
@@ -160,6 +165,7 @@ export async function runStart(args: StartArgs) {
   const spaPath = '/openmrs/spa';
   const backendUrl = removeTrailingSlash(backend);
   const pageUrl = `http://${host}:${port}${spaPath}`;
+  const allowSelfSignedTls = process.env.SIHSALUS_ALLOW_SELF_SIGNED_TLS === 'true';
 
   // Rewrite index.html to use local importmap and routes instead of dev3.openmrs.org
   // Also disable offline/service-worker to prevent stale caches during local dev.
@@ -241,6 +247,7 @@ export async function runStart(args: StartArgs) {
     createProxyMiddleware((path) => path.startsWith('/openmrs') && !path.startsWith(spaPath), {
       target: backend,
       changeOrigin: true,
+      secure: !allowSelfSignedTls,
       onProxyReq(proxyReq) {
         if (addCookie) {
           const origCookie = proxyReq.getHeader('cookie');
@@ -255,6 +262,10 @@ export async function runStart(args: StartArgs) {
         if (proxyRes.headers) {
           delete proxyRes.headers['content-security-policy'];
           delete proxyRes.headers['content-security-policy-report-only'];
+          const setCookie = proxyRes.headers['set-cookie'];
+          if (setCookie) {
+            proxyRes.headers['set-cookie'] = rewriteLocalDevSetCookie(setCookie);
+          }
         }
       },
     }),

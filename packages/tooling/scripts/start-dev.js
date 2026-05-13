@@ -20,6 +20,7 @@ const backendSource = hadBackendBeforeDotenv ? 'shell' : dotenvResult.parsed?.SI
 const authMode = process.env.SIHSALUS_AUTH_MODE || 'openmrs';
 const fhirBase = process.env.SIHSALUS_FHIR_BASE || `${backend}/openmrs/ws/fhir2/R4`;
 const proxyPort = Number(process.env.SIHSALUS_PORT) || 8080;
+const allowSelfSignedTls = process.env.SIHSALUS_ALLOW_SELF_SIGNED_TLS === 'true';
 
 // SIHSALUS_DEV_APPS=esm-login-app,esm-home-app  → hot-reload those apps
 // Unset → serve pre-assembled importmap (no recompilation, just shell + proxy)
@@ -51,7 +52,19 @@ function logStartupSummary({ mode, apps = [] }) {
   if (backendSource === 'default') {
     logWarn(`SIHSALUS_BACKEND_URL not set, using default: ${backend}`);
   }
+  if (allowSelfSignedTls) {
+    logWarn('SIHSALUS_ALLOW_SELF_SIGNED_TLS=true; backend TLS certificate verification is disabled for local dev.');
+  }
   console.log();
+}
+
+if (allowSelfSignedTls) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
+
+function rewriteLocalDevSetCookie(setCookie) {
+  const rewrite = (cookie) => cookie.replace(/;\s*Secure/gi, '');
+  return Array.isArray(setCookie) ? setCookie.map(rewrite) : rewrite(setCookie);
 }
 
 function findFreePort() {
@@ -186,7 +199,7 @@ async function startWithProxy(cliArgs) {
       }
       const setCookie = backendResponse.headers.get('set-cookie');
       if (setCookie) {
-        res.setHeader('set-cookie', setCookie);
+        res.setHeader('set-cookie', rewriteLocalDevSetCookie(setCookie));
       }
       res.send(await backendResponse.text());
     } catch {
