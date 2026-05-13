@@ -10565,6 +10565,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sihsalus/esm-staff-scheduling-app@workspace:packages/apps/esm-staff-scheduling-app":
+  version: 0.0.0-use.local
+  resolution: "@sihsalus/esm-staff-scheduling-app@workspace:packages/apps/esm-staff-scheduling-app"
+  dependencies:
+    "@carbon/react": "npm:^1.83.0"
+    "@rspack/cli": "npm:1.7.11"
+    dayjs: "npm:1.x"
+    jest: "npm:^29.7.0"
+    openmrs: "workspace:*"
+    typescript: "npm:^6.0.0"
+  peerDependencies:
+    "@openmrs/esm-framework": "*"
+    react: 18.x
+    react-i18next: 16.x
+    swr: 2.x
+  languageName: unknown
+  linkType: soft
+
 "@sihsalus/esm-stock-management-app@workspace:packages/apps/esm-stock-management-app":
   version: 0.0.0-use.local
   resolution: "@sihsalus/esm-stock-management-app@workspace:packages/apps/esm-stock-management-app"
