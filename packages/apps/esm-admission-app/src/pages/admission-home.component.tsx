@@ -3,7 +3,7 @@ import { Download, Launch } from '@carbon/react/icons';
 import { useConfig } from '@openmrs/esm-framework';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { moduleName } from '../constants';
 import { useAdmissions } from '../resources/admissions.resource';
@@ -29,6 +29,7 @@ function escapeCsvValue(value: string) {
 
 export default function AdmissionHome() {
   const { t } = useTranslation(moduleName);
+  const navigate = useNavigate();
   const config = useConfig() as AdmissionConfig;
   const { admissions, error, isLoading } = useAdmissions(config.admissionReportPageSize ?? 50);
   const [searchTerm, setSearchTerm] = useState('');
@@ -113,7 +114,7 @@ export default function AdmissionHome() {
         <Button
           kind="secondary"
           renderIcon={Launch}
-          href={`${globalThis.getOpenmrsSpaBase().slice(0, -1)}/admission/merge`}
+          onClick={() => navigate('/merge')}
         >
           {t('mergeDuplicatePatients', 'Fusionar historias duplicadas')}
         </Button>

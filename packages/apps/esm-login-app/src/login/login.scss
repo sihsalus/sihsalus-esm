@@ -211,15 +211,15 @@
     justify-content: center;
     min-width: layout.$spacing-08;
     min-height: layout.$spacing-08;
-    border-radius: 0.25rem;
   }
 
   img {
     display: block;
-    max-height: layout.$spacing-08;
-    max-width: 8.5rem;
+    height: layout.$spacing-08;
+    max-width: none;
     object-fit: contain;
     transition: transform 300ms ease;
+    width: auto;
   }
 
   a:hover img,
@@ -228,13 +228,9 @@
   }
 }
 
-.santaClotildeLogo {
-  border-radius: 50%;
-}
-
 .pucpLogoLink {
   img {
-    max-width: 8.5rem;
+    max-width: none;
   }
 }
 
@@ -372,7 +368,6 @@
     width: 100%;
     min-height: 100vh;
     border: 0;
-    border-radius: 0;
   }
 
   .imagePanel {
