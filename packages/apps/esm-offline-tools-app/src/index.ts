@@ -1,3 +1,4 @@
+import { Renew, UserMultiple } from '@carbon/react/icons';
 import { defineConfigSchema, getSyncLifecycle, registerBreadcrumbs } from '@openmrs/esm-framework';
 
 import offlineToolsConfirmationModalComponent from './components/confirmation.modal';
@@ -49,6 +50,7 @@ export const offlineToolsActionsCard = getSyncLifecycle(offlineToolsActionsCardC
 export const offlineToolsPatientsLink = getSyncLifecycle(
   () =>
     OfflineToolsNavLink({
+      icon: UserMultiple,
       page: 'patients',
       title: 'offlinePatients',
     }),
@@ -58,6 +60,7 @@ export const offlineToolsPatientsLink = getSyncLifecycle(
 export const offlineToolsActionsLink = getSyncLifecycle(
   () =>
     OfflineToolsNavLink({
+      icon: Renew,
       page: 'actions',
       title: 'offlineActions',
     }),

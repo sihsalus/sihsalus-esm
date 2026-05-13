@@ -6,6 +6,15 @@ import AdmissionAppMenuLink from './admission-app-menu-link.component';
 import AdmissionDashboardLink from './admission-dashboard-link.component';
 import AdmissionMergePatientsAction from './admission-merge-patients-action.component';
 
+jest.mock('@openmrs/esm-framework', () => {
+  const React = require('react');
+
+  return {
+    ConfigurableLink: ({ children, to, ...props }) => React.createElement('a', { href: to, ...props }, children),
+    navigate: jest.fn(),
+  };
+});
+
 const mockNavigate = jest.mocked(navigate);
 
 describe('admission navigation links', () => {

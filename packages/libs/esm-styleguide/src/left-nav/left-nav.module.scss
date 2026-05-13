@@ -5,6 +5,7 @@
 .leftNav {
   border-inline-end: 1px solid $color-gray-30;
   padding-top: layout.$spacing-05;
+  transition: inline-size 300ms ease, width 300ms ease;
 
   // Left nav menu item
   :global(.cds--side-nav__link) {
@@ -24,6 +25,44 @@
       background-color: $ui-03;
       outline: none;
       padding: 0 layout.$spacing-04;
+    }
+  }
+
+  :global(.cds--side-nav__menu a.cds--side-nav__link) {
+    padding-inline-start: layout.$spacing-04;
+  }
+
+  &:global(.cds--side-nav--collapsed) {
+    inline-size: layout.$spacing-09;
+    min-inline-size: layout.$spacing-09;
+    width: layout.$spacing-09;
+
+    :global(.cds--side-nav__link),
+    :global(.cds--side-nav__link.active-left-nav-link),
+    :global(.cds--side-nav__submenu) {
+      justify-content: center;
+      padding-inline: 0;
+    }
+
+    :global(.sihsalus-side-nav__item) {
+      justify-content: center;
+      gap: 0;
+      width: 100%;
+    }
+
+    :global(.sihsalus-side-nav__text),
+    :global(.cds--side-nav__submenu-title),
+    :global(.cds--side-nav__submenu-chevron) {
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    :global(.sihsalus-side-nav__icon),
+    :global(.cds--side-nav__submenu > .cds--side-nav__icon:not(.cds--side-nav__submenu-chevron)) {
+      margin-inline-end: 0;
     }
   }
 }

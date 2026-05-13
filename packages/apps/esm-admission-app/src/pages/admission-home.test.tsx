@@ -5,6 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { useAdmissions } from '../resources/admissions.resource';
 import AdmissionHome from './admission-home.component';
 
+jest.mock('@openmrs/esm-framework', () => ({
+  useConfig: jest.fn(),
+}));
+
 jest.mock('../resources/admissions.resource', () => ({
   useAdmissions: jest.fn(),
 }));
@@ -27,6 +31,7 @@ function getMetricValue(label: string) {
 describe('AdmissionHome', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    window.history.pushState({}, '', '/');
     globalThis.getOpenmrsSpaBase = jest.fn(() => '/openmrs/spa/');
     mockUseConfig.mockReturnValue({ admissionReportPageSize: 75 });
   });
@@ -72,10 +77,10 @@ describe('AdmissionHome', () => {
     expect(getMetricValue('Activas')).toHaveTextContent('1');
     expect(getMetricValue('Finalizadas')).toHaveTextContent('1');
     expect(getMetricValue('UPS/servicios')).toHaveTextContent('2');
-    expect(screen.getByRole('link', { name: /fusionar historias duplicadas/i })).toHaveAttribute(
-      'href',
-      '/openmrs/spa/admission/merge',
-    );
+    const mergeButton = screen.getByRole('button', { name: /fusionar historias duplicadas/i });
+    expect(mergeButton).toBeInTheDocument();
+    fireEvent.click(mergeButton);
+    expect(window.location.pathname).toBe('/merge');
     expect(mockUseAdmissions).toHaveBeenCalledWith(75);
   });
 

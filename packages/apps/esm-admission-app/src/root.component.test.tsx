@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 
 import Root from './root.component';
 
+jest.mock('@openmrs/esm-framework', () => ({
+  useLeftNav: jest.fn(),
+}));
+
 jest.mock('@sihsalus/esm-rbac', () => ({
   AppErrorBoundary: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
