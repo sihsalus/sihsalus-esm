@@ -622,8 +622,10 @@ export const Finding28Design1 = ({ strokeColor }: DesignProps) => (
 
 export const Finding37Design1 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    {/* Línea superior horizontal del cuadrado (cubre todo el ancho) */}
-    <line x1="0" y1="60" x2="60" y2="60" stroke={strokeColor} strokeWidth="4" />
+    {/* Línea superior horizontal del cuadrado — posicionada en y=62 (no y=60) para
+       que el grosor de stroke 4 (extiende ±2) quede totalmente dentro del cuerpo
+       y no desborde 2px hacia la raíz. */}
+    <line x1="0" y1="62" x2="60" y2="62" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 
@@ -731,162 +733,162 @@ export const Finding10Design8 = ({ strokeColor }: DesignProps) => (
 // Finding5 Designs - escala corregida para ocupar el espacio de 60x60
 export const Finding5Design1 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 60,60 45,90 15,90" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 60,60 45,90 15,90" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design2 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 15,90 0,120" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 15,90 0,120" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design3 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="60,60 60,120 45,90" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="60,60 60,120 45,90" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design4 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,120 15,90 45,90 60,120" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,120 15,90 45,90 60,120" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design5 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 60,60 45,75 15,75" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 60,60 45,75 15,75" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design6 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,105 45,105 60,120 0,120" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,105 45,105 60,120 0,120" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design7 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 15,75 15,105 0,120" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 15,75 15,105 0,120" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design8 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="45,75 60,60 60,120 45,105" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="45,75 60,60 60,120 45,105" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design9 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,75 45,75 45,90 15,90" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,75 45,75 45,90 15,90" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design10 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,90 45,90 45,105 15,105" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,90 45,90 45,105 15,105" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design11 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,75 30,75 30,90 15,90" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,75 30,75 30,90 15,90" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design12 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="30,75 45,75 45,90 30,90" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="30,75 45,75 45,90 30,90" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design13 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,90 30,90 30,105 15,105" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,90 30,90 30,105 15,105" fill={strokeColor} />
   </svg>
 );
 
 export const Finding5Design14 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="30,90 45,90 45,105 30,105" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="30,90 45,90 45,105 30,105" fill={strokeColor} />
   </svg>
 );
 
 export const Finding27Design9 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,75 45,75 45,105 15,105" fill={strokeColor} stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,75 45,75 45,105 15,105" fill={strokeColor} />
   </svg>
 );
 
 // Finding5 Designs - escala corregida para ocupar el espacio de 60x60
 export const Finding35Design1 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 60,60 45,90 15,90" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 60,60 45,90 15,90" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design2 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 15,90 0,120" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 15,90 0,120" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design3 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="60,60 60,120 45,90" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="60,60 60,120 45,90" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design4 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,120 15,90 45,90 60,120" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,120 15,90 45,90 60,120" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design5 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 60,60 45,75 15,75" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 60,60 45,75 15,75" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design6 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,105 45,105 60,120 0,120" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,105 45,105 60,120 0,120" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design7 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="0,60 15,75 15,105 0,120" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="0,60 15,75 15,105 0,120" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design8 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="45,75 60,60 60,120 45,105" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="45,75 60,60 60,120 45,105" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design9 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,75 45,75 45,90 15,90" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,75 45,75 45,90 15,90" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design10 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,90 45,90 45,105 15,105" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,90 45,90 45,105 15,105" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design11 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,75 30,75 30,90 15,90" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,75 30,75 30,90 15,90" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design12 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="30,75 45,75 45,90 30,90" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="30,75 45,75 45,90 30,90" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design13 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="15,90 30,90 30,105 15,105" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="15,90 30,90 30,105 15,105" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );
 export const Finding35Design14 = ({ strokeColor }: DesignProps) => (
   <svg width="60" height="120" viewBox="0 0 60 120">
-    <polygon points="30,90 45,90 45,105 30,105" fill="none" stroke={strokeColor} strokeWidth="3" />
+    <polygon points="30,90 45,90 45,105 30,105" fill="none" stroke={strokeColor} strokeWidth="4" />
   </svg>
 );

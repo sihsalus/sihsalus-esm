@@ -6,6 +6,8 @@
   align-items: center;
 }
 
+/* Lower-arch mirroring: the number (legend svg) lives at the top and the
+   annotation box drops below it, mirroring the upper-arch order. */
 :global(.tooth-details-container--lower) {
   flex-direction: column-reverse;
 }
@@ -25,10 +27,7 @@
   border: 1px solid var(--cds-text-primary, #161616);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
+  align-items: stretch;
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -60,46 +59,50 @@
   line-height: 1.2;
 }
 
+/* Annotation stack inside the white box. flex-column with vertical centering
+   that falls back to flex-start when content overflows (so the first item is
+   never cut). `safe center` is the standard CSS keyword for this behavior. */
 :global(.tooth-details-annotations) {
   width: 100%;
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   gap: 2px;
   padding: 3px;
   box-sizing: border-box;
 }
 
+/* Each finding's group of abbreviations on a single horizontal row.
+   Uses text-align + inline-block (instead of flex centering) because it's
+   the most reliable way to horizontally center inline elements within their
+   parent's actual width. font-size:0 here strips inter-inline whitespace. */
 :global(.tooth-annotation-group) {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
-  line-height: 1.1;
-  max-width: 100%;
-  min-width: 0;
+  width: 100%;
+  text-align: center;
+  line-height: 1;
+  font-size: 0;
 }
 
 :global(.tooth-annotation-sep) {
+  display: inline-block;
+  vertical-align: middle;
   color: var(--cds-text-secondary, #525252);
   font-size: 10px;
   font-weight: 700;
-  line-height: 1.1;
-  margin: 0 1px;
+  line-height: 1;
+  margin: 0 2px;
 }
 
 :global(.tooth-annotation) {
+  display: inline-block;
+  vertical-align: middle;
   font-size: 11px;
   font-weight: 700;
   line-height: 1.1;
-  white-space: nowrap;
-  text-align: center;
   letter-spacing: 0.01em;
+  white-space: nowrap;
   max-width: 100%;
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
