@@ -124,7 +124,7 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     uuid: '56188294-b42c-481d-a987-4b495116c580',
     label: 'Tipo de seguro',
     showHeading: false,
-    answerConceptSetUuid: '355ee63a-a773-47ab-9841-2505b71dec13',
+    answerConceptSetUuid: '6b932638-242e-49ef-8ba7-0ae87199835c',
   },
   {
     id: 'insuranceCode',
@@ -140,6 +140,12 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     label: 'Grupo sanguíneo',
     showHeading: false,
     answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2001',
+    customConceptAnswers: [
+      { uuid: '8afda27f-8a57-4e45-94dd-297c62a0e1dc', label: 'A' },
+      { uuid: 'ac4abc9d-aea9-4676-ba93-125ffd682c41', label: 'B' },
+      { uuid: 'ba95eb27-f23e-4587-8a3d-8437e953d374', label: 'AB' },
+      { uuid: 'fe9c1d29-077d-4923-acc9-f49798b86b76', label: 'O' },
+    ],
   },
   {
     id: 'rhFactor',
@@ -147,7 +153,7 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db1002',
     label: 'Factor Rh',
     showHeading: false,
-    answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2002',
+    answerConceptSetUuid: '54b52ca9-8168-4f63-b2a3-a18899bf0baa',
   },
   {
     id: 'medicalRecordStatus',
@@ -156,6 +162,11 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     label: 'Estado de historia clínica',
     showHeading: false,
     answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2003',
+    customConceptAnswers: [
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2031', label: 'Activa' },
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2032', label: 'Pasiva' },
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2033', label: 'Eliminada' },
+    ],
   },
   {
     id: 'medicalRecordArchiveType',
@@ -164,6 +175,10 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     label: 'Tipo de archivo de historia clínica',
     showHeading: false,
     answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2004',
+    customConceptAnswers: [
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2041', label: 'Archivo común' },
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2042', label: 'Archivo especial' },
+    ],
   },
   {
     id: 'insuranceAccreditationStatus',
@@ -172,6 +187,12 @@ const peruFieldDefinitions: Array<FieldDefinition> = [
     label: 'Estado de acreditación de seguro',
     showHeading: false,
     answerConceptSetUuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2005',
+    customConceptAnswers: [
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2051', label: 'Vigente' },
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2052', label: 'No vigente' },
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2053', label: 'Pendiente' },
+      { uuid: '9b3df0a1-0c58-4f55-9868-9c38f1db2054', label: 'No consultada' },
+    ],
   },
   {
     id: 'insuranceAccreditationCheckedAt',

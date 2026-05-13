@@ -109,6 +109,35 @@ describe('CodedPersonAttributeField', () => {
     expect(screen.getByText(/Option 2/i)).toBeInTheDocument();
   });
 
+  it('renders set members as select options when the answer concept set is configured as a concept set', () => {
+    mockUseConceptAnswers.mockReturnValue({
+      data: [
+        { uuid: 'set-member-1', display: 'Civil status option' },
+        { uuid: 'set-member-2', display: 'Another civil status option' },
+      ],
+      isLoading: false,
+      error: null,
+    });
+
+    render(
+      <Formik initialValues={{}} onSubmit={() => {}}>
+        <Form>
+          <CodedPersonAttributeField
+            id="attributeId"
+            personAttributeType={personAttributeType}
+            answerConceptSetUuid={answerConceptSetUuid}
+            label={personAttributeType.display}
+            customConceptAnswers={[]}
+            required={false}
+          />
+        </Form>
+      </Formik>,
+    );
+
+    expect(screen.getByText('Civil status option')).toBeInTheDocument();
+    expect(screen.getByText('Another civil status option')).toBeInTheDocument();
+  });
+
   it('renders customConceptAnswers as select options when they are provided', () => {
     render(
       <Formik initialValues={{}} onSubmit={() => {}}>
