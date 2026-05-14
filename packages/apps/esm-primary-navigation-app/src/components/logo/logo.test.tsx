@@ -15,16 +15,13 @@ jest.mock('@openmrs/esm-framework', () => ({
 const mockUseConfig = jest.mocked(useConfig);
 
 describe('Logo', () => {
-  it('should display the OpenMRS logo by default', () => {
+  it('should display the Sihsalus wordmark by default', () => {
     const mockConfig = { logo: { src: null, alt: null, name: null } };
     mockUseConfig.mockReturnValue(mockConfig as ConfigSchema);
 
     render(<Logo />);
 
-    const logo = screen.getByRole('img');
-
-    expect(logo).toBeInTheDocument();
-    expect(logo).toContainHTML('svg');
+    expect(screen.getByText('Sihsalus')).toBeInTheDocument();
   });
 
   it('should display name', () => {

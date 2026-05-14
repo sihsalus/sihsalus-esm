@@ -93,6 +93,15 @@
   max-width: 100%;
 }
 
+.logoText {
+  display: block;
+  margin-bottom: layout.$spacing-08;
+  color: var(--cds-text-primary);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
 .poweredByTxt {
   @extend .caption01;
   text-align: center;

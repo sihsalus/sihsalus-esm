@@ -2,7 +2,7 @@
   "name": "@sihsalus/esm-login-app",
   "version": "1.0.0-alpha",
   "license": "MPL-2.0",
-  "description": "The login microfrontend for the OpenMRS SPA",
+  "description": "The login microfrontend for the Sihsalus SPA",
   "browser": "dist/openmrs-esm-login-app.js",
   "main": "src/index.ts",
   "source": true,

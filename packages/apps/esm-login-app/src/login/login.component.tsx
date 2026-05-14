@@ -82,7 +82,7 @@ const Login: React.FC = () => {
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const usernameInputRef = useRef<HTMLInputElement>(null);
   const loginImageSrc = `${globalThis.getOpenmrsSpaBase()}login.png`;
-  const openmrsLogoSrc = `${globalThis.getOpenmrsSpaBase()}logos/logo-openmrs.svg`;
+  const sihsalusLogoSrc = `${globalThis.getOpenmrsSpaBase()}sihsalus-horizontal.svg`;
   const pucpLogoSrc = `${globalThis.getOpenmrsSpaBase()}logos/logo-pucp.svg`;
   const santaClotildeLogoSrc = `${globalThis.getOpenmrsSpaBase()}logos/logo-santa-clotilde.png`;
 
@@ -351,8 +351,8 @@ const Login: React.FC = () => {
             <div className={styles.partnerSection}>
               <p className={styles.partnerSubtitle}>{t('madeInCollaboration', 'Hecho en colaboración')}</p>
               <div className={styles.partnerLinks}>
-                <a href="https://openmrs.org" target="_blank" rel="noopener noreferrer" aria-label="OpenMRS">
-                  <img src={openmrsLogoSrc} alt={t('openmrsLogo', 'OpenMRS Logo')} />
+                <a href={globalThis.getOpenmrsSpaBase()} rel="noopener noreferrer" aria-label="Sihsalus">
+                  <img src={sihsalusLogoSrc} alt={t('sihsalusLogo', 'Sihsalus logo')} />
                 </a>
                 <a
                   href="https://sanjosedelamazonas.org/"
@@ -360,10 +360,7 @@ const Login: React.FC = () => {
                   rel="noopener noreferrer"
                   aria-label="Santa Clotilde"
                 >
-                  <img
-                    src={santaClotildeLogoSrc}
-                    alt={t('santaClotildeLogo', 'Logo de Santa Clotilde')}
-                  />
+                  <img src={santaClotildeLogoSrc} alt={t('santaClotildeLogo', 'Logo de Santa Clotilde')} />
                 </a>
                 <a
                   className={styles.pucpLogoLink}

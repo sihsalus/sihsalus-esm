@@ -28,19 +28,23 @@ const HeaderItems: React.FC = () => {
   const isDesktopLayout = isDesktop(layout);
   const isFixedSideNav = isDesktopLayout && mode === 'normal';
   const isActivePanel = useCallback(
-    (panelName: string) => (panelName === 'sideMenu' && isFixedSideNav ? isSideMenuExpanded : activeHeaderPanel === panelName),
+    (panelName: string) =>
+      panelName === 'sideMenu' && isFixedSideNav ? isSideMenuExpanded : activeHeaderPanel === panelName,
     [activeHeaderPanel, isFixedSideNav, isSideMenuExpanded],
   );
 
-  const togglePanel = useCallback((panelName: string) => {
-    if (panelName === 'sideMenu' && isFixedSideNav) {
-      setIsSideMenuExpanded((expanded) => !expanded);
-      setActiveHeaderPanel(null);
-      return;
-    }
+  const togglePanel = useCallback(
+    (panelName: string) => {
+      if (panelName === 'sideMenu' && isFixedSideNav) {
+        setIsSideMenuExpanded((expanded) => !expanded);
+        setActiveHeaderPanel(null);
+        return;
+      }
 
-    setActiveHeaderPanel((activeHeaderPanel) => (activeHeaderPanel === panelName ? null : panelName));
-  }, [isFixedSideNav]);
+      setActiveHeaderPanel((activeHeaderPanel) => (activeHeaderPanel === panelName ? null : panelName));
+    },
+    [isFixedSideNav],
+  );
 
   const hidePanel = useCallback(
     (panelName: string) => () => {
@@ -49,10 +53,7 @@ const HeaderItems: React.FC = () => {
     [],
   );
 
-  const showHamburger = useMemo(
-    () => mode !== 'hidden' && navMenuItems.length > 0,
-    [navMenuItems.length, mode],
-  );
+  const showHamburger = useMemo(() => mode !== 'hidden' && navMenuItems.length > 0, [navMenuItems.length, mode]);
 
   useEffect(() => {
     if (!isFixedSideNav) {
@@ -60,7 +61,10 @@ const HeaderItems: React.FC = () => {
       return;
     }
 
-    globalThis.document.documentElement.style.setProperty('--sihsalus-left-nav-width', isSideMenuExpanded ? '16rem' : '0rem');
+    globalThis.document.documentElement.style.setProperty(
+      '--sihsalus-left-nav-width',
+      isSideMenuExpanded ? '16rem' : '0rem',
+    );
 
     return () => {
       globalThis.document.documentElement.style.removeProperty('--sihsalus-left-nav-width');
@@ -69,7 +73,7 @@ const HeaderItems: React.FC = () => {
 
   return (
     <>
-      <Header aria-label="OpenMRS" className={styles.topNavHeader}>
+      <Header aria-label="Sihsalus" className={styles.topNavHeader}>
         {showHamburger && (
           <HeaderMenuButton
             aria-label="Open menu"
