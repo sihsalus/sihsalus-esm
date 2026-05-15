@@ -28,7 +28,7 @@ module.exports = {
       },
     ],
   },
-  transformIgnorePatterns: ['/node_modules/(?!@openmrs|.+\\.pnp\\.[^\\/]+$)'],
+  transformIgnorePatterns: ['/node_modules/(?!(?:@openmrs|.+\\.pnp\\.[^\\/]+$))'],
   moduleDirectories: ['node_modules', __dirname],
   moduleNameMapper: {
     '\\.(s?css)$': 'identity-obj-proxy',

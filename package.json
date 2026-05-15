@@ -7,6 +7,9 @@
     "email": "gonzalo.galvezc@pucp.edu.pe"
   },
   "license": "MPL-2.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
   "workspaces": [
     "packages/tooling/*",
     "packages/apps/*",
@@ -92,10 +95,14 @@
     "swr": "2.4.1",
     "cross-env": "^10.1.0",
     "@carbon/styles": "^1.102.0",
+    "axios": "^1.15.2",
+    "fast-uri": "^3.1.2",
+    "form-data": "^4.0.5",
+    "picomatch": "^4.0.4",
+    "serialize-javascript": "^7.0.5",
+    "vite": "^8.0.13",
     "@openmrs/esm-app-shell@npm:9.0.2": "patch:@openmrs/esm-app-shell@npm%3A9.0.2#./.yarn/patches/openmrs-esm-app-shell-npm-9.0.2-form-stack-sharing.patch",
     "@openmrs/esm-offline": "workspace:*",
-    "workbox-window@npm:^6.1.5": "patch:workbox-window@npm%3A6.6.0#~/.yarn/patches/workbox-window-npm-6.6.0-e9667fec2c.patch",
-    "workbox-window@npm:6.6.0": "patch:workbox-window@npm%3A6.6.0#~/.yarn/patches/workbox-window-npm-6.6.0-e9667fec2c.patch",
     "@openmrs/esm-styleguide": "workspace:*",
     "@openmrs/esm-api": "workspace:*",
     "@openmrs/esm-config": "workspace:*",

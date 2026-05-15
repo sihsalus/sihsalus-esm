@@ -1,8 +1,12 @@
+import path from 'node:path';
+
 import { defineConfig, mergeConfig } from 'vitest/config';
 
 import aliasPresets from './alias-presets.json';
 import sharedTestAliases from './shared-test-aliases.json';
 import { createVitestAliases } from './vitest-aliases';
+
+const repositoryRoot = path.resolve(__dirname, '../../..');
 
 type AliasMap = Record<string, string>;
 type VitestConfigLike = {
@@ -17,6 +21,9 @@ export function defineWorkspaceVitestConfig(config: VitestConfigLike = {}) {
   return defineConfig(
     mergeConfig(
       {
+        resolve: {
+          alias: createVitestAliases(repositoryRoot, sharedTestAliases),
+        },
         test: {
           environment: 'happy-dom',
           mockReset: true,
