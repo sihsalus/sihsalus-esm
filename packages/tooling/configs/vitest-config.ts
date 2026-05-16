@@ -8,24 +8,42 @@ import { createVitestAliases } from './vitest-aliases';
 
 const packagesRoot = path.resolve(__dirname, '../..');
 
+const sharedWorkspaceTestAliases = Object.fromEntries(
+  Object.entries(sharedTestAliases).map(([key, value]) => [key, `./${value}`]),
+);
+
+const sharedAppTestAliases = Object.fromEntries(
+  Object.entries(sharedTestAliases).map(([key, value]) => [key, `../../${value}`]),
+);
+
+type TestOptions = {
+  setupFiles?: string | string[];
+  [key: string]: unknown;
+};
+
 type AliasMap = Record<string, string>;
 type VitestConfigLike = {
   resolve?: {
     alias?: Array<{ find: RegExp; replacement: string }>;
   };
-  test?: Record<string, unknown>;
+  test?: TestOptions;
   [key: string]: unknown;
 };
+
+function normalizeSetupFiles(setupFiles?: TestOptions['setupFiles']) {
+  if (setupFiles === undefined) {
+    return ['./setup-tests.ts'];
+  }
+
+  return Array.isArray(setupFiles) ? ['./setup-tests.ts', ...setupFiles] : ['./setup-tests.ts', setupFiles];
+}
 
 export function defineWorkspaceVitestConfig(config: VitestConfigLike = {}) {
   return defineConfig(
     mergeConfig(
       {
         resolve: {
-          alias: createVitestAliases(
-            packagesRoot,
-            Object.fromEntries(Object.entries(sharedTestAliases).map(([key, value]) => [key, `./${value}`])),
-          ),
+          alias: createVitestAliases(packagesRoot, sharedWorkspaceTestAliases),
         },
         test: {
           environment: 'happy-dom',
@@ -49,20 +67,21 @@ export function defineAppVitestConfig(
   } = {},
 ) {
   const { aliases = {}, extraAliases = [], test = {} } = options;
+  const { setupFiles, ...restTest } = test;
 
   return defineWorkspaceVitestConfig({
     resolve: {
       alias: [
         ...extraAliases,
         ...createVitestAliases(rootDir, {
-          ...Object.fromEntries(Object.entries(sharedTestAliases).map(([key, value]) => [key, `../../${value}`])),
+          ...sharedAppTestAliases,
           ...aliases,
         }),
       ],
     },
     test: {
-      setupFiles: ['./setup-tests.ts'],
-      ...test,
+      ...restTest,
+      setupFiles: normalizeSetupFiles(setupFiles),
     },
   });
 }
