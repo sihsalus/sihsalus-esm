@@ -10,7 +10,7 @@ const mockUseFormSchema = vi.mocked(useFormSchema);
 vi.mock(
   '@sihsalus/esm-form-engine-lib',
   () => ({
-    FormEngine: jest
+    FormEngine: vi
       .fn()
       .mockImplementation(() => React.createElement('div', { 'data-testid': 'openmrs form' }, 'FORM ENGINE LIB')),
   }),

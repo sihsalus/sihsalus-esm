@@ -242,8 +242,8 @@ describe('useStickerPdfPrinter', () => {
       throw new Error('cross-origin access denied');
     });
 
-    const hasFocusMock = jest
-      .fn<boolean, []>()
+    const hasFocusMock = vi
+      .fn<[], boolean>()
       .mockReturnValueOnce(false)
       .mockReturnValueOnce(true)
       .mockReturnValue(true);

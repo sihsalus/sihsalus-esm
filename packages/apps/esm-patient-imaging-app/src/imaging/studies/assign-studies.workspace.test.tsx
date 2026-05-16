@@ -35,11 +35,14 @@ vi.mock('@openmrs/esm-framework', async () => ({
 }));
 
 vi.mock('../../api');
+
+let capturedAssignStudyFunction: ((study: DicomStudy, isAssign: boolean) => Promise<void>) | undefined;
+
 vi.mock('../components/assign-studies-table.component', () => ({
-  __esModule: true,
-  default: ({ data }: StudiesTableDataProps) => (
-    <div data-testid="assign-studies-table">Studies: {data?.studies?.length}</div>
-  ),
+  default: (props: AssignStudiesTableMockProps & StudiesTableDataProps) => {
+    capturedAssignStudyFunction = props.assignStudyFunction;
+    return <div data-testid="assign-studies-table">Studies: {props.data?.studies?.length}</div>;
+  },
 }));
 
 vi.mock('@openmrs/esm-patient-common-lib', () => ({
@@ -49,13 +52,6 @@ vi.mock('@openmrs/esm-patient-common-lib', () => ({
     </div>
   ),
 }));
-
-let capturedAssignStudyFunction: ((study: DicomStudy, isAssign: boolean) => Promise<void>) | undefined;
-
-vi.mock('../components/assign-studies-table.component', () => (props: AssignStudiesTableMockProps) => {
-  capturedAssignStudyFunction = props.assignStudyFunction;
-  return <div data-testid="assign-studies-table" />;
-});
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({

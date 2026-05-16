@@ -5,8 +5,17 @@ import { type ConfigObject, configSchema } from '../../../../apps/esm-patient-te
 
 import { useOrderableConceptSets } from './useOrderableConceptSets';
 
-const mockOpenrsFetch = openmrsFetch as jest.Mock;
-const mockUseConfig = jest.mocked(useConfig<ConfigObject>);
+vi.mock('@openmrs/esm-framework', async () => {
+  const actual = await vi.importActual<typeof import('@openmrs/esm-framework')>('@openmrs/esm-framework');
+  return {
+    ...actual,
+    openmrsFetch: vi.fn(),
+    useConfig: vi.fn(),
+  };
+});
+
+const mockOpenrsFetch = vi.mocked(openmrsFetch);
+const mockUseConfig = vi.mocked(useConfig<ConfigObject>);
 
 mockUseConfig.mockReturnValue({
   ...getDefaultsFromConfigSchema(configSchema),
@@ -52,7 +61,7 @@ describe('useOrderableConceptSets is configurable', () => {
     expect(result.current.error).toBeFalsy();
   });
 
-  xit('should filter through fetched concepts sets based on the search term', async () => {
+  it.skip('should filter through fetched concepts sets based on the search term', async () => {
     const { result } = renderHook(() => useOrderableConceptSets('another', ['concept-set-uuid']));
     expect(openmrsFetch).toHaveBeenCalledWith(
       `${restBaseUrl}/concept/concept-set-uuid?v=custom:(display,names:(display),uuid,setMembers:(display,uuid,names:(display),setMembers:(display,uuid,names:(display))))`,

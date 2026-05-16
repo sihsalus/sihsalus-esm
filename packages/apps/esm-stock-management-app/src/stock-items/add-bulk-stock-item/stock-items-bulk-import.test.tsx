@@ -15,6 +15,10 @@ vi.mock('./stock-items-bulk-import.resource', () => ({
 describe('ImportBulkStockItemsModal', () => {
   const mockCloseModal = vi.fn();
 
+  beforeEach(() => {
+    mockCloseModal.mockClear();
+  });
+
   it('renders with initial state and UI elements', () => {
     render(<ImportBulkStockItemsModal closeModal={mockCloseModal} />);
 

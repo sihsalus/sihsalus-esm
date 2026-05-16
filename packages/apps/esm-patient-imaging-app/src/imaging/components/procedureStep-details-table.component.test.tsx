@@ -1,11 +1,8 @@
+import { showModal } from '@openmrs/esm-framework';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import * as api from '../../api';
 import ProcedureStepTable, { type ProcedureStepTableProps } from './procedureStep-details-table.component';
-
-type MockedOpenmrsFramework = {
-  showModal: vi.Mock;
-};
 
 vi.mock('../../api');
 vi.mock('react-i18next', () => ({
@@ -140,7 +137,7 @@ describe('ProcedureStepTable', () => {
   });
 
   it('triggers delete modal when TrashCanIcon clicked', async () => {
-    const mockShowModal = vi.fn(() => vi.fn());
+    const mockShowModal = vi.mocked(showModal);
     (api.useProcedureStep as vi.Mock).mockReturnValue({
       data: [
         {
@@ -160,8 +157,6 @@ describe('ProcedureStepTable', () => {
       isLoading: false,
       isValidating: false,
     });
-
-    (require('@openmrs/esm-framework') as MockedOpenmrsFramework).showModal = mockShowModal;
 
     await act(async () => {
       render(<ProcedureStepTable {...defaultProps} />);

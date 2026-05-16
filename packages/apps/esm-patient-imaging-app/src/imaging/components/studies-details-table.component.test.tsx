@@ -32,9 +32,9 @@ vi.mock('@openmrs/esm-patient-common-lib', () => ({
   compare: vi.fn((a, b) => (a > b ? 1 : a < b ? -1 : 0)),
 }));
 
-vi.mock('./series-details-table.component', () => (props: any) => {
-  return <div data-testid="series-details">Series for {props.studyId}</div>;
-});
+vi.mock('./series-details-table.component', () => ({
+  default: (props: any) => <div data-testid="series-details">Series for {props.studyId}</div>,
+}));
 
 describe('StudiesDetailsTable', () => {
   const mockStudies = [

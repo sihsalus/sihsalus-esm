@@ -41,14 +41,24 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-(global as any).ResizeObserver = class ResizeObserver {
+const _ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
   disconnect() {}
 };
+(global as any).ResizeObserver = _ResizeObserver;
+(window as any).ResizeObserver = _ResizeObserver;
 
-(global as any).IntersectionObserver = class IntersectionObserver {
+const _IntersectionObserver = class IntersectionObserver {
+  readonly root = null;
+  readonly rootMargin = '';
+  readonly thresholds: ReadonlyArray<number> = [];
   observe() {}
   unobserve() {}
   disconnect() {}
+  takeRecords() {
+    return [];
+  }
 };
+(global as any).IntersectionObserver = _IntersectionObserver;
+(window as any).IntersectionObserver = _IntersectionObserver;

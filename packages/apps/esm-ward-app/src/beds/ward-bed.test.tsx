@@ -21,6 +21,8 @@ vi.mock('../hooks/useObs', () => ({
   useObs: vi.fn(),
 }));
 vi.mock('../ward-patient-card/row-elements/ward-patient-obs.resource', () => ({
+  obsCustomRepresentation: 'custom:(uuid,display)',
+  getObsEncounterString: vi.fn(),
   useConceptToTagColorMap: vi.fn(),
 }));
 

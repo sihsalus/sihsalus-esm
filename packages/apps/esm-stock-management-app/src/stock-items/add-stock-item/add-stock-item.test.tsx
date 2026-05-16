@@ -8,33 +8,35 @@ vi.mock('@carbon/react/icons', () => ({
   Save: () => <div>Save Icon</div>,
 }));
 
-vi.mock('./stock-item-details/stock-item-details.component', () => ({ stockItem }) => (
-  <div data-testid="stock-item-details">Stock Item Details: {stockItem?.uuid}</div>
-));
+vi.mock('./stock-item-details/stock-item-details.component', () => ({
+  default: ({ stockItem }) => <div data-testid="stock-item-details">Stock Item Details: {stockItem?.uuid}</div>,
+}));
 
-vi.mock('./packaging-units/packaging-units.component', () => ({ stockItemUuid }) => (
-  <div data-testid="packaging-units">Packaging Units: {stockItemUuid || 'N/A'}</div>
-));
+vi.mock('./packaging-units/packaging-units.component', () => ({
+  default: ({ stockItemUuid }) => <div data-testid="packaging-units">Packaging Units: {stockItemUuid || 'N/A'}</div>,
+}));
 
-vi.mock('./transactions/transactions.component', () => ({ stockItemUuid }) => (
-  <div data-testid="transactions">Transactions: {stockItemUuid || 'N/A'}</div>
-));
+vi.mock('./transactions/transactions.component', () => ({
+  default: ({ stockItemUuid }) => <div data-testid="transactions">Transactions: {stockItemUuid || 'N/A'}</div>,
+}));
 
-vi.mock('./batch-information/batch-information.component', () => ({ stockItemUuid }) => (
-  <div data-testid="batch-information">Batch Information: {stockItemUuid || 'N/A'}</div>
-));
+vi.mock('./batch-information/batch-information.component', () => ({
+  default: ({ stockItemUuid }) => (
+    <div data-testid="batch-information">Batch Information: {stockItemUuid || 'N/A'}</div>
+  ),
+}));
 
-vi.mock('./quantities/quantities.component', () => ({ stockItemUuid }) => (
-  <div data-testid="quantities">Quantities: {stockItemUuid || 'N/A'}</div>
-));
+vi.mock('./quantities/quantities.component', () => ({
+  default: ({ stockItemUuid }) => <div data-testid="quantities">Quantities: {stockItemUuid || 'N/A'}</div>,
+}));
 
-vi.mock('./stock-item-rules/stock-item-rules.component', () => ({ stockItemUuid }) => (
-  <div data-testid="stock-rules">Rules: {stockItemUuid || 'N/A'}</div>
-));
+vi.mock('./stock-item-rules/stock-item-rules.component', () => ({
+  default: ({ stockItemUuid }) => <div data-testid="stock-rules">Rules: {stockItemUuid || 'N/A'}</div>,
+}));
 
-vi.mock('./stock-item-references/stock-item-references.component', () => ({ stockItemUuid }) => (
-  <div data-testid="stock-references">References: {stockItemUuid || 'N/A'}</div>
-));
+vi.mock('./stock-item-references/stock-item-references.component', () => ({
+  default: ({ stockItemUuid }) => <div data-testid="stock-references">References: {stockItemUuid || 'N/A'}</div>,
+}));
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
