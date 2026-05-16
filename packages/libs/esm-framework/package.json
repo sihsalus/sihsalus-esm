@@ -19,11 +19,11 @@
     },
     "./mock": {
       "import": "./mock.tsx",
-      "require": "./mock-jest.tsx"
+      "require": "./mock-vitest.tsx"
     },
     "./mock.tsx": {
       "import": "./mock.tsx",
-      "require": "./mock-jest.tsx"
+      "require": "./mock-vitest.tsx"
     }
   },
   "source": true,
@@ -74,7 +74,7 @@
     "@openmrs/esm-react-utils": "workspace:*",
     "@openmrs/esm-routes": "workspace:*",
     "@openmrs/esm-state": "workspace:*",
-    "@openmrs/esm-styleguide": "9.0.3-pre.4728",
+    "@openmrs/esm-styleguide": "workspace:*",
     "@openmrs/esm-translations": "workspace:*",
     "@openmrs/esm-utils": "workspace:*"
   },

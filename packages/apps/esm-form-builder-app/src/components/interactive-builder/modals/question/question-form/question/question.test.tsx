@@ -3,6 +3,7 @@ import type { FormField } from '@sihsalus/esm-form-engine-lib';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import type { MockInstance } from 'vitest';
 import { FormFieldProvider } from '../../form-field-context';
 import Question from './question.component';
 
@@ -29,7 +30,7 @@ const renderWithFormFieldProvider = (
 };
 
 describe('Question Component', () => {
-  let consoleErrorSpy: vi.SpyInstance;
+  let consoleErrorSpy: MockInstance;
 
   beforeEach(() => {
     consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);

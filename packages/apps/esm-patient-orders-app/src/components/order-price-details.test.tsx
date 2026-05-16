@@ -75,7 +75,7 @@ describe('OrderPriceDetailsComponent', () => {
   });
 
   it('handles invalid currency codes gracefully', () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation();
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     mockUseOrderPrice.mockReturnValue({
       data: {

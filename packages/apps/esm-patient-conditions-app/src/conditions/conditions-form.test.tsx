@@ -1,6 +1,6 @@
 import { type FetchResponse, openmrsFetch, showSnackbar } from '@openmrs/esm-framework';
 import { type PatientWorkspace2DefinitionProps } from '@openmrs/esm-patient-common-lib';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -161,7 +161,7 @@ describe('Conditions form', () => {
     await user.paste('2020-05-05');
     expect(onsetDateInput).toHaveDisplayValue(/05\/05\/2020/i);
     expect(submitButton).toBeEnabled();
-    await user.click(submitButton);
+    fireEvent.submit(submitButton.closest('form')!);
 
     await waitFor(() => {
       expect(mockShowSnackbar).toHaveBeenCalled();
@@ -223,21 +223,22 @@ describe('Conditions form', () => {
 
     const conditionSearchInput = screen.getByRole('searchbox', { name: /enter condition/i });
     const submitButton = screen.getByRole('button', { name: /save & close/i });
-    await user.click(submitButton);
+    const form = submitButton.closest('form')!;
+    fireEvent.submit(form);
 
-    expect(screen.getByText(/a condition is required/i)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(/a condition is required/i)).toBeInTheDocument());
     expect(screen.getByText(/a clinical status is required/i)).toBeInTheDocument();
 
     await user.type(conditionSearchInput, 'Headache');
     await user.click(screen.getByRole('menuitem', { name: /headache/i }));
-    await user.click(submitButton);
+    fireEvent.submit(form);
 
-    expect(screen.getByText(/a clinical status is required/i)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(/a clinical status is required/i)).toBeInTheDocument());
 
     await user.click(screen.getByLabelText(/^active/i));
-    await user.click(submitButton);
+    fireEvent.submit(form);
 
-    expect(screen.queryByText(/a condition is required/i)).not.toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByText(/a condition is required/i)).not.toBeInTheDocument());
     expect(screen.queryByText(/a clinical status is required/i)).not.toBeInTheDocument();
 
     await waitFor(() => {

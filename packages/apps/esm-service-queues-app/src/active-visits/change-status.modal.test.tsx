@@ -1,3 +1,4 @@
+import type { MockInstance } from 'vitest';
 import {
   type FetchResponse,
   getDefaultsFromConfigSchema,
@@ -50,7 +51,7 @@ vi.mock('../hooks/useQueues', async () => {
 });
 
 describe('ChangeStatusModal', () => {
-  let consoleSpy: vi.SpyInstance;
+  let consoleSpy: MockInstance;
 
   beforeEach(() => {
     mockUseConfig.mockReturnValue({

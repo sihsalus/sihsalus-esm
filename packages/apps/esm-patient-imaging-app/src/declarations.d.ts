@@ -3,3 +3,8 @@ declare module '*.scss' {
   export default styles;
 }
 
+declare module '*.png' {
+  const value: string;
+  export default value;
+}
+

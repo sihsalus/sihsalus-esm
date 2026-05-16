@@ -179,9 +179,7 @@ test('renders a success snackbar upon successfully recording a visit note', asyn
     encounterDatetime: undefined,
   };
 
-  mockSaveVisitNote.mockResolvedValueOnce({ status: 201, body: 'Condition created' } as unknown as ReturnType<
-    typeof saveVisitNote
-  >);
+  mockSaveVisitNote.mockResolvedValueOnce({ status: 201, body: 'Condition created' } as any);
   mockFetchDiagnosisConceptsByName.mockResolvedValue(diagnosisSearchResponse.results);
 
   renderVisitNotesForm();
@@ -346,11 +344,9 @@ test('updates existing visit note when in edit mode', async () => {
   };
 
   mockFetchDiagnosisConceptsByName.mockResolvedValue(diagnosisSearchResponse.results);
-  mockUpdateVisitNote.mockResolvedValueOnce({ status: 200, body: 'Visit note updated' } as unknown as ReturnType<
-    typeof updateVisitNote
-  >);
-  mockDeletePatientDiagnosis.mockResolvedValue({ status: 204 } as unknown as ReturnType<typeof deletePatientDiagnosis>);
-  mockSavePatientDiagnosis.mockResolvedValue({ status: 201 } as unknown as ReturnType<typeof savePatientDiagnosis>);
+  mockUpdateVisitNote.mockResolvedValueOnce({ status: 200, body: 'Visit note updated' } as any);
+  mockDeletePatientDiagnosis.mockResolvedValue({ status: 204 } as any);
+  mockSavePatientDiagnosis.mockResolvedValue({ status: 201 } as any);
 
   renderVisitNotesForm({
     formContext: 'editing',
@@ -450,9 +446,7 @@ test('allows saving visit note without primary diagnosis when isPrimaryDiagnosis
     encounterDatetime: undefined,
   };
 
-  mockSaveVisitNote.mockResolvedValueOnce({ status: 201, body: 'Visit note created' } as unknown as ReturnType<
-    typeof saveVisitNote
-  >);
+  mockSaveVisitNote.mockResolvedValueOnce({ status: 201, body: 'Visit note created' } as any);
   mockFetchDiagnosisConceptsByName.mockResolvedValue(diagnosisSearchResponse.results);
 
   renderVisitNotesForm();

@@ -36,7 +36,7 @@
     },
     "./mock": {
       "import": "./mock.tsx",
-      "require": "./mock-jest.tsx"
+      "require": "./mock-vitest.tsx"
     }
   },
   "scripts": {
@@ -50,6 +50,8 @@
     "@carbon/charts": "^1.27.0",
     "@carbon/react": "^1.92.1",
     "@internationalized/date": "^3.8.0",
+    "@openmrs/esm-extensions": "workspace:*",
+    "@openmrs/esm-routes": "workspace:*",
     "@react-aria/datepicker": "^3.16.1",
     "@react-aria/utils": "^3.28.2",
     "@react-stately/datepicker": "^3.16.1",
@@ -63,11 +65,9 @@
     "@openmrs/esm-config": "workspace:*",
     "@openmrs/esm-emr-api": "workspace:*",
     "@openmrs/esm-error-handling": "workspace:*",
-    "@openmrs/esm-extensions": "workspace:*",
     "@openmrs/esm-globals": "workspace:*",
     "@openmrs/esm-navigation": "workspace:*",
     "@openmrs/esm-react-utils": "workspace:*",
-    "@openmrs/esm-routes": "workspace:*",
     "@openmrs/esm-state": "workspace:*",
     "@openmrs/esm-translations": "workspace:*",
     "@openmrs/esm-utils": "workspace:*",

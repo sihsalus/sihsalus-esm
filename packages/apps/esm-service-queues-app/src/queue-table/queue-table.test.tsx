@@ -1,6 +1,7 @@
 import { getDefaultsFromConfigSchema, useConfig, useSession } from '@openmrs/esm-framework';
 import { screen, within } from '@testing-library/react';
 import React from 'react';
+import type { MockInstance } from 'vitest';
 import { mockPriorityNonUrgent, mockPriorityUrgent, mockQueueEntries, mockSession, renderWithSwr } from 'test-utils';
 
 import { type ConfigObject, configSchema } from '../config-schema';
@@ -67,7 +68,7 @@ const defaultProps = {
 };
 
 describe('QueueTable', () => {
-  let consoleSpy: vi.SpyInstance;
+  let consoleSpy: MockInstance;
 
   beforeEach(() => {
     mockUseSession.mockReturnValue(mockSession.data);

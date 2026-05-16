@@ -44,7 +44,7 @@ El dev server hace proxy de las peticiones de API al backend definido en `SIHSAL
 ```
 packages/
   declarations.d.ts                     # Global declarations for TS
-  jest.config.js                        # Root Jest configuration
+  vitest.config.js                      # Root Vitest configuration
   tsconfig.json                         # Root TypeScript configuration
   test-utils/                           # Shared fixtures, test wrappers and stubs
   tooling/

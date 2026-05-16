@@ -66,8 +66,8 @@
     "noImplicitAny": false,
     "strictNullChecks": false,
     "noUncheckedIndexedAccess": false,
-    "types": ["fhir", "node", "webpack-env", "@testing-library/jest-dom"],
-    "typeRoots": ["../node_modules/@types", "../node_modules"]
+    "types": ["fhir", "node", "webpack-env", "@testing-library/jest-dom", "vi-namespace"],
+    "typeRoots": ["./types", "../node_modules/@types", "../node_modules"]
   },
   "files": ["declarations.d.ts"],
   "include": [

@@ -22,6 +22,10 @@ const defaultProps = {
 };
 
 describe('<DeleteConditionModal />', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('renders a modal with the correct elements', () => {
     render(<DeleteConditionModal {...defaultProps} />);
 

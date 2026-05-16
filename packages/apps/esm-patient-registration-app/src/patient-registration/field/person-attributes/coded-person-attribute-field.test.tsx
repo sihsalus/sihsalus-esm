@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { Form, Formik } from 'formik';
 import React from 'react';
+import type { MockInstance } from 'vitest';
 
 import { useConceptAnswers } from '../field.resource';
 
@@ -28,7 +29,7 @@ describe('CodedPersonAttributeField', () => {
   };
 
   const answerConceptSetUuid = '6682d17f-0777-45e4-a39b-93f77eb3531c';
-  let consoleSpy: vi.SpyInstance;
+  let consoleSpy: MockInstance;
 
   beforeEach(() => {
     mockUseConceptAnswers.mockReturnValue({

@@ -36,6 +36,10 @@ describe('GroupFormWorkflowReducer', () => {
     localStorage.clear();
   });
 
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it('initializes a fresh group workflow state when there is no saved session', () => {
     const state = reducer(initialWorkflowState, {
       type: 'INITIALIZE_WORKFLOW_STATE',

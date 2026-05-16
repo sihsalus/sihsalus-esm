@@ -18,7 +18,7 @@ import { getTemplateOrderBasketItem, useDrugSearch, useDrugTemplate } from './dr
 
 vi.mock('@openmrs/esm-framework', async () => {
   const actual = await vi.importActual('@openmrs/esm-framework');
-  const React = await vi.importActual('react');
+  const React = (await vi.importActual<typeof import('react')>('react'));
 
   return {
     ...actual,
@@ -50,7 +50,7 @@ vi.mock('./drug-search/drug-search.resource', async () => ({
 vi.mock('../api/api', async () => ({
   ...(await vi.importActual('../api/api')),
   useActivePatientOrders: () => usePatientOrdersMock(),
-  useRequireOutpatientQuantity: jest
+  useRequireOutpatientQuantity: vi
     .fn()
     .mockReturnValue({ requireOutpatientQuantity: false, error: null, isLoading: false }),
 }));

@@ -68,7 +68,7 @@ export const mockWardPatientGroupDetails = vi.mocked(useWardPatientGrouping).moc
     mockLocationInpatientWard,
   ),
   isLoading: false,
-  mutate: jest.fn(),
+  mutate: vi.fn(),
 });
 
 export const mockWardViewContext: WardViewContext = {

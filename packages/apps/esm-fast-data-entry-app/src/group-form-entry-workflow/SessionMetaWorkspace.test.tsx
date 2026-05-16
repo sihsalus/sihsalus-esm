@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -51,11 +51,11 @@ const renderSessionMetaWorkspace = (contextOverrides = {}) =>
 
 describe('SessionMetaWorkspace', () => {
   it('submits the session metadata with the normalized session date', async () => {
-    const user = userEvent.setup();
     const setSessionMeta = vi.fn();
     renderSessionMetaWorkspace({ setSessionMeta });
 
-    await user.click(screen.getByRole('button', { name: 'Create New Session' }));
+    const form = screen.getByRole('button', { name: 'Create New Session' }).closest('form')!;
+    fireEvent.submit(form);
 
     await waitFor(() => {
       expect(setSessionMeta).toHaveBeenCalledWith(
@@ -71,14 +71,14 @@ describe('SessionMetaWorkspace', () => {
   });
 
   it('shows the group selection error when submitted without a chosen group', async () => {
-    const user = userEvent.setup();
     const setSessionMeta = vi.fn();
     renderSessionMetaWorkspace({
       activeGroupUuid: null,
       setSessionMeta,
     });
 
-    await user.click(screen.getByRole('button', { name: 'Create New Session' }));
+    const form = screen.getByRole('button', { name: 'Create New Session' }).closest('form')!;
+    fireEvent.submit(form);
 
     expect(await screen.findByText('Please choose a group.')).toBeInTheDocument();
     expect(setSessionMeta).not.toHaveBeenCalled();

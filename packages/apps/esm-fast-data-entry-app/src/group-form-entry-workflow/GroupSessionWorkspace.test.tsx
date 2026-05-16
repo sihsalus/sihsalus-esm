@@ -80,6 +80,7 @@ const renderWorkspace = (contextOverrides = {}) => {
 
 describe('GroupSessionWorkspace', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     mockGetGlobalStore.mockReturnValue('ampath-form-state' as never);
     mockUseStore.mockReturnValue({
       'group-form': 'ready',

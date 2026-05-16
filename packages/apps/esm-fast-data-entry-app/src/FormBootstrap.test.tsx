@@ -41,6 +41,7 @@ const renderFormBootstrap = (props = {}) =>
 
 describe('FormBootstrap', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     mockExtensionSlot.mockImplementation(() => <div data-testid="form-widget-slot" />);
     mockUseGetPatient.mockReturnValue({
       id: 'patient-1',

@@ -13,7 +13,7 @@ declare global {
   interface Window {
     openmrsBase: string;
     spaBase: string;
-    getOpenmrsSpaBase: () => string;
+    getOpenmrsSpaBase(): string;
   }
 }
 
@@ -28,7 +28,6 @@ globalThis.TextEncoder = globalThis.TextEncoder ?? TextEncoder;
 globalThis.TextDecoder = globalThis.TextDecoder ?? TextDecoder;
 window.URL.createObjectURL = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
-window.HTMLFormElement.prototype.requestSubmit = vi.fn();
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

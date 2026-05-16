@@ -77,7 +77,7 @@ describe('RenderingType Component', () => {
   });
 
   it('renders component only if rendering type is allowed', () => {
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     formField.type = 'encounterLocation';
     formField.questionOptions.rendering = 'date';
     renderRenderingTypeComponent();

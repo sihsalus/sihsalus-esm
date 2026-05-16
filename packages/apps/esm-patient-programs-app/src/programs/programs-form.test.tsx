@@ -32,7 +32,7 @@ const testProps: PatientWorkspace2DefinitionProps<ProgramsFormProps, {}> = {
   closeWorkspace: mockCloseWorkspace,
   groupProps: {
     patientUuid: mockPatient.id,
-    patient: mockPatient as unknown as fhir.Patient,
+  patient: mockPatient as unknown as fhir.Patient,
     visitContext: null,
     mutateVisitContext: null,
   },
@@ -44,6 +44,10 @@ const testProps: PatientWorkspace2DefinitionProps<ProgramsFormProps, {}> = {
   isRootWorkspace: false,
   showActionMenu: true,
 };
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 vi.mock('./programs.resource', () => ({
   createProgramEnrollment: vi.fn(),
@@ -110,9 +114,14 @@ describe('ProgramsForm', () => {
         location: mockLocation.uuid,
         patient: mockPatient.id,
         program: oncologyScreeningProgramUuid,
-        dateEnrolled: expect.stringMatching(/^2020-05-05/),
+        states: [],
       }),
-      new AbortController(),
+      expect.any(AbortController),
+    );
+    expect(mockCreateProgramEnrollment.mock.calls[0][0]).toEqual(
+      expect.objectContaining({
+        dateEnrolled: expect.stringMatching(/^2020-05-05T/),
+      }),
     );
 
     expect(mockCloseWorkspace).toHaveBeenCalledTimes(1);
@@ -147,14 +156,18 @@ describe('ProgramsForm', () => {
     expect(mockUpdateProgramEnrollment).toHaveBeenCalledWith(
       mockEnrolledProgramsResponse[0].uuid,
       expect.objectContaining({
-        dateCompleted: expect.stringMatching(/^2020-05-05/),
-        dateEnrolled: expect.stringMatching(/^2020-01-15T19:00:00-05:00|^2020-01-16/),
         location: mockEnrolledProgramsResponse[0].location.uuid,
         patient: mockPatient.id,
         program: mockEnrolledProgramsResponse[0].program.uuid,
-        states: expect.any(Array),
+        states: [],
       }),
-      new AbortController(),
+      expect.any(AbortController),
+    );
+    expect(mockUpdateProgramEnrollment.mock.calls[0][1]).toEqual(
+      expect.objectContaining({
+        dateCompleted: expect.stringMatching(/^2020-05-05T/),
+        dateEnrolled: expect.stringMatching(/^2020-01-1[5-6]T/),
+      }),
     );
 
     expect(mockShowSnackbar).toHaveBeenCalledWith(

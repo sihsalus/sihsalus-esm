@@ -15,8 +15,8 @@ const repoWideFiles = new Set([
   'package.json',
   'turbo.json',
   'yarn.lock',
-  'packages/jest.config.js',
   'packages/tsconfig.json',
+  'packages/vitest.config.js',
 ]);
 
 function main() {

@@ -17,6 +17,7 @@ const mockPrintPdf = vi.fn();
 
 describe('PrintIdentifierStickerOverflowMenuItem', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     mockUseConfig.mockReturnValue({
       ...getDefaultsFromConfigSchema(configSchema),
       showPrintIdentifierStickerButton: true,

@@ -20,7 +20,7 @@ vi.mock('react-to-print', async () => ({
   useReactToPrint: vi.fn(),
 }));
 
-vi.mock('react-barcode', async () => vi.fn().mockReturnValue(<div data-testid="barcode" />), { virtual: true });
+vi.mock('react-barcode', async () => vi.fn().mockReturnValue(<div data-testid="barcode" />));
 
 describe('PrintIdentifierStickerModal', () => {
   beforeEach(() => {

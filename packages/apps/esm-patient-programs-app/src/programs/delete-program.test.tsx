@@ -30,6 +30,10 @@ const testProps = {
 
 const closeDeleteModalMock = vi.fn();
 
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
 const renderDeleteProgramModal = () => {
   return render(
     <DeleteProgramModal

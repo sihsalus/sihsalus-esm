@@ -137,7 +137,7 @@ describe('VitalsBiometricsForm', () => {
       data: [],
     };
 
-    mockSavePatientVitals.mockResolvedValue(response as ReturnType<typeof saveVitalsAndBiometrics>);
+    mockSavePatientVitals.mockResolvedValue(response as any);
 
     render(<VitalsAndBiometricsForm {...testProps} />);
 

@@ -52,7 +52,7 @@ describe('RenderingType Component', () => {
   });
 
   it('prints error to console if component cannot be found for type', () => {
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     formField.type = 'control';
     renderQuestionTypeComponent();
 

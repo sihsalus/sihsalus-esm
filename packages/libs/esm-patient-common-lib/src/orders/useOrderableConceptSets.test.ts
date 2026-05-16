@@ -25,7 +25,7 @@ mockUseConfig.mockReturnValue({
   },
 });
 
-mockOpenrsFetch.mockImplementation((url: string) => {
+mockOpenrsFetch.mockImplementation(((url: string) => {
   if (url.includes('concept?class=concept-class-uuid')) {
     return Promise.resolve({ data: { results: [{ display: 'Test concept' }] } });
   } else if (/.*concept\/[0-9a-f]+.*/.test(url)) {
@@ -45,7 +45,7 @@ mockOpenrsFetch.mockImplementation((url: string) => {
   } else {
     throw Error('Unexpected URL: ' + url);
   }
-});
+}) as any);
 
 describe('useOrderableConceptSets is configurable', () => {
   it('should fetch orderable concept sets if passed', async () => {

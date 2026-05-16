@@ -4,7 +4,7 @@ import { getOfflineDb } from '@openmrs/esm-offline';
 
 vi.mock('@openmrs/esm-framework', async () => ({
   ...(await vi.importActual('@openmrs/esm-framework')),
-  getOfflineDb: await vi.importActual('@openmrs/esm-offline').getOfflineDb,
+  getOfflineDb: (await vi.importActual('@openmrs/esm-offline')).getOfflineDb,
 }));
 
 import {

@@ -7,15 +7,11 @@ import FormRenderer from './form-renderer.component';
 
 const mockUseFormSchema = vi.mocked(useFormSchema);
 
-vi.mock(
-  '@sihsalus/esm-form-engine-lib',
-  () => ({
-    FormEngine: vi
-      .fn()
-      .mockImplementation(() => React.createElement('div', { 'data-testid': 'openmrs form' }, 'FORM ENGINE LIB')),
-  }),
-  { virtual: true },
-);
+vi.mock('@sihsalus/esm-form-engine-lib', () => ({
+  FormEngine: vi
+    .fn()
+    .mockImplementation(() => React.createElement('div', { 'data-testid': 'openmrs form' }, 'FORM ENGINE LIB')),
+}));
 
 vi.mock('../hooks/useFormSchema', () => ({
   __esModule: true,
@@ -62,7 +58,7 @@ describe('FormRenderer', () => {
   test('fallback submit closes only the current workspace', async () => {
     const closeWorkspace = vi.fn();
     const handlePostResponse = vi.fn();
-    const { FormEngine } = vi.importMock('@sihsalus/esm-form-engine-lib');
+    const { FormEngine } = (await vi.importMock('@sihsalus/esm-form-engine-lib')) as any;
 
     mockUseFormSchema.mockReturnValue({ schema: { uuid: 'test-schema' }, isLoading: false, error: null } as ReturnType<
       typeof useFormSchema

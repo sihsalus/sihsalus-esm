@@ -2,6 +2,7 @@ import { implementerToolsConfigStore, Type, temporaryConfigStore } from '@openmr
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import type { MockInstance } from 'vitest';
 import { Configuration } from './configuration.component';
 import { useConceptLookup, useGetConceptByUuid } from './interactive-editor/value-editors/concept-search.resource';
 
@@ -89,7 +90,7 @@ const mockImplToolsConfig = {
 };
 
 describe('Configuration', () => {
-  let temporaryConfigSetStateSpy: vi.SpyInstance;
+  let temporaryConfigSetStateSpy: MockInstance;
 
   beforeEach(() => {
     temporaryConfigSetStateSpy = vi.spyOn(temporaryConfigStore, 'setState');

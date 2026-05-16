@@ -243,7 +243,7 @@ describe('useStickerPdfPrinter', () => {
     });
 
     const hasFocusMock = vi
-      .fn<[], boolean>()
+      .fn<() => boolean>()
       .mockReturnValueOnce(false)
       .mockReturnValueOnce(true)
       .mockReturnValue(true);
