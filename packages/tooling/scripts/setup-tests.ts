@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
 import { TextDecoder, TextEncoder } from 'util';
+import { vi } from 'vitest';
 
-jest.mock('single-spa', () => ({
-  navigateToUrl: jest.fn(),
+vi.mock('single-spa', () => ({
+  navigateToUrl: vi.fn(),
 }));
 
 declare global {
@@ -21,26 +22,26 @@ window.getOpenmrsSpaBase = () => '/openmrs/spa/';
 globalThis.i18next = { ...globalThis.i18next, language: 'en' } as unknown;
 globalThis.TextEncoder = globalThis.TextEncoder ?? TextEncoder;
 globalThis.TextDecoder = globalThis.TextDecoder ?? TextDecoder;
-window.URL.createObjectURL = jest.fn();
-window.HTMLElement.prototype.scrollIntoView = jest.fn();
-window.HTMLFormElement.prototype.requestSubmit = jest.fn();
+window.URL.createObjectURL = vi.fn();
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+window.HTMLFormElement.prototype.requestSubmit = vi.fn();
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation((query) => ({
+  value: vi.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
   })),
 });
 
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
 }));

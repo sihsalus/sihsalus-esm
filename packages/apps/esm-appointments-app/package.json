@@ -14,9 +14,9 @@
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
     "lint": "node ../../tooling/scripts/run-biome.js lint .",
-    "test": "jest --config jest.config.js --verbose false --passWithNoTests --color",
+    "test": "vitest run --passWithNoTests",
     "test-watch": "cross-env TZ=UTC jest --watch --config jest.config.js",
-    "coverage": "yarn test --coverage",
+    "coverage": "vitest run --coverage --passWithNoTests",
     "typescript": "tsc --noEmit",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.extension.tsx' 'src/**/*modal.tsx' 'src/**/*.workspace.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js"
   },

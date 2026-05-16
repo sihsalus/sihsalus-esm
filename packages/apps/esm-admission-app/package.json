@@ -14,8 +14,8 @@
     "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "prettier": "node ../../tooling/scripts/run-biome.js format --write src",
     "typescript": "tsc --noEmit",
-    "test": "jest --config jest.config.js --passWithNoTests",
-    "coverage": "yarn test --coverage",
+    "test": "vitest run --passWithNoTests",
+    "coverage": "vitest run --coverage --passWithNoTests",
     "extract-translations": "i18next \"src/**/*.component.tsx\" \"src/index.ts\" --config ../../tooling/scripts/i18next-parser.config.js"
   },
   "files": [

@@ -12,13 +12,13 @@
     "build": "rspack --mode=production",
     "analyze": "rspack --mode=production --env analyze=true",
     "lint": "node ../../tooling/scripts/run-biome.js lint .",
-    "test": "jest --config jest.config.js",
-    "test:watch": "jest --config jest.config.js --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch",
     "typescript": "tsc",
     "verify": "turbo run lint test typescript",
     "extract-translations": "i18next 'src/**/*.component.tsx' 'src/**/*.workspace.tsx' 'src/**/*.modal.tsx' 'src/index.ts' --config ../../tooling/scripts/i18next-parser.config.js",
     "check-translations": "yarn extract-translations && git diff --exit-code -- translations/en.json",
-    "coverage": "yarn test --coverage",
+    "coverage": "vitest run --coverage --passWithNoTests",
     "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/dispensing/playwright.config.ts"
   },
   "browserslist": [

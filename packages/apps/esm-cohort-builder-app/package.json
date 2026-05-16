@@ -14,11 +14,11 @@
     "lint": "node ../../tooling/scripts/run-biome.js lint .",
     "prettier": "node ../../tooling/scripts/run-biome.js format --write src",
     "typescript": "tsc",
-    "test": "jest --config jest.config.js --verbose",
-    "test:watch": "jest --config jest.config.js --watch",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest watch",
     "test-e2e": "yarn --cwd ../../.. playwright test --config e2e/cohort-builder/playwright.config.ts",
     "verify": "turbo run lint test typescript",
-    "coverage": "yarn test -- --coverage",
+    "coverage": "vitest run --coverage --passWithNoTests",
     "extract-translations": "i18next 'src/**/*.{ts,tsx}' '!src/**/*.test.{ts,tsx}' --config ../../tooling/scripts/i18next-parser.config.js"
   },
   "files": [
